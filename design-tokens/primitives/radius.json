@@ -1,0 +1,25 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "collection": "[Core] Radius",
+    "exportedAt": "2026-10-02"
+  },
+  "radius": {
+    "0.5":  { "$type": "dimension", "$value": "4px",   "$description": "radius-0,5" },
+    "0.75": { "$type": "dimension", "$value": "6px",   "$description": "radius-0,75" },
+    "1":    { "$type": "dimension", "$value": "8px",   "$description": "radius-1" },
+    "1.25": { "$type": "dimension", "$value": "10px",  "$description": "radius-1,25" },
+    "1.5":  { "$type": "dimension", "$value": "12px",  "$description": "radius-1,5" },
+    "1.75": { "$type": "dimension", "$value": "14px",  "$description": "radius-1,75" },
+    "2":    { "$type": "dimension", "$value": "16px",  "$description": "radius-2" },
+    "3":    { "$type": "dimension", "$value": "24px",  "$description": "radius-3" },
+    "4":    { "$type": "dimension", "$value": "32px",  "$description": "radius-4" },
+    "5":    { "$type": "dimension", "$value": "40px",  "$description": "radius-5" },
+    "6":    { "$type": "dimension", "$value": "48px",  "$description": "radius-6" },
+    "7":    { "$type": "dimension", "$value": "56px",  "$description": "radius-7" },
+    "8":    { "$type": "dimension", "$value": "64px",  "$description": "radius-8" },
+    "9":    { "$type": "dimension", "$value": "72px",  "$description": "radius-9" },
+    "10":   { "$type": "dimension", "$value": "80px",  "$description": "radius-10" },
+    "full": { "$type": "dimension", "$value": "500px", "$description": "radius-50% (pill)" }
+  }
+}

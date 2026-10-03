@@ -1,0 +1,45 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "type": "Grid / Layout Styles",
+    "exportedAt": "2026-10-02"
+  },
+  "layout": {
+    "vertical": {
+      "$type": "grid",
+      "$description": "Vertical layout grid (figma style id: S:77ad113abe0b5397d7058c5f70d1042c8a0df0ef)"
+    },
+    "horizontal": {
+      "$type": "grid",
+      "$description": "Horizontal layout grid (figma style id: S:4a26f12bd51465deb3e2997a420fde9777fa2d57)"
+    },
+    "mini": {
+      "$type": "grid",
+      "$description": "Mini/compact layout grid (figma style id: S:44abf11534803f20b703984329b2a112d78499da)"
+    }
+  },
+  "desktop": {
+    "24px": {
+      "$type": "grid",
+      "$description": "Desktop 24px column grid (figma style id: S:4c1015e42fb33af623257d9acf6cdff95f9e246b)"
+    },
+    "32px": {
+      "$type": "grid",
+      "$description": "Desktop 32px column grid (figma style id: S:f883a5e18c1f8aaff17b3137d9280d7976272a72)"
+    },
+    "40px": {
+      "$type": "grid",
+      "$description": "Desktop 40px column grid (figma style id: S:9ffe41d43d62e1a20bda5264ec32c32c4db3faf7)"
+    },
+    "80px": {
+      "$type": "grid",
+      "$description": "Desktop 80px column grid (figma style id: S:5cae7b421271e2cb7be1562e4ae7c0d40ec1b959)"
+    }
+  },
+  "mobile": {
+    "16px": {
+      "$type": "grid",
+      "$description": "Mobile 16px column grid (figma style id: S:7600023ff9bb5a85cedf35c418bb324755d8714e)"
+    }
+  }
+}

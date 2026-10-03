@@ -1,0 +1,132 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "type": "Effect Styles",
+    "exportedAt": "2026-10-02"
+  },
+  "shadow": {
+    "none": {
+      "$type": "shadow",
+      "$value": "0px 0px 0px 0px rgba(0,0,0,0)",
+      "effects": [{ "type": "drop-shadow", "color": "rgba(0,0,0,0)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "0px" }]
+    },
+    "z1": {
+      "$type": "shadow",
+      "$value": "0px 1px 2px 0px rgba(145,158,171,0.16)",
+      "effects": [{ "type": "drop-shadow", "color": "rgba(145,158,171,0.16)", "offsetX": "0px", "offsetY": "1px", "blur": "2px", "spread": "0px" }]
+    },
+    "z4": {
+      "$type": "shadow",
+      "$value": "0px 4px 8px 0px rgba(145,158,171,0.16)",
+      "effects": [{ "type": "drop-shadow", "color": "rgba(145,158,171,0.16)", "offsetX": "0px", "offsetY": "4px", "blur": "8px", "spread": "0px" }]
+    },
+    "z8": {
+      "$type": "shadow",
+      "$value": "0px 8px 16px 0px rgba(145,158,171,0.16)",
+      "effects": [{ "type": "drop-shadow", "color": "rgba(145,158,171,0.16)", "offsetX": "0px", "offsetY": "8px", "blur": "16px", "spread": "0px" }]
+    },
+    "z12": {
+      "$type": "shadow",
+      "$value": "0px 12px 24px -4px rgba(145,158,171,0.16)",
+      "effects": [{ "type": "drop-shadow", "color": "rgba(145,158,171,0.16)", "offsetX": "0px", "offsetY": "12px", "blur": "24px", "spread": "-4px" }]
+    },
+    "z16": {
+      "$type": "shadow",
+      "$value": "0px 16px 32px -4px rgba(145,158,171,0.16)",
+      "effects": [{ "type": "drop-shadow", "color": "rgba(145,158,171,0.16)", "offsetX": "0px", "offsetY": "16px", "blur": "32px", "spread": "-4px" }]
+    },
+    "z20": {
+      "$type": "shadow",
+      "$value": "0px 20px 40px -4px rgba(145,158,171,0.16)",
+      "effects": [{ "type": "drop-shadow", "color": "rgba(145,158,171,0.16)", "offsetX": "0px", "offsetY": "20px", "blur": "40px", "spread": "-4px" }]
+    },
+    "z24": {
+      "$type": "shadow",
+      "$value": "0px 24px 48px 0px rgba(145,158,171,0.16)",
+      "effects": [{ "type": "drop-shadow", "color": "rgba(145,158,171,0.16)", "offsetX": "0px", "offsetY": "24px", "blur": "48px", "spread": "0px" }]
+    },
+    "card": {
+      "$type": "shadow",
+      "$value": "0px 0px 2px 0px rgba(145,158,171,0.20), 0px 12px 24px -4px rgba(145,158,171,0.12)",
+      "effects": [
+        { "type": "drop-shadow", "color": "rgba(145,158,171,0.20)", "offsetX": "0px", "offsetY": "0px", "blur": "2px", "spread": "0px" },
+        { "type": "drop-shadow", "color": "rgba(145,158,171,0.12)", "offsetX": "0px", "offsetY": "12px", "blur": "24px", "spread": "-4px" }
+      ]
+    },
+    "dialog": {
+      "$type": "shadow",
+      "$value": "-40px 40px 80px -8px rgba(0,0,0,0.24)",
+      "effects": [{ "type": "drop-shadow", "color": "rgba(0,0,0,0.24)", "offsetX": "-40px", "offsetY": "40px", "blur": "80px", "spread": "-8px" }]
+    },
+    "dropdown": {
+      "$type": "shadow",
+      "$value": "0px 0px 2px 0px rgba(145,158,171,0.24), -20px 20px 40px -4px rgba(145,158,171,0.24)",
+      "effects": [
+        { "type": "drop-shadow", "color": "rgba(145,158,171,0.24)", "offsetX": "0px", "offsetY": "0px", "blur": "2px", "spread": "0px" },
+        { "type": "drop-shadow", "color": "rgba(145,158,171,0.24)", "offsetX": "-20px", "offsetY": "20px", "blur": "40px", "spread": "-4px" }
+      ]
+    },
+    "drawerLeft": {
+      "$type": "shadow",
+      "$value": "40px 40px 80px -8px rgba(145,158,171,0.24)",
+      "effects": [{ "type": "drop-shadow", "color": "rgba(145,158,171,0.24)", "offsetX": "40px", "offsetY": "40px", "blur": "80px", "spread": "-8px" }]
+    },
+    "drawerRight": {
+      "$type": "shadow",
+      "$value": "-40px 40px 80px -8px rgba(145,158,171,0.24)",
+      "effects": [{ "type": "drop-shadow", "color": "rgba(145,158,171,0.24)", "offsetX": "-40px", "offsetY": "40px", "blur": "80px", "spread": "-8px" }]
+    },
+    "settingOption": {
+      "$type": "shadow",
+      "$value": "-24px 8px 24px -4px rgba(145,158,171,0.08)",
+      "effects": [{ "type": "drop-shadow", "color": "rgba(145,158,171,0.08)", "offsetX": "-24px", "offsetY": "8px", "blur": "24px", "spread": "-4px" }]
+    },
+    "pricingCard": {
+      "$type": "shadow",
+      "$value": "-40px 40px 80px 0px rgba(145,158,171,0.16)",
+      "effects": [{ "type": "drop-shadow", "color": "rgba(145,158,171,0.16)", "offsetX": "-40px", "offsetY": "40px", "blur": "80px", "spread": "0px" }]
+    },
+    "images": {
+      "$type": "shadow",
+      "$value": "-80px 80px 80px 0px rgba(145,158,171,0.40)",
+      "effects": [{ "type": "drop-shadow", "color": "rgba(145,158,171,0.40)", "offsetX": "-80px", "offsetY": "80px", "blur": "80px", "spread": "0px" }]
+    },
+    "primary": {
+      "$type": "shadow",
+      "$value": "0px 8px 16px 0px rgba(0,167,111,0.24)",
+      "effects": [{ "type": "drop-shadow", "color": "rgba(0,167,111,0.24)", "offsetX": "0px", "offsetY": "8px", "blur": "16px", "spread": "0px" }]
+    },
+    "secondary": {
+      "$type": "shadow",
+      "$value": "0px 8px 16px 0px rgba(142,51,255,0.24)",
+      "effects": [{ "type": "drop-shadow", "color": "rgba(142,51,255,0.24)", "offsetX": "0px", "offsetY": "8px", "blur": "16px", "spread": "0px" }]
+    },
+    "info": {
+      "$type": "shadow",
+      "$value": "0px 8px 16px 0px rgba(0,184,217,0.24)",
+      "effects": [{ "type": "drop-shadow", "color": "rgba(0,184,217,0.24)", "offsetX": "0px", "offsetY": "8px", "blur": "16px", "spread": "0px" }]
+    },
+    "success": {
+      "$type": "shadow",
+      "$value": "0px 8px 16px 0px rgba(34,197,94,0.24)",
+      "effects": [{ "type": "drop-shadow", "color": "rgba(34,197,94,0.24)", "offsetX": "0px", "offsetY": "8px", "blur": "16px", "spread": "0px" }]
+    },
+    "warning": {
+      "$type": "shadow",
+      "$value": "0px 8px 16px 0px rgba(255,171,0,0.24)",
+      "effects": [{ "type": "drop-shadow", "color": "rgba(255,171,0,0.24)", "offsetX": "0px", "offsetY": "8px", "blur": "16px", "spread": "0px" }]
+    },
+    "error": {
+      "$type": "shadow",
+      "$value": "0px 8px 16px 0px rgba(255,86,48,0.24)",
+      "effects": [{ "type": "drop-shadow", "color": "rgba(255,86,48,0.24)", "offsetX": "0px", "offsetY": "8px", "blur": "16px", "spread": "0px" }]
+    }
+  },
+  "blur": {
+    "paper": {
+      "$type": "blur",
+      "$value": "blur(40px)",
+      "effects": [{ "type": "background-blur", "radius": "40px" }]
+    }
+  }
+}

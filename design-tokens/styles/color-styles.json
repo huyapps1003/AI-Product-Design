@@ -1,0 +1,117 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "type": "Paint Styles (Gradient)",
+    "exportedAt": "2026-10-02"
+  },
+  "gradient": {
+    "primary": {
+      "main": {
+        "$type": "gradient",
+        "$value": "linear-gradient(135deg, #5BE49B 0%, #00A76F 100%)",
+        "stops": [
+          { "position": 0, "color": "#5BE49B" },
+          { "position": 1, "color": "#00A76F" }
+        ]
+      },
+      "bold": {
+        "$type": "gradient",
+        "$value": "linear-gradient(135deg, #00A76F 0%, #007867 100%)",
+        "stops": [
+          { "position": 0, "color": "#00A76F" },
+          { "position": 1, "color": "#007867" }
+        ]
+      }
+    },
+    "secondary": {
+      "main": {
+        "$type": "gradient",
+        "$value": "linear-gradient(135deg, #C684FF 0%, #8E33FF 100%)",
+        "stops": [
+          { "position": 0, "color": "#C684FF" },
+          { "position": 1, "color": "#8E33FF" }
+        ]
+      },
+      "bold": {
+        "$type": "gradient",
+        "$value": "linear-gradient(135deg, #8E33FF 0%, #5119B7 100%)",
+        "stops": [
+          { "position": 0, "color": "#8E33FF" },
+          { "position": 1, "color": "#5119B7" }
+        ]
+      }
+    },
+    "info": {
+      "main": {
+        "$type": "gradient",
+        "$value": "linear-gradient(135deg, #61F3F3 0%, #00B8D9 100%)",
+        "stops": [
+          { "position": 0, "color": "#61F3F3" },
+          { "position": 1, "color": "#00B8D9" }
+        ]
+      },
+      "bold": {
+        "$type": "gradient",
+        "$value": "linear-gradient(135deg, #00B8D9 0%, #006C9C 100%)",
+        "stops": [
+          { "position": 0, "color": "#00B8D9" },
+          { "position": 1, "color": "#006C9C" }
+        ]
+      }
+    },
+    "success": {
+      "main": {
+        "$type": "gradient",
+        "$value": "linear-gradient(135deg, #77ED8B 0%, #22C55E 100%)",
+        "stops": [
+          { "position": 0, "color": "#77ED8B" },
+          { "position": 1, "color": "#22C55E" }
+        ]
+      },
+      "bold": {
+        "$type": "gradient",
+        "$value": "linear-gradient(135deg, #22C55E 0%, #118D57 100%)",
+        "stops": [
+          { "position": 0, "color": "#22C55E" },
+          { "position": 1, "color": "#118D57" }
+        ]
+      }
+    },
+    "warning": {
+      "main": {
+        "$type": "gradient",
+        "$value": "linear-gradient(135deg, #FFD666 0%, #FFAB00 100%)",
+        "stops": [
+          { "position": 0, "color": "#FFD666" },
+          { "position": 1, "color": "#FFAB00" }
+        ]
+      },
+      "bold": {
+        "$type": "gradient",
+        "$value": "linear-gradient(135deg, #FFAB00 0%, #B76E00 100%)",
+        "stops": [
+          { "position": 0, "color": "#FFAB00" },
+          { "position": 1, "color": "#B76E00" }
+        ]
+      }
+    },
+    "error": {
+      "main": {
+        "$type": "gradient",
+        "$value": "linear-gradient(135deg, #FFAC82 0%, #FF5630 100%)",
+        "stops": [
+          { "position": 0, "color": "#FFAC82" },
+          { "position": 1, "color": "#FF5630" }
+        ]
+      },
+      "bold": {
+        "$type": "gradient",
+        "$value": "linear-gradient(135deg, #FF5630 0%, #B71D18 100%)",
+        "stops": [
+          { "position": 0, "color": "#FF5630" },
+          { "position": 1, "color": "#B71D18" }
+        ]
+      }
+    }
+  }
+}

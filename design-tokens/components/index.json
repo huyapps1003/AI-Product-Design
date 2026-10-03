@@ -1,0 +1,438 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "figmaFileKey": "rWqZASye8TV6iz77FE5j7i",
+    "page": "🛠 SETUPS",
+    "exportedAt": "2026-10-02"
+  },
+  "components": [
+    {
+      "name": "Accordion",
+      "figmaId": "27:6952",
+      "type": "COMPONENT_SET",
+      "variantCount": 3,
+      "properties": ["State", "Expanded", "👁️ Secondary Text"],
+      "category": "Surfaces"
+    },
+    {
+      "name": "AccordionList",
+      "figmaId": "2954:159856",
+      "type": "COMPONENT",
+      "category": "Surfaces"
+    },
+    {
+      "name": "Alert",
+      "figmaId": "27:7462",
+      "type": "COMPONENT_SET",
+      "variantCount": 12,
+      "properties": ["Variant", "Severity", "👁️ Close", "👁️ Actions", "👁️ Title", "👁️ Description"],
+      "variants": {
+        "variant": ["filled", "outlined", "standard"],
+        "severity": ["error", "warning", "info", "success"]
+      },
+      "category": "Feedback"
+    },
+    {
+      "name": "Avatar",
+      "figmaId": "33:1636",
+      "type": "COMPONENT_SET",
+      "variantCount": 24,
+      "properties": ["Variant", "Size", "👁️ Icon", "👁️ Image", "👁️ Text", "👁️ Status"],
+      "variants": {
+        "variant": ["circular", "rounded", "square"],
+        "size": ["small", "medium", "large"]
+      },
+      "category": "Data Display"
+    },
+    {
+      "name": "AvatarGroup",
+      "figmaId": "230:1143",
+      "type": "COMPONENT_SET",
+      "variantCount": 6,
+      "properties": ["Size", "Compact", "Status"],
+      "category": "Data Display"
+    },
+    {
+      "name": "Badge",
+      "figmaId": "37:68033",
+      "type": "COMPONENT_SET",
+      "variantCount": 14,
+      "properties": ["Variant", "Color"],
+      "variants": {
+        "variant": ["standard", "dot"],
+        "color": ["default", "primary", "secondary", "error", "info", "success", "warning"]
+      },
+      "category": "Data Display"
+    },
+    {
+      "name": "BadgeStatus",
+      "figmaId": "1607:127908",
+      "type": "COMPONENT_SET",
+      "variantCount": 12,
+      "properties": ["Size", "Status"],
+      "description": "Custom",
+      "category": "Data Display"
+    },
+    {
+      "name": "Breadcrumb",
+      "figmaId": "880:108658",
+      "type": "COMPONENT_SET",
+      "variantCount": 6,
+      "properties": ["📱 Mobile", "Links", "👁️ Action", "👁️ Icon", "👁️ Title"],
+      "category": "Navigation"
+    },
+    {
+      "name": "Button",
+      "figmaId": "1667:129167",
+      "type": "COMPONENT_SET",
+      "variantCount": 180,
+      "properties": ["Variant", "Color", "Size", "State", "👁️ Start Icon", "👁️ End Icon", "👁️ Label"],
+      "variants": {
+        "variant": ["contained", "outlined", "text", "soft"],
+        "color": ["primary", "secondary", "success", "error", "warning", "info", "inherit"],
+        "size": ["small", "medium", "large"],
+        "state": ["default", "hover", "focused", "disabled", "loading"]
+      },
+      "category": "Inputs"
+    },
+    {
+      "name": "ButtonGroup",
+      "figmaId": "1669:109617",
+      "type": "COMPONENT_SET",
+      "variantCount": 192,
+      "properties": ["Variant", "Color", "Size", "Vertical", "State"],
+      "category": "Inputs"
+    },
+    {
+      "name": "Checkbox",
+      "figmaId": "64:61882",
+      "type": "COMPONENT_SET",
+      "variantCount": 66,
+      "properties": ["Color", "Size", "State", "Checked", "Indeterminate", "👁️ Label"],
+      "variants": {
+        "color": ["default", "primary", "secondary", "success", "error", "warning", "info"],
+        "size": ["small", "medium"],
+        "state": ["default", "hover", "focused", "disabled"]
+      },
+      "category": "Inputs"
+    },
+    {
+      "name": "Chip",
+      "figmaId": "86:5732",
+      "type": "COMPONENT_SET",
+      "variantCount": 48,
+      "properties": ["Variant", "Color", "Size", "State", "👁️ Action", "👁️ Icon"],
+      "description": "Custom",
+      "variants": {
+        "variant": ["filled", "outlined", "soft"],
+        "color": ["default", "primary", "secondary", "success", "error", "warning", "info"],
+        "size": ["small", "medium"]
+      },
+      "category": "Data Display"
+    },
+    {
+      "name": "CircularProgress",
+      "figmaId": "2851:157411",
+      "type": "COMPONENT_SET",
+      "variantCount": 7,
+      "properties": ["Color", "👁️ Label"],
+      "category": "Feedback"
+    },
+    {
+      "name": "DatePicker",
+      "figmaId": "200:63141",
+      "type": "COMPONENT_SET",
+      "variantCount": 8,
+      "properties": ["📱 Mobile", "Type", "Landscape"],
+      "category": "Inputs"
+    },
+    {
+      "name": "Dialog (DialogTitle + DialogActions)",
+      "components": {
+        "DialogTitle": { "figmaId": "2891:440321", "variantCount": 2, "properties": ["📱 Mobile", "👁️ Divider", "👁️ Action", "👁️ Icon"] },
+        "DialogActions": { "figmaId": "2891:440335", "variantCount": 2, "properties": ["Full Width", "👁️ Primary Action", "👁️ Divider", "👁️ Secondary Action"] }
+      },
+      "category": "Feedback"
+    },
+    {
+      "name": "Divider",
+      "figmaId": "201:90455",
+      "type": "COMPONENT_SET",
+      "variantCount": 4,
+      "properties": ["Vertical", "Dashed"],
+      "category": "Data Display"
+    },
+    {
+      "name": "Fab",
+      "figmaId": "1669:119727",
+      "type": "COMPONENT_SET",
+      "variantCount": 306,
+      "properties": ["Style", "Variant", "Size", "Color", "State"],
+      "category": "Inputs"
+    },
+    {
+      "name": "FormHelperText",
+      "figmaId": "199:734",
+      "type": "COMPONENT_SET",
+      "variantCount": 4,
+      "properties": ["State", "👁️ Icon"],
+      "category": "Inputs"
+    },
+    {
+      "name": "IconButton",
+      "figmaId": "11:812",
+      "type": "COMPONENT_SET",
+      "variantCount": 68,
+      "properties": ["Color", "Size", "State"],
+      "category": "Inputs"
+    },
+    {
+      "name": "Label",
+      "figmaId": "37:68194",
+      "type": "COMPONENT_SET",
+      "variantCount": 21,
+      "properties": ["Variant", "Color", "👁️ Start Icon", "👁️ End Icon", "👁️ Label"],
+      "category": "Data Display"
+    },
+    {
+      "name": "LinearProgress",
+      "figmaId": "86:2528",
+      "type": "COMPONENT_SET",
+      "variantCount": 7,
+      "properties": ["Color", "👁️ Label"],
+      "category": "Feedback"
+    },
+    {
+      "name": "List",
+      "figmaId": "2539:789458",
+      "type": "COMPONENT",
+      "category": "Data Display"
+    },
+    {
+      "name": "ListItem",
+      "figmaId": "1685:106029",
+      "type": "COMPONENT_SET",
+      "variantCount": 4,
+      "properties": ["State", "👁️ Start Icon", "👁️ End Icon"],
+      "category": "Data Display"
+    },
+    {
+      "name": "Menu",
+      "figmaId": "1685:105115",
+      "type": "COMPONENT",
+      "category": "Navigation"
+    },
+    {
+      "name": "MenuItem",
+      "figmaId": "201:90911",
+      "type": "COMPONENT_SET",
+      "variantCount": 5,
+      "properties": ["State", "Selected", "👁️ Start Icon", "👁️ End Icon", "👁️ Text"],
+      "category": "Navigation"
+    },
+    {
+      "name": "MenuList",
+      "figmaId": "2534:158839",
+      "type": "COMPONENT",
+      "category": "Navigation"
+    },
+    {
+      "name": "Pagination",
+      "figmaId": "86:12913",
+      "type": "COMPONENT_SET",
+      "variantCount": 54,
+      "properties": ["Variant", "Color", "Size", "Shape", "State"],
+      "variants": {
+        "variant": ["text", "outlined"],
+        "color": ["standard", "primary", "secondary"],
+        "size": ["small", "medium", "large"],
+        "shape": ["circular", "rounded"]
+      },
+      "category": "Navigation"
+    },
+    {
+      "name": "Popover",
+      "category": "Utils",
+      "note": "See Overlay component (figmaId: 2534:216249)"
+    },
+    {
+      "name": "Radio",
+      "figmaId": "1678:105591",
+      "type": "COMPONENT_SET",
+      "variantCount": 36,
+      "properties": ["Color", "Size", "State", "Checked", "👁️ Label"],
+      "category": "Inputs"
+    },
+    {
+      "name": "Rating",
+      "figmaId": "86:0",
+      "type": "COMPONENT_SET",
+      "variantCount": 36,
+      "properties": ["Size", "Checked", "State", "👁️ Label"],
+      "variants": {
+        "size": ["small", "medium", "large"],
+        "state": ["default", "hover", "focused", "disabled"]
+      },
+      "category": "Inputs"
+    },
+    {
+      "name": "Slider",
+      "figmaId": "199:1278",
+      "type": "COMPONENT_SET",
+      "variantCount": 4,
+      "properties": ["Size", "State", "Range", "👁️ Label", "👁️ Marks"],
+      "category": "Inputs"
+    },
+    {
+      "name": "Snackbar",
+      "figmaId": "82:159",
+      "type": "COMPONENT_SET",
+      "variantCount": 5,
+      "properties": ["Severity", "👁️ Close", "👁️ Primary Action", "👁️ Secondary Action"],
+      "category": "Feedback"
+    },
+    {
+      "name": "Stepper (Horizontal)",
+      "components": {
+        "StepHorizontal": { "figmaId": "88:66120", "variantCount": 24, "properties": ["Align", "State", "Variant"] },
+        "StepperHorizontal": { "figmaId": "1685:106758", "variantCount": 3, "properties": ["Variant"] }
+      },
+      "category": "Navigation"
+    },
+    {
+      "name": "Stepper (Vertical)",
+      "components": {
+        "StepVertical": { "figmaId": "1685:107144", "variantCount": 3, "properties": ["State", "👁️ Caption", "👁️ Description", "👁️ Actions", "👁️ Connector"] },
+        "StepperVertical": { "figmaId": "2879:316826", "type": "COMPONENT" }
+      },
+      "category": "Navigation"
+    },
+    {
+      "name": "Switch",
+      "figmaId": "64:63214",
+      "type": "COMPONENT_SET",
+      "variantCount": 48,
+      "properties": ["Color", "Size", "State", "Checked", "👁️ Start Label", "👁️ End Label"],
+      "variants": {
+        "color": ["default", "primary", "secondary", "success", "error", "warning", "info"],
+        "size": ["small", "medium"],
+        "state": ["default", "hover", "focused", "disabled"]
+      },
+      "category": "Inputs"
+    },
+    {
+      "name": "Table",
+      "components": {
+        "TableCell": { "figmaId": "201:85455", "variantCount": 3, "properties": ["Variant", "👁️ Sort Arrow", "👁️ Checkbox", "👁️ Avatar", "👁️ Primary Text", "👁️ Secondary Text"] },
+        "TablePagination": { "figmaId": "1612:129994", "variantCount": 2, "properties": ["Variant", "Dense", "On Mobile"] },
+        "TableToolbarSelected": { "figmaId": "1795:124907", "type": "COMPONENT" }
+      },
+      "category": "Data Display"
+    },
+    {
+      "name": "Tabs",
+      "figmaId": "2881:330792",
+      "type": "COMPONENT_SET",
+      "variantCount": 6,
+      "properties": ["📱 Mobile", "Items", "👁️ Divider", "👁️ Scroll"],
+      "subComponents": {
+        "Tab": { "figmaId": "86:4032", "variantCount": 8, "properties": ["Selected", "State", "Vertical", "👁️ Start Icon", "👁️ Label", "👁️ End Icon"] }
+      },
+      "category": "Navigation"
+    },
+    {
+      "name": "TextField",
+      "figmaId": "194:62777",
+      "type": "COMPONENT_SET",
+      "variantCount": 60,
+      "properties": ["Variant", "Size", "State", "👁️ Value", "👁️ Start Adornment", "👁️ End Adornment", "👁️ Help Text", "👁️ Label", "👁️ Select Arrow"],
+      "variants": {
+        "variant": ["outlined", "filled", "standard"],
+        "size": ["small", "medium"],
+        "state": ["default", "hover", "focused", "error", "disabled"]
+      },
+      "category": "Inputs"
+    },
+    {
+      "name": "Textarea",
+      "figmaId": "1921:127924",
+      "type": "COMPONENT_SET",
+      "variantCount": 30,
+      "properties": ["Variant", "State", "👁️ Value", "👁️ Help Text", "👁️ Label", "👁️ Scroll"],
+      "category": "Inputs"
+    },
+    {
+      "name": "Timeline",
+      "figmaId": "91:579",
+      "type": "COMPONENT_SET",
+      "variantCount": 12,
+      "properties": ["Variant", "Align", "👁️ Icon", "👁️ Description"],
+      "variants": {
+        "variant": ["default", "outlined"],
+        "align": ["left", "right", "alternate"]
+      },
+      "category": "Data Display"
+    },
+    {
+      "name": "ToggleButton",
+      "figmaId": "867:56498",
+      "type": "COMPONENT_SET",
+      "variantCount": 60,
+      "properties": ["Color", "Size", "State", "Checked", "In Group", "👁️ Icon", "👁️ Label"],
+      "category": "Inputs"
+    },
+    {
+      "name": "ToggleButtonGroup",
+      "figmaId": "867:56581",
+      "type": "COMPONENT_SET",
+      "variantCount": 24,
+      "properties": ["Buttons", "Size", "Vertical"],
+      "category": "Inputs"
+    },
+    {
+      "name": "Tooltip",
+      "figmaId": "91:1402",
+      "type": "COMPONENT_SET",
+      "variantCount": 5,
+      "properties": ["Direction"],
+      "variants": {
+        "direction": ["top", "bottom", "left", "right", "top-left"]
+      },
+      "category": "Data Display"
+    },
+    {
+      "name": "Upload",
+      "figmaId": "92:71097",
+      "type": "COMPONENT_SET",
+      "variantCount": 12,
+      "properties": ["Variant", "State", "👁️ Preview", "👁️ Preview Multi"],
+      "category": "Inputs"
+    }
+  ],
+  "additionalComponents": [
+    { "name": "Backdrop",          "figmaId": "1678:111806", "type": "COMPONENT",     "category": "Feedback" },
+    { "name": "Carousel",          "figmaId": "95:476",      "type": "COMPONENT_SET", "variantCount": 7,  "properties": ["Variant"], "category": "Data Display" },
+    { "name": "CardHeader",        "figmaId": "2882:333212", "type": "COMPONENT_SET", "variantCount": 2,  "properties": ["📱 Mobile", "👁️ Subheader", "👁️ Title", "👁️ Avatar", "👁️ Action"], "category": "Surfaces" },
+    { "name": "Editor",            "figmaId": "92:62725",    "type": "COMPONENT_SET", "variantCount": 6,  "properties": ["Full", "State"], "category": "Inputs" },
+    { "name": "Image",             "figmaId": "2898:171579", "type": "COMPONENT_SET", "variantCount": 29, "properties": ["Aspect ratio", "Swap", "50% Height", "👁️ Overlay"], "category": "Utils" },
+    { "name": "Overlay",           "figmaId": "2534:216249", "type": "COMPONENT_SET", "variantCount": 5,  "properties": ["Variant"], "category": "Utils" },
+    { "name": "Paper",             "figmaId": "2534:157772", "type": "COMPONENT",     "category": "Surfaces" },
+    { "name": "Scroll",            "figmaId": "882:180516",  "type": "COMPONENT_SET", "variantCount": 2,  "properties": ["Horizontal"], "category": "Utils" },
+    { "name": "Snackbar",          "figmaId": "82:159",      "type": "COMPONENT_SET", "variantCount": 5,  "properties": ["Severity"], "category": "Feedback" }
+  ],
+  "charts": [
+    { "name": "Chart/Area",      "figmaId": "1613:117831", "type": "COMPONENT_SET", "variantCount": 3 },
+    { "name": "Chart/Bar",       "figmaId": "1613:118299", "type": "COMPONENT_SET", "variantCount": 6 },
+    { "name": "Chart/Column",    "figmaId": "200:68153",   "type": "COMPONENT_SET", "variantCount": 6 },
+    { "name": "Chart/Donut",     "figmaId": "1613:118918", "type": "COMPONENT_SET", "variantCount": 3 },
+    { "name": "Chart/Line",      "figmaId": "1613:118513", "type": "COMPONENT_SET", "variantCount": 3 },
+    { "name": "Chart/Pie",       "figmaId": "1613:118555", "type": "COMPONENT_SET", "variantCount": 3 },
+    { "name": "Chart/PolarArea", "figmaId": "1613:117985", "type": "COMPONENT" },
+    { "name": "Chart/Radar",     "figmaId": "1613:119026", "type": "COMPONENT_SET", "variantCount": 3 },
+    { "name": "Chart/Radial",    "figmaId": "1613:119000", "type": "COMPONENT_SET", "variantCount": 3 },
+    { "name": "Chart/Sparkline", "figmaId": "1613:119054", "type": "COMPONENT_SET", "variantCount": 5 },
+    { "name": "Chart/Grid",      "figmaId": "201:78828",   "type": "COMPONENT_SET", "variantCount": 2 },
+    { "name": "Chart/Legend/Item", "figmaId": "0:13055",   "type": "COMPONENT" },
+    { "name": "Chart/Legend/List", "figmaId": "2882:404114","type": "COMPONENT_SET", "variantCount": 10 }
+  ]
+}

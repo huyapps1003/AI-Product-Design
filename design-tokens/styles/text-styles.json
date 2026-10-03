@@ -1,0 +1,137 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "type": "Text Styles",
+    "fontFamily": "Public Sans",
+    "exportedAt": "2026-10-02"
+  },
+  "desktop": {
+    "h1": {
+      "$type": "typography",
+      "$value": { "fontFamily": "Public Sans", "fontWeight": 800, "fontSize": "64px", "lineHeight": "80px", "letterSpacing": "0px", "textTransform": "none", "textDecoration": "none" }
+    },
+    "h2": {
+      "$type": "typography",
+      "$value": { "fontFamily": "Public Sans", "fontWeight": 800, "fontSize": "48px", "lineHeight": "64px", "letterSpacing": "0px", "textTransform": "none", "textDecoration": "none" }
+    },
+    "h3": {
+      "$type": "typography",
+      "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "32px", "lineHeight": "48px", "letterSpacing": "0px", "textTransform": "none", "textDecoration": "none" }
+    },
+    "h4": {
+      "$type": "typography",
+      "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "24px", "lineHeight": "36px", "letterSpacing": "0px", "textTransform": "none", "textDecoration": "none" }
+    },
+    "h5": {
+      "$type": "typography",
+      "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "20px", "lineHeight": "30px", "letterSpacing": "0px", "textTransform": "none", "textDecoration": "none" }
+    },
+    "h6": {
+      "$type": "typography",
+      "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "18px", "lineHeight": "28px", "letterSpacing": "0px", "textTransform": "none", "textDecoration": "none" }
+    },
+    "subtitle1": {
+      "$type": "typography",
+      "$value": { "fontFamily": "Public Sans", "fontWeight": 600, "fontSize": "16px", "lineHeight": "24px", "letterSpacing": "0px", "textTransform": "none", "textDecoration": "none" }
+    },
+    "subtitle2": {
+      "$type": "typography",
+      "$value": { "fontFamily": "Public Sans", "fontWeight": 600, "fontSize": "14px", "lineHeight": "22px", "letterSpacing": "0px", "textTransform": "none", "textDecoration": "none" }
+    },
+    "body1": {
+      "$type": "typography",
+      "$value": { "fontFamily": "Public Sans", "fontWeight": 400, "fontSize": "16px", "lineHeight": "24px", "letterSpacing": "0px", "textTransform": "none", "textDecoration": "none" }
+    },
+    "body2": {
+      "$type": "typography",
+      "$value": { "fontFamily": "Public Sans", "fontWeight": 400, "fontSize": "14px", "lineHeight": "22px", "letterSpacing": "0px", "textTransform": "none", "textDecoration": "none" }
+    },
+    "caption": {
+      "$type": "typography",
+      "$value": { "fontFamily": "Public Sans", "fontWeight": 400, "fontSize": "12px", "lineHeight": "18px", "letterSpacing": "0px", "textTransform": "none", "textDecoration": "none" }
+    },
+    "overline": {
+      "$type": "typography",
+      "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "12px", "lineHeight": "18px", "letterSpacing": "0px", "textTransform": "uppercase", "textDecoration": "none" }
+    },
+    "underline": {
+      "h1":        { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 800, "fontSize": "64px", "lineHeight": "80px", "textDecoration": "underline" } },
+      "h2":        { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 800, "fontSize": "48px", "lineHeight": "64px", "textDecoration": "underline" } },
+      "h3":        { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "32px", "lineHeight": "48px", "textDecoration": "underline" } },
+      "h4":        { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "24px", "lineHeight": "36px", "textDecoration": "underline" } },
+      "h5":        { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "20px", "lineHeight": "30px", "textDecoration": "underline" } },
+      "h6":        { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "18px", "lineHeight": "28px", "textDecoration": "underline" } },
+      "subtitle1": { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 600, "fontSize": "16px", "lineHeight": "24px", "textDecoration": "underline" } },
+      "subtitle2": { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 600, "fontSize": "14px", "lineHeight": "22px", "textDecoration": "underline" } },
+      "body1":     { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 400, "fontSize": "16px", "lineHeight": "24px", "textDecoration": "underline" } },
+      "body2":     { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 400, "fontSize": "14px", "lineHeight": "22px", "textDecoration": "underline" } },
+      "caption":   { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 400, "fontSize": "12px", "lineHeight": "18px", "textDecoration": "underline" } },
+      "overline":  { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "12px", "lineHeight": "18px", "textTransform": "uppercase", "textDecoration": "underline" } }
+    },
+    "lineThrough": {
+      "h1":        { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 800, "fontSize": "64px", "lineHeight": "80px", "textDecoration": "line-through" } },
+      "h2":        { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 800, "fontSize": "48px", "lineHeight": "64px", "textDecoration": "line-through" } },
+      "h3":        { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "32px", "lineHeight": "48px", "textDecoration": "line-through" } },
+      "h4":        { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "24px", "lineHeight": "36px", "textDecoration": "line-through" } },
+      "h5":        { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "20px", "lineHeight": "30px", "textDecoration": "line-through" } },
+      "h6":        { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "18px", "lineHeight": "28px", "textDecoration": "line-through" } },
+      "subtitle1": { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 600, "fontSize": "16px", "lineHeight": "24px", "textDecoration": "line-through" } },
+      "subtitle2": { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 600, "fontSize": "14px", "lineHeight": "22px", "textDecoration": "line-through" } },
+      "body1":     { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 400, "fontSize": "16px", "lineHeight": "24px", "textDecoration": "line-through" } },
+      "body2":     { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 400, "fontSize": "14px", "lineHeight": "22px", "textDecoration": "line-through" } },
+      "caption":   { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 400, "fontSize": "12px", "lineHeight": "18px", "textDecoration": "line-through" } },
+      "overline":  { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "12px", "lineHeight": "18px", "textTransform": "uppercase", "textDecoration": "line-through" } }
+    }
+  },
+  "mobile": {
+    "h1": {
+      "$type": "typography",
+      "$value": { "fontFamily": "Public Sans", "fontWeight": 800, "fontSize": "40px", "lineHeight": "50px", "letterSpacing": "0px", "textTransform": "none", "textDecoration": "none" }
+    },
+    "h2": {
+      "$type": "typography",
+      "$value": { "fontFamily": "Public Sans", "fontWeight": 800, "fontSize": "32px", "lineHeight": "42px", "letterSpacing": "0px", "textTransform": "none", "textDecoration": "none" }
+    },
+    "h3": {
+      "$type": "typography",
+      "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "24px", "lineHeight": "36px", "letterSpacing": "0px", "textTransform": "none", "textDecoration": "none" }
+    },
+    "h4": {
+      "$type": "typography",
+      "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "20px", "lineHeight": "30px", "letterSpacing": "0px", "textTransform": "none", "textDecoration": "none" }
+    },
+    "h5": {
+      "$type": "typography",
+      "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "18px", "lineHeight": "27px", "letterSpacing": "0px", "textTransform": "none", "textDecoration": "none" }
+    },
+    "h6": {
+      "$type": "typography",
+      "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "17px", "lineHeight": "26px", "letterSpacing": "0px", "textTransform": "none", "textDecoration": "none" }
+    },
+    "underline": {
+      "h1": { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 800, "fontSize": "40px", "lineHeight": "50px", "textDecoration": "underline" } },
+      "h2": { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 800, "fontSize": "32px", "lineHeight": "42px", "textDecoration": "underline" } },
+      "h3": { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "24px", "lineHeight": "36px", "textDecoration": "underline" } },
+      "h4": { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "20px", "lineHeight": "30px", "textDecoration": "underline" } },
+      "h5": { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "18px", "lineHeight": "27px", "textDecoration": "underline" } },
+      "h6": { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "17px", "lineHeight": "26px", "textDecoration": "underline" } }
+    },
+    "lineThrough": {
+      "h1": { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 800, "fontSize": "40px", "lineHeight": "50px", "textDecoration": "line-through" } },
+      "h2": { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 800, "fontSize": "32px", "lineHeight": "42px", "textDecoration": "line-through" } },
+      "h3": { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "24px", "lineHeight": "36px", "textDecoration": "line-through" } },
+      "h4": { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "20px", "lineHeight": "30px", "textDecoration": "line-through" } },
+      "h5": { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "18px", "lineHeight": "27px", "textDecoration": "line-through" } },
+      "h6": { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "17px", "lineHeight": "26px", "textDecoration": "line-through" } }
+    }
+  },
+  "components": {
+    "buttonSmall":    { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "13px", "lineHeight": "22px" } },
+    "buttonMedium":   { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "14px", "lineHeight": "24px" } },
+    "buttonLarge":    { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "15px", "lineHeight": "26px" } },
+    "labelText":      { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 700, "fontSize": "12px", "lineHeight": "20px" } },
+    "avatarGroup":    { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 500, "fontSize": "12px", "lineHeight": "18px" } },
+    "carouselText":   { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 400, "fontSize": "20px", "lineHeight": "36px" } },
+    "settingsLabel":  { "$type": "typography", "$value": { "fontFamily": "Public Sans", "fontWeight": 600, "fontSize": "12px", "lineHeight": "20px" } }
+  }
+}

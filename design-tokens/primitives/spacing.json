@@ -1,0 +1,37 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "collection": "[Core] Spacing",
+    "baseUnit": 8,
+    "exportedAt": "2026-10-02"
+  },
+  "spacing": {
+    "0.25": { "$type": "dimension", "$value": "2px",   "$description": "spacing-0,25" },
+    "0.5":  { "$type": "dimension", "$value": "4px",   "$description": "spacing-0,5" },
+    "0.75": { "$type": "dimension", "$value": "6px",   "$description": "spacing-0,75" },
+    "1":    { "$type": "dimension", "$value": "8px",   "$description": "spacing-1" },
+    "1.25": { "$type": "dimension", "$value": "10px",  "$description": "spacing-1,25" },
+    "1.5":  { "$type": "dimension", "$value": "12px",  "$description": "spacing-1,5" },
+    "1.75": { "$type": "dimension", "$value": "12px",  "$description": "spacing-1,75" },
+    "2":    { "$type": "dimension", "$value": "16px",  "$description": "spacing-2" },
+    "2.5":  { "$type": "dimension", "$value": "20px",  "$description": "spacing-2,5" },
+    "3":    { "$type": "dimension", "$value": "24px",  "$description": "spacing-3" },
+    "4":    { "$type": "dimension", "$value": "32px",  "$description": "spacing-4" },
+    "5":    { "$type": "dimension", "$value": "40px",  "$description": "spacing-5" },
+    "6":    { "$type": "dimension", "$value": "48px",  "$description": "spacing-6" },
+    "7":    { "$type": "dimension", "$value": "56px",  "$description": "spacing-7" },
+    "8":    { "$type": "dimension", "$value": "64px",  "$description": "spacing-8" },
+    "9":    { "$type": "dimension", "$value": "72px",  "$description": "spacing-9" },
+    "10":   { "$type": "dimension", "$value": "80px",  "$description": "spacing-10" },
+    "11":   { "$type": "dimension", "$value": "88px",  "$description": "spacing-11" },
+    "12":   { "$type": "dimension", "$value": "96px",  "$description": "spacing-12" },
+    "13":   { "$type": "dimension", "$value": "104px", "$description": "spacing-13" },
+    "14":   { "$type": "dimension", "$value": "112px", "$description": "spacing-14" },
+    "15":   { "$type": "dimension", "$value": "120px", "$description": "spacing-15" },
+    "16":   { "$type": "dimension", "$value": "128px", "$description": "spacing-16" },
+    "17":   { "$type": "dimension", "$value": "136px", "$description": "spacing-17" },
+    "18":   { "$type": "dimension", "$value": "144px", "$description": "spacing-18" },
+    "19":   { "$type": "dimension", "$value": "152px", "$description": "spacing-19" },
+    "20":   { "$type": "dimension", "$value": "160px", "$description": "spacing-20" }
+  }
+}

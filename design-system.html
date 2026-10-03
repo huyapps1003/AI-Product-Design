@@ -1,0 +1,1239 @@
+<title>MinV Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap">
+
+<style>
+/* ── Token system ──────────────────────────────────────────────────────── */
+:root {
+  /* Brand */
+  --primary-darker:  #004B50;
+  --primary-dark:    #007867;
+  --primary-main:    #00A76F;
+  --primary-light:   #5BE49B;
+  --primary-lighter: #C8FAD6;
+
+  --secondary-main:  #8E33FF;
+  --secondary-light: #C684FF;
+
+  --info-main:    #00B8D9;
+  --success-main: #22C55E;
+  --warning-main: #FFAB00;
+  --error-main:   #FF5630;
+
+  /* Semantic surface */
+  --bg:          #FFFFFF;
+  --bg-paper:    #FFFFFF;
+  --bg-neutral:  #F9FAFB;
+  --fg:          #212B36;
+  --fg-secondary:#637381;
+  --fg-disabled: #919EAB;
+  --divider:     rgba(145,158,171,0.20);
+  --action-hover:rgba(145,158,171,0.08);
+  --border:      rgba(145,158,171,0.20);
+
+  /* Accent strip */
+  --accent: #00A76F;
+
+  /* Radius */
+  --r-xs: 4px; --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 24px; --r-full: 500px;
+
+  /* Shadow */
+  --shadow-z1:  0 1px 2px rgba(145,158,171,.16);
+  --shadow-z4:  0 4px 8px rgba(145,158,171,.16);
+  --shadow-z8:  0 8px 16px rgba(145,158,171,.16);
+  --shadow-z12: 0 12px 24px -4px rgba(145,158,171,.16);
+  --shadow-card:0 0 2px rgba(145,158,171,.20), 0 12px 24px -4px rgba(145,158,171,.12);
+
+  /* Sidebar */
+  --sidebar-w: 220px;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:          #161C24;
+    --bg-paper:    #212B36;
+    --bg-neutral:  rgba(145,158,171,0.12);
+    --fg:          #FFFFFF;
+    --fg-secondary:#919EAB;
+    --fg-disabled: #637381;
+    --divider:     rgba(145,158,171,0.20);
+    --action-hover:rgba(145,158,171,0.08);
+    --border:      rgba(145,158,171,0.20);
+    --accent:      #5BE49B;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:          #161C24;
+  --bg-paper:    #212B36;
+  --bg-neutral:  rgba(145,158,171,0.12);
+  --fg:          #FFFFFF;
+  --fg-secondary:#919EAB;
+  --fg-disabled: #637381;
+  --divider:     rgba(145,158,171,0.20);
+  --action-hover:rgba(145,158,171,0.08);
+  --border:      rgba(145,158,171,0.20);
+  --accent:      #5BE49B;
+  color-scheme: dark;
+}
+
+/* ── Reset & base ──────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Public Sans', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 14px;
+  line-height: 22px;
+  min-height: 100%;
+}
+
+/* ── Layout shell ──────────────────────────────────────────────────────── */
+.shell { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  background: var(--bg-paper);
+  border-right: 1px solid var(--divider);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-logo {
+  padding: 20px 16px 12px;
+  border-bottom: 1px solid var(--divider);
+}
+.sidebar-logo .name {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -.3px;
+  color: var(--fg);
+}
+.sidebar-logo .version {
+  font-size: 11px;
+  color: var(--fg-secondary);
+  margin-top: 2px;
+}
+.sidebar-logo .dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-right: 6px;
+  vertical-align: middle;
+  position: relative; top: -1px;
+}
+
+nav { padding: 8px 0 24px; flex: 1; }
+nav a {
+  display: block;
+  padding: 7px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fg-secondary);
+  text-decoration: none;
+  border-radius: 0;
+  transition: color .15s, background .15s;
+}
+nav a:hover { color: var(--fg); background: var(--action-hover); }
+nav a.active { color: var(--accent); font-weight: 600; }
+nav .nav-section {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--fg-disabled);
+  padding: 16px 16px 4px;
+}
+
+/* ── Main ──────────────────────────────────────────────────────────────── */
+.main {
+  flex: 1;
+  min-width: 0;
+  padding: 40px 48px 80px;
+}
+@media (max-width: 700px) {
+  .shell { flex-direction: column; }
+  .sidebar { width: 100%; height: auto; position: static; }
+  .main { padding: 24px 16px 60px; }
+}
+
+/* ── Section ───────────────────────────────────────────────────────────── */
+.section { margin-bottom: 64px; scroll-margin-top: 32px; }
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--divider);
+}
+.section-title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -.3px;
+  color: var(--fg);
+}
+.section-sub {
+  font-size: 12px;
+  color: var(--fg-secondary);
+}
+
+/* ── Page header ───────────────────────────────────────────────────────── */
+.page-header {
+  margin-bottom: 56px;
+}
+.page-header h1 {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -.5px;
+  color: var(--fg);
+  text-wrap: balance;
+  line-height: 1.2;
+}
+.page-header p {
+  margin-top: 8px;
+  font-size: 15px;
+  color: var(--fg-secondary);
+  max-width: 520px;
+}
+.header-meta {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.meta-chip {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: var(--r-full);
+  background: var(--bg-neutral);
+  color: var(--fg-secondary);
+  border: 1px solid var(--divider);
+}
+.meta-chip.green {
+  background: rgba(0,167,111,.12);
+  color: var(--primary-main);
+  border-color: rgba(0,167,111,.24);
+}
+
+/* ── Theme toggle ──────────────────────────────────────────────────────── */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
+  border-top: 1px solid var(--divider);
+}
+.theme-toggle label { font-size: 11px; color: var(--fg-secondary); flex: 1; }
+.toggle-btn {
+  width: 36px; height: 20px;
+  border-radius: var(--r-full);
+  background: var(--fg-disabled);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: background .2s;
+  flex-shrink: 0;
+}
+.toggle-btn::after {
+  content: '';
+  position: absolute;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  top: 3px; left: 3px;
+  transition: transform .2s;
+}
+[data-theme="dark"] .toggle-btn { background: var(--accent); }
+[data-theme="dark"] .toggle-btn::after { transform: translateX(16px); }
+
+/* ── Color swatches ────────────────────────────────────────────────────── */
+.color-group { margin-bottom: 32px; }
+.color-group-name {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--fg-secondary);
+  margin-bottom: 10px;
+}
+.swatch-row { display: flex; gap: 4px; flex-wrap: wrap; }
+.swatch {
+  width: 60px;
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  cursor: default;
+}
+.swatch-color {
+  height: 48px;
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: var(--r-sm) var(--r-sm) 0 0;
+}
+.swatch-label {
+  padding: 4px 5px;
+  background: var(--bg-paper);
+  border: 1px solid var(--divider);
+  border-top: none;
+  border-radius: 0 0 var(--r-sm) var(--r-sm);
+}
+.swatch-label .key {
+  font-size: 10px;
+  color: var(--fg-secondary);
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.swatch-label .hex {
+  font-size: 9px;
+  color: var(--fg-disabled);
+  display: block;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Alpha swatches ────────────────────────────────────────────────────── */
+.alpha-row { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 8px; }
+.alpha-swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.alpha-box {
+  width: 40px; height: 24px;
+  border-radius: var(--r-xs);
+  border: 1px solid var(--border);
+  background-image:
+    linear-gradient(45deg, #ccc 25%, transparent 25%),
+    linear-gradient(-45deg, #ccc 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #ccc 75%),
+    linear-gradient(-45deg, transparent 75%, #ccc 75%);
+  background-size: 8px 8px;
+  background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
+  position: relative;
+}
+.alpha-box::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: calc(var(--r-xs) - 1px);
+}
+.alpha-label { font-size: 9px; color: var(--fg-disabled); }
+
+/* ── Typography ────────────────────────────────────────────────────────── */
+.type-scale { display: flex; flex-direction: column; gap: 0; }
+.type-row {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 16px;
+  align-items: baseline;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--divider);
+}
+.type-meta { color: var(--fg-disabled); font-size: 11px; font-variant-numeric: tabular-nums; }
+.type-meta .label { display: block; font-weight: 700; color: var(--fg-secondary); font-size: 12px; margin-bottom: 2px; }
+.type-meta .spec  { display: block; }
+.type-sample { color: var(--fg); text-wrap: balance; }
+
+/* ── Spacing ───────────────────────────────────────────────────────────── */
+.spacing-grid { display: flex; flex-direction: column; gap: 6px; }
+.spacing-row {
+  display: grid;
+  grid-template-columns: 64px auto 1fr;
+  gap: 12px;
+  align-items: center;
+}
+.spacing-token { font-size: 12px; font-weight: 600; color: var(--fg-secondary); font-variant-numeric: tabular-nums; }
+.spacing-bar-wrap { flex: 1; }
+.spacing-bar {
+  height: 20px;
+  background: rgba(0,167,111,.18);
+  border-radius: var(--r-xs);
+  border: 1px solid rgba(0,167,111,.3);
+}
+.spacing-value { font-size: 11px; color: var(--fg-disabled); font-variant-numeric: tabular-nums; }
+
+/* ── Radius ────────────────────────────────────────────────────────────── */
+.radius-grid { display: flex; gap: 12px; flex-wrap: wrap; }
+.radius-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  background: var(--bg-neutral);
+  border: 1px solid var(--divider);
+  border-radius: var(--r-sm);
+  min-width: 80px;
+}
+.radius-box {
+  width: 56px; height: 40px;
+  background: rgba(0,167,111,.2);
+  border: 2px solid var(--primary-main);
+}
+.radius-name { font-size: 11px; font-weight: 700; color: var(--fg-secondary); }
+.radius-val  { font-size: 10px; color: var(--fg-disabled); font-variant-numeric: tabular-nums; }
+
+/* ── Shadows ───────────────────────────────────────────────────────────── */
+.shadow-grid { display: flex; gap: 16px; flex-wrap: wrap; }
+.shadow-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 16px;
+  background: var(--bg-paper);
+  border: 1px solid var(--divider);
+  border-radius: var(--r-md);
+  min-width: 96px;
+}
+.shadow-box {
+  width: 64px; height: 48px;
+  border-radius: var(--r-sm);
+  background: var(--bg);
+}
+.shadow-name { font-size: 11px; font-weight: 700; color: var(--fg-secondary); }
+
+/* ── Gradients ─────────────────────────────────────────────────────────── */
+.gradient-grid { display: flex; gap: 12px; flex-wrap: wrap; }
+.grad-card {
+  border-radius: var(--r-md);
+  overflow: hidden;
+  min-width: 140px;
+  border: 1px solid var(--divider);
+}
+.grad-swatch { height: 72px; }
+.grad-label {
+  padding: 8px 12px;
+  background: var(--bg-paper);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--fg-secondary);
+}
+.grad-value { font-size: 10px; color: var(--fg-disabled); margin-top: 1px; }
+
+/* ── Effects ───────────────────────────────────────────────────────────── */
+.effects-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.effect-card {
+  padding: 12px 16px;
+  background: var(--bg-paper);
+  border: 1px solid var(--divider);
+  border-radius: var(--r-sm);
+  min-width: 120px;
+}
+.effect-name { font-size: 11px; font-weight: 700; color: var(--fg); }
+.effect-desc { font-size: 10px; color: var(--fg-disabled); margin-top: 2px; font-family: 'Courier New', monospace; }
+
+/* ── Components ────────────────────────────────────────────────────────── */
+.comp-category { margin-bottom: 32px; }
+.comp-category-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--fg-disabled);
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--divider);
+}
+.comp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; }
+.comp-card {
+  padding: 12px 14px;
+  background: var(--bg-neutral);
+  border: 1px solid var(--divider);
+  border-radius: var(--r-sm);
+  cursor: default;
+  transition: background .15s, border-color .15s;
+}
+.comp-card:hover { background: var(--action-hover); border-color: rgba(0,167,111,.3); }
+.comp-name { font-size: 13px; font-weight: 600; color: var(--fg); }
+.comp-meta {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+.comp-tag {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: var(--r-full);
+  border: 1px solid var(--divider);
+  color: var(--fg-secondary);
+  background: var(--bg-paper);
+}
+.comp-tag.set { color: var(--primary-main); border-color: rgba(0,167,111,.3); background: rgba(0,167,111,.08); }
+.comp-variants { font-size: 10px; color: var(--fg-disabled); margin-top: 4px; }
+
+/* ── Buttons demo ──────────────────────────────────────────────────────── */
+.demo-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Public Sans', sans-serif;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: opacity .15s, box-shadow .15s;
+  text-decoration: none;
+}
+.btn:hover { opacity: .88; }
+.btn-lg { font-size: 15px; line-height: 26px; padding: 11px 22px; min-width: 64px; height: 48px; }
+.btn-md { font-size: 14px; line-height: 24px; padding: 6px 16px;  min-width: 64px; height: 36px; }
+.btn-sm { font-size: 13px; line-height: 22px; padding: 4px 12px;  min-width: 56px; height: 30px; }
+
+.btn-contained-primary { background: #00A76F; color: #fff; box-shadow: 0 8px 16px rgba(0,167,111,.24); }
+.btn-contained-secondary { background: #8E33FF; color: #fff; box-shadow: 0 8px 16px rgba(142,51,255,.24); }
+.btn-contained-error { background: #FF5630; color: #fff; }
+.btn-contained-warning { background: #FFAB00; color: #212B36; }
+.btn-outlined-primary { background: transparent; color: #00A76F; border: 1px solid rgba(0,167,111,.48); }
+.btn-soft-primary { background: rgba(0,167,111,.12); color: #007867; border: none; }
+.btn-text-primary { background: transparent; color: #00A76F; border: none; padding-left: 4px; padding-right: 4px; }
+.btn-disabled { background: rgba(145,158,171,.20); color: rgba(145,158,171,.80); cursor: not-allowed; opacity: 1 !important; border: none; }
+
+/* ── Chips demo ────────────────────────────────────────────────────────── */
+.chip {
+  display: inline-flex; align-items: center;
+  font-family: 'Public Sans', sans-serif;
+  font-size: 13px; font-weight: 500;
+  border-radius: 8px; height: 32px;
+  padding: 0 12px;
+}
+.chip-filled-primary { background: #00A76F; color: #fff; }
+.chip-outlined-primary { background: transparent; color: #00A76F; border: 1px solid rgba(0,167,111,.48); }
+.chip-soft-primary { background: rgba(0,167,111,.12); color: #007867; }
+.chip-filled-error { background: #FF5630; color: #fff; }
+.chip-outlined-warning { background: transparent; color: #B76E00; border: 1px solid rgba(255,171,0,.48); }
+.chip-soft-info { background: rgba(0,184,217,.12); color: #006C9C; }
+
+/* ── Alert demo ────────────────────────────────────────────────────────── */
+.alert-demo { display: flex; flex-direction: column; gap: 8px; }
+.alert {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 6px 8px 6px 16px;
+  border-radius: 8px;
+  font-size: 14px; line-height: 22px;
+}
+.alert-icon { font-size: 18px; margin-top: 2px; flex-shrink: 0; }
+.alert-body { flex: 1; }
+.alert-title { font-weight: 600; }
+.alert-desc  { font-size: 13px; opacity: .8; }
+.alert-filled-error   { background: #FF5630; color: #fff; }
+.alert-filled-warning { background: #FFAB00; color: #212B36; }
+.alert-filled-success { background: #22C55E; color: #fff; }
+.alert-filled-info    { background: #00B8D9; color: #fff; }
+.alert-soft-error     { background: #FFE9D5; color: #7A0916; }
+.alert-soft-success   { background: #D3FCD2; color: #065E49; }
+
+/* ── Badge / Label demo ────────────────────────────────────────────────── */
+.label-demo { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.label {
+  display: inline-flex; align-items: center; gap: 4px;
+  height: 24px; min-width: 24px; padding: 0 6px;
+  border-radius: 6px;
+  font-size: 12px; font-weight: 700; line-height: 20px;
+  font-family: 'Public Sans', sans-serif;
+}
+.label-primary   { background: rgba(0,167,111,.16);   color: #004B50; }
+.label-secondary { background: rgba(142,51,255,.16);  color: #27097A; }
+.label-success   { background: rgba(34,197,94,.16);   color: #065E49; }
+.label-error     { background: rgba(255,86,48,.16);   color: #7A0916; }
+.label-warning   { background: rgba(255,171,0,.16);   color: #7A4100; }
+.label-info      { background: rgba(0,184,217,.16);   color: #003768; }
+.label-default   { background: rgba(145,158,171,.16); color: #454F5B; }
+
+[data-theme="dark"] .label-primary   { background: rgba(0,167,111,.16); color: #5BE49B; }
+[data-theme="dark"] .label-secondary { background: rgba(142,51,255,.16); color: #C684FF; }
+[data-theme="dark"] .label-success   { background: rgba(34,197,94,.16); color: #77ED8B; }
+[data-theme="dark"] .label-error     { background: rgba(255,86,48,.16); color: #FFAC82; }
+[data-theme="dark"] .label-warning   { background: rgba(255,171,0,.16); color: #FFD666; }
+[data-theme="dark"] .label-info      { background: rgba(0,184,217,.16); color: #61F3F3; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .label-primary   { background: rgba(0,167,111,.16); color: #5BE49B; }
+  :root:not([data-theme="light"]) .label-secondary { background: rgba(142,51,255,.16); color: #C684FF; }
+  :root:not([data-theme="light"]) .label-success   { background: rgba(34,197,94,.16); color: #77ED8B; }
+  :root:not([data-theme="light"]) .label-error     { background: rgba(255,86,48,.16); color: #FFAC82; }
+  :root:not([data-theme="light"]) .label-warning   { background: rgba(255,171,0,.16); color: #FFD666; }
+  :root:not([data-theme="light"]) .label-info      { background: rgba(0,184,217,.16); color: #61F3F3; }
+  :root:not([data-theme="light"]) .alert-soft-error { background: rgba(255,86,48,.16); color: #FFAC82; }
+  :root:not([data-theme="light"]) .alert-soft-success { background: rgba(34,197,94,.16); color: #77ED8B; }
+  :root:not([data-theme="light"]) .btn-outlined-primary { border-color: rgba(91,228,155,.48); color: #5BE49B; }
+  :root:not([data-theme="light"]) .btn-soft-primary { background: rgba(0,167,111,.16); color: #5BE49B; }
+  :root:not([data-theme="light"]) .btn-text-primary { color: #5BE49B; }
+  :root:not([data-theme="light"]) .chip-outlined-primary { border-color: rgba(91,228,155,.48); color: #5BE49B; }
+  :root:not([data-theme="light"]) .chip-soft-primary { background: rgba(0,167,111,.16); color: #5BE49B; }
+  :root:not([data-theme="light"]) .chip-soft-info { background: rgba(0,184,217,.16); color: #61F3F3; }
+  :root:not([data-theme="light"]) .chip-outlined-warning { border-color: rgba(255,171,0,.48); color: #FFD666; }
+}
+[data-theme="dark"] .alert-soft-error   { background: rgba(255,86,48,.16); color: #FFAC82; }
+[data-theme="dark"] .alert-soft-success { background: rgba(34,197,94,.16); color: #77ED8B; }
+[data-theme="dark"] .btn-outlined-primary { border-color: rgba(91,228,155,.48); color: #5BE49B; }
+[data-theme="dark"] .btn-soft-primary { background: rgba(0,167,111,.16); color: #5BE49B; }
+[data-theme="dark"] .btn-text-primary { color: #5BE49B; }
+[data-theme="dark"] .chip-outlined-primary { border-color: rgba(91,228,155,.48); color: #5BE49B; }
+[data-theme="dark"] .chip-soft-primary { background: rgba(0,167,111,.16); color: #5BE49B; }
+[data-theme="dark"] .chip-soft-info { background: rgba(0,184,217,.16); color: #61F3F3; }
+[data-theme="dark"] .chip-outlined-warning { border-color: rgba(255,171,0,.48); color: #FFD666; }
+
+/* ── TextField demo ────────────────────────────────────────────────────── */
+.field-demo { display: flex; gap: 16px; flex-wrap: wrap; }
+.field-wrap { position: relative; }
+.field-label-float {
+  position: absolute; top: -9px; left: 10px;
+  font-size: 12px; font-weight: 500;
+  padding: 0 4px; background: var(--bg-paper);
+  color: var(--primary-main);
+}
+.field-input {
+  font-family: 'Public Sans', sans-serif;
+  font-size: 14px; color: var(--fg);
+  background: transparent;
+  border: 1px solid rgba(145,158,171,.32);
+  border-radius: 8px;
+  padding: 13px 14px;
+  outline: none;
+  width: 200px;
+  transition: border-color .2s;
+}
+.field-input:focus { border-color: var(--primary-main); }
+.field-input-filled {
+  border: none; border-bottom: 1px solid rgba(145,158,171,.32);
+  background: rgba(145,158,171,.08);
+  border-radius: 8px 8px 0 0;
+  padding: 20px 12px 6px;
+  font-family: 'Public Sans', sans-serif;
+  font-size: 14px; color: var(--fg);
+  outline: none;
+  width: 200px;
+}
+
+/* ── Responsive utility ────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .comp-grid { grid-template-columns: 1fr 1fr; }
+  .type-row  { grid-template-columns: 1fr; gap: 4px; }
+  .spacing-row { grid-template-columns: 48px auto 1fr; }
+}
+</style>
+
+<div class="shell">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="name"><span class="dot"></span>MinV</div>
+      <div class="version">Design System · v1.0 · Oct 2026</div>
+    </div>
+    <nav>
+      <div class="nav-section">Foundations</div>
+      <a href="#colors">Colors</a>
+      <a href="#typography">Typography</a>
+      <a href="#spacing">Spacing</a>
+      <a href="#radius">Border Radius</a>
+      <a href="#shadows">Shadows</a>
+      <a href="#gradients">Gradients</a>
+      <div class="nav-section">Tokens</div>
+      <a href="#themes">Semantic Themes</a>
+      <a href="#effects">Effects</a>
+      <div class="nav-section">Components</div>
+      <a href="#buttons">Buttons</a>
+      <a href="#chips">Chips & Labels</a>
+      <a href="#alerts">Alerts</a>
+      <a href="#textfields">Text Fields</a>
+      <a href="#inventory">Inventory</a>
+    </nav>
+    <div class="theme-toggle">
+      <label>Dark mode</label>
+      <button class="toggle-btn" id="themeBtn" aria-label="Toggle dark mode"></button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+    <div class="page-header">
+      <h1>MinV Design System</h1>
+      <p>Design tokens, typography, spacing, and component library extracted from Figma. Font: Public Sans.</p>
+      <div class="header-meta">
+        <span class="meta-chip green">Public Sans</span>
+        <span class="meta-chip">Light &amp; Dark</span>
+        <span class="meta-chip">8px Grid</span>
+        <span class="meta-chip">Figma Export · 2026-10-02</span>
+      </div>
+    </div>
+
+    <!-- ── COLORS ───────────────────────────────────────────────────────── -->
+    <section class="section" id="colors">
+      <div class="section-header">
+        <h2 class="section-title">Colors</h2>
+        <span class="section-sub">primitives/colors.json · [Core] Colors</span>
+      </div>
+
+      <div class="color-group">
+        <div class="color-group-name">Primary</div>
+        <div class="swatch-row">
+          <div class="swatch"><div class="swatch-color" style="background:#004B50"></div><div class="swatch-label"><span class="key">darker</span><span class="hex">#004B50</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#007867"></div><div class="swatch-label"><span class="key">dark</span><span class="hex">#007867</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#00A76F"></div><div class="swatch-label"><span class="key">main</span><span class="hex">#00A76F</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#5BE49B"></div><div class="swatch-label"><span class="key">light</span><span class="hex">#5BE49B</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#C8FAD6"></div><div class="swatch-label"><span class="key">lighter</span><span class="hex">#C8FAD6</span></div></div>
+        </div>
+        <div class="alpha-row" style="margin-top:8px;">
+          <div class="alpha-swatch"><div class="alpha-box" style="--c:rgba(0,167,111,.08)"><div style="position:absolute;inset:0;border-radius:3px;background:rgba(0,167,111,.08)"></div></div><span class="alpha-label">8%</span></div>
+          <div class="alpha-swatch"><div class="alpha-box"><div style="position:absolute;inset:0;border-radius:3px;background:rgba(0,167,111,.12)"></div></div><span class="alpha-label">12%</span></div>
+          <div class="alpha-swatch"><div class="alpha-box"><div style="position:absolute;inset:0;border-radius:3px;background:rgba(0,167,111,.24)"></div></div><span class="alpha-label">24%</span></div>
+          <div class="alpha-swatch"><div class="alpha-box"><div style="position:absolute;inset:0;border-radius:3px;background:rgba(0,167,111,.48)"></div></div><span class="alpha-label">48%</span></div>
+        </div>
+      </div>
+
+      <div class="color-group">
+        <div class="color-group-name">Secondary</div>
+        <div class="swatch-row">
+          <div class="swatch"><div class="swatch-color" style="background:#27097A"></div><div class="swatch-label"><span class="key">darker</span><span class="hex">#27097A</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#5119B7"></div><div class="swatch-label"><span class="key">dark</span><span class="hex">#5119B7</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#8E33FF"></div><div class="swatch-label"><span class="key">main</span><span class="hex">#8E33FF</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#C684FF"></div><div class="swatch-label"><span class="key">light</span><span class="hex">#C684FF</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#EFD6FF"></div><div class="swatch-label"><span class="key">lighter</span><span class="hex">#EFD6FF</span></div></div>
+        </div>
+      </div>
+
+      <div class="color-group">
+        <div class="color-group-name">Semantic</div>
+        <div class="swatch-row">
+          <div class="swatch"><div class="swatch-color" style="background:#FF5630"></div><div class="swatch-label"><span class="key">error</span><span class="hex">#FF5630</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#FFAB00"></div><div class="swatch-label"><span class="key">warning</span><span class="hex">#FFAB00</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#22C55E"></div><div class="swatch-label"><span class="key">success</span><span class="hex">#22C55E</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#00B8D9"></div><div class="swatch-label"><span class="key">info</span><span class="hex">#00B8D9</span></div></div>
+        </div>
+      </div>
+
+      <div class="color-group">
+        <div class="color-group-name">Grey Scale</div>
+        <div class="swatch-row">
+          <div class="swatch"><div class="swatch-color" style="background:#F9FAFB"></div><div class="swatch-label"><span class="key">100</span><span class="hex">#F9FAFB</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#F4F6F8"></div><div class="swatch-label"><span class="key">200</span><span class="hex">#F4F6F8</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#DFE3E8"></div><div class="swatch-label"><span class="key">300</span><span class="hex">#DFE3E8</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#C4CDD5"></div><div class="swatch-label"><span class="key">400</span><span class="hex">#C4CDD5</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#919EAB"></div><div class="swatch-label"><span class="key">500</span><span class="hex">#919EAB</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#637381"></div><div class="swatch-label"><span class="key">600</span><span class="hex">#637381</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#454F5B"></div><div class="swatch-label"><span class="key">700</span><span class="hex">#454F5B</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#212B36"></div><div class="swatch-label"><span class="key">800</span><span class="hex">#212B36</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#161C24"></div><div class="swatch-label"><span class="key">900</span><span class="hex">#161C24</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TYPOGRAPHY ────────────────────────────────────────────────────── -->
+    <section class="section" id="typography">
+      <div class="section-header">
+        <h2 class="section-title">Typography</h2>
+        <span class="section-sub">styles/text-styles.json · Public Sans</span>
+      </div>
+      <div class="type-scale">
+        <div class="type-row">
+          <div class="type-meta"><span class="label">H1</span><span class="spec">64px · 800 · 80lh</span></div>
+          <div class="type-sample" style="font-size:48px;font-weight:800;line-height:1.15;letter-spacing:-.5px">The quick fox</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><span class="label">H2</span><span class="spec">48px · 800 · 64lh</span></div>
+          <div class="type-sample" style="font-size:36px;font-weight:800;line-height:1.2;letter-spacing:-.4px">Design tokens</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><span class="label">H3</span><span class="spec">32px · 700 · 48lh</span></div>
+          <div class="type-sample" style="font-size:28px;font-weight:700;line-height:1.3">Component library</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><span class="label">H4</span><span class="spec">24px · 700 · 36lh</span></div>
+          <div class="type-sample" style="font-size:24px;font-weight:700;line-height:1.4">Section heading here</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><span class="label">H5</span><span class="spec">20px · 700 · 30lh</span></div>
+          <div class="type-sample" style="font-size:20px;font-weight:700;line-height:1.45">Card title example</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><span class="label">H6</span><span class="spec">18px · 700 · 28lh</span></div>
+          <div class="type-sample" style="font-size:18px;font-weight:700;line-height:1.5">Smaller heading</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><span class="label">Subtitle 1</span><span class="spec">16px · 600 · 24lh</span></div>
+          <div class="type-sample" style="font-size:16px;font-weight:600;line-height:1.5">Semi-bold subtitle for emphasis</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><span class="label">Subtitle 2</span><span class="spec">14px · 600 · 22lh</span></div>
+          <div class="type-sample" style="font-size:14px;font-weight:600;line-height:1.57">Smaller semi-bold subtitle</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><span class="label">Body 1</span><span class="spec">16px · 400 · 24lh</span></div>
+          <div class="type-sample" style="font-size:16px;font-weight:400;line-height:1.5;max-width:480px">Regular body text for paragraphs and reading content. Comfortable at 65 characters wide with 1.5 line height.</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><span class="label">Body 2</span><span class="spec">14px · 400 · 22lh</span></div>
+          <div class="type-sample" style="font-size:14px;font-weight:400;line-height:1.57;max-width:480px">Smaller body text for secondary content, descriptions, and supporting copy throughout the UI.</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><span class="label">Caption</span><span class="spec">12px · 400 · 18lh</span></div>
+          <div class="type-sample" style="font-size:12px;font-weight:400;line-height:1.5;color:var(--fg-secondary)">Small captions, timestamps, helper text, metadata</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><span class="label">Overline</span><span class="spec">12px · 700 · 18lh</span></div>
+          <div class="type-sample" style="font-size:12px;font-weight:700;line-height:1.5;text-transform:uppercase;letter-spacing:.08em;color:var(--fg-secondary)">Section label overline</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><span class="label">Btn Sm</span><span class="spec">13px · 700</span></div>
+          <div class="type-sample" style="font-size:13px;font-weight:700;line-height:22px">BUTTON SMALL</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><span class="label">Btn Md</span><span class="spec">14px · 700</span></div>
+          <div class="type-sample" style="font-size:14px;font-weight:700;line-height:24px">BUTTON MEDIUM</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><span class="label">Btn Lg</span><span class="spec">15px · 700</span></div>
+          <div class="type-sample" style="font-size:15px;font-weight:700;line-height:26px">BUTTON LARGE</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SPACING ───────────────────────────────────────────────────────── -->
+    <section class="section" id="spacing">
+      <div class="section-header">
+        <h2 class="section-title">Spacing</h2>
+        <span class="section-sub">primitives/spacing.json · base 8px</span>
+      </div>
+      <div class="spacing-grid">
+        <div class="spacing-row"><span class="spacing-token">spacing-0.25</span><div class="spacing-bar" style="width:2px;min-width:2px"></div><span class="spacing-value">2px</span></div>
+        <div class="spacing-row"><span class="spacing-token">spacing-0.5</span><div class="spacing-bar" style="width:4px;min-width:4px"></div><span class="spacing-value">4px</span></div>
+        <div class="spacing-row"><span class="spacing-token">spacing-0.75</span><div class="spacing-bar" style="width:6px;min-width:6px"></div><span class="spacing-value">6px</span></div>
+        <div class="spacing-row"><span class="spacing-token">spacing-1</span><div class="spacing-bar" style="width:8px;min-width:8px"></div><span class="spacing-value">8px</span></div>
+        <div class="spacing-row"><span class="spacing-token">spacing-1.5</span><div class="spacing-bar" style="width:12px;min-width:12px"></div><span class="spacing-value">12px</span></div>
+        <div class="spacing-row"><span class="spacing-token">spacing-2</span><div class="spacing-bar" style="width:16px;min-width:16px"></div><span class="spacing-value">16px</span></div>
+        <div class="spacing-row"><span class="spacing-token">spacing-2.5</span><div class="spacing-bar" style="width:20px;min-width:20px"></div><span class="spacing-value">20px</span></div>
+        <div class="spacing-row"><span class="spacing-token">spacing-3</span><div class="spacing-bar" style="width:24px;min-width:24px"></div><span class="spacing-value">24px</span></div>
+        <div class="spacing-row"><span class="spacing-token">spacing-4</span><div class="spacing-bar" style="width:32px;min-width:32px"></div><span class="spacing-value">32px</span></div>
+        <div class="spacing-row"><span class="spacing-token">spacing-5</span><div class="spacing-bar" style="width:40px;min-width:40px"></div><span class="spacing-value">40px</span></div>
+        <div class="spacing-row"><span class="spacing-token">spacing-6</span><div class="spacing-bar" style="width:48px;min-width:48px"></div><span class="spacing-value">48px</span></div>
+        <div class="spacing-row"><span class="spacing-token">spacing-8</span><div class="spacing-bar" style="width:64px;min-width:64px"></div><span class="spacing-value">64px</span></div>
+        <div class="spacing-row"><span class="spacing-token">spacing-10</span><div class="spacing-bar" style="width:80px;min-width:80px"></div><span class="spacing-value">80px</span></div>
+        <div class="spacing-row"><span class="spacing-token">spacing-12</span><div class="spacing-bar" style="width:96px;min-width:96px"></div><span class="spacing-value">96px</span></div>
+        <div class="spacing-row"><span class="spacing-token">spacing-16</span><div class="spacing-bar" style="width:128px;min-width:128px"></div><span class="spacing-value">128px</span></div>
+        <div class="spacing-row"><span class="spacing-token">spacing-20</span><div class="spacing-bar" style="width:160px;min-width:160px"></div><span class="spacing-value">160px</span></div>
+      </div>
+    </section>
+
+    <!-- ── RADIUS ────────────────────────────────────────────────────────── -->
+    <section class="section" id="radius">
+      <div class="section-header">
+        <h2 class="section-title">Border Radius</h2>
+        <span class="section-sub">primitives/radius.json</span>
+      </div>
+      <div class="radius-grid">
+        <div class="radius-card"><div class="radius-box" style="border-radius:4px"></div><div class="radius-name">0.5</div><div class="radius-val">4px</div></div>
+        <div class="radius-card"><div class="radius-box" style="border-radius:6px"></div><div class="radius-name">0.75</div><div class="radius-val">6px</div></div>
+        <div class="radius-card"><div class="radius-box" style="border-radius:8px"></div><div class="radius-name">1</div><div class="radius-val">8px</div></div>
+        <div class="radius-card"><div class="radius-box" style="border-radius:10px"></div><div class="radius-name">1.25</div><div class="radius-val">10px</div></div>
+        <div class="radius-card"><div class="radius-box" style="border-radius:12px"></div><div class="radius-name">1.5</div><div class="radius-val">12px</div></div>
+        <div class="radius-card"><div class="radius-box" style="border-radius:16px"></div><div class="radius-name">2</div><div class="radius-val">16px</div></div>
+        <div class="radius-card"><div class="radius-box" style="border-radius:24px"></div><div class="radius-name">3</div><div class="radius-val">24px</div></div>
+        <div class="radius-card"><div class="radius-box" style="border-radius:32px"></div><div class="radius-name">4</div><div class="radius-val">32px</div></div>
+        <div class="radius-card"><div class="radius-box" style="border-radius:40px"></div><div class="radius-name">5</div><div class="radius-val">40px</div></div>
+        <div class="radius-card"><div class="radius-box" style="border-radius:500px"></div><div class="radius-name">full</div><div class="radius-val">500px</div></div>
+      </div>
+    </section>
+
+    <!-- ── SHADOWS ───────────────────────────────────────────────────────── -->
+    <section class="section" id="shadows">
+      <div class="section-header">
+        <h2 class="section-title">Shadows</h2>
+        <span class="section-sub">styles/effect-styles.json</span>
+      </div>
+      <div class="shadow-grid">
+        <div class="shadow-card"><div class="shadow-box" style="box-shadow:0 1px 2px rgba(145,158,171,.16)"></div><div class="shadow-name">z1</div></div>
+        <div class="shadow-card"><div class="shadow-box" style="box-shadow:0 4px 8px rgba(145,158,171,.16)"></div><div class="shadow-name">z4</div></div>
+        <div class="shadow-card"><div class="shadow-box" style="box-shadow:0 8px 16px rgba(145,158,171,.16)"></div><div class="shadow-name">z8</div></div>
+        <div class="shadow-card"><div class="shadow-box" style="box-shadow:0 12px 24px -4px rgba(145,158,171,.16)"></div><div class="shadow-name">z12</div></div>
+        <div class="shadow-card"><div class="shadow-box" style="box-shadow:0 16px 32px -4px rgba(145,158,171,.16)"></div><div class="shadow-name">z16</div></div>
+        <div class="shadow-card"><div class="shadow-box" style="box-shadow:0 20px 40px -4px rgba(145,158,171,.16)"></div><div class="shadow-name">z20</div></div>
+        <div class="shadow-card"><div class="shadow-box" style="box-shadow:0 24px 48px rgba(145,158,171,.16)"></div><div class="shadow-name">z24</div></div>
+        <div class="shadow-card"><div class="shadow-box" style="box-shadow:0 0 2px rgba(145,158,171,.20),0 12px 24px -4px rgba(145,158,171,.12)"></div><div class="shadow-name">card</div></div>
+        <div class="shadow-card"><div class="shadow-box" style="box-shadow:0 0 2px rgba(145,158,171,.24),-20px 20px 40px -4px rgba(145,158,171,.24)"></div><div class="shadow-name">dropdown</div></div>
+        <div class="shadow-card"><div class="shadow-box" style="box-shadow:0 8px 16px rgba(0,167,111,.24)"></div><div class="shadow-name">primary</div></div>
+        <div class="shadow-card"><div class="shadow-box" style="box-shadow:0 8px 16px rgba(142,51,255,.24)"></div><div class="shadow-name">secondary</div></div>
+        <div class="shadow-card"><div class="shadow-box" style="box-shadow:0 8px 16px rgba(255,86,48,.24)"></div><div class="shadow-name">error</div></div>
+      </div>
+    </section>
+
+    <!-- ── GRADIENTS ─────────────────────────────────────────────────────── -->
+    <section class="section" id="gradients">
+      <div class="section-header">
+        <h2 class="section-title">Gradients</h2>
+        <span class="section-sub">styles/color-styles.json</span>
+      </div>
+      <div class="gradient-grid">
+        <div class="grad-card"><div class="grad-swatch" style="background:linear-gradient(135deg,#5BE49B 0%,#00A76F 100%)"></div><div class="grad-label">Primary Main<div class="grad-value">#5BE49B → #00A76F</div></div></div>
+        <div class="grad-card"><div class="grad-swatch" style="background:linear-gradient(135deg,#00A76F 0%,#007867 100%)"></div><div class="grad-label">Primary Bold<div class="grad-value">#00A76F → #007867</div></div></div>
+        <div class="grad-card"><div class="grad-swatch" style="background:linear-gradient(135deg,#C684FF 0%,#8E33FF 100%)"></div><div class="grad-label">Secondary Main<div class="grad-value">#C684FF → #8E33FF</div></div></div>
+        <div class="grad-card"><div class="grad-swatch" style="background:linear-gradient(135deg,#8E33FF 0%,#5119B7 100%)"></div><div class="grad-label">Secondary Bold<div class="grad-value">#8E33FF → #5119B7</div></div></div>
+        <div class="grad-card"><div class="grad-swatch" style="background:linear-gradient(135deg,#61F3F3 0%,#00B8D9 100%)"></div><div class="grad-label">Info Main<div class="grad-value">#61F3F3 → #00B8D9</div></div></div>
+        <div class="grad-card"><div class="grad-swatch" style="background:linear-gradient(135deg,#77ED8B 0%,#22C55E 100%)"></div><div class="grad-label">Success Main<div class="grad-value">#77ED8B → #22C55E</div></div></div>
+        <div class="grad-card"><div class="grad-swatch" style="background:linear-gradient(135deg,#FFD666 0%,#FFAB00 100%)"></div><div class="grad-label">Warning Main<div class="grad-value">#FFD666 → #FFAB00</div></div></div>
+        <div class="grad-card"><div class="grad-swatch" style="background:linear-gradient(135deg,#FFAC82 0%,#FF5630 100%)"></div><div class="grad-label">Error Main<div class="grad-value">#FFAC82 → #FF5630</div></div></div>
+        <div class="grad-card"><div class="grad-swatch" style="background:linear-gradient(135deg,#FF5630 0%,#B71D18 100%)"></div><div class="grad-label">Error Bold<div class="grad-value">#FF5630 → #B71D18</div></div></div>
+      </div>
+    </section>
+
+    <!-- ── SEMANTIC THEMES ───────────────────────────────────────────────── -->
+    <section class="section" id="themes">
+      <div class="section-header">
+        <h2 class="section-title">Semantic Themes</h2>
+        <span class="section-sub">semantics/themes.json · Light &amp; Dark modes</span>
+      </div>
+
+      <div class="color-group">
+        <div class="color-group-name">Text</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <div style="padding:12px 16px;background:var(--bg-paper);border:1px solid var(--divider);border-radius:var(--r-sm);min-width:120px">
+            <div style="font-size:13px;font-weight:600;color:var(--fg)">Primary</div>
+            <div style="font-size:11px;color:var(--fg-secondary);margin-top:2px">text.primary</div>
+          </div>
+          <div style="padding:12px 16px;background:var(--bg-paper);border:1px solid var(--divider);border-radius:var(--r-sm);min-width:120px">
+            <div style="font-size:13px;font-weight:600;color:var(--fg-secondary)">Secondary</div>
+            <div style="font-size:11px;color:var(--fg-disabled);margin-top:2px">text.secondary</div>
+          </div>
+          <div style="padding:12px 16px;background:var(--bg-paper);border:1px solid var(--divider);border-radius:var(--r-sm);min-width:120px">
+            <div style="font-size:13px;font-weight:600;color:var(--fg-disabled)">Disabled</div>
+            <div style="font-size:11px;color:var(--fg-disabled);margin-top:2px">text.disabled</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="color-group">
+        <div class="color-group-name">Background</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <div style="padding:12px 16px;background:var(--bg);border:1px solid var(--divider);border-radius:var(--r-sm);min-width:120px">
+            <div style="font-size:11px;font-weight:700;color:var(--fg-secondary)">background.default</div>
+          </div>
+          <div style="padding:12px 16px;background:var(--bg-paper);border:1px solid var(--divider);border-radius:var(--r-sm);min-width:120px">
+            <div style="font-size:11px;font-weight:700;color:var(--fg-secondary)">background.paper</div>
+          </div>
+          <div style="padding:12px 16px;background:var(--bg-neutral);border:1px solid var(--divider);border-radius:var(--r-sm);min-width:120px">
+            <div style="font-size:11px;font-weight:700;color:var(--fg-secondary)">background.neutral</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="color-group">
+        <div class="color-group-name">Action States</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <div style="padding:12px 16px;background:var(--action-hover);border:1px solid var(--divider);border-radius:var(--r-sm);min-width:100px;font-size:11px;font-weight:700;color:var(--fg-secondary)">hover</div>
+          <div style="padding:12px 16px;background:rgba(145,158,171,.16);border:1px solid var(--divider);border-radius:var(--r-sm);min-width:100px;font-size:11px;font-weight:700;color:var(--fg-secondary)">selected</div>
+          <div style="padding:12px 16px;background:rgba(145,158,171,.24);border:1px solid var(--divider);border-radius:var(--r-sm);min-width:100px;font-size:11px;font-weight:700;color:var(--fg-secondary)">focus</div>
+          <div style="padding:12px 16px;background:rgba(145,158,171,.20);border:1px solid var(--divider);border-radius:var(--r-sm);min-width:100px;font-size:11px;font-weight:700;color:var(--fg-secondary)">disabled bg</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── EFFECTS ───────────────────────────────────────────────────────── -->
+    <section class="section" id="effects">
+      <div class="section-header">
+        <h2 class="section-title">Effects</h2>
+        <span class="section-sub">styles/effect-styles.json · blur &amp; overlay</span>
+      </div>
+      <div class="effects-row">
+        <div class="effect-card" style="backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px)">
+          <div class="effect-name">blur.paper</div>
+          <div class="effect-desc">blur(40px)</div>
+        </div>
+        <div class="effect-card" style="background:rgba(22,28,36,.80)">
+          <div class="effect-name" style="color:#fff">backdrop</div>
+          <div class="effect-desc" style="color:rgba(255,255,255,.5)">rgba(22,28,36,.80)</div>
+        </div>
+        <div class="effect-card" style="background:rgba(255,255,255,.90);backdrop-filter:blur(8px)">
+          <div class="effect-name">paper blur (light)</div>
+          <div class="effect-desc">rgba(255,255,255,.90)</div>
+        </div>
+        <div class="effect-card" style="background:rgba(33,43,54,.90);backdrop-filter:blur(8px)">
+          <div class="effect-name" style="color:#fff">paper blur (dark)</div>
+          <div class="effect-desc" style="color:rgba(255,255,255,.5)">rgba(33,43,54,.90)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── BUTTONS ───────────────────────────────────────────────────────── -->
+    <section class="section" id="buttons">
+      <div class="section-header">
+        <h2 class="section-title">Buttons</h2>
+        <span class="section-sub">components/index.json · Button · 4 variants · 7 colors · 3 sizes</span>
+      </div>
+
+      <div style="margin-bottom:20px">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:10px">Contained</div>
+        <div class="demo-row">
+          <button class="btn btn-lg btn-contained-primary">Primary Lg</button>
+          <button class="btn btn-md btn-contained-primary">Primary Md</button>
+          <button class="btn btn-sm btn-contained-primary">Primary Sm</button>
+          <button class="btn btn-md btn-contained-secondary">Secondary</button>
+          <button class="btn btn-md btn-contained-error">Error</button>
+          <button class="btn btn-md btn-contained-warning">Warning</button>
+          <button class="btn btn-md btn-disabled">Disabled</button>
+        </div>
+      </div>
+
+      <div style="margin-bottom:20px">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:10px">Outlined / Soft / Text</div>
+        <div class="demo-row">
+          <button class="btn btn-md btn-outlined-primary">Outlined</button>
+          <button class="btn btn-md btn-soft-primary">Soft</button>
+          <button class="btn btn-md btn-text-primary">Text Button</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CHIPS & LABELS ────────────────────────────────────────────────── -->
+    <section class="section" id="chips">
+      <div class="section-header">
+        <h2 class="section-title">Chips &amp; Labels</h2>
+        <span class="section-sub">Chip · 3 variants · Label · 7 colors</span>
+      </div>
+      <div style="margin-bottom:16px">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:10px">Chips</div>
+        <div class="demo-row">
+          <span class="chip chip-filled-primary">Filled Primary</span>
+          <span class="chip chip-outlined-primary">Outlined Primary</span>
+          <span class="chip chip-soft-primary">Soft Primary</span>
+          <span class="chip chip-filled-error">Error</span>
+          <span class="chip chip-outlined-warning">Warning</span>
+          <span class="chip chip-soft-info">Info</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:10px">Labels</div>
+        <div class="label-demo">
+          <span class="label label-default">default</span>
+          <span class="label label-primary">primary</span>
+          <span class="label label-secondary">secondary</span>
+          <span class="label label-success">success</span>
+          <span class="label label-error">error</span>
+          <span class="label label-warning">warning</span>
+          <span class="label label-info">info</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ALERTS ────────────────────────────────────────────────────────── -->
+    <section class="section" id="alerts">
+      <div class="section-header">
+        <h2 class="section-title">Alerts</h2>
+        <span class="section-sub">Alert · 3 variants · 4 severities</span>
+      </div>
+      <div class="alert-demo">
+        <div class="alert alert-filled-error">
+          <span class="alert-icon">✕</span>
+          <div class="alert-body"><div class="alert-title">Error — filled</div><div class="alert-desc">Something went wrong. Please try again.</div></div>
+        </div>
+        <div class="alert alert-filled-warning">
+          <span class="alert-icon">⚠</span>
+          <div class="alert-body"><div class="alert-title">Warning — filled</div><div class="alert-desc">Your session will expire in 5 minutes.</div></div>
+        </div>
+        <div class="alert alert-filled-success">
+          <span class="alert-icon">✓</span>
+          <div class="alert-body"><div class="alert-title">Success — filled</div><div class="alert-desc">Changes saved successfully.</div></div>
+        </div>
+        <div class="alert alert-filled-info">
+          <span class="alert-icon">i</span>
+          <div class="alert-body"><div class="alert-title">Info — filled</div><div class="alert-desc">A new version is available for download.</div></div>
+        </div>
+        <div class="alert alert-soft-error" style="border:1px solid rgba(255,86,48,.24)">
+          <span class="alert-icon">✕</span>
+          <div class="alert-body"><div class="alert-title">Error — soft</div><div class="alert-desc">Soft variant with lighter background.</div></div>
+        </div>
+        <div class="alert alert-soft-success" style="border:1px solid rgba(34,197,94,.24)">
+          <span class="alert-icon">✓</span>
+          <div class="alert-body"><div class="alert-title">Success — soft</div><div class="alert-desc">Soft variant with lighter background.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TEXT FIELDS ───────────────────────────────────────────────────── -->
+    <section class="section" id="textfields">
+      <div class="section-header">
+        <h2 class="section-title">Text Fields</h2>
+        <span class="section-sub">TextField · 3 variants · 2 sizes · 5 states</span>
+      </div>
+      <div class="field-demo">
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <div style="font-size:11px;font-weight:700;color:var(--fg-secondary)">Outlined (default)</div>
+          <div class="field-wrap">
+            <span class="field-label-float">Email address</span>
+            <input class="field-input" type="email" value="user@example.com" placeholder="Email address">
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <div style="font-size:11px;font-weight:700;color:var(--fg-secondary)">Outlined (focused)</div>
+          <div class="field-wrap">
+            <span class="field-label-float">Password</span>
+            <input class="field-input" type="password" value="••••••••" style="border-color:var(--primary-main);box-shadow:0 0 0 2px rgba(0,167,111,.12)">
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <div style="font-size:11px;font-weight:700;color:var(--fg-secondary)">Filled</div>
+          <div style="position:relative">
+            <label style="position:absolute;top:6px;left:12px;font-size:11px;font-weight:500;color:var(--fg-secondary)">Full name</label>
+            <input class="field-input-filled" type="text" value="John Smith">
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <div style="font-size:11px;font-weight:700;color:var(--fg-secondary)">Error state</div>
+          <div class="field-wrap">
+            <span class="field-label-float" style="color:#FF5630">Phone</span>
+            <input class="field-input" type="tel" value="invalid" style="border-color:#FF5630">
+          </div>
+          <div style="font-size:12px;color:#FF5630;padding-left:12px">Invalid phone number</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── COMPONENT INVENTORY ───────────────────────────────────────────── -->
+    <section class="section" id="inventory">
+      <div class="section-header">
+        <h2 class="section-title">Component Inventory</h2>
+        <span class="section-sub">components/index.json · 40+ components</span>
+      </div>
+
+      <div class="comp-category">
+        <div class="comp-category-label">Inputs</div>
+        <div class="comp-grid" id="inputs-grid"></div>
+      </div>
+      <div class="comp-category">
+        <div class="comp-category-label">Data Display</div>
+        <div class="comp-grid" id="display-grid"></div>
+      </div>
+      <div class="comp-category">
+        <div class="comp-category-label">Feedback</div>
+        <div class="comp-grid" id="feedback-grid"></div>
+      </div>
+      <div class="comp-category">
+        <div class="comp-category-label">Navigation</div>
+        <div class="comp-grid" id="nav-grid"></div>
+      </div>
+      <div class="comp-category">
+        <div class="comp-category-label">Surfaces &amp; Utils</div>
+        <div class="comp-grid" id="surfaces-grid"></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+// Theme toggle
+const root = document.documentElement;
+const btn  = document.getElementById('themeBtn');
+function getTheme() {
+  try { return localStorage.getItem('ds-theme') || 'system'; } catch { return 'system'; }
+}
+function setTheme(t) {
+  try { localStorage.setItem('ds-theme', t); } catch {}
+  if (t === 'dark')  { root.setAttribute('data-theme','dark'); }
+  else if (t==='light'){ root.setAttribute('data-theme','light'); }
+  else { root.removeAttribute('data-theme'); }
+}
+setTheme(getTheme());
+btn.addEventListener('click', () => {
+  const cur = getTheme();
+  setTheme(cur === 'dark' ? 'light' : 'dark');
+});
+
+// Active nav link
+const sections = document.querySelectorAll('.section');
+const navLinks  = document.querySelectorAll('nav a');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#'+e.target.id));
+    }
+  });
+}, { threshold: 0.2, rootMargin: '-60px 0px -60% 0px' });
+sections.forEach(s => obs.observe(s));
+
+// Component inventory data
+const components = [
+  {name:'Button',       category:'Inputs',     type:'COMPONENT_SET', variants:180, props:'Variant, Color, Size, State'},
+  {name:'ButtonGroup',  category:'Inputs',     type:'COMPONENT_SET', variants:192, props:'Variant, Color, Size, Vertical'},
+  {name:'Checkbox',     category:'Inputs',     type:'COMPONENT_SET', variants:66,  props:'Color, Size, State, Checked'},
+  {name:'DatePicker',   category:'Inputs',     type:'COMPONENT_SET', variants:8,   props:'Mobile, Type, Landscape'},
+  {name:'Fab',          category:'Inputs',     type:'COMPONENT_SET', variants:306, props:'Style, Variant, Size, Color'},
+  {name:'FormHelperText',category:'Inputs',    type:'COMPONENT_SET', variants:4,   props:'State, Icon'},
+  {name:'IconButton',   category:'Inputs',     type:'COMPONENT_SET', variants:68,  props:'Color, Size, State'},
+  {name:'Radio',        category:'Inputs',     type:'COMPONENT_SET', variants:36,  props:'Color, Size, State'},
+  {name:'Rating',       category:'Inputs',     type:'COMPONENT_SET', variants:36,  props:'Size, Checked, State'},
+  {name:'Slider',       category:'Inputs',     type:'COMPONENT_SET', variants:4,   props:'Size, State, Range'},
+  {name:'Switch',       category:'Inputs',     type:'COMPONENT_SET', variants:48,  props:'Color, Size, State'},
+  {name:'TextField',    category:'Inputs',     type:'COMPONENT_SET', variants:60,  props:'Variant, Size, State'},
+  {name:'Textarea',     category:'Inputs',     type:'COMPONENT_SET', variants:30,  props:'Variant, State'},
+  {name:'ToggleButton', category:'Inputs',     type:'COMPONENT_SET', variants:60,  props:'Color, Size, State'},
+  {name:'ToggleButtonGroup',category:'Inputs', type:'COMPONENT_SET', variants:24,  props:'Buttons, Size, Vertical'},
+  {name:'Upload',       category:'Inputs',     type:'COMPONENT_SET', variants:12,  props:'Variant, State'},
+  {name:'Avatar',       category:'Data Display',type:'COMPONENT_SET',variants:24,  props:'Variant, Size'},
+  {name:'AvatarGroup',  category:'Data Display',type:'COMPONENT_SET',variants:6,   props:'Size, Compact'},
+  {name:'Badge',        category:'Data Display',type:'COMPONENT_SET',variants:14,  props:'Variant, Color'},
+  {name:'BadgeStatus',  category:'Data Display',type:'COMPONENT_SET',variants:12,  props:'Size, Status'},
+  {name:'Chip',         category:'Data Display',type:'COMPONENT_SET',variants:48,  props:'Variant, Color, Size'},
+  {name:'Divider',      category:'Data Display',type:'COMPONENT_SET',variants:4,   props:'Vertical, Dashed'},
+  {name:'Label',        category:'Data Display',type:'COMPONENT_SET',variants:21,  props:'Variant, Color'},
+  {name:'List',         category:'Data Display',type:'COMPONENT',    variants:null, props:''},
+  {name:'ListItem',     category:'Data Display',type:'COMPONENT_SET',variants:4,   props:'State'},
+  {name:'Table',        category:'Data Display',type:'COMPONENT_SET',variants:null, props:'TableCell, Pagination'},
+  {name:'Timeline',     category:'Data Display',type:'COMPONENT_SET',variants:12,  props:'Variant, Align'},
+  {name:'Tooltip',      category:'Data Display',type:'COMPONENT_SET',variants:5,   props:'Direction'},
+  {name:'Alert',        category:'Feedback',   type:'COMPONENT_SET', variants:12,  props:'Variant, Severity'},
+  {name:'CircularProgress',category:'Feedback',type:'COMPONENT_SET',variants:7,   props:'Color'},
+  {name:'Dialog',       category:'Feedback',   type:'COMPONENT_SET', variants:null, props:'Title + Actions'},
+  {name:'LinearProgress',category:'Feedback',  type:'COMPONENT_SET', variants:7,   props:'Color'},
+  {name:'Snackbar',     category:'Feedback',   type:'COMPONENT_SET', variants:5,   props:'Severity'},
+  {name:'Breadcrumb',   category:'Navigation', type:'COMPONENT_SET', variants:6,   props:'Mobile, Links'},
+  {name:'Menu',         category:'Navigation', type:'COMPONENT',     variants:null, props:''},
+  {name:'MenuItem',     category:'Navigation', type:'COMPONENT_SET', variants:5,   props:'State, Selected'},
+  {name:'Pagination',   category:'Navigation', type:'COMPONENT_SET', variants:54,  props:'Variant, Color, Size, Shape'},
+  {name:'Stepper (H)',  category:'Navigation', type:'COMPONENT_SET', variants:24,  props:'Align, State, Variant'},
+  {name:'Stepper (V)',  category:'Navigation', type:'COMPONENT_SET', variants:3,   props:'State'},
+  {name:'Tabs',         category:'Navigation', type:'COMPONENT_SET', variants:6,   props:'Mobile, Items'},
+  {name:'Accordion',    category:'Surfaces',   type:'COMPONENT_SET', variants:3,   props:'State, Expanded'},
+  {name:'CardHeader',   category:'Surfaces',   type:'COMPONENT_SET', variants:2,   props:'Mobile'},
+  {name:'Paper',        category:'Surfaces',   type:'COMPONENT',     variants:null, props:''},
+  {name:'Backdrop',     category:'Surfaces',   type:'COMPONENT',     variants:null, props:''},
+  {name:'Carousel',     category:'Surfaces',   type:'COMPONENT_SET', variants:7,   props:'Variant'},
+  {name:'Image',        category:'Surfaces',   type:'COMPONENT_SET', variants:29,  props:'Aspect ratio, Overlay'},
+  {name:'Overlay',      category:'Surfaces',   type:'COMPONENT_SET', variants:5,   props:'Variant'},
+  {name:'Scroll',       category:'Surfaces',   type:'COMPONENT_SET', variants:2,   props:'Horizontal'},
+];
+
+const grids = {
+  'Inputs':       document.getElementById('inputs-grid'),
+  'Data Display': document.getElementById('display-grid'),
+  'Feedback':     document.getElementById('feedback-grid'),
+  'Navigation':   document.getElementById('nav-grid'),
+  'Surfaces':     document.getElementById('surfaces-grid'),
+};
+
+components.forEach(c => {
+  const grid = grids[c.category];
+  if (!grid) return;
+  const card = document.createElement('div');
+  card.className = 'comp-card';
+  card.innerHTML = `
+    <div class="comp-name">${c.name}</div>
+    <div class="comp-meta">
+      <span class="comp-tag ${c.type === 'COMPONENT_SET' ? 'set' : ''}">${c.type === 'COMPONENT_SET' ? 'Set' : 'Component'}</span>
+      ${c.variants ? `<span class="comp-tag">${c.variants} variants</span>` : ''}
+    </div>
+    ${c.props ? `<div class="comp-variants">${c.props}</div>` : ''}
+  `;
+  grid.appendChild(card);
+});
+</script>
