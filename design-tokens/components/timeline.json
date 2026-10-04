@@ -1,0 +1,38 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "collection": "[Components] Timeline",
+    "figmaId": "91:579",
+    "exportedAt": "2026-10-02"
+  },
+  "timeline": {
+    "item": {
+      "minHeight":     { "$type": "dimension", "$value": "70px" },
+      "paddingLeft":   { "$type": "dimension", "$value": "16px" },
+      "paddingRight":  { "$type": "dimension", "$value": "16px" }
+    },
+    "dot": {
+      "size":           { "$type": "dimension", "$value": "12px" },
+      "outlinedBorder": { "$type": "dimension", "$value": "2px" },
+      "filledSize":     { "$type": "dimension", "$value": "12px" },
+      "iconSize":       { "$type": "dimension", "$value": "20px" },
+      "iconPadding":    { "$type": "dimension", "$value": "4px" },
+      "iconBoxSize":    { "$type": "dimension", "$value": "40px" }
+    },
+    "connector": {
+      "width":    { "$type": "dimension", "$value": "2px" },
+      "minHeight": { "$type": "dimension", "$value": "24px" }
+    },
+    "content": {
+      "paddingTop":    { "$type": "dimension", "$value": "6px" },
+      "paddingBottom": { "$type": "dimension", "$value": "16px" },
+      "paddingX":      { "$type": "dimension", "$value": "16px" }
+    },
+    "oppositeContent": {
+      "paddingTop":    { "$type": "dimension", "$value": "6px" },
+      "paddingBottom": { "$type": "dimension", "$value": "16px" },
+      "paddingX":      { "$type": "dimension", "$value": "16px" }
+    },
+    "separatorWidth": { "$type": "dimension", "$value": "12px" }
+  }
+}

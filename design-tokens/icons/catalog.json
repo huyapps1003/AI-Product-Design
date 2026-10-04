@@ -1,0 +1,262 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Iconify / MUI Icons",
+    "collection": "[Icons] Catalog",
+    "exportedAt": "2026-10-04",
+    "$description": "Icon catalog organized by category. Name = the icon identifier used in the codebase. AI should reference these exact names when specifying icons in generated screens."
+  },
+  "sizes": {
+    "xs":  { "$value": "16px" },
+    "sm":  { "$value": "20px" },
+    "md":  { "$value": "24px" },
+    "lg":  { "$value": "32px" },
+    "xl":  { "$value": "40px" }
+  },
+  "defaultSize": "24px",
+  "categories": {
+    "navigation": {
+      "description": "App navigation, menus, and routing",
+      "icons": [
+        "home", "home-outline",
+        "menu", "menu-open",
+        "close", "close-circle",
+        "arrow-left", "arrow-right", "arrow-up", "arrow-down",
+        "chevron-left", "chevron-right", "chevron-up", "chevron-down",
+        "expand-more", "expand-less",
+        "unfold-more", "unfold-less",
+        "first-page", "last-page",
+        "navigate-before", "navigate-next",
+        "breadcrumb-separator",
+        "sidebar", "sidebar-open", "sidebar-close",
+        "grid-view", "view-list", "view-module",
+        "dashboard", "layers", "widgets"
+      ]
+    },
+    "actions": {
+      "description": "User actions and operations",
+      "icons": [
+        "add", "add-circle", "add-circle-outline",
+        "remove", "remove-circle",
+        "edit", "edit-outline",
+        "delete", "delete-outline", "delete-forever",
+        "save", "save-outline",
+        "copy", "content-copy",
+        "cut", "content-cut",
+        "paste", "content-paste",
+        "undo", "redo",
+        "refresh", "sync", "sync-disabled",
+        "search", "search-off",
+        "filter", "filter-list", "filter-alt",
+        "sort", "swap-vert",
+        "drag-indicator", "drag-handle",
+        "more-vert", "more-horiz",
+        "open-in-new", "launch",
+        "link", "link-off",
+        "share", "download", "upload",
+        "print", "qr-code", "barcode",
+        "fullscreen", "fullscreen-exit",
+        "zoom-in", "zoom-out",
+        "pin", "push-pin",
+        "bookmark", "bookmark-outline",
+        "star", "star-outline", "star-half",
+        "heart", "heart-outline",
+        "thumb-up", "thumb-down",
+        "flag", "flag-outline",
+        "report", "report-outline",
+        "lock", "lock-open", "lock-outline",
+        "visibility", "visibility-off",
+        "check", "check-circle", "check-circle-outline",
+        "close", "cancel", "cancel-outline",
+        "done-all",
+        "select-all",
+        "settings", "tune", "manage-accounts"
+      ]
+    },
+    "communication": {
+      "description": "Messaging, notifications, and social",
+      "icons": [
+        "mail", "mail-outline",
+        "inbox", "outbox", "send", "drafts",
+        "reply", "reply-all", "forward",
+        "chat", "chat-bubble", "chat-bubble-outline",
+        "message", "message-outline",
+        "comment", "comment-outline",
+        "forum", "question-answer",
+        "call", "call-end", "call-missed",
+        "phone", "phone-outline",
+        "video-call", "videocam", "videocam-off",
+        "notifications", "notifications-outline",
+        "notifications-off", "notifications-paused",
+        "notification-important",
+        "announcement", "campaign",
+        "email", "alternate-email",
+        "contact-mail", "contact-phone",
+        "contacts", "person-add", "group-add",
+        "broadcast", "rss-feed",
+        "support-agent", "headset-mic"
+      ]
+    },
+    "content": {
+      "description": "Documents, media, and data content",
+      "icons": [
+        "article", "article-outline",
+        "description", "description-outline",
+        "assignment", "assignment-outline",
+        "note", "note-outline", "sticky-note",
+        "notes", "format-list-bulleted", "format-list-numbered",
+        "folder", "folder-open", "folder-outline",
+        "folder-shared", "folder-special",
+        "file", "file-outline",
+        "image", "image-outline",
+        "photo", "photo-library",
+        "video", "video-library",
+        "audio", "audiotrack", "music-note",
+        "attach-file", "attachment", "paperclip",
+        "link", "insert-link",
+        "text-fields", "title", "short-text",
+        "format-bold", "format-italic", "format-underlined",
+        "format-strikethrough", "format-clear",
+        "format-align-left", "format-align-center", "format-align-right",
+        "format-quote", "code", "code-block",
+        "table-chart", "insert-chart", "bar-chart", "pie-chart",
+        "trending-up", "trending-down", "trending-flat",
+        "insights", "analytics", "assessment"
+      ]
+    },
+    "user": {
+      "description": "User profile, accounts, and people",
+      "icons": [
+        "person", "person-outline",
+        "person-add", "person-remove",
+        "account-circle", "account-box",
+        "manage-accounts",
+        "group", "group-add", "group-remove", "groups",
+        "people", "people-outline",
+        "badge", "id-card",
+        "admin-panel-settings",
+        "verified-user", "gpp-good", "gpp-bad",
+        "supervisor-account",
+        "switch-account",
+        "how-to-reg", "no-accounts"
+      ]
+    },
+    "status": {
+      "description": "Feedback, alerts, and system states",
+      "icons": [
+        "info", "info-outline",
+        "warning", "warning-outline",
+        "error", "error-outline",
+        "help", "help-outline",
+        "new-releases",
+        "check-circle", "check-circle-outline",
+        "cancel", "cancel-outline",
+        "do-not-disturb", "do-not-disturb-off",
+        "block", "not-interested",
+        "pending", "pending-actions",
+        "schedule", "access-time", "access-alarm",
+        "timer", "timer-off",
+        "hourglass-empty", "hourglass-top", "hourglass-bottom",
+        "loop", "autorenew",
+        "cloud-done", "cloud-off", "cloud-sync",
+        "wifi", "wifi-off",
+        "signal-cellular", "signal-wifi"
+      ]
+    },
+    "ecommerce": {
+      "description": "Shopping, payments, and commerce",
+      "icons": [
+        "shopping-cart", "add-shopping-cart", "remove-shopping-cart",
+        "shopping-bag", "storefront",
+        "local-mall", "local-offer", "sell",
+        "payment", "credit-card", "credit-card-off",
+        "account-balance", "account-balance-wallet",
+        "attach-money", "money", "currency-exchange",
+        "receipt", "receipt-long",
+        "price-tag", "discount",
+        "loyalty", "redeem", "card-giftcard",
+        "inventory", "inventory-2",
+        "package", "local-shipping",
+        "delivery-dining", "directions-car",
+        "category"
+      ]
+    },
+    "data": {
+      "description": "Data management, storage, and files",
+      "icons": [
+        "database", "storage",
+        "cloud", "cloud-upload", "cloud-download",
+        "backup", "restore",
+        "import-export", "import", "export",
+        "data-usage", "data-array", "data-object",
+        "table-rows", "view-column",
+        "pivot-table-chart",
+        "functions", "calculate",
+        "format-list-bulleted-add",
+        "merge", "call-split",
+        "compress", "expand",
+        "archive", "unarchive"
+      ]
+    },
+    "settings": {
+      "description": "Configuration, preferences, and system",
+      "icons": [
+        "settings", "settings-suggest",
+        "settings-applications",
+        "settings-backup-restore",
+        "settings-brightness",
+        "settings-accessibility",
+        "tune", "display-settings",
+        "manage-search",
+        "build", "build-circle",
+        "construction", "handyman",
+        "developer-mode", "integration-instructions",
+        "api", "webhook",
+        "key", "vpn-key",
+        "fingerprint", "face-retouching-natural",
+        "dark-mode", "light-mode",
+        "palette", "format-color-fill",
+        "language", "translate",
+        "accessibility", "accessibility-new",
+        "privacy-tip", "policy",
+        "security", "enhanced-encryption",
+        "do-not-disturb", "notifications-active"
+      ]
+    },
+    "layout": {
+      "description": "UI layout patterns and composition",
+      "icons": [
+        "grid-on", "grid-off",
+        "view-agenda", "view-array",
+        "view-carousel", "view-column",
+        "view-comfy", "view-compact",
+        "view-day", "view-headline",
+        "view-kanban", "view-list",
+        "view-module", "view-quilt",
+        "view-sidebar", "view-stream",
+        "view-week",
+        "splitscreen", "aspect-ratio",
+        "crop-square", "crop-landscape", "crop-portrait",
+        "space-bar", "horizontal-rule",
+        "vertical-split", "horizontal-split"
+      ]
+    },
+    "media": {
+      "description": "Audio/video playback controls",
+      "icons": [
+        "play-arrow", "pause", "stop",
+        "skip-next", "skip-previous",
+        "fast-forward", "fast-rewind",
+        "replay", "replay-10", "replay-30",
+        "forward-10", "forward-30",
+        "volume-up", "volume-down", "volume-mute", "volume-off",
+        "mic", "mic-off",
+        "camera", "camera-alt", "camera-front",
+        "flip-camera-android",
+        "screen-rotation", "picture-in-picture",
+        "playlist-add", "playlist-play",
+        "queue-music", "radio",
+        "subtitles", "closed-caption"
+      ]
+    }
+  }
+}

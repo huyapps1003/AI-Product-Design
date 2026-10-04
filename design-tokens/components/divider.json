@@ -1,0 +1,21 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "collection": "[Components] Divider",
+    "figmaId": "201:90455",
+    "exportedAt": "2026-10-02"
+  },
+  "divider": {
+    "thickness": { "$type": "dimension", "$value": "1px" },
+    "insetLeft":  { "$type": "dimension", "$value": "16px", "$description": "refs spacing-2" },
+    "middleMarginX": { "$type": "dimension", "$value": "16px", "$description": "refs spacing-2" },
+    "textPaddingX":  { "$type": "dimension", "$value": "8px", "$description": "refs spacing-1" },
+    "dashed": {
+      "dashLength":  { "$type": "dimension", "$value": "8px" },
+      "gapLength":   { "$type": "dimension", "$value": "4px" }
+    },
+    "vertical": {
+      "minHeight": { "$type": "dimension", "$value": "100%", "$description": "Stretches to container height" }
+    }
+  }
+}

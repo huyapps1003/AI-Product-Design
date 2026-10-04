@@ -1,0 +1,49 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "collection": "[Components] Slider",
+    "figmaId": "199:1278",
+    "exportedAt": "2026-10-02"
+  },
+  "slider": {
+    "rail": {
+      "height": {
+        "medium": { "$type": "dimension", "$value": "4px" },
+        "small":  { "$type": "dimension", "$value": "2px" }
+      },
+      "radius": { "$type": "dimension", "$value": "500px", "$description": "refs radius-full" },
+      "opacity": { "$type": "number", "$value": 0.38 }
+    },
+    "track": {
+      "height": {
+        "medium": { "$type": "dimension", "$value": "4px" },
+        "small":  { "$type": "dimension", "$value": "2px" }
+      }
+    },
+    "thumb": {
+      "size": {
+        "medium": { "$type": "dimension", "$value": "20px" },
+        "small":  { "$type": "dimension", "$value": "16px" }
+      },
+      "hoverShadowSize": { "$type": "dimension", "$value": "6px" },
+      "activeShadowSize": { "$type": "dimension", "$value": "9px" }
+    },
+    "mark": {
+      "width":  { "$type": "dimension", "$value": "2px" },
+      "height": { "$type": "dimension", "$value": "8px" },
+      "activeOpacity": { "$type": "number", "$value": 0.8 }
+    },
+    "markLabel": {
+      "marginTop":  { "$type": "dimension", "$value": "14px" },
+      "fontSize":   { "$type": "dimension", "$value": "12px" },
+      "fontWeight": { "$type": "number",    "$value": 400 }
+    },
+    "valueLabel": {
+      "paddingX":   { "$type": "dimension", "$value": "8px" },
+      "paddingY":   { "$type": "dimension", "$value": "4px" },
+      "fontSize":   { "$type": "dimension", "$value": "12px" },
+      "fontWeight": { "$type": "number",    "$value": 700 }
+    },
+    "touchTarget":   { "$type": "dimension", "$value": "42px" }
+  }
+}

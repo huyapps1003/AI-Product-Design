@@ -1,0 +1,83 @@
+{
+  "$metadata": { "collection": "[Patterns] Chart Card", "exportedAt": "2026-10-04" },
+  "pattern": {
+    "name": "chart-card",
+    "description": "Card wrapping a chart with title, optional legend, period selector, and summary metric",
+    "category": "data",
+    "layout": { "container": "Card", "variant": "elevation", "elevation": 0, "border": "1px solid {divider}", "padding": "24px" },
+    "slots": [
+      {
+        "slot": "header",
+        "layout": "flex row space-between align-start mb-24",
+        "children": [
+          {
+            "slot": "left",
+            "layout": "flex column gap-4",
+            "children": [
+              { "slot": "title", "component": "Typography", "variant": "h6" },
+              { "slot": "subtitle", "component": "Typography", "variant": "body2", "color": "text.secondary", "optional": true }
+            ]
+          },
+          {
+            "slot": "right",
+            "optional": true,
+            "children": [
+              {
+                "slot": "period-toggle",
+                "component": "ToggleButtonGroup",
+                "exclusive": true, "size": "small",
+                "options": ["Week", "Month", "Year"]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "slot": "summary",
+        "optional": true,
+        "layout": "flex row gap-24 mb-32",
+        "children": [
+          {
+            "slot": "metric",
+            "layout": "flex column",
+            "children": [
+              { "component": "Typography", "variant": "h4", "fontWeight": 700 },
+              { "component": "Typography", "variant": "caption", "color": "text.secondary" }
+            ]
+          }
+        ]
+      },
+      {
+        "slot": "chart",
+        "height": "320px",
+        "chartTypes": ["LineChart", "AreaChart", "BarChart", "DonutChart"],
+        "colors": ["{palette.primary.main}", "{palette.warning.main}", "{palette.error.main}", "{palette.info.main}"],
+        "gridLines": true,
+        "tooltip": true
+      },
+      {
+        "slot": "legend",
+        "optional": true,
+        "layout": "flex row gap-16 mt-16 justify-center",
+        "item": {
+          "layout": "flex row gap-6 align-center",
+          "children": [
+            { "component": "Box", "size": "10px", "borderRadius": "50%", "bg": "series-color" },
+            { "component": "Typography", "variant": "caption", "color": "text.secondary" }
+          ]
+        }
+      }
+    ],
+    "tokens": {
+      "spacing": { "padding": "spacing.3 (24px)", "headerMb": "spacing.3 (24px)", "summaryMb": "spacing.4 (32px)" },
+      "typography": { "title": "h6", "subtitle": "body2 secondary", "metric": "h4 700w", "legend": "caption" },
+      "colors": { "series": ["primary.main", "warning.main", "error.main", "info.main"] }
+    },
+    "variants": [
+      { "name": "filled-area", "change": { "chart.fill": true, "chart.type": "AreaChart", "fillOpacity": 0.16 } },
+      { "name": "donut", "change": { "chart.type": "DonutChart", "chart.height": "280px", "legend.position": "bottom" } },
+      { "name": "bar", "change": { "chart.type": "BarChart", "chart.barRadius": "4px" } }
+    ],
+    "usage": "Use in 8/12 + 4/12 column splits on dashboard. One chart type per card. Keep period toggles ≤ 3 options."
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "$metadata": { "collection": "[Patterns] Sidebar Nav", "exportedAt": "2026-10-04" },
+  "pattern": {
+    "name": "sidebar-nav",
+    "description": "Persistent left navigation: logo, grouped nav items with icons, user account at bottom",
+    "category": "navigation",
+    "layout": {
+      "container": "Drawer",
+      "variant": "persistent",
+      "anchor": "left",
+      "paper": { "width": "{layout.sidebar.widthExpanded (280px)}", "borderRight": "1px solid {divider}", "bg": "{background.default}" }
+    },
+    "slots": [
+      {
+        "slot": "logo-area",
+        "height": "64px",
+        "padding": "0 20px",
+        "layout": "flex row align-center gap-12",
+        "borderBottom": "1px solid {divider}",
+        "children": [
+          { "slot": "logo-icon", "size": "32px" },
+          { "slot": "logo-text", "component": "Typography", "variant": "h6", "fontWeight": 800 }
+        ]
+      },
+      {
+        "slot": "nav-content",
+        "flex": 1,
+        "overflowY": "auto",
+        "padding": "16px 12px",
+        "layout": "flex column gap-4",
+        "children": [
+          {
+            "slot": "nav-group",
+            "layout": "flex column",
+            "mb": "8px",
+            "children": [
+              {
+                "slot": "group-label",
+                "component": "Typography",
+                "variant": "overline",
+                "color": "text.disabled",
+                "padding": "8px 12px",
+                "optional": true
+              },
+              {
+                "slot": "nav-item",
+                "component": "ListItemButton",
+                "borderRadius": "{radius.r1 (8px)}",
+                "padding": "8px 12px",
+                "states": {
+                  "default": { "color": "text.secondary", "bg": "transparent" },
+                  "hover":   { "bg": "{action.hover}", "color": "text.primary" },
+                  "active":  { "bg": "{primary.lighter}", "color": "{primary.main}", "fontWeight": 600 }
+                },
+                "children": [
+                  { "slot": "icon", "component": "SvgIcon", "size": "22px", "mr": "12px" },
+                  { "slot": "label", "component": "Typography", "variant": "body2", "fontWeight": "inherit" },
+                  { "slot": "badge", "component": "Badge", "variant": "standard", "color": "error", "optional": true }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "slot": "user-area",
+        "borderTop": "1px solid {divider}",
+        "padding": "16px 12px",
+        "layout": "flex row align-center gap-12",
+        "cursor": "pointer",
+        "hover": { "bg": "{action.hover}", "borderRadius": "{radius.r1}" },
+        "children": [
+          { "slot": "avatar", "component": "Avatar", "size": "medium", "variant": "circular" },
+          {
+            "slot": "user-info",
+            "flex": 1,
+            "children": [
+              { "component": "Typography", "variant": "subtitle2", "fontWeight": 600 },
+              { "component": "Typography", "variant": "caption", "color": "text.secondary" }
+            ]
+          },
+          { "slot": "more", "component": "SvgIcon", "name": "more-vert", "size": "18px", "color": "text.disabled" }
+        ]
+      }
+    ],
+    "collapsed": {
+      "width": "{layout.sidebar.widthCollapsed (88px)}",
+      "showLabels": false,
+      "navItem": { "justifyContent": "center", "padding": "10px" },
+      "tooltip": { "component": "Tooltip", "placement": "right", "title": "{nav-item.label}" }
+    },
+    "tokens": {
+      "spacing": { "itemPadding": "8px 12px", "iconMr": "spacing.1.5 (12px)", "sectionPadding": "spacing.2 (16px) spacing.1.5 (12px)" },
+      "sizing": { "logoAreaHeight": "layout.header.height (64px)", "iconSize": "22px" },
+      "colors": { "activeItemBg": "primary.lighter", "activeItemColor": "primary.main" }
+    },
+    "usage": "One per app. Expanded (280px) on desktop, collapsible to icon-only (88px). Mobile: use temporary Drawer variant instead."
+  }
+}

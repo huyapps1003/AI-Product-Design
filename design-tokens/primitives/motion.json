@@ -1,0 +1,51 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — MUI standard",
+    "collection": "[Primitives] Motion",
+    "exportedAt": "2026-10-04"
+  },
+  "duration": {
+    "shortest":      { "$type": "duration", "$value": "150ms", "$description": "Micro interactions (toggle, checkbox, radio)" },
+    "shorter":       { "$type": "duration", "$value": "200ms", "$description": "Simple fade / color transitions" },
+    "short":         { "$type": "duration", "$value": "250ms", "$description": "Small element enter/exit" },
+    "standard":      { "$type": "duration", "$value": "300ms", "$description": "Default — most component transitions" },
+    "complex":       { "$type": "duration", "$value": "375ms", "$description": "Multi-step or layout transitions" },
+    "enteringScreen":{ "$type": "duration", "$value": "225ms", "$description": "Element entering the viewport" },
+    "leavingScreen": { "$type": "duration", "$value": "195ms", "$description": "Element leaving the viewport (slightly faster)" }
+  },
+  "easing": {
+    "easeInOut": {
+      "$type": "cubicBezier",
+      "$value": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "$description": "Standard — elements moving within the screen"
+    },
+    "easeOut": {
+      "$type": "cubicBezier",
+      "$value": "cubic-bezier(0.0, 0, 0.2, 1)",
+      "$description": "Decelerate — elements entering from off-screen"
+    },
+    "easeIn": {
+      "$type": "cubicBezier",
+      "$value": "cubic-bezier(0.4, 0, 1, 1)",
+      "$description": "Accelerate — elements leaving to off-screen"
+    },
+    "sharp": {
+      "$type": "cubicBezier",
+      "$value": "cubic-bezier(0.4, 0, 0.6, 1)",
+      "$description": "Snap — temporary expansions (drawer peek, accordion)"
+    },
+    "spring": {
+      "$type": "cubicBezier",
+      "$value": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+      "$description": "Bouncy spring — FAB scale, popover appear"
+    }
+  },
+  "transition": {
+    "button":    { "$type": "string", "$value": "background-color 250ms cubic-bezier(0.4,0,0.2,1), box-shadow 250ms cubic-bezier(0.4,0,0.2,1), border-color 250ms cubic-bezier(0.4,0,0.2,1), color 250ms cubic-bezier(0.4,0,0.2,1)" },
+    "fade":      { "$type": "string", "$value": "opacity 200ms cubic-bezier(0.4,0,0.2,1)" },
+    "collapse":  { "$type": "string", "$value": "height 300ms cubic-bezier(0.4,0,0.2,1)" },
+    "slide":     { "$type": "string", "$value": "transform 225ms cubic-bezier(0.0,0,0.2,1)" },
+    "grow":      { "$type": "string", "$value": "transform 225ms cubic-bezier(0.4,0,0.2,1), opacity 225ms cubic-bezier(0.4,0,0.2,1)" },
+    "ripple":    { "$type": "string", "$value": "transform 550ms cubic-bezier(0.4,0,0.2,1), opacity 400ms cubic-bezier(0.4,0,0.2,1)" }
+  }
+}

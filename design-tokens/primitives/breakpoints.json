@@ -1,0 +1,20 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — MUI standard",
+    "collection": "[Primitives] Breakpoints",
+    "exportedAt": "2026-10-04"
+  },
+  "breakpoints": {
+    "xs": { "$type": "dimension", "$value": "0px",    "$description": "Extra-small — phones portrait" },
+    "sm": { "$type": "dimension", "$value": "600px",  "$description": "Small — phones landscape / tablets portrait" },
+    "md": { "$type": "dimension", "$value": "900px",  "$description": "Medium — tablets landscape / small laptops" },
+    "lg": { "$type": "dimension", "$value": "1200px", "$description": "Large — desktops" },
+    "xl": { "$type": "dimension", "$value": "1536px", "$description": "Extra-large — wide monitors" }
+  },
+  "containerMaxWidth": {
+    "sm":  { "$type": "dimension", "$value": "600px" },
+    "md":  { "$type": "dimension", "$value": "900px" },
+    "lg":  { "$type": "dimension", "$value": "1200px" },
+    "xl":  { "$type": "dimension", "$value": "1536px" }
+  }
+}

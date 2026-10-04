@@ -1,0 +1,69 @@
+{
+  "$metadata": { "collection": "[Patterns] Data Table", "exportedAt": "2026-10-04" },
+  "pattern": {
+    "name": "data-table",
+    "description": "Full-featured data table: toolbar, sortable headers, row actions, pagination",
+    "category": "data",
+    "layout": { "container": "Card", "variant": "elevation", "elevation": 0, "border": "1px solid {divider}" },
+    "slots": [
+      {
+        "slot": "toolbar",
+        "component": "Box",
+        "padding": "16px 8px 16px 20px",
+        "layout": "flex row align-center",
+        "height": "64px",
+        "children": [
+          { "slot": "title", "component": "Typography", "variant": "h6", "flex": 1 },
+          { "slot": "search", "component": "TextField", "size": "small", "startAdornment": "search", "width": "200px", "optional": true },
+          { "slot": "filter-btn", "component": "IconButton", "icon": "filter-list", "optional": true },
+          { "slot": "more-btn", "component": "IconButton", "icon": "more-vert", "optional": true }
+        ]
+      },
+      {
+        "slot": "table",
+        "component": "Table",
+        "size": "medium",
+        "stickyHeader": false,
+        "head": {
+          "component": "TableHead",
+          "row": {
+            "cells": [
+              { "type": "checkbox", "component": "Checkbox", "optional": true },
+              { "type": "data", "component": "TableSortLabel", "fontWeight": 600, "color": "text.secondary" }
+            ]
+          }
+        },
+        "body": {
+          "component": "TableBody",
+          "row": {
+            "hover": true,
+            "selected": "background: {action.selected}",
+            "cells": [
+              { "type": "checkbox", "optional": true },
+              { "type": "primary", "fontWeight": 500 },
+              { "type": "secondary", "color": "text.secondary" },
+              { "type": "status", "component": "Label", "variant": "soft" },
+              { "type": "actions", "component": "IconButton", "icon": "more-vert", "size": "small" }
+            ]
+          }
+        }
+      },
+      {
+        "slot": "pagination",
+        "component": "TablePagination",
+        "rowsPerPageOptions": [5, 10, 25],
+        "borderTop": "1px solid {divider}"
+      }
+    ],
+    "tokens": {
+      "sizing": { "toolbarHeight": "table.toolbarHeight (64px)", "rowHeight": "table.rowHeight.default (53px)", "denseRow": "table.rowHeight.dense (45px)", "cellPadding": "table.cellPadding.default (16px)" },
+      "typography": { "title": "h6", "head": "body2 600w", "cell": "body2" }
+    },
+    "variants": [
+      { "name": "dense", "change": { "table.size": "small", "rowHeight": "table.rowHeight.dense (45px)", "cellPadding": "table.cellPadding.dense (8px)" } },
+      { "name": "with-selection", "add": { "toolbar-when-selected": { "bg": "{primary.lighter}", "children": ["n selected label", "delete-btn", "more-btn"] } } },
+      { "name": "no-toolbar", "remove": ["toolbar"] }
+    ],
+    "usage": "For structured data with ≥3 columns. Use card-grid instead for image-heavy or summary-style records."
+  }
+}

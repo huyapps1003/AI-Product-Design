@@ -1,0 +1,23 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "collection": "[Components] BadgeStatus",
+    "figmaId": "1607:127908",
+    "note": "Custom component — online/offline/away/busy status indicators",
+    "exportedAt": "2026-10-02"
+  },
+  "badgeStatus": {
+    "size": {
+      "large":  { "$type": "dimension", "$value": "12px", "$description": "refs badge.statusSize.large" },
+      "medium": { "$type": "dimension", "$value": "10px", "$description": "refs badge.statusSize.medium" },
+      "small":  { "$type": "dimension", "$value": "8px",  "$description": "refs badge.statusSize.small" }
+    },
+    "borderWidth": { "$type": "dimension", "$value": "2px" },
+    "colors": {
+      "online":  { "$type": "color", "$value": "#22C55E", "$description": "refs success.main" },
+      "offline": { "$type": "color", "$value": "#919EAB", "$description": "refs grey.500" },
+      "away":    { "$type": "color", "$value": "#FFAB00", "$description": "refs warning.main" },
+      "busy":    { "$type": "color", "$value": "#FF5630", "$description": "refs error.main" }
+    }
+  }
+}

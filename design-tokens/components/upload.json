@@ -1,0 +1,38 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "collection": "[Components] Upload",
+    "figmaId": "92:71097",
+    "exportedAt": "2026-10-02"
+  },
+  "upload": {
+    "placeholder": {
+      "minHeight":   { "$type": "dimension", "$value": "160px" },
+      "paddingX":    { "$type": "dimension", "$value": "24px" },
+      "paddingY":    { "$type": "dimension", "$value": "40px" },
+      "radius":      { "$type": "dimension", "$value": "16px", "$description": "refs radius-2" },
+      "borderWidth": { "$type": "dimension", "$value": "1px" },
+      "iconSize":    { "$type": "dimension", "$value": "40px" },
+      "gap":         { "$type": "dimension", "$value": "8px" }
+    },
+    "fileItem": {
+      "height":      { "$type": "dimension", "$value": "60px" },
+      "paddingX":    { "$type": "dimension", "$value": "12px" },
+      "paddingY":    { "$type": "dimension", "$value": "8px" },
+      "iconSize":    { "$type": "dimension", "$value": "36px" },
+      "radius":      { "$type": "dimension", "$value": "8px", "$description": "refs radius-1" },
+      "gap":         { "$type": "dimension", "$value": "12px" },
+      "closeSize":   { "$type": "dimension", "$value": "20px" }
+    },
+    "preview": {
+      "size":        { "$type": "dimension", "$value": "80px" },
+      "radius":      { "$type": "dimension", "$value": "8px", "$description": "refs radius-1" },
+      "gap":         { "$type": "dimension", "$value": "8px" }
+    },
+    "previewMulti": {
+      "itemSize":    { "$type": "dimension", "$value": "80px" },
+      "columns":     { "$type": "number",    "$value": 4 },
+      "gap":         { "$type": "dimension", "$value": "8px" }
+    }
+  }
+}

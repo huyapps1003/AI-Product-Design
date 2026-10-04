@@ -1,0 +1,57 @@
+{
+  "$metadata": { "collection": "[Patterns] Filter Bar", "exportedAt": "2026-10-04" },
+  "pattern": {
+    "name": "filter-bar",
+    "description": "Horizontal row of search + filter controls above a data list or table",
+    "category": "data",
+    "layout": {
+      "container": "flex row align-center gap-16",
+      "mb": "24px",
+      "responsive": { "xs": "flex column gap-12" }
+    },
+    "slots": [
+      {
+        "slot": "search",
+        "component": "TextField",
+        "variant": "outlined", "size": "small",
+        "placeholder": "Search…",
+        "startAdornment": { "component": "SvgIcon", "name": "search" },
+        "flex": 1, "minWidth": "240px"
+      },
+      {
+        "slot": "filters",
+        "layout": "flex row gap-8",
+        "children": [
+          { "slot": "status-filter", "component": "Select", "size": "small", "label": "Status", "minWidth": "120px", "options": ["All", "Active", "Inactive", "Pending"] },
+          { "slot": "role-filter", "component": "Select", "size": "small", "label": "Role", "minWidth": "120px", "optional": true },
+          {
+            "slot": "date-filter",
+            "component": "Button",
+            "variant": "outlined", "color": "inherit", "size": "medium",
+            "startIcon": "calendar-today",
+            "label": "Date range",
+            "optional": true
+          }
+        ]
+      },
+      {
+        "slot": "actions",
+        "layout": "flex row gap-8 ml-auto",
+        "optional": true,
+        "children": [
+          { "slot": "density-toggle", "component": "ToggleButtonGroup", "exclusive": true, "size": "small" },
+          { "slot": "columns-btn", "component": "Button", "variant": "outlined", "color": "inherit", "size": "small", "startIcon": "view-column" }
+        ]
+      }
+    ],
+    "tokens": {
+      "spacing": { "gap": "spacing.2 (16px)", "mb": "spacing.3 (24px)" },
+      "sizing": { "searchMinWidth": "240px", "selectMinWidth": "120px", "height": "sizing.textField.medium.height (40px)" }
+    },
+    "variants": [
+      { "name": "compact", "change": { "all-components.size": "small", "gap": "spacing.1 (8px)" } },
+      { "name": "with-chips", "add": { "slot": "active-filters", "layout": "flex row gap-6 mt-8", "component": "Chip", "variant": "soft", "size": "small", "deleteIcon": true } }
+    ],
+    "usage": "Place directly below page-header, above a data-table or card-grid. Aligns left-to-right: search → selects → date → view options."
+  }
+}

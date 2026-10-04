@@ -3,7 +3,32 @@
     "source": "MinV Design System — Figma",
     "figmaFileKey": "rWqZASye8TV6iz77FE5j7i",
     "page": "🛠 SETUPS",
-    "exportedAt": "2026-10-02"
+    "exportedAt": "2026-10-02",
+    "tokenFiles": {
+      "note": "Component token files — sizing in primitives/sizing.json covers button, iconButton, fab, toggleButton, buttonGroup, textField, textarea, chip, label, badge, avatar, alert, progress, snackbar, tooltip, pagination, tabs, menu, dialog, card, listItem, checkbox, radio, rating, switch, formHelperText, layout.",
+      "components": [
+        "accordion.json",
+        "avatar-group.json",
+        "badge-status.json",
+        "breadcrumb.json",
+        "card-header.json",
+        "carousel.json",
+        "date-picker.json",
+        "divider.json",
+        "editor.json",
+        "image.json",
+        "overlay.json",
+        "paper.json",
+        "backdrop.json",
+        "scroll.json",
+        "slider.json",
+        "stepper.json",
+        "table.json",
+        "timeline.json",
+        "toggle-button-group.json",
+        "upload.json"
+      ]
+    }
   },
   "components": [
     {

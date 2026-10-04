@@ -1,0 +1,96 @@
+{
+  "$metadata": { "collection": "[Patterns] Kanban Column", "exportedAt": "2026-10-04" },
+  "pattern": {
+    "name": "kanban-column",
+    "description": "Draggable card column for kanban boards — header with status + count, scrollable card stack, add button",
+    "category": "data",
+    "layout": {
+      "container": "flex column",
+      "width": "320px",
+      "minHeight": "100%",
+      "flexShrink": 0
+    },
+    "slots": [
+      {
+        "slot": "column-header",
+        "layout": "flex row space-between align-center",
+        "padding": "8px 16px",
+        "mb": "16px",
+        "children": [
+          {
+            "slot": "left",
+            "layout": "flex row gap-8 align-center",
+            "children": [
+              { "slot": "status-dot", "size": "10px", "borderRadius": "50%", "bg": "{status-color}" },
+              { "slot": "column-name", "component": "Typography", "variant": "h6", "fontWeight": 700 },
+              { "slot": "count-badge", "component": "Badge", "variant": "standard", "color": "default" }
+            ]
+          },
+          {
+            "slot": "right",
+            "children": [
+              { "component": "IconButton", "icon": "add", "size": "small" },
+              { "component": "IconButton", "icon": "more-vert", "size": "small" }
+            ]
+          }
+        ]
+      },
+      {
+        "slot": "cards-stack",
+        "layout": "flex column gap-12",
+        "overflowY": "auto",
+        "flex": 1,
+        "children": [
+          {
+            "slot": "kanban-card",
+            "component": "Card",
+            "variant": "elevation", "elevation": 2,
+            "padding": "16px",
+            "cursor": "grab",
+            "hover": { "boxShadow": "{shadows.z8}" },
+            "dragging": { "opacity": 0.8, "boxShadow": "{shadows.z24}", "transform": "rotate(2deg)" },
+            "slots": [
+              {
+                "slot": "card-header",
+                "layout": "flex row space-between align-start mb-12",
+                "children": [
+                  { "slot": "priority", "component": "Label", "variant": "soft", "color": "error|warning|success|default", "size": "small" },
+                  { "slot": "card-actions", "component": "IconButton", "icon": "more-vert", "size": "small" }
+                ]
+              },
+              { "slot": "card-title", "component": "Typography", "variant": "subtitle2", "fontWeight": 600, "mb": "8px", "lines": 2 },
+              {
+                "slot": "card-meta",
+                "layout": "flex row space-between align-center mt-12 pt-12 borderTop",
+                "children": [
+                  { "slot": "avatars", "component": "AvatarGroup", "max": 3, "size": "small" },
+                  { "slot": "due-date", "component": "Chip", "variant": "soft", "color": "default|warning|error", "size": "small", "icon": "schedule" }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "slot": "add-card-btn",
+        "component": "Button",
+        "variant": "text", "color": "inherit",
+        "startIcon": "add",
+        "fullWidth": true,
+        "mt": "8px",
+        "content": "Add task"
+      }
+    ],
+    "statusColors": {
+      "todo":        "{colors.grey.500}",
+      "in-progress": "{palette.warning.main}",
+      "in-review":   "{palette.info.main}",
+      "done":        "{palette.success.main}"
+    },
+    "tokens": {
+      "spacing": { "columnWidth": "320px", "cardGap": "spacing.1.5 (12px)", "cardPadding": "spacing.2 (16px)" },
+      "shadows": { "card": "shadows.z2", "cardHover": "shadows.z8", "dragging": "shadows.z24" }
+    },
+    "usage": "Wrap multiple kanban-columns in a horizontally scrollable container. Each column maps to one workflow status."
+  }
+}

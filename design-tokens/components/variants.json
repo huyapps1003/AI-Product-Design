@@ -1,0 +1,372 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — component variant matrix",
+    "collection": "[Components] Variant Matrix",
+    "exportedAt": "2026-10-04",
+    "$description": "For each component: valid combinations of variant, color, size, state, and sub-props. Used by AI to select the correct component configuration when generating screens."
+  },
+  "button": {
+    "variant":   ["contained", "outlined", "soft", "text"],
+    "color":     ["primary", "secondary", "inherit", "success", "error", "info", "warning"],
+    "size":      ["large", "medium", "small"],
+    "state":     ["default", "hover", "focus", "active", "disabled", "loading"],
+    "props": {
+      "startIcon": true,
+      "endIcon":   true,
+      "fullWidth": true,
+      "href":      true
+    },
+    "usage": "Primary actions (contained), secondary actions (outlined/soft), tertiary/inline (text)"
+  },
+  "iconButton": {
+    "variant": ["filled", "outlined", "soft", "plain"],
+    "color":   ["default", "primary", "secondary", "success", "error", "info", "warning", "inherit"],
+    "size":    ["large", "medium", "small"],
+    "state":   ["default", "hover", "focus", "disabled"]
+  },
+  "fab": {
+    "variant": ["circular", "extended"],
+    "color":   ["primary", "secondary", "success", "error", "info", "warning", "inherit"],
+    "size":    ["large", "medium", "small"],
+    "state":   ["default", "hover", "focus", "disabled"]
+  },
+  "chip": {
+    "variant": ["filled", "outlined", "soft"],
+    "color":   ["default", "primary", "secondary", "success", "error", "info", "warning"],
+    "size":    ["medium", "small"],
+    "state":   ["default", "hover", "clickable", "deletable", "disabled"],
+    "props": {
+      "avatar":    true,
+      "icon":      true,
+      "deleteIcon": true
+    }
+  },
+  "label": {
+    "variant": ["filled", "outlined", "soft", "inverted"],
+    "color":   ["default", "primary", "secondary", "success", "error", "info", "warning"],
+    "size":    ["medium", "small"]
+  },
+  "badge": {
+    "variant":   ["standard", "dot"],
+    "color":     ["default", "primary", "secondary", "success", "error", "info", "warning"],
+    "max":       99,
+    "placement": ["top-right", "top-left", "bottom-right", "bottom-left"]
+  },
+  "avatar": {
+    "variant": ["circular", "rounded", "square"],
+    "size":    ["large", "medium", "small"],
+    "content": ["image", "initials", "icon"],
+    "colors":  ["primary", "secondary", "success", "error", "info", "warning", "default"]
+  },
+  "textField": {
+    "variant": ["outlined", "filled", "standard"],
+    "color":   ["primary", "secondary", "success", "error", "info", "warning"],
+    "size":    ["medium", "small"],
+    "state":   ["default", "focused", "error", "disabled", "readOnly", "success"],
+    "props": {
+      "label":           true,
+      "placeholder":     true,
+      "helperText":      true,
+      "startAdornment":  true,
+      "endAdornment":    true,
+      "multiline":       true,
+      "rows":            "number",
+      "maxRows":         "number",
+      "required":        true,
+      "fullWidth":       true,
+      "type": ["text", "email", "password", "number", "search", "tel", "url"]
+    }
+  },
+  "select": {
+    "variant": ["outlined", "filled", "standard"],
+    "size":    ["medium", "small"],
+    "state":   ["default", "focused", "error", "disabled"],
+    "props": {
+      "multiple":    true,
+      "native":      true,
+      "displayEmpty": true
+    }
+  },
+  "autocomplete": {
+    "variant": ["outlined", "filled", "standard"],
+    "size":    ["medium", "small"],
+    "props": {
+      "multiple":        true,
+      "freeSolo":        true,
+      "groupBy":         true,
+      "disableClearable": true,
+      "loading":          true
+    }
+  },
+  "checkbox": {
+    "color":  ["primary", "secondary", "success", "error", "info", "warning", "default"],
+    "size":   ["medium", "small"],
+    "state":  ["unchecked", "checked", "indeterminate", "disabled"],
+    "props": {
+      "label":     true,
+      "labelPlacement": ["end", "start", "top", "bottom"]
+    }
+  },
+  "radio": {
+    "color":  ["primary", "secondary", "success", "error", "info", "warning", "default"],
+    "size":   ["medium", "small"],
+    "state":  ["unchecked", "checked", "disabled"]
+  },
+  "switch": {
+    "color":  ["primary", "secondary", "success", "error", "info", "warning", "default"],
+    "size":   ["medium", "small"],
+    "state":  ["off", "on", "disabled"],
+    "props": {
+      "label": true,
+      "labelPlacement": ["end", "start", "top", "bottom"]
+    }
+  },
+  "slider": {
+    "color":       ["primary", "secondary", "success", "error", "info", "warning"],
+    "size":        ["medium", "small"],
+    "orientation": ["horizontal", "vertical"],
+    "state":       ["default", "hover", "active", "disabled"],
+    "props": {
+      "marks":        true,
+      "valueLabelDisplay": ["auto", "on", "off"],
+      "range":        true,
+      "step":         "number",
+      "min":          "number",
+      "max":          "number"
+    }
+  },
+  "rating": {
+    "size":  ["large", "medium", "small"],
+    "state": ["default", "hover", "readOnly", "disabled"],
+    "props": {
+      "max":       "number",
+      "precision": "number",
+      "icon":      true
+    }
+  },
+  "alert": {
+    "variant":  ["filled", "outlined", "standard"],
+    "severity": ["success", "info", "warning", "error"],
+    "props": {
+      "title":  true,
+      "action": true,
+      "icon":   true,
+      "onClose": true
+    }
+  },
+  "snackbar": {
+    "variant":  ["default", "filled"],
+    "severity": ["success", "info", "warning", "error"],
+    "anchorOrigin": {
+      "vertical":   ["top", "bottom"],
+      "horizontal": ["left", "center", "right"]
+    },
+    "props": {
+      "autoHideDuration": "number",
+      "action":           true
+    }
+  },
+  "dialog": {
+    "maxWidth": ["xs", "sm", "md", "lg", "xl", "fullScreen"],
+    "props": {
+      "title":        true,
+      "content":      true,
+      "actions":      true,
+      "closeButton":  true,
+      "fullWidth":    true,
+      "scroll":       ["paper", "body"]
+    }
+  },
+  "tooltip": {
+    "placement": [
+      "top", "top-start", "top-end",
+      "bottom", "bottom-start", "bottom-end",
+      "left", "left-start", "left-end",
+      "right", "right-start", "right-end"
+    ],
+    "variant": ["default", "arrow"],
+    "props": {
+      "title":          true,
+      "disableHoverListener": true,
+      "disableTouchListener": true
+    }
+  },
+  "menu": {
+    "variant":   ["menu", "selectedMenu"],
+    "props": {
+      "dense":        true,
+      "disablePadding": true
+    }
+  },
+  "menuItem": {
+    "state": ["default", "hover", "selected", "disabled"],
+    "props": {
+      "dense":     true,
+      "divider":   true,
+      "icon":      true,
+      "secondaryAction": true
+    }
+  },
+  "list": {
+    "props": {
+      "dense":          true,
+      "disablePadding": true,
+      "subheader":      true
+    }
+  },
+  "listItem": {
+    "state": ["default", "hover", "selected", "disabled"],
+    "props": {
+      "button":          true,
+      "dense":           true,
+      "divider":         true,
+      "alignItems":      ["flex-start", "center"],
+      "primaryText":     true,
+      "secondaryText":   true,
+      "avatar":          true,
+      "icon":            true,
+      "secondaryAction": true
+    }
+  },
+  "tabs": {
+    "variant":     ["standard", "fullWidth", "scrollable"],
+    "orientation": ["horizontal", "vertical"],
+    "textColor":   ["primary", "secondary", "inherit"],
+    "indicatorColor": ["primary", "secondary"],
+    "props": {
+      "scrollButtons": ["auto", true, false],
+      "centered":      true
+    }
+  },
+  "tab": {
+    "state": ["default", "selected", "hover", "disabled"],
+    "props": {
+      "icon":          true,
+      "iconPosition":  ["start", "end", "top", "bottom"],
+      "label":         true,
+      "wrapped":       true
+    }
+  },
+  "card": {
+    "variant":   ["elevation", "outlined"],
+    "elevation": [0, 1, 2, 3, 4, 6, 8, 12, 16, 24],
+    "props": {
+      "header":    true,
+      "media":     true,
+      "content":   true,
+      "actions":   true,
+      "actionArea": true
+    }
+  },
+  "paper": {
+    "variant":   ["elevation", "outlined"],
+    "elevation": [0, 1, 2, 3, 4, 6, 8, 12, 16, 24]
+  },
+  "accordion": {
+    "variant":  ["standard", "outlined"],
+    "state":    ["collapsed", "expanded", "disabled"],
+    "props": {
+      "summary":         true,
+      "details":         true,
+      "actions":         true,
+      "defaultExpanded": true,
+      "disableGutters":  true
+    }
+  },
+  "table": {
+    "size":  ["medium", "small"],
+    "props": {
+      "stickyHeader":  true,
+      "padding":       ["normal", "checkbox", "none"],
+      "sortable":      true,
+      "selectable":    true,
+      "pagination":    true,
+      "toolbar":       true,
+      "dense":         true
+    }
+  },
+  "progress": {
+    "linear": {
+      "variant": ["determinate", "indeterminate", "buffer", "query"],
+      "color":   ["primary", "secondary", "success", "error", "info", "warning", "inherit"]
+    },
+    "circular": {
+      "variant": ["determinate", "indeterminate"],
+      "color":   ["primary", "secondary", "success", "error", "info", "warning", "inherit"],
+      "size":    "number"
+    }
+  },
+  "pagination": {
+    "variant":  ["text", "outlined"],
+    "color":    ["primary", "secondary", "standard"],
+    "size":     ["large", "medium", "small"],
+    "shape":    ["circular", "rounded"],
+    "props": {
+      "showFirstButton": true,
+      "showLastButton":  true,
+      "siblingCount":    "number",
+      "boundaryCount":   "number"
+    }
+  },
+  "stepper": {
+    "orientation":     ["horizontal", "vertical"],
+    "variant":         ["standard", "alternativeLabel"],
+    "connector":       ["default", "none", "custom"],
+    "stepIcon": {
+      "state": ["active", "completed", "error", "default"]
+    },
+    "nonLinear": true
+  },
+  "timeline": {
+    "position": ["right", "left", "alternate", "alternate-reverse"],
+    "item": {
+      "dotVariant": ["filled", "outlined"],
+      "dotColor":   ["grey", "primary", "secondary", "success", "error", "info", "warning", "inherit"]
+    }
+  },
+  "breadcrumb": {
+    "maxItems":    "number",
+    "separator":   "string | node",
+    "expandText":  "string"
+  },
+  "toggleButtonGroup": {
+    "orientation": ["horizontal", "vertical"],
+    "exclusive":   true,
+    "size":        ["large", "medium", "small"],
+    "color":       ["standard", "primary", "secondary", "success", "error", "info", "warning"],
+    "fullWidth":   true
+  },
+  "datePicker": {
+    "variant":     ["desktop", "mobile", "static"],
+    "views":       ["year", "month", "day"],
+    "orientation": ["portrait", "landscape"],
+    "props": {
+      "disablePast":    true,
+      "disableFuture":  true,
+      "minDate":        true,
+      "maxDate":        true,
+      "range":          true,
+      "readOnly":       true
+    }
+  },
+  "upload": {
+    "variant":     ["illustration", "simple", "multi"],
+    "state":       ["idle", "dragOver", "uploading", "complete", "error"],
+    "props": {
+      "multiple":    true,
+      "accept":      "string",
+      "maxSize":     "number",
+      "preview":     true,
+      "disabled":    true
+    }
+  },
+  "editor": {
+    "variant": ["standard", "minimal", "full"],
+    "props": {
+      "toolbar":      true,
+      "placeholder":  true,
+      "readOnly":     true,
+      "minHeight":    "number"
+    }
+  }
+}

@@ -1,0 +1,255 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — screen pattern library",
+    "collection": "[Patterns] Screen Templates",
+    "exportedAt": "2026-10-04",
+    "$description": "Common screen archetypes and their composition rules. AI uses these as scaffolds when generating new screens — picking the right layout shell, then filling with components from the variant matrix."
+  },
+  "layouts": {
+    "dashboardShell": {
+      "description": "Standard dashboard with persistent sidebar + top header",
+      "structure": {
+        "sidebar": {
+          "component": "Drawer (persistent)",
+          "width": { "collapsed": "88px", "expanded": "280px" },
+          "contains": ["logo", "navItems", "userAccount"]
+        },
+        "header": {
+          "component": "AppBar",
+          "height": "64px",
+          "contains": ["breadcrumb | pageTitle", "searchBar?", "notificationBell", "accountMenu"]
+        },
+        "main": {
+          "padding": "40px",
+          "maxWidth": "1200px",
+          "contains": ["pageHeader", "pageContent"]
+        }
+      }
+    },
+    "authShell": {
+      "description": "Centered card layout for login/register/reset flows",
+      "structure": {
+        "background": "gradient or illustration (full viewport)",
+        "card": {
+          "component": "Paper (elevation 8)",
+          "width": "480px",
+          "padding": "40px",
+          "position": "center"
+        }
+      }
+    },
+    "settingsShell": {
+      "description": "Two-column: nav tabs left, content right",
+      "structure": {
+        "nav": { "component": "Tabs (vertical)", "width": "240px" },
+        "content": { "maxWidth": "800px", "padding": "32px" }
+      }
+    },
+    "listDetailShell": {
+      "description": "Master-detail split (e.g. email, contacts)",
+      "structure": {
+        "list": { "width": "360px", "overflow": "scroll" },
+        "detail": { "flex": 1, "padding": "32px" }
+      }
+    }
+  },
+  "screens": {
+    "auth": {
+      "login": {
+        "title": "Sign In",
+        "layout": "authShell",
+        "components": [
+          { "component": "logo", "position": "top-center" },
+          { "component": "Typography", "variant": "h4", "content": "Sign in to MinV" },
+          { "component": "Typography", "variant": "body2", "content": "Don't have an account? Sign up" },
+          { "component": "TextField", "variant": "outlined", "label": "Email address", "type": "email", "fullWidth": true },
+          { "component": "TextField", "variant": "outlined", "label": "Password", "type": "password", "fullWidth": true, "endAdornment": "visibility toggle" },
+          { "component": "Checkbox", "label": "Remember me", "size": "small" },
+          { "component": "Link", "content": "Forgot password?" },
+          { "component": "Button", "variant": "contained", "color": "primary", "size": "large", "fullWidth": true, "content": "Sign In" },
+          { "component": "Divider", "label": "OR" },
+          { "component": "Button", "variant": "outlined", "startIcon": "google", "fullWidth": true, "content": "Sign in with Google" }
+        ]
+      },
+      "register": {
+        "title": "Sign Up",
+        "layout": "authShell",
+        "components": [
+          { "component": "Typography", "variant": "h4", "content": "Get started" },
+          { "component": "Typography", "variant": "body2", "content": "Already have an account? Sign in" },
+          { "component": "TextField", "label": "First name", "size": "medium" },
+          { "component": "TextField", "label": "Last name", "size": "medium" },
+          { "component": "TextField", "label": "Email address", "type": "email", "fullWidth": true },
+          { "component": "TextField", "label": "Password", "type": "password", "fullWidth": true },
+          { "component": "Checkbox", "label": "I agree to Terms and Privacy Policy" },
+          { "component": "Button", "variant": "contained", "color": "primary", "size": "large", "fullWidth": true, "content": "Create account" }
+        ]
+      },
+      "forgotPassword": {
+        "title": "Forgot Password",
+        "layout": "authShell",
+        "components": [
+          { "component": "Alert", "severity": "info", "content": "Enter your email and we'll send a reset link" },
+          { "component": "TextField", "label": "Email address", "type": "email", "fullWidth": true },
+          { "component": "Button", "variant": "contained", "color": "primary", "fullWidth": true, "content": "Send request" },
+          { "component": "Button", "variant": "text", "startIcon": "arrow-left", "content": "Return to sign in" }
+        ]
+      }
+    },
+    "dashboard": {
+      "overview": {
+        "title": "Overview",
+        "layout": "dashboardShell",
+        "regions": [
+          {
+            "type": "statsRow",
+            "description": "KPI summary cards",
+            "columns": 4,
+            "component": "Card",
+            "contains": ["icon", "label", "bigNumber", "trend chip", "sparkline?"]
+          },
+          {
+            "type": "chartRow",
+            "description": "Main charts — area + doughnut",
+            "columns": "8+4",
+            "components": ["area chart Card", "doughnut chart Card"]
+          },
+          {
+            "type": "tableRow",
+            "description": "Recent activity table",
+            "component": "Table (dense)",
+            "contains": ["toolbar with title + search + filter", "thead", "tbody rows", "TablePagination"]
+          }
+        ]
+      },
+      "analytics": {
+        "title": "Analytics",
+        "layout": "dashboardShell",
+        "regions": [
+          { "type": "filterBar", "components": ["DateRangePicker", "Select (metric)", "Select (dimension)"] },
+          { "type": "statsRow", "columns": 3 },
+          { "type": "chartFull", "component": "bar chart Card" },
+          { "type": "twoCharts", "columns": "6+6", "components": ["line chart", "pie chart"] }
+        ]
+      }
+    },
+    "data": {
+      "list": {
+        "title": "List View",
+        "layout": "dashboardShell",
+        "regions": [
+          {
+            "type": "toolbar",
+            "components": [
+              { "component": "Typography", "variant": "h4" },
+              { "component": "Button", "variant": "contained", "startIcon": "add", "content": "New item" }
+            ]
+          },
+          {
+            "type": "filterRow",
+            "components": ["TextField (search)", "Select (status)", "Select (date range)"]
+          },
+          {
+            "type": "cardGrid",
+            "columns": 3,
+            "component": "Card",
+            "contains": ["image?", "Label (status)", "title", "subtitle", "actions row"]
+          },
+          { "type": "pagination", "component": "Pagination" }
+        ]
+      },
+      "table": {
+        "title": "Table View",
+        "layout": "dashboardShell",
+        "regions": [
+          {
+            "type": "toolbar",
+            "components": [
+              { "component": "Typography", "variant": "h4" },
+              { "component": "Button", "variant": "contained", "startIcon": "add" },
+              { "component": "Button", "variant": "outlined", "startIcon": "download", "content": "Export" }
+            ]
+          },
+          {
+            "type": "table",
+            "component": "Table",
+            "features": ["checkbox selection", "sortable headers", "row actions (more-vert menu)", "dense rows"],
+            "footer": "TablePagination"
+          }
+        ]
+      },
+      "kanban": {
+        "title": "Kanban Board",
+        "layout": "dashboardShell",
+        "regions": [
+          { "type": "columnHeaders", "description": "Status columns with count badges" },
+          {
+            "type": "columns",
+            "scroll": "horizontal",
+            "columnWidth": "320px",
+            "cardComponent": "Card (draggable)",
+            "contains": ["Label (priority)", "title", "assignee avatars", "due date chip", "comments count"]
+          }
+        ]
+      }
+    },
+    "profile": {
+      "userProfile": {
+        "title": "User Profile",
+        "layout": "dashboardShell",
+        "regions": [
+          {
+            "type": "coverSection",
+            "contains": ["coverImage (16/9)", "Avatar (96px, outlined)", "name + role", "stats row", "follow/message buttons"]
+          },
+          {
+            "type": "twoColumn",
+            "columns": "4+8",
+            "left": ["Card (about)", "Card (social links)", "Card (skills chips)"],
+            "right": ["Card (recent activity timeline)", "Card (portfolio grid)"]
+          }
+        ]
+      }
+    },
+    "settings": {
+      "accountSettings": {
+        "title": "Account Settings",
+        "layout": "settingsShell",
+        "tabs": ["General", "Security", "Notifications", "Billing", "Team"],
+        "general": {
+          "sections": [
+            {
+              "title": "Personal Info",
+              "contains": ["Avatar upload", "TextField (displayName)", "TextField (email)", "TextField (bio, multiline)"]
+            },
+            {
+              "title": "Change Password",
+              "contains": ["TextField (currentPassword)", "TextField (newPassword)", "TextField (confirmPassword)", "Button (update)"]
+            }
+          ]
+        }
+      }
+    },
+    "error": {
+      "404": {
+        "title": "Page Not Found",
+        "layout": "authShell",
+        "components": [
+          { "component": "Illustration", "content": "404 graphic" },
+          { "component": "Typography", "variant": "h3", "content": "Page not found" },
+          { "component": "Typography", "variant": "body1", "content": "Sorry, we couldn't find the page you're looking for." },
+          { "component": "Button", "variant": "contained", "startIcon": "home", "content": "Go to home" }
+        ]
+      },
+      "500": {
+        "title": "Server Error",
+        "layout": "authShell",
+        "components": [
+          { "component": "Illustration", "content": "500 graphic" },
+          { "component": "Typography", "variant": "h3", "content": "Internal server error" },
+          { "component": "Button", "variant": "contained", "startIcon": "refresh", "content": "Try again" }
+        ]
+      }
+    }
+  }
+}

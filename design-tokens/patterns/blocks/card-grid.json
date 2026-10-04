@@ -1,0 +1,75 @@
+{
+  "$metadata": { "collection": "[Patterns] Card Grid", "exportedAt": "2026-10-04" },
+  "pattern": {
+    "name": "card-grid",
+    "description": "Responsive grid of content cards — image, status label, title, meta, actions",
+    "category": "data",
+    "layout": {
+      "container": "grid",
+      "columns": "repeat(3, 1fr)",
+      "gap": "24px",
+      "responsive": { "md": "repeat(2, 1fr)", "xs": "1fr" }
+    },
+    "item": {
+      "component": "Card",
+      "variant": "elevation", "elevation": 0,
+      "border": "1px solid {divider}",
+      "borderRadius": "{radius.r2 (16px)}",
+      "cursor": "pointer",
+      "hover": { "boxShadow": "{shadows.z20}", "transform": "translateY(-4px)", "transition": "all 300ms easeInOut" },
+      "slots": [
+        {
+          "slot": "media",
+          "component": "CardMedia",
+          "optional": true,
+          "aspectRatio": "image.aspectRatios.16/9",
+          "bg": "{colors.grey.200}"
+        },
+        {
+          "slot": "content",
+          "padding": "24px",
+          "layout": "flex column gap-8",
+          "children": [
+            {
+              "slot": "top-row",
+              "layout": "flex row space-between align-center",
+              "children": [
+                { "slot": "status", "component": "Label", "variant": "soft", "color": "success|warning|error|default" },
+                { "slot": "date", "component": "Typography", "variant": "caption", "color": "text.disabled" }
+              ]
+            },
+            { "slot": "title", "component": "Typography", "variant": "subtitle1", "fontWeight": 600, "lines": 2, "overflow": "ellipsis" },
+            { "slot": "description", "component": "Typography", "variant": "body2", "color": "text.secondary", "lines": 3, "overflow": "ellipsis", "optional": true },
+            {
+              "slot": "footer",
+              "layout": "flex row space-between align-center mt-auto pt-16 borderTop",
+              "children": [
+                { "slot": "avatar-group", "component": "AvatarGroup", "max": 3, "size": "small" },
+                {
+                  "slot": "actions",
+                  "layout": "flex row gap-4",
+                  "children": [
+                    { "component": "IconButton", "icon": "share", "size": "small" },
+                    { "component": "IconButton", "icon": "more-vert", "size": "small" }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "tokens": {
+      "spacing": { "gap": "spacing.3 (24px)", "contentPadding": "spacing.3 (24px)", "footerPt": "spacing.2 (16px)" },
+      "radius": { "card": "radius.r2 (16px)" },
+      "shadows": { "hover": "shadows.z20" },
+      "image": { "aspectRatio": "image.aspectRatios.16/9 or 4/3" }
+    },
+    "variants": [
+      { "name": "no-image", "remove": ["media"] },
+      { "name": "horizontal", "change": { "item.layout": "flex row", "media.width": "160px", "media.aspectRatio": "auto" } },
+      { "name": "compact", "change": { "item.padding": "16px", "layout.gap": "16px" } }
+    ],
+    "usage": "For browsable collections: articles, products, projects, users. Prefer table for data-dense records with many attributes."
+  }
+}

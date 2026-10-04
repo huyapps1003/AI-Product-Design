@@ -1,0 +1,62 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "collection": "[Components] Table",
+    "figmaIds": {
+      "TableCell":            "201:85455",
+      "TablePagination":      "1612:129994",
+      "TableToolbarSelected": "1795:124907"
+    },
+    "exportedAt": "2026-10-02"
+  },
+  "table": {
+    "cell": {
+      "paddingX": {
+        "default": { "$type": "dimension", "$value": "16px", "$description": "refs spacing-2" },
+        "dense":   { "$type": "dimension", "$value": "8px",  "$description": "refs spacing-1" }
+      },
+      "paddingY": {
+        "default": { "$type": "dimension", "$value": "16px", "$description": "refs spacing-2" },
+        "dense":   { "$type": "dimension", "$value": "6px" }
+      },
+      "head": {
+        "fontWeight": { "$type": "number",    "$value": 600 },
+        "fontSize":   { "$type": "dimension", "$value": "14px" },
+        "lineHeight": { "$type": "dimension", "$value": "22px" }
+      },
+      "body": {
+        "fontWeight": { "$type": "number",    "$value": 400 },
+        "fontSize":   { "$type": "dimension", "$value": "14px" },
+        "lineHeight": { "$type": "dimension", "$value": "22px" }
+      },
+      "avatarSize": { "$type": "dimension", "$value": "36px" },
+      "checkboxPaddingX": { "$type": "dimension", "$value": "4px" }
+    },
+    "row": {
+      "height": {
+        "default": { "$type": "dimension", "$value": "53px" },
+        "dense":   { "$type": "dimension", "$value": "45px" },
+        "head":    { "$type": "dimension", "$value": "57px" },
+        "headDense": { "$type": "dimension", "$value": "49px" }
+      }
+    },
+    "sortLabel": {
+      "iconSize":   { "$type": "dimension", "$value": "16px" },
+      "iconSpacing": { "$type": "dimension", "$value": "4px" }
+    },
+    "pagination": {
+      "height":         { "$type": "dimension", "$value": "52px" },
+      "heightDense":    { "$type": "dimension", "$value": "40px" },
+      "paddingRight":   { "$type": "dimension", "$value": "8px" },
+      "selectWidth":    { "$type": "dimension", "$value": "54px" },
+      "actionIconSize": { "$type": "dimension", "$value": "20px" },
+      "$description": "refs sizing.pagination"
+    },
+    "toolbar": {
+      "height":    { "$type": "dimension", "$value": "64px" },
+      "paddingX":  { "$type": "dimension", "$value": "8px" },
+      "paddingY":  { "$type": "dimension", "$value": "0px" },
+      "titleFontWeight": { "$type": "number", "$value": 600 }
+    }
+  }
+}

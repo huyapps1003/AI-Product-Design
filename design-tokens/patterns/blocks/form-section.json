@@ -1,0 +1,72 @@
+{
+  "$metadata": { "collection": "[Patterns] Form Section", "exportedAt": "2026-10-04" },
+  "pattern": {
+    "name": "form-section",
+    "description": "Titled paper section containing labeled field groups and a save/submit action",
+    "category": "form",
+    "layout": {
+      "container": "flex column gap-24",
+      "maxWidth": "720px"
+    },
+    "item": {
+      "component": "Card",
+      "variant": "elevation", "elevation": 0,
+      "border": "1px solid {divider}",
+      "slots": [
+        {
+          "slot": "section-header",
+          "padding": "24px 24px 0",
+          "children": [
+            { "slot": "title", "component": "Typography", "variant": "h6" },
+            { "slot": "description", "component": "Typography", "variant": "body2", "color": "text.secondary", "optional": true }
+          ]
+        },
+        {
+          "slot": "field-groups",
+          "padding": "24px",
+          "layout": "grid columns-2 gap-24",
+          "responsive": { "xs": "grid columns-1" },
+          "children": [
+            {
+              "slot": "field",
+              "component": "TextField",
+              "variant": "outlined", "size": "medium", "fullWidth": true,
+              "label": "Field label",
+              "helperText": "optional hint",
+              "required": false
+            }
+          ]
+        },
+        {
+          "slot": "actions",
+          "padding": "16px 24px",
+          "borderTop": "1px solid {divider}",
+          "layout": "flex row gap-12 justify-end",
+          "children": [
+            { "slot": "cancel", "component": "Button", "variant": "outlined", "color": "inherit", "optional": true },
+            { "slot": "save", "component": "Button", "variant": "contained", "color": "primary" }
+          ]
+        }
+      ]
+    },
+    "fieldTypes": {
+      "text":     { "component": "TextField", "type": "text" },
+      "email":    { "component": "TextField", "type": "email" },
+      "password": { "component": "TextField", "type": "password", "endAdornment": "visibility-toggle" },
+      "select":   { "component": "Select" },
+      "multiline":{ "component": "TextField", "multiline": true, "rows": 4, "colSpan": 2 },
+      "upload":   { "component": "Upload", "variant": "simple", "colSpan": 2 },
+      "toggle":   { "component": "Switch", "labelPlacement": "start" }
+    },
+    "tokens": {
+      "spacing": { "sectionPadding": "spacing.3 (24px)", "fieldGap": "spacing.3 (24px)", "actionPadding": "spacing.2 (16px)" },
+      "sizing": { "fieldHeight": "sizing.textField.medium.height (56px)" },
+      "typography": { "title": "h6", "description": "body2 secondary", "label": "body2" }
+    },
+    "variants": [
+      { "name": "one-column", "change": { "field-groups.columns": "1" } },
+      { "name": "inline-actions", "change": { "actions.justify": "flex-start" } }
+    ],
+    "usage": "Settings and profile pages. Group related fields together — max 6–8 fields per card section. Destructive actions go in a separate red-tinted card at the bottom."
+  }
+}

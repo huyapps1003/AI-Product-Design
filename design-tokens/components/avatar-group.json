@@ -1,0 +1,26 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "collection": "[Components] AvatarGroup",
+    "figmaId": "230:1143",
+    "exportedAt": "2026-10-02"
+  },
+  "avatarGroup": {
+    "size": {
+      "large":  { "$type": "dimension", "$value": "40px" },
+      "medium": { "$type": "dimension", "$value": "32px" },
+      "small":  { "$type": "dimension", "$value": "24px" }
+    },
+    "overlap": {
+      "large":  { "$type": "dimension", "$value": "-10px", "$description": "refs avatar.groupSpacing.large" },
+      "medium": { "$type": "dimension", "$value": "-6px",  "$description": "refs avatar.groupSpacing.medium" },
+      "small":  { "$type": "dimension", "$value": "-4px",  "$description": "refs avatar.groupSpacing.small" }
+    },
+    "surplusLabel": {
+      "fontWeight":  { "$type": "number",    "$value": 500 },
+      "fontSize":    { "$type": "dimension", "$value": "12px" },
+      "lineHeight":  { "$type": "dimension", "$value": "18px" },
+      "$description": "refs text-styles.components.avatarGroup"
+    }
+  }
+}

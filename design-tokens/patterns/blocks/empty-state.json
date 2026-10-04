@@ -1,0 +1,57 @@
+{
+  "$metadata": { "collection": "[Patterns] Empty State", "exportedAt": "2026-10-04" },
+  "pattern": {
+    "name": "empty-state",
+    "description": "Centered placeholder shown when a list or view has no data — illustration, heading, description, CTA",
+    "category": "feedback",
+    "layout": {
+      "container": "flex column align-center justify-center text-center",
+      "padding": "80px 24px",
+      "minHeight": "320px"
+    },
+    "slots": [
+      {
+        "slot": "illustration",
+        "component": "Box",
+        "width": "200px",
+        "height": "160px",
+        "mb": "24px",
+        "optional": true,
+        "note": "Use SVG illustration from asset library. Color with palette.primary.lighter + palette.primary.main"
+      },
+      {
+        "slot": "icon",
+        "component": "Box",
+        "size": "64px",
+        "borderRadius": "50%",
+        "bg": "{action.hover}",
+        "mb": "24px",
+        "optional": true,
+        "child": { "component": "SvgIcon", "size": "32px", "color": "text.disabled" }
+      },
+      { "slot": "title", "component": "Typography", "variant": "h5", "fontWeight": 700, "mb": "16px" },
+      { "slot": "description", "component": "Typography", "variant": "body2", "color": "text.secondary", "maxWidth": "360px", "mb": "32px" },
+      {
+        "slot": "actions",
+        "layout": "flex row gap-12",
+        "optional": true,
+        "children": [
+          { "slot": "secondary", "component": "Button", "variant": "outlined", "color": "inherit", "optional": true },
+          { "slot": "primary", "component": "Button", "variant": "contained", "color": "primary", "startIcon": "add" }
+        ]
+      }
+    ],
+    "contexts": {
+      "no-data":       { "icon": "inbox", "title": "Nothing here yet", "cta": "Create your first item" },
+      "no-results":    { "icon": "search-off", "title": "No results found", "description": "Try different keywords or clear filters", "cta": "Clear filters" },
+      "error":         { "icon": "error-outline", "title": "Something went wrong", "description": "We couldn't load this content.", "cta": "Try again", "ctaIcon": "refresh" },
+      "no-permission": { "icon": "lock", "title": "Access restricted", "description": "You don't have permission to view this.", "cta": null },
+      "coming-soon":   { "icon": "schedule", "title": "Coming soon", "description": "This feature is in development.", "cta": "Notify me" }
+    },
+    "tokens": {
+      "spacing": { "padding": "80px 24px", "illustrationMb": "spacing.3 (24px)", "titleMb": "spacing.2 (16px)", "descMb": "spacing.4 (32px)" },
+      "typography": { "title": "h5 700w", "description": "body2 secondary maxWidth 360px" }
+    },
+    "usage": "Replace the data region (table body, card grid) when the data array is empty. Do not show inside a Card — use the whole content area. Always offer at least one action."
+  }
+}

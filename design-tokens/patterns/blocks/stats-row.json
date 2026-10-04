@@ -1,0 +1,50 @@
+{
+  "$metadata": { "collection": "[Patterns] Stats Row", "exportedAt": "2026-10-04" },
+  "pattern": {
+    "name": "stats-row",
+    "description": "4 KPI metric cards in a responsive row — icon, big number, trend chip, period label",
+    "category": "data",
+    "layout": {
+      "container": "grid",
+      "columns": "repeat(4, 1fr)",
+      "gap": "24px",
+      "responsive": { "md": "repeat(2, 1fr)", "xs": "1fr" }
+    },
+    "item": {
+      "component": "Card",
+      "variant": "elevation", "elevation": 0,
+      "padding": "24px",
+      "border": "1px solid {colors.grey.200}",
+      "slots": [
+        {
+          "slot": "top-row",
+          "layout": "flex row space-between align-start",
+          "children": [
+            { "slot": "label", "component": "Typography", "variant": "subtitle2", "color": "text.secondary" },
+            { "slot": "icon-wrap", "size": "48px", "borderRadius": "50%", "bg": "{palette.primary.lighter}", "child": { "component": "SvgIcon", "size": "24px", "color": "{palette.primary.main}" } }
+          ]
+        },
+        { "slot": "value", "component": "Typography", "variant": "h3", "fontWeight": 700, "mt": "16px" },
+        {
+          "slot": "trend-row",
+          "layout": "flex row align-center gap-8",
+          "mt": "8px",
+          "children": [
+            { "component": "Chip", "variant": "soft", "color": "success|error", "size": "small", "label": "+2.6% | -0.8%", "icon": "trending-up|trending-down" },
+            { "component": "Typography", "variant": "caption", "color": "text.disabled", "content": "vs last month" }
+          ]
+        }
+      ]
+    },
+    "tokens": {
+      "spacing": { "itemPadding": "spacing.3 (24px)", "iconSize": "sizing.avatar.lg (48px)", "gap": "spacing.3 (24px)" },
+      "typography": { "label": "subtitle2", "value": "h3 700w", "period": "caption" },
+      "colors": { "iconBg": "palette.primary.lighter", "trendUp": "success.main", "trendDown": "error.main" }
+    },
+    "variants": [
+      { "name": "with-sparkline", "add": { "slot": "chart", "component": "LineChart", "height": "64px", "mt": "16px", "strokeColor": "{palette.primary.main}", "fill": true } },
+      { "name": "colored-icon", "change": { "icon-wrap.bg": "{palette.secondary.lighter}", "icon.color": "{palette.secondary.main}" } }
+    ],
+    "usage": "Top of dashboard/analytics pages. Max 4 cards. Each card covers one primary KPI."
+  }
+}

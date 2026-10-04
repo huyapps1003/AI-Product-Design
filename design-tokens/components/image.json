@@ -1,0 +1,34 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "collection": "[Components] Image",
+    "figmaId": "2898:171579",
+    "exportedAt": "2026-10-02"
+  },
+  "image": {
+    "aspectRatios": {
+      "1/1":   { "$type": "string", "$value": "1 / 1" },
+      "4/3":   { "$type": "string", "$value": "4 / 3" },
+      "3/4":   { "$type": "string", "$value": "3 / 4" },
+      "16/9":  { "$type": "string", "$value": "16 / 9" },
+      "9/16":  { "$type": "string", "$value": "9 / 16" },
+      "21/9":  { "$type": "string", "$value": "21 / 9" },
+      "3/2":   { "$type": "string", "$value": "3 / 2" },
+      "2/3":   { "$type": "string", "$value": "2 / 3" }
+    },
+    "overlay": {
+      "gradientBottom": {
+        "$type": "gradient",
+        "$value": "linear-gradient(to top, rgba(22,28,36,0.72) 0%, transparent 100%)"
+      },
+      "gradientTop": {
+        "$type": "gradient",
+        "$value": "linear-gradient(to bottom, rgba(22,28,36,0.72) 0%, transparent 100%)"
+      }
+    },
+    "placeholder": {
+      "background": { "$type": "color", "$value": "#F4F6F8", "$description": "refs grey.200" }
+    },
+    "borderRadius": { "$type": "dimension", "$value": "16px", "$description": "refs radius-2" }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "collection": "[Components] Overlay",
+    "figmaId": "2534:216249",
+    "note": "Used as Popover base. Variants: transparent, subtle, medium, strong, full",
+    "exportedAt": "2026-10-02"
+  },
+  "overlay": {
+    "opacity": {
+      "transparent": { "$type": "number", "$value": 0 },
+      "subtle":      { "$type": "number", "$value": 0.32 },
+      "medium":      { "$type": "number", "$value": 0.48 },
+      "strong":      { "$type": "number", "$value": 0.64 },
+      "full":        { "$type": "number", "$value": 0.80 }
+    },
+    "color": {
+      "light": { "$type": "color", "$value": "rgba(22,28,36,1)",    "$description": "refs grey.900 at chosen opacity" },
+      "dark":  { "$type": "color", "$value": "rgba(22,28,36,1)",    "$description": "refs grey.900 at chosen opacity" }
+    },
+    "borderRadius": { "$type": "dimension", "$value": "16px", "$description": "refs radius-2" }
+  }
+}

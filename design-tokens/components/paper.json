@@ -1,0 +1,35 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "collection": "[Components] Paper",
+    "figmaId": "2534:157772",
+    "exportedAt": "2026-10-02"
+  },
+  "paper": {
+    "radius": {
+      "none":    { "$type": "dimension", "$value": "0px" },
+      "sm":      { "$type": "dimension", "$value": "8px",  "$description": "refs radius-1" },
+      "md":      { "$type": "dimension", "$value": "16px", "$description": "refs radius-2" },
+      "lg":      { "$type": "dimension", "$value": "24px", "$description": "refs radius-3" }
+    },
+    "elevation": {
+      "0":  { "$type": "shadow", "$value": "none" },
+      "1":  { "$type": "shadow", "$value": "0px 1px 2px 0px rgba(145,158,171,0.16)",    "$description": "refs shadow.z1" },
+      "4":  { "$type": "shadow", "$value": "0px 4px 8px 0px rgba(145,158,171,0.16)",    "$description": "refs shadow.z4" },
+      "8":  { "$type": "shadow", "$value": "0px 8px 16px 0px rgba(145,158,171,0.16)",   "$description": "refs shadow.z8" },
+      "12": { "$type": "shadow", "$value": "0px 12px 24px -4px rgba(145,158,171,0.16)", "$description": "refs shadow.z12" },
+      "16": { "$type": "shadow", "$value": "0px 16px 32px -4px rgba(145,158,171,0.16)", "$description": "refs shadow.z16" },
+      "24": { "$type": "shadow", "$value": "0px 24px 48px 0px rgba(145,158,171,0.16)",  "$description": "refs shadow.z24" }
+    },
+    "variants": {
+      "outlined": {
+        "borderColor": { "$type": "color", "$value": "rgba(145,158,171,0.16)", "$description": "refs themes.components.paper.outlined" }
+      },
+      "bgBlur": {
+        "light": { "$type": "color", "$value": "rgba(255,255,255,0.90)", "$description": "refs themes.components.paper.bgBlur.light" },
+        "dark":  { "$type": "color", "$value": "rgba(33,43,54,0.90)",   "$description": "refs themes.components.paper.bgBlur.dark" },
+        "blur":  { "$type": "blur",  "$value": "blur(40px)",             "$description": "refs effects.blur.paper" }
+      }
+    }
+  }
+}

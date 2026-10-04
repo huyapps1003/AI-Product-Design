@@ -1,0 +1,34 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "collection": "[Components] CardHeader",
+    "figmaId": "2882:333212",
+    "note": "Card-level header subcomponent. Card container sizing refs sizing.card",
+    "exportedAt": "2026-10-02"
+  },
+  "cardHeader": {
+    "paddingLeft":  { "$type": "dimension", "$value": "24px", "$description": "refs sizing.card.header.paddingLeft" },
+    "paddingRight": { "$type": "dimension", "$value": "16px", "$description": "refs sizing.card.header.paddingRight" },
+    "paddingY":     { "$type": "dimension", "$value": "24px", "$description": "refs sizing.card.header.paddingY" },
+    "avatarMarginRight": { "$type": "dimension", "$value": "16px", "$description": "refs spacing-2" },
+    "actionMarginTop":   { "$type": "dimension", "$value": "-8px" },
+    "actionMarginRight": { "$type": "dimension", "$value": "-8px" },
+    "title": {
+      "fontWeight": { "$type": "number",    "$value": 600 },
+      "fontSize":   { "$type": "dimension", "$value": "18px" },
+      "lineHeight": { "$type": "dimension", "$value": "28px" },
+      "$description": "refs text-styles.desktop.h6"
+    },
+    "subheader": {
+      "fontWeight": { "$type": "number",    "$value": 400 },
+      "fontSize":   { "$type": "dimension", "$value": "14px" },
+      "lineHeight": { "$type": "dimension", "$value": "22px" },
+      "$description": "refs text-styles.desktop.body2"
+    },
+    "mobile": {
+      "paddingLeft":  { "$type": "dimension", "$value": "16px" },
+      "paddingRight": { "$type": "dimension", "$value": "8px" },
+      "paddingY":     { "$type": "dimension", "$value": "16px" }
+    }
+  }
+}

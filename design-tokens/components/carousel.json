@@ -1,0 +1,36 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "collection": "[Components] Carousel",
+    "figmaId": "95:476",
+    "exportedAt": "2026-10-02"
+  },
+  "carousel": {
+    "arrow": {
+      "size":       { "$type": "dimension", "$value": "40px" },
+      "iconSize":   { "$type": "dimension", "$value": "24px" },
+      "radius":     { "$type": "dimension", "$value": "500px", "$description": "refs radius-full" },
+      "offset":     { "$type": "dimension", "$value": "16px" }
+    },
+    "dot": {
+      "size":         { "$type": "dimension", "$value": "8px" },
+      "activeWidth":  { "$type": "dimension", "$value": "24px" },
+      "height":       { "$type": "dimension", "$value": "8px" },
+      "radius":       { "$type": "dimension", "$value": "500px", "$description": "refs radius-full" },
+      "gap":          { "$type": "dimension", "$value": "8px" },
+      "bottomOffset": { "$type": "dimension", "$value": "16px" }
+    },
+    "slide": {
+      "gap":          { "$type": "dimension", "$value": "16px" },
+      "radius":       { "$type": "dimension", "$value": "16px", "$description": "refs radius-2" }
+    },
+    "caption": {
+      "paddingX":  { "$type": "dimension", "$value": "24px" },
+      "paddingY":  { "$type": "dimension", "$value": "24px" },
+      "fontWeight": { "$type": "number",   "$value": 400 },
+      "fontSize":  { "$type": "dimension", "$value": "20px" },
+      "lineHeight":{ "$type": "dimension", "$value": "36px" },
+      "$description": "refs text-styles.components.carouselText"
+    }
+  }
+}

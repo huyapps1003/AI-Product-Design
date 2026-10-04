@@ -1,0 +1,51 @@
+{
+  "$metadata": { "collection": "[Patterns] Page Header", "exportedAt": "2026-10-04" },
+  "pattern": {
+    "name": "page-header",
+    "description": "Page title area with optional breadcrumb above, action buttons to the right",
+    "category": "layout",
+    "layout": {
+      "container": "flex row space-between align-end",
+      "mb": "40px",
+      "responsive": { "xs": "flex column align-start gap-16" }
+    },
+    "slots": [
+      {
+        "slot": "left",
+        "layout": "flex column gap-8",
+        "children": [
+          {
+            "slot": "breadcrumb",
+            "component": "Breadcrumb",
+            "optional": true,
+            "separator": "/",
+            "items": [
+              { "label": "Dashboard", "href": "/" },
+              { "label": "Current Page", "active": true }
+            ]
+          },
+          { "slot": "title", "component": "Typography", "variant": "h4", "fontWeight": 700 },
+          { "slot": "subtitle", "component": "Typography", "variant": "body2", "color": "text.secondary", "optional": true }
+        ]
+      },
+      {
+        "slot": "right",
+        "layout": "flex row gap-8 align-center",
+        "optional": true,
+        "children": [
+          { "slot": "secondary-action", "component": "Button", "variant": "outlined", "color": "inherit", "optional": true },
+          { "slot": "primary-action", "component": "Button", "variant": "contained", "color": "primary", "startIcon": "add" }
+        ]
+      }
+    ],
+    "tokens": {
+      "spacing": { "mb": "spacing.5 (40px)", "gap": "spacing.1 (8px)" },
+      "typography": { "title": "h4 700w", "subtitle": "body2", "breadcrumb": "body2 secondary" }
+    },
+    "variants": [
+      { "name": "with-tabs", "add": { "slot": "tabs", "component": "Tabs", "position": "below-title", "variant": "standard" } },
+      { "name": "with-search", "replace": { "right": { "component": "TextField", "size": "small", "placeholder": "Search…", "startAdornment": "search" } } }
+    ],
+    "usage": "First element inside every main content area. Title is always h4. Keep action buttons ≤ 2."
+  }
+}

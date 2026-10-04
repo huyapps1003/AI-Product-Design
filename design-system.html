@@ -618,6 +618,461 @@ nav .nav-section {
   width: 200px;
 }
 
+/* ── Accordion ─────────────────────────────────────────────────────────── */
+.accordion { border: 1px solid var(--divider); border-radius: var(--r-sm); overflow: hidden; max-width: 560px; }
+.accordion + .accordion { margin-top: 8px; }
+.accordion-summary {
+  display: flex; align-items: center; justify-content: space-between;
+  min-height: 48px; padding: 12px 16px;
+  cursor: pointer; background: var(--bg-paper);
+  font-size: 14px; font-weight: 600; color: var(--fg);
+  user-select: none; transition: background .15s;
+  gap: 8px;
+}
+.accordion-summary:hover { background: var(--action-hover); }
+.accordion-summary.expanded { min-height: 64px; }
+.accordion-chevron { flex-shrink: 0; transition: transform .2s; color: var(--fg-secondary); font-size: 12px; }
+.accordion-summary.expanded .accordion-chevron { transform: rotate(180deg); }
+.accordion-details {
+  padding: 8px 16px 16px;
+  font-size: 14px; line-height: 22px; color: var(--fg-secondary);
+  border-top: 1px solid var(--divider);
+  display: none;
+}
+.accordion-details.open { display: block; }
+
+/* ── Divider demo ───────────────────────────────────────────────────────── */
+.divider-hr { border: none; border-top: 1px solid var(--divider); margin: 0; }
+.divider-dashed { border: none; border-top: 1px dashed var(--divider); margin: 0; }
+.divider-v { width: 1px; background: var(--divider); align-self: stretch; display: inline-block; }
+
+/* ── Avatar group ───────────────────────────────────────────────────────── */
+.avatar {
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%; font-weight: 700; color: #fff;
+  border: 2px solid var(--bg-paper); flex-shrink: 0;
+}
+.avatar-lg  { width: 40px; height: 40px; font-size: 15px; }
+.avatar-md  { width: 32px; height: 32px; font-size: 12px; }
+.avatar-sm  { width: 24px; height: 24px; font-size: 10px; }
+.avatar-group { display: flex; }
+.avatar-group .avatar { margin-left: -8px; }
+.avatar-group .avatar:first-child { margin-left: 0; }
+.status-dot {
+  position: absolute; bottom: 0; right: 0;
+  border-radius: 50%; border: 2px solid var(--bg-paper);
+}
+.status-online  { background: #22C55E; }
+.status-offline { background: #919EAB; }
+.status-away    { background: #FFAB00; }
+.status-busy    { background: #FF5630; }
+
+/* ── Breadcrumb ─────────────────────────────────────────────────────────── */
+.breadcrumb { display: flex; align-items: center; flex-wrap: wrap; gap: 0; font-size: 14px; }
+.breadcrumb-item { color: var(--fg-secondary); padding: 0 4px; }
+.breadcrumb-item.current { color: var(--fg); font-weight: 600; }
+.breadcrumb-sep { color: var(--fg-disabled); padding: 0 2px; }
+
+/* ── Paper / Card elevations ────────────────────────────────────────────── */
+.paper-grid { display: flex; gap: 16px; flex-wrap: wrap; }
+.paper-el {
+  padding: 20px;
+  background: var(--bg-paper);
+  border-radius: var(--r-lg);
+  min-width: 120px;
+  text-align: center;
+}
+.paper-el-label { font-size: 11px; font-weight: 700; color: var(--fg-secondary); margin-top: 8px; }
+.paper-el-val   { font-size: 10px; color: var(--fg-disabled); }
+
+/* ── Card header ────────────────────────────────────────────────────────── */
+.card-demo {
+  background: var(--bg-paper);
+  border: 1px solid var(--divider);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-card);
+  max-width: 400px;
+  overflow: hidden;
+}
+.card-header-row {
+  display: flex; align-items: center; gap: 16px;
+  padding: 24px 16px 24px 24px;
+  border-bottom: 1px solid var(--divider);
+}
+.card-header-text { flex: 1; min-width: 0; }
+.card-header-title { font-size: 18px; font-weight: 700; color: var(--fg); }
+.card-header-sub   { font-size: 14px; color: var(--fg-secondary); margin-top: 2px; }
+.card-body { padding: 24px; font-size: 14px; color: var(--fg-secondary); line-height: 22px; }
+.card-avatar { width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── Slider ─────────────────────────────────────────────────────────────── */
+.slider-wrap { max-width: 400px; }
+.slider-input {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 4px;
+  border-radius: 500px;
+  outline: none; cursor: pointer;
+  background: linear-gradient(to right, var(--primary-main) 0%, var(--primary-main) var(--pct,40%), var(--divider) var(--pct,40%), var(--divider) 100%);
+}
+.slider-input::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--primary-main);
+  box-shadow: 0 0 0 6px rgba(0,167,111,.16);
+  cursor: pointer;
+}
+.slider-input::-moz-range-thumb {
+  width: 20px; height: 20px; border-radius: 50%; border: none;
+  background: var(--primary-main);
+  box-shadow: 0 0 0 6px rgba(0,167,111,.16);
+  cursor: pointer;
+}
+.slider-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--fg-secondary); margin-top: 8px; }
+
+/* ── Stepper ─────────────────────────────────────────────────────────────── */
+.stepper-h { display: flex; align-items: flex-start; gap: 0; }
+.step-h { display: flex; flex-direction: column; align-items: center; flex: 1; }
+.step-h-head { display: flex; align-items: center; width: 100%; }
+.step-h-connector { flex: 1; height: 1px; background: var(--divider); margin-top: 12px; }
+.step-h-connector.done { background: var(--primary-main); }
+.step-icon {
+  width: 24px; height: 24px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0;
+  font-family: 'Public Sans', sans-serif;
+}
+.step-icon.done     { background: var(--primary-main); color: #fff; }
+.step-icon.active   { background: var(--primary-main); color: #fff; box-shadow: 0 0 0 4px rgba(0,167,111,.2); }
+.step-icon.inactive { background: var(--bg-neutral); color: var(--fg-disabled); border: 1px solid var(--divider); }
+.step-h-label { font-size: 12px; font-weight: 600; color: var(--fg-secondary); margin-top: 8px; text-align: center; }
+.step-h-label.active { color: var(--fg); }
+
+.stepper-v { display: flex; flex-direction: column; }
+.step-v { display: flex; gap: 12px; }
+.step-v-line-col { display: flex; flex-direction: column; align-items: center; gap: 0; }
+.step-v-connector { width: 1px; background: var(--divider); flex: 1; min-height: 24px; margin: 4px 0; }
+.step-v-connector.done { background: var(--primary-main); }
+.step-v-body { padding-bottom: 24px; }
+.step-v-title { font-size: 14px; font-weight: 600; color: var(--fg); margin-top: 2px; }
+.step-v-desc  { font-size: 13px; color: var(--fg-secondary); margin-top: 4px; line-height: 20px; }
+
+/* ── Table ───────────────────────────────────────────────────────────────── */
+.table-wrap { overflow-x: auto; border: 1px solid var(--divider); border-radius: var(--r-sm); }
+table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 500px; }
+thead tr { background: var(--bg-neutral); }
+thead th {
+  padding: 16px; text-align: left;
+  font-size: 14px; font-weight: 600; color: var(--fg);
+  border-bottom: 1px solid var(--divider);
+  white-space: nowrap;
+}
+tbody tr { border-bottom: 1px solid var(--divider); transition: background .12s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: var(--action-hover); }
+tbody td { padding: 16px; color: var(--fg); vertical-align: middle; }
+.td-secondary { color: var(--fg-secondary); font-size: 13px; }
+
+/* ── Timeline ────────────────────────────────────────────────────────────── */
+.timeline { display: flex; flex-direction: column; }
+.tl-item { display: flex; gap: 16px; }
+.tl-spine { display: flex; flex-direction: column; align-items: center; }
+.tl-dot {
+  width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+  margin-top: 4px;
+}
+.tl-dot.filled  { background: var(--primary-main); }
+.tl-dot.outline { background: transparent; border: 2px solid var(--primary-main); }
+.tl-dot.grey    { background: var(--fg-disabled); }
+.tl-connector { width: 2px; background: var(--divider); flex: 1; min-height: 24px; margin: 4px 0; }
+.tl-body { padding-bottom: 24px; }
+.tl-time  { font-size: 12px; color: var(--fg-disabled); margin-bottom: 4px; font-variant-numeric: tabular-nums; }
+.tl-title { font-size: 14px; font-weight: 600; color: var(--fg); }
+.tl-desc  { font-size: 13px; color: var(--fg-secondary); margin-top: 4px; line-height: 20px; }
+
+/* ── Toggle button group ─────────────────────────────────────────────────── */
+.tbg { display: inline-flex; border: 1px solid var(--divider); border-radius: var(--r-sm); overflow: hidden; }
+.tbg-btn {
+  font-family: 'Public Sans', sans-serif;
+  font-size: 13px; font-weight: 700;
+  padding: 0 16px; height: 36px;
+  background: transparent; border: none;
+  border-left: 1px solid var(--divider);
+  color: var(--fg-secondary); cursor: pointer;
+  transition: background .12s, color .12s;
+}
+.tbg-btn:first-child { border-left: none; }
+.tbg-btn:hover  { background: var(--action-hover); color: var(--fg); }
+.tbg-btn.active { background: var(--primary-main); color: #fff; border-left-color: var(--primary-main); }
+.tbg-btn.active + .tbg-btn { border-left-color: var(--primary-main); }
+
+/* ── Upload ──────────────────────────────────────────────────────────────── */
+.upload-zone {
+  border: 1px dashed var(--fg-disabled);
+  border-radius: var(--r-lg);
+  padding: 40px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+  max-width: 400px;
+}
+.upload-zone:hover { border-color: var(--primary-main); background: rgba(0,167,111,.04); }
+.upload-icon { font-size: 40px; margin-bottom: 12px; color: var(--fg-disabled); }
+.upload-text { font-size: 14px; font-weight: 600; color: var(--fg); }
+.upload-sub  { font-size: 12px; color: var(--fg-secondary); margin-top: 4px; }
+.upload-file-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 12px;
+  background: var(--bg-neutral);
+  border: 1px solid var(--divider);
+  border-radius: var(--r-sm);
+  max-width: 400px; margin-top: 8px;
+}
+.upload-file-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(0,167,111,.12); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.upload-file-name { font-size: 13px; font-weight: 600; color: var(--fg); flex: 1; min-width: 0; }
+.upload-file-size { font-size: 12px; color: var(--fg-secondary); white-space: nowrap; }
+
+/* ── DatePicker ──────────────────────────────────────────────────────────── */
+.datepicker-cal {
+  background: var(--bg-paper);
+  border: 1px solid var(--divider);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-z12);
+  width: 320px;
+  overflow: hidden;
+  font-size: 14px;
+}
+.cal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--divider);
+}
+.cal-nav { width: 32px; height: 32px; border: none; background: transparent; cursor: pointer; border-radius: 50%; font-size: 14px; color: var(--fg-secondary); display: flex; align-items: center; justify-content: center; transition: background .12s; }
+.cal-nav:hover { background: var(--action-hover); }
+.cal-month { font-size: 15px; font-weight: 700; color: var(--fg); }
+.cal-grid { padding: 8px 16px 16px; }
+.cal-weekdays { display: grid; grid-template-columns: repeat(7,1fr); gap: 2px; margin-bottom: 4px; }
+.cal-wd { text-align: center; font-size: 12px; font-weight: 600; color: var(--fg-disabled); padding: 4px 0; }
+.cal-days { display: grid; grid-template-columns: repeat(7,1fr); gap: 2px; }
+.cal-day {
+  aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; font-size: 13px; color: var(--fg); cursor: pointer;
+  transition: background .12s;
+}
+.cal-day:hover   { background: var(--action-hover); }
+.cal-day.other   { color: var(--fg-disabled); }
+.cal-day.today   { font-weight: 700; color: var(--primary-main); }
+.cal-day.selected{ background: var(--primary-main); color: #fff; font-weight: 700; }
+.cal-day.selected:hover { background: var(--primary-dark); }
+.cal-day.in-range{ background: rgba(0,167,111,.12); border-radius: 0; }
+.cal-day.range-start { background: var(--primary-main); color: #fff; border-radius: 50% 0 0 50%; }
+.cal-day.range-end   { background: var(--primary-main); color: #fff; border-radius: 0 50% 50% 0; }
+
+/* ── Breakpoints ─────────────────────────────────────────────────────── */
+.bp-ruler{position:relative;height:52px;background:var(--bg-paper);border-radius:var(--r-sm);overflow:visible;margin-bottom:28px;display:flex;align-items:stretch}
+.bp-seg{display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;letter-spacing:.04em;position:relative;border-right:1px solid rgba(255,255,255,.3)}
+.bp-seg:last-child{border-right:none}
+.bp-seg-label{font-size:10px;font-weight:800;color:#fff;opacity:.9}
+.bp-tick{position:absolute;bottom:-22px;left:0;transform:translateX(-50%);font-size:10px;color:var(--fg-secondary);white-space:nowrap;font-variant-numeric:tabular-nums}
+.bp-card-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.bp-card{background:var(--bg-paper);border:1px solid var(--divider);border-radius:var(--r-sm);padding:14px 12px;text-align:center}
+.bp-card-name{font-size:13px;font-weight:700;margin-bottom:4px}
+.bp-card-val{font-size:11px;color:var(--fg-secondary);font-variant-numeric:tabular-nums}
+.bp-card-desc{font-size:10px;color:var(--fg-disabled);margin-top:4px;line-height:1.4}
+
+/* ── Grid / Layout ────────────────────────────────────────────────────── */
+.grid-table{width:100%;border-collapse:collapse;font-size:13px}
+.grid-table th{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);padding:8px 14px;border-bottom:2px solid var(--divider);text-align:left}
+.grid-table td{padding:12px 14px;border-bottom:1px solid var(--divider)}
+.grid-table tr:last-child td{border-bottom:none}
+.grid-col-vis{display:flex;gap:3px;margin-top:8px}
+.grid-col-bar{flex:1;height:18px;border-radius:2px;background:rgba(0,167,111,.18)}
+.grid-code{font-family:monospace;font-size:12px;background:var(--bg-neutral);padding:2px 6px;border-radius:3px;color:var(--fg)}
+.grid-sub{font-size:11px;color:var(--fg-secondary);margin-top:2px}
+
+/* ── Z-Index ──────────────────────────────────────────────────────────── */
+.zi-stack{background:var(--bg-paper);border:1px solid var(--divider);border-radius:var(--r-sm);overflow:hidden}
+.zi-row{display:grid;grid-template-columns:72px 1fr 48px;align-items:center;padding:11px 16px;border-bottom:1px solid var(--divider);gap:12px}
+.zi-row:last-child{border-bottom:none}
+.zi-row:hover{background:var(--action-hover)}
+.zi-val{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--primary-main)}
+.zi-name{font-size:13px;font-weight:600}
+.zi-desc{font-size:11px;color:var(--fg-secondary);grid-column:2;margin-top:-6px;padding-bottom:2px}
+.zi-bar-wrap{display:flex;align-items:center}
+.zi-bar{height:4px;background:var(--primary-main);border-radius:2px;opacity:.6}
+
+/* ── Motion ───────────────────────────────────────────────────────────── */
+.dur-rows{display:flex;flex-direction:column;gap:10px;margin-bottom:8px}
+.dur-row{display:flex;align-items:center;gap:14px}
+.dur-label{font-size:12px;font-weight:600;width:130px;flex-shrink:0}
+.dur-track{flex:1;height:6px;background:var(--divider);border-radius:3px;position:relative;overflow:hidden}
+.dur-fill{height:100%;background:var(--primary-main);border-radius:3px}
+.dur-ms{font-size:11px;color:var(--fg-secondary);width:42px;text-align:right;font-variant-numeric:tabular-nums}
+.ease-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px;margin-top:24px}
+.ease-card{background:var(--bg-paper);border:1px solid var(--divider);border-radius:var(--r-sm);padding:14px}
+.ease-name{font-size:12px;font-weight:700;margin-bottom:8px}
+.ease-val{font-size:10px;color:var(--fg-secondary);font-family:monospace;word-break:break-all;margin-bottom:10px}
+.ease-preview{position:relative;overflow:hidden;height:6px;background:var(--divider);border-radius:3px;cursor:pointer}
+.ease-ball{position:absolute;top:-3px;width:12px;height:12px;border-radius:50%;background:var(--primary-main);left:-6px}
+.ease-use{font-size:10px;color:var(--fg-disabled);margin-top:8px;line-height:1.4}
+
+/* ── Component Variants ───────────────────────────────────────────────── */
+.vt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.vt-card{background:var(--bg-paper);border:1px solid var(--divider);border-radius:var(--r-sm);padding:16px}
+.vt-name{font-size:13px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.vt-file{font-size:10px;font-family:monospace;color:var(--fg-secondary);font-weight:400}
+.vt-prop-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:6px;margin-top:10px}
+.vt-chips{display:flex;flex-wrap:wrap;gap:5px}
+.vt-chip{font-size:11px;padding:2px 8px;border-radius:4px;font-weight:600;white-space:nowrap}
+.vt-chip.variant{background:rgba(0,167,111,.12);color:var(--primary-dark);border:1px solid rgba(0,167,111,.24)}
+.vt-chip.color{background:rgba(142,51,255,.1);color:#7B3FE4;border:1px solid rgba(142,51,255,.2)}
+.vt-chip.size{background:rgba(0,184,217,.1);color:#006C9C;border:1px solid rgba(0,184,217,.2)}
+.vt-chip.state{background:rgba(255,171,0,.1);color:#B76E00;border:1px solid rgba(255,171,0,.2)}
+
+/* ── Icons ────────────────────────────────────────────────────────────── */
+.icon-search-wrap{position:relative;margin-bottom:20px;max-width:360px}
+.icon-search{width:100%;padding:9px 12px 9px 36px;border:1px solid var(--divider);border-radius:var(--r-sm);background:var(--bg-paper);color:var(--fg);font-size:13px;outline:none}
+.icon-search:focus{border-color:var(--primary-main)}
+.icon-search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--fg-secondary);font-size:14px}
+.icon-cat{margin-bottom:28px}
+.icon-cat-header{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.icon-count{font-size:10px;color:var(--fg-disabled);font-weight:400;text-transform:none;letter-spacing:0}
+.icon-chips{display:flex;flex-wrap:wrap;gap:6px}
+.icon-chip{font-size:11px;padding:3px 9px;border-radius:4px;background:var(--bg-neutral);border:1px solid var(--divider);color:var(--fg-secondary);font-family:monospace;cursor:default;transition:background .15s,color .15s,border-color .15s}
+.icon-chip:hover{background:rgba(0,167,111,.1);color:var(--primary-main);border-color:rgba(0,167,111,.3)}
+
+/* ── UI Patterns (building blocks) ───────────────────────────────────── */
+.block-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(520px,1fr));gap:32px}
+.block-demo{border:1px solid var(--divider);border-radius:var(--r-md);overflow:hidden}
+.block-demo-label{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:var(--bg-neutral);border-bottom:1px solid var(--divider)}
+.block-demo-name{font-size:12px;font-weight:700}
+.block-demo-file{font-size:11px;font-family:monospace;color:var(--fg-secondary)}
+.block-demo-body{padding:20px;background:var(--bg)}
+/* stats-row */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:700px){.stats-row{grid-template-columns:repeat(2,1fr)}}
+.stat-card{background:var(--bg-paper);border:1px solid var(--divider);border-radius:var(--r-sm);padding:20px}
+.stat-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
+.stat-label{font-size:12px;color:var(--fg-secondary);font-weight:600}
+.stat-icon-wrap{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.stat-value{font-size:28px;font-weight:800;line-height:1;margin-bottom:8px;font-variant-numeric:tabular-nums}
+.stat-trend{display:flex;align-items:center;gap:8px}
+/* page-header */
+.pg-header{display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
+.pg-header-left{display:flex;flex-direction:column;gap:6px}
+.pg-header-right{display:flex;gap:8px;flex-shrink:0}
+/* filter-bar */
+.filter-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.filter-input{flex:1;min-width:180px;padding:7px 12px 7px 32px;border:1px solid var(--divider);border-radius:var(--r-sm);background:var(--bg-paper);color:var(--fg);font-size:13px;outline:none;position:relative}
+.filter-input:focus{border-color:var(--primary-main)}
+.filter-wrap{position:relative;flex:1;min-width:180px}
+.filter-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--fg-secondary);pointer-events:none;font-size:13px}
+.filter-select{padding:7px 12px;border:1px solid var(--divider);border-radius:var(--r-sm);background:var(--bg-paper);color:var(--fg);font-size:13px;outline:none;cursor:pointer;min-width:110px}
+.filter-select:focus{border-color:var(--primary-main)}
+/* chart-card */
+.chart-card{background:var(--bg-paper);border:1px solid var(--divider);border-radius:var(--r-sm);padding:20px}
+.chart-card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px}
+.chart-area{height:120px;position:relative;overflow:hidden;border-radius:4px}
+.chart-svg{width:100%;height:100%}
+.chart-legend{display:flex;gap:16px;margin-top:12px}
+.chart-legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--fg-secondary)}
+.chart-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+/* card-grid */
+.cg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:600px){.cg-grid{grid-template-columns:1fr}}
+.cg-card{background:var(--bg-paper);border:1px solid var(--divider);border-radius:var(--r-sm);overflow:hidden;cursor:pointer;transition:box-shadow .2s,transform .2s}
+.cg-card:hover{box-shadow:0 12px 24px rgba(145,158,171,.2);transform:translateY(-3px)}
+.cg-img{height:100px;background:var(--bg-neutral);display:flex;align-items:center;justify-content:center;color:var(--fg-disabled);font-size:11px}
+.cg-body{padding:14px}
+.cg-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.cg-title{font-size:13px;font-weight:600;line-height:1.3;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cg-desc{font-size:11px;color:var(--fg-secondary);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:10px}
+.cg-footer{display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid var(--divider)}
+/* form-section */
+.form-card{background:var(--bg-paper);border:1px solid var(--divider);border-radius:var(--r-sm)}
+.form-card-head{padding:20px 20px 0;margin-bottom:16px}
+.form-fields{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:0 20px}
+@media(max-width:500px){.form-fields{grid-template-columns:1fr}}
+.form-actions{display:flex;justify-content:flex-end;gap:10px;padding:14px 20px;border-top:1px solid var(--divider);margin-top:16px}
+/* kanban */
+.kanban-wrap{display:flex;gap:16px;overflow-x:auto;padding-bottom:8px}
+.kanban-col{min-width:220px;flex-shrink:0;display:flex;flex-direction:column}
+.kanban-col-head{display:flex;align-items:center;justify-content:space-between;padding:0 4px 10px;font-size:12px;font-weight:700}
+.kanban-col-left{display:flex;align-items:center;gap:6px}
+.kanban-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.kanban-count{font-size:11px;color:var(--fg-secondary);font-weight:400;margin-left:2px}
+.kanban-card{background:var(--bg-paper);border:1px solid var(--divider);border-radius:var(--r-sm);padding:12px;margin-bottom:8px;cursor:grab}
+.kanban-card:hover{box-shadow:0 4px 12px rgba(145,158,171,.16)}
+.kanban-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.kanban-card-title{font-size:12px;font-weight:600;line-height:1.4;margin-bottom:8px}
+.kanban-card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:8px;border-top:1px solid var(--divider)}
+/* sidebar-nav demo */
+.snav{background:var(--bg-paper);border:1px solid var(--divider);border-radius:var(--r-sm);width:220px;display:flex;flex-direction:column;overflow:hidden}
+.snav-logo{height:52px;display:flex;align-items:center;gap:10px;padding:0 16px;border-bottom:1px solid var(--divider)}
+.snav-logo-dot{width:28px;height:28px;border-radius:8px;background:var(--primary-main);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:800}
+.snav-group-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-disabled);padding:12px 16px 6px}
+.snav-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:var(--r-sm);margin:2px 8px;font-size:12px;font-weight:500;color:var(--fg-secondary);cursor:pointer}
+.snav-item:hover{background:var(--action-hover);color:var(--fg)}
+.snav-item.active{background:rgba(0,167,111,.12);color:var(--primary-main);font-weight:700}
+.snav-icon{width:18px;height:18px;border-radius:4px;background:currentColor;opacity:.5;flex-shrink:0}
+.snav-item.active .snav-icon{opacity:1}
+.snav-user{display:flex;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--divider);margin-top:auto;cursor:pointer}
+.snav-user:hover{background:var(--action-hover)}
+/* empty-state */
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 24px;min-height:240px}
+.empty-icon{width:56px;height:56px;border-radius:50%;background:var(--action-hover);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px}
+.empty-title{font-size:18px;font-weight:700;margin-bottom:10px}
+.empty-desc{font-size:13px;color:var(--fg-secondary);max-width:300px;margin-bottom:24px;line-height:1.6}
+/* notification-item */
+.notif-item{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;border-bottom:1px solid var(--divider);cursor:pointer;position:relative}
+.notif-item:hover{background:var(--action-hover)}
+.notif-item.unread{background:rgba(0,167,111,.06)}
+.notif-avatar-wrap{position:relative;flex-shrink:0}
+.notif-type-icon{position:absolute;bottom:-2px;right:-2px;width:18px;height:18px;border-radius:50%;border:2px solid var(--bg-paper);display:flex;align-items:center;justify-content:center;font-size:9px}
+.notif-body{flex:1;min-width:0}
+.notif-text{font-size:13px;line-height:1.5;margin-bottom:4px}
+.notif-meta{display:flex;align-items:center;gap:8px}
+.notif-time{font-size:11px;color:var(--fg-disabled)}
+.notif-dot{width:8px;height:8px;border-radius:50%;background:var(--primary-main);flex-shrink:0;margin-top:4px}
+/* detail-header */
+.detail-cover{height:140px;border-radius:var(--r-md);background:linear-gradient(135deg,#00A76F,#007867);margin-bottom:-28px;position:relative}
+.detail-identity{display:flex;align-items:flex-end;justify-content:space-between;padding:0 20px}
+.detail-avatar-block{display:flex;align-items:flex-end;gap:14px}
+.detail-avatar{width:64px;height:64px;border-radius:50%;border:4px solid var(--bg);background:var(--bg-neutral);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;box-shadow:0 4px 12px rgba(145,158,171,.24)}
+.detail-name{margin-bottom:6px}
+.detail-stats{display:flex;gap:24px;padding:12px 20px 0;flex-wrap:wrap}
+.detail-stat{display:flex;flex-direction:column;align-items:center}
+.detail-stat-val{font-size:16px;font-weight:700}
+.detail-stat-label{font-size:11px;color:var(--fg-secondary)}
+
+/* ── Screen Patterns ──────────────────────────────────────────────────── */
+.screen-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px}
+.screen-card{border:1px solid var(--divider);border-radius:var(--r-sm);overflow:hidden;transition:box-shadow .2s}
+.screen-card:hover{box-shadow:0 8px 24px rgba(145,158,171,.16)}
+.screen-preview{height:128px;background:var(--bg-neutral);padding:8px;display:flex;gap:5px;overflow:hidden}
+.screen-meta{padding:12px 14px;border-top:1px solid var(--divider)}
+.screen-name{font-size:13px;font-weight:700}
+.screen-layout{font-size:10px;color:var(--fg-secondary);margin-top:2px;font-family:monospace}
+/* Wireframe primitives */
+.wf-sidebar{width:22px;height:100%;background:var(--divider);border-radius:3px;flex-shrink:0}
+.wf-main{flex:1;display:flex;flex-direction:column;gap:5px}
+.wf-topbar{height:10px;background:var(--divider);border-radius:2px;width:100%}
+.wf-content{flex:1;display:flex;flex-direction:column;gap:4px;margin-top:2px}
+.wf-row{height:6px;background:var(--bg-paper);border-radius:2px}
+.wf-row.w100{width:100%}.wf-row.w75{width:75%}.wf-row.w50{width:50%}.wf-row.w35{width:35%}
+.wf-cards-row{display:flex;gap:4px;flex:1}
+.wf-mini-card{flex:1;background:var(--bg-paper);border-radius:3px}
+.wf-center-card{width:72px;margin:auto;background:var(--bg-paper);border-radius:4px;padding:8px;display:flex;flex-direction:column;gap:5px;align-self:center}
+.wf-circle{width:20px;height:20px;border-radius:50%;background:rgba(0,167,111,.3);margin:0 auto 4px}
+.wf-line{height:5px;border-radius:2px;background:var(--divider)}
+.wf-btn-wf{height:8px;border-radius:2px;background:rgba(0,167,111,.4);margin-top:2px}
+.wf-table-head{height:8px;background:rgba(0,167,111,.15);border-radius:2px;margin-bottom:3px}
+.wf-table-row{height:6px;background:var(--bg-paper);border-radius:1px;margin-bottom:2px}
+.wf-sidebar-nav{display:flex;flex-direction:column;gap:3px;padding-top:4px}
+.wf-nav-item{height:6px;border-radius:2px;background:var(--bg-paper)}
+.wf-nav-item.active{background:rgba(0,167,111,.4)}
+.wf-chart-area{flex:1;background:var(--bg-paper);border-radius:3px;position:relative;overflow:hidden}
+.wf-chart-line{position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(to top,rgba(0,167,111,.2),transparent)}
+
 /* ── Responsive utility ────────────────────────────────────────────────── */
 @media (max-width: 480px) {
   .comp-grid { grid-template-columns: 1fr 1fr; }
@@ -638,17 +1093,38 @@ nav .nav-section {
       <a href="#colors">Colors</a>
       <a href="#typography">Typography</a>
       <a href="#spacing">Spacing</a>
+      <a href="#breakpoints">Breakpoints</a>
+      <a href="#grid">Grid &amp; Layout</a>
       <a href="#radius">Border Radius</a>
       <a href="#shadows">Shadows</a>
       <a href="#gradients">Gradients</a>
       <div class="nav-section">Tokens</div>
       <a href="#themes">Semantic Themes</a>
       <a href="#effects">Effects</a>
+      <a href="#zindex">Z-Index</a>
+      <a href="#motion">Motion</a>
       <div class="nav-section">Components</div>
       <a href="#buttons">Buttons</a>
-      <a href="#chips">Chips & Labels</a>
+      <a href="#chips">Chips &amp; Labels</a>
       <a href="#alerts">Alerts</a>
       <a href="#textfields">Text Fields</a>
+      <a href="#accordion">Accordion</a>
+      <a href="#divider">Divider</a>
+      <a href="#avatar-group">Avatar Group</a>
+      <a href="#breadcrumb">Breadcrumb</a>
+      <a href="#paper">Paper &amp; Card</a>
+      <a href="#slider">Slider</a>
+      <a href="#stepper">Stepper</a>
+      <a href="#table">Table</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#tbg">Toggle Button Group</a>
+      <a href="#upload">Upload</a>
+      <a href="#datepicker">Date Picker</a>
+      <a href="#variants">Variants</a>
+      <div class="nav-section">Assets</div>
+      <a href="#icons">Icons</a>
+      <a href="#ui-patterns">UI Patterns</a>
+      <a href="#patterns">Screen Patterns</a>
       <a href="#inventory">Inventory</a>
     </nav>
     <div class="theme-toggle">
@@ -827,6 +1303,149 @@ nav .nav-section {
       </div>
     </section>
 
+    <!-- ── BREAKPOINTS ───────────────────────────────────────────────────── -->
+    <section class="section" id="breakpoints">
+      <div class="section-header">
+        <h2 class="section-title">Breakpoints</h2>
+        <span class="section-sub">primitives/breakpoints.json · xs 0 · sm 600 · md 900 · lg 1200 · xl 1536</span>
+      </div>
+      <!-- Visual ruler -->
+      <div style="padding-bottom:32px;overflow:visible">
+        <div class="bp-ruler" style="margin-bottom:32px">
+          <div class="bp-seg" style="width:12%;background:#00A76F">
+            <span class="bp-seg-label">xs</span>
+            <span class="bp-tick">0</span>
+          </div>
+          <div class="bp-seg" style="width:20%;background:#00B8D9">
+            <span class="bp-seg-label">sm</span>
+            <span class="bp-tick">600px</span>
+          </div>
+          <div class="bp-seg" style="width:20%;background:#8E33FF">
+            <span class="bp-seg-label">md</span>
+            <span class="bp-tick">900px</span>
+          </div>
+          <div class="bp-seg" style="width:24%;background:#FFAB00;color:#212B36">
+            <span class="bp-seg-label">lg</span>
+            <span class="bp-tick" style="color:var(--fg-secondary)">1200px</span>
+          </div>
+          <div class="bp-seg" style="flex:1;background:#FF5630">
+            <span class="bp-seg-label">xl</span>
+            <span class="bp-tick" style="left:auto;right:0;transform:none">1536px+</span>
+          </div>
+        </div>
+      </div>
+      <!-- Cards -->
+      <div class="bp-card-grid">
+        <div class="bp-card"><div class="bp-card-name" style="color:#00A76F">xs</div><div class="bp-card-val">0px</div><div class="bp-card-desc">Phone portrait</div></div>
+        <div class="bp-card"><div class="bp-card-name" style="color:#00B8D9">sm</div><div class="bp-card-val">600px</div><div class="bp-card-desc">Phone landscape / tablet portrait</div></div>
+        <div class="bp-card"><div class="bp-card-name" style="color:#8E33FF">md</div><div class="bp-card-val">900px</div><div class="bp-card-desc">Tablet landscape / small laptop</div></div>
+        <div class="bp-card"><div class="bp-card-name" style="color:#FFAB00">lg</div><div class="bp-card-val">1200px</div><div class="bp-card-desc">Desktop</div></div>
+        <div class="bp-card"><div class="bp-card-name" style="color:#FF5630">xl</div><div class="bp-card-val">1536px</div><div class="bp-card-desc">Wide monitor</div></div>
+      </div>
+    </section>
+
+    <!-- ── GRID & LAYOUT ──────────────────────────────────────────────────── -->
+    <section class="section" id="grid">
+      <div class="section-header">
+        <h2 class="section-title">Grid &amp; Layout</h2>
+        <span class="section-sub">styles/layout-styles.json · mobile 4col · tablet 8col · desktop 12col · sidebar 88/280px</span>
+      </div>
+      <div style="overflow-x:auto;margin-bottom:32px">
+        <table class="grid-table">
+          <thead>
+            <tr>
+              <th>Context</th>
+              <th>Breakpoint</th>
+              <th>Columns</th>
+              <th>Gutter</th>
+              <th>Margin</th>
+              <th>Max Width</th>
+              <th>Preview</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Mobile</strong></td>
+              <td><span class="grid-code">0 – 599px</span></td>
+              <td>4</td>
+              <td>16px</td>
+              <td>16px</td>
+              <td>100%</td>
+              <td><div class="grid-col-vis">
+                <div class="grid-col-bar" style="background:rgba(0,167,111,.28)"></div>
+                <div class="grid-col-bar" style="background:rgba(0,167,111,.28)"></div>
+                <div class="grid-col-bar" style="background:rgba(0,167,111,.28)"></div>
+                <div class="grid-col-bar" style="background:rgba(0,167,111,.28)"></div>
+              </div></td>
+            </tr>
+            <tr>
+              <td><strong>Tablet</strong></td>
+              <td><span class="grid-code">600 – 899px</span></td>
+              <td>8</td>
+              <td>24px</td>
+              <td>24px</td>
+              <td>100%</td>
+              <td><div class="grid-col-vis">
+                <div class="grid-col-bar"></div><div class="grid-col-bar"></div><div class="grid-col-bar"></div><div class="grid-col-bar"></div>
+                <div class="grid-col-bar"></div><div class="grid-col-bar"></div><div class="grid-col-bar"></div><div class="grid-col-bar"></div>
+              </div></td>
+            </tr>
+            <tr>
+              <td><strong>Desktop</strong></td>
+              <td><span class="grid-code">900 – 1199px</span></td>
+              <td>12</td>
+              <td>24px</td>
+              <td>40px</td>
+              <td>1200px</td>
+              <td><div class="grid-col-vis">
+                <div class="grid-col-bar"></div><div class="grid-col-bar"></div><div class="grid-col-bar"></div><div class="grid-col-bar"></div>
+                <div class="grid-col-bar"></div><div class="grid-col-bar"></div><div class="grid-col-bar"></div><div class="grid-col-bar"></div>
+                <div class="grid-col-bar"></div><div class="grid-col-bar"></div><div class="grid-col-bar"></div><div class="grid-col-bar"></div>
+              </div></td>
+            </tr>
+            <tr>
+              <td><strong>Desktop Wide</strong></td>
+              <td><span class="grid-code">1200px+</span></td>
+              <td>12</td>
+              <td>32px</td>
+              <td>80px</td>
+              <td>1440px</td>
+              <td><div class="grid-col-vis">
+                <div class="grid-col-bar" style="background:rgba(142,51,255,.2)"></div><div class="grid-col-bar" style="background:rgba(142,51,255,.2)"></div>
+                <div class="grid-col-bar" style="background:rgba(142,51,255,.2)"></div><div class="grid-col-bar" style="background:rgba(142,51,255,.2)"></div>
+                <div class="grid-col-bar" style="background:rgba(142,51,255,.2)"></div><div class="grid-col-bar" style="background:rgba(142,51,255,.2)"></div>
+                <div class="grid-col-bar" style="background:rgba(142,51,255,.2)"></div><div class="grid-col-bar" style="background:rgba(142,51,255,.2)"></div>
+                <div class="grid-col-bar" style="background:rgba(142,51,255,.2)"></div><div class="grid-col-bar" style="background:rgba(142,51,255,.2)"></div>
+                <div class="grid-col-bar" style="background:rgba(142,51,255,.2)"></div><div class="grid-col-bar" style="background:rgba(142,51,255,.2)"></div>
+              </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <div class="bp-card" style="flex:1;min-width:160px;text-align:left">
+          <div class="bp-card-name" style="color:var(--fg)">Sidebar collapsed</div>
+          <div class="bp-card-val">88px</div>
+          <div class="bp-card-desc">Icon-only navigation</div>
+        </div>
+        <div class="bp-card" style="flex:1;min-width:160px;text-align:left">
+          <div class="bp-card-name" style="color:var(--fg)">Sidebar expanded</div>
+          <div class="bp-card-val">280px</div>
+          <div class="bp-card-desc">Label + icon navigation</div>
+        </div>
+        <div class="bp-card" style="flex:1;min-width:160px;text-align:left">
+          <div class="bp-card-name" style="color:var(--fg)">Header height</div>
+          <div class="bp-card-val">64px</div>
+          <div class="bp-card-desc">56px on mobile</div>
+        </div>
+        <div class="bp-card" style="flex:1;min-width:160px;text-align:left">
+          <div class="bp-card-name" style="color:var(--fg)">Page padding</div>
+          <div class="bp-card-val">16 / 24 / 40px</div>
+          <div class="bp-card-desc">mobile / tablet / desktop</div>
+        </div>
+      </div>
+    </section>
+
     <!-- ── RADIUS ────────────────────────────────────────────────────────── -->
     <section class="section" id="radius">
       <div class="section-header">
@@ -965,6 +1584,175 @@ nav .nav-section {
       </div>
     </section>
 
+    <!-- ── Z-INDEX ───────────────────────────────────────────────────────── -->
+    <section class="section" id="zindex">
+      <div class="section-header">
+        <h2 class="section-title">Z-Index</h2>
+        <span class="section-sub">primitives/z-index.json · stacking order 1000–1500</span>
+      </div>
+      <div style="max-width:540px">
+        <div class="zi-stack">
+          <div class="zi-row">
+            <div class="zi-val">1000</div>
+            <div>
+              <div class="zi-name">mobileStepper</div>
+              <div class="zi-desc">Mobile stepper dots floating above page content</div>
+            </div>
+            <div class="zi-bar-wrap"><div class="zi-bar" style="width:24px"></div></div>
+          </div>
+          <div class="zi-row">
+            <div class="zi-val">1050</div>
+            <div>
+              <div class="zi-name">FAB / SpeedDial</div>
+              <div class="zi-desc">Floating action button, speed dial overlay</div>
+            </div>
+            <div class="zi-bar-wrap"><div class="zi-bar" style="width:30px"></div></div>
+          </div>
+          <div class="zi-row">
+            <div class="zi-val">1100</div>
+            <div>
+              <div class="zi-name">AppBar</div>
+              <div class="zi-desc">Top navigation header</div>
+            </div>
+            <div class="zi-bar-wrap"><div class="zi-bar" style="width:36px"></div></div>
+          </div>
+          <div class="zi-row">
+            <div class="zi-val">1200</div>
+            <div>
+              <div class="zi-name">Drawer</div>
+              <div class="zi-desc">Navigation drawer, sidebar panel</div>
+            </div>
+            <div class="zi-bar-wrap"><div class="zi-bar" style="width:40px"></div></div>
+          </div>
+          <div class="zi-row">
+            <div class="zi-val">1300</div>
+            <div>
+              <div class="zi-name">Modal / Dialog</div>
+              <div class="zi-desc">Backdrop + dialog paper</div>
+            </div>
+            <div class="zi-bar-wrap"><div class="zi-bar" style="width:44px;opacity:.85"></div></div>
+          </div>
+          <div class="zi-row">
+            <div class="zi-val">1400</div>
+            <div>
+              <div class="zi-name">Snackbar</div>
+              <div class="zi-desc">Toast notification — appears above dialogs</div>
+            </div>
+            <div class="zi-bar-wrap"><div class="zi-bar" style="width:48px;opacity:.9"></div></div>
+          </div>
+          <div class="zi-row">
+            <div class="zi-val">1500</div>
+            <div>
+              <div class="zi-name">Tooltip</div>
+              <div class="zi-desc">Always on top of everything else</div>
+            </div>
+            <div class="zi-bar-wrap"><div class="zi-bar" style="width:52px"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── MOTION ─────────────────────────────────────────────────────────── -->
+    <section class="section" id="motion">
+      <div class="section-header">
+        <h2 class="section-title">Motion</h2>
+        <span class="section-sub">primitives/motion.json · 7 durations · 5 easing curves · 6 transition presets</span>
+      </div>
+      <!-- Duration scale -->
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:14px">Duration</div>
+      <div class="dur-rows" style="max-width:440px">
+        <div class="dur-row"><div class="dur-label">shortest</div><div class="dur-track"><div class="dur-fill" style="width:16%"></div></div><div class="dur-ms">150ms</div></div>
+        <div class="dur-row"><div class="dur-label">shorter</div><div class="dur-track"><div class="dur-fill" style="width:21%"></div></div><div class="dur-ms">200ms</div></div>
+        <div class="dur-row"><div class="dur-label">short</div><div class="dur-track"><div class="dur-fill" style="width:27%"></div></div><div class="dur-ms">250ms</div></div>
+        <div class="dur-row"><div class="dur-label">enteringScreen</div><div class="dur-track"><div class="dur-fill" style="width:24%"></div></div><div class="dur-ms">225ms</div></div>
+        <div class="dur-row"><div class="dur-label">leavingScreen</div><div class="dur-track"><div class="dur-fill" style="width:21%"></div></div><div class="dur-ms">195ms</div></div>
+        <div class="dur-row"><div class="dur-label">standard</div><div class="dur-track"><div class="dur-fill" style="width:32%"></div></div><div class="dur-ms">300ms</div></div>
+        <div class="dur-row"><div class="dur-label">complex</div><div class="dur-track"><div class="dur-fill" style="width:40%"></div></div><div class="dur-ms">375ms</div></div>
+      </div>
+      <!-- Easing curves -->
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin:28px 0 14px">Easing</div>
+      <div class="ease-grid">
+        <div class="ease-card">
+          <div class="ease-name">easeInOut</div>
+          <div class="ease-val">cubic-bezier(0.4, 0, 0.2, 1)</div>
+          <svg viewBox="0 0 60 60" class="ease-svg" height="48" style="border:1px solid var(--divider);border-radius:4px">
+            <path d="M4 56 C28 56 20 4 56 4" fill="none" stroke="var(--primary-main)" stroke-width="2"/>
+            <circle cx="4" cy="56" r="2.5" fill="var(--primary-main)"/>
+            <circle cx="56" cy="4" r="2.5" fill="var(--primary-main)"/>
+          </svg>
+          <div class="ease-use">Moving within the screen</div>
+        </div>
+        <div class="ease-card">
+          <div class="ease-name">easeOut</div>
+          <div class="ease-val">cubic-bezier(0.0, 0, 0.2, 1)</div>
+          <svg viewBox="0 0 60 60" class="ease-svg" height="48" style="border:1px solid var(--divider);border-radius:4px">
+            <path d="M4 56 C4 4 36 4 56 4" fill="none" stroke="var(--primary-main)" stroke-width="2"/>
+            <circle cx="4" cy="56" r="2.5" fill="var(--primary-main)"/>
+            <circle cx="56" cy="4" r="2.5" fill="var(--primary-main)"/>
+          </svg>
+          <div class="ease-use">Entering from off-screen</div>
+        </div>
+        <div class="ease-card">
+          <div class="ease-name">easeIn</div>
+          <div class="ease-val">cubic-bezier(0.4, 0, 1, 1)</div>
+          <svg viewBox="0 0 60 60" class="ease-svg" height="48" style="border:1px solid var(--divider);border-radius:4px">
+            <path d="M4 56 C24 56 56 28 56 4" fill="none" stroke="var(--primary-main)" stroke-width="2"/>
+            <circle cx="4" cy="56" r="2.5" fill="var(--primary-main)"/>
+            <circle cx="56" cy="4" r="2.5" fill="var(--primary-main)"/>
+          </svg>
+          <div class="ease-use">Leaving to off-screen</div>
+        </div>
+        <div class="ease-card">
+          <div class="ease-name">sharp</div>
+          <div class="ease-val">cubic-bezier(0.4, 0, 0.6, 1)</div>
+          <svg viewBox="0 0 60 60" class="ease-svg" height="48" style="border:1px solid var(--divider);border-radius:4px">
+            <path d="M4 56 C28 56 32 4 56 4" fill="none" stroke="var(--primary-main)" stroke-width="2"/>
+            <circle cx="4" cy="56" r="2.5" fill="var(--primary-main)"/>
+            <circle cx="56" cy="4" r="2.5" fill="var(--primary-main)"/>
+          </svg>
+          <div class="ease-use">Drawer peek, accordion snap</div>
+        </div>
+        <div class="ease-card">
+          <div class="ease-name">spring</div>
+          <div class="ease-val">cubic-bezier(0.34, 1.56, 0.64, 1)</div>
+          <svg viewBox="0 0 60 65" class="ease-svg" height="52" style="border:1px solid var(--divider);border-radius:4px">
+            <path d="M4 61 C24 61 20 -4 56 9" fill="none" stroke="var(--primary-main)" stroke-width="2"/>
+            <circle cx="4" cy="61" r="2.5" fill="var(--primary-main)"/>
+            <circle cx="56" cy="9" r="2.5" fill="var(--primary-main)"/>
+          </svg>
+          <div class="ease-use">FAB scale, popover appear</div>
+        </div>
+      </div>
+      <!-- Transition presets -->
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin:28px 0 14px">Transition presets</div>
+      <div style="display:flex;flex-direction:column;gap:8px;max-width:560px">
+        <div style="background:var(--bg-paper);border:1px solid var(--divider);border-radius:var(--r-sm);padding:10px 14px;display:flex;align-items:center;gap:12px">
+          <div style="font-size:12px;font-weight:700;width:80px;flex-shrink:0">button</div>
+          <div style="font-size:11px;font-family:monospace;color:var(--fg-secondary);flex:1;word-break:break-all">background-color, box-shadow, border-color, color · 250ms easeInOut</div>
+        </div>
+        <div style="background:var(--bg-paper);border:1px solid var(--divider);border-radius:var(--r-sm);padding:10px 14px;display:flex;align-items:center;gap:12px">
+          <div style="font-size:12px;font-weight:700;width:80px;flex-shrink:0">fade</div>
+          <div style="font-size:11px;font-family:monospace;color:var(--fg-secondary)">opacity · 200ms easeInOut</div>
+        </div>
+        <div style="background:var(--bg-paper);border:1px solid var(--divider);border-radius:var(--r-sm);padding:10px 14px;display:flex;align-items:center;gap:12px">
+          <div style="font-size:12px;font-weight:700;width:80px;flex-shrink:0">collapse</div>
+          <div style="font-size:11px;font-family:monospace;color:var(--fg-secondary)">height · 300ms easeInOut</div>
+        </div>
+        <div style="background:var(--bg-paper);border:1px solid var(--divider);border-radius:var(--r-sm);padding:10px 14px;display:flex;align-items:center;gap:12px">
+          <div style="font-size:12px;font-weight:700;width:80px;flex-shrink:0">slide</div>
+          <div style="font-size:11px;font-family:monospace;color:var(--fg-secondary)">transform · 225ms easeOut</div>
+        </div>
+        <div style="background:var(--bg-paper);border:1px solid var(--divider);border-radius:var(--r-sm);padding:10px 14px;display:flex;align-items:center;gap:12px">
+          <div style="font-size:12px;font-weight:700;width:80px;flex-shrink:0">grow</div>
+          <div style="font-size:11px;font-family:monospace;color:var(--fg-secondary)">transform + opacity · 225ms easeInOut</div>
+        </div>
+        <div style="background:var(--bg-paper);border:1px solid var(--divider);border-radius:var(--r-sm);padding:10px 14px;display:flex;align-items:center;gap:12px">
+          <div style="font-size:12px;font-weight:700;width:80px;flex-shrink:0">ripple</div>
+          <div style="font-size:11px;font-family:monospace;color:var(--fg-secondary)">transform 550ms + opacity 400ms · easeInOut</div>
+        </div>
+      </div>
+    </section>
+
     <!-- ── BUTTONS ───────────────────────────────────────────────────────── -->
     <section class="section" id="buttons">
       <div class="section-header">
@@ -1099,6 +1887,1331 @@ nav .nav-section {
       </div>
     </section>
 
+    <!-- ── ACCORDION ───────────────────────────────────────────────────────── -->
+    <section class="section" id="accordion">
+      <div class="section-header">
+        <h2 class="section-title">Accordion</h2>
+        <span class="section-sub">accordion.json · summary 48px / expanded 64px · radius 8px</span>
+      </div>
+      <div class="accordion">
+        <div class="accordion-summary expanded" onclick="this.classList.toggle('expanded');this.nextElementSibling.classList.toggle('open')">
+          <span>What is included in the Pro plan?</span>
+          <span class="accordion-chevron">▾</span>
+        </div>
+        <div class="accordion-details open">
+          The Pro plan includes unlimited projects, priority support, custom domain, and access to all premium templates and integrations.
+        </div>
+      </div>
+      <div class="accordion">
+        <div class="accordion-summary" onclick="this.classList.toggle('expanded');this.nextElementSibling.classList.toggle('open')">
+          <span>Can I cancel my subscription anytime?</span>
+          <span class="accordion-chevron">▾</span>
+        </div>
+        <div class="accordion-details">
+          Yes — you can cancel at any time from your account settings. Your access continues until the end of the billing period.
+        </div>
+      </div>
+      <div class="accordion">
+        <div class="accordion-summary" onclick="this.classList.toggle('expanded');this.nextElementSibling.classList.toggle('open')">
+          <span>How do I transfer my data?</span>
+          <span class="accordion-chevron">▾</span>
+        </div>
+        <div class="accordion-details">
+          Go to Settings → Export → Download all data. Your export will be ready in a few minutes and emailed to you.
+        </div>
+      </div>
+    </section>
+
+    <!-- ── DIVIDER ───────────────────────────────────────────────────────── -->
+    <section class="section" id="divider">
+      <div class="section-header">
+        <h2 class="section-title">Divider</h2>
+        <span class="section-sub">divider.json · 1px · horizontal / vertical / dashed</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:24px;max-width:480px">
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:12px">Horizontal — full width</div>
+          <div style="font-size:14px;color:var(--fg-secondary);margin-bottom:12px">Section content above the divider line.</div>
+          <hr class="divider-hr">
+          <div style="font-size:14px;color:var(--fg-secondary);margin-top:12px">Section content below the divider line.</div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:12px">Dashed</div>
+          <hr class="divider-dashed">
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:12px">Inset (16px left)</div>
+          <hr style="border:none;border-top:1px solid var(--divider);margin-left:16px">
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:12px">With middle label</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <hr style="flex:1;border:none;border-top:1px solid var(--divider)">
+            <span style="font-size:12px;color:var(--fg-secondary);white-space:nowrap;padding:0 8px">OR</span>
+            <hr style="flex:1;border:none;border-top:1px solid var(--divider)">
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:12px">Vertical</div>
+          <div style="display:flex;align-items:center;gap:16px;height:40px">
+            <span style="font-size:14px;color:var(--fg-secondary)">Dashboard</span>
+            <span class="divider-v"></span>
+            <span style="font-size:14px;color:var(--fg-secondary)">Analytics</span>
+            <span class="divider-v"></span>
+            <span style="font-size:14px;color:var(--fg-secondary)">Reports</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── AVATAR GROUP ──────────────────────────────────────────────────── -->
+    <section class="section" id="avatar-group">
+      <div class="section-header">
+        <h2 class="section-title">Avatar Group &amp; Badge Status</h2>
+        <span class="section-sub">avatar-group.json · badge-status.json · overlap −8px</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:12px">Avatar group — sizes</div>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div class="avatar-group">
+              <div class="avatar avatar-lg" style="background:#00A76F">H</div>
+              <div class="avatar avatar-lg" style="background:#8E33FF">S</div>
+              <div class="avatar avatar-lg" style="background:#00B8D9">A</div>
+              <div class="avatar avatar-lg" style="background:#FFAB00;color:#212B36">+4</div>
+            </div>
+            <div class="avatar-group">
+              <div class="avatar avatar-md" style="background:#FF5630">J</div>
+              <div class="avatar avatar-md" style="background:#22C55E">M</div>
+              <div class="avatar avatar-md" style="background:#8E33FF">K</div>
+            </div>
+            <div class="avatar-group">
+              <div class="avatar avatar-sm" style="background:#00A76F">A</div>
+              <div class="avatar avatar-sm" style="background:#FF5630">B</div>
+              <div class="avatar avatar-sm" style="background:#00B8D9">C</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:12px">Badge status — online / away / busy / offline</div>
+          <div style="display:flex;gap:20px;flex-wrap:wrap">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+              <div style="position:relative;display:inline-block">
+                <div class="avatar avatar-lg" style="background:#00A76F">A</div>
+                <div class="status-dot status-online" style="width:12px;height:12px;bottom:1px;right:1px"></div>
+              </div>
+              <span style="font-size:11px;color:var(--fg-secondary)">Online</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+              <div style="position:relative;display:inline-block">
+                <div class="avatar avatar-lg" style="background:#8E33FF">B</div>
+                <div class="status-dot status-away" style="width:12px;height:12px;bottom:1px;right:1px"></div>
+              </div>
+              <span style="font-size:11px;color:var(--fg-secondary)">Away</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+              <div style="position:relative;display:inline-block">
+                <div class="avatar avatar-lg" style="background:#FF5630">C</div>
+                <div class="status-dot status-busy" style="width:12px;height:12px;bottom:1px;right:1px"></div>
+              </div>
+              <span style="font-size:11px;color:var(--fg-secondary)">Busy</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+              <div style="position:relative;display:inline-block">
+                <div class="avatar avatar-lg" style="background:#637381">D</div>
+                <div class="status-dot status-offline" style="width:12px;height:12px;bottom:1px;right:1px"></div>
+              </div>
+              <span style="font-size:11px;color:var(--fg-secondary)">Offline</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── BREADCRUMB ────────────────────────────────────────────────────── -->
+    <section class="section" id="breadcrumb">
+      <div class="section-header">
+        <h2 class="section-title">Breadcrumb</h2>
+        <span class="section-sub">breadcrumb.json · body2 · separator margin 8px</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:10px">Default</div>
+          <nav class="breadcrumb" aria-label="breadcrumb">
+            <span class="breadcrumb-item">Home</span>
+            <span class="breadcrumb-sep">/</span>
+            <span class="breadcrumb-item">Dashboard</span>
+            <span class="breadcrumb-sep">/</span>
+            <span class="breadcrumb-item current">Analytics</span>
+          </nav>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:10px">With icon separator</div>
+          <nav class="breadcrumb" aria-label="breadcrumb">
+            <span class="breadcrumb-item">Home</span>
+            <span class="breadcrumb-sep" style="font-size:10px">▶</span>
+            <span class="breadcrumb-item">Settings</span>
+            <span class="breadcrumb-sep" style="font-size:10px">▶</span>
+            <span class="breadcrumb-item">Account</span>
+            <span class="breadcrumb-sep" style="font-size:10px">▶</span>
+            <span class="breadcrumb-item current">Profile</span>
+          </nav>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:10px">Collapsed</div>
+          <nav class="breadcrumb" aria-label="breadcrumb">
+            <span class="breadcrumb-item">Home</span>
+            <span class="breadcrumb-sep">/</span>
+            <span class="breadcrumb-item" style="color:var(--fg-disabled);letter-spacing:.1em">···</span>
+            <span class="breadcrumb-sep">/</span>
+            <span class="breadcrumb-item">Products</span>
+            <span class="breadcrumb-sep">/</span>
+            <span class="breadcrumb-item current">Edit Product</span>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PAPER & CARD ──────────────────────────────────────────────────── -->
+    <section class="section" id="paper">
+      <div class="section-header">
+        <h2 class="section-title">Paper &amp; Card</h2>
+        <span class="section-sub">paper.json · card-header.json · 7 elevation levels</span>
+      </div>
+      <div style="margin-bottom:32px">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:16px">Elevation levels</div>
+        <div class="paper-grid">
+          <div class="paper-el" style="box-shadow:none;border:1px solid var(--divider)">
+            <div class="paper-el-label">e0</div><div class="paper-el-val">none</div>
+          </div>
+          <div class="paper-el" style="box-shadow:0 1px 2px rgba(145,158,171,.16)">
+            <div class="paper-el-label">e1</div><div class="paper-el-val">z1</div>
+          </div>
+          <div class="paper-el" style="box-shadow:0 4px 8px rgba(145,158,171,.16)">
+            <div class="paper-el-label">e4</div><div class="paper-el-val">z4</div>
+          </div>
+          <div class="paper-el" style="box-shadow:0 8px 16px rgba(145,158,171,.16)">
+            <div class="paper-el-label">e8</div><div class="paper-el-val">z8</div>
+          </div>
+          <div class="paper-el" style="box-shadow:0 12px 24px -4px rgba(145,158,171,.16)">
+            <div class="paper-el-label">e12</div><div class="paper-el-val">z12</div>
+          </div>
+          <div class="paper-el" style="box-shadow:0 16px 32px -4px rgba(145,158,171,.16)">
+            <div class="paper-el-label">e16</div><div class="paper-el-val">z16</div>
+          </div>
+          <div class="paper-el" style="box-shadow:0 24px 48px rgba(145,158,171,.16)">
+            <div class="paper-el-label">e24</div><div class="paper-el-val">z24</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:16px">Card with header</div>
+        <div class="card-demo">
+          <div class="card-header-row">
+            <div class="avatar card-avatar" style="background:#00A76F;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px">JD</div>
+            <div class="card-header-text">
+              <div class="card-header-title">John Doe</div>
+              <div class="card-header-sub">Senior Product Designer · San Francisco</div>
+            </div>
+            <button class="btn btn-sm btn-soft-primary">Follow</button>
+          </div>
+          <div class="card-body">
+            Passionate about building design systems and scalable UI components. 8 years of experience crafting digital products for teams large and small.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SLIDER ────────────────────────────────────────────────────────── -->
+    <section class="section" id="slider">
+      <div class="section-header">
+        <h2 class="section-title">Slider</h2>
+        <span class="section-sub">slider.json · rail 4px · thumb 20px · mark · value label</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:32px;max-width:440px">
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:12px">Continuous — primary</div>
+          <div class="slider-wrap">
+            <input id="sl1" type="range" class="slider-input" min="0" max="100" value="40" oninput="this.style.setProperty('--pct',this.value+'%');document.getElementById('sl1v').textContent=this.value">
+            <div class="slider-label"><span>0</span><span id="sl1v">40</span><span>100</span></div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:12px">Continuous — secondary color</div>
+          <div class="slider-wrap">
+            <input id="sl2" type="range" class="slider-input" min="0" max="100" value="65" style="--pct:65%" oninput="this.style.setProperty('--pct',this.value+'%');this.style.background='linear-gradient(to right,#8E33FF 0%,#8E33FF '+this.value+'%,var(--divider) '+this.value+'%,var(--divider) 100%)'">
+            <div class="slider-label"><span>0</span><span>65</span><span>100</span></div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:12px">Small rail (2px)</div>
+          <div class="slider-wrap">
+            <input type="range" class="slider-input" min="0" max="100" value="30" style="--pct:30%;height:2px" oninput="this.style.setProperty('--pct',this.value+'%')">
+            <div class="slider-label"><span>Min</span><span>Max</span></div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:12px">Disabled</div>
+          <div class="slider-wrap">
+            <input type="range" class="slider-input" min="0" max="100" value="50" disabled style="--pct:50%;opacity:.38;cursor:not-allowed">
+            <div class="slider-label"><span>0</span><span>50</span><span>100</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── STEPPER ───────────────────────────────────────────────────────── -->
+    <section class="section" id="stepper">
+      <div class="section-header">
+        <h2 class="section-title">Stepper</h2>
+        <span class="section-sub">stepper.json · icon 24px · horizontal + vertical</span>
+      </div>
+      <div style="margin-bottom:40px">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:20px">Horizontal</div>
+        <div class="stepper-h">
+          <div class="step-h">
+            <div class="step-h-head">
+              <div class="step-icon done">✓</div>
+              <div class="step-h-connector done"></div>
+            </div>
+            <div class="step-h-label">Account</div>
+          </div>
+          <div class="step-h">
+            <div class="step-h-head">
+              <div class="step-icon done">✓</div>
+              <div class="step-h-connector done"></div>
+            </div>
+            <div class="step-h-label">Profile</div>
+          </div>
+          <div class="step-h">
+            <div class="step-h-head">
+              <div class="step-icon active">3</div>
+              <div class="step-h-connector"></div>
+            </div>
+            <div class="step-h-label active">Billing</div>
+          </div>
+          <div class="step-h">
+            <div class="step-h-head">
+              <div class="step-icon inactive">4</div>
+            </div>
+            <div class="step-h-label">Confirm</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:20px">Vertical</div>
+        <div class="stepper-v">
+          <div class="step-v">
+            <div class="step-v-line-col">
+              <div class="step-icon done">✓</div>
+              <div class="step-v-connector done"></div>
+            </div>
+            <div class="step-v-body">
+              <div class="step-v-title">Select campaign settings</div>
+              <div class="step-v-desc">Choose between multiple campaign types and configure targeting options.</div>
+            </div>
+          </div>
+          <div class="step-v">
+            <div class="step-v-line-col">
+              <div class="step-icon active">2</div>
+              <div class="step-v-connector"></div>
+            </div>
+            <div class="step-v-body">
+              <div class="step-v-title">Create an ad group</div>
+              <div class="step-v-desc">Define your audience and set your bid strategy for this ad group.</div>
+            </div>
+          </div>
+          <div class="step-v">
+            <div class="step-v-line-col">
+              <div class="step-icon inactive">3</div>
+            </div>
+            <div class="step-v-body">
+              <div class="step-v-title">Create your ads</div>
+              <div class="step-v-desc">Upload creative assets and write compelling copy for your campaign.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TABLE ─────────────────────────────────────────────────────────── -->
+    <section class="section" id="table">
+      <div class="section-header">
+        <h2 class="section-title">Table</h2>
+        <span class="section-sub">table.json · cell padding 16px · row height 53px · dense 45px</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Joined</th>
+              <th>Revenue</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:12px"><div class="avatar avatar-sm" style="background:#00A76F">S</div><div><div style="font-weight:600">Sarah Chen</div><div class="td-secondary">sarah@example.com</div></div></div></td>
+              <td>Product Designer</td>
+              <td><span class="label label-success">Active</span></td>
+              <td class="td-secondary">Jan 14, 2024</td>
+              <td style="font-variant-numeric:tabular-nums;font-weight:600">$24,500</td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:12px"><div class="avatar avatar-sm" style="background:#8E33FF">M</div><div><div style="font-weight:600">Marcus Lee</div><div class="td-secondary">marcus@example.com</div></div></div></td>
+              <td>Engineering Lead</td>
+              <td><span class="label label-warning">Pending</span></td>
+              <td class="td-secondary">Mar 2, 2024</td>
+              <td style="font-variant-numeric:tabular-nums;font-weight:600">$18,200</td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:12px"><div class="avatar avatar-sm" style="background:#FF5630">A</div><div><div style="font-weight:600">Alex Rivera</div><div class="td-secondary">alex@example.com</div></div></div></td>
+              <td>Sales Manager</td>
+              <td><span class="label label-error">Inactive</span></td>
+              <td class="td-secondary">Nov 8, 2023</td>
+              <td style="font-variant-numeric:tabular-nums;font-weight:600">$31,800</td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:12px"><div class="avatar avatar-sm" style="background:#00B8D9">J</div><div><div style="font-weight:600">Jordan Kim</div><div class="td-secondary">jordan@example.com</div></div></div></td>
+              <td>Data Analyst</td>
+              <td><span class="label label-info">Trial</span></td>
+              <td class="td-secondary">Sep 19, 2024</td>
+              <td style="font-variant-numeric:tabular-nums;font-weight:600">$9,100</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── TIMELINE ──────────────────────────────────────────────────────── -->
+    <section class="section" id="timeline">
+      <div class="section-header">
+        <h2 class="section-title">Timeline</h2>
+        <span class="section-sub">timeline.json · dot 12px · connector 2px · left / alternate</span>
+      </div>
+      <div style="display:flex;gap:48px;flex-wrap:wrap">
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:16px">Default (left)</div>
+          <div class="timeline">
+            <div class="tl-item">
+              <div class="tl-spine">
+                <div class="tl-dot filled"></div>
+                <div class="tl-connector"></div>
+              </div>
+              <div class="tl-body">
+                <div class="tl-time">09 Oct 2026 · 9:30 AM</div>
+                <div class="tl-title">Project kickoff</div>
+                <div class="tl-desc">Initial stakeholder meeting held to align on scope and deliverables.</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-spine">
+                <div class="tl-dot outline"></div>
+                <div class="tl-connector"></div>
+              </div>
+              <div class="tl-body">
+                <div class="tl-time">12 Oct 2026 · 2:00 PM</div>
+                <div class="tl-title">Design review</div>
+                <div class="tl-desc">Wireframes presented and feedback collected from product team.</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-spine">
+                <div class="tl-dot grey"></div>
+              </div>
+              <div class="tl-body">
+                <div class="tl-time">20 Oct 2026 · TBD</div>
+                <div class="tl-title">Engineering handoff</div>
+                <div class="tl-desc">Final designs and specs delivered to the development team.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:16px">Outlined variant</div>
+          <div class="timeline">
+            <div class="tl-item">
+              <div class="tl-spine">
+                <div class="tl-dot" style="background:transparent;border:2px solid #00A76F;width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-top:4px"></div>
+                <div class="tl-connector"></div>
+              </div>
+              <div class="tl-body">
+                <div class="tl-time">Q1 2026</div>
+                <div class="tl-title">MVP launch</div>
+                <div class="tl-desc">Public beta released to first 500 users.</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-spine">
+                <div class="tl-dot" style="background:transparent;border:2px solid #8E33FF;width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-top:4px"></div>
+                <div class="tl-connector"></div>
+              </div>
+              <div class="tl-body">
+                <div class="tl-time">Q2 2026</div>
+                <div class="tl-title">Feature expansion</div>
+                <div class="tl-desc">Team billing, API access and integrations shipped.</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-spine">
+                <div class="tl-dot" style="background:transparent;border:2px solid var(--fg-disabled);width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-top:4px"></div>
+              </div>
+              <div class="tl-body">
+                <div class="tl-time">Q4 2026</div>
+                <div class="tl-title">Enterprise tier</div>
+                <div class="tl-desc">SSO, audit logs, and custom SLA — coming soon.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TOGGLE BUTTON GROUP ───────────────────────────────────────────── -->
+    <section class="section" id="tbg">
+      <div class="section-header">
+        <h2 class="section-title">Toggle Button Group</h2>
+        <span class="section-sub">toggle-button-group.json · radius 8px · 3 sizes</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:10px">View mode</div>
+          <div class="tbg">
+            <button class="tbg-btn active" onclick="tbgSelect(this)">Grid</button>
+            <button class="tbg-btn" onclick="tbgSelect(this)">List</button>
+            <button class="tbg-btn" onclick="tbgSelect(this)">Table</button>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:10px">Time range</div>
+          <div class="tbg">
+            <button class="tbg-btn" onclick="tbgSelect(this)">Day</button>
+            <button class="tbg-btn active" onclick="tbgSelect(this)">Week</button>
+            <button class="tbg-btn" onclick="tbgSelect(this)">Month</button>
+            <button class="tbg-btn" onclick="tbgSelect(this)">Year</button>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:10px">Vertical</div>
+          <div class="tbg" style="flex-direction:column;border-radius:var(--r-sm)">
+            <button class="tbg-btn active" onclick="tbgSelect(this)" style="border-left:none;border-top:none;border-bottom:1px solid var(--divider)">Top</button>
+            <button class="tbg-btn" onclick="tbgSelect(this)" style="border-left:none;border-bottom:1px solid var(--divider)">Middle</button>
+            <button class="tbg-btn" onclick="tbgSelect(this)" style="border-left:none">Bottom</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── UPLOAD ────────────────────────────────────────────────────────── -->
+    <section class="section" id="upload">
+      <div class="section-header">
+        <h2 class="section-title">Upload</h2>
+        <span class="section-sub">upload.json · placeholder 160px · file item · preview grid</span>
+      </div>
+      <div style="display:flex;gap:32px;flex-wrap:wrap">
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:12px">Drop zone</div>
+          <div class="upload-zone">
+            <div class="upload-icon">↑</div>
+            <div class="upload-text">Drop files here or click to upload</div>
+            <div class="upload-sub">Allowed: *.jpg, *.png, *.gif, *.pdf — max 5MB</div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:12px">File list</div>
+          <div class="upload-file-item">
+            <div class="upload-file-icon">📄</div>
+            <div class="upload-file-name">design-tokens-v2.pdf</div>
+            <div class="upload-file-size">2.4 MB</div>
+          </div>
+          <div class="upload-file-item">
+            <div class="upload-file-icon" style="background:rgba(142,51,255,.12)">🖼</div>
+            <div class="upload-file-name">hero-banner-final.png</div>
+            <div class="upload-file-size">890 KB</div>
+          </div>
+          <div class="upload-file-item" style="border-color:rgba(255,86,48,.3)">
+            <div class="upload-file-icon" style="background:rgba(255,86,48,.12)">✕</div>
+            <div class="upload-file-name" style="color:var(--error-main)">corrupt-file.xlsx</div>
+            <div class="upload-file-size" style="color:var(--error-main)">Error</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── DATE PICKER ───────────────────────────────────────────────────── -->
+    <section class="section" id="datepicker">
+      <div class="section-header">
+        <h2 class="section-title">Date Picker</h2>
+        <span class="section-sub">date-picker.json · day 36px · calendar width 320px</span>
+      </div>
+      <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start">
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:12px">Single date</div>
+          <div class="datepicker-cal">
+            <div class="cal-header">
+              <button class="cal-nav">‹</button>
+              <span class="cal-month">October 2026</span>
+              <button class="cal-nav">›</button>
+            </div>
+            <div class="cal-grid">
+              <div class="cal-weekdays">
+                <div class="cal-wd">Su</div><div class="cal-wd">Mo</div><div class="cal-wd">Tu</div>
+                <div class="cal-wd">We</div><div class="cal-wd">Th</div><div class="cal-wd">Fr</div><div class="cal-wd">Sa</div>
+              </div>
+              <div class="cal-days">
+                <div class="cal-day other">27</div><div class="cal-day other">28</div><div class="cal-day other">29</div><div class="cal-day other">30</div>
+                <div class="cal-day">1</div><div class="cal-day">2</div><div class="cal-day">3</div>
+                <div class="cal-day selected">4</div><div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day">7</div><div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day">10</div>
+                <div class="cal-day">11</div><div class="cal-day">12</div><div class="cal-day">13</div><div class="cal-day">14</div><div class="cal-day">15</div><div class="cal-day">16</div><div class="cal-day">17</div>
+                <div class="cal-day">18</div><div class="cal-day">19</div><div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day">22</div><div class="cal-day">23</div><div class="cal-day">24</div>
+                <div class="cal-day">25</div><div class="cal-day">26</div><div class="cal-day">27</div><div class="cal-day today">28</div><div class="cal-day">29</div><div class="cal-day">30</div><div class="cal-day">31</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:12px">Date range</div>
+          <div class="datepicker-cal">
+            <div class="cal-header">
+              <button class="cal-nav">‹</button>
+              <span class="cal-month">October 2026</span>
+              <button class="cal-nav">›</button>
+            </div>
+            <div class="cal-grid">
+              <div class="cal-weekdays">
+                <div class="cal-wd">Su</div><div class="cal-wd">Mo</div><div class="cal-wd">Tu</div>
+                <div class="cal-wd">We</div><div class="cal-wd">Th</div><div class="cal-wd">Fr</div><div class="cal-wd">Sa</div>
+              </div>
+              <div class="cal-days">
+                <div class="cal-day other">27</div><div class="cal-day other">28</div><div class="cal-day other">29</div><div class="cal-day other">30</div>
+                <div class="cal-day">1</div><div class="cal-day">2</div><div class="cal-day">3</div>
+                <div class="cal-day">4</div><div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day range-start">7</div><div class="cal-day in-range">8</div><div class="cal-day in-range">9</div><div class="cal-day in-range">10</div>
+                <div class="cal-day in-range">11</div><div class="cal-day in-range">12</div><div class="cal-day in-range">13</div><div class="cal-day range-end">14</div><div class="cal-day">15</div><div class="cal-day">16</div><div class="cal-day">17</div>
+                <div class="cal-day">18</div><div class="cal-day">19</div><div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day">22</div><div class="cal-day">23</div><div class="cal-day">24</div>
+                <div class="cal-day">25</div><div class="cal-day">26</div><div class="cal-day">27</div><div class="cal-day today">28</div><div class="cal-day">29</div><div class="cal-day">30</div><div class="cal-day">31</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── COMPONENT VARIANTS ───────────────────────────────────────────── -->
+    <section class="section" id="variants">
+      <div class="section-header">
+        <h2 class="section-title">Component Variants</h2>
+        <span class="section-sub">components/variants.json · 30 components · variant / color / size / state matrix</span>
+      </div>
+      <div class="vt-grid">
+        <div class="vt-card">
+          <div class="vt-name">Button <span class="vt-file">sizing.json</span></div>
+          <div class="vt-prop-label">Variant</div>
+          <div class="vt-chips"><span class="vt-chip variant">contained</span><span class="vt-chip variant">outlined</span><span class="vt-chip variant">soft</span><span class="vt-chip variant">text</span></div>
+          <div class="vt-prop-label">Color</div>
+          <div class="vt-chips"><span class="vt-chip color">primary</span><span class="vt-chip color">secondary</span><span class="vt-chip color">success</span><span class="vt-chip color">error</span><span class="vt-chip color">info</span><span class="vt-chip color">warning</span><span class="vt-chip color">inherit</span></div>
+          <div class="vt-prop-label">Size</div>
+          <div class="vt-chips"><span class="vt-chip size">large</span><span class="vt-chip size">medium</span><span class="vt-chip size">small</span></div>
+          <div class="vt-prop-label">State</div>
+          <div class="vt-chips"><span class="vt-chip state">hover</span><span class="vt-chip state">focus</span><span class="vt-chip state">disabled</span><span class="vt-chip state">loading</span></div>
+        </div>
+        <div class="vt-card">
+          <div class="vt-name">Chip <span class="vt-file">sizing.json</span></div>
+          <div class="vt-prop-label">Variant</div>
+          <div class="vt-chips"><span class="vt-chip variant">filled</span><span class="vt-chip variant">outlined</span><span class="vt-chip variant">soft</span></div>
+          <div class="vt-prop-label">Color</div>
+          <div class="vt-chips"><span class="vt-chip color">default</span><span class="vt-chip color">primary</span><span class="vt-chip color">secondary</span><span class="vt-chip color">success</span><span class="vt-chip color">error</span><span class="vt-chip color">info</span><span class="vt-chip color">warning</span></div>
+          <div class="vt-prop-label">Size</div>
+          <div class="vt-chips"><span class="vt-chip size">medium</span><span class="vt-chip size">small</span></div>
+          <div class="vt-prop-label">State</div>
+          <div class="vt-chips"><span class="vt-chip state">clickable</span><span class="vt-chip state">deletable</span><span class="vt-chip state">disabled</span></div>
+        </div>
+        <div class="vt-card">
+          <div class="vt-name">TextField <span class="vt-file">sizing.json</span></div>
+          <div class="vt-prop-label">Variant</div>
+          <div class="vt-chips"><span class="vt-chip variant">outlined</span><span class="vt-chip variant">filled</span><span class="vt-chip variant">standard</span></div>
+          <div class="vt-prop-label">Size</div>
+          <div class="vt-chips"><span class="vt-chip size">medium</span><span class="vt-chip size">small</span></div>
+          <div class="vt-prop-label">State</div>
+          <div class="vt-chips"><span class="vt-chip state">focused</span><span class="vt-chip state">error</span><span class="vt-chip state">disabled</span><span class="vt-chip state">readOnly</span><span class="vt-chip state">success</span></div>
+          <div class="vt-prop-label">Props</div>
+          <div class="vt-chips"><span class="vt-chip variant">startAdornment</span><span class="vt-chip variant">endAdornment</span><span class="vt-chip variant">multiline</span><span class="vt-chip variant">fullWidth</span></div>
+        </div>
+        <div class="vt-card">
+          <div class="vt-name">Alert <span class="vt-file">sizing.json</span></div>
+          <div class="vt-prop-label">Variant</div>
+          <div class="vt-chips"><span class="vt-chip variant">filled</span><span class="vt-chip variant">outlined</span><span class="vt-chip variant">standard</span></div>
+          <div class="vt-prop-label">Severity</div>
+          <div class="vt-chips"><span class="vt-chip color">success</span><span class="vt-chip color">info</span><span class="vt-chip color">warning</span><span class="vt-chip color">error</span></div>
+          <div class="vt-prop-label">Props</div>
+          <div class="vt-chips"><span class="vt-chip variant">title</span><span class="vt-chip variant">action</span><span class="vt-chip variant">icon</span><span class="vt-chip variant">onClose</span></div>
+        </div>
+        <div class="vt-card">
+          <div class="vt-name">Badge <span class="vt-file">sizing.json</span></div>
+          <div class="vt-prop-label">Variant</div>
+          <div class="vt-chips"><span class="vt-chip variant">standard</span><span class="vt-chip variant">dot</span></div>
+          <div class="vt-prop-label">Color</div>
+          <div class="vt-chips"><span class="vt-chip color">default</span><span class="vt-chip color">primary</span><span class="vt-chip color">secondary</span><span class="vt-chip color">success</span><span class="vt-chip color">error</span><span class="vt-chip color">info</span><span class="vt-chip color">warning</span></div>
+          <div class="vt-prop-label">Placement</div>
+          <div class="vt-chips"><span class="vt-chip size">top-right</span><span class="vt-chip size">top-left</span><span class="vt-chip size">bottom-right</span><span class="vt-chip size">bottom-left</span></div>
+        </div>
+        <div class="vt-card">
+          <div class="vt-name">Avatar <span class="vt-file">sizing.json</span></div>
+          <div class="vt-prop-label">Variant</div>
+          <div class="vt-chips"><span class="vt-chip variant">circular</span><span class="vt-chip variant">rounded</span><span class="vt-chip variant">square</span></div>
+          <div class="vt-prop-label">Content</div>
+          <div class="vt-chips"><span class="vt-chip variant">image</span><span class="vt-chip variant">initials</span><span class="vt-chip variant">icon</span></div>
+          <div class="vt-prop-label">Size</div>
+          <div class="vt-chips"><span class="vt-chip size">large·40px</span><span class="vt-chip size">medium·32px</span><span class="vt-chip size">small·24px</span></div>
+        </div>
+        <div class="vt-card">
+          <div class="vt-name">Dialog <span class="vt-file">sizing.json</span></div>
+          <div class="vt-prop-label">Max Width</div>
+          <div class="vt-chips"><span class="vt-chip size">xs</span><span class="vt-chip size">sm</span><span class="vt-chip size">md</span><span class="vt-chip size">lg</span><span class="vt-chip size">xl</span><span class="vt-chip size">fullScreen</span></div>
+          <div class="vt-prop-label">Props</div>
+          <div class="vt-chips"><span class="vt-chip variant">title</span><span class="vt-chip variant">content</span><span class="vt-chip variant">actions</span><span class="vt-chip variant">closeButton</span><span class="vt-chip variant">fullWidth</span></div>
+          <div class="vt-prop-label">Scroll</div>
+          <div class="vt-chips"><span class="vt-chip variant">paper</span><span class="vt-chip variant">body</span></div>
+        </div>
+        <div class="vt-card">
+          <div class="vt-name">Tabs <span class="vt-file">sizing.json</span></div>
+          <div class="vt-prop-label">Variant</div>
+          <div class="vt-chips"><span class="vt-chip variant">standard</span><span class="vt-chip variant">fullWidth</span><span class="vt-chip variant">scrollable</span></div>
+          <div class="vt-prop-label">Orientation</div>
+          <div class="vt-chips"><span class="vt-chip size">horizontal</span><span class="vt-chip size">vertical</span></div>
+          <div class="vt-prop-label">Color</div>
+          <div class="vt-chips"><span class="vt-chip color">primary</span><span class="vt-chip color">secondary</span><span class="vt-chip color">inherit</span></div>
+        </div>
+        <div class="vt-card">
+          <div class="vt-name">Table <span class="vt-file">table.json</span></div>
+          <div class="vt-prop-label">Size</div>
+          <div class="vt-chips"><span class="vt-chip size">medium·16px padding</span><span class="vt-chip size">small·8px padding</span></div>
+          <div class="vt-prop-label">Features</div>
+          <div class="vt-chips"><span class="vt-chip variant">stickyHeader</span><span class="vt-chip variant">sortable</span><span class="vt-chip variant">selectable</span><span class="vt-chip variant">pagination</span><span class="vt-chip variant">toolbar</span><span class="vt-chip variant">dense</span></div>
+        </div>
+        <div class="vt-card">
+          <div class="vt-name">Progress <span class="vt-file">sizing.json</span></div>
+          <div class="vt-prop-label">Linear variant</div>
+          <div class="vt-chips"><span class="vt-chip variant">determinate</span><span class="vt-chip variant">indeterminate</span><span class="vt-chip variant">buffer</span><span class="vt-chip variant">query</span></div>
+          <div class="vt-prop-label">Circular variant</div>
+          <div class="vt-chips"><span class="vt-chip variant">determinate</span><span class="vt-chip variant">indeterminate</span></div>
+          <div class="vt-prop-label">Color</div>
+          <div class="vt-chips"><span class="vt-chip color">primary</span><span class="vt-chip color">secondary</span><span class="vt-chip color">success</span><span class="vt-chip color">error</span><span class="vt-chip color">info</span><span class="vt-chip color">warning</span></div>
+        </div>
+        <div class="vt-card">
+          <div class="vt-name">Slider <span class="vt-file">slider.json</span></div>
+          <div class="vt-prop-label">Orientation</div>
+          <div class="vt-chips"><span class="vt-chip size">horizontal</span><span class="vt-chip size">vertical</span></div>
+          <div class="vt-prop-label">Size</div>
+          <div class="vt-chips"><span class="vt-chip size">medium·rail 4px</span><span class="vt-chip size">small·rail 2px</span></div>
+          <div class="vt-prop-label">Props</div>
+          <div class="vt-chips"><span class="vt-chip variant">marks</span><span class="vt-chip variant">range</span><span class="vt-chip variant">valueLabel</span><span class="vt-chip state">disabled</span></div>
+        </div>
+        <div class="vt-card">
+          <div class="vt-name">DatePicker <span class="vt-file">date-picker.json</span></div>
+          <div class="vt-prop-label">Variant</div>
+          <div class="vt-chips"><span class="vt-chip variant">desktop</span><span class="vt-chip variant">mobile</span><span class="vt-chip variant">static</span></div>
+          <div class="vt-prop-label">Views</div>
+          <div class="vt-chips"><span class="vt-chip size">year</span><span class="vt-chip size">month</span><span class="vt-chip size">day</span></div>
+          <div class="vt-prop-label">Props</div>
+          <div class="vt-chips"><span class="vt-chip variant">range</span><span class="vt-chip variant">disablePast</span><span class="vt-chip variant">disableFuture</span><span class="vt-chip variant">readOnly</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ICONS ──────────────────────────────────────────────────────────── -->
+    <section class="section" id="icons">
+      <div class="section-header">
+        <h2 class="section-title">Icons</h2>
+        <span class="section-sub">icons/catalog.json · ~220 icons · 12 categories · default size 24px</span>
+      </div>
+      <div class="icon-search-wrap">
+        <span class="icon-search-icon">⌕</span>
+        <input class="icon-search" type="search" placeholder="Filter icon names…" oninput="filterIcons(this.value)">
+      </div>
+      <div id="icon-list">
+        <div class="icon-cat" data-cat="navigation">
+          <div class="icon-cat-header">Navigation <span class="icon-count">31 icons</span></div>
+          <div class="icon-chips">
+            <span class="icon-chip">home</span><span class="icon-chip">home-outline</span><span class="icon-chip">menu</span><span class="icon-chip">menu-open</span><span class="icon-chip">close</span><span class="icon-chip">close-circle</span><span class="icon-chip">arrow-left</span><span class="icon-chip">arrow-right</span><span class="icon-chip">arrow-up</span><span class="icon-chip">arrow-down</span><span class="icon-chip">chevron-left</span><span class="icon-chip">chevron-right</span><span class="icon-chip">chevron-up</span><span class="icon-chip">chevron-down</span><span class="icon-chip">expand-more</span><span class="icon-chip">expand-less</span><span class="icon-chip">unfold-more</span><span class="icon-chip">unfold-less</span><span class="icon-chip">first-page</span><span class="icon-chip">last-page</span><span class="icon-chip">navigate-before</span><span class="icon-chip">navigate-next</span><span class="icon-chip">sidebar</span><span class="icon-chip">sidebar-open</span><span class="icon-chip">sidebar-close</span><span class="icon-chip">grid-view</span><span class="icon-chip">view-list</span><span class="icon-chip">view-module</span><span class="icon-chip">dashboard</span><span class="icon-chip">layers</span><span class="icon-chip">widgets</span>
+          </div>
+        </div>
+        <div class="icon-cat" data-cat="actions">
+          <div class="icon-cat-header">Actions <span class="icon-count">46 icons</span></div>
+          <div class="icon-chips">
+            <span class="icon-chip">add</span><span class="icon-chip">add-circle</span><span class="icon-chip">add-circle-outline</span><span class="icon-chip">remove</span><span class="icon-chip">remove-circle</span><span class="icon-chip">edit</span><span class="icon-chip">edit-outline</span><span class="icon-chip">delete</span><span class="icon-chip">delete-outline</span><span class="icon-chip">delete-forever</span><span class="icon-chip">save</span><span class="icon-chip">save-outline</span><span class="icon-chip">copy</span><span class="icon-chip">content-copy</span><span class="icon-chip">cut</span><span class="icon-chip">paste</span><span class="icon-chip">undo</span><span class="icon-chip">redo</span><span class="icon-chip">refresh</span><span class="icon-chip">sync</span><span class="icon-chip">search</span><span class="icon-chip">search-off</span><span class="icon-chip">filter</span><span class="icon-chip">filter-list</span><span class="icon-chip">filter-alt</span><span class="icon-chip">sort</span><span class="icon-chip">swap-vert</span><span class="icon-chip">drag-indicator</span><span class="icon-chip">more-vert</span><span class="icon-chip">more-horiz</span><span class="icon-chip">open-in-new</span><span class="icon-chip">link</span><span class="icon-chip">link-off</span><span class="icon-chip">share</span><span class="icon-chip">download</span><span class="icon-chip">upload</span><span class="icon-chip">print</span><span class="icon-chip">fullscreen</span><span class="icon-chip">zoom-in</span><span class="icon-chip">zoom-out</span><span class="icon-chip">pin</span><span class="icon-chip">bookmark</span><span class="icon-chip">star</span><span class="icon-chip">flag</span><span class="icon-chip">lock</span><span class="icon-chip">visibility</span><span class="icon-chip">visibility-off</span><span class="icon-chip">check</span><span class="icon-chip">check-circle</span><span class="icon-chip">settings</span><span class="icon-chip">tune</span><span class="icon-chip">manage-accounts</span>
+          </div>
+        </div>
+        <div class="icon-cat" data-cat="communication">
+          <div class="icon-cat-header">Communication <span class="icon-count">28 icons</span></div>
+          <div class="icon-chips">
+            <span class="icon-chip">mail</span><span class="icon-chip">mail-outline</span><span class="icon-chip">inbox</span><span class="icon-chip">outbox</span><span class="icon-chip">send</span><span class="icon-chip">drafts</span><span class="icon-chip">reply</span><span class="icon-chip">reply-all</span><span class="icon-chip">forward</span><span class="icon-chip">chat</span><span class="icon-chip">chat-bubble</span><span class="icon-chip">message</span><span class="icon-chip">comment</span><span class="icon-chip">forum</span><span class="icon-chip">call</span><span class="icon-chip">call-end</span><span class="icon-chip">phone</span><span class="icon-chip">video-call</span><span class="icon-chip">videocam</span><span class="icon-chip">notifications</span><span class="icon-chip">notifications-outline</span><span class="icon-chip">notifications-off</span><span class="icon-chip">announcement</span><span class="icon-chip">email</span><span class="icon-chip">contacts</span><span class="icon-chip">person-add</span><span class="icon-chip">support-agent</span><span class="icon-chip">headset-mic</span>
+          </div>
+        </div>
+        <div class="icon-cat" data-cat="content">
+          <div class="icon-cat-header">Content <span class="icon-count">36 icons</span></div>
+          <div class="icon-chips">
+            <span class="icon-chip">article</span><span class="icon-chip">description</span><span class="icon-chip">assignment</span><span class="icon-chip">note</span><span class="icon-chip">notes</span><span class="icon-chip">format-list-bulleted</span><span class="icon-chip">format-list-numbered</span><span class="icon-chip">folder</span><span class="icon-chip">folder-open</span><span class="icon-chip">folder-shared</span><span class="icon-chip">file</span><span class="icon-chip">image</span><span class="icon-chip">photo</span><span class="icon-chip">photo-library</span><span class="icon-chip">video</span><span class="icon-chip">audio</span><span class="icon-chip">attach-file</span><span class="icon-chip">attachment</span><span class="icon-chip">link</span><span class="icon-chip">text-fields</span><span class="icon-chip">title</span><span class="icon-chip">format-bold</span><span class="icon-chip">format-italic</span><span class="icon-chip">format-underlined</span><span class="icon-chip">format-strikethrough</span><span class="icon-chip">format-quote</span><span class="icon-chip">code</span><span class="icon-chip">table-chart</span><span class="icon-chip">bar-chart</span><span class="icon-chip">pie-chart</span><span class="icon-chip">trending-up</span><span class="icon-chip">trending-down</span><span class="icon-chip">insights</span><span class="icon-chip">analytics</span><span class="icon-chip">assessment</span>
+          </div>
+        </div>
+        <div class="icon-cat" data-cat="user">
+          <div class="icon-cat-header">User &amp; People <span class="icon-count">16 icons</span></div>
+          <div class="icon-chips">
+            <span class="icon-chip">person</span><span class="icon-chip">person-outline</span><span class="icon-chip">person-add</span><span class="icon-chip">person-remove</span><span class="icon-chip">account-circle</span><span class="icon-chip">account-box</span><span class="icon-chip">manage-accounts</span><span class="icon-chip">group</span><span class="icon-chip">group-add</span><span class="icon-chip">groups</span><span class="icon-chip">people</span><span class="icon-chip">badge</span><span class="icon-chip">admin-panel-settings</span><span class="icon-chip">verified-user</span><span class="icon-chip">supervisor-account</span><span class="icon-chip">how-to-reg</span>
+          </div>
+        </div>
+        <div class="icon-cat" data-cat="status">
+          <div class="icon-cat-header">Status &amp; Feedback <span class="icon-count">22 icons</span></div>
+          <div class="icon-chips">
+            <span class="icon-chip">info</span><span class="icon-chip">info-outline</span><span class="icon-chip">warning</span><span class="icon-chip">error</span><span class="icon-chip">error-outline</span><span class="icon-chip">help</span><span class="icon-chip">help-outline</span><span class="icon-chip">new-releases</span><span class="icon-chip">check-circle</span><span class="icon-chip">check-circle-outline</span><span class="icon-chip">cancel</span><span class="icon-chip">block</span><span class="icon-chip">pending</span><span class="icon-chip">pending-actions</span><span class="icon-chip">schedule</span><span class="icon-chip">access-time</span><span class="icon-chip">timer</span><span class="icon-chip">hourglass-empty</span><span class="icon-chip">loop</span><span class="icon-chip">autorenew</span><span class="icon-chip">cloud-done</span><span class="icon-chip">cloud-sync</span>
+          </div>
+        </div>
+        <div class="icon-cat" data-cat="ecommerce">
+          <div class="icon-cat-header">E-Commerce <span class="icon-count">22 icons</span></div>
+          <div class="icon-chips">
+            <span class="icon-chip">shopping-cart</span><span class="icon-chip">add-shopping-cart</span><span class="icon-chip">shopping-bag</span><span class="icon-chip">storefront</span><span class="icon-chip">local-offer</span><span class="icon-chip">sell</span><span class="icon-chip">payment</span><span class="icon-chip">credit-card</span><span class="icon-chip">account-balance</span><span class="icon-chip">account-balance-wallet</span><span class="icon-chip">attach-money</span><span class="icon-chip">receipt</span><span class="icon-chip">receipt-long</span><span class="icon-chip">price-tag</span><span class="icon-chip">discount</span><span class="icon-chip">loyalty</span><span class="icon-chip">redeem</span><span class="icon-chip">card-giftcard</span><span class="icon-chip">inventory</span><span class="icon-chip">local-shipping</span><span class="icon-chip">delivery-dining</span><span class="icon-chip">category</span>
+          </div>
+        </div>
+        <div class="icon-cat" data-cat="settings">
+          <div class="icon-cat-header">Settings &amp; System <span class="icon-count">24 icons</span></div>
+          <div class="icon-chips">
+            <span class="icon-chip">settings</span><span class="icon-chip">settings-suggest</span><span class="icon-chip">tune</span><span class="icon-chip">display-settings</span><span class="icon-chip">build</span><span class="icon-chip">construction</span><span class="icon-chip">developer-mode</span><span class="icon-chip">integration-instructions</span><span class="icon-chip">api</span><span class="icon-chip">webhook</span><span class="icon-chip">key</span><span class="icon-chip">vpn-key</span><span class="icon-chip">fingerprint</span><span class="icon-chip">dark-mode</span><span class="icon-chip">light-mode</span><span class="icon-chip">palette</span><span class="icon-chip">language</span><span class="icon-chip">translate</span><span class="icon-chip">accessibility</span><span class="icon-chip">privacy-tip</span><span class="icon-chip">policy</span><span class="icon-chip">security</span><span class="icon-chip">enhanced-encryption</span><span class="icon-chip">notifications-active</span>
+          </div>
+        </div>
+        <div class="icon-cat" data-cat="data">
+          <div class="icon-cat-header">Data &amp; Storage <span class="icon-count">16 icons</span></div>
+          <div class="icon-chips">
+            <span class="icon-chip">database</span><span class="icon-chip">storage</span><span class="icon-chip">cloud</span><span class="icon-chip">cloud-upload</span><span class="icon-chip">cloud-download</span><span class="icon-chip">backup</span><span class="icon-chip">restore</span><span class="icon-chip">import-export</span><span class="icon-chip">data-usage</span><span class="icon-chip">table-rows</span><span class="icon-chip">functions</span><span class="icon-chip">calculate</span><span class="icon-chip">merge</span><span class="icon-chip">compress</span><span class="icon-chip">archive</span><span class="icon-chip">unarchive</span>
+          </div>
+        </div>
+        <div class="icon-cat" data-cat="media">
+          <div class="icon-cat-header">Media &amp; AV <span class="icon-count">20 icons</span></div>
+          <div class="icon-chips">
+            <span class="icon-chip">play-arrow</span><span class="icon-chip">pause</span><span class="icon-chip">stop</span><span class="icon-chip">skip-next</span><span class="icon-chip">skip-previous</span><span class="icon-chip">fast-forward</span><span class="icon-chip">fast-rewind</span><span class="icon-chip">replay</span><span class="icon-chip">volume-up</span><span class="icon-chip">volume-down</span><span class="icon-chip">volume-mute</span><span class="icon-chip">volume-off</span><span class="icon-chip">mic</span><span class="icon-chip">mic-off</span><span class="icon-chip">camera</span><span class="icon-chip">camera-alt</span><span class="icon-chip">screen-rotation</span><span class="icon-chip">picture-in-picture</span><span class="icon-chip">subtitles</span><span class="icon-chip">closed-caption</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── UI PATTERNS ───────────────────────────────────────────────────── -->
+    <section class="section" id="ui-patterns">
+      <div class="section-header">
+        <h2 class="section-title">UI Patterns</h2>
+        <span class="section-sub">patterns/blocks/ · 12 building blocks · JSON component tree + live preview</span>
+      </div>
+      <div class="block-grid">
+
+        <!-- 1. stats-row -->
+        <div class="block-demo">
+          <div class="block-demo-label">
+            <span class="block-demo-name">stats-row</span>
+            <span class="block-demo-file">patterns/blocks/stats-row.json</span>
+          </div>
+          <div class="block-demo-body">
+            <div class="stats-row">
+              <div class="stat-card">
+                <div class="stat-top"><span class="stat-label">Total Revenue</span><div class="stat-icon-wrap" style="background:rgba(0,167,111,.12);color:var(--primary-main)">$</div></div>
+                <div class="stat-value" style="color:var(--fg)">$18.4k</div>
+                <div class="stat-trend"><span class="label label-success" style="font-size:10px">+2.6%</span><span style="font-size:11px;color:var(--fg-disabled)">vs last month</span></div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-top"><span class="stat-label">Active Users</span><div class="stat-icon-wrap" style="background:rgba(0,184,217,.12);color:#006C9C">👤</div></div>
+                <div class="stat-value" style="color:var(--fg)">8,249</div>
+                <div class="stat-trend"><span class="label label-success" style="font-size:10px">+1.2%</span><span style="font-size:11px;color:var(--fg-disabled)">vs last month</span></div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-top"><span class="stat-label">Conversion</span><div class="stat-icon-wrap" style="background:rgba(142,51,255,.1);color:#7B3FE4">%</div></div>
+                <div class="stat-value" style="color:var(--fg)">3.6%</div>
+                <div class="stat-trend"><span class="label label-error" style="font-size:10px">-0.8%</span><span style="font-size:11px;color:var(--fg-disabled)">vs last month</span></div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-top"><span class="stat-label">Open Tickets</span><div class="stat-icon-wrap" style="background:rgba(255,171,0,.12);color:#B76E00">!</div></div>
+                <div class="stat-value" style="color:var(--fg)">142</div>
+                <div class="stat-trend"><span class="label label-warning" style="font-size:10px">+18</span><span style="font-size:11px;color:var(--fg-disabled)">this week</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. page-header -->
+        <div class="block-demo">
+          <div class="block-demo-label">
+            <span class="block-demo-name">page-header</span>
+            <span class="block-demo-file">patterns/blocks/page-header.json</span>
+          </div>
+          <div class="block-demo-body">
+            <div class="pg-header">
+              <div class="pg-header-left">
+                <nav class="breadcrumb"><span class="breadcrumb-item">Dashboard</span><span class="breadcrumb-sep">/</span><span class="breadcrumb-item current">Users</span></nav>
+                <h4 style="font-size:22px;font-weight:700;margin:0">User Management</h4>
+                <div style="font-size:13px;color:var(--fg-secondary)">Manage team members and permissions</div>
+              </div>
+              <div class="pg-header-right">
+                <button class="btn btn-outlined-inherit btn-md">Import</button>
+                <button class="btn btn-contained-primary btn-md">+ New User</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. filter-bar -->
+        <div class="block-demo">
+          <div class="block-demo-label">
+            <span class="block-demo-name">filter-bar</span>
+            <span class="block-demo-file">patterns/blocks/filter-bar.json</span>
+          </div>
+          <div class="block-demo-body">
+            <div class="filter-bar">
+              <div class="filter-wrap" style="flex:1;min-width:180px">
+                <span class="filter-icon">⌕</span>
+                <input class="filter-input" style="width:100%;box-sizing:border-box" placeholder="Search users…">
+              </div>
+              <select class="filter-select"><option>All Status</option><option>Active</option><option>Inactive</option><option>Pending</option></select>
+              <select class="filter-select"><option>All Roles</option><option>Admin</option><option>Editor</option><option>Viewer</option></select>
+              <button class="btn btn-outlined-inherit btn-md" style="white-space:nowrap;flex-shrink:0">📅 Date range</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. data-table -->
+        <div class="block-demo">
+          <div class="block-demo-label">
+            <span class="block-demo-name">data-table</span>
+            <span class="block-demo-file">patterns/blocks/data-table.json</span>
+          </div>
+          <div class="block-demo-body" style="padding:0">
+            <div style="display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid var(--divider)">
+              <span style="font-size:14px;font-weight:700;flex:1">Team Members</span>
+              <input style="padding:5px 10px;border:1px solid var(--divider);border-radius:var(--r-sm);background:var(--bg-paper);color:var(--fg);font-size:12px;outline:none;width:150px" placeholder="Search…">
+            </div>
+            <div class="table-wrap" style="margin:0;border:none;border-radius:0">
+              <table style="font-size:12px">
+                <thead><tr><th>Name</th><th>Role</th><th>Status</th><th>Joined</th></tr></thead>
+                <tbody>
+                  <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar avatar-sm" style="background:#00A76F">S</div>Sarah Chen</div></td><td class="td-secondary">Designer</td><td><span class="label label-success">Active</span></td><td class="td-secondary">Jan 2024</td></tr>
+                  <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar avatar-sm" style="background:#8E33FF">M</div>Marcus Lee</div></td><td class="td-secondary">Engineer</td><td><span class="label label-warning">Pending</span></td><td class="td-secondary">Mar 2024</td></tr>
+                  <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar avatar-sm" style="background:#FF5630">A</div>Alex Rivera</div></td><td class="td-secondary">Manager</td><td><span class="label label-error">Inactive</span></td><td class="td-secondary">Nov 2023</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-top:1px solid var(--divider);font-size:11px;color:var(--fg-secondary)">
+              <span>1–3 of 24</span>
+              <div style="display:flex;gap:4px">
+                <button class="btn btn-outlined-inherit btn-sm">‹</button>
+                <button class="btn btn-contained-primary btn-sm">1</button>
+                <button class="btn btn-outlined-inherit btn-sm">2</button>
+                <button class="btn btn-outlined-inherit btn-sm">›</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. chart-card -->
+        <div class="block-demo">
+          <div class="block-demo-label">
+            <span class="block-demo-name">chart-card</span>
+            <span class="block-demo-file">patterns/blocks/chart-card.json</span>
+          </div>
+          <div class="block-demo-body">
+            <div class="chart-card">
+              <div class="chart-card-header">
+                <div>
+                  <div style="font-size:14px;font-weight:700">Revenue Overview</div>
+                  <div style="font-size:12px;color:var(--fg-secondary)">Monthly breakdown</div>
+                </div>
+                <div class="tbg" style="height:32px">
+                  <button class="tbg-btn" style="font-size:11px;padding:4px 10px" onclick="tbgSelect(this)">Week</button>
+                  <button class="tbg-btn active" style="font-size:11px;padding:4px 10px" onclick="tbgSelect(this)">Month</button>
+                  <button class="tbg-btn" style="font-size:11px;padding:4px 10px" onclick="tbgSelect(this)">Year</button>
+                </div>
+              </div>
+              <div style="display:flex;gap:24px;margin-bottom:16px">
+                <div><div style="font-size:22px;font-weight:800">$38,566</div><div style="font-size:11px;color:var(--fg-secondary)">Total this month</div></div>
+                <div><div style="font-size:22px;font-weight:800;color:var(--success-main)">+12.4%</div><div style="font-size:11px;color:var(--fg-secondary)">vs last month</div></div>
+              </div>
+              <div class="chart-area">
+                <svg class="chart-svg" viewBox="0 0 400 120" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="cg1" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#00A76F" stop-opacity=".24"/>
+                      <stop offset="100%" stop-color="#00A76F" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M0 90 C40 80 60 60 100 55 C140 50 160 70 200 45 C240 20 260 50 300 30 C340 10 360 25 400 15 L400 120 L0 120Z" fill="url(#cg1)"/>
+                  <path d="M0 90 C40 80 60 60 100 55 C140 50 160 70 200 45 C240 20 260 50 300 30 C340 10 360 25 400 15" fill="none" stroke="#00A76F" stroke-width="2.5"/>
+                </svg>
+              </div>
+              <div class="chart-legend">
+                <div class="chart-legend-item"><div class="chart-dot" style="background:#00A76F"></div>Revenue</div>
+                <div class="chart-legend-item"><div class="chart-dot" style="background:#FFAB00"></div>Target</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. card-grid -->
+        <div class="block-demo">
+          <div class="block-demo-label">
+            <span class="block-demo-name">card-grid</span>
+            <span class="block-demo-file">patterns/blocks/card-grid.json</span>
+          </div>
+          <div class="block-demo-body">
+            <div class="cg-grid">
+              <div class="cg-card">
+                <div class="cg-img">16:9 Media</div>
+                <div class="cg-body">
+                  <div class="cg-top"><span class="label label-success" style="font-size:10px">Published</span><span style="font-size:10px;color:var(--fg-disabled)">Oct 2</span></div>
+                  <div class="cg-title">Building scalable design systems for growing teams</div>
+                  <div class="cg-footer"><div class="avatar-group"><div class="avatar avatar-sm" style="background:#00A76F">A</div><div class="avatar avatar-sm" style="background:#8E33FF">B</div></div><div style="font-size:11px;color:var(--fg-disabled)">•••</div></div>
+                </div>
+              </div>
+              <div class="cg-card">
+                <div class="cg-img">16:9 Media</div>
+                <div class="cg-body">
+                  <div class="cg-top"><span class="label label-warning" style="font-size:10px">Draft</span><span style="font-size:10px;color:var(--fg-disabled)">Sep 28</span></div>
+                  <div class="cg-title">Accessibility guidelines for interactive components</div>
+                  <div class="cg-footer"><div class="avatar-group"><div class="avatar avatar-sm" style="background:#FF5630">C</div></div><div style="font-size:11px;color:var(--fg-disabled)">•••</div></div>
+                </div>
+              </div>
+              <div class="cg-card">
+                <div class="cg-img">16:9 Media</div>
+                <div class="cg-body">
+                  <div class="cg-top"><span class="label label-info" style="font-size:10px">Review</span><span style="font-size:10px;color:var(--fg-disabled)">Oct 1</span></div>
+                  <div class="cg-title">Motion principles and animation best practices</div>
+                  <div class="cg-footer"><div class="avatar-group"><div class="avatar avatar-sm" style="background:#00B8D9">D</div><div class="avatar avatar-sm" style="background:#FFAB00;color:#212B36">E</div></div><div style="font-size:11px;color:var(--fg-disabled)">•••</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. form-section -->
+        <div class="block-demo">
+          <div class="block-demo-label">
+            <span class="block-demo-name">form-section</span>
+            <span class="block-demo-file">patterns/blocks/form-section.json</span>
+          </div>
+          <div class="block-demo-body">
+            <div class="form-card">
+              <div class="form-card-head">
+                <div style="font-size:15px;font-weight:700">Personal Information</div>
+                <div style="font-size:12px;color:var(--fg-secondary);margin-top:3px">Update your name, email and profile details</div>
+              </div>
+              <div class="form-fields">
+                <div><div style="font-size:11px;font-weight:600;margin-bottom:5px;color:var(--fg-secondary)">First name</div><input style="width:100%;padding:9px 12px;border:1px solid var(--divider);border-radius:var(--r-sm);background:var(--bg);color:var(--fg);font-size:13px;outline:none;box-sizing:border-box" value="Sarah"></div>
+                <div><div style="font-size:11px;font-weight:600;margin-bottom:5px;color:var(--fg-secondary)">Last name</div><input style="width:100%;padding:9px 12px;border:1px solid var(--divider);border-radius:var(--r-sm);background:var(--bg);color:var(--fg);font-size:13px;outline:none;box-sizing:border-box" value="Chen"></div>
+                <div style="grid-column:1/-1"><div style="font-size:11px;font-weight:600;margin-bottom:5px;color:var(--fg-secondary)">Email address</div><input style="width:100%;padding:9px 12px;border:1px solid var(--primary-main);border-radius:var(--r-sm);background:var(--bg);color:var(--fg);font-size:13px;outline:none;box-sizing:border-box" value="sarah@example.com"></div>
+              </div>
+              <div class="form-actions">
+                <button class="btn btn-outlined-inherit btn-md">Cancel</button>
+                <button class="btn btn-contained-primary btn-md">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. kanban-column -->
+        <div class="block-demo">
+          <div class="block-demo-label">
+            <span class="block-demo-name">kanban-column</span>
+            <span class="block-demo-file">patterns/blocks/kanban-column.json</span>
+          </div>
+          <div class="block-demo-body">
+            <div class="kanban-wrap">
+              <div class="kanban-col">
+                <div class="kanban-col-head"><div class="kanban-col-left"><div class="kanban-dot" style="background:#637381"></div><span>To Do</span><span class="kanban-count">(4)</span></div></div>
+                <div class="kanban-card"><div class="kanban-card-top"><span class="label label-error" style="font-size:10px">High</span><span style="font-size:10px;color:var(--fg-disabled)">•••</span></div><div class="kanban-card-title">Redesign onboarding flow for new users</div><div class="kanban-card-footer"><div class="avatar-group"><div class="avatar avatar-sm" style="background:#00A76F">S</div></div><span class="label" style="font-size:10px;background:rgba(255,171,0,.1);color:#B76E00;border:1px solid rgba(255,171,0,.2)">Oct 10</span></div></div>
+                <div class="kanban-card"><div class="kanban-card-top"><span class="label label-warning" style="font-size:10px">Med</span><span style="font-size:10px;color:var(--fg-disabled)">•••</span></div><div class="kanban-card-title">Update icon library documentation</div><div class="kanban-card-footer"><div class="avatar-group"><div class="avatar avatar-sm" style="background:#8E33FF">M</div></div><span class="label" style="font-size:10px;background:var(--bg-neutral);color:var(--fg-secondary);border:1px solid var(--divider)">Oct 14</span></div></div>
+              </div>
+              <div class="kanban-col">
+                <div class="kanban-col-head"><div class="kanban-col-left"><div class="kanban-dot" style="background:#FFAB00"></div><span>In Progress</span><span class="kanban-count">(2)</span></div></div>
+                <div class="kanban-card" style="border-color:rgba(0,167,111,.3)"><div class="kanban-card-top"><span class="label label-success" style="font-size:10px">Low</span><span style="font-size:10px;color:var(--fg-disabled)">•••</span></div><div class="kanban-card-title">Token audit for dark mode consistency</div><div class="kanban-card-footer"><div class="avatar-group"><div class="avatar avatar-sm" style="background:#FF5630">A</div><div class="avatar avatar-sm" style="background:#00B8D9">J</div></div><span class="label" style="font-size:10px;background:var(--bg-neutral);color:var(--fg-secondary);border:1px solid var(--divider)">Oct 8</span></div></div>
+              </div>
+              <div class="kanban-col">
+                <div class="kanban-col-head"><div class="kanban-col-left"><div class="kanban-dot" style="background:#00A76F"></div><span>Done</span><span class="kanban-count">(6)</span></div></div>
+                <div class="kanban-card" style="opacity:.6"><div class="kanban-card-top"><span class="label label-success" style="font-size:10px">Low</span></div><div class="kanban-card-title">Export design tokens to JSON format</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9. sidebar-nav -->
+        <div class="block-demo">
+          <div class="block-demo-label">
+            <span class="block-demo-name">sidebar-nav</span>
+            <span class="block-demo-file">patterns/blocks/sidebar-nav.json</span>
+          </div>
+          <div class="block-demo-body" style="display:flex;justify-content:center">
+            <div class="snav">
+              <div class="snav-logo">
+                <div class="snav-logo-dot">M</div>
+                <span style="font-size:14px;font-weight:800">MinV</span>
+              </div>
+              <div class="snav-group-label">Overview</div>
+              <div class="snav-item active"><div class="snav-icon" style="background:var(--primary-main)"></div>Dashboard</div>
+              <div class="snav-item"><div class="snav-icon"></div>Analytics</div>
+              <div class="snav-item"><div class="snav-icon"></div>Reports</div>
+              <div class="snav-group-label">Manage</div>
+              <div class="snav-item"><div class="snav-icon"></div>Users</div>
+              <div class="snav-item"><div class="snav-icon"></div>Products</div>
+              <div class="snav-item"><div class="snav-icon"></div>Settings</div>
+              <div class="snav-user">
+                <div class="avatar avatar-sm" style="background:#00A76F;flex-shrink:0">S</div>
+                <div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Sarah Chen</div><div style="font-size:10px;color:var(--fg-secondary)">Admin</div></div>
+                <span style="font-size:12px;color:var(--fg-disabled)">⋮</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10. empty-state -->
+        <div class="block-demo">
+          <div class="block-demo-label">
+            <span class="block-demo-name">empty-state</span>
+            <span class="block-demo-file">patterns/blocks/empty-state.json</span>
+          </div>
+          <div class="block-demo-body">
+            <div class="empty-state">
+              <div class="empty-icon">📭</div>
+              <div class="empty-title">No results found</div>
+              <div class="empty-desc">We couldn't find anything matching your search. Try different keywords or clear all filters.</div>
+              <div style="display:flex;gap:10px">
+                <button class="btn btn-outlined-inherit btn-md">Clear filters</button>
+                <button class="btn btn-contained-primary btn-md">+ Create new</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 11. notification-item -->
+        <div class="block-demo">
+          <div class="block-demo-label">
+            <span class="block-demo-name">notification-item</span>
+            <span class="block-demo-file">patterns/blocks/notification-item.json</span>
+          </div>
+          <div class="block-demo-body" style="padding:0;background:var(--bg-paper)">
+            <div style="padding:12px 16px;border-bottom:1px solid var(--divider);font-size:12px;font-weight:700;display:flex;justify-content:space-between;align-items:center">Notifications <span class="label label-error" style="font-size:10px">3 new</span></div>
+            <div class="notif-item unread">
+              <div class="notif-avatar-wrap"><div class="avatar avatar-sm" style="background:#00A76F">S</div><div class="notif-type-icon" style="background:#00A76F;color:#fff">💬</div></div>
+              <div class="notif-body"><div class="notif-text"><strong>Sarah Chen</strong> commented on <strong>Design System v2</strong></div><div class="notif-meta"><span class="notif-time">2 min ago</span><span class="label" style="font-size:9px;background:rgba(0,167,111,.1);color:var(--primary-main);border:1px solid rgba(0,167,111,.2)">Comment</span></div></div>
+              <div class="notif-dot"></div>
+            </div>
+            <div class="notif-item unread">
+              <div class="notif-avatar-wrap"><div class="avatar avatar-sm" style="background:#8E33FF">M</div><div class="notif-type-icon" style="background:#FFAB00;color:#fff">✓</div></div>
+              <div class="notif-body"><div class="notif-text"><strong>Marcus Lee</strong> completed task <strong>Token audit</strong></div><div class="notif-meta"><span class="notif-time">15 min ago</span><span class="label" style="font-size:9px;background:rgba(255,171,0,.1);color:#B76E00;border:1px solid rgba(255,171,0,.2)">Task</span></div></div>
+              <div class="notif-dot"></div>
+            </div>
+            <div class="notif-item">
+              <div class="notif-avatar-wrap"><div class="avatar avatar-sm" style="background:#FF5630">A</div><div class="notif-type-icon" style="background:#00B8D9;color:#fff">👤</div></div>
+              <div class="notif-body"><div class="notif-text"><strong>Alex Rivera</strong> joined your team as <strong>Editor</strong></div><div class="notif-meta"><span class="notif-time">1 hour ago</span></div></div>
+            </div>
+            <div style="text-align:center;padding:10px;border-top:1px solid var(--divider)"><button class="btn btn-text btn-sm" style="color:var(--primary-main)">View all notifications</button></div>
+          </div>
+        </div>
+
+        <!-- 12. detail-header -->
+        <div class="block-demo">
+          <div class="block-demo-label">
+            <span class="block-demo-name">detail-header</span>
+            <span class="block-demo-file">patterns/blocks/detail-header.json</span>
+          </div>
+          <div class="block-demo-body">
+            <div class="detail-cover"></div>
+            <div class="detail-identity">
+              <div class="detail-avatar-block">
+                <div class="detail-avatar" style="background:var(--bg-paper)"><div class="avatar" style="width:56px;height:56px;background:#00A76F;color:#fff;font-size:22px;font-weight:700;border-radius:50%;display:flex;align-items:center;justify-content:center">S</div></div>
+                <div class="detail-name">
+                  <div style="font-size:18px;font-weight:700">Sarah Chen</div>
+                  <div style="font-size:12px;color:var(--fg-secondary)">Senior Product Designer · San Francisco</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:8px;margin-bottom:8px">
+                <button class="btn btn-outlined-inherit btn-sm">Message</button>
+                <button class="btn btn-contained-primary btn-sm">Follow</button>
+              </div>
+            </div>
+            <div class="detail-stats">
+              <div class="detail-stat"><div class="detail-stat-val">9.1k</div><div class="detail-stat-label">Followers</div></div>
+              <div class="detail-stat"><div class="detail-stat-val">284</div><div class="detail-stat-label">Projects</div></div>
+              <div class="detail-stat"><div class="detail-stat-val">1.2k</div><div class="detail-stat-label">Following</div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── SCREEN PATTERNS ────────────────────────────────────────────────── -->
+    <section class="section" id="patterns">
+      <div class="section-header">
+        <h2 class="section-title">Screen Patterns</h2>
+        <span class="section-sub">patterns/screens.json · 12 screen templates · 4 layout shells</span>
+      </div>
+      <div style="margin-bottom:24px">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-secondary);margin-bottom:12px">Layout Shells</div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <div style="background:var(--bg-paper);border:1px solid var(--primary-main);border-radius:var(--r-sm);padding:10px 16px;flex:1;min-width:140px">
+            <div style="font-size:12px;font-weight:700;color:var(--primary-main);margin-bottom:3px">dashboardShell</div>
+            <div style="font-size:11px;color:var(--fg-secondary)">Sidebar 280px + AppBar 64px + main area</div>
+          </div>
+          <div style="background:var(--bg-paper);border:1px solid var(--divider);border-radius:var(--r-sm);padding:10px 16px;flex:1;min-width:140px">
+            <div style="font-size:12px;font-weight:700;margin-bottom:3px">authShell</div>
+            <div style="font-size:11px;color:var(--fg-secondary)">Centered card 480px on gradient background</div>
+          </div>
+          <div style="background:var(--bg-paper);border:1px solid var(--divider);border-radius:var(--r-sm);padding:10px 16px;flex:1;min-width:140px">
+            <div style="font-size:12px;font-weight:700;margin-bottom:3px">settingsShell</div>
+            <div style="font-size:11px;color:var(--fg-secondary)">Vertical tabs 240px + content 800px max</div>
+          </div>
+          <div style="background:var(--bg-paper);border:1px solid var(--divider);border-radius:var(--r-sm);padding:10px 16px;flex:1;min-width:140px">
+            <div style="font-size:12px;font-weight:700;margin-bottom:3px">listDetailShell</div>
+            <div style="font-size:11px;color:var(--fg-secondary)">Master list 360px + detail panel flex-1</div>
+          </div>
+        </div>
+      </div>
+      <div class="screen-grid">
+        <!-- Auth -->
+        <div class="screen-card">
+          <div class="screen-preview" style="justify-content:center;align-items:center">
+            <div class="wf-center-card" style="width:80px">
+              <div class="wf-circle"></div>
+              <div class="wf-line"></div><div class="wf-line" style="width:70%"></div>
+              <div class="wf-input"></div><div class="wf-input"></div>
+              <div class="wf-btn-wf"></div>
+            </div>
+          </div>
+          <div class="screen-meta"><div class="screen-name">Login</div><div class="screen-layout">authShell</div></div>
+        </div>
+        <div class="screen-card">
+          <div class="screen-preview" style="justify-content:center;align-items:center">
+            <div class="wf-center-card" style="width:80px">
+              <div class="wf-circle"></div>
+              <div class="wf-line"></div><div class="wf-line" style="width:60%"></div>
+              <div class="wf-input"></div><div class="wf-input"></div><div class="wf-input"></div>
+              <div class="wf-btn-wf"></div>
+            </div>
+          </div>
+          <div class="screen-meta"><div class="screen-name">Register</div><div class="screen-layout">authShell</div></div>
+        </div>
+        <div class="screen-card">
+          <div class="screen-preview" style="justify-content:center;align-items:center">
+            <div class="wf-center-card" style="width:80px">
+              <div class="wf-circle" style="background:rgba(0,184,217,.3)"></div>
+              <div class="wf-line"></div>
+              <div class="wf-input"></div>
+              <div class="wf-btn-wf"></div>
+              <div class="wf-line" style="width:60%;margin-top:4px;background:rgba(0,167,111,.3)"></div>
+            </div>
+          </div>
+          <div class="screen-meta"><div class="screen-name">Forgot Password</div><div class="screen-layout">authShell</div></div>
+        </div>
+        <!-- Dashboard -->
+        <div class="screen-card">
+          <div class="screen-preview">
+            <div class="wf-sidebar"><div class="wf-sidebar-nav"><div class="wf-nav-item active"></div><div class="wf-nav-item"></div><div class="wf-nav-item"></div><div class="wf-nav-item"></div></div></div>
+            <div class="wf-main">
+              <div class="wf-topbar"></div>
+              <div class="wf-content">
+                <div style="display:flex;gap:3px"><div class="wf-mini-card"></div><div class="wf-mini-card"></div><div class="wf-mini-card"></div><div class="wf-mini-card"></div></div>
+                <div style="display:flex;gap:3px;flex:1">
+                  <div class="wf-chart-area" style="flex:2"><div class="wf-chart-line"></div></div>
+                  <div class="wf-chart-area" style="flex:1"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-meta"><div class="screen-name">Dashboard Overview</div><div class="screen-layout">dashboardShell</div></div>
+        </div>
+        <div class="screen-card">
+          <div class="screen-preview">
+            <div class="wf-sidebar"><div class="wf-sidebar-nav"><div class="wf-nav-item"></div><div class="wf-nav-item active"></div><div class="wf-nav-item"></div><div class="wf-nav-item"></div></div></div>
+            <div class="wf-main">
+              <div class="wf-topbar"></div>
+              <div class="wf-content">
+                <div style="display:flex;gap:3px"><div class="wf-mini-card"></div><div class="wf-mini-card"></div><div class="wf-mini-card"></div></div>
+                <div class="wf-chart-area" style="height:50px;margin-top:0"><div class="wf-chart-line" style="height:60%"></div></div>
+                <div style="display:flex;gap:3px"><div class="wf-chart-area" style="height:30px;flex:1"></div><div class="wf-chart-area" style="height:30px;flex:1"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-meta"><div class="screen-name">Analytics</div><div class="screen-layout">dashboardShell</div></div>
+        </div>
+        <!-- Data views -->
+        <div class="screen-card">
+          <div class="screen-preview">
+            <div class="wf-sidebar"><div class="wf-sidebar-nav"><div class="wf-nav-item"></div><div class="wf-nav-item"></div><div class="wf-nav-item active"></div><div class="wf-nav-item"></div></div></div>
+            <div class="wf-main">
+              <div class="wf-topbar"></div>
+              <div class="wf-content">
+                <div style="display:flex;gap:3px"><div class="wf-mini-card"></div><div class="wf-mini-card"></div><div class="wf-mini-card"></div></div>
+                <div class="wf-table-head"></div>
+                <div class="wf-table-row"></div><div class="wf-table-row"></div><div class="wf-table-row"></div><div class="wf-table-row"></div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-meta"><div class="screen-name">Table View</div><div class="screen-layout">dashboardShell</div></div>
+        </div>
+        <div class="screen-card">
+          <div class="screen-preview">
+            <div class="wf-sidebar"><div class="wf-sidebar-nav"><div class="wf-nav-item"></div><div class="wf-nav-item"></div><div class="wf-nav-item"></div><div class="wf-nav-item active"></div></div></div>
+            <div class="wf-main">
+              <div class="wf-topbar"></div>
+              <div class="wf-content">
+                <div style="display:flex;gap:3px;flex:1">
+                  <div style="flex:1;display:flex;flex-direction:column;gap:3px"><div class="wf-mini-card" style="flex:none;height:12px;background:rgba(0,167,111,.2)"></div><div class="wf-mini-card"></div><div class="wf-mini-card"></div></div>
+                  <div style="flex:1;display:flex;flex-direction:column;gap:3px"><div class="wf-mini-card" style="flex:none;height:12px;background:rgba(255,171,0,.2)"></div><div class="wf-mini-card"></div></div>
+                  <div style="flex:1;display:flex;flex-direction:column;gap:3px"><div class="wf-mini-card" style="flex:none;height:12px;background:rgba(145,158,171,.2)"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-meta"><div class="screen-name">Kanban Board</div><div class="screen-layout">dashboardShell</div></div>
+        </div>
+        <!-- Profile -->
+        <div class="screen-card">
+          <div class="screen-preview">
+            <div class="wf-sidebar"><div class="wf-sidebar-nav"><div class="wf-nav-item"></div><div class="wf-nav-item active"></div><div class="wf-nav-item"></div></div></div>
+            <div class="wf-main">
+              <div class="wf-topbar"></div>
+              <div class="wf-content">
+                <div style="height:24px;background:var(--divider);border-radius:2px;position:relative"><div style="position:absolute;bottom:-6px;left:8px;width:14px;height:14px;border-radius:50%;background:var(--primary-main);opacity:.4"></div></div>
+                <div style="display:flex;gap:3px;margin-top:8px;flex:1">
+                  <div class="wf-mini-card" style="flex:none;width:40px"></div>
+                  <div class="wf-main" style="gap:3px"><div class="wf-table-row"></div><div class="wf-table-row"></div><div class="wf-table-row"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-meta"><div class="screen-name">User Profile</div><div class="screen-layout">dashboardShell</div></div>
+        </div>
+        <!-- Settings -->
+        <div class="screen-card">
+          <div class="screen-preview">
+            <div class="wf-sidebar"><div class="wf-sidebar-nav"><div class="wf-nav-item active"></div><div class="wf-nav-item"></div><div class="wf-nav-item"></div></div></div>
+            <div class="wf-main">
+              <div class="wf-topbar"></div>
+              <div style="display:flex;flex:1;gap:4px;padding-top:4px">
+                <div style="width:28px;display:flex;flex-direction:column;gap:3px"><div class="wf-nav-item active"></div><div class="wf-nav-item"></div><div class="wf-nav-item"></div><div class="wf-nav-item"></div></div>
+                <div style="flex:1;display:flex;flex-direction:column;gap:3px"><div class="wf-table-row"></div><div class="wf-table-row" style="width:75%"></div><div class="wf-input"></div><div class="wf-input"></div><div class="wf-btn-wf" style="width:40px;margin-top:4px"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="screen-meta"><div class="screen-name">Settings</div><div class="screen-layout">settingsShell</div></div>
+        </div>
+        <!-- Error -->
+        <div class="screen-card">
+          <div class="screen-preview" style="justify-content:center;align-items:center">
+            <div class="wf-center-card">
+              <div class="wf-circle" style="background:rgba(255,86,48,.3)"></div>
+              <div class="wf-line"></div><div class="wf-line" style="width:80%"></div><div class="wf-line" style="width:60%"></div>
+              <div class="wf-btn-wf" style="width:50%;margin:4px auto 0"></div>
+            </div>
+          </div>
+          <div class="screen-meta"><div class="screen-name">404 / Error</div><div class="screen-layout">authShell</div></div>
+        </div>
+      </div>
+    </section>
+
     <!-- ── COMPONENT INVENTORY ───────────────────────────────────────────── -->
     <section class="section" id="inventory">
       <div class="section-header">
@@ -1148,6 +3261,28 @@ btn.addEventListener('click', () => {
   const cur = getTheme();
   setTheme(cur === 'dark' ? 'light' : 'dark');
 });
+
+// Icon catalog filter
+function filterIcons(q) {
+  q = q.toLowerCase().trim();
+  document.querySelectorAll('#icon-list .icon-cat').forEach(cat => {
+    const chips = cat.querySelectorAll('.icon-chip');
+    let visible = 0;
+    chips.forEach(c => {
+      const match = !q || c.textContent.includes(q);
+      c.style.display = match ? '' : 'none';
+      if (match) visible++;
+    });
+    cat.style.display = visible || !q ? '' : 'none';
+  });
+}
+
+// Toggle button group single-select
+function tbgSelect(btn) {
+  const group = btn.closest('.tbg');
+  group.querySelectorAll('.tbg-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
 
 // Active nav link
 const sections = document.querySelectorAll('.section');

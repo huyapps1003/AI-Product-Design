@@ -1,0 +1,51 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "collection": "[Components] Stepper",
+    "figmaIds": {
+      "StepHorizontal":    "88:66120",
+      "StepperHorizontal": "1685:106758",
+      "StepVertical":      "1685:107144",
+      "StepperVertical":   "2879:316826"
+    },
+    "exportedAt": "2026-10-02"
+  },
+  "stepper": {
+    "horizontal": {
+      "paddingX":   { "$type": "dimension", "$value": "24px", "$description": "refs spacing-3" },
+      "paddingY":   { "$type": "dimension", "$value": "24px", "$description": "refs spacing-3" },
+      "connector": {
+        "height":   { "$type": "dimension", "$value": "1px" },
+        "marginX":  { "$type": "dimension", "$value": "8px" },
+        "topOffset":{ "$type": "dimension", "$value": "12px" }
+      },
+      "label": {
+        "paddingX":   { "$type": "dimension", "$value": "8px" },
+        "marginTop":  { "$type": "dimension", "$value": "8px" },
+        "fontSize":   { "$type": "dimension", "$value": "12px" },
+        "fontWeight": { "$type": "number",    "$value": 400 }
+      }
+    },
+    "vertical": {
+      "contentPaddingLeft":   { "$type": "dimension", "$value": "12px" },
+      "contentPaddingTop":    { "$type": "dimension", "$value": "8px" },
+      "contentPaddingBottom": { "$type": "dimension", "$value": "24px" },
+      "connector": {
+        "width":     { "$type": "dimension", "$value": "1px" },
+        "marginLeft": { "$type": "dimension", "$value": "11px" },
+        "paddingY":   { "$type": "dimension", "$value": "8px" }
+      }
+    },
+    "icon": {
+      "size":            { "$type": "dimension", "$value": "24px" },
+      "radius":          { "$type": "dimension", "$value": "500px", "$description": "refs radius-full" },
+      "fontSize":        { "$type": "dimension", "$value": "12px" },
+      "fontWeight":      { "$type": "number",    "$value": 700 },
+      "checkmarkSize":   { "$type": "dimension", "$value": "16px" }
+    },
+    "alternativeLabel": {
+      "labelOffset":     { "$type": "dimension", "$value": "20px" },
+      "connectorTopOffset": { "$type": "dimension", "$value": "12px" }
+    }
+  }
+}

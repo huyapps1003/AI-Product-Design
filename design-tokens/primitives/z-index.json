@@ -1,0 +1,17 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — MUI standard",
+    "collection": "[Primitives] Z-Index",
+    "exportedAt": "2026-10-04"
+  },
+  "zIndex": {
+    "mobileStepper": { "$type": "number", "$value": 1000, "$description": "Mobile stepper dots over content" },
+    "fab":           { "$type": "number", "$value": 1050, "$description": "Floating action button" },
+    "speedDial":     { "$type": "number", "$value": 1050, "$description": "Speed dial overlay" },
+    "appBar":        { "$type": "number", "$value": 1100, "$description": "Top app bar / header" },
+    "drawer":        { "$type": "number", "$value": 1200, "$description": "Navigation drawer (side panel)" },
+    "modal":         { "$type": "number", "$value": 1300, "$description": "Modal / Dialog backdrop + paper" },
+    "snackbar":      { "$type": "number", "$value": 1400, "$description": "Snackbar notification" },
+    "tooltip":       { "$type": "number", "$value": 1500, "$description": "Tooltip popover" }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "$metadata": { "collection": "[Patterns] Notification Item", "exportedAt": "2026-10-04" },
+  "pattern": {
+    "name": "notification-item",
+    "description": "Single notification row: avatar/icon, text content, timestamp, read state, inline action",
+    "category": "feedback",
+    "layout": {
+      "container": "flex row align-flex-start gap-16",
+      "padding": "16px 20px",
+      "borderBottom": "1px solid {divider}",
+      "cursor": "pointer"
+    },
+    "states": {
+      "unread": { "bg": "{primary.lighter}", "dotIndicator": true },
+      "read":   { "bg": "transparent" },
+      "hover":  { "bg": "{action.hover}" }
+    },
+    "slots": [
+      {
+        "slot": "avatar-wrap",
+        "position": "relative",
+        "flexShrink": 0,
+        "children": [
+          { "slot": "avatar", "component": "Avatar", "size": "medium" },
+          { "slot": "type-icon", "component": "Box", "size": "20px", "borderRadius": "50%", "bg": "{type-color}", "position": "absolute bottom-0 right-0", "border": "2px solid {background.paper}", "optional": true, "child": { "component": "SvgIcon", "size": "12px", "color": "#fff" } }
+        ]
+      },
+      {
+        "slot": "content",
+        "flex": 1,
+        "minWidth": 0,
+        "layout": "flex column gap-4",
+        "children": [
+          {
+            "slot": "text",
+            "component": "Typography",
+            "variant": "body2",
+            "html": true,
+            "format": "<strong>{actor}</strong> {action} <strong>{target}</strong>",
+            "lines": 2
+          },
+          {
+            "slot": "meta-row",
+            "layout": "flex row gap-8 align-center",
+            "children": [
+              { "slot": "timestamp", "component": "Typography", "variant": "caption", "color": "text.disabled" },
+              { "slot": "type-label", "component": "Label", "variant": "soft", "color": "type-color", "size": "small", "optional": true }
+            ]
+          }
+        ]
+      },
+      {
+        "slot": "right",
+        "layout": "flex column align-end gap-8",
+        "flexShrink": 0,
+        "children": [
+          { "slot": "unread-dot", "size": "8px", "borderRadius": "50%", "bg": "{primary.main}", "conditional": "isUnread" },
+          { "slot": "action-btn", "component": "IconButton", "icon": "more-vert", "size": "small", "optional": true }
+        ]
+      }
+    ],
+    "notificationTypes": {
+      "comment":  { "icon": "chat-bubble", "color": "primary.main" },
+      "mention":  { "icon": "alternate-email", "color": "info.main" },
+      "task":     { "icon": "assignment", "color": "warning.main" },
+      "alert":    { "icon": "error-outline", "color": "error.main" },
+      "success":  { "icon": "check-circle", "color": "success.main" },
+      "friend":   { "icon": "person-add", "color": "secondary.main" }
+    },
+    "tokens": {
+      "spacing": { "padding": "16px 20px", "gap": "spacing.2 (16px)" },
+      "sizing": { "avatarSize": "sizing.avatar.md (32px)", "typeIconSize": "20px", "unreadDot": "8px" },
+      "typography": { "text": "body2", "meta": "caption secondary" }
+    },
+    "usage": "Inside a notification drawer or popover. Group by date: Today, Yesterday, Older. Max 20 items visible; load more below."
+  }
+}

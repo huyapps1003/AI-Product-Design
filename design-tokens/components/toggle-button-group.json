@@ -1,0 +1,33 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "collection": "[Components] ToggleButtonGroup",
+    "figmaId": "867:56581",
+    "exportedAt": "2026-10-02"
+  },
+  "toggleButtonGroup": {
+    "divider": {
+      "thickness": { "$type": "dimension", "$value": "1px" },
+      "marginY":   { "$type": "dimension", "$value": "4px" },
+      "marginX":   { "$type": "dimension", "$value": "4px" }
+    },
+    "borderRadius": { "$type": "dimension", "$value": "8px", "$description": "refs radius-1" },
+    "vertical": {
+      "borderRadius": { "$type": "dimension", "$value": "8px", "$description": "refs radius-1" }
+    },
+    "sizes": {
+      "small": {
+        "height":   { "$type": "dimension", "$value": "36px", "$description": "refs sizing.toggleButton.standaloneSize.small" },
+        "paddingX": { "$type": "dimension", "$value": "12px" }
+      },
+      "medium": {
+        "height":   { "$type": "dimension", "$value": "48px", "$description": "refs sizing.toggleButton.standaloneSize.medium" },
+        "paddingX": { "$type": "dimension", "$value": "16px" }
+      },
+      "large": {
+        "height":   { "$type": "dimension", "$value": "56px", "$description": "refs sizing.toggleButton.standaloneSize.large" },
+        "paddingX": { "$type": "dimension", "$value": "20px" }
+      }
+    }
+  }
+}

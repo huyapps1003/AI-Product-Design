@@ -1,0 +1,41 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "collection": "[Components] DatePicker",
+    "figmaId": "200:63141",
+    "exportedAt": "2026-10-02"
+  },
+  "datePicker": {
+    "calendar": {
+      "width":            { "$type": "dimension", "$value": "320px" },
+      "headerHeight":     { "$type": "dimension", "$value": "52px" },
+      "headerPaddingX":   { "$type": "dimension", "$value": "16px" },
+      "daySize":          { "$type": "dimension", "$value": "36px" },
+      "dayRadius":        { "$type": "dimension", "$value": "500px", "$description": "refs radius-full" },
+      "weekdayHeight":    { "$type": "dimension", "$value": "40px" },
+      "gridPaddingX":     { "$type": "dimension", "$value": "20px" },
+      "gridPaddingY":     { "$type": "dimension", "$value": "8px" },
+      "rowHeight":        { "$type": "dimension", "$value": "36px" }
+    },
+    "landscape": {
+      "width":   { "$type": "dimension", "$value": "512px" },
+      "height":  { "$type": "dimension", "$value": "304px" },
+      "sidebarWidth": { "$type": "dimension", "$value": "192px" }
+    },
+    "mobile": {
+      "headerHeight": { "$type": "dimension", "$value": "120px" },
+      "headerPaddingX": { "$type": "dimension", "$value": "24px" },
+      "headerPaddingY": { "$type": "dimension", "$value": "16px" }
+    },
+    "yearItem": {
+      "height":   { "$type": "dimension", "$value": "36px" },
+      "paddingX": { "$type": "dimension", "$value": "12px" },
+      "radius":   { "$type": "dimension", "$value": "18px" }
+    },
+    "monthItem": {
+      "height":   { "$type": "dimension", "$value": "36px" },
+      "paddingX": { "$type": "dimension", "$value": "16px" },
+      "radius":   { "$type": "dimension", "$value": "18px" }
+    }
+  }
+}

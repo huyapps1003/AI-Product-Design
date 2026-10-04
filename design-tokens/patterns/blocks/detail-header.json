@@ -1,0 +1,102 @@
+{
+  "$metadata": { "collection": "[Patterns] Detail Header", "exportedAt": "2026-10-04" },
+  "pattern": {
+    "name": "detail-header",
+    "description": "Profile/entity header: cover image, overlapping avatar, name, role, stat chips, action buttons",
+    "category": "layout",
+    "layout": { "container": "flex column", "mb": "40px" },
+    "slots": [
+      {
+        "slot": "cover",
+        "component": "Box",
+        "height": "200px",
+        "bg": "{gradient.primary.bold}",
+        "borderRadius": "{radius.r2 (16px)}",
+        "overflow": "hidden",
+        "optional": true,
+        "child": {
+          "slot": "cover-image",
+          "component": "Image",
+          "aspectRatio": "image.aspectRatios.21/9",
+          "objectFit": "cover",
+          "overlay": "{image.overlay.gradientBottom}",
+          "optional": true
+        }
+      },
+      {
+        "slot": "identity-row",
+        "layout": "flex row space-between align-flex-end",
+        "mt": "-32px",
+        "px": "24px",
+        "responsive": { "xs": "flex column align-center text-center" },
+        "children": [
+          {
+            "slot": "avatar-block",
+            "layout": "flex row gap-20 align-flex-end",
+            "children": [
+              {
+                "slot": "avatar",
+                "component": "Avatar",
+                "size": "96px",
+                "variant": "circular",
+                "border": "4px solid {background.paper}",
+                "boxShadow": "{shadows.z8}"
+              },
+              {
+                "slot": "name-block",
+                "mb": "8px",
+                "children": [
+                  { "slot": "name", "component": "Typography", "variant": "h4", "fontWeight": 700 },
+                  { "slot": "role", "component": "Typography", "variant": "body2", "color": "text.secondary" }
+                ]
+              }
+            ]
+          },
+          {
+            "slot": "actions",
+            "mb": "8px",
+            "layout": "flex row gap-12",
+            "children": [
+              { "slot": "secondary", "component": "Button", "variant": "outlined", "color": "inherit", "startIcon": "message" },
+              { "slot": "primary", "component": "Button", "variant": "contained", "color": "primary", "startIcon": "person-add" }
+            ]
+          }
+        ]
+      },
+      {
+        "slot": "stats-row",
+        "layout": "flex row gap-32 mt-16 px-24",
+        "optional": true,
+        "responsive": { "xs": "justify-center" },
+        "children": [
+          {
+            "slot": "stat",
+            "layout": "flex column align-center",
+            "children": [
+              { "component": "Typography", "variant": "h5", "fontWeight": 700 },
+              { "component": "Typography", "variant": "caption", "color": "text.secondary" }
+            ]
+          }
+        ]
+      },
+      {
+        "slot": "tabs",
+        "optional": true,
+        "component": "Tabs",
+        "variant": "standard",
+        "mt": "24px",
+        "borderBottom": "1px solid {divider}"
+      }
+    ],
+    "tokens": {
+      "spacing": { "avatarOverlap": "-32px (negative mt)", "sectionPx": "spacing.3 (24px)", "statGap": "spacing.4 (32px)" },
+      "sizing": { "avatarSize": "96px", "coverHeight": "200px" },
+      "effects": { "coverGradient": "gradient.primary.bold or custom image", "avatarBorder": "4px solid bg.paper", "avatarShadow": "shadows.z8" }
+    },
+    "variants": [
+      { "name": "no-cover", "remove": ["cover"], "change": { "identity-row.mt": "24px", "identity-row.bg": "{background.neutral}", "identity-row.borderRadius": "{radius.r2}", "identity-row.py": "24px" } },
+      { "name": "compact", "change": { "avatar.size": "64px", "cover.height": "128px", "identity-row.mt": "-20px" } }
+    ],
+    "usage": "Top of profile, product detail, and entity pages. Keep stats ≤ 4. Tabs below this header replace the main page-header."
+  }
+}

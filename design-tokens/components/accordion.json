@@ -1,0 +1,26 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "collection": "[Components] Accordion",
+    "figmaId": "27:6952",
+    "exportedAt": "2026-10-02"
+  },
+  "accordion": {
+    "summary": {
+      "minHeight": {
+        "collapsed": { "$type": "dimension", "$value": "48px" },
+        "expanded":  { "$type": "dimension", "$value": "64px" }
+      },
+      "paddingX":  { "$type": "dimension", "$value": "16px" },
+      "paddingY":  { "$type": "dimension", "$value": "12px" },
+      "iconSize":  { "$type": "dimension", "$value": "20px" }
+    },
+    "details": {
+      "paddingTop":    { "$type": "dimension", "$value": "8px" },
+      "paddingRight":  { "$type": "dimension", "$value": "16px" },
+      "paddingBottom": { "$type": "dimension", "$value": "16px" },
+      "paddingLeft":   { "$type": "dimension", "$value": "16px" }
+    },
+    "radius": { "$type": "dimension", "$value": "8px", "$description": "refs radius-1" }
+  }
+}

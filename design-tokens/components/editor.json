@@ -1,0 +1,30 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "collection": "[Components] Editor",
+    "figmaId": "92:62725",
+    "exportedAt": "2026-10-02"
+  },
+  "editor": {
+    "toolbar": {
+      "height":    { "$type": "dimension", "$value": "40px" },
+      "paddingX":  { "$type": "dimension", "$value": "8px" },
+      "paddingY":  { "$type": "dimension", "$value": "4px" },
+      "gap":       { "$type": "dimension", "$value": "4px" },
+      "buttonSize":{ "$type": "dimension", "$value": "32px" },
+      "iconSize":  { "$type": "dimension", "$value": "18px" },
+      "radius":    { "$type": "dimension", "$value": "8px", "$description": "refs radius-1" }
+    },
+    "content": {
+      "minHeight":  { "$type": "dimension", "$value": "160px" },
+      "paddingX":   { "$type": "dimension", "$value": "14px" },
+      "paddingY":   { "$type": "dimension", "$value": "16px" },
+      "fontSize":   { "$type": "dimension", "$value": "14px" },
+      "lineHeight": { "$type": "dimension", "$value": "22px" }
+    },
+    "container": {
+      "radius":       { "$type": "dimension", "$value": "8px", "$description": "refs radius-1" },
+      "borderWidth":  { "$type": "dimension", "$value": "1px" }
+    }
+  }
+}

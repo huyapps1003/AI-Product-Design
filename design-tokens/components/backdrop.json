@@ -1,0 +1,16 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "collection": "[Components] Backdrop",
+    "figmaId": "1678:111806",
+    "exportedAt": "2026-10-02"
+  },
+  "backdrop": {
+    "color": {
+      "light": { "$type": "color", "$value": "rgba(22,28,36,0.80)", "$description": "refs themes.components.backdrop" },
+      "dark":  { "$type": "color", "$value": "rgba(22,28,36,0.80)", "$description": "refs themes.components.backdrop" }
+    },
+    "zIndex":           { "$type": "number",    "$value": 1200 },
+    "transitionDuration": { "$type": "dimension", "$value": "225ms" }
+  }
+}

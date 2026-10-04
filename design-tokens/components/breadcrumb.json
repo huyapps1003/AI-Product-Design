@@ -1,0 +1,25 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "collection": "[Components] Breadcrumb",
+    "figmaId": "880:108658",
+    "exportedAt": "2026-10-02"
+  },
+  "breadcrumb": {
+    "iconSize":         { "$type": "dimension", "$value": "20px" },
+    "separatorMarginX": { "$type": "dimension", "$value": "8px" },
+    "itemPaddingX":     { "$type": "dimension", "$value": "4px" },
+    "collapseIconSize": { "$type": "dimension", "$value": "20px" },
+    "typography": {
+      "fontWeight": { "$type": "number",    "$value": 400 },
+      "fontSize":   { "$type": "dimension", "$value": "14px" },
+      "lineHeight": { "$type": "dimension", "$value": "22px" },
+      "$description": "refs text-styles.desktop.body2"
+    },
+    "activeTypography": {
+      "fontWeight": { "$type": "number",    "$value": 600 },
+      "fontSize":   { "$type": "dimension", "$value": "14px" },
+      "lineHeight": { "$type": "dimension", "$value": "22px" }
+    }
+  }
+}

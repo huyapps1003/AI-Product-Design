@@ -1,0 +1,27 @@
+{
+  "$metadata": {
+    "source": "MinV Design System — Figma",
+    "collection": "[Components] Scroll",
+    "figmaId": "882:180516",
+    "exportedAt": "2026-10-02"
+  },
+  "scroll": {
+    "scrollbar": {
+      "width":       { "$type": "dimension", "$value": "6px" },
+      "height":      { "$type": "dimension", "$value": "6px" },
+      "radius":      { "$type": "dimension", "$value": "500px", "$description": "refs radius-full" },
+      "trackColor":  { "$type": "color",     "$value": "transparent" },
+      "thumbColor":  {
+        "light": { "$type": "color", "$value": "rgba(145,158,171,0.48)", "$description": "refs grey.48%" },
+        "dark":  { "$type": "color", "$value": "rgba(145,158,171,0.32)", "$description": "refs grey.32%" }
+      },
+      "thumbHoverColor": {
+        "light": { "$type": "color", "$value": "rgba(145,158,171,0.80)" },
+        "dark":  { "$type": "color", "$value": "rgba(145,158,171,0.48)" }
+      }
+    },
+    "horizontal": {
+      "height": { "$type": "dimension", "$value": "auto" }
+    }
+  }
+}
