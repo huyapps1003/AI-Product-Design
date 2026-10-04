@@ -1,0 +1,172 @@
+{
+  "$description": "Maps each screen type to the exact token files needed. Load ONLY these files — not the full library. Order matters: load in the listed sequence.",
+
+  "_always": [
+    "design-tokens/primitives/colors.json",
+    "design-tokens/primitives/spacing.json",
+    "design-tokens/primitives/radius.json",
+    "design-tokens/styles/text-styles.json",
+    "design-tokens/semantics/themes.json"
+  ],
+
+  "screens": {
+    "auth/login": {
+      "description": "Login screen with email + password + social sign-in",
+      "pattern": "design-tokens/patterns/screens.json#screens.auth.login",
+      "blocks": [
+        "design-tokens/patterns/blocks/form-section.json"
+      ],
+      "components": [
+        "design-tokens/primitives/sizing.json",
+        "design-tokens/components/variants.json"
+      ]
+    },
+
+    "auth/register": {
+      "description": "Registration form",
+      "pattern": "design-tokens/patterns/screens.json#screens.auth.register",
+      "blocks": [
+        "design-tokens/patterns/blocks/form-section.json"
+      ],
+      "components": [
+        "design-tokens/primitives/sizing.json",
+        "design-tokens/components/variants.json"
+      ]
+    },
+
+    "dashboard/overview": {
+      "description": "Main dashboard with KPIs, charts, and recent activity table",
+      "pattern": "design-tokens/patterns/screens.json#screens.dashboard.overview",
+      "blocks": [
+        "design-tokens/patterns/blocks/sidebar-nav.json",
+        "design-tokens/patterns/blocks/page-header.json",
+        "design-tokens/patterns/blocks/stats-row.json",
+        "design-tokens/patterns/blocks/chart-card.json",
+        "design-tokens/patterns/blocks/data-table.json"
+      ],
+      "components": [
+        "design-tokens/primitives/sizing.json",
+        "design-tokens/components/variants.json",
+        "design-tokens/components/table.json",
+        "design-tokens/components/badge-status.json",
+        "design-tokens/styles/effect-styles.json",
+        "design-tokens/styles/layout-styles.json"
+      ]
+    },
+
+    "dashboard/analytics": {
+      "description": "Analytics page with charts, filters, and metric breakdowns",
+      "pattern": "design-tokens/patterns/screens.json#screens.dashboard.analytics",
+      "blocks": [
+        "design-tokens/patterns/blocks/sidebar-nav.json",
+        "design-tokens/patterns/blocks/page-header.json",
+        "design-tokens/patterns/blocks/filter-bar.json",
+        "design-tokens/patterns/blocks/stats-row.json",
+        "design-tokens/patterns/blocks/chart-card.json"
+      ],
+      "components": [
+        "design-tokens/primitives/sizing.json",
+        "design-tokens/components/variants.json",
+        "design-tokens/components/date-picker.json",
+        "design-tokens/styles/layout-styles.json"
+      ]
+    },
+
+    "data/table": {
+      "description": "Full-page data table with toolbar, filters, row actions, pagination",
+      "pattern": "design-tokens/patterns/screens.json#screens.data.table",
+      "blocks": [
+        "design-tokens/patterns/blocks/sidebar-nav.json",
+        "design-tokens/patterns/blocks/page-header.json",
+        "design-tokens/patterns/blocks/filter-bar.json",
+        "design-tokens/patterns/blocks/data-table.json",
+        "design-tokens/patterns/blocks/empty-state.json"
+      ],
+      "components": [
+        "design-tokens/primitives/sizing.json",
+        "design-tokens/components/variants.json",
+        "design-tokens/components/table.json",
+        "design-tokens/components/avatar-group.json"
+      ]
+    },
+
+    "data/list": {
+      "description": "Card grid with filter bar — articles, products, or project cards",
+      "pattern": "design-tokens/patterns/screens.json#screens.data.list",
+      "blocks": [
+        "design-tokens/patterns/blocks/sidebar-nav.json",
+        "design-tokens/patterns/blocks/page-header.json",
+        "design-tokens/patterns/blocks/filter-bar.json",
+        "design-tokens/patterns/blocks/card-grid.json",
+        "design-tokens/patterns/blocks/empty-state.json"
+      ],
+      "components": [
+        "design-tokens/primitives/sizing.json",
+        "design-tokens/components/variants.json",
+        "design-tokens/components/image.json",
+        "design-tokens/styles/effect-styles.json"
+      ]
+    },
+
+    "data/kanban": {
+      "description": "Kanban board with status columns and draggable cards",
+      "pattern": "design-tokens/patterns/screens.json#screens.data.kanban",
+      "blocks": [
+        "design-tokens/patterns/blocks/sidebar-nav.json",
+        "design-tokens/patterns/blocks/page-header.json",
+        "design-tokens/patterns/blocks/kanban-column.json",
+        "design-tokens/patterns/blocks/empty-state.json"
+      ],
+      "components": [
+        "design-tokens/primitives/sizing.json",
+        "design-tokens/components/variants.json",
+        "design-tokens/components/avatar-group.json",
+        "design-tokens/components/badge-status.json"
+      ]
+    },
+
+    "profile/user": {
+      "description": "User profile with cover, avatar, stats, and activity timeline",
+      "pattern": "design-tokens/patterns/screens.json#screens.profile.userProfile",
+      "blocks": [
+        "design-tokens/patterns/blocks/sidebar-nav.json",
+        "design-tokens/patterns/blocks/detail-header.json",
+        "design-tokens/patterns/blocks/notification-item.json"
+      ],
+      "components": [
+        "design-tokens/primitives/sizing.json",
+        "design-tokens/components/variants.json",
+        "design-tokens/components/avatar-group.json",
+        "design-tokens/components/timeline.json",
+        "design-tokens/styles/effect-styles.json",
+        "design-tokens/styles/color-styles.json"
+      ]
+    },
+
+    "settings/account": {
+      "description": "Account settings with vertical tabs and form sections",
+      "pattern": "design-tokens/patterns/screens.json#screens.settings.accountSettings",
+      "blocks": [
+        "design-tokens/patterns/blocks/sidebar-nav.json",
+        "design-tokens/patterns/blocks/page-header.json",
+        "design-tokens/patterns/blocks/form-section.json"
+      ],
+      "components": [
+        "design-tokens/primitives/sizing.json",
+        "design-tokens/components/variants.json",
+        "design-tokens/components/upload.json"
+      ]
+    },
+
+    "error/404": {
+      "description": "404 not found page",
+      "pattern": "design-tokens/patterns/screens.json#screens.error.404",
+      "blocks": [
+        "design-tokens/patterns/blocks/empty-state.json"
+      ],
+      "components": [
+        "design-tokens/components/variants.json"
+      ]
+    }
+  }
+}
