@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Coming Soon — Global Campus OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #00A76F; --primary-dark: #007867; --primary-lighter: rgba(0,167,111,.08);
+  --secondary: #8E33FF; --error: #FF5630; --warning: #FFAB00; --info: #00B8D9; --success: #22C55E;
+  --fg: #212B36; --fg2: #637381; --fg3: #919EAB;
+  --bg: #FFFFFF; --bg-paper: #FFFFFF; --bg-neutral: #F4F6F8;
+  --divider: rgba(145,158,171,.2);
+  --z1: 0 1px 2px rgba(145,158,171,.16);
+  --sidebar-w: 280px; color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --primary: #5BE49B; --primary-lighter: rgba(91,228,155,.16);
+    --secondary: #C684FF; --error: #FF6F00; --warning: #FFD666; --info: #61F3F3; --success: #77ED8B;
+    --fg: #FFFFFF; --fg2: #919EAB; --fg3: #637381;
+    --bg: #161C24; --bg-paper: #212B36; --bg-neutral: #28323D;
+    --divider: rgba(145,158,171,.24); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --primary: #5BE49B; --primary-lighter: rgba(91,228,155,.16);
+  --secondary: #C684FF; --error: #FF6F00; --warning: #FFD666; --info: #61F3F3; --success: #77ED8B;
+  --fg: #FFFFFF; --fg2: #919EAB; --fg3: #637381;
+  --bg: #161C24; --bg-paper: #212B36; --bg-neutral: #28323D;
+  --divider: rgba(145,158,171,.24); color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Public Sans', sans-serif; background: var(--bg); color: var(--fg); display: flex; min-height: 100vh; font-size: 14px; }
+.sidebar { width: var(--sidebar-w); background: var(--bg-paper); border-right: 1px solid var(--divider); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; height: 100vh; z-index: 100; overflow-y: auto; }
+.sidebar-logo { padding: 24px 20px 16px; display: flex; align-items: center; gap: 12px; }
+.logo-mark { width: 40px; height: 40px; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+.logo-mark svg { width: 22px; height: 22px; fill: #fff; }
+.logo-text { font-size: 16px; font-weight: 700; color: var(--fg); line-height: 1.2; }
+.logo-text span { display: block; font-size: 11px; font-weight: 400; color: var(--fg2); }
+.nav-section { padding: 8px 12px 4px; }
+.nav-label { font-size: 11px; font-weight: 700; color: var(--fg3); text-transform: uppercase; letter-spacing: 1.1px; padding: 0 8px 8px; }
+.nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; cursor: pointer; color: var(--fg2); font-size: 14px; font-weight: 500; text-decoration: none; transition: all .15s; margin-bottom: 2px; }
+.nav-item:hover { background: var(--bg-neutral); color: var(--fg); }
+.nav-item.active { background: var(--primary-lighter); color: var(--primary); font-weight: 600; }
+.nav-item svg { width: 20px; height: 20px; flex-shrink: 0; }
+.sidebar-footer { margin-top: auto; padding: 16px 12px; border-top: 1px solid var(--divider); }
+.user-row { display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: 8px; cursor: pointer; }
+.user-row:hover { background: var(--bg-neutral); }
+.ua { width: 36px; height: 36px; border-radius: 500px; background: var(--primary-lighter); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+.main { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+.header { height: 64px; background: var(--bg-paper); border-bottom: 1px solid var(--divider); display: flex; align-items: center; padding: 0 24px; gap: 16px; position: sticky; top: 0; z-index: 50; }
+.breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--fg2); }
+.breadcrumb a { color: var(--fg2); text-decoration: none; } .breadcrumb a:hover { color: var(--primary); }
+.breadcrumb .current { color: var(--fg); font-weight: 500; }
+.header-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.icon-btn { width: 40px; height: 40px; border: none; background: transparent; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--fg2); transition: background .15s; }
+.icon-btn:hover { background: var(--bg-neutral); }
+.icon-btn svg { width: 20px; height: 20px; }
+.theme-toggle { width: 40px; height: 40px; border: none; background: var(--bg-neutral); border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--fg2); }
+.theme-toggle svg { width: 18px; height: 18px; }
+
+/* Empty state */
+.empty-wrap { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px; }
+.empty-card { background: var(--bg-paper); border: 1px solid var(--divider); border-radius: 16px; box-shadow: var(--z1); padding: 56px 48px; text-align: center; max-width: 480px; width: 100%; }
+.empty-icon { width: 80px; height: 80px; border-radius: 20px; background: var(--primary-lighter); display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+.empty-icon svg { width: 36px; height: 36px; color: var(--primary); }
+.empty-label { font-size: 11px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 8px; }
+.empty-title { font-size: 22px; font-weight: 700; color: var(--fg); margin-bottom: 10px; }
+.empty-desc { font-size: 14px; color: var(--fg2); line-height: 1.6; margin-bottom: 28px; }
+.empty-chips { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px; }
+.empty-chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; background: var(--bg-neutral); border-radius: 6px; font-size: 12px; color: var(--fg2); }
+.empty-chip svg { width: 13px; height: 13px; color: var(--primary); }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 0 20px; height: 44px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; text-decoration: none; transition: all .15s; font-family: inherit; }
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-outlined { background: transparent; color: var(--fg); border: 1px solid var(--divider); }
+.btn-outlined:hover { background: var(--bg-neutral); }
+.btn svg { width: 16px; height: 16px; }
+.btn-group { display: flex; gap: 10px; justify-content: center; }
+
+@media (max-width: 768px) { .sidebar { transform: translateX(-100%); } .main { margin-left: 0; } .empty-card { padding: 32px 20px; } }
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark"><svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg></div>
+    <div class="logo-text">Global Campus OS <span>Admin Portal</span></div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Overview</div>
+    <a class="nav-item" id="nav-dashboard" href="hr-dashboard.html">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+      HR Dashboard
+    </a>
+    <a class="nav-item" id="nav-employees" href="employee-directory.html">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+      Employees
+    </a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Organization</div>
+    <a class="nav-item" id="nav-campuses" href="empty.html?page=Campuses&nav=campuses">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      Campuses
+    </a>
+    <a class="nav-item" id="nav-org-structure" href="empty.html?page=Org+Structure&nav=org-structure">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 11V3h-7v3H9V3H2v8h7V8h2v10h4v3h7v-8h-7v3h-2V8h2v3z"/></svg>
+      Org Structure
+    </a>
+    <a class="nav-item" id="nav-job-positions" href="empty.html?page=Job+Positions&nav=job-positions">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 7h-3V6c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v1H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zM9 6h6v1H9V6zm11 14H4v-2h16v2zm0-5H4V9h3v2h2V9h6v2h2V9h3v6z"/></svg>
+      Job Positions
+    </a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Access</div>
+    <a class="nav-item" id="nav-access-roles" href="empty.html?page=Access+%26+Roles&nav=access-roles">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+      Access & Roles
+    </a>
+    <a class="nav-item" id="nav-permission-templates" href="empty.html?page=Permission+Templates&nav=permission-templates">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+      Permission Templates
+    </a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Reports</div>
+    <a class="nav-item" id="nav-reports" href="empty.html?page=Reports&nav=reports">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+      Reports
+    </a>
+    <a class="nav-item" id="nav-audit-log" href="empty.html?page=Audit+Log&nav=audit-log">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+      Audit Log
+    </a>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="user-row">
+      <div class="ua">RK</div>
+      <div><div style="font-size:13px;font-weight:600;">Rachel Kim</div><div style="font-size:12px;color:var(--fg2)">Global HR Admin</div></div>
+    </div>
+  </div>
+</aside>
+
+<div class="main">
+  <header class="header">
+    <div class="breadcrumb">
+      <a href="hr-dashboard.html">Global Campus OS</a>
+      <span style="color:var(--fg3)">/</span>
+      <span class="current" id="breadcrumbCurrent">Page</span>
+    </div>
+    <div class="header-right">
+      <button class="icon-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg></button>
+      <button class="theme-toggle" id="themeBtn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg></button>
+      <div class="ua" style="margin-left:4px;cursor:pointer;">RK</div>
+    </div>
+  </header>
+
+  <div class="empty-wrap">
+    <div class="empty-card">
+      <div class="empty-icon" id="emptyIcon">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+      </div>
+      <div class="empty-label">Coming Soon</div>
+      <div class="empty-title" id="emptyTitle">Page</div>
+      <div class="empty-desc" id="emptyDesc">This section is under development. Check back soon.</div>
+      <div class="empty-chips" id="emptyChips"></div>
+      <div class="btn-group">
+        <a class="btn btn-outlined" href="hr-dashboard.html">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+          Dashboard
+        </a>
+        <a class="btn btn-primary" href="employee-directory.html">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          Employees
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Page config by nav key
+const pages = {
+  'campuses': {
+    title: 'Campuses',
+    desc: 'Manage physical and operational campus locations. Set campus codes, time zones, country codes, and active status for use across modules.',
+    icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>',
+    chips: ['E06 Campus', 'Global Admin owned', '5 campuses configured'],
+    entity: 'E06'
+  },
+  'org-structure': {
+    title: 'Org Structure',
+    desc: 'Define departments, divisions, teams and the organizational hierarchy. Org units are referenced in employee organizational assignments.',
+    icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 11V3h-7v3H9V3H2v8h7V8h2v10h4v3h7v-8h-7v3h-2V8h2v3z"/></svg>',
+    chips: ['E03 Org Unit', 'E04 Org Assignment', 'E05 Job Position'],
+    entity: 'E03–E05'
+  },
+  'job-positions': {
+    title: 'Job Positions',
+    desc: 'Maintain the HR position catalog used in organizational assignments. Job positions are distinct from system access roles.',
+    icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 7h-3V6c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v1H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zM9 6h6v1H9V6zm11 14H4v-2h16v2zm0-5H4V9h3v2h2V9h6v2h2V9h3v6z"/></svg>',
+    chips: ['E05 Job Position', 'HR catalog only', 'Not access roles'],
+    entity: 'E05'
+  },
+  'access-roles': {
+    title: 'Access & Roles',
+    desc: 'Configure GA module grants, campus grants, TM module memberships and functional role assignments for users across all modules.',
+    icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>',
+    chips: ['A03 GA Module Grant', 'A04 GA Campus Grant', 'A05 TM Membership', 'A07 Role Assignment'],
+    entity: 'A03–A07'
+  },
+  'permission-templates': {
+    title: 'Permission Templates',
+    desc: 'Create and version reusable permission bundles. Templates are versioned and immutable once published — edits create a new version.',
+    icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>',
+    chips: ['A08 Permission Template', 'A09 Template Capability', 'A10 Role Template Binding'],
+    entity: 'A08–A10'
+  },
+  'reports': {
+    title: 'Reports',
+    desc: 'Workforce analytics, headcount trends, campus comparisons and HR reporting. Export data to CSV or PDF formats.',
+    icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>',
+    chips: ['Headcount trends', 'Campus breakdown', 'Employment type split', 'Export CSV / PDF'],
+    entity: 'Reporting'
+  },
+  'audit-log': {
+    title: 'Audit Log',
+    desc: 'Immutable audit trail for all employment, campus, account, role and access changes. Restricted access — required for compliance (BR-12).',
+    icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>',
+    chips: ['A14 Audit Event', 'Immutable · Restricted', 'BR-12 compliance'],
+    entity: 'A14'
+  }
+};
+
+const params = new URLSearchParams(window.location.search);
+const navKey = params.get('nav') || 'campuses';
+const cfg = pages[navKey] || { title: params.get('page') || 'Coming Soon', desc: 'This section is under development.', icon: '', chips: [], entity: '' };
+
+// Set page title
+document.getElementById('pageTitle').textContent = cfg.title + ' — Global Campus OS';
+document.getElementById('breadcrumbCurrent').textContent = cfg.title;
+document.getElementById('emptyTitle').textContent = cfg.title;
+document.getElementById('emptyDesc').textContent = cfg.desc;
+if (cfg.icon) document.getElementById('emptyIcon').innerHTML = cfg.icon;
+
+// Chips
+if (cfg.chips.length) {
+  document.getElementById('emptyChips').innerHTML = cfg.chips.map(c =>
+    `<span class="empty-chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>${c}</span>`
+  ).join('');
+}
+
+// Active nav
+const navEl = document.getElementById('nav-' + navKey);
+if (navEl) navEl.classList.add('active');
+
+// Theme toggle
+document.getElementById('themeBtn').addEventListener('click', () => {
+  const r = document.documentElement;
+  r.setAttribute('data-theme', r.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+</script>
+</body>
+</html>
