@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Employee — Global Campus OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #00A76F; --primary-dark: #007867; --primary-lighter: rgba(0,167,111,.08);
+  --secondary: #8E33FF; --error: #FF5630; --warning: #FFAB00; --info: #00B8D9; --success: #22C55E;
+  --fg: #212B36; --fg2: #637381; --fg3: #919EAB;
+  --bg: #FFFFFF; --bg-paper: #FFFFFF; --bg-neutral: #F4F6F8;
+  --divider: rgba(145,158,171,.2);
+  --z1: 0 1px 2px rgba(145,158,171,.16);
+  --sidebar-w: 280px; color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --primary: #5BE49B; --primary-lighter: rgba(91,228,155,.16);
+    --secondary: #C684FF; --error: #FF6F00; --warning: #FFD666; --info: #61F3F3; --success: #77ED8B;
+    --fg: #FFFFFF; --fg2: #919EAB; --fg3: #637381;
+    --bg: #161C24; --bg-paper: #212B36; --bg-neutral: #28323D;
+    --divider: rgba(145,158,171,.24); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --primary: #5BE49B; --primary-lighter: rgba(91,228,155,.16);
+  --secondary: #C684FF; --error: #FF6F00; --warning: #FFD666; --info: #61F3F3; --success: #77ED8B;
+  --fg: #FFFFFF; --fg2: #919EAB; --fg3: #637381;
+  --bg: #161C24; --bg-paper: #212B36; --bg-neutral: #28323D;
+  --divider: rgba(145,158,171,.24); color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Public Sans', sans-serif; background: var(--bg); color: var(--fg); display: flex; min-height: 100vh; font-size: 14px; }
+.sidebar { width: var(--sidebar-w); background: var(--bg-paper); border-right: 1px solid var(--divider); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; height: 100vh; z-index: 100; overflow-y: auto; }
+.sidebar-logo { padding: 24px 20px 16px; display: flex; align-items: center; gap: 12px; }
+.logo-mark { width: 40px; height: 40px; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+.logo-mark svg { width: 22px; height: 22px; fill: #fff; }
+.logo-text { font-size: 16px; font-weight: 700; line-height: 1.2; }
+.logo-text span { display: block; font-size: 11px; font-weight: 400; color: var(--fg2); }
+.nav-section { padding: 8px 12px 4px; }
+.nav-label { font-size: 11px; font-weight: 700; color: var(--fg3); text-transform: uppercase; letter-spacing: 1.1px; padding: 0 8px 8px; }
+.nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; cursor: pointer; color: var(--fg2); font-size: 14px; font-weight: 500; text-decoration: none; transition: all .15s; margin-bottom: 2px; }
+.nav-item:hover { background: var(--bg-neutral); color: var(--fg); }
+.nav-item.active { background: var(--primary-lighter); color: var(--primary); font-weight: 600; }
+.nav-item svg { width: 20px; height: 20px; flex-shrink: 0; }
+.sidebar-footer { margin-top: auto; padding: 16px 12px; border-top: 1px solid var(--divider); }
+.user-row { display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: 8px; cursor: pointer; }
+.ua { width: 36px; height: 36px; border-radius: 500px; background: var(--primary-lighter); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+.main { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+.header { height: 64px; background: var(--bg-paper); border-bottom: 1px solid var(--divider); display: flex; align-items: center; padding: 0 24px; gap: 16px; position: sticky; top: 0; z-index: 50; }
+.breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--fg2); }
+.breadcrumb a { color: var(--fg2); text-decoration: none; } .breadcrumb a:hover { color: var(--primary); }
+.breadcrumb span { color: var(--fg); font-weight: 500; }
+.header-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.icon-btn { width: 40px; height: 40px; border: none; background: transparent; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--fg2); transition: background .15s; }
+.icon-btn:hover { background: var(--bg-neutral); }
+.icon-btn svg { width: 20px; height: 20px; }
+.theme-toggle { width: 40px; height: 40px; border: none; background: var(--bg-neutral); border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--fg2); }
+.theme-toggle svg { width: 18px; height: 18px; }
+
+/* Layout */
+.content { padding: 32px 40px; width: 100%; }
+.form-layout { display: grid; grid-template-columns: 260px 1fr; gap: 32px; max-width: 1100px; }
+
+/* Stepper sidebar */
+.stepper { position: sticky; top: 96px; display: flex; flex-direction: column; gap: 4px; }
+.step-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 12px; border-radius: 8px; cursor: pointer; transition: background .15s; }
+.step-item:hover { background: var(--bg-neutral); }
+.step-item.active { background: var(--primary-lighter); }
+.step-number { width: 28px; height: 28px; border-radius: 500px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; background: var(--bg-neutral); color: var(--fg2); border: 2px solid var(--divider); }
+.step-item.active .step-number { background: var(--primary); color: #fff; border-color: var(--primary); }
+.step-item.done .step-number { background: var(--primary-lighter); color: var(--primary); border-color: var(--primary); }
+.step-text { }
+.step-label { font-size: 13px; font-weight: 600; color: var(--fg2); }
+.step-item.active .step-label { color: var(--primary); }
+.step-item.done .step-label { color: var(--fg); }
+.step-desc { font-size: 12px; color: var(--fg3); margin-top: 1px; }
+.step-connector { width: 2px; height: 16px; background: var(--divider); margin: 2px 0 2px 23px; }
+
+/* Form sections */
+.form-sections { display: flex; flex-direction: column; gap: 20px; }
+.section-card { background: var(--bg-paper); border: 1px solid var(--divider); border-radius: 12px; box-shadow: var(--z1); overflow: hidden; }
+.section-header { display: flex; align-items: center; gap: 12px; padding: 18px 24px; border-bottom: 1px solid var(--divider); background: var(--bg-neutral); }
+.section-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--primary-lighter); display: flex; align-items: center; justify-content: center; color: var(--primary); flex-shrink: 0; }
+.section-icon svg { width: 18px; height: 18px; }
+.section-title { font-size: 15px; font-weight: 700; }
+.section-subtitle { font-size: 13px; color: var(--fg2); margin-top: 2px; }
+.section-badge { margin-left: auto; font-size: 11px; color: var(--fg3); }
+.section-body { padding: 24px; }
+.field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field.full { grid-column: 1/-1; }
+.field-label { font-size: 12px; font-weight: 700; color: var(--fg2); }
+.field-label .req { color: var(--error); margin-left: 2px; }
+.input { height: 44px; padding: 0 14px; border: 1px solid var(--divider); border-radius: 8px; font-size: 14px; font-family: inherit; background: var(--bg-paper); color: var(--fg); outline: none; transition: border-color .15s; width: 100%; }
+.input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-lighter); }
+.input::placeholder { color: var(--fg3); }
+.input.error { border-color: var(--error); }
+.input:disabled { background: var(--bg-neutral); color: var(--fg3); cursor: not-allowed; }
+textarea.input { height: auto; padding: 12px 14px; resize: vertical; min-height: 80px; }
+select.input { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='%23919EAB'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 36px; cursor: pointer; }
+.field-hint { font-size: 12px; color: var(--fg3); margin-top: 2px; }
+.field-error { font-size: 12px; color: var(--error); margin-top: 2px; display: none; }
+.field-error.show { display: block; }
+
+/* Photo upload */
+.photo-upload { display: flex; align-items: center; gap: 20px; }
+.photo-preview { width: 80px; height: 80px; border-radius: 500px; background: var(--bg-neutral); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; color: var(--primary); border: 2px dashed var(--divider); cursor: pointer; transition: all .15s; }
+.photo-preview:hover { border-color: var(--primary); background: var(--primary-lighter); }
+.photo-upload-info { }
+.photo-upload-title { font-size: 14px; font-weight: 600; }
+.photo-upload-hint { font-size: 12px; color: var(--fg2); margin-top: 4px; }
+.upload-btn { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1px solid var(--divider); background: transparent; color: var(--fg); font-family: inherit; transition: all .15s; }
+.upload-btn:hover { background: var(--bg-neutral); }
+.upload-btn svg { width: 14px; height: 14px; }
+
+/* Toggle / Radio */
+.radio-group { display: flex; gap: 8px; flex-wrap: wrap; }
+.radio-option { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid var(--divider); border-radius: 8px; cursor: pointer; font-size: 14px; transition: all .15s; user-select: none; }
+.radio-option:hover { border-color: var(--primary); background: var(--primary-lighter); }
+.radio-option.selected { border-color: var(--primary); background: var(--primary-lighter); color: var(--primary); font-weight: 600; }
+.radio-option input { display: none; }
+.radio-dot { width: 16px; height: 16px; border-radius: 500px; border: 2px solid var(--divider); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all .15s; }
+.radio-option.selected .radio-dot { border-color: var(--primary); background: var(--primary); }
+.radio-option.selected .radio-dot::after { content: ''; width: 6px; height: 6px; background: #fff; border-radius: 500px; }
+
+/* Switch */
+.switch-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--divider); }
+.switch-row:last-child { border-bottom: none; }
+.switch-label { font-size: 14px; font-weight: 500; }
+.switch-desc { font-size: 12px; color: var(--fg2); margin-top: 2px; }
+.switch { width: 44px; height: 24px; background: var(--fg3); border-radius: 500px; cursor: pointer; position: relative; transition: background .2s; flex-shrink: 0; border: none; }
+.switch.on { background: var(--primary); }
+.switch::after { content: ''; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 500px; background: #fff; transition: left .2s; }
+.switch.on::after { left: 23px; }
+
+/* Buttons */
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 0 20px; height: 44px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; text-decoration: none; transition: all .15s; font-family: inherit; }
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-outlined { background: transparent; color: var(--fg); border: 1px solid var(--divider); }
+.btn-outlined:hover { background: var(--bg-neutral); }
+.btn svg { width: 18px; height: 18px; }
+.form-actions { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; background: var(--bg-paper); border: 1px solid var(--divider); border-radius: 12px; margin-top: 8px; box-shadow: var(--z1); }
+.form-actions-left { display: flex; gap: 8px; }
+.form-actions-right { display: flex; gap: 8px; }
+
+/* Alert */
+.alert { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; border-radius: 8px; font-size: 13px; margin-bottom: 20px; }
+.alert svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px; }
+.alert-info { background: rgba(0,184,217,.08); color: #006C9C; border: 1px solid rgba(0,184,217,.2); }
+.alert-title { font-weight: 600; display: block; margin-bottom: 2px; }
+
+/* Page header */
+.page-header { margin-bottom: 28px; }
+.page-title { font-size: 24px; font-weight: 700; }
+.page-subtitle { font-size: 14px; color: var(--fg2); margin-top: 4px; }
+
+/* Check icon in step */
+.check-icon { display: none; }
+.step-item.done .check-icon { display: block; }
+.step-item.done .step-number-inner { display: none; }
+
+@media (max-width: 900px) { .form-layout { grid-template-columns: 1fr; } .stepper { position: relative; top: 0; flex-direction: row; flex-wrap: wrap; } }
+@media (max-width: 768px) { .sidebar { transform: translateX(-100%); } .main { margin-left: 0; } .content { padding: 16px; } .field-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark"><svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg></div>
+    <div class="logo-text">Global Campus OS <span>Admin Portal</span></div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Overview</div>
+    <a class="nav-item" href="hr-dashboard.html"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>HR Dashboard</a>
+    <a class="nav-item active" href="employee-directory.html"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>Employees</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Organization</div>
+    <a class="nav-item" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Campuses</a>
+    <a class="nav-item" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 11V3h-7v3H9V3H2v8h7V8h2v10h4v3h7v-8h-7v3h-2V8h2v3z"/></svg>Org Structure</a>
+  </div>
+  <div class="sidebar-footer">
+    <div class="user-row"><div class="ua">RK</div><div><div style="font-size:13px;font-weight:600;">Rachel Kim</div><div style="font-size:12px;color:var(--fg2)">Global HR Admin</div></div></div>
+  </div>
+</aside>
+
+<div class="main">
+  <header class="header">
+    <div class="breadcrumb">
+      <a href="hr-dashboard.html">Global Campus OS</a>
+      <span style="color:var(--fg3)">/</span>
+      <a href="employee-directory.html">Employees</a>
+      <span style="color:var(--fg3)">/</span>
+      <span>Add Employee</span>
+    </div>
+    <div class="header-right">
+      <button class="icon-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg></button>
+      <button class="theme-toggle" id="themeBtn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg></button>
+      <div class="ua" style="margin-left:4px;cursor:pointer;">RK</div>
+    </div>
+  </header>
+
+  <div class="content">
+    <div class="page-header">
+      <h1 class="page-title">Add Employee</h1>
+      <p class="page-subtitle">Create a new employee master record and initial employment engagement</p>
+    </div>
+
+    <div class="alert alert-info">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+      <div><span class="alert-title">Employee ID is assigned automatically</span>An immutable global <code>employee_id</code> (UUID) will be generated on save. Account linking and access grants are configured separately after the employee record is created.</div>
+    </div>
+
+    <div class="form-layout">
+      <!-- Stepper -->
+      <div class="stepper">
+        <div class="step-item active" data-section="personal">
+          <div class="step-number"><span class="step-number-inner">1</span><svg class="check-icon" viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div class="step-text"><div class="step-label">Personal Information</div><div class="step-desc">Identity & contact</div></div>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-item" data-section="employment">
+          <div class="step-number"><span class="step-number-inner">2</span><svg class="check-icon" viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div class="step-text"><div class="step-label">Employment</div><div class="step-desc">Contract & type</div></div>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-item" data-section="org">
+          <div class="step-number"><span class="step-number-inner">3</span><svg class="check-icon" viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div class="step-text"><div class="step-label">Org Assignment</div><div class="step-desc">Unit & reporting</div></div>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-item" data-section="campus">
+          <div class="step-number"><span class="step-number-inner">4</span><svg class="check-icon" viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div class="step-text"><div class="step-label">Campus Assignment</div><div class="step-desc">Affiliation</div></div>
+        </div>
+      </div>
+
+      <!-- Form Sections -->
+      <div class="form-sections">
+
+        <!-- Section 1: Personal Information -->
+        <div class="section-card" id="section-personal">
+          <div class="section-header">
+            <div class="section-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+            <div><div class="section-title">Personal Information</div><div class="section-subtitle">Legal name, contact details and display preferences</div></div>
+            <div class="section-badge">E01 Employee</div>
+          </div>
+          <div class="section-body">
+            <div style="margin-bottom:24px">
+              <div class="field-label" style="margin-bottom:8px">Profile Photo</div>
+              <div class="photo-upload">
+                <div class="photo-preview" id="photoPreview">?</div>
+                <div class="photo-upload-info">
+                  <div class="photo-upload-title">Upload profile photo</div>
+                  <div class="photo-upload-hint">JPG, PNG or GIF · Max 3 MB · Stored as secure reference</div>
+                  <button class="upload-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg>Choose file</button>
+                </div>
+              </div>
+            </div>
+            <div class="field-grid">
+              <div class="field">
+                <label class="field-label">Legal First Name <span class="req">*</span></label>
+                <input class="input" type="text" placeholder="e.g. Sarah" id="firstName" oninput="updatePreview()">
+                <div class="field-hint">As it appears on legal documents</div>
+              </div>
+              <div class="field">
+                <label class="field-label">Legal Last Name</label>
+                <input class="input" type="text" placeholder="e.g. Chen" id="lastName" oninput="updatePreview()">
+                <div class="field-hint">Conditionally required where naming convention applies</div>
+              </div>
+              <div class="field full">
+                <label class="field-label">Preferred Display Name</label>
+                <input class="input" type="text" placeholder="e.g. Sarah Chen (leave blank to use legal name)">
+                <div class="field-hint">Used in UI display — not a legal identifier</div>
+              </div>
+              <div class="field">
+                <label class="field-label">Work Email</label>
+                <input class="input" type="email" placeholder="firstname.lastname@globalcampus.edu">
+                <div class="field-hint">Institutional contact; separate from login identity</div>
+              </div>
+              <div class="field">
+                <label class="field-label">Work Phone</label>
+                <input class="input" type="tel" placeholder="+65 6123 4567">
+                <div class="field-hint">Include country code</div>
+              </div>
+              <div class="field">
+                <label class="field-label">Preferred Locale</label>
+                <select class="input">
+                  <option value="">Select locale…</option>
+                  <option>en-SG (English, Singapore)</option>
+                  <option>en-HK (English, Hong Kong)</option>
+                  <option>en-MY (English, Malaysia)</option>
+                  <option>en-ID (English, Indonesia)</option>
+                  <option>zh-SG (Chinese, Singapore)</option>
+                  <option>ms-MY (Malay, Malaysia)</option>
+                  <option>id-ID (Indonesian, Indonesia)</option>
+                </select>
+                <div class="field-hint">BCP 47 · Controls employee-facing UI language</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Employment -->
+        <div class="section-card" id="section-employment">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(0,184,217,.1);color:var(--info)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 7h-3V6c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v1H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zM9 6h6v1H9V6z"/></svg></div>
+            <div><div class="section-title">Employment Details</div><div class="section-subtitle">Contract type, category and engagement dates</div></div>
+            <div class="section-badge">E02 Employment</div>
+          </div>
+          <div class="section-body">
+            <div class="field-grid">
+              <div class="field full">
+                <label class="field-label">Employer Organization <span class="req">*</span></label>
+                <select class="input">
+                  <option value="">Select employer…</option>
+                  <option selected>Global Campus International Pte Ltd (Singapore)</option>
+                  <option>Global Campus Hong Kong Limited</option>
+                  <option>Global Campus Malaysia Sdn Bhd</option>
+                  <option>Global Campus Indonesia PT</option>
+                  <option>Global Campus OS Ltd (Global HQ)</option>
+                </select>
+                <div class="field-hint">Contracting legal entity; separate from campus affiliation</div>
+              </div>
+              <div class="field">
+                <label class="field-label">Employee Number</label>
+                <input class="input" type="text" placeholder="e.g. GCI-2026-1049">
+                <div class="field-hint">Employer-scoped HR number (optional)</div>
+              </div>
+              <div class="field">
+                <label class="field-label">Employee Category <span class="req">*</span></label>
+                <select class="input">
+                  <option value="">Select category…</option>
+                  <option>Teaching</option>
+                  <option>Non-Teaching</option>
+                  <option>Administration</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="field full">
+                <label class="field-label">Employment Type <span class="req">*</span></label>
+                <div class="radio-group">
+                  <label class="radio-option selected"><input type="radio" name="empType" value="PERMANENT" checked><div class="radio-dot"></div>Permanent</label>
+                  <label class="radio-option"><input type="radio" name="empType" value="FIXED_TERM"><div class="radio-dot"></div>Fixed-term</label>
+                  <label class="radio-option"><input type="radio" name="empType" value="PART_TIME"><div class="radio-dot"></div>Part-time</label>
+                  <label class="radio-option"><input type="radio" name="empType" value="CONTRACT"><div class="radio-dot"></div>Contract</label>
+                  <label class="radio-option"><input type="radio" name="empType" value="OTHER"><div class="radio-dot"></div>Other</label>
+                </div>
+              </div>
+              <div class="field">
+                <label class="field-label">Start Date <span class="req">*</span></label>
+                <input class="input" type="date" value="2026-10-14">
+                <div class="field-hint">First effective day of this engagement</div>
+              </div>
+              <div class="field">
+                <label class="field-label">End Date</label>
+                <input class="input" type="date" placeholder="Leave blank for open-ended">
+                <div class="field-hint">Leave blank for open-ended employment</div>
+              </div>
+              <div class="field">
+                <label class="field-label">Employment Status <span class="req">*</span></label>
+                <select class="input">
+                  <option value="ACTIVE" selected>Active</option>
+                  <option value="PENDING">Pending</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3: Org Assignment -->
+        <div class="section-card" id="section-org">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(142,51,255,.1);color:var(--secondary)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 11V3h-7v3H9V3H2v8h7V8h2v10h4v3h7v-8h-7v3h-2V8h2v3z"/></svg></div>
+            <div><div class="section-title">Organizational Assignment</div><div class="section-subtitle">Department, position and reporting line</div></div>
+            <div class="section-badge">E04 Org Assignment</div>
+          </div>
+          <div class="section-body">
+            <div class="field-grid">
+              <div class="field">
+                <label class="field-label">Organizational Unit <span class="req">*</span></label>
+                <select class="input">
+                  <option value="">Select unit…</option>
+                  <optgroup label="Singapore">
+                    <option>Mathematics Department · Singapore</option>
+                    <option>Science Department · Singapore</option>
+                    <option>English Department · Singapore</option>
+                    <option>Campus Operations · Singapore</option>
+                  </optgroup>
+                  <optgroup label="Hong Kong">
+                    <option>Mathematics Department · Hong Kong</option>
+                    <option>Science Department · Hong Kong</option>
+                  </optgroup>
+                  <optgroup label="Global HQ">
+                    <option>Human Resources · Global HQ</option>
+                    <option>Technology · Global HQ</option>
+                    <option>Finance · Global HQ</option>
+                  </optgroup>
+                </select>
+              </div>
+              <div class="field">
+                <label class="field-label">Job Position <span class="req">*</span></label>
+                <select class="input">
+                  <option value="">Select position…</option>
+                  <optgroup label="Teaching">
+                    <option>Mathematics Teacher</option>
+                    <option>Science Teacher</option>
+                    <option>English Language Teacher</option>
+                    <option>Department Head</option>
+                    <option>Senior Teacher</option>
+                  </optgroup>
+                  <optgroup label="Non-Teaching">
+                    <option>IT Systems Administrator</option>
+                    <option>Finance Controller</option>
+                    <option>Campus Operations Manager</option>
+                    <option>HR Business Partner</option>
+                  </optgroup>
+                </select>
+                <div class="field-hint">HR position catalog — not an access role</div>
+              </div>
+              <div class="field full">
+                <label class="field-label">Reports To (Manager)</label>
+                <input class="input" type="text" placeholder="Search by name or employee number…">
+                <div class="field-hint">Self-referencing assignment. Must not create reporting cycles (BR-13).</div>
+              </div>
+              <div class="field">
+                <label class="field-label">Assignment Valid From <span class="req">*</span></label>
+                <input class="input" type="date" value="2026-10-14">
+              </div>
+              <div class="field">
+                <label class="field-label">Assignment Valid To</label>
+                <input class="input" type="date">
+                <div class="field-hint">Leave blank for open-ended</div>
+              </div>
+              <div class="field full">
+                <div class="switch-row">
+                  <div><div class="switch-label">Primary organizational assignment</div><div class="switch-desc">Mark as the employee's main role and reporting line</div></div>
+                  <button class="switch on" id="primarySwitch" type="button"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 4: Campus Assignment -->
+        <div class="section-card" id="section-campus">
+          <div class="section-header">
+            <div class="section-icon" style="background:rgba(255,171,0,.1);color:var(--warning)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
+            <div><div class="section-title">Campus Assignment</div><div class="section-subtitle">Work campus affiliation — does not grant system access (BR-06)</div></div>
+            <div class="section-badge">E07 Campus Assignment</div>
+          </div>
+          <div class="section-body">
+            <div style="background:rgba(255,171,0,.08);border:1px solid rgba(255,171,0,.2);border-radius:8px;padding:12px 14px;font-size:13px;color:#7A4100;margin-bottom:20px;display:flex;gap:10px;align-items:flex-start;">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="flex-shrink:0;margin-top:1px;color:var(--warning)"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+              <span><strong>Campus affiliation ≠ system access.</strong> Assigning a campus here does not grant GA module or campus grants. Access must be configured separately by a Global Admin (BR-06, BR-07).</span>
+            </div>
+            <div class="field-grid">
+              <div class="field">
+                <label class="field-label">Campus <span class="req">*</span></label>
+                <select class="input">
+                  <option value="">Select campus…</option>
+                  <option>🇸🇬 Singapore Campus</option>
+                  <option>🇭🇰 Hong Kong Campus</option>
+                  <option>🇲🇾 Kuala Lumpur Campus</option>
+                  <option>🇮🇩 Jakarta Campus</option>
+                  <option>🌐 Global HQ</option>
+                </select>
+              </div>
+              <div class="field">
+                <label class="field-label">Assignment Reason</label>
+                <select class="input">
+                  <option value="">Select reason…</option>
+                  <option>New hire</option>
+                  <option>Transfer</option>
+                  <option>Secondment</option>
+                  <option>Additional teaching assignment</option>
+                </select>
+              </div>
+              <div class="field">
+                <label class="field-label">Valid From <span class="req">*</span></label>
+                <input class="input" type="date" value="2026-10-14">
+              </div>
+              <div class="field">
+                <label class="field-label">Valid To</label>
+                <input class="input" type="date">
+                <div class="field-hint">Leave blank for open-ended</div>
+              </div>
+              <div class="field full">
+                <div class="switch-row">
+                  <div><div class="switch-label">Primary campus</div><div class="switch-desc">Mark as the employee's main campus (multi-campus rule: D04 unresolved)</div></div>
+                  <button class="switch on" type="button"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+          <div class="form-actions-left">
+            <a href="employee-directory.html" class="btn btn-outlined">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+              Cancel
+            </a>
+            <button class="btn btn-outlined" type="button">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+              Save Draft
+            </button>
+          </div>
+          <div class="form-actions-right">
+            <button class="btn btn-primary" type="button" onclick="handleSubmit()">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              Create Employee Record
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById('themeBtn').addEventListener('click', () => {
+  const r = document.documentElement;
+  r.setAttribute('data-theme', r.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+
+function updatePreview() {
+  const first = document.getElementById('firstName').value;
+  const last = document.getElementById('lastName').value;
+  const initials = (first[0] || '') + (last[0] || '');
+  document.getElementById('photoPreview').textContent = initials || '?';
+}
+
+// Radio buttons
+document.querySelectorAll('.radio-option').forEach(opt => {
+  opt.addEventListener('click', () => {
+    opt.closest('.radio-group').querySelectorAll('.radio-option').forEach(o => o.classList.remove('selected'));
+    opt.classList.add('selected');
+    opt.querySelector('input').checked = true;
+  });
+});
+
+// Switch toggle
+document.querySelectorAll('.switch').forEach(sw => {
+  sw.addEventListener('click', () => sw.classList.toggle('on'));
+});
+
+// Stepper navigation
+document.querySelectorAll('.step-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const section = document.getElementById('section-' + item.dataset.section);
+    if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// Intersection observer for stepper
+const sections = ['personal','employment','org','campus'];
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id.replace('section-','');
+      document.querySelectorAll('.step-item').forEach(s => s.classList.remove('active'));
+      const stepEl = document.querySelector('[data-section="' + id + '"]');
+      if (stepEl) stepEl.classList.add('active');
+    }
+  });
+}, { threshold: 0.3, rootMargin: '-64px 0px 0px 0px' });
+sections.forEach(s => { const el = document.getElementById('section-' + s); if (el) observer.observe(el); });
+
+function handleSubmit() {
+  const firstName = document.getElementById('firstName').value.trim();
+  if (!firstName) {
+    document.getElementById('firstName').classList.add('error');
+    document.getElementById('firstName').focus();
+    return;
+  }
+  alert('Employee record created successfully!\n\nNext step: Configure GA module grants and campus grants to enable system access.');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR Dashboard — Global Campus OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #00A76F; --primary-dark: #007867; --primary-lighter: rgba(0,167,111,.08);
+  --secondary: #8E33FF; --error: #FF5630; --warning: #FFAB00; --info: #00B8D9; --success: #22C55E;
+  --fg: #212B36; --fg2: #637381; --fg3: #919EAB;
+  --bg: #FFFFFF; --bg-paper: #FFFFFF; --bg-neutral: #F4F6F8;
+  --divider: rgba(145,158,171,.2);
+  --z1: 0 1px 2px rgba(145,158,171,.16);
+  --z4: 0 4px 8px rgba(145,158,171,.16);
+  --z8: 0 8px 16px rgba(145,158,171,.16);
+  --z12: 0 12px 24px -4px rgba(145,158,171,.16);
+  --sidebar-w: 280px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --primary: #5BE49B; --primary-lighter: rgba(91,228,155,.16);
+    --secondary: #C684FF; --error: #FF6F00; --warning: #FFD666; --info: #61F3F3; --success: #77ED8B;
+    --fg: #FFFFFF; --fg2: #919EAB; --fg3: #637381;
+    --bg: #161C24; --bg-paper: #212B36; --bg-neutral: #28323D;
+    --divider: rgba(145,158,171,.24);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --primary: #5BE49B; --primary-lighter: rgba(91,228,155,.16);
+  --secondary: #C684FF; --error: #FF6F00; --warning: #FFD666; --info: #61F3F3; --success: #77ED8B;
+  --fg: #FFFFFF; --fg2: #919EAB; --fg3: #637381;
+  --bg: #161C24; --bg-paper: #212B36; --bg-neutral: #28323D;
+  --divider: rgba(145,158,171,.24);
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Public Sans', sans-serif; background: var(--bg); color: var(--fg); display: flex; min-height: 100vh; font-size: 14px; }
+
+/* Sidebar */
+.sidebar { width: var(--sidebar-w); background: var(--bg-paper); border-right: 1px solid var(--divider); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; height: 100vh; z-index: 100; overflow-y: auto; }
+.sidebar-logo { padding: 24px 20px 16px; display: flex; align-items: center; gap: 12px; }
+.logo-mark { width: 40px; height: 40px; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+.logo-mark svg { width: 22px; height: 22px; fill: #fff; }
+.logo-text { font-size: 16px; font-weight: 700; color: var(--fg); line-height: 1.2; }
+.logo-text span { display: block; font-size: 11px; font-weight: 400; color: var(--fg2); }
+.nav-section { padding: 8px 12px 4px; }
+.nav-label { font-size: 11px; font-weight: 700; color: var(--fg3); text-transform: uppercase; letter-spacing: 1.1px; padding: 0 8px 8px; }
+.nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; cursor: pointer; color: var(--fg2); font-size: 14px; font-weight: 500; text-decoration: none; transition: all .15s; margin-bottom: 2px; }
+.nav-item:hover { background: var(--bg-neutral); color: var(--fg); }
+.nav-item.active { background: var(--primary-lighter); color: var(--primary); font-weight: 600; }
+.nav-item svg { width: 20px; height: 20px; flex-shrink: 0; }
+.nav-badge { margin-left: auto; background: var(--error); color: #fff; font-size: 11px; font-weight: 700; padding: 1px 6px; border-radius: 500px; }
+.sidebar-footer { margin-top: auto; padding: 16px 12px; border-top: 1px solid var(--divider); }
+.user-row { display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: 8px; cursor: pointer; }
+.user-row:hover { background: var(--bg-neutral); }
+.user-avatar { width: 36px; height: 36px; border-radius: 500px; background: var(--primary-lighter); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+.user-name { font-size: 13px; font-weight: 600; color: var(--fg); }
+.user-role { font-size: 12px; color: var(--fg2); }
+
+/* Main */
+.main { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+
+/* Header */
+.header { height: 64px; background: var(--bg-paper); border-bottom: 1px solid var(--divider); display: flex; align-items: center; padding: 0 24px; gap: 16px; position: sticky; top: 0; z-index: 50; }
+.header-breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--fg2); }
+.header-breadcrumb span { color: var(--fg); font-weight: 500; }
+.header-breadcrumb .sep { color: var(--fg3); }
+.header-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.icon-btn { width: 40px; height: 40px; border: none; background: transparent; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--fg2); transition: background .15s; }
+.icon-btn:hover { background: var(--bg-neutral); color: var(--fg); }
+.icon-btn svg { width: 20px; height: 20px; }
+
+/* Content */
+.content { padding: 40px; max-width: 1240px; width: 100%; }
+.page-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 32px; }
+.page-title { font-size: 24px; font-weight: 700; color: var(--fg); }
+.page-subtitle { font-size: 14px; color: var(--fg2); margin-top: 4px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 0 16px; height: 40px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; text-decoration: none; transition: all .15s; font-family: inherit; }
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-outlined { background: transparent; color: var(--fg); border: 1px solid var(--divider); }
+.btn-outlined:hover { background: var(--bg-neutral); }
+.btn-group { display: flex; gap: 8px; }
+.btn svg { width: 18px; height: 18px; }
+
+/* Stats Row */
+.stats-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 24px; }
+.stat-card { background: var(--bg-paper); border: 1px solid var(--divider); border-radius: 12px; padding: 20px; box-shadow: var(--z1); }
+.stat-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+.stat-icon svg { width: 20px; height: 20px; }
+.stat-icon.primary { background: var(--primary-lighter); color: var(--primary); }
+.stat-icon.info { background: rgba(0,184,217,.1); color: var(--info); }
+.stat-icon.warning { background: rgba(255,171,0,.1); color: var(--warning); }
+.stat-icon.secondary { background: rgba(142,51,255,.1); color: var(--secondary); }
+.stat-icon.success { background: rgba(34,197,94,.1); color: var(--success); }
+.stat-value { font-size: 28px; font-weight: 700; color: var(--fg); line-height: 1; }
+.stat-label { font-size: 13px; color: var(--fg2); margin-top: 4px; }
+.stat-trend { display: flex; align-items: center; gap: 4px; margin-top: 8px; font-size: 12px; font-weight: 600; }
+.stat-trend.up { color: var(--success); }
+.stat-trend.down { color: var(--error); }
+.stat-trend.neutral { color: var(--fg2); }
+
+/* Charts row */
+.charts-row { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 24px; }
+.card { background: var(--bg-paper); border: 1px solid var(--divider); border-radius: 12px; box-shadow: var(--z1); }
+.card-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 20px 0; }
+.card-title { font-size: 16px; font-weight: 700; color: var(--fg); }
+.card-subtitle { font-size: 13px; color: var(--fg2); margin-top: 2px; }
+.card-body { padding: 20px; }
+.period-tabs { display: flex; background: var(--bg-neutral); border-radius: 8px; padding: 3px; gap: 2px; }
+.period-tab { padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; color: var(--fg2); border: none; background: transparent; font-family: inherit; transition: all .15s; }
+.period-tab.active { background: var(--bg-paper); color: var(--fg); box-shadow: var(--z1); }
+
+/* Bar Chart */
+.bar-chart { height: 220px; display: flex; align-items: flex-end; gap: 12px; padding-top: 16px; }
+.bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.bar-wrap { width: 100%; flex: 1; display: flex; align-items: flex-end; justify-content: center; gap: 3px; }
+.bar { width: 24px; border-radius: 4px 4px 0 0; transition: opacity .15s; cursor: pointer; }
+.bar:hover { opacity: .8; }
+.bar.primary { background: var(--primary); }
+.bar.secondary { background: rgba(0,167,111,.3); }
+.bar-label { font-size: 11px; color: var(--fg2); text-align: center; }
+.bar-chart-wrap { position: relative; }
+.chart-legend { display: flex; gap: 16px; margin-top: 12px; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--fg2); }
+.legend-dot { width: 10px; height: 10px; border-radius: 500px; }
+.legend-dot.primary { background: var(--primary); }
+.legend-dot.secondary { background: rgba(0,167,111,.3); }
+
+/* Donut Chart */
+.donut-wrap { display: flex; flex-direction: column; align-items: center; }
+.donut-svg { width: 180px; height: 180px; }
+.donut-center { text-anchor: middle; dominant-baseline: middle; }
+.donut-segments { transform-origin: center; }
+.donut-legend { width: 100%; margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+.donut-legend-item { display: flex; align-items: center; justify-content: space-between; font-size: 13px; }
+.donut-legend-left { display: flex; align-items: center; gap: 8px; color: var(--fg2); }
+.donut-legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+.donut-legend-val { font-weight: 600; color: var(--fg); }
+
+/* Table */
+.table-card { background: var(--bg-paper); border: 1px solid var(--divider); border-radius: 12px; box-shadow: var(--z1); overflow: hidden; }
+.table-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--divider); }
+.table-toolbar-title { font-size: 16px; font-weight: 700; }
+.table-toolbar-right { display: flex; gap: 8px; }
+table { width: 100%; border-collapse: collapse; }
+thead th { padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 700; color: var(--fg2); text-transform: uppercase; letter-spacing: .7px; background: var(--bg-neutral); border-bottom: 1px solid var(--divider); white-space: nowrap; }
+tbody tr { border-bottom: 1px solid var(--divider); transition: background .12s; cursor: pointer; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: var(--bg-neutral); }
+td { padding: 14px 16px; font-size: 14px; color: var(--fg); vertical-align: middle; }
+.emp-cell { display: flex; align-items: center; gap: 10px; }
+.emp-avatar { width: 36px; height: 36px; border-radius: 500px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+.emp-name { font-size: 14px; font-weight: 600; color: var(--fg); }
+.emp-email { font-size: 12px; color: var(--fg2); }
+.chip { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 500px; font-size: 12px; font-weight: 600; }
+.chip-success { background: rgba(34,197,94,.12); color: #118D57; }
+.chip-warning { background: rgba(255,171,0,.12); color: #B76E00; }
+.chip-error { background: rgba(255,86,48,.12); color: #B71D18; }
+.chip-info { background: rgba(0,184,217,.12); color: #006C9C; }
+.chip-default { background: var(--bg-neutral); color: var(--fg2); }
+.text-secondary { color: var(--fg2); }
+.change-type { display: flex; align-items: center; gap: 6px; }
+.change-dot { width: 8px; height: 8px; border-radius: 500px; flex-shrink: 0; }
+
+/* Theme toggle */
+.theme-toggle { width: 40px; height: 40px; border: none; background: var(--bg-neutral); border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--fg2); }
+.theme-toggle svg { width: 18px; height: 18px; }
+
+@media (max-width: 1024px) { .stats-row { grid-template-columns: repeat(3, 1fr); } .charts-row { grid-template-columns: 1fr; } }
+@media (max-width: 768px) { .sidebar { transform: translateX(-100%); } .main { margin-left: 0; } .content { padding: 16px; } .stats-row { grid-template-columns: repeat(2, 1fr); } }
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
+    </div>
+    <div class="logo-text">Global Campus OS <span>Admin Portal</span></div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Overview</div>
+    <a class="nav-item active" href="#">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+      HR Dashboard
+    </a>
+    <a class="nav-item" href="employee-directory.html">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+      Employees
+    </a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Organization</div>
+    <a class="nav-item" href="#">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      Campuses
+    </a>
+    <a class="nav-item" href="#">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 11V3h-7v3H9V3H2v8h7V8h2v10h4v3h7v-8h-7v3h-2V8h2v3z"/></svg>
+      Org Structure
+    </a>
+    <a class="nav-item" href="#">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-2.18c.07-.44.18-.86.18-1.3C18 2.12 15.88 0 13.3 0c-1.3 0-2.49.52-3.35 1.36L9 3H5c-1.66 0-3 1.34-3 3v11c0 1.66 1.34 3 3 3h4.22c.98 0 1.94-.21 2.82-.59l.14-.06 1.4.59c.7.3 1.44.06 1.88-.52l2.06-2.75H20c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>
+      Job Positions
+    </a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Access</div>
+    <a class="nav-item" href="#">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+      Access & Roles
+    </a>
+    <a class="nav-item" href="#">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z"/></svg>
+      Permission Templates
+    </a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Reports</div>
+    <a class="nav-item" href="#">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+      Reports
+    </a>
+    <a class="nav-item" href="#">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+      Audit Log
+      <span class="nav-badge">3</span>
+    </a>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="user-row">
+      <div class="user-avatar">RK</div>
+      <div>
+        <div class="user-name">Rachel Kim</div>
+        <div class="user-role">Global HR Admin</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- Main -->
+<div class="main">
+  <header class="header">
+    <div class="header-breadcrumb">
+      <span style="color:var(--fg2)">Global Campus OS</span>
+      <span class="sep">/</span>
+      <span>HR Dashboard</span>
+    </div>
+    <div class="header-right">
+      <button class="icon-btn" title="Notifications">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+      </button>
+      <button class="theme-toggle" id="themeBtn" title="Toggle theme">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
+      </button>
+      <div class="user-avatar" style="margin-left:4px;width:36px;height:36px;border-radius:500px;background:var(--primary-lighter);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;cursor:pointer;">RK</div>
+    </div>
+  </header>
+
+  <div class="content">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">HR Dashboard</h1>
+        <p class="page-subtitle">Global workforce overview · Updated 14 Oct 2026, 09:12 AM</p>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-outlined">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          Export
+        </button>
+        <a class="btn btn-primary" href="employee-add.html">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+          Add Employee
+        </a>
+      </div>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-icon primary">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        </div>
+        <div class="stat-value">248</div>
+        <div class="stat-label">Total Employees</div>
+        <div class="stat-trend up">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 14l5-5 5 5z"/></svg>
+          +12 this month
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon info">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 11-6-11-6z"/></svg>
+        </div>
+        <div class="stat-value">156</div>
+        <div class="stat-label">Teaching Staff</div>
+        <div class="stat-trend up">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 14l5-5 5 5z"/></svg>
+          62.9% of total
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon warning">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 7H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-9 3h2v2h-2v-2zm0 4h2v2h-2v-2zM7 10h2v2H7v-2zm0 4h2v2H7v-2zm10 2h-2v-2h2v2zm0-4h-2v-2h2v2zM3 5h18V3H3z"/></svg>
+        </div>
+        <div class="stat-value">72</div>
+        <div class="stat-label">Non-Teaching</div>
+        <div class="stat-trend neutral">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12l-4-4v3H3v2h15v3z"/></svg>
+          29% of total
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon secondary">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        </div>
+        <div class="stat-value">20</div>
+        <div class="stat-label">Administration</div>
+        <div class="stat-trend neutral">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12l-4-4v3H3v2h15v3z"/></svg>
+          8.1% of total
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon success">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        </div>
+        <div class="stat-value">12</div>
+        <div class="stat-label">New Hires (Oct)</div>
+        <div class="stat-trend up">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 14l5-5 5 5z"/></svg>
+          +3 vs last month
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="charts-row">
+      <!-- Bar Chart -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Headcount by Campus</div>
+            <div class="card-subtitle">Teaching vs Non-teaching</div>
+          </div>
+          <div class="period-tabs">
+            <button class="period-tab active">2026</button>
+            <button class="period-tab">2025</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="bar-chart">
+            <div class="bar-group">
+              <div class="bar-wrap">
+                <div class="bar primary" style="height:160px" title="Teaching: 64"></div>
+                <div class="bar secondary" style="height:50px" title="Non-teaching: 25"></div>
+              </div>
+              <div class="bar-label">Singapore</div>
+            </div>
+            <div class="bar-group">
+              <div class="bar-wrap">
+                <div class="bar primary" style="height:100px" title="Teaching: 40"></div>
+                <div class="bar secondary" style="height:35px" title="Non-teaching: 14"></div>
+              </div>
+              <div class="bar-label">Hong Kong</div>
+            </div>
+            <div class="bar-group">
+              <div class="bar-wrap">
+                <div class="bar primary" style="height:88px" title="Teaching: 35"></div>
+                <div class="bar secondary" style="height:28px" title="Non-teaching: 11"></div>
+              </div>
+              <div class="bar-label">Kuala Lumpur</div>
+            </div>
+            <div class="bar-group">
+              <div class="bar-wrap">
+                <div class="bar primary" style="height:44px" title="Teaching: 17"></div>
+                <div class="bar secondary" style="height:22px" title="Non-teaching: 7"></div>
+              </div>
+              <div class="bar-label">Jakarta</div>
+            </div>
+            <div class="bar-group">
+              <div class="bar-wrap">
+                <div class="bar primary" style="height:0px" title="Teaching: 0"></div>
+                <div class="bar secondary" style="height:38px" title="Non-teaching: 15"></div>
+              </div>
+              <div class="bar-label">Global HQ</div>
+            </div>
+          </div>
+          <div class="chart-legend">
+            <div class="legend-item"><div class="legend-dot primary"></div>Teaching</div>
+            <div class="legend-item"><div class="legend-dot secondary"></div>Non-Teaching / Admin</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Donut Chart -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Employment Type</div>
+            <div class="card-subtitle">Current active staff</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="donut-wrap">
+            <svg class="donut-svg" viewBox="0 0 200 200">
+              <circle cx="100" cy="100" r="70" fill="none" stroke="var(--bg-neutral)" stroke-width="28"/>
+              <!-- Permanent 58% = 209 deg = 3.647 rad -->
+              <circle cx="100" cy="100" r="70" fill="none" stroke="#00A76F" stroke-width="28"
+                stroke-dasharray="254 186" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
+              <!-- Fixed-term 24% = 86.4 deg -->
+              <circle cx="100" cy="100" r="70" fill="none" stroke="#8E33FF" stroke-width="28"
+                stroke-dasharray="105 335" stroke-dashoffset="-254" transform="rotate(-90 100 100)"/>
+              <!-- Part-time 12% = 43.2 deg -->
+              <circle cx="100" cy="100" r="70" fill="none" stroke="#FFAB00" stroke-width="28"
+                stroke-dasharray="52 388" stroke-dashoffset="-359" transform="rotate(-90 100 100)"/>
+              <!-- Contract 6% = 21.6 deg -->
+              <circle cx="100" cy="100" r="70" fill="none" stroke="#00B8D9" stroke-width="28"
+                stroke-dasharray="26 414" stroke-dashoffset="-411" transform="rotate(-90 100 100)"/>
+              <text x="100" y="96" class="donut-center" font-family="Public Sans" font-size="24" font-weight="700" fill="var(--fg)">231</text>
+              <text x="100" y="114" class="donut-center" font-family="Public Sans" font-size="11" fill="var(--fg2)">Active</text>
+            </svg>
+            <div class="donut-legend">
+              <div class="donut-legend-item">
+                <div class="donut-legend-left"><div class="donut-legend-dot" style="background:#00A76F"></div>Permanent</div>
+                <div class="donut-legend-val">144 · 58%</div>
+              </div>
+              <div class="donut-legend-item">
+                <div class="donut-legend-left"><div class="donut-legend-dot" style="background:#8E33FF"></div>Fixed-term</div>
+                <div class="donut-legend-val">59 · 24%</div>
+              </div>
+              <div class="donut-legend-item">
+                <div class="donut-legend-left"><div class="donut-legend-dot" style="background:#FFAB00"></div>Part-time</div>
+                <div class="donut-legend-val">30 · 12%</div>
+              </div>
+              <div class="donut-legend-item">
+                <div class="donut-legend-left"><div class="donut-legend-dot" style="background:#00B8D9"></div>Contract</div>
+                <div class="donut-legend-val">15 · 6%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Activity Table -->
+    <div class="table-card">
+      <div class="table-toolbar">
+        <div class="table-toolbar-title">Recent Workforce Changes</div>
+        <div class="table-toolbar-right">
+          <button class="btn btn-outlined" style="height:36px;font-size:13px;">View all activity</button>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Employee</th>
+            <th>Change</th>
+            <th>Campus</th>
+            <th>Actioned By</th>
+            <th>Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="emp-cell"><div class="emp-avatar" style="background:rgba(0,167,111,.12);color:#007867;">SC</div><div><div class="emp-name">Sarah Chen</div><div class="emp-email">s.chen@globalcampus.edu</div></div></div></td>
+            <td><div class="change-type"><div class="change-dot" style="background:var(--success)"></div>New hire — Teaching</div></td>
+            <td>Singapore</td>
+            <td class="text-secondary">Rachel Kim</td>
+            <td class="text-secondary">14 Oct 2026</td>
+            <td><span class="chip chip-success">Active</span></td>
+          </tr>
+          <tr>
+            <td><div class="emp-cell"><div class="emp-avatar" style="background:rgba(142,51,255,.12);color:#6E35CC;">MW</div><div><div class="emp-name">Marcus Williams</div><div class="emp-email">m.williams@globalcampus.edu</div></div></div></td>
+            <td><div class="change-type"><div class="change-dot" style="background:var(--info)"></div>Campus transfer — HQ → SG</div></td>
+            <td>Singapore</td>
+            <td class="text-secondary">System</td>
+            <td class="text-secondary">12 Oct 2026</td>
+            <td><span class="chip chip-info">Pending</span></td>
+          </tr>
+          <tr>
+            <td><div class="emp-cell"><div class="emp-avatar" style="background:rgba(255,171,0,.12);color:#B76E00;">PS</div><div><div class="emp-name">Priya Sharma</div><div class="emp-email">p.sharma@globalcampus.edu</div></div></div></td>
+            <td><div class="change-type"><div class="change-dot" style="background:var(--secondary)"></div>Role change — Dept Head</div></td>
+            <td>Hong Kong</td>
+            <td class="text-secondary">James Patel</td>
+            <td class="text-secondary">10 Oct 2026</td>
+            <td><span class="chip chip-success">Active</span></td>
+          </tr>
+          <tr>
+            <td><div class="emp-cell"><div class="emp-avatar" style="background:rgba(255,86,48,.12);color:#B71D18;">DK</div><div><div class="emp-name">David Kowalski</div><div class="emp-email">d.kowalski@globalcampus.edu</div></div></div></td>
+            <td><div class="change-type"><div class="change-dot" style="background:var(--warning)"></div>Account suspended</div></td>
+            <td>Global HQ</td>
+            <td class="text-secondary">Rachel Kim</td>
+            <td class="text-secondary">08 Oct 2026</td>
+            <td><span class="chip chip-warning">Suspended</span></td>
+          </tr>
+          <tr>
+            <td><div class="emp-cell"><div class="emp-avatar" style="background:rgba(0,184,217,.12);color:#006C9C;">AH</div><div><div class="emp-name">Amira Hassan</div><div class="emp-email">a.hassan@globalcampus.edu</div></div></div></td>
+            <td><div class="change-type"><div class="change-dot" style="background:var(--success)"></div>New hire — Teaching</div></td>
+            <td>Kuala Lumpur</td>
+            <td class="text-secondary">Rachel Kim</td>
+            <td class="text-secondary">07 Oct 2026</td>
+            <td><span class="chip chip-success">Active</span></td>
+          </tr>
+          <tr>
+            <td><div class="emp-cell"><div class="emp-avatar" style="background:rgba(0,167,111,.12);color:#007867;">JO</div><div><div class="emp-name">James Okonkwo</div><div class="emp-email">j.okonkwo@globalcampus.edu</div></div></div></td>
+            <td><div class="change-type"><div class="change-dot" style="background:var(--error)"></div>Employment ended — Contract</div></td>
+            <td>Jakarta</td>
+            <td class="text-secondary">System</td>
+            <td class="text-secondary">01 Oct 2026</td>
+            <td><span class="chip chip-error">Ended</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+const btn = document.getElementById('themeBtn');
+const root = document.documentElement;
+btn.addEventListener('click', () => {
+  const isDark = root.getAttribute('data-theme') === 'dark';
+  root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+document.querySelectorAll('.period-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    tab.closest('.period-tabs').querySelectorAll('.period-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
