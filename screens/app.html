@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Global Campus OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary:#00A76F;--primary-dark:#007867;--primary-lighter:rgba(0,167,111,.08);
+  --secondary:#8E33FF;--error:#FF5630;--warning:#FFAB00;--info:#00B8D9;--success:#22C55E;
+  --fg:#212B36;--fg2:#637381;--fg3:#919EAB;
+  --bg:#FFFFFF;--bg-paper:#FFFFFF;--bg-neutral:#F4F6F8;
+  --divider:rgba(145,158,171,.2);
+  --z1:0 1px 2px rgba(145,158,171,.16);--z4:0 4px 8px rgba(145,158,171,.16);
+  --z8:0 8px 16px rgba(145,158,171,.16);--z12:0 12px 24px -4px rgba(145,158,171,.16);
+  --sidebar-w:280px;color-scheme:light;
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --primary:#5BE49B;--primary-lighter:rgba(91,228,155,.16);
+  --secondary:#C684FF;--error:#FF6F00;--warning:#FFD666;--info:#61F3F3;--success:#77ED8B;
+  --fg:#FFFFFF;--fg2:#919EAB;--fg3:#637381;
+  --bg:#161C24;--bg-paper:#212B36;--bg-neutral:#28323D;--divider:rgba(145,158,171,.24);color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --primary:#5BE49B;--primary-lighter:rgba(91,228,155,.16);
+  --secondary:#C684FF;--error:#FF6F00;--warning:#FFD666;--info:#61F3F3;--success:#77ED8B;
+  --fg:#FFFFFF;--fg2:#919EAB;--fg3:#637381;
+  --bg:#161C24;--bg-paper:#212B36;--bg-neutral:#28323D;--divider:rgba(145,158,171,.24);color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Public Sans',sans-serif;background:var(--bg);color:var(--fg);display:flex;min-height:100vh;font-size:14px;}
+/* Sidebar */
+.sidebar{width:var(--sidebar-w);background:var(--bg-paper);border-right:1px solid var(--divider);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:100;overflow-y:auto;}
+.sidebar-logo{padding:24px 20px 16px;display:flex;align-items:center;gap:12px;}
+.logo-mark{width:40px;height:40px;background:var(--primary);border-radius:10px;display:flex;align-items:center;justify-content:center;}
+.logo-mark svg{width:22px;height:22px;fill:#fff;}
+.logo-text{font-size:16px;font-weight:700;color:var(--fg);line-height:1.2;}
+.logo-text span{display:block;font-size:11px;font-weight:400;color:var(--fg2);}
+.nav-section{padding:8px 12px 4px;}
+.nav-label{font-size:11px;font-weight:700;color:var(--fg3);text-transform:uppercase;letter-spacing:1.1px;padding:0 8px 8px;}
+.nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;cursor:pointer;color:var(--fg2);font-size:14px;font-weight:500;text-decoration:none;transition:all .15s;margin-bottom:2px;}
+.nav-item:hover{background:var(--bg-neutral);color:var(--fg);}
+.nav-item.active{background:var(--primary-lighter);color:var(--primary);font-weight:600;}
+.nav-item svg{width:20px;height:20px;flex-shrink:0;}
+.nav-badge{margin-left:auto;background:var(--error);color:#fff;font-size:11px;font-weight:700;padding:1px 6px;border-radius:500px;}
+.sidebar-footer{margin-top:auto;padding:16px 12px;border-top:1px solid var(--divider);}
+.user-row{display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;cursor:pointer;}
+.user-row:hover{background:var(--bg-neutral);}
+.user-avatar,.ua{width:36px;height:36px;border-radius:500px;background:var(--primary-lighter);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;}
+.user-name{font-size:13px;font-weight:600;color:var(--fg);}
+.user-role{font-size:12px;color:var(--fg2);}
+/* Main layout */
+.main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;min-height:100vh;}
+.header{height:64px;background:var(--bg-paper);border-bottom:1px solid var(--divider);display:flex;align-items:center;padding:0 24px;gap:16px;position:sticky;top:0;z-index:50;}
+.header-breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--fg2);}
+.header-breadcrumb span{color:var(--fg);font-weight:500;}
+.header-breadcrumb .sep{color:var(--fg3);}
+.bc-link{color:var(--fg2);text-decoration:none;}
+.bc-link:hover{color:var(--primary);}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:8px;}
+.icon-btn{width:40px;height:40px;border:none;background:transparent;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--fg2);transition:background .15s;}
+.icon-btn:hover{background:var(--bg-neutral);color:var(--fg);}
+.icon-btn svg{width:20px;height:20px;}
+.theme-toggle{width:40px;height:40px;border:none;background:var(--bg-neutral);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--fg2);}
+.theme-toggle svg{width:18px;height:18px;}
+/* Pages */
+.page{display:none;}
+.page.active{display:block;}
+.content{padding:40px;max-width:1240px;width:100%;}
+#page-profile .content{padding:32px 40px;}
+#page-add .content{padding:32px 40px;max-width:none;}
+/* Common components */
+.page-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:32px;}
+.page-title{font-size:24px;font-weight:700;color:var(--fg);}
+.page-subtitle{font-size:14px;color:var(--fg2);margin-top:4px;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:0 16px;height:40px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;border:none;text-decoration:none;transition:all .15s;font-family:inherit;}
+.btn-primary{background:var(--primary);color:#fff;}
+.btn-primary:hover{background:var(--primary-dark);}
+.btn-outlined{background:transparent;color:var(--fg);border:1px solid var(--divider);}
+.btn-outlined:hover{background:var(--bg-neutral);}
+.btn-error{background:rgba(255,86,48,.12);color:var(--error);border:none;}
+.btn-error:hover{background:rgba(255,86,48,.2);}
+.btn-group{display:flex;gap:8px;}
+.btn svg{width:18px;height:18px;}
+.chip{display:inline-flex;align-items:center;padding:3px 10px;border-radius:500px;font-size:12px;font-weight:600;}
+.chip-success{background:rgba(34,197,94,.12);color:#118D57;}
+.chip-warning{background:rgba(255,171,0,.12);color:#B76E00;}
+.chip-error{background:rgba(255,86,48,.12);color:#B71D18;}
+.chip-info{background:rgba(0,184,217,.12);color:#006C9C;}
+.chip-default{background:var(--bg-neutral);color:var(--fg2);}
+.chip-primary{background:var(--primary-lighter);color:var(--primary-dark);}
+.text-secondary{color:var(--fg2);}
+/* Cards */
+.card{background:var(--bg-paper);border:1px solid var(--divider);border-radius:12px;box-shadow:var(--z1);}
+.card-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--divider);}
+.card-title{font-size:15px;font-weight:700;color:var(--fg);}
+.card-subtitle{font-size:13px;color:var(--fg2);margin-top:2px;}
+.card-body{padding:20px;}
+/* Dashboard stats */
+.stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:24px;}
+.stat-card{background:var(--bg-paper);border:1px solid var(--divider);border-radius:12px;padding:20px;box-shadow:var(--z1);}
+.stat-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
+.stat-icon svg{width:20px;height:20px;}
+.stat-icon.primary{background:var(--primary-lighter);color:var(--primary);}
+.stat-icon.info{background:rgba(0,184,217,.1);color:var(--info);}
+.stat-icon.warning{background:rgba(255,171,0,.1);color:var(--warning);}
+.stat-icon.secondary{background:rgba(142,51,255,.1);color:var(--secondary);}
+.stat-icon.success{background:rgba(34,197,94,.1);color:var(--success);}
+.stat-value{font-size:28px;font-weight:700;color:var(--fg);line-height:1;}
+.stat-label{font-size:13px;color:var(--fg2);margin-top:4px;}
+.stat-trend{display:flex;align-items:center;gap:4px;margin-top:8px;font-size:12px;font-weight:600;}
+.stat-trend.up{color:var(--success);}
+.stat-trend.down{color:var(--error);}
+.stat-trend.neutral{color:var(--fg2);}
+/* Charts */
+.charts-row{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:24px;}
+.period-tabs{display:flex;background:var(--bg-neutral);border-radius:8px;padding:3px;gap:2px;}
+.period-tab{padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;color:var(--fg2);border:none;background:transparent;font-family:inherit;transition:all .15s;}
+.period-tab.active{background:var(--bg-paper);color:var(--fg);box-shadow:var(--z1);}
+.bar-chart{height:220px;display:flex;align-items:flex-end;gap:12px;padding-top:16px;}
+.bar-group{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;}
+.bar-wrap{width:100%;flex:1;display:flex;align-items:flex-end;justify-content:center;gap:3px;}
+.bar{width:24px;border-radius:4px 4px 0 0;transition:opacity .15s;cursor:pointer;}
+.bar:hover{opacity:.8;}
+.bar.primary{background:var(--primary);}
+.bar.secondary{background:rgba(0,167,111,.3);}
+.bar-label{font-size:11px;color:var(--fg2);text-align:center;}
+.chart-legend{display:flex;gap:16px;margin-top:12px;}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--fg2);}
+.legend-dot{width:10px;height:10px;border-radius:500px;}
+.legend-dot.primary{background:var(--primary);}
+.legend-dot.secondary{background:rgba(0,167,111,.3);}
+.donut-wrap{display:flex;flex-direction:column;align-items:center;}
+.donut-svg{width:180px;height:180px;}
+.donut-center{text-anchor:middle;dominant-baseline:middle;}
+.donut-legend{width:100%;margin-top:16px;display:flex;flex-direction:column;gap:8px;}
+.donut-legend-item{display:flex;align-items:center;justify-content:space-between;font-size:13px;}
+.donut-legend-left{display:flex;align-items:center;gap:8px;color:var(--fg2);}
+.donut-legend-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+.donut-legend-val{font-weight:600;color:var(--fg);}
+/* Tables */
+.table-card{background:var(--bg-paper);border:1px solid var(--divider);border-radius:12px;box-shadow:var(--z1);overflow:hidden;}
+.table-toolbar{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--divider);}
+.table-toolbar-title{font-size:16px;font-weight:700;}
+.table-toolbar-right{display:flex;gap:8px;}
+.table-info{display:flex;align-items:center;gap:8px;padding:14px 20px;border-bottom:1px solid var(--divider);font-size:13px;color:var(--fg2);background:var(--bg-neutral);}
+.table-info strong{color:var(--fg);font-weight:600;}
+table{width:100%;border-collapse:collapse;}
+thead th{padding:12px 16px;text-align:left;font-size:12px;font-weight:700;color:var(--fg2);text-transform:uppercase;letter-spacing:.7px;background:var(--bg-neutral);border-bottom:1px solid var(--divider);white-space:nowrap;}
+tbody tr{border-bottom:1px solid var(--divider);transition:background .12s;cursor:pointer;}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:var(--bg-neutral);}
+td{padding:14px 16px;font-size:14px;color:var(--fg);vertical-align:middle;}
+.emp-cell{display:flex;align-items:center;gap:10px;}
+.emp-avatar{width:38px;height:38px;border-radius:500px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;}
+.emp-name{font-size:14px;font-weight:600;color:var(--fg);}
+.emp-email,.emp-meta{font-size:12px;color:var(--fg2);}
+.change-type{display:flex;align-items:center;gap:6px;}
+.change-dot{width:8px;height:8px;border-radius:500px;flex-shrink:0;}
+/* Directory */
+.filter-bar{display:flex;gap:12px;margin-bottom:20px;align-items:center;flex-wrap:wrap;}
+.search-wrap{position:relative;flex:1;min-width:200px;max-width:320px;}
+.search-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--fg3);pointer-events:none;}
+.search-input{width:100%;height:40px;padding:0 12px 0 40px;border:1px solid var(--divider);border-radius:8px;font-size:14px;font-family:inherit;background:var(--bg-paper);color:var(--fg);outline:none;transition:border-color .15s;}
+.search-input:focus{border-color:var(--primary);}
+.search-input::placeholder{color:var(--fg3);}
+.filter-select{height:40px;padding:0 32px 0 12px;border:1px solid var(--divider);border-radius:8px;font-size:14px;font-family:inherit;background:var(--bg-paper);color:var(--fg);outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='%23919EAB'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;transition:border-color .15s;}
+.filter-select:focus{border-color:var(--primary);}
+.filter-right{margin-left:auto;display:flex;gap:8px;}
+.view-btn{width:36px;height:36px;border:1px solid var(--divider);border-radius:6px;background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--fg3);transition:all .15s;}
+.view-btn:hover,.view-btn.active{background:var(--primary-lighter);color:var(--primary);border-color:var(--primary);}
+.view-btn svg{width:16px;height:16px;}
+.sort-icon{display:inline-flex;vertical-align:middle;margin-left:4px;opacity:.4;}
+thead th.sorted .sort-icon{opacity:1;color:var(--primary);}
+thead th:hover{color:var(--fg);}
+.campus-pill{display:inline-flex;align-items:center;gap:4px;background:var(--bg-neutral);border-radius:6px;padding:3px 8px;font-size:12px;color:var(--fg2);}
+.actions-cell{display:flex;align-items:center;gap:4px;}
+.action-btn{width:32px;height:32px;border:none;background:transparent;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--fg3);transition:all .15s;text-decoration:none;}
+.action-btn:hover{background:var(--bg-neutral);color:var(--fg);}
+.action-btn svg{width:16px;height:16px;}
+.pagination{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-top:1px solid var(--divider);}
+.page-info{font-size:13px;color:var(--fg2);}
+.page-btns{display:flex;gap:4px;}
+.page-btn{width:32px;height:32px;border:1px solid var(--divider);border-radius:6px;background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;font-weight:600;color:var(--fg2);transition:all .15s;font-family:inherit;}
+.page-btn:hover{background:var(--bg-neutral);color:var(--fg);}
+.page-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+.page-btn.arrow svg{width:16px;height:16px;}
+.cb{width:18px;height:18px;accent-color:var(--primary);cursor:pointer;}
+/* Profile */
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;}
+.breadcrumb a{color:var(--fg2);text-decoration:none;}
+.breadcrumb a:hover{color:var(--primary);}
+.breadcrumb span{color:var(--fg);font-weight:500;}
+.profile-cover{height:200px;border-radius:12px;background:linear-gradient(135deg,#00A76F 0%,#007867 60%,#004B50 100%);position:relative;overflow:hidden;margin-bottom:0;}
+.cover-pattern{position:absolute;inset:0;opacity:.1;background-image:radial-gradient(circle at 20% 50%,#fff 1px,transparent 1px),radial-gradient(circle at 80% 80%,#fff 1px,transparent 1px);background-size:40px 40px;}
+.cover-actions{position:absolute;top:16px;right:16px;display:flex;gap:8px;}
+.cover-btn{height:32px;padding:0 14px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:inherit;}
+.profile-identity{display:flex;align-items:flex-end;gap:20px;padding:0 32px;margin-top:-48px;margin-bottom:24px;position:relative;}
+.profile-avatar-wrap{width:96px;height:96px;border-radius:500px;border:4px solid var(--bg);background:#007867;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:700;color:#fff;flex-shrink:0;box-shadow:0 4px 16px rgba(0,0,0,.15);}
+.profile-meta{padding-bottom:8px;flex:1;}
+.profile-name{font-size:22px;font-weight:700;color:var(--fg);}
+.profile-role{font-size:14px;color:var(--fg2);margin-top:2px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.profile-stats{display:flex;gap:24px;margin-top:8px;}
+.pstat-val{font-size:18px;font-weight:700;color:var(--fg);}
+.pstat-label{font-size:12px;color:var(--fg2);}
+.profile-actions{margin-left:auto;padding-bottom:8px;display:flex;gap:8px;align-items:flex-end;}
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--divider);margin-bottom:24px;overflow-x:auto;}
+.tab{padding:12px 20px;font-size:14px;font-weight:600;color:var(--fg2);cursor:pointer;border:none;background:transparent;font-family:inherit;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;margin-bottom:-1px;}
+.tab:hover{color:var(--fg);}
+.tab.active{color:var(--primary);border-bottom-color:var(--primary);}
+.tab-count{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:var(--bg-neutral);border-radius:500px;font-size:11px;margin-left:6px;}
+.tab.active .tab-count{background:var(--primary-lighter);color:var(--primary);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+#page-add .field-grid{gap:20px;}
+.field{display:flex;flex-direction:column;gap:4px;}
+.field.full{grid-column:1/-1;}
+.field-label{font-size:12px;font-weight:600;color:var(--fg2);text-transform:uppercase;letter-spacing:.6px;}
+.field-value{font-size:14px;color:var(--fg);font-weight:500;}
+.field-value.secondary{color:var(--fg2);font-weight:400;}
+.field-value a{color:var(--primary);text-decoration:none;}
+.field-value a:hover{text-decoration:underline;}
+.divider{border:none;border-top:1px solid var(--divider);margin:16px 0;}
+.info-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--divider);font-size:14px;}
+.info-row:last-child{border-bottom:none;}
+.info-row svg{width:18px;height:18px;color:var(--fg3);flex-shrink:0;}
+.info-row-label{color:var(--fg2);min-width:130px;flex-shrink:0;}
+.info-row-value{color:var(--fg);font-weight:500;}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:500px;font-size:12px;font-weight:600;}
+.badge-active{background:rgba(34,197,94,.12);color:#118D57;}
+.badge-info{background:rgba(0,184,217,.12);color:#006C9C;}
+.timeline{position:relative;padding-left:24px;}
+.timeline::before{content:'';position:absolute;left:8px;top:8px;bottom:0;width:2px;background:var(--divider);}
+.tl-item{position:relative;margin-bottom:24px;}
+.tl-dot{position:absolute;left:-20px;top:4px;width:12px;height:12px;border-radius:500px;border:2px solid var(--bg-paper);}
+.tl-dot.primary{background:var(--primary);}
+.tl-dot.info{background:var(--info);}
+.tl-dot.warning{background:var(--warning);}
+.tl-dot.error{background:var(--error);}
+.tl-time{font-size:12px;color:var(--fg3);margin-bottom:4px;}
+.tl-title{font-size:14px;font-weight:600;color:var(--fg);}
+.tl-desc{font-size:13px;color:var(--fg2);margin-top:2px;}
+.tl-actor{font-size:12px;color:var(--fg3);margin-top:4px;display:flex;align-items:center;gap:4px;}
+.access-table{width:100%;border-collapse:collapse;}
+.access-table th{text-align:left;font-size:12px;font-weight:700;color:var(--fg2);text-transform:uppercase;letter-spacing:.6px;padding:10px 12px;background:var(--bg-neutral);border-bottom:1px solid var(--divider);}
+.access-table td{padding:12px 12px;border-bottom:1px solid var(--divider);font-size:13px;vertical-align:middle;}
+.access-table tr:last-child td{border-bottom:none;}
+.access-table tr:hover td{background:var(--bg-neutral);}
+.alert{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;border-radius:8px;font-size:13px;margin-bottom:16px;}
+.alert svg{width:18px;height:18px;flex-shrink:0;margin-top:1px;}
+.alert-warning{background:rgba(255,171,0,.12);color:#7A4100;border:1px solid rgba(255,171,0,.24);}
+.alert-warning svg{color:var(--warning);}
+.alert-info{background:rgba(0,184,217,.08);color:#006C9C;border:1px solid rgba(0,184,217,.2);}
+.alert-title{font-weight:600;display:block;margin-bottom:2px;}
+/* Add employee */
+.form-layout{display:grid;grid-template-columns:260px 1fr;gap:32px;max-width:1100px;}
+.stepper{position:sticky;top:96px;display:flex;flex-direction:column;gap:4px;}
+.step-item{display:flex;align-items:flex-start;gap:12px;padding:10px 12px;border-radius:8px;cursor:pointer;transition:background .15s;}
+.step-item:hover{background:var(--bg-neutral);}
+.step-item.active{background:var(--primary-lighter);}
+.step-number{width:28px;height:28px;border-radius:500px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;background:var(--bg-neutral);color:var(--fg2);border:2px solid var(--divider);}
+.step-item.active .step-number{background:var(--primary);color:#fff;border-color:var(--primary);}
+.step-item.done .step-number{background:var(--primary-lighter);color:var(--primary);border-color:var(--primary);}
+.step-label{font-size:13px;font-weight:600;color:var(--fg2);}
+.step-item.active .step-label{color:var(--primary);}
+.step-item.done .step-label{color:var(--fg);}
+.step-desc{font-size:12px;color:var(--fg3);margin-top:1px;}
+.step-connector{width:2px;height:16px;background:var(--divider);margin:2px 0 2px 23px;}
+.check-icon{display:none;}
+.step-item.done .check-icon{display:block;}
+.step-item.done .step-number-inner{display:none;}
+.form-sections{display:flex;flex-direction:column;gap:20px;}
+.section-card{background:var(--bg-paper);border:1px solid var(--divider);border-radius:12px;box-shadow:var(--z1);overflow:hidden;}
+.section-header{display:flex;align-items:center;gap:12px;padding:18px 24px;border-bottom:1px solid var(--divider);background:var(--bg-neutral);}
+.section-icon{width:36px;height:36px;border-radius:8px;background:var(--primary-lighter);display:flex;align-items:center;justify-content:center;color:var(--primary);flex-shrink:0;}
+.section-icon svg{width:18px;height:18px;}
+.section-title{font-size:15px;font-weight:700;}
+.section-subtitle{font-size:13px;color:var(--fg2);margin-top:2px;}
+.section-badge{margin-left:auto;font-size:11px;color:var(--fg3);}
+.section-body{padding:24px;}
+#page-add .field{gap:6px;}
+#page-add .field-label{text-transform:none;letter-spacing:0;}
+#page-add .field-label .req{color:var(--error);margin-left:2px;}
+.input{height:44px;padding:0 14px;border:1px solid var(--divider);border-radius:8px;font-size:14px;font-family:inherit;background:var(--bg-paper);color:var(--fg);outline:none;transition:border-color .15s;width:100%;}
+.input:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-lighter);}
+.input::placeholder{color:var(--fg3);}
+.input.error{border-color:var(--error);}
+.input:disabled{background:var(--bg-neutral);color:var(--fg3);cursor:not-allowed;}
+textarea.input{height:auto;padding:12px 14px;resize:vertical;min-height:80px;}
+select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='%23919EAB'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px;cursor:pointer;}
+.field-hint{font-size:12px;color:var(--fg3);margin-top:2px;}
+.field-error{font-size:12px;color:var(--error);margin-top:2px;display:none;}
+.field-error.show{display:block;}
+.photo-upload{display:flex;align-items:center;gap:20px;}
+.photo-preview{width:80px;height:80px;border-radius:500px;background:var(--bg-neutral);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:var(--primary);border:2px dashed var(--divider);cursor:pointer;transition:all .15s;}
+.photo-preview:hover{border-color:var(--primary);background:var(--primary-lighter);}
+.photo-upload-title{font-size:14px;font-weight:600;}
+.photo-upload-hint{font-size:12px;color:var(--fg2);margin-top:4px;}
+.upload-btn{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:6px 14px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--divider);background:transparent;color:var(--fg);font-family:inherit;transition:all .15s;}
+.upload-btn:hover{background:var(--bg-neutral);}
+.upload-btn svg{width:14px;height:14px;}
+.radio-group{display:flex;gap:8px;flex-wrap:wrap;}
+.radio-option{display:flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid var(--divider);border-radius:8px;cursor:pointer;font-size:14px;transition:all .15s;user-select:none;}
+.radio-option:hover{border-color:var(--primary);background:var(--primary-lighter);}
+.radio-option.selected{border-color:var(--primary);background:var(--primary-lighter);color:var(--primary);font-weight:600;}
+.radio-option input{display:none;}
+.radio-dot{width:16px;height:16px;border-radius:500px;border:2px solid var(--divider);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;}
+.radio-option.selected .radio-dot{border-color:var(--primary);background:var(--primary);}
+.radio-option.selected .radio-dot::after{content:'';width:6px;height:6px;background:#fff;border-radius:500px;}
+.radio-label{display:flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid var(--divider);border-radius:8px;cursor:pointer;font-size:14px;transition:all .15s;user-select:none;}
+.radio-label:hover{border-color:var(--primary);background:var(--primary-lighter);}
+.radio-label:has(input:checked){border-color:var(--primary);background:var(--primary-lighter);color:var(--primary);font-weight:600;}
+.switch-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--divider);}
+.switch-row:last-child{border-bottom:none;}
+.switch-label{font-size:14px;font-weight:500;}
+.switch-desc{font-size:12px;color:var(--fg2);margin-top:2px;}
+.switch{width:44px;height:24px;background:var(--fg3);border-radius:500px;cursor:pointer;position:relative;transition:background .2s;flex-shrink:0;border:none;}
+.switch.on{background:var(--primary);}
+.switch::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:500px;background:#fff;transition:left .2s;}
+.switch.on::after{left:23px;}
+.form-actions{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;background:var(--bg-paper);border:1px solid var(--divider);border-radius:12px;margin-top:8px;box-shadow:var(--z1);}
+.form-actions-left,.form-actions-right{display:flex;gap:8px;}
+#page-add .btn{height:44px;}
+@media(max-width:1024px){.stats-row{grid-template-columns:repeat(3,1fr);}.charts-row{grid-template-columns:1fr;}}
+@media(max-width:900px){.two-col,.three-col{grid-template-columns:1fr;}.form-layout{grid-template-columns:1fr;}.stepper{position:relative;top:0;flex-direction:row;flex-wrap:wrap;}}
+@media(max-width:768px){.sidebar{transform:translateX(-100%);}.main{margin-left:0;}.content{padding:16px;}.stats-row{grid-template-columns:repeat(2,1fr);}.field-grid{grid-template-columns:1fr;}.profile-identity{flex-direction:column;align-items:flex-start;padding:0 16px;}}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark"><svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg></div>
+    <div class="logo-text">Global Campus OS <span>Admin Portal</span></div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Overview</div>
+    <a class="nav-item" id="nav-dashboard" href="#dashboard">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>HR Dashboard
+    </a>
+    <a class="nav-item" id="nav-employees" href="#employees">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>Employees
+    </a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Organization</div>
+    <a class="nav-item" id="nav-campuses" href="#campuses">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Campuses
+    </a>
+    <a class="nav-item" id="nav-org-structure" href="#org-structure">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 11V3h-7v3H9V3H2v8h7V8h2v10h4v3h7v-8h-7v3h-2V8h2v3z"/></svg>Org Structure
+    </a>
+    <a class="nav-item" id="nav-job-positions" href="#job-positions">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 7h-3V6c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v1H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zM9 6h6v1H9V6zm11 14H4v-2h16v2zm0-5H4V9h3v2h2V9h6v2h2V9h3v6z"/></svg>Job Positions
+    </a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Access</div>
+    <a class="nav-item" id="nav-access-roles" href="#access-roles">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>Access &amp; Roles
+    </a>
+    <a class="nav-item" id="nav-permission-templates" href="#permission-templates">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>Permission Templates
+    </a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Reports</div>
+    <a class="nav-item" id="nav-reports" href="#reports">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>Reports
+    </a>
+    <a class="nav-item" id="nav-audit-log" href="#audit-log">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>Audit Log
+      <span class="nav-badge">3</span>
+    </a>
+  </div>
+  <div class="sidebar-footer">
+    <div class="user-row">
+      <div class="ua">RK</div>
+      <div><div class="user-name">Rachel Kim</div><div class="user-role">Global HR Admin</div></div>
+    </div>
+  </div>
+</aside>
+
+<div class="main">
+  <header class="header">
+    <div id="app-breadcrumb" class="header-breadcrumb"></div>
+    <div class="header-right">
+      <button class="icon-btn" title="Notifications">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+      </button>
+      <button class="theme-toggle" id="themeBtn" title="Toggle theme">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
+      </button>
+      <div class="ua" style="margin-left:4px;cursor:pointer;">RK</div>
+    </div>
+  </header>
+
+  <!-- DASHBOARD PAGE -->
+  <div id="page-dashboard" class="page active">
+    <div class="content">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">HR Dashboard</h1>
+          <p class="page-subtitle">Global workforce overview · Updated 14 Oct 2026, 09:12 AM</p>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-outlined"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>Export</button>
+          <a class="btn btn-primary" href="#add-employee"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add Employee</a>
+        </div>
+      </div>
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-icon primary"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div><div class="stat-value">248</div><div class="stat-label">Total Employees</div><div class="stat-trend up"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 14l5-5 5 5z"/></svg>+12 this month</div></div>
+        <div class="stat-card"><div class="stat-icon info"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 11-6-11-6z"/></svg></div><div class="stat-value">156</div><div class="stat-label">Teaching Staff</div><div class="stat-trend up"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 14l5-5 5 5z"/></svg>62.9% of total</div></div>
+        <div class="stat-card"><div class="stat-icon warning"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 7H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-9 3h2v2h-2v-2zm0 4h2v2h-2v-2zM7 10h2v2H7v-2zm0 4h2v2H7v-2zm10 2h-2v-2h2v2zm0-4h-2v-2h2v2zM3 5h18V3H3z"/></svg></div><div class="stat-value">72</div><div class="stat-label">Non-Teaching</div><div class="stat-trend neutral"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12l-4-4v3H3v2h15v3z"/></svg>29% of total</div></div>
+        <div class="stat-card"><div class="stat-icon secondary"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div><div class="stat-value">20</div><div class="stat-label">Administration</div><div class="stat-trend neutral"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12l-4-4v3H3v2h15v3z"/></svg>8.1% of total</div></div>
+        <div class="stat-card"><div class="stat-icon success"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div><div class="stat-value">12</div><div class="stat-label">New Hires (Oct)</div><div class="stat-trend up"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 14l5-5 5 5z"/></svg>+3 vs last month</div></div>
+      </div>
+      <div class="charts-row">
+        <div class="card">
+          <div class="card-header">
+            <div><div class="card-title">Headcount by Campus</div><div class="card-subtitle">Teaching vs Non-teaching</div></div>
+            <div class="period-tabs"><button class="period-tab active">2026</button><button class="period-tab">2025</button></div>
+          </div>
+          <div class="card-body">
+            <div class="bar-chart">
+              <div class="bar-group"><div class="bar-wrap"><div class="bar primary" style="height:160px"></div><div class="bar secondary" style="height:50px"></div></div><div class="bar-label">Singapore</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar primary" style="height:100px"></div><div class="bar secondary" style="height:35px"></div></div><div class="bar-label">Hong Kong</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar primary" style="height:88px"></div><div class="bar secondary" style="height:28px"></div></div><div class="bar-label">Kuala Lumpur</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar primary" style="height:44px"></div><div class="bar secondary" style="height:22px"></div></div><div class="bar-label">Jakarta</div></div>
+              <div class="bar-group"><div class="bar-wrap"><div class="bar primary" style="height:0px"></div><div class="bar secondary" style="height:38px"></div></div><div class="bar-label">Global HQ</div></div>
+            </div>
+            <div class="chart-legend"><div class="legend-item"><div class="legend-dot primary"></div>Teaching</div><div class="legend-item"><div class="legend-dot secondary"></div>Non-Teaching / Admin</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div><div class="card-title">Employment Type</div><div class="card-subtitle">Current active staff</div></div></div>
+          <div class="card-body">
+            <div class="donut-wrap">
+              <svg class="donut-svg" viewBox="0 0 200 200">
+                <circle cx="100" cy="100" r="70" fill="none" stroke="var(--bg-neutral)" stroke-width="28"/>
+                <circle cx="100" cy="100" r="70" fill="none" stroke="#00A76F" stroke-width="28" stroke-dasharray="254 186" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
+                <circle cx="100" cy="100" r="70" fill="none" stroke="#8E33FF" stroke-width="28" stroke-dasharray="105 335" stroke-dashoffset="-254" transform="rotate(-90 100 100)"/>
+                <circle cx="100" cy="100" r="70" fill="none" stroke="#FFAB00" stroke-width="28" stroke-dasharray="52 388" stroke-dashoffset="-359" transform="rotate(-90 100 100)"/>
+                <circle cx="100" cy="100" r="70" fill="none" stroke="#00B8D9" stroke-width="28" stroke-dasharray="26 414" stroke-dashoffset="-411" transform="rotate(-90 100 100)"/>
+                <text x="100" y="96" class="donut-center" font-family="Public Sans" font-size="24" font-weight="700" fill="var(--fg)">231</text>
+                <text x="100" y="114" class="donut-center" font-family="Public Sans" font-size="11" fill="var(--fg2)">Active</text>
+              </svg>
+              <div class="donut-legend">
+                <div class="donut-legend-item"><div class="donut-legend-left"><div class="donut-legend-dot" style="background:#00A76F"></div>Permanent</div><div class="donut-legend-val">144 · 58%</div></div>
+                <div class="donut-legend-item"><div class="donut-legend-left"><div class="donut-legend-dot" style="background:#8E33FF"></div>Fixed-term</div><div class="donut-legend-val">59 · 24%</div></div>
+                <div class="donut-legend-item"><div class="donut-legend-left"><div class="donut-legend-dot" style="background:#FFAB00"></div>Part-time</div><div class="donut-legend-val">30 · 12%</div></div>
+                <div class="donut-legend-item"><div class="donut-legend-left"><div class="donut-legend-dot" style="background:#00B8D9"></div>Contract</div><div class="donut-legend-val">15 · 6%</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="table-card">
+        <div class="table-toolbar"><div class="table-toolbar-title">Recent Workforce Changes</div><div class="table-toolbar-right"><button class="btn btn-outlined" style="height:36px;font-size:13px;">View all activity</button></div></div>
+        <table><thead><tr><th>Employee</th><th>Change</th><th>Campus</th><th>Actioned By</th><th>Date</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><div class="emp-cell"><div class="emp-avatar" style="background:rgba(0,167,111,.12);color:#007867;">SC</div><div><div class="emp-name">Sarah Chen</div><div class="emp-email">s.chen@globalcampus.edu</div></div></div></td><td><div class="change-type"><div class="change-dot" style="background:var(--success)"></div>New hire — Teaching</div></td><td>Singapore</td><td class="text-secondary">Rachel Kim</td><td class="text-secondary">14 Oct 2026</td><td><span class="chip chip-success">Active</span></td></tr>
+          <tr><td><div class="emp-cell"><div class="emp-avatar" style="background:rgba(142,51,255,.12);color:#6E35CC;">MW</div><div><div class="emp-name">Marcus Williams</div><div class="emp-email">m.williams@globalcampus.edu</div></div></div></td><td><div class="change-type"><div class="change-dot" style="background:var(--info)"></div>Campus transfer — HQ → SG</div></td><td>Singapore</td><td class="text-secondary">System</td><td class="text-secondary">12 Oct 2026</td><td><span class="chip chip-info">Pending</span></td></tr>
+          <tr><td><div class="emp-cell"><div class="emp-avatar" style="background:rgba(255,171,0,.12);color:#B76E00;">PS</div><div><div class="emp-name">Priya Sharma</div><div class="emp-email">p.sharma@globalcampus.edu</div></div></div></td><td><div class="change-type"><div class="change-dot" style="background:var(--secondary)"></div>Role change — Dept Head</div></td><td>Hong Kong</td><td class="text-secondary">James Patel</td><td class="text-secondary">10 Oct 2026</td><td><span class="chip chip-success">Active</span></td></tr>
+          <tr><td><div class="emp-cell"><div class="emp-avatar" style="background:rgba(255,86,48,.12);color:#B71D18;">DK</div><div><div class="emp-name">David Kowalski</div><div class="emp-email">d.kowalski@globalcampus.edu</div></div></div></td><td><div class="change-type"><div class="change-dot" style="background:var(--warning)"></div>Account suspended</div></td><td>Global HQ</td><td class="text-secondary">Rachel Kim</td><td class="text-secondary">08 Oct 2026</td><td><span class="chip chip-warning">Suspended</span></td></tr>
+          <tr><td><div class="emp-cell"><div class="emp-avatar" style="background:rgba(0,184,217,.12);color:#006C9C;">AH</div><div><div class="emp-name">Amira Hassan</div><div class="emp-email">a.hassan@globalcampus.edu</div></div></div></td><td><div class="change-type"><div class="change-dot" style="background:var(--success)"></div>New hire — Teaching</div></td><td>Kuala Lumpur</td><td class="text-secondary">Rachel Kim</td><td class="text-secondary">07 Oct 2026</td><td><span class="chip chip-success">Active</span></td></tr>
+          <tr><td><div class="emp-cell"><div class="emp-avatar" style="background:rgba(0,167,111,.12);color:#007867;">JO</div><div><div class="emp-name">James Okonkwo</div><div class="emp-email">j.okonkwo@globalcampus.edu</div></div></div></td><td><div class="change-type"><div class="change-dot" style="background:var(--error)"></div>Employment ended — Contract</div></td><td>Jakarta</td><td class="text-secondary">System</td><td class="text-secondary">01 Oct 2026</td><td><span class="chip chip-error">Ended</span></td></tr>
+        </tbody></table>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMPLOYEES PAGE -->
+  <div id="page-employees" class="page">
+    <div class="content">
+      <div class="page-header">
+        <div><h1 class="page-title">Employee Directory</h1><p class="page-subtitle">248 employees across 5 campuses</p></div>
+        <div class="btn-group">
+          <button class="btn btn-outlined"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>Import CSV</button>
+          <a class="btn btn-primary" href="#add-employee"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add Employee</a>
+        </div>
+      </div>
+      <div class="filter-bar">
+        <div class="search-wrap"><svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--fg3)"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg><input class="search-input" type="search" placeholder="Search name, email or employee no…" id="searchInput"></div>
+        <select class="filter-select" id="campusFilter"><option value="">All Campuses</option><option>Singapore</option><option>Hong Kong</option><option>Kuala Lumpur</option><option>Jakarta</option><option>Global HQ</option></select>
+        <select class="filter-select" id="categoryFilter"><option value="">All Categories</option><option>Teaching</option><option>Non-Teaching</option><option>Administration</option></select>
+        <select class="filter-select" id="statusFilter"><option value="">All Statuses</option><option>Active</option><option>Suspended</option><option>Ended</option><option>Pending</option></select>
+        <div class="filter-right">
+          <button class="view-btn active" title="Table view"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5h18v2H3zm0 6h18v2H3zm0 6h18v2H3z"/></svg></button>
+          <button class="view-btn" title="Card view"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h8v8H3zm0 10h8v8H3zM13 3h8v8h-8zm0 10h8v8h-8z"/></svg></button>
+        </div>
+      </div>
+      <div class="table-card">
+        <div class="table-info">Showing <strong>8</strong> of <strong>248</strong> employees <span style="color:var(--fg3)">·</span> <span id="activeFilters" style="color:var(--primary);font-weight:600;"></span></div>
+        <table id="empTable">
+          <thead><tr>
+            <th style="width:40px"><input type="checkbox" class="cb" id="selectAll"></th>
+            <th class="sorted">Employee <svg class="sort-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 14l5-5 5 5z"/></svg></th>
+            <th>Category</th><th>Employment Type</th><th>Position</th><th>Campus</th><th>Status</th><th>Start Date</th><th style="width:80px"></th>
+          </tr></thead>
+          <tbody>
+            <tr data-campus="Singapore" data-category="Teaching" data-status="Active"><td><input type="checkbox" class="cb row-cb"></td><td><div class="emp-cell"><div class="emp-avatar" style="background:rgba(0,167,111,.12);color:#007867;">SC</div><div><div class="emp-name">Sarah Chen</div><div class="emp-meta">s.chen@globalcampus.edu</div></div></div></td><td><span class="chip chip-info">Teaching</span></td><td class="text-secondary">Permanent</td><td class="text-secondary">Mathematics Teacher</td><td><span class="campus-pill">🇸🇬 Singapore</span></td><td><span class="chip chip-success">Active</span></td><td class="text-secondary">01 Aug 2024</td><td><div class="actions-cell"><a class="action-btn" href="#profile" title="View profile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></a><button class="action-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button></div></td></tr>
+            <tr data-campus="Global HQ" data-category="Non-Teaching" data-status="Active"><td><input type="checkbox" class="cb row-cb"></td><td><div class="emp-cell"><div class="emp-avatar" style="background:rgba(142,51,255,.12);color:#6E35CC;">MW</div><div><div class="emp-name">Marcus Williams</div><div class="emp-meta">m.williams@globalcampus.edu</div></div></div></td><td><span class="chip chip-default">Non-Teaching</span></td><td class="text-secondary">Fixed-term</td><td class="text-secondary">IT Systems Administrator</td><td><span class="campus-pill">🌐 Global HQ</span></td><td><span class="chip chip-success">Active</span></td><td class="text-secondary">15 Jan 2026</td><td><div class="actions-cell"><a class="action-btn" href="#profile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></a><button class="action-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button></div></td></tr>
+            <tr data-campus="Hong Kong" data-category="Teaching" data-status="Active"><td><input type="checkbox" class="cb row-cb"></td><td><div class="emp-cell"><div class="emp-avatar" style="background:rgba(255,171,0,.12);color:#B76E00;">PS</div><div><div class="emp-name">Priya Sharma</div><div class="emp-meta">p.sharma@globalcampus.edu</div></div></div></td><td><span class="chip chip-info">Teaching</span></td><td class="text-secondary">Part-time</td><td class="text-secondary">English Language Teacher</td><td><span class="campus-pill">🇭🇰 Hong Kong</span></td><td><span class="chip chip-success">Active</span></td><td class="text-secondary">03 Sep 2025</td><td><div class="actions-cell"><a class="action-btn" href="#profile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></a><button class="action-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button></div></td></tr>
+            <tr data-campus="Global HQ" data-category="Administration" data-status="Suspended"><td><input type="checkbox" class="cb row-cb"></td><td><div class="emp-cell"><div class="emp-avatar" style="background:rgba(255,86,48,.12);color:#B71D18;">DK</div><div><div class="emp-name">David Kowalski</div><div class="emp-meta">d.kowalski@globalcampus.edu</div></div></div></td><td><span class="chip chip-warning">Administration</span></td><td class="text-secondary">Permanent</td><td class="text-secondary">HR Business Partner</td><td><span class="campus-pill">🌐 Global HQ</span></td><td><span class="chip chip-warning">Suspended</span></td><td class="text-secondary">10 Mar 2023</td><td><div class="actions-cell"><a class="action-btn" href="#profile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></a><button class="action-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button></div></td></tr>
+            <tr data-campus="Kuala Lumpur" data-category="Teaching" data-status="Active"><td><input type="checkbox" class="cb row-cb"></td><td><div class="emp-cell"><div class="emp-avatar" style="background:rgba(0,184,217,.12);color:#006C9C;">AH</div><div><div class="emp-name">Amira Hassan</div><div class="emp-meta">a.hassan@globalcampus.edu</div></div></div></td><td><span class="chip chip-info">Teaching</span></td><td class="text-secondary">Permanent</td><td class="text-secondary">Science Department Head</td><td><span class="campus-pill">🇲🇾 Kuala Lumpur</span></td><td><span class="chip chip-success">Active</span></td><td class="text-secondary">07 Oct 2026</td><td><div class="actions-cell"><a class="action-btn" href="#profile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></a><button class="action-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button></div></td></tr>
+            <tr data-campus="Jakarta" data-category="Non-Teaching" data-status="Ended"><td><input type="checkbox" class="cb row-cb"></td><td><div class="emp-cell"><div class="emp-avatar" style="background:rgba(0,167,111,.12);color:#007867;">JO</div><div><div class="emp-name">James Okonkwo</div><div class="emp-meta">j.okonkwo@globalcampus.edu</div></div></div></td><td><span class="chip chip-default">Non-Teaching</span></td><td class="text-secondary">Contract</td><td class="text-secondary">Finance Controller</td><td><span class="campus-pill">🇮🇩 Jakarta</span></td><td><span class="chip chip-error">Ended</span></td><td class="text-secondary">01 Apr 2026</td><td><div class="actions-cell"><a class="action-btn" href="#profile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></a><button class="action-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button></div></td></tr>
+            <tr data-campus="Singapore" data-category="Teaching" data-status="Active"><td><input type="checkbox" class="cb row-cb"></td><td><div class="emp-cell"><div class="emp-avatar" style="background:rgba(142,51,255,.12);color:#6E35CC;">LN</div><div><div class="emp-name">Li Na</div><div class="emp-meta">l.na@globalcampus.edu</div></div></div></td><td><span class="chip chip-info">Teaching</span></td><td class="text-secondary">Permanent</td><td class="text-secondary">Mandarin Language Teacher</td><td><span class="campus-pill">🇸🇬 Singapore</span></td><td><span class="chip chip-success">Active</span></td><td class="text-secondary">12 Jan 2025</td><td><div class="actions-cell"><a class="action-btn" href="#profile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></a><button class="action-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button></div></td></tr>
+            <tr data-campus="Hong Kong" data-category="Administration" data-status="Active"><td><input type="checkbox" class="cb row-cb"></td><td><div class="emp-cell"><div class="emp-avatar" style="background:rgba(0,184,217,.12);color:#006C9C;">BT</div><div><div class="emp-name">Benjamin Tan</div><div class="emp-meta">b.tan@globalcampus.edu</div></div></div></td><td><span class="chip chip-warning">Administration</span></td><td class="text-secondary">Permanent</td><td class="text-secondary">Campus Operations Manager</td><td><span class="campus-pill">🇭🇰 Hong Kong</span></td><td><span class="chip chip-success">Active</span></td><td class="text-secondary">22 Feb 2022</td><td><div class="actions-cell"><a class="action-btn" href="#profile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></a><button class="action-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button></div></td></tr>
+          </tbody>
+        </table>
+        <div class="pagination">
+          <div class="page-info">Showing 1–8 of 248 employees</div>
+          <div class="page-btns">
+            <button class="page-btn arrow"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
+            <button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">3</button><button class="page-btn">…</button><button class="page-btn">31</button>
+            <button class="page-btn arrow"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFILE PAGE -->
+  <div id="page-profile" class="page">
+    <div class="content">
+      <div class="profile-cover"><div class="cover-pattern"></div><div class="cover-actions"><button class="cover-btn" style="background:rgba(255,255,255,.2);color:#fff;" onclick="alert('Edit cover')">Edit Cover</button></div></div>
+      <div class="profile-identity">
+        <div class="profile-avatar-wrap">SC</div>
+        <div class="profile-meta">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><div class="profile-name">Sarah Chen</div><span class="chip chip-success">Active</span><span class="chip chip-info">Teaching</span></div>
+          <div class="profile-role"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="color:var(--fg3)"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 11-6-11-6z"/></svg>Mathematics Teacher<span style="color:var(--divider)">·</span><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="color:var(--fg3)"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Singapore Campus<span style="color:var(--divider)">·</span>Mathematics Department</div>
+          <div class="profile-stats"><div class="pstat"><div class="pstat-val">2y 2m</div><div class="pstat-label">Tenure</div></div><div class="pstat"><div class="pstat-val">1</div><div class="pstat-label">Campus</div></div><div class="pstat"><div class="pstat-val">3</div><div class="pstat-label">Roles</div></div></div>
+        </div>
+        <div class="profile-actions">
+          <a class="btn btn-outlined" href="#add-employee"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>Edit</a>
+          <button class="btn btn-error"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>Manage Access</button>
+        </div>
+      </div>
+      <div class="tabs">
+        <button class="tab active" data-tab="overview">Overview</button>
+        <button class="tab" data-tab="employment">Employment <span class="tab-count">1</span></button>
+        <button class="tab" data-tab="campus">Campus Assignments <span class="tab-count">1</span></button>
+        <button class="tab" data-tab="access">Access &amp; Roles <span class="tab-count">3</span></button>
+        <button class="tab" data-tab="academic">Academic <span class="tab-count">2</span></button>
+        <button class="tab" data-tab="audit">Audit Log</button>
+      </div>
+      <div class="tab-panel active" id="tab-overview">
+        <div class="two-col">
+          <div>
+            <div class="card" style="margin-bottom:16px"><div class="card-header"><div class="card-title">Personal Information</div></div><div class="card-body">
+              <div class="info-row"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg><span class="info-row-label">Legal name</span><span class="info-row-value">Sarah Mei-Ling Chen</span></div>
+              <div class="info-row"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg><span class="info-row-label">Work email</span><span class="info-row-value"><a href="mailto:s.chen@globalcampus.edu">s.chen@globalcampus.edu</a></span></div>
+              <div class="info-row"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg><span class="info-row-label">Work phone</span><span class="info-row-value">+65 6123 4567</span></div>
+              <div class="info-row"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg><span class="info-row-label">Locale</span><span class="info-row-value">en-SG (English, Singapore)</span></div>
+            </div></div>
+            <div class="card"><div class="card-header"><div class="card-title">System Record</div></div><div class="card-body">
+              <div class="info-row"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/></svg><span class="info-row-label">Employee ID</span><span class="info-row-value" style="font-family:monospace;font-size:12px;color:var(--fg2)">e8f3a9d1-4c2b-11ef-b864</span></div>
+              <div class="info-row"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg><span class="info-row-label">Record status</span><span class="info-row-value"><span class="chip chip-success">ACTIVE</span></span></div>
+              <div class="info-row"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg><span class="info-row-label">Created</span><span class="info-row-value">01 Aug 2024 · Rachel Kim</span></div>
+              <div class="info-row"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/></svg><span class="info-row-label">Last updated</span><span class="info-row-value">14 Oct 2026 · System</span></div>
+            </div></div>
+          </div>
+          <div>
+            <div class="card" style="margin-bottom:16px"><div class="card-header"><div class="card-title">Current Employment</div><span class="chip chip-success">Active</span></div><div class="card-body">
+              <div class="info-row"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 7h-3V6c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v1H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zM9 6h6v1H9V6z"/></svg><span class="info-row-label">Employer</span><span class="info-row-value">Global Campus International Pte Ltd</span></div>
+              <div class="info-row"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 11-6-11-6z"/></svg><span class="info-row-label">Category</span><span class="info-row-value"><span class="chip chip-info">Teaching</span></span></div>
+              <div class="info-row"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6z"/></svg><span class="info-row-label">Type</span><span class="info-row-value">Permanent</span></div>
+              <div class="info-row"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg><span class="info-row-label">Start date</span><span class="info-row-value">01 Aug 2024</span></div>
+              <div class="info-row"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg><span class="info-row-label">End date</span><span class="info-row-value secondary">Open-ended</span></div>
+            </div></div>
+            <div class="card"><div class="card-header"><div class="card-title">Organizational Assignment</div><span class="chip chip-primary">Primary</span></div><div class="card-body">
+              <div class="info-row"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 11V3h-7v3H9V3H2v8h7V8h2v10h4v3h7v-8h-7v3h-2V8h2v3z"/></svg><span class="info-row-label">Unit</span><span class="info-row-value">Mathematics Department</span></div>
+              <div class="info-row"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 7h-3V6c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v1H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2z"/></svg><span class="info-row-label">Position</span><span class="info-row-value">Mathematics Teacher</span></div>
+              <div class="info-row"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg><span class="info-row-label">Reports to</span><span class="info-row-value"><a href="#">Dr. Wei Liang (Dept Head)</a></span></div>
+              <div class="info-row"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg><span class="info-row-label">Valid from</span><span class="info-row-value">01 Aug 2024 → Open</span></div>
+            </div></div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-panel" id="tab-employment">
+        <div class="card"><div class="card-header"><div class="card-title">Employment History</div><button class="btn btn-outlined" style="height:34px;font-size:13px;"><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add Engagement</button></div>
+        <div class="card-body"><div class="timeline"><div class="tl-item"><div class="tl-dot primary"></div><div class="tl-time">01 Aug 2024 → Present</div><div class="tl-title">Mathematics Teacher · Permanent</div><div class="tl-desc">Global Campus International Pte Ltd · Singapore Campus · Employee No: GCI-2024-1048</div><div style="margin-top:6px;display:flex;gap:8px;"><span class="chip chip-success">Active</span><span class="chip chip-info">Teaching</span></div><div class="tl-actor">Created by Rachel Kim · 01 Aug 2024</div></div></div></div></div>
+      </div>
+      <div class="tab-panel" id="tab-campus">
+        <div class="card"><div class="card-header"><div class="card-title">Campus Assignments</div><button class="btn btn-outlined" style="height:34px;font-size:13px;"><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add Campus</button></div>
+        <div class="card-body"><div style="padding:16px;background:var(--bg-neutral);border-radius:10px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;"><div><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><span style="font-size:22px;">🇸🇬</span><div><div style="font-size:15px;font-weight:700;">Singapore Campus</div><div style="font-size:12px;color:var(--fg2);">SGP · Asia/Singapore (UTC+8)</div></div><span class="chip chip-primary">Primary</span><span class="chip chip-success">Active</span></div><div style="display:grid;grid-template-columns:auto auto auto;gap:16px 32px;font-size:13px;margin-top:4px;"><div><div style="color:var(--fg2);font-size:11px;text-transform:uppercase;letter-spacing:.6px;font-weight:700;margin-bottom:2px;">Employment</div><div>GCI-2024-1048 · Permanent</div></div><div><div style="color:var(--fg2);font-size:11px;text-transform:uppercase;letter-spacing:.6px;font-weight:700;margin-bottom:2px;">Valid from</div><div>01 Aug 2024</div></div><div><div style="color:var(--fg2);font-size:11px;text-transform:uppercase;letter-spacing:.6px;font-weight:700;margin-bottom:2px;">Valid to</div><div>Open-ended</div></div></div></div><button class="btn btn-outlined" style="height:34px;font-size:13px;flex-shrink:0;">End Assignment</button></div></div></div>
+      </div>
+      <div class="tab-panel" id="tab-access">
+        <div class="alert alert-warning"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg><div><div class="alert-title">GA boundary changes require review</div>Per BR-07, TM membership and roles must stay within the Global Admin module and campus entitlement boundary.</div></div>
+        <div class="two-col" style="margin-bottom:16px">
+          <div class="card"><div class="card-header"><div class="card-title">User Account</div><span class="chip chip-success">Linked</span></div><div class="card-body">
+            <div class="info-row"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg><span class="info-row-label">Login</span><span class="info-row-value">s.chen@globalcampus.edu</span></div>
+            <div class="info-row"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg><span class="info-row-label">Account status</span><span class="info-row-value"><span class="chip chip-success">Active</span></span></div>
+            <div class="info-row"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2z"/></svg><span class="info-row-label">Provider</span><span class="info-row-value">Microsoft Azure AD</span></div>
+            <div class="info-row"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg><span class="info-row-label">Last login</span><span class="info-row-value">14 Oct 2026, 08:47 AM</span></div>
+          </div></div>
+          <div class="card"><div class="card-header"><div class="card-title">GA Entitlements</div><button class="btn btn-outlined" style="height:32px;font-size:12px;">Manage</button></div>
+          <div class="card-body" style="padding:0"><table class="access-table"><thead><tr><th>Type</th><th>Scope</th><th>Valid Until</th><th>Status</th></tr></thead><tbody>
+            <tr><td>Module Grant</td><td>Employee Management</td><td>Open</td><td><span class="chip chip-success" style="font-size:11px;">Active</span></td></tr>
+            <tr><td>Module Grant</td><td>Academic Allocation</td><td>Open</td><td><span class="chip chip-success" style="font-size:11px;">Active</span></td></tr>
+            <tr><td>Campus Grant</td><td>🇸🇬 Singapore</td><td>Open</td><td><span class="chip chip-success" style="font-size:11px;">Active</span></td></tr>
+          </tbody></table></div></div>
+        </div>
+        <div class="card"><div class="card-header"><div class="card-title">TM Module Memberships &amp; Roles</div><button class="btn btn-outlined" style="height:32px;font-size:12px;">Add Membership</button></div>
+        <div class="card-body" style="padding:0"><table class="access-table"><thead><tr><th>Module</th><th>Campus</th><th>Role</th><th>Template</th><th>Since</th><th>Status</th></tr></thead><tbody>
+          <tr><td><strong>Employee Management</strong></td><td>🇸🇬 Singapore</td><td><span class="badge badge-info">Teacher</span></td><td>Standard Teacher v2</td><td>01 Aug 2024</td><td><span class="chip chip-success" style="font-size:11px;">Active</span></td></tr>
+          <tr><td><strong>Academic Allocation</strong></td><td>🇸🇬 Singapore</td><td><span class="badge badge-info">Teacher</span></td><td>Default Teacher v1</td><td>01 Aug 2024</td><td><span class="chip chip-success" style="font-size:11px;">Active</span></td></tr>
+          <tr><td><strong>Timetable</strong></td><td>🇸🇬 Singapore</td><td><span class="badge badge-info">Viewer</span></td><td>Timetable Read-only</td><td>01 Aug 2024</td><td><span class="chip chip-success" style="font-size:11px;">Active</span></td></tr>
+        </tbody></table></div></div>
+      </div>
+      <div class="tab-panel" id="tab-academic">
+        <div style="color:var(--fg2);padding:32px;text-align:center;background:var(--bg-paper);border:1px solid var(--divider);border-radius:12px;">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40" style="color:var(--fg3);margin-bottom:12px;display:block;margin-left:auto;margin-right:auto;"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 11-6-11-6z"/></svg>
+          <div style="font-size:15px;font-weight:600;color:var(--fg);margin-bottom:4px;">Academic data is owned by Academic Allocation</div>
+          <div style="font-size:13px;">Subject allocations and teaching sessions are managed in the Academic Allocation module (BR-09).</div>
+          <div style="margin-top:16px;display:flex;gap:8px;justify-content:center;"><span style="background:var(--bg-neutral);border-radius:8px;padding:10px 16px;font-size:13px;"><strong>2</strong> subject allocations · AY 2026–27</span><span style="background:var(--bg-neutral);border-radius:8px;padding:10px 16px;font-size:13px;"><strong>18</strong> teaching sessions scheduled</span></div>
+        </div>
+      </div>
+      <div class="tab-panel" id="tab-audit">
+        <div class="card"><div class="card-header"><div class="card-title">Audit Log</div><div style="font-size:13px;color:var(--fg2)">Immutable · Restricted access</div></div>
+        <div class="card-body"><div class="timeline">
+          <div class="tl-item"><div class="tl-dot primary"></div><div class="tl-time">14 Oct 2026 · 09:12 AM UTC</div><div class="tl-title">EmployeeCreated</div><div class="tl-desc">Employee master record created. Fields: legal_first_name, legal_last_name, work_email, record_status=ACTIVE</div><div class="tl-actor">Actor: Rachel Kim (USER) · Request: req-4f8a2e1c</div></div>
+          <div class="tl-item"><div class="tl-dot primary"></div><div class="tl-time">01 Aug 2024 · 08:00 AM UTC</div><div class="tl-title">EmploymentStarted</div><div class="tl-desc">New permanent employment engagement started. GCI-2024-1048 · Global Campus International Pte Ltd · Teaching</div><div class="tl-actor">Actor: Rachel Kim (USER)</div></div>
+          <div class="tl-item"><div class="tl-dot info"></div><div class="tl-time">01 Aug 2024 · 08:05 AM UTC</div><div class="tl-title">AccountStatusChanged</div><div class="tl-desc">User account linked. Account status: INVITED → ACTIVE. IdP: Microsoft Azure AD.</div><div class="tl-actor">Actor: SYSTEM · IAM Provisioning</div></div>
+          <div class="tl-item"><div class="tl-dot info"></div><div class="tl-time">01 Aug 2024 · 08:06 AM UTC</div><div class="tl-title">GAGrantChanged</div><div class="tl-desc">Module grant: Employee Management (ACTIVE). Campus grant: Singapore (ACTIVE). Granted by: Rachel Kim.</div><div class="tl-actor">Actor: Rachel Kim (USER)</div></div>
+          <div class="tl-item"><div class="tl-dot info"></div><div class="tl-time">01 Aug 2024 · 08:07 AM UTC</div><div class="tl-title">MembershipChanged</div><div class="tl-desc">TM membership created: Employee Management / Singapore / Teacher role. Template: Standard Teacher v2.</div><div class="tl-actor">Actor: Rachel Kim (USER)</div></div>
+        </div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD EMPLOYEE PAGE -->
+  <div id="page-add" class="page">
+    <div class="content">
+      <div class="alert alert-info" style="margin-bottom:24px;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg><div><div class="alert-title">What you're creating</div>An Employee Master record links identity, employment, org structure, and access. Fill all required fields; campus assignment and role grants are configured after submission.</div></div>
+      <div class="form-layout">
+        <div class="stepper">
+          <div class="step active" id="step-personal"><div class="step-num">1</div><div class="step-label">Personal Info</div></div>
+          <div class="step" id="step-employment"><div class="step-num">2</div><div class="step-label">Employment</div></div>
+          <div class="step" id="step-org"><div class="step-num">3</div><div class="step-label">Org Assignment</div></div>
+          <div class="step" id="step-campus"><div class="step-num">4</div><div class="step-label">Campus Assignment</div></div>
+        </div>
+        <div class="form-sections">
+          <div class="section-card" id="section-personal">
+            <div class="section-title"><div class="section-num">1</div>Personal Information</div>
+            <div class="field-grid">
+              <div class="field"><label class="field-label">Legal First Name <span class="req">*</span></label><input class="field-input" id="firstName" type="text" placeholder="e.g. Sarah"></div>
+              <div class="field"><label class="field-label">Legal Last Name <span class="req">*</span></label><input class="field-input" id="lastName" type="text" placeholder="e.g. Chen"></div>
+              <div class="field"><label class="field-label">Preferred Name</label><input class="field-input" type="text" placeholder="If different from legal name"></div>
+              <div class="field"><label class="field-label">Date of Birth</label><input class="field-input" type="date"></div>
+              <div class="field"><label class="field-label">Work Email <span class="req">*</span></label><input class="field-input" type="email" placeholder="firstname.lastname@globalcampus.edu"></div>
+              <div class="field"><label class="field-label">Work Phone</label><input class="field-input" type="tel" placeholder="+65 XXXX XXXX"></div>
+              <div class="field"><label class="field-label">Nationality</label><select class="field-input"><option value="">Select nationality</option><option>Singaporean</option><option>Malaysian</option><option>Australian</option><option>British</option><option>Canadian</option><option>Chinese</option><option>Indian</option><option>Other</option></select></div>
+              <div class="field"><label class="field-label">Gender</label><select class="field-input"><option value="">Select gender</option><option>Male</option><option>Female</option><option>Non-binary</option><option>Prefer not to say</option></select></div>
+            </div>
+          </div>
+          <div class="section-card" id="section-employment">
+            <div class="section-title"><div class="section-num">2</div>Employment Details</div>
+            <div class="field-grid">
+              <div class="field"><label class="field-label">Employer Entity <span class="req">*</span></label><select class="field-input"><option value="">Select entity</option><option selected>Global Campus International Pte Ltd</option><option>GC Education Australia Pty Ltd</option><option>GC Learning Services Ltd</option></select></div>
+              <div class="field"><label class="field-label">Employee Category <span class="req">*</span></label><select class="field-input"><option value="">Select category</option><option>Teaching</option><option>Non-Teaching</option><option>Administrative</option><option>Management</option></select></div>
+              <div class="field"><label class="field-label">Employment Type <span class="req">*</span></label><div class="radio-group"><label class="radio-label"><input type="radio" name="emp-type" value="permanent" checked> Permanent</label><label class="radio-label"><input type="radio" name="emp-type" value="contract"> Contract</label><label class="radio-label"><input type="radio" name="emp-type" value="parttime"> Part-time</label></div></div>
+              <div class="field"><label class="field-label">Start Date <span class="req">*</span></label><input class="field-input" type="date"></div>
+              <div class="field" id="field-end-date" style="display:none"><label class="field-label">Contract End Date <span class="req">*</span></label><input class="field-input" type="date"></div>
+              <div class="field"><label class="field-label">Employee Number</label><input class="field-input" type="text" placeholder="Auto-generated if blank"></div>
+            </div>
+          </div>
+          <div class="section-card" id="section-org">
+            <div class="section-title"><div class="section-num">3</div>Organisational Assignment</div>
+            <div class="field-grid">
+              <div class="field"><label class="field-label">Department <span class="req">*</span></label><select class="field-input"><option value="">Select department</option><option>Mathematics Department</option><option>Science Department</option><option>English Department</option><option>Humanities Department</option><option>Arts Department</option><option>Administration</option><option>IT &amp; Systems</option></select></div>
+              <div class="field"><label class="field-label">Position / Job Title <span class="req">*</span></label><select class="field-input"><option value="">Select position</option><option>Mathematics Teacher</option><option>Science Teacher</option><option>English Teacher</option><option>Department Head</option><option>Vice Principal</option><option>Principal</option><option>Administrative Officer</option></select></div>
+              <div class="field"><label class="field-label">Reports To</label><select class="field-input"><option value="">Select manager</option><option>Dr. Wei Liang (Dept Head)</option><option>Ms. Priya Nair (VP Curriculum)</option><option>Mr. James Park (Principal)</option></select></div>
+              <div class="field"><label class="field-label">Assignment Valid From <span class="req">*</span></label><input class="field-input" type="date"></div>
+            </div>
+          </div>
+          <div class="section-card" id="section-campus">
+            <div class="section-title"><div class="section-num">4</div>Campus Assignment</div>
+            <div class="field-grid">
+              <div class="field"><label class="field-label">Primary Campus <span class="req">*</span></label><select class="field-input"><option value="">Select campus</option><option>🇸🇬 Singapore Campus (SGP)</option><option>🇦🇺 Melbourne Campus (AUS)</option><option>🇬🇧 London Campus (GBR)</option><option>🇨🇦 Vancouver Campus (CAN)</option></select></div>
+              <div class="field"><label class="field-label">Assignment Start <span class="req">*</span></label><input class="field-input" type="date"></div>
+              <div class="field" style="grid-column:1/-1"><label class="field-label">Additional Campuses</label><div style="display:flex;gap:12px;flex-wrap:wrap;padding:12px;background:var(--bg-neutral);border-radius:8px;"><label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;"><input type="checkbox"> 🇸🇬 Singapore</label><label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;"><input type="checkbox"> 🇦🇺 Melbourne</label><label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;"><input type="checkbox"> 🇬🇧 London</label><label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;"><input type="checkbox"> 🇨🇦 Vancouver</label></div></div>
+              <div class="field" style="grid-column:1/-1"><label class="field-label" style="display:flex;align-items:center;justify-content:space-between;">Create user account &amp; send invite<div class="switch"><input type="checkbox" id="sw-invite" checked><span class="switch-track"></span></div></label><div style="font-size:12px;color:var(--fg2);margin-top:4px;">An Azure AD account will be provisioned and a welcome email sent to the work email address.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-actions"><a class="btn btn-outlined" href="#employees">Cancel</a><button class="btn btn-error" onclick="handleSubmit()"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>Create Employee Record</button></div>
+    </div>
+  </div>
+
+  <!-- EMPTY PAGE -->
+  <div id="page-empty" class="page">
+    <div class="content">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title" id="empty-title"></h1>
+          <p class="page-subtitle" id="empty-desc"></p>
+        </div>
+      </div>
+      <div id="empty-body"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Theme
+document.getElementById('themeBtn').addEventListener('click',()=>{
+  const r=document.documentElement;
+  r.setAttribute('data-theme',r.getAttribute('data-theme')==='dark'?'light':'dark');
+});
+
+// Router
+const routeConfig={
+  '#dashboard':           {pageId:'page-dashboard', navId:'nav-dashboard'},
+  '#employees':           {pageId:'page-employees', navId:'nav-employees'},
+  '#profile':             {pageId:'page-profile',   navId:'nav-employees'},
+  '#add-employee':        {pageId:'page-add',        navId:'nav-employees'},
+  '#campuses':            {pageId:'page-empty',navId:'nav-campuses',            emptyKey:'campuses'},
+  '#org-structure':       {pageId:'page-empty',navId:'nav-org-structure',       emptyKey:'org-structure'},
+  '#job-positions':       {pageId:'page-empty',navId:'nav-job-positions',       emptyKey:'job-positions'},
+  '#access-roles':        {pageId:'page-empty',navId:'nav-access-roles',        emptyKey:'access-roles'},
+  '#permission-templates':{pageId:'page-empty',navId:'nav-permission-templates',emptyKey:'permission-templates'},
+  '#reports':             {pageId:'page-empty',navId:'nav-reports',             emptyKey:'reports'},
+  '#audit-log':           {pageId:'page-empty',navId:'nav-audit-log',           emptyKey:'audit-log'},
+};
+const breadcrumbs={
+  '#dashboard':   '<span style="color:var(--fg2)">Global Campus OS</span><span class="sep">/</span><span>HR Dashboard</span>',
+  '#employees':   '<span style="color:var(--fg2)">Global Campus OS</span><span class="sep">/</span><span>Employee Directory</span>',
+  '#profile':     '<a href="#dashboard" class="bc-link">Global Campus OS</a><span class="sep">/</span><a href="#employees" class="bc-link">Employees</a><span class="sep">/</span><span>Sarah Chen</span>',
+  '#add-employee':'<a href="#dashboard" class="bc-link">Global Campus OS</a><span class="sep">/</span><a href="#employees" class="bc-link">Employees</a><span class="sep">/</span><span>Add Employee</span>',
+};
+const emptyPages={
+  'campuses':             {title:'Campuses',             desc:'Manage campus locations, time zones and organizational hierarchy',    entity:'E06',chips:['E06 Campus','E07 Campus Assignment']},
+  'org-structure':        {title:'Org Structure',        desc:'Define organizational units and reporting hierarchies',               entity:'E03',chips:['E03 Org Unit','E04 Org Assignment']},
+  'job-positions':        {title:'Job Positions',        desc:'Manage the global job position catalog',                             entity:'E05',chips:['E05 Job Position']},
+  'access-roles':         {title:'Access & Roles',       desc:'Configure GA module grants and campus grants',                       entity:'A01',chips:['A01 GA Grant','A08 TM Role','A09 Module Membership']},
+  'permission-templates': {title:'Permission Templates', desc:'Define reusable permission templates for role assignment',           entity:'A13',chips:['A13 Permission Template','A14 Template Assignment']},
+  'reports':              {title:'Reports',              desc:'Workforce analytics and scheduled report management',                entity:'R01',chips:['Headcount','Turnover','Compliance']},
+  'audit-log':            {title:'Audit Log',            desc:'Immutable system-wide audit trail for all HR events',               entity:'AUD',chips:['Immutable','All modules','Restricted access']},
+};
+function populateEmptyPage(key){
+  const cfg=emptyPages[key]||{title:'Coming Soon',desc:'',entity:'',chips:[]};
+  document.getElementById('empty-title').textContent=cfg.title;
+  document.getElementById('empty-desc').textContent=cfg.desc;
+  const chips=cfg.chips.map(c=>'<span class="chip chip-default">'+c+'</span>').join('');
+  document.getElementById('empty-body').innerHTML=
+    '<div style="background:var(--bg-paper);border:1px solid var(--divider);border-radius:16px;padding:64px 32px;text-align:center;max-width:560px;margin:0 auto;box-shadow:var(--z1)">'+
+    '<div style="width:72px;height:72px;border-radius:16px;background:var(--bg-neutral);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;color:var(--fg3)">'+
+    '<svg viewBox="0 0 24 24" fill="currentColor" width="36" height="36"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div>'+
+    '<div style="font-size:20px;font-weight:700;margin-bottom:8px;color:var(--fg)">Not yet implemented</div>'+
+    '<div style="font-size:14px;color:var(--fg2);margin-bottom:24px;line-height:1.6">'+cfg.desc+'</div>'+
+    '<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:24px">'+chips+'</div>'+
+    '<div style="display:inline-flex;align-items:center;gap:6px;background:var(--bg-neutral);border-radius:8px;padding:6px 14px;font-size:12px;color:var(--fg3);font-family:monospace">'+cfg.entity+'</div></div>';
+}
+function navigate(hash){
+  const h=hash||'#dashboard';
+  const cfg=routeConfig[h]||routeConfig['#dashboard'];
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(cfg.pageId).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const navEl=document.getElementById(cfg.navId);
+  if(navEl)navEl.classList.add('active');
+  const bcEl=document.getElementById('app-breadcrumb');
+  if(breadcrumbs[h]){bcEl.innerHTML=breadcrumbs[h];}
+  else if(cfg.emptyKey){
+    const epCfg=emptyPages[cfg.emptyKey];
+    bcEl.innerHTML='<span style="color:var(--fg2)">Global Campus OS</span><span class="sep">/</span><span>'+(epCfg?epCfg.title:'Coming Soon')+'</span>';
+    populateEmptyPage(cfg.emptyKey);
+  }
+  window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',()=>navigate(location.hash));
+navigate(location.hash||'#dashboard');
+
+// Dashboard period tabs
+document.querySelectorAll('.period-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    tab.closest('.period-tabs').querySelectorAll('.period-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+  });
+});
+
+// Profile tabs
+document.querySelectorAll('#page-profile .tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('#page-profile .tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('#page-profile .tab-panel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('tab-'+tab.dataset.tab).classList.add('active');
+  });
+});
+
+// Directory filters
+function applyFilters(){
+  const search=document.getElementById('searchInput').value.toLowerCase();
+  const campus=document.getElementById('campusFilter').value;
+  const category=document.getElementById('categoryFilter').value;
+  const status=document.getElementById('statusFilter').value;
+  let visible=0;
+  document.querySelectorAll('#empTable tbody tr').forEach(row=>{
+    const name=row.querySelector('.emp-name').textContent.toLowerCase();
+    const email=row.querySelector('.emp-meta').textContent.toLowerCase();
+    const show=(!search||name.includes(search)||email.includes(search))
+      &&(!campus||row.dataset.campus===campus)
+      &&(!category||row.dataset.category===category)
+      &&(!status||row.dataset.status===status);
+    row.style.display=show?'':'none';
+    if(show)visible++;
+  });
+  document.querySelector('.table-info strong').textContent=visible;
+  const filters=[campus,category,status].filter(Boolean);
+  document.getElementById('activeFilters').textContent=filters.length?filters.join(' · '):'';
+}
+['searchInput','campusFilter','categoryFilter','statusFilter'].forEach(id=>{
+  document.getElementById(id).addEventListener('input',applyFilters);
+});
+document.getElementById('selectAll').addEventListener('change',e=>{
+  document.querySelectorAll('.row-cb').forEach(cb=>cb.checked=e.target.checked);
+});
+document.querySelectorAll('.view-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+document.querySelectorAll('.page-btn:not(.arrow)').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.page-btn:not(.arrow)').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// Add employee
+function updatePreview(){
+  const first=document.getElementById('firstName').value;
+  const last=document.getElementById('lastName').value;
+  document.getElementById('photoPreview').textContent=((first[0]||'')+(last[0]||''))||'?';
+}
+document.querySelectorAll('.radio-option').forEach(opt=>{
+  opt.addEventListener('click',()=>{
+    opt.closest('.radio-group').querySelectorAll('.radio-option').forEach(o=>o.classList.remove('selected'));
+    opt.classList.add('selected');
+    opt.querySelector('input').checked=true;
+  });
+});
+document.querySelectorAll('.switch').forEach(sw=>{
+  sw.addEventListener('click',()=>sw.classList.toggle('on'));
+});
+['personal','employment','org','campus'].forEach((s,i)=>{
+  const stepEl=document.getElementById('step-'+s);
+  if(stepEl)stepEl.addEventListener('click',()=>{
+    const section=document.getElementById('section-'+s);
+    if(section)section.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+const stepObserver=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const id=entry.target.id.replace('section-','');
+      ['personal','employment','org','campus'].forEach(s=>{
+        const el=document.getElementById('step-'+s);
+        if(el)el.classList.toggle('active',s===id);
+      });
+    }
+  });
+},{threshold:0.3,rootMargin:'-64px 0px 0px 0px'});
+['personal','employment','org','campus'].forEach(s=>{
+  const el=document.getElementById('section-'+s);
+  if(el)stepObserver.observe(el);
+});
+document.querySelectorAll('input[name="emp-type"]').forEach(r=>{
+  r.addEventListener('change',()=>{
+    const field=document.getElementById('field-end-date');
+    if(field)field.style.display=r.value==='contract'?'':'none';
+  });
+});
+function handleSubmit(){
+  const firstName=document.getElementById('firstName').value.trim();
+  if(!firstName){
+    document.getElementById('firstName').classList.add('error');
+    document.getElementById('firstName').focus();
+    return;
+  }
+  alert('Employee record created successfully!\n\nNext step: Configure GA module grants and campus grants to enable system access.');
+}
+</script>
+</body>
+</html>
