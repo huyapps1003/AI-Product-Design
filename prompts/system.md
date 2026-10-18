@@ -8,6 +8,12 @@ Generate complete, pixel-accurate screen layouts as **self-contained HTML** usin
 
 ---
 
+## Product truth (read first)
+
+Screens are for the **Global Campus OS** (GIIS). Before designing, read `product-truth/Global_Campus_OS_Product_Architecture_v1.md` for modules, roles, workflows and campus context, plus any domain spec in `product-truth/` that covers the screen (for example the Employee Data Dictionary for Staff and HR screens). Use its names for modules, roles and entities, and its GIIS facts for realistic content.
+
+---
+
 ## Hard rules
 
 ### Colors — only use these
