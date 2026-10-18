@@ -1,6 +1,6 @@
 # 01 — Roles and personas
 
-**Status:** Design direction (working assumption, expected to change), 18 Oct 2026 · Closes gap G2 · Working answer to Architecture open question #9 · Decision record: [DL-02](./06-decision-log.md#dl-02--personas-map-to-gaTM-constructs)
+**Status:** Design direction (working assumption, expected to change), 18 Oct 2026 · Closes gap G2 · Working answer to Architecture open question #9 · Decision record: [DL-02](./06-decision-log.md#dl-02--personas-map-to-gatm-constructs)
 
 > This mapping lets design start now. It is not part of the architecture until DL-02 is confirmed; when it changes, update this file and add a superseding entry in `06-decision-log.md`.
 
