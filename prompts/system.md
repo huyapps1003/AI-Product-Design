@@ -12,6 +12,8 @@ Generate complete, pixel-accurate screen layouts as **self-contained HTML** usin
 
 Screens are for the **Global Campus OS** (GIIS). Before designing, read `product-truth/Global_Campus_OS_Product_Architecture_v1.md` for modules, roles, workflows and campus context, plus any domain spec in `product-truth/` that covers the screen (for example the Employee Data Dictionary for Staff and HR screens). Use its names for modules, roles and entities, and its GIIS facts for realistic content.
 
+For Admin Platform screens (Staff and HR, Global Admin, Team Management, Governance, self-service), also read the design-ready layer: find the screen's ID in `product-truth/03-ia-module-map.md`, follow its flow and screen states in `product-truth/04-flows/`, apply the UI behaviour for each rule in `product-truth/05-rules-to-ui.md` (including status colours and field visibility), and use the canonical sample data in `product-truth/00-product-brief.md`. Where these files and older mocks in `screens/` disagree, product truth wins.
+
 ---
 
 ## Hard rules
