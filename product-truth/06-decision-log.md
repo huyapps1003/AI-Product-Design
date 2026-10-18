@@ -23,6 +23,12 @@ Status values: **Assumed** (chosen by design, needs confirmation) · **Confirmed
 | DL-13 | Account invite timing and suspension cascade | Assumed | Decision D10 |
 | DL-14 | Per-member overrides off by default | Assumed | Decision D09 |
 | DL-15 | UI language English, per-user locale for dates and numbers | Assumed | E01 `preferred_locale` |
+| DL-16 | Derived scope is suggestion by default; auto-apply opt-in per module | Assumed | 07, Decision D11 |
+| DL-17 | Grants use scope-node hierarchy (Group > Country > Campus) | Assumed | 07, A03/A04 |
+| DL-18 | Relationship-based access for parents via family links, not grants | Assumed | 07 |
+| DL-19 | Record-level ACL for restricted cases and Tier 3 fields | Assumed | 07, Decision D13 |
+| DL-20 | Templates have BASE and MODULE categories | Assumed | 07, A08 |
+| DL-21 | Time-boxed delegation with reason, max duration, and audit | Assumed | 07 |
 
 ---
 
@@ -97,6 +103,46 @@ Status values: **Assumed** (chosen by design, needs confirmation) · **Confirmed
 
 ---
 
+
+### DL-16 — Derived scope is suggestion by default
+- **Context.** Academic allocations (entity D02) and org assignments (E04) naturally define what a teacher or staff member should see. Problem #3: manual scope drifts from allocations every term.
+- **Decision.** Derived scope sources (allocation, org unit) generate scope *suggestions* that Module Admin confirms. A per-module flag `tm.scope.auto_derive` enables auto-apply where confirmed safe.
+- **Why.** Automatic scope keeps data access aligned with teaching assignments without removing human oversight. Auto-apply is opt-in because some modules (Finance, Governance) need manual control.
+- **Alternatives rejected.** Fully automatic (no human check — risky for sensitive modules); fully manual only (status quo, known to drift).
+- **Confirm with.** Module owners, data architect.
+
+### DL-17 — Hierarchical grant ceiling
+- **Context.** Problem #1 and #4: flat per-campus grants mean O(users × campuses) work for every new campus and every cross-campus role (Country Director, Group HR).
+- **Decision.** Grants (A03/A04) gain a `scope_node` field: GROUP, COUNTRY, or CAMPUS. A grant at a parent node covers all descendants. Existing campus grants map to `scope_node_type = CAMPUS`.
+- **Why.** Country Directors and Group staff get one grant instead of N. New campuses inherit grants automatically. The change is additive — campus-level grants still work unchanged.
+- **Alternatives rejected.** "Wildcard campus" grant (ambiguous, no hierarchy for partial coverage); automatic grants from org assignment (conflates affiliation with access, violates BR-06).
+- **Confirm with.** Data architect, Global Admin owner.
+
+### DL-18 — Relationship-based access for parents
+- **Context.** Problem #4: parents need to see their child's data. GA/TM grants and memberships don't model "my child" — they model "this module at this campus".
+- **Decision.** A new entity F01 Family Link (parent account → student enrolment) is the authorization. Parents get a fixed read-only capability set (R03) scoped to their linked children. No GA grant or TM membership is created.
+- **Why.** Parent access is inherently relational ("my child"), not role-based. Forcing it into GA/TM would create phantom memberships, confuse Module Admins, and break separation of duties. Custody changes and withdrawals cleanly revoke access by ending the link.
+- **Alternatives rejected.** Parent as a TM member with VIEWER role (membership explosion; Module Admin sees parents in their team); parent as a special GA grant (grant doesn't carry the child relationship).
+- **Confirm with.** Admissions owner, legal (custody and data sharing).
+
+### DL-19 — Record-level ACL
+- **Context.** Problem #5 and Tier 3 fields. A discipline case or a restricted HR field should be visible only to specific people, not everyone with the capability.
+- **Decision.** New entity A15 Record ACL Entry. Cases can be marked `visibility = RESTRICTED`; only assignee, committee, and users with `gov.case.view_all` see content. Tier 3 field access requires an explicit ACL entry. Every Tier 3 read is logged.
+- **Why.** Capabilities answer "can this role do this action?"; ACLs answer "on this specific record?". Children's sensitive data (PDPA, DPDP) needs both layers.
+- **Confirm with.** Data architect, legal/compliance.
+
+### DL-20 — BASE and MODULE template categories
+- **Context.** Problem #2: 12 modules × multiple roles = many templates with duplicated capabilities (view profile, view directory, etc.).
+- **Decision.** Templates (A08) gain a `category`: BASE (shared capabilities like profile view, directory search) or MODULE (module-specific). A role-template binding resolves both: union of allows from BASE + MODULE; deny in either wins.
+- **Why.** A "Teacher base" template covers the 15–20 capabilities every teacher needs regardless of module. Module-specific templates add only the delta. Template count drops from O(modules × roles) to O(modules + roles).
+- **Confirm with.** Data architect.
+
+### DL-21 — Time-boxed delegation
+- **Context.** Problem #6: a principal on leave can't delegate approval authority to the VP without giving them permanent grants.
+- **Decision.** An acting grant: user A delegates capability set C to user B for a stated period and reason. The delegation is audited, capped at 90 days, and auto-expires. The delegator must hold the capabilities being delegated. Delegated actions are logged as "B acting for A".
+- **Why.** Schools have well-defined leave and coverage patterns. Without delegation, either the VP gets permanent over-access or approvals stall during leave.
+- **Alternatives rejected.** Shared accounts (violates audit trail); permanent dual grants (over-access); manual grant/revoke cycle (error-prone, often forgotten).
+- **Confirm with.** HR, Global Admin owner.
 ## How design direction becomes architecture
 
 The architecture records only what is decided. Design direction lives here and in files `00`–`05` until it is confirmed.

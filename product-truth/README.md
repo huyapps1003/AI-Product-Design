@@ -22,6 +22,7 @@ These files turn the architecture and data dictionary into something a designer 
 | [04-flows/](./04-flows/) | User flow, state machine and screen states per scenario |
 | [05-rules-to-ui.md](./05-rules-to-ui.md) | BR-01…BR-21 and Decisions D01…D15 → UI behaviour; status colours; field visibility |
 | [06-decision-log.md](./06-decision-log.md) | Assumptions chosen and why |
+| `07-rbac-model.md` | Effective RBAC model: six-layer access control for Campus OS (DL-16…DL-21) |
 | [gap-analysis-2026-10-18.md](./gap-analysis-2026-10-18.md) | Review of v1 product truth that led to this layer |
 
 **To design a screen:** pick its ID in `03`, read its scenario flow in `04-flows/`, apply the rules listed for it in `05`, and use the sample data in `00`.

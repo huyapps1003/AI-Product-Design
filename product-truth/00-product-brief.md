@@ -97,4 +97,5 @@ Use these in every design so screens agree with each other and with the architec
 | [04-flows/](./04-flows/) | Flow + state machine + screen states per scenario |
 | [05-rules-to-ui.md](./05-rules-to-ui.md) | BR-01…BR-21 and Decisions D01…D15 → UI behaviour |
 | [06-decision-log.md](./06-decision-log.md) | Assumptions chosen and why |
+| [07-rbac-model.md](./07-rbac-model.md) | Effective RBAC model: six layers, evaluation algorithm, v1 scope |
 | [gap-analysis-2026-10-18.md](./gap-analysis-2026-10-18.md) | Why this folder exists: the review of v1 product truth |
