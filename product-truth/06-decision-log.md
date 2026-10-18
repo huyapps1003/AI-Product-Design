@@ -97,6 +97,14 @@ Status values: **Assumed** (chosen by design, needs confirmation) · **Confirmed
 
 ---
 
+## How design direction becomes architecture
+
+The architecture records only what is decided. Design direction lives here and in files `00`–`05` until it is confirmed.
+
+1. **Assumed:** the choice lives in the design files and in this log. The architecture's open question (if any) links to it as "working design direction (not decided)".
+2. **Changed:** don't rewrite the old entry. Add a new DL entry, mark the old one **Superseded by DL-xx** with the date and reason, then update the design files. The trail of superseded entries is the case-study story.
+3. **Confirmed:** copy the decision into the architecture (close the open question or add it to the relevant section), mark the DL entry **Confirmed** with date and who confirmed it, and bump the architecture version (v1.0 → v1.1).
+
 ## How to add a decision
 
 Add a row to the table and a section below with Context, Decision, Why, Alternatives rejected (if any) and Confirm with. When a stakeholder confirms, change the status and add the date and name.

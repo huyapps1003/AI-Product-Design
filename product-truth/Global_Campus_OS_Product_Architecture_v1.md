@@ -14,6 +14,7 @@ This file is the canonical description of *what the product is*. The design syst
 - **Campus context.** Every staff screen is scoped to a tenant (Group > Country > Campus > Section). Show the current campus or scope in the shell, and never hard-code one campus's calendar, grading scale, currency or regulator into a screen.
 - **Realistic content.** Use GIIS facts from [How GIIS operates today](#how-giis-operates-today) (curricula, calendars, thresholds, SLAs) for placeholder data. People and student names stay synthetic.
 - **Sensitive data.** Tier 3 data (identity documents, health, SEN, counselling, child protection) is shown only to named roles and should look visibly restricted in designs ([Security, privacy and compliance](#security-privacy-and-compliance)).
+- **Design direction.** Files `00-` to `06-` in this folder are the design layer: working assumptions that let screens be designed now and are expected to change. They never override this document. When one is confirmed, it is written into this document and its entry in `06-decision-log.md` is marked Confirmed.
 - **Status.** Tech-stack choices and roadmap dates are recommendations, not decisions. Items in [Open questions](#open-questions) are unresolved; don't design them as if settled.
 
 Related product truth: [Employee Data Dictionary v1](./Global_Campus_OS_Employee_Data_Dictionary_v1.md) (employee master data and GA/TM access management; it refines the *Staff and HR* module and the *Identity and roles* core service below).
@@ -351,7 +352,7 @@ The daily loop goes first because it touches every parent every week and replace
 - [ ] Are there country-level data residency requirements beyond Singapore and India that would force more regional cells?
 - [ ] Who owns programme packs and policy rules centrally, and who can override them at a campus?
 - [ ] Which campus pilots first: Punggol (current proposal) or Noida?
-- [ ] How does the role-plus-scope model here map onto the existing Global Admin (GA) and Team Management (TM) permission architecture retained in the Employee Data Dictionary?
+- [ ] How does the role-plus-scope model here map onto the existing Global Admin (GA) and Team Management (TM) permission architecture retained in the Employee Data Dictionary? *Working design direction (not decided): [01-roles-personas.md](./01-roles-personas.md), recorded as [DL-02](./06-decision-log.md).*
 
 ## Sources
 
