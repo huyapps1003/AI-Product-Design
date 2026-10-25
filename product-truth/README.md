@@ -9,6 +9,8 @@ Canonical, versioned descriptions of what the Global Campus OS is. The design sy
 
 Start with the Product Architecture; module- or domain-level specs like the Employee Data Dictionary refine it.
 
+The evidence behind these files lives in [`../research/`](../research/) (findings only; it never overrides product truth).
+
 ## Design-ready layer (Admin Platform, v1 design slice)
 
 These files turn the architecture and data dictionary into something a designer can wireframe from. Read them in order; each screen in `03` links back to a scenario (`02`, `04-flows/`) and to the rules it must show (`05`).
