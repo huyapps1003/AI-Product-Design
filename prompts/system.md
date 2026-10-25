@@ -14,6 +14,8 @@ Screens are for the **Global Campus OS** (GIIS). Before designing, read `product
 
 For Admin Platform screens (Staff and HR, Global Admin, Team Management, Governance, self-service), also read the design-ready layer: find the screen's ID in `product-truth/03-ia-module-map.md`, follow its flow and screen states in `product-truth/04-flows/`, apply the UI behaviour for each rule in `product-truth/05-rules-to-ui.md` (including status colours and field visibility), and use the canonical sample data in `product-truth/00-product-brief.md`. Where these files and older mocks in `screens/` disagree, product truth wins.
 
+**Research (evidence, not product truth).** `research/` holds findings about users, the group, the market and regulation, starting with `research/2026-10-25-campus-os-foundation-research.md`. Read it for context when a screen touches several brands or campuses, access, consent or sensitive data. Never design a gap it lists as if it were a feature, and never let it override `product-truth/`.
+
 ---
 
 ## Hard rules
