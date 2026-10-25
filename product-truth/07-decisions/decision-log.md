@@ -1,10 +1,14 @@
-# 06 — Decision log
+# Decision log
 
 **Status:** Living document · started 18 Oct 2026 · **Owner:** Henry
 
 **Tóm tắt (VI):** Các giả định đã chọn để thiết kế được ngay, kèm lý do và phương án đã loại. Viết theo dạng dùng thẳng cho case study: bối cảnh → quyết định → lý do → cần ai xác nhận.
 
 Status values: **Assumed** (chosen by design, needs confirmation) · **Confirmed** (stakeholder agreed) · **Superseded**.
+
+**Evidence lines.** Since 25 Oct 2026 an entry may carry an *Evidence* line citing research (`RES-F…`, `MC-…`) and open questions (`OQ-…`). Evidence never changes an entry's status by itself; only a new or superseding DL entry does.
+
+The "Linked" column uses the old flat file numbers: `00` = admin-platform brief, `01` = roles-personas, `07` = rbac-model; `G…` = archived gap analysis.
 
 | ID | Decision | Status | Linked |
 |---|---|---|---|
@@ -29,6 +33,7 @@ Status values: **Assumed** (chosen by design, needs confirmation) · **Confirmed
 | DL-19 | Record-level ACL for restricted cases and Tier 3 fields | Assumed | 07, Decision D13 |
 | DL-20 | Templates have BASE and MODULE categories | Assumed | 07, A08 |
 | DL-21 | Time-boxed delegation with reason, max duration, and audit | Assumed | 07 |
+| DL-22 | Scope is every GSG brand; GSG operates Campus OS; SmartLearn excluded | **Confirmed** (Henry, 25 Oct 2026) | RES-F01, RES-F02 |
 
 ---
 
@@ -50,6 +55,7 @@ Status values: **Assumed** (chosen by design, needs confirmation) · **Confirmed
 - **Decision.** Use the set in [00 § Canonical sample data](../06-experience/admin-platform/README.md#canonical-sample-data); add a synthetic "Group Office" campus for group staff.
 - **Why.** Matches the GIIS knowledge files and the architecture; avoids a designer or generator mixing two worlds.
 - **Follow-up.** Update `screens/*.html` to this data set.
+- **Evidence (25 Oct 2026).** Doesn't match scope: every sample campus is GIIS, and the scope is now all 12 brands (research §10; RES-F01; DL-22). Which other brand to add is open (OQ-33).
 
 ### DL-04 — Module catalog
 - **Decision.** R01 = 12 campus modules (Architecture) + `global_admin` + `governance`. Academic Allocation and Timetable are parts of `teaching_learning`, not modules.
@@ -77,6 +83,7 @@ Status values: **Assumed** (chosen by design, needs confirmation) · **Confirmed
 ### DL-09 — Separation of duties
 - **Decision.** HR Admin edits people, not access. Global Admin edits the access ceiling and catalogs, not people. Module Admin edits teams inside the ceiling. Granting `GLOBAL_ADMIN` needs a second Global Admin.
 - **Why.** Prevents one person creating a fake employee and granting them access; easy to audit.
+- **Evidence (25 Oct 2026).** Partial: covers HR, Global Admin and Module Admin; platform operator and vendor support are not mentioned (research §10; RES-F06; OQ-15).
 
 ### DL-10 — Status vocabulary
 - **Decision.** Adopt the Data Dictionary's candidate enums and the colour table in [05 § Status vocabulary](../06-experience/admin-platform/rules-to-ui.md#status-vocabulary).
@@ -84,6 +91,7 @@ Status values: **Assumed** (chosen by design, needs confirmation) · **Confirmed
 
 ### DL-11 — Sensitivity tiers
 - **Decision.** Tier 1 = Internal, Tier 2 = Confidential, Tier 3 = Restricted; one lock treatment (P-LOCK) for anything above the viewer's level.
+- **Evidence (25 Oct 2026).** Partial: PDPC treats children's data as generally sensitive, while product truth puts students' academic data in Tier 2 (research §10; OQ-13).
 
 ### DL-12 — Rename academic entities
 - **Decision (proposed for Data Dictionary v1.1).** Entity D01/D02/D03 → X01/X02/X03, keeping Decision D01–D15 as is.
@@ -100,6 +108,7 @@ Status values: **Assumed** (chosen by design, needs confirmation) · **Confirmed
 ### DL-15 — Language
 - **Decision.** UI copy in English for all campuses in v1; dates, numbers and time zones follow the user's `preferred_locale` and the campus `time_zone`. Hindi or other UI languages are a later decision.
 - **Why.** GIIS instruction and staff communication in the files are English; second languages (Hindi, Tamil, French, Mandarin, Sanskrit) are subjects, not staff UI requirements.
+- **Evidence (25 Oct 2026).** Partial: DPDP gives parents a right to notices in scheduled Indian languages, and GSG has campuses in non-English-speaking countries (research §10; MC-12; OQ-25).
 
 ---
 
@@ -117,6 +126,7 @@ Status values: **Assumed** (chosen by design, needs confirmation) · **Confirmed
 - **Why.** Country Directors and Group staff get one grant instead of N. New campuses inherit grants automatically. The change is additive — campus-level grants still work unchanged.
 - **Alternatives rejected.** "Wildcard campus" grant (ambiguous, no hierarchy for partial coverage); automatic grants from org assignment (conflates affiliation with access, violates BR-06).
 - **Confirm with.** Data architect, Global Admin owner.
+- **Evidence (25 Oct 2026).** Partial: covers Group, Country and Campus; there is no brand level, and a country grant can't tell brands or entities apart (research §08, §10; RES-F06; OQ-14, OQ-17).
 
 ### DL-18 — Relationship-based access for parents
 - **Context.** Problem #4: parents need to see their child's data. GA/TM grants and memberships don't model "my child" — they model "this module at this campus".
@@ -143,9 +153,18 @@ Status values: **Assumed** (chosen by design, needs confirmation) · **Confirmed
 - **Why.** Schools have well-defined leave and coverage patterns. Without delegation, either the VP gets permanent over-access or approvals stall during leave.
 - **Alternatives rejected.** Shared accounts (violates audit trail); permanent dual grants (over-access); manual grant/revoke cycle (error-prone, often forgotten).
 - **Confirm with.** HR, Global Admin owner.
+- **Evidence (25 Oct 2026).** Consistent with cover and acting patterns; vendor support access isn't mentioned (research §10; OQ-15).
+
+### DL-22 — Scope is every GSG brand; GSG operates Campus OS
+- **Context.** Architecture v1, the sample data and the design layer describe one brand (GIIS), 3 campuses and 2 countries. GSG has 12 brands and claims 64 campuses in 11 countries (RES-F01), assembled largely by acquisition (RES-F02).
+- **Decision.** Global Campus OS serves all GSG school brands, and Global Schools Group runs (operates) the platform. SmartLearn is out of scope for Campus OS product truth.
+- **Why.** Stated by Henry on 25 Oct 2026.
+- **What it changes now.** Product truth labels GIIS facts as GIIS examples, not as the whole scope. It does not decide how brands fit the hierarchy, access model or data-controller model; those are open (OQ-01…OQ-07, OQ-14…OQ-17, OQ-26, OQ-33).
+- **Confirmed by.** Henry, 25 Oct 2026.
+
 ## How design direction becomes architecture
 
-The architecture records only what is decided. Design direction lives here and in files `00`–`05` until it is confirmed.
+The architecture records only what is decided. Design direction lives here, in `04-access/` and in `06-experience/` until it is confirmed.
 
 1. **Assumed:** the choice lives in the design files and in this log. The architecture's open question (if any) links to it as "working design direction (not decided)".
 2. **Changed:** don't rewrite the old entry. Add a new DL entry, mark the old one **Superseded by DL-xx** with the date and reason, then update the design files. The trail of superseded entries is the case-study story.

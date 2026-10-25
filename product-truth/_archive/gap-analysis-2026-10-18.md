@@ -1,5 +1,7 @@
 # Gap analysis — is product truth ready to design from? (18 Oct 2026)
 
+> **Archived 25 Oct 2026.** Kept as the record of why the design layer exists. File names below refer to the old flat layout: `00` → `06-experience/admin-platform/README.md`, `01` → `02-users/roles-personas.md`, `02`–`05` → `06-experience/admin-platform/`, `06` → `07-decisions/decision-log.md`. Current gaps live in [`../08-open-questions/`](../08-open-questions/open-questions.md).
+
 **Tóm tắt (VI):** Architecture v1 đủ tốt ở tầng *hệ thống* (module, tenancy, data model, roadmap) nhưng **chưa đủ để wireframe**. Thiếu: phạm vi thiết kế, persona rõ ràng (map sang GA/TM), danh sách màn hình, flow có state, và mapping business rule → UI. Cấu trúc `00`–`06` trong PR này lấp các khoảng trống đó.
 
 **Verdict:** Not ready on its own. The Product Architecture answers *what the platform is*; the Employee Data Dictionary answers *what the data is*. Neither answers *what a designer draws*: which screens exist, who sees them, what state they are in, and what the UI does when a rule fires. The files `00-` to `06-` added alongside this review close those gaps for the first design slice.
@@ -64,7 +66,7 @@ Enums are "candidates only", and there are four overlapping lifecycles (employee
 
 ### G10 — Sensitivity tiers don't line up (P1)
 Architecture uses Tier 1/2/3; the dictionary uses Internal/Confidential/Restricted. D13 (who sees which field) is open. Designers need one visual treatment for restricted data.
-→ Mapping and field-visibility matrix in [`05-rules-to-ui.md`](../06-experience/admin-platform/rules-to-ui.md#field-visibility-d13) (DL-11).
+→ Mapping and field-visibility matrix in [`05-rules-to-ui.md`](../06-experience/admin-platform/rules-to-ui.md#field-visibility-decision-d13) (DL-11).
 
 ### G11 — Who approves access? (P1)
 GA grants show `granted_by_user_id` but no request/approval flow. Teachers have no way to ask for access; transfers say "initiate review workflow" (D07) without defining it.

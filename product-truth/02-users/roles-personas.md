@@ -1,8 +1,8 @@
-# 01 — Roles and personas
+# Roles and personas (Admin Platform)
 
 **Status:** Design direction (working assumption, expected to change), 18 Oct 2026 · Closes gap G2 · Working answer to Architecture open question #9 · Decision record: [DL-02](../07-decisions/decision-log.md#dl-02--personas-map-to-gatm-constructs)
 
-> This mapping lets design start now. It is not part of the architecture until DL-02 is confirmed; when it changes, update this file and add a superseding entry in `06-decision-log.md`.
+> This mapping lets design start now. It is not part of the architecture until DL-02 is confirmed; when it changes, update this file and add a superseding entry in [`decision-log.md`](../07-decisions/decision-log.md). For all role families across GSG, including those with no definition yet, see [`../04-access/role-catalogue.md`](../04-access/role-catalogue.md).
 
 **Tóm tắt (VI):** 5 persona của Admin Platform, mỗi persona được map chính xác sang GA grant (trần quyền), TM membership + access role + template (quyền vận hành) và data scope (phạm vi dữ liệu). Quy tắc nền: **persona ≠ HR position ≠ access role ≠ academic role**.
 

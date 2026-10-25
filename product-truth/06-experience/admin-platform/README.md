@@ -1,13 +1,15 @@
-# 00 — Product brief: Global Campus OS Admin Platform
+# Admin Platform — design slice brief
 
-**Status:** Proposed, 18 Oct 2026 · **Owner:** Henry
+**Status:** Proposed, 18 Oct 2026 · scope note added 25 Oct 2026 · **Owner:** Henry
 **Reads with:** [Product Architecture v1](../../00-sources/Global_Campus_OS_Product_Architecture_v1.md) (whole platform) · [Employee Data Dictionary v1](../../00-sources/Global_Campus_OS_Employee_Data_Dictionary_v1.md) (data)
 
-**Tóm tắt (VI):** Thiết kế đợt đầu tập trung vào **Admin Platform**: quản lý nhân sự (Staff and HR) và quyền truy cập (Global Admin + Team Management) cho mọi campus GIIS. Đây là "cửa ngõ" của 12 module: chưa có người và quyền đúng thì không module nào chạy được.
+> **Scope note, 25 Oct 2026.** Campus OS serves every GSG brand and GSG operates it (DL-22). This slice was written with GIIS as the only brand, and its sample data is still GIIS-only (DL-03; OQ-33). Read "GIIS" below as the example brand. Platform-level context: [`../../01-context/product-brief.md`](../../01-context/product-brief.md).
+
+**Tóm tắt (VI):** Thiết kế đợt đầu tập trung vào **Admin Platform**: quản lý nhân sự (Staff and HR) và quyền truy cập (Global Admin + Team Management) cho các campus của GSG (dữ liệu mẫu hiện là GIIS). Đây là "cửa ngõ" của 12 module: chưa có người và quyền đúng thì không module nào chạy được.
 
 ## Problem
 
-GIIS runs one brand across countries with different employers, calendars and regulators (Singapore: SMART Campus Punggol and East Coast; India: Noida). Staff move between campuses, teach across programmes (CBSE, IB, IGCSE, CLSP, GMP) and need access to several modules at once. Today:
+GSG runs Campus OS for 12 brands across countries with different employers, calendars and regulators (RES-F01, RES-F03). The example brand in this slice, GIIS, already shows the problem in two countries (Singapore: SMART Campus Punggol and East Coast; India: Noida). Staff move between campuses, teach across programmes (CBSE, IB, IGCSE, CLSP, GMP) and need access to several modules at once. Today:
 
 - **Employee identity is scattered.** There is no single employee record that survives a contract change, a second campus or a rehire (Data Dictionary BR-01, BR-02).
 - **Access is granted by hand and drifts.** Campus affiliation, HR position and system access get conflated, so a transfer silently keeps old access and an exit leaves accounts alive (BR-06, BR-10).
@@ -50,7 +52,7 @@ One place where HR knows every employee, Global Admin sets the outer boundary of
 | Access removed after employment ends | ≤ 24 h from `end_date` | EmploymentEnded → all grants REVOKED/EXPIRED |
 | Access review (attestation) completion per campus per term | ≥ 95% | Review cases closed vs opened |
 | "Why does this person have this permission?" answered from one screen | Yes, for any user | Effective Permissions panel shows source of every allow/deny |
-| Design traceability | Every v1 screen maps to a scenario and a rule | `03-ia-module-map.md` ↔ `02`, `05` |
+| Design traceability | Every v1 screen maps to a scenario and a rule | `ia-screen-map.md` ↔ `scenarios.md`, `rules-to-ui.md` |
 
 ## Principles for designers
 
@@ -68,7 +70,8 @@ Use these in every design so screens agree with each other and with the architec
 
 | Kind | Values |
 |---|---|
-| Group | GIIS (Global Indian International School) |
+| Group (platform operator) | Global Schools Group (GSG) |
+| Brand | GIIS (Global Indian International School). Only brand in the sample set; other brands open (OQ-33) |
 | Countries | Singapore (SG, SGD, Asia/Singapore) · India (IN, INR, Asia/Kolkata) |
 | Campuses (E06) | `SG-PGL` SMART Campus Punggol · `SG-ECS` East Coast Campus · `IN-NOI` Noida Campus · `GRP-HQ` Group Office (no students; for group-level staff; assumed) |
 | Employers (synthetic) | "GIIS Singapore (employer)" · "GIIS India (employer)" |
@@ -84,18 +87,19 @@ Use these in every design so screens agree with each other and with the architec
 
 ## Out-of-slice dependencies
 
-- Decisions D01–D10 (Data Dictionary) remain open; this slice designs against defaults in [`06-decision-log.md`](../../07-decisions/decision-log.md).
+- Decisions D01–D10 (Data Dictionary) remain open; this slice designs against defaults in [`decision-log.md`](../../07-decisions/decision-log.md).
 - Calendar engine, rules engine and Cases-and-SLAs core services (Architecture) are assumed to exist; Access Review and Access Request reuse the shared **Case** object.
+- Brand-level and platform-operator access (OQ-14…OQ-16) and who controls the data (OQ-06) are open. This slice doesn't design them; see [`../../04-access/`](../../04-access/README.md) and [`../../05-data-governance/`](../../05-data-governance/data-controller-model.md).
 
 ## File map
 
 | File | Answers |
 |---|---|
-| [01-roles-personas.md](../../02-users/roles-personas.md) | Who uses it and what access each persona actually holds |
-| [02-key-scenarios.md](./scenarios.md) | The 5 scenarios v1 must support end to end |
-| [03-ia-module-map.md](./ia-screen-map.md) | Shell, navigation, module catalog, screen list |
-| [04-flows/](./flows/) | Flow + state machine + screen states per scenario |
-| [05-rules-to-ui.md](./rules-to-ui.md) | BR-01…BR-21 and Decisions D01…D15 → UI behaviour |
-| [06-decision-log.md](../../07-decisions/decision-log.md) | Assumptions chosen and why |
-| [07-rbac-model.md](../../04-access/rbac-model.md) | Effective RBAC model: six layers, evaluation algorithm, v1 scope |
+| [roles-personas.md](../../02-users/roles-personas.md) | Who uses it and what access each persona actually holds |
+| [scenarios.md](./scenarios.md) | The 5 scenarios v1 must support end to end |
+| [ia-screen-map.md](./ia-screen-map.md) | Shell, navigation, module catalog, screen list |
+| [flows/](./flows/) | Flow + state machine + screen states per scenario |
+| [rules-to-ui.md](./rules-to-ui.md) | BR-01…BR-21 and Decisions D01…D15 → UI behaviour |
+| [decision-log.md](../../07-decisions/decision-log.md) | Assumptions chosen and why |
+| [rbac-model.md](../../04-access/rbac-model.md) | Effective RBAC model: six layers, evaluation algorithm, v1 scope |
 | [gap-analysis-2026-10-18.md](../../_archive/gap-analysis-2026-10-18.md) | Why this folder exists: the review of v1 product truth |

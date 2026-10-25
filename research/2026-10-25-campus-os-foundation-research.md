@@ -5,7 +5,7 @@ type: research (findings only)
 status: v3 · 25 Oct 2026
 owner: Henry
 scope: All GSG brands; GSG runs Campus OS
-reads_with: product-truth/Global_Campus_OS_Product_Architecture_v1.md, product-truth/00–07
+reads_with: product-truth/00-sources/Global_Campus_OS_Product_Architecture_v1.md, product-truth/ (01-context … 08-open-questions)
 published_view: https://claude.ai/artifact/TvZwexKQU4Kj5HqhYyRbcG
 ---
 

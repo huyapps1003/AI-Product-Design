@@ -1,0 +1,98 @@
+{
+  "$description": "Machine-readable map of product-truth/ for the AI design workflow. Paths are relative to the repository root. 'routes' lists the files to load for each task, in order. Statuses follow product-truth/CONVENTIONS.md: Known (cited), Assumed (DL-xx), Open (OQ-xx), Proposed (source documents).",
+  "updated": "2026-10-25",
+  "scope": {
+    "product": "Global Campus OS",
+    "operator": "Global Schools Group (GSG)",
+    "brands": "All GSG school brands (12); GIIS is the brand described in most detail",
+    "excluded": ["SmartLearn"],
+    "decision": "DL-22"
+  },
+  "rules": [
+    "Every statement is Known (with a source or research ID), Assumed (with a DL ID) or Open (with an OQ ID).",
+    "Never design an Open item as settled: keep the element generic, label it pending and note the OQ ID.",
+    "Research (research/) is evidence and never overrides product truth.",
+    "Label GIIS-specific facts as GIIS examples, not as the whole scope."
+  ],
+  "files": [
+    { "path": "product-truth/CONVENTIONS.md", "covers": "Statuses, ID schemes, citation format, where things go", "status": "Adopted" },
+    { "path": "product-truth/00-sources/Global_Campus_OS_Product_Architecture_v1.md", "covers": "Whole platform: apps, modules, core, roles, tenancy, data model, integrations, security, roadmap (GIIS-written; scope note)", "status": "Proposed" },
+    { "path": "product-truth/00-sources/Global_Campus_OS_Employee_Data_Dictionary_v1.md", "covers": "Employee master data and GA/TM access entities (E, A, R, entity D), BR-01..BR-20, Decision D01..D15", "status": "Proposed" },
+    { "path": "product-truth/01-context/product-brief.md", "covers": "Operator, scope, bets, problem, coverage", "status": "Known/Proposed", "cites": ["DL-22", "RES-F01", "RES-F02", "RES-F03", "RES-F04", "RES-F05", "RES-F06", "RES-F07"] },
+    { "path": "product-truth/01-context/operating-context.md", "covers": "GSG structure, brands, countries, entities, systems", "status": "Known", "cites": ["RES-F01", "RES-F02"] },
+    { "path": "product-truth/01-context/glossary.md", "covers": "Terms for organisation, access, data protection", "status": "Living" },
+    { "path": "product-truth/02-users/stakeholders.md", "covers": "User segments and decision-makers across GSG", "status": "Known", "cites": ["research §03"] },
+    { "path": "product-truth/02-users/roles-personas.md", "covers": "Admin Platform personas P1-P5, access roles A06, capability matrix", "status": "Assumed", "cites": ["DL-02"] },
+    { "path": "product-truth/03-domain/modules-and-services.md", "covers": "Surfaces, 12 modules with codes, 8 core services", "status": "Proposed/Assumed", "cites": ["DL-04", "research §05"] },
+    { "path": "product-truth/03-domain/tenancy-and-scope.md", "covers": "Hierarchy, what each level owns, dimensions not held (brand, legal entity)", "status": "Proposed/Open", "cites": ["DL-17", "MC-01", "MC-02", "MC-03", "MC-14"] },
+    { "path": "product-truth/03-domain/variation-catalogue.md", "covers": "MC-01..MC-15 mapped to product truth coverage", "status": "Known", "cites": ["MC-01..MC-15"] },
+    { "path": "product-truth/04-access/README.md", "covers": "Access paths by actor, constraints, gaps", "status": "Mixed", "cites": ["RES-F06", "DL-07", "DL-09", "DL-16..DL-21"] },
+    { "path": "product-truth/04-access/role-catalogue.md", "covers": "School roles, access roles, role families with no definition", "status": "Known/Assumed/Open" },
+    { "path": "product-truth/04-access/rbac-model.md", "covers": "Six-layer RBAC model and evaluation algorithm", "status": "Assumed", "cites": ["DL-16..DL-21"] },
+    { "path": "product-truth/05-data-governance/data-controller-model.md", "covers": "Legal roles, parties, known relationships, flows needing a controller answer", "status": "Known/Open", "cites": ["RES-F07", "research §09"] },
+    { "path": "product-truth/05-data-governance/data-classification.md", "covers": "Tier 1/2/3 and design rules", "status": "Known/Assumed", "cites": ["DL-11", "DL-19"] },
+    { "path": "product-truth/05-data-governance/regulatory-context.md", "covers": "Singapore and India rules, timeline, regulators", "status": "Known", "cites": ["RES-F05", "research §07"] },
+    { "path": "product-truth/06-experience/README.md", "covers": "Design slice structure and index", "status": "Living" },
+    { "path": "product-truth/06-experience/admin-platform/README.md", "covers": "Admin Platform brief, principles, canonical sample data", "status": "Proposed", "cites": ["DL-01", "DL-03"] },
+    { "path": "product-truth/06-experience/admin-platform/scenarios.md", "covers": "Scenarios S1-S5", "status": "Proposed" },
+    { "path": "product-truth/06-experience/admin-platform/ia-screen-map.md", "covers": "Shell, navigation, screen list SCR-*", "status": "Proposed" },
+    { "path": "product-truth/06-experience/admin-platform/flows/", "covers": "Flow, state machine and screen states per scenario", "status": "Proposed" },
+    { "path": "product-truth/06-experience/admin-platform/rules-to-ui.md", "covers": "BR and Decision D -> UI behaviour, status vocabulary, field visibility", "status": "Proposed" },
+    { "path": "product-truth/07-decisions/decision-log.md", "covers": "DL-01..DL-22 with status and evidence", "status": "Living" },
+    { "path": "product-truth/08-open-questions/open-questions.md", "covers": "OQ-01..OQ-34", "status": "Living" },
+    { "path": "research/2026-10-25-campus-os-foundation-research.md", "covers": "Evidence: RES-F01..F07, MC-01..MC-15 (findings only)", "status": "Research v3" }
+  ],
+  "slices": {
+    "admin-platform": {
+      "status": "Proposed (DL-01 Assumed)",
+      "folder": "product-truth/06-experience/admin-platform/",
+      "screen_ids": "SCR-HR-*, SCR-GA-*, SCR-TM-*, SCR-GOV-*, SCR-CL-01, SCR-ME-*, SCR-HOME-01, SCR-AUTH-01, SCR-SYS-*",
+      "scenarios": ["S1", "S2", "S3", "S4", "S5"]
+    }
+  },
+  "routes": {
+    "generate-screen": [
+      "prompts/system.md",
+      "product-truth/06-experience/<slice>/ia-screen-map.md",
+      "product-truth/06-experience/<slice>/flows/",
+      "product-truth/06-experience/<slice>/rules-to-ui.md",
+      "product-truth/06-experience/<slice>/README.md",
+      "product-truth/01-context/glossary.md",
+      "product-truth/03-domain/variation-catalogue.md",
+      "product-truth/08-open-questions/open-questions.md"
+    ],
+    "access-or-permissions": [
+      "product-truth/04-access/README.md",
+      "product-truth/04-access/role-catalogue.md",
+      "product-truth/04-access/rbac-model.md"
+    ],
+    "multi-brand-consent-or-sensitive-data": [
+      "product-truth/03-domain/tenancy-and-scope.md",
+      "product-truth/05-data-governance/data-controller-model.md",
+      "product-truth/05-data-governance/data-classification.md",
+      "product-truth/05-data-governance/regulatory-context.md",
+      "research/2026-10-25-campus-os-foundation-research.md"
+    ],
+    "shape-product-truth": [
+      "research/README.md",
+      "research/2026-10-25-campus-os-foundation-research.md",
+      "product-truth/CONVENTIONS.md",
+      "product-truth/01-context/product-brief.md",
+      "product-truth/07-decisions/decision-log.md",
+      "product-truth/08-open-questions/open-questions.md"
+    ],
+    "new-design-slice": [
+      "product-truth/06-experience/README.md",
+      "product-truth/_templates/design-slice/README.md",
+      "product-truth/01-context/product-brief.md",
+      "product-truth/02-users/stakeholders.md",
+      "product-truth/04-access/README.md",
+      "product-truth/05-data-governance/data-controller-model.md"
+    ],
+    "review-design": [
+      "product-truth/08-open-questions/open-questions.md",
+      "product-truth/07-decisions/decision-log.md",
+      "research/2026-10-25-campus-os-foundation-research.md"
+    ]
+  }
+}

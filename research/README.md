@@ -7,7 +7,7 @@ Evidence about the Global Campus OS problem space: users, the group, the market 
 ## Rules
 
 1. **Findings only.** Research files record what was found, where it came from and what is still unknown. They propose no solutions, decisions or architecture changes.
-2. **Never overrides product truth.** If research and `product-truth/` disagree, product truth wins until a decision in `product-truth/06-decision-log.md` changes it. Research is the evidence a decision cites.
+2. **Never overrides product truth.** If research and `product-truth/` disagree, product truth wins until a decision in `product-truth/07-decisions/decision-log.md` changes it. Research is the evidence a decision cites.
 3. **Stable IDs.** Each file has an `id` in its front matter and numbered findings (`RES-F01`…) and catalogue rows (`MC-01`…). Cite them from decision-log entries, flows or screen specs, for example "Evidence: RES-F06, MC-02".
 4. **Dated, not edited in place.** A new study is a new file named `YYYY-MM-DD-topic.md`. Correct mistakes in place, but put new evidence in a new file that links to the old one.
 5. **Confidence is explicit.** Every source is labelled: internal primary, our own assumptions, public claims, vendor marketing, or secondary legal.
@@ -16,7 +16,7 @@ Evidence about the Global Campus OS problem space: users, the group, the market 
 
 | Step | Read | Use research for |
 |---|---|---|
-| Shaping product truth (briefs, personas, scenarios, decisions) | Relevant research file first, then `product-truth/` | Grounding the problem; citing evidence in DL entries |
+| Shaping product truth (briefs, personas, scenarios, decisions) | Relevant research file first, then `product-truth/` | Grounding the problem; citing evidence in product truth files, DL entries and open questions (`product-truth/08-open-questions/`) |
 | Generating a screen | `product-truth/` as today (see `prompts/system.md`) | Realistic context only. Don't design gaps listed here as if they were features |
 | Reviewing a design | The research file's "Product truth vs evidence" and open questions | Spotting assumptions that the evidence doesn't support |
 

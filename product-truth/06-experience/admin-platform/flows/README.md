@@ -1,6 +1,6 @@
-# 04 — Flows
+# Admin Platform — flows
 
-**Tóm tắt (VI):** Mỗi file là một kịch bản trong `02-key-scenarios.md`: user flow (ai làm gì, ở màn hình nào), state machine của object chính, và bảng state UI (empty / loading / error / no access / success) cho từng màn hình.
+**Tóm tắt (VI):** Mỗi file là một kịch bản trong `scenarios.md`: user flow (ai làm gì, ở màn hình nào), state machine của object chính, và bảng state UI (empty / loading / error / no access / success) cho từng màn hình.
 
 | File | Scenario | Main object whose state is tracked |
 |---|---|---|
@@ -13,8 +13,8 @@
 ## Conventions
 
 - Diagrams are Mermaid (`flowchart` for flows, `stateDiagram-v2` for states) so they render on GitHub and can be read by AI tools.
-- Screen IDs (`SCR-…`) are defined in [`03-ia-module-map.md`](../ia-screen-map.md); rule IDs (`BR-…`, `Decision D…`) in [`05-rules-to-ui.md`](../rules-to-ui.md).
-- Status labels and colours come from [`05-rules-to-ui.md § Status vocabulary`](../rules-to-ui.md#status-vocabulary).
+- Screen IDs (`SCR-…`) are defined in [`ia-screen-map.md`](../ia-screen-map.md); rule IDs (`BR-…`, `Decision D…`) in [`rules-to-ui.md`](../rules-to-ui.md).
+- Status labels and colours come from [`rules-to-ui.md § Status vocabulary`](../rules-to-ui.md#status-vocabulary).
 
 ## Shared Case object (Access Request / Access Review)
 

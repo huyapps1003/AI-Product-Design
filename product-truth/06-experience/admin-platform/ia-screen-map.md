@@ -1,4 +1,4 @@
-# 03 — Information architecture and module map
+# Admin Platform — information architecture and screen map
 
 **Status:** Proposed, 18 Oct 2026 · Closes gaps G3, G4, G12
 
@@ -25,6 +25,8 @@ One staff web app (`Staff app and web` in the architecture). Admin Platform is n
 └───────────────┴────────────────────────────────────────────────────────────┘
  Sidebar 280px (88px collapsed) — MinV dashboardShell
 ```
+
+The logo shows GIIS because the sample data is GIIS-only. How brand identity appears for users who work across brands is open (OQ-26); the scope switcher has no brand level (OQ-14).
 
 **Scope switcher rules**
 

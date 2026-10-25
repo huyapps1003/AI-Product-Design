@@ -1,8 +1,8 @@
-# 02 — Key scenarios
+# Admin Platform — key scenarios
 
-**Status:** Proposed, 18 Oct 2026 · Closes gap G5 (with `04-flows/`)
+**Status:** Proposed, 18 Oct 2026 · Closes gap G5 (with `flows/`)
 
-**Tóm tắt (VI):** 5 kịch bản then chốt mà v1 phải chạy trọn vẹn. Mỗi kịch bản có trigger, persona, kết quả mong muốn, màn hình liên quan và rule chi phối. Chi tiết flow + state ở `04-flows/`.
+**Tóm tắt (VI):** 5 kịch bản then chốt mà v1 phải chạy trọn vẹn. Mỗi kịch bản có trigger, persona, kết quả mong muốn, màn hình liên quan và rule chi phối. Chi tiết flow + state ở `flows/`.
 
 Each scenario is written as a story with synthetic GIIS data from [00 § Canonical sample data](./README.md#canonical-sample-data). Together they touch every v1 screen at least once.
 
