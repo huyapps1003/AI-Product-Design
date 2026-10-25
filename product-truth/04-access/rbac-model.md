@@ -4,7 +4,7 @@
 
 **Tóm tắt (VI):** Mô hình RBAC đề xuất gồm 6 lớp: grant hierarchy (thay GA phẳng), operational membership (giữ TM), derived scope (từ phân công giảng dạy), relationship-based access (gia đình), record-level ACL (case/Tier 3), và delegation. Giữ nguyên GA/TM entities, mở rộng thêm 3 thành phần.
 
-> This model builds on the Data Dictionary's GA/TM architecture. It does not replace GA/TM — it adds three layers (derived scopes, relationship-based access, record-level ACL) and restructures grants as a hierarchy. Everything here is design direction until confirmed per the [06 process](./06-decision-log.md#how-design-direction-becomes-architecture).
+> This model builds on the Data Dictionary's GA/TM architecture. It does not replace GA/TM — it adds three layers (derived scopes, relationship-based access, record-level ACL) and restructures grants as a hierarchy. Everything here is design direction until confirmed per the [06 process](../07-decisions/decision-log.md#how-design-direction-becomes-architecture).
 
 ---
 
@@ -284,4 +284,4 @@ For the Admin Platform design (DL-01), we design with **Layers 1–3 and Layer 5
 | DL-20 | Templates have BASE and MODULE categories; binding resolves both | Assumed |
 | DL-21 | Time-boxed delegation: acting grants with reason, max duration, and audit | Assumed |
 
-See [06-decision-log.md](./06-decision-log.md) for full entries.
+See [06-decision-log.md](../07-decisions/decision-log.md) for full entries.

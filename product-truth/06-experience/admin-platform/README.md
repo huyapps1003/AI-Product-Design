@@ -1,7 +1,7 @@
 # 00 — Product brief: Global Campus OS Admin Platform
 
 **Status:** Proposed, 18 Oct 2026 · **Owner:** Henry
-**Reads with:** [Product Architecture v1](./Global_Campus_OS_Product_Architecture_v1.md) (whole platform) · [Employee Data Dictionary v1](./Global_Campus_OS_Employee_Data_Dictionary_v1.md) (data)
+**Reads with:** [Product Architecture v1](../../00-sources/Global_Campus_OS_Product_Architecture_v1.md) (whole platform) · [Employee Data Dictionary v1](../../00-sources/Global_Campus_OS_Employee_Data_Dictionary_v1.md) (data)
 
 **Tóm tắt (VI):** Thiết kế đợt đầu tập trung vào **Admin Platform**: quản lý nhân sự (Staff and HR) và quyền truy cập (Global Admin + Team Management) cho mọi campus GIIS. Đây là "cửa ngõ" của 12 module: chưa có người và quyền đúng thì không module nào chạy được.
 
@@ -33,7 +33,7 @@ One place where HR knows every employee, Global Admin sets the outer boundary of
 
 ## Non-goals (v1)
 
-- Parent app, Student app and Leadership views ([Architecture § Apps](./Global_Campus_OS_Product_Architecture_v1.md#domains-and-modules)).
+- Parent app, Student app and Leadership views ([Architecture § Apps](../../00-sources/Global_Campus_OS_Product_Architecture_v1.md#domains-and-modules)).
 - Designing the 11 other campus modules' own screens. They appear only as entries in the module switcher and as targets of grants.
 - Payroll, leave balances, appraisal, training and recruitment (Staff and HR "cover, training, appraisal" is a later slice).
 - Editing academic allocations or timetables (owned by Teaching and Learning, BR-09).
@@ -84,18 +84,18 @@ Use these in every design so screens agree with each other and with the architec
 
 ## Out-of-slice dependencies
 
-- Decisions D01–D10 (Data Dictionary) remain open; this slice designs against defaults in [`06-decision-log.md`](./06-decision-log.md).
+- Decisions D01–D10 (Data Dictionary) remain open; this slice designs against defaults in [`06-decision-log.md`](../../07-decisions/decision-log.md).
 - Calendar engine, rules engine and Cases-and-SLAs core services (Architecture) are assumed to exist; Access Review and Access Request reuse the shared **Case** object.
 
 ## File map
 
 | File | Answers |
 |---|---|
-| [01-roles-personas.md](./01-roles-personas.md) | Who uses it and what access each persona actually holds |
-| [02-key-scenarios.md](./02-key-scenarios.md) | The 5 scenarios v1 must support end to end |
-| [03-ia-module-map.md](./03-ia-module-map.md) | Shell, navigation, module catalog, screen list |
-| [04-flows/](./04-flows/) | Flow + state machine + screen states per scenario |
-| [05-rules-to-ui.md](./05-rules-to-ui.md) | BR-01…BR-21 and Decisions D01…D15 → UI behaviour |
-| [06-decision-log.md](./06-decision-log.md) | Assumptions chosen and why |
-| [07-rbac-model.md](./07-rbac-model.md) | Effective RBAC model: six layers, evaluation algorithm, v1 scope |
-| [gap-analysis-2026-10-18.md](./gap-analysis-2026-10-18.md) | Why this folder exists: the review of v1 product truth |
+| [01-roles-personas.md](../../02-users/roles-personas.md) | Who uses it and what access each persona actually holds |
+| [02-key-scenarios.md](./scenarios.md) | The 5 scenarios v1 must support end to end |
+| [03-ia-module-map.md](./ia-screen-map.md) | Shell, navigation, module catalog, screen list |
+| [04-flows/](./flows/) | Flow + state machine + screen states per scenario |
+| [05-rules-to-ui.md](./rules-to-ui.md) | BR-01…BR-21 and Decisions D01…D15 → UI behaviour |
+| [06-decision-log.md](../../07-decisions/decision-log.md) | Assumptions chosen and why |
+| [07-rbac-model.md](../../04-access/rbac-model.md) | Effective RBAC model: six layers, evaluation algorithm, v1 scope |
+| [gap-analysis-2026-10-18.md](../../_archive/gap-analysis-2026-10-18.md) | Why this folder exists: the review of v1 product truth |

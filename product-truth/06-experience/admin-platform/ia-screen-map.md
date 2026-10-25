@@ -110,7 +110,7 @@ System
 
 ## Screen list
 
-Shell names and blocks are from `design-tokens/patterns/screens.json` and `design-tokens/patterns/blocks/`. "Exists" means an HTML mock is in `screens/`; it may need the fixes listed in the [gap analysis](./gap-analysis-2026-10-18.md) (G8, G14).
+Shell names and blocks are from `design-tokens/patterns/screens.json` and `design-tokens/patterns/blocks/`. "Exists" means an HTML mock is in `screens/`; it may need the fixes listed in the [gap analysis](../../_archive/gap-analysis-2026-10-18.md) (G8, G14).
 
 ### Staff and HR
 

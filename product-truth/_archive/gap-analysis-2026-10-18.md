@@ -23,11 +23,11 @@ Severity: **P0** = a designer would have to guess; **P1** = they can start but w
 
 ### G1 — No design scope (P0)
 The architecture covers the whole school OS (parent, student, staff, leadership apps; 12 modules; 4 phases). The Data Dictionary and every existing screen cover an **Admin Portal** (Staff and HR + GA/TM access). Nothing says which one is being designed now, what is out of scope, or how success is measured.
-→ Fixed in [`00-product-brief.md`](./00-product-brief.md): v1 design scope = the **Admin Platform** (Staff and HR, Global Admin, Team Management, Governance) that gates every campus module.
+→ Fixed in [`00-product-brief.md`](../06-experience/admin-platform/README.md): v1 design scope = the **Admin Platform** (Staff and HR, Global Admin, Team Management, Governance) that gates every campus module.
 
 ### G2 — Personas don't exist in either doc (P0)
 Henry's five personas (HR Admin, Global Admin, Campus Leader, Module Admin, Teacher) appear in neither document. The architecture lists 17 *school* roles (Principal, Coordinator, Nurse…); the dictionary lists *access constructs* (GA grant, TM membership, access role, template). Architecture open question #9 ("how does role-plus-scope map onto GA/TM?") is unanswered. Without this, no screen can decide what to show or hide.
-→ Fixed in [`01-roles-personas.md`](./01-roles-personas.md): each persona mapped to GA grants, TM memberships, access roles, data scope, owned entities and screens.
+→ Fixed in [`01-roles-personas.md`](../02-users/roles-personas.md): each persona mapped to GA grants, TM memberships, access roles, data scope, owned entities and screens.
 
 ### G3 — Module catalog conflict (P0)
 Three different module lists are in play:
@@ -36,43 +36,43 @@ Three different module lists are in play:
 - Screens: TM memberships in "Employee Management", "Academic Allocation", "Timetable" — none of which is one of the 12.
 
 A designer cannot build a module switcher, a grant dialog or a membership table until R01 has values.
-→ Proposed canonical R01 list in [`03-ia-module-map.md`](./03-ia-module-map.md#module-catalog-r01); decision in [`06-decision-log.md`](./06-decision-log.md) (DL-04).
+→ Proposed canonical R01 list in [`03-ia-module-map.md`](../06-experience/admin-platform/ia-screen-map.md#module-catalog-r01); decision in [`06-decision-log.md`](../07-decisions/decision-log.md) (DL-04).
 
 ### G4 — No screen inventory (P0)
 Only Staff and HR has screens (4 HTML files). The existing sidebar already shows Campuses, Org Structure, Job Positions, Access & Roles, Permission Templates, Reports and Audit Log, but none has a spec. None of the 12 campus modules has a screen list; each has one line in "Covers".
-→ Fixed for the admin slice in [`03-ia-module-map.md`](./03-ia-module-map.md): 37 screens with IDs, owner persona, entities, MinV shell and blocks. Campus modules get a navigation stub only (designed in later slices).
+→ Fixed for the admin slice in [`03-ia-module-map.md`](../06-experience/admin-platform/ia-screen-map.md): 37 screens with IDs, owner persona, entities, MinV shell and blocks. Campus modules get a navigation stub only (designed in later slices).
 
 ### G5 — Workflows have no states (P0)
 Architecture workflows are numbered happy paths. They lack: actor per step in UI terms, entry points, statuses and transitions, empty/loading/error/denied states, notifications, and what happens on rejection or timeout. Access workflows (onboarding, transfer, exit) don't exist at all even though D07 and D10 depend on them.
-→ Fixed in [`02-key-scenarios.md`](./02-key-scenarios.md) and [`04-flows/`](./04-flows/): 5 scenarios, each with a flow diagram, a state machine and a per-screen state table.
+→ Fixed in [`02-key-scenarios.md`](../06-experience/admin-platform/scenarios.md) and [`04-flows/`](../06-experience/admin-platform/flows/): 5 scenarios, each with a flow diagram, a state machine and a per-screen state table.
 
 ### G6 — Business rules not mapped to UI (P0)
 BR-01…BR-20 and decisions D01…D15 say what the system must do but not how the screen behaves (disabled control? warning banner? blocking dialog? hidden field?). Example: BR-15 (TM membership needs an active GA grant) could be a disabled campus option, an inline error, or an auto-created access request — each a different design.
-→ Fixed in [`05-rules-to-ui.md`](./05-rules-to-ui.md): every BR and D mapped to a concrete UI behavior, screen and component.
+→ Fixed in [`05-rules-to-ui.md`](../06-experience/admin-platform/rules-to-ui.md): every BR and D mapped to a concrete UI behavior, screen and component.
 
 ### G7 — Permission evaluation undefined (P0, from D08/D09)
 "Effective permissions" is the core screen of an access product, and it can't be drawn without knowing how multiple roles, deny entries, data-scope groups and missing scope combine.
-→ Default chosen (deny wins, union of allows, AND inside a scope group, OR across groups, no scope = no data) in DL-07 and shown in [`05-rules-to-ui.md`](./05-rules-to-ui.md). Needs stakeholder confirmation.
+→ Default chosen (deny wins, union of allows, AND inside a scope group, OR across groups, no scope = no data) in DL-07 and shown in [`05-rules-to-ui.md`](../06-experience/admin-platform/rules-to-ui.md). Needs stakeholder confirmation.
 
 ### G8 — Contradictory placeholder content (P1)
 Existing screens use campuses **Singapore, Hong Kong, Kuala Lumpur, Jakarta, Global HQ**, the domain `globalcampus.edu`, legal entities like "Global Campus Hong Kong Limited", and **Microsoft Azure AD** as IdP. The architecture names **SMART Campus Punggol, East Coast (Singapore) and Noida (India)** and **Google Workspace** SSO. A generator reading both will mix them.
-→ Canonical sample data set in [`00-product-brief.md`](./00-product-brief.md#canonical-sample-data) (DL-03). Existing screens should be updated in a follow-up.
+→ Canonical sample data set in [`00-product-brief.md`](../06-experience/admin-platform/README.md#canonical-sample-data) (DL-03). Existing screens should be updated in a follow-up.
 
 ### G9 — Status vocabulary and badge colours (P1, from D15)
 Enums are "candidates only", and there are four overlapping lifecycles (employee record, employment, account, membership). Designers need one status → label → colour table.
-→ Adopted candidate enums with MinV colours in [`05-rules-to-ui.md`](./05-rules-to-ui.md#status-vocabulary) (DL-10).
+→ Adopted candidate enums with MinV colours in [`05-rules-to-ui.md`](../06-experience/admin-platform/rules-to-ui.md#status-vocabulary) (DL-10).
 
 ### G10 — Sensitivity tiers don't line up (P1)
 Architecture uses Tier 1/2/3; the dictionary uses Internal/Confidential/Restricted. D13 (who sees which field) is open. Designers need one visual treatment for restricted data.
-→ Mapping and field-visibility matrix in [`05-rules-to-ui.md`](./05-rules-to-ui.md#field-visibility-d13) (DL-11).
+→ Mapping and field-visibility matrix in [`05-rules-to-ui.md`](../06-experience/admin-platform/rules-to-ui.md#field-visibility-d13) (DL-11).
 
 ### G11 — Who approves access? (P1)
 GA grants show `granted_by_user_id` but no request/approval flow. Teachers have no way to ask for access; transfers say "initiate review workflow" (D07) without defining it.
-→ Access Request and Access Review cases defined (reusing the architecture's shared **Case** object) in DL-08 and [`04-flows/S2`](./04-flows/S2-campus-transfer.md), [`S3`](./04-flows/S3-employee-exit.md).
+→ Access Request and Access Review cases defined (reusing the architecture's shared **Case** object) in DL-08 and [`04-flows/S2`](../06-experience/admin-platform/flows/S2-campus-transfer.md), [`S3`](../06-experience/admin-platform/flows/S3-employee-exit.md).
 
 ### G12 — Shell and navigation behaviour (P1)
 Not defined: how the campus/scope switcher behaves for a multi-campus user, whether Admin Platform is a separate portal or part of the staff web app, and what a user with no grants sees.
-→ Shell spec in [`03-ia-module-map.md`](./03-ia-module-map.md#shell) (DL-05, DL-06).
+→ Shell spec in [`03-ia-module-map.md`](../06-experience/admin-platform/ia-screen-map.md#shell) (DL-05, DL-06).
 
 ### G13 — ID collision D01–D03 (P2)
 `D01`–`D03` are both **entities** (Academic Role Assignment, Teacher Subject Allocation, Timetable Teaching Session) and **decisions** (Source of truth, Employee identifiers, Concurrent employments). Henry's "D01–D15" means the decisions.
@@ -80,7 +80,7 @@ Not defined: how the campus/scope switcher behaves for a multi-campus user, whet
 
 ### G14 — Mislabelled rule references in screens (P2)
 `employee-add.html` cites **BR-13** for "must not create reporting cycles"; BR-13 is `valid_to ≥ valid_from`. The no-cycle rule lives only in E04's attribute note.
-→ Added as **BR-21** proposal in [`05-rules-to-ui.md`](./05-rules-to-ui.md); fix the screen in the follow-up.
+→ Added as **BR-21** proposal in [`05-rules-to-ui.md`](../06-experience/admin-platform/rules-to-ui.md); fix the screen in the follow-up.
 
 ### G15 — Bulk import and HRIS sync undefined (P2)
 Screens show "Import CSV"; the dictionary has E08 mapping and BR-20 (quarantine conflicts), but no import or conflict-resolution flow.

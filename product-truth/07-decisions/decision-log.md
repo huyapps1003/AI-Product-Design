@@ -47,7 +47,7 @@ Status values: **Assumed** (chosen by design, needs confirmation) · **Confirmed
 
 ### DL-03 — Canonical sample data
 - **Context.** Existing screens use Singapore/Hong Kong/Kuala Lumpur/Jakarta/Global HQ and Azure AD; the architecture uses Punggol, East Coast, Noida and Google Workspace.
-- **Decision.** Use the set in [00 § Canonical sample data](./00-product-brief.md#canonical-sample-data); add a synthetic "Group Office" campus for group staff.
+- **Decision.** Use the set in [00 § Canonical sample data](../06-experience/admin-platform/README.md#canonical-sample-data); add a synthetic "Group Office" campus for group staff.
 - **Why.** Matches the GIIS knowledge files and the architecture; avoids a designer or generator mixing two worlds.
 - **Follow-up.** Update `screens/*.html` to this data set.
 
@@ -79,7 +79,7 @@ Status values: **Assumed** (chosen by design, needs confirmation) · **Confirmed
 - **Why.** Prevents one person creating a fake employee and granting them access; easy to audit.
 
 ### DL-10 — Status vocabulary
-- **Decision.** Adopt the Data Dictionary's candidate enums and the colour table in [05 § Status vocabulary](./05-rules-to-ui.md#status-vocabulary).
+- **Decision.** Adopt the Data Dictionary's candidate enums and the colour table in [05 § Status vocabulary](../06-experience/admin-platform/rules-to-ui.md#status-vocabulary).
 - **Why.** Designers need fixed labels now; changing an enum later changes one table.
 
 ### DL-11 — Sensitivity tiers

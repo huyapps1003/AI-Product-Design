@@ -352,7 +352,7 @@ The daily loop goes first because it touches every parent every week and replace
 - [ ] Are there country-level data residency requirements beyond Singapore and India that would force more regional cells?
 - [ ] Who owns programme packs and policy rules centrally, and who can override them at a campus?
 - [ ] Which campus pilots first: Punggol (current proposal) or Noida?
-- [ ] How does the role-plus-scope model here map onto the existing Global Admin (GA) and Team Management (TM) permission architecture retained in the Employee Data Dictionary? *Working design direction (not decided): [01-roles-personas.md](./01-roles-personas.md), recorded as [DL-02](./06-decision-log.md).*
+- [ ] How does the role-plus-scope model here map onto the existing Global Admin (GA) and Team Management (TM) permission architecture retained in the Employee Data Dictionary? *Working design direction (not decided): [01-roles-personas.md](../02-users/roles-personas.md), recorded as [DL-02](../07-decisions/decision-log.md).*
 
 ## Sources
 

@@ -13,8 +13,8 @@
 ## Conventions
 
 - Diagrams are Mermaid (`flowchart` for flows, `stateDiagram-v2` for states) so they render on GitHub and can be read by AI tools.
-- Screen IDs (`SCR-…`) are defined in [`03-ia-module-map.md`](../03-ia-module-map.md); rule IDs (`BR-…`, `Decision D…`) in [`05-rules-to-ui.md`](../05-rules-to-ui.md).
-- Status labels and colours come from [`05-rules-to-ui.md § Status vocabulary`](../05-rules-to-ui.md#status-vocabulary).
+- Screen IDs (`SCR-…`) are defined in [`03-ia-module-map.md`](../ia-screen-map.md); rule IDs (`BR-…`, `Decision D…`) in [`05-rules-to-ui.md`](../rules-to-ui.md).
+- Status labels and colours come from [`05-rules-to-ui.md § Status vocabulary`](../rules-to-ui.md#status-vocabulary).
 
 ## Shared Case object (Access Request / Access Review)
 
