@@ -1,4 +1,4 @@
-# 05 — Rules to UI
+# Admin Platform — rules to UI
 
 **Status:** Proposed, 18 Oct 2026 · Closes gaps G6, G7, G9, G10, G14
 

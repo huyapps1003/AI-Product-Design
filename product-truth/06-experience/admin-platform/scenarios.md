@@ -1,18 +1,18 @@
-# 02 — Key scenarios
+# Admin Platform — key scenarios
 
-**Status:** Proposed, 18 Oct 2026 · Closes gap G5 (with `04-flows/`)
+**Status:** Proposed, 18 Oct 2026 · Closes gap G5 (with `flows/`)
 
-**Tóm tắt (VI):** 5 kịch bản then chốt mà v1 phải chạy trọn vẹn. Mỗi kịch bản có trigger, persona, kết quả mong muốn, màn hình liên quan và rule chi phối. Chi tiết flow + state ở `04-flows/`.
+**Tóm tắt (VI):** 5 kịch bản then chốt mà v1 phải chạy trọn vẹn. Mỗi kịch bản có trigger, persona, kết quả mong muốn, màn hình liên quan và rule chi phối. Chi tiết flow + state ở `flows/`.
 
-Each scenario is written as a story with synthetic GIIS data from [00 § Canonical sample data](./00-product-brief.md#canonical-sample-data). Together they touch every v1 screen at least once.
+Each scenario is written as a story with synthetic GIIS data from [00 § Canonical sample data](./README.md#canonical-sample-data). Together they touch every v1 screen at least once.
 
 | ID | Scenario | Primary persona | Other personas | Flow |
 |---|---|---|---|---|
-| S1 | Onboard a new teacher to first login | HR Admin | Global Admin, Module Admin, Teacher | [S1](./04-flows/S1-onboard-teacher.md) |
-| S2 | Add a second campus / transfer a teacher | HR Admin | Campus Leader (both campuses), Module Admin, Global Admin | [S2](./04-flows/S2-campus-transfer.md) |
-| S3 | Employee exit and access revocation | HR Admin | Global Admin, Module Admins, Campus Leader | [S3](./04-flows/S3-employee-exit.md) |
-| S4 | Set up a module team for the new academic year | Module Admin | Global Admin (template publish), Teacher | [S4](./04-flows/S4-module-team-setup.md) |
-| S5 | Campus access review and "why can they see this?" | Campus Leader | Global Admin, Platform Auditor | [S5](./04-flows/S5-access-review.md) |
+| S1 | Onboard a new teacher to first login | HR Admin | Global Admin, Module Admin, Teacher | [S1](./flows/S1-onboard-teacher.md) |
+| S2 | Add a second campus / transfer a teacher | HR Admin | Campus Leader (both campuses), Module Admin, Global Admin | [S2](./flows/S2-campus-transfer.md) |
+| S3 | Employee exit and access revocation | HR Admin | Global Admin, Module Admins, Campus Leader | [S3](./flows/S3-employee-exit.md) |
+| S4 | Set up a module team for the new academic year | Module Admin | Global Admin (template publish), Teacher | [S4](./flows/S4-module-team-setup.md) |
+| S5 | Campus access review and "why can they see this?" | Campus Leader | Global Admin, Platform Auditor | [S5](./flows/S5-access-review.md) |
 
 ---
 

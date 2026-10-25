@@ -1,4 +1,4 @@
-# 03 — Information architecture and module map
+# Admin Platform — information architecture and screen map
 
 **Status:** Proposed, 18 Oct 2026 · Closes gaps G3, G4, G12
 
@@ -25,6 +25,8 @@ One staff web app (`Staff app and web` in the architecture). Admin Platform is n
 └───────────────┴────────────────────────────────────────────────────────────┘
  Sidebar 280px (88px collapsed) — MinV dashboardShell
 ```
+
+The logo shows GIIS because the sample data is GIIS-only. How brand identity appears for users who work across brands is open (OQ-26); the scope switcher has no brand level (OQ-14).
 
 **Scope switcher rules**
 
@@ -110,7 +112,7 @@ System
 
 ## Screen list
 
-Shell names and blocks are from `design-tokens/patterns/screens.json` and `design-tokens/patterns/blocks/`. "Exists" means an HTML mock is in `screens/`; it may need the fixes listed in the [gap analysis](./gap-analysis-2026-10-18.md) (G8, G14).
+Shell names and blocks are from `design-tokens/patterns/screens.json` and `design-tokens/patterns/blocks/`. "Exists" means an HTML mock is in `screens/`; it may need the fixes listed in the [gap analysis](../../_archive/gap-analysis-2026-10-18.md) (G8, G14).
 
 ### Staff and HR
 

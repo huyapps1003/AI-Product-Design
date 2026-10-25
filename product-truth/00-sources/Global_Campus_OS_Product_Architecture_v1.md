@@ -5,6 +5,8 @@
 **Scope:** The whole Global Campus OS for GIIS: apps, campus modules, shared core, tenancy, data model, integrations, security and roadmap.
 **Source doc:** [GIIS Global Campus OS: Product Architecture](https://claude.ai/code/artifact/b21ca24d-e0c2-4031-ab6f-209790606db6) (live doc; this file is the versioned copy).
 
+> **Scope update, 25 Oct 2026 ([DL-22](../07-decisions/decision-log.md#dl-22--scope-is-every-gsg-brand-gsg-operates-campus-os), Confirmed by Henry).** Global Schools Group (GSG) runs Campus OS for **all GSG brands**, not only GIIS. This v1 text has not been rewritten: where it says "GIIS", read it as the first brand described, not the whole scope. What the wider scope changes, and what is still unknown, is in [`../01-context/`](../01-context/product-brief.md) and [`../08-open-questions/`](../08-open-questions/open-questions.md) (evidence: RES-F01, RES-F02).
+
 ## How to use this document (for AI-assisted design)
 
 This file is the canonical description of *what the product is*. The design system (`design-tokens/`, `prompts/system.md`) says *how it looks*. When generating or reviewing a screen:
@@ -14,7 +16,7 @@ This file is the canonical description of *what the product is*. The design syst
 - **Campus context.** Every staff screen is scoped to a tenant (Group > Country > Campus > Section). Show the current campus or scope in the shell, and never hard-code one campus's calendar, grading scale, currency or regulator into a screen.
 - **Realistic content.** Use GIIS facts from [How GIIS operates today](#how-giis-operates-today) (curricula, calendars, thresholds, SLAs) for placeholder data. People and student names stay synthetic.
 - **Sensitive data.** Tier 3 data (identity documents, health, SEN, counselling, child protection) is shown only to named roles and should look visibly restricted in designs ([Security, privacy and compliance](#security-privacy-and-compliance)).
-- **Design direction.** Files `00-` to `06-` in this folder are the design layer: working assumptions that let screens be designed now and are expected to change. They never override this document. When one is confirmed, it is written into this document and its entry in `06-decision-log.md` is marked Confirmed.
+- **Design direction.** The folders `01-context/` to `06-experience/` in `product-truth/` hold the design layer: working assumptions that let screens be designed now and are expected to change. They never override this document. When one is confirmed, it is written into this document and its entry in `07-decisions/decision-log.md` is marked Confirmed.
 - **Status.** Tech-stack choices and roadmap dates are recommendations, not decisions. Items in [Open questions](#open-questions) are unresolved; don't design them as if settled.
 
 Related product truth: [Employee Data Dictionary v1](./Global_Campus_OS_Employee_Data_Dictionary_v1.md) (employee master data and GA/TM access management; it refines the *Staff and HR* module and the *Identity and roles* core service below).
@@ -352,7 +354,7 @@ The daily loop goes first because it touches every parent every week and replace
 - [ ] Are there country-level data residency requirements beyond Singapore and India that would force more regional cells?
 - [ ] Who owns programme packs and policy rules centrally, and who can override them at a campus?
 - [ ] Which campus pilots first: Punggol (current proposal) or Noida?
-- [ ] How does the role-plus-scope model here map onto the existing Global Admin (GA) and Team Management (TM) permission architecture retained in the Employee Data Dictionary? *Working design direction (not decided): [01-roles-personas.md](./01-roles-personas.md), recorded as [DL-02](./06-decision-log.md).*
+- [ ] How does the role-plus-scope model here map onto the existing Global Admin (GA) and Team Management (TM) permission architecture retained in the Employee Data Dictionary? *Working design direction (not decided): [01-roles-personas.md](../02-users/roles-personas.md), recorded as [DL-02](../07-decisions/decision-log.md).*
 
 ## Sources
 

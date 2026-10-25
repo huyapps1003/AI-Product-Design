@@ -1,10 +1,12 @@
-# 07 — Effective RBAC model for Global Campus OS
+# Effective RBAC model for Global Campus OS
 
 **Status:** Design direction (working assumption), 18 Oct 2026 · Case study for the Admin Platform design · Decision records: DL-16…DL-21
 
+> **Scope note, 25 Oct 2026.** This model was written for one brand's campuses (GIIS). Campus OS now serves every GSG brand (DL-22), and the research found what it doesn't cover yet: platform-operator and support access, a brand level in the scope hierarchy, several brands or entities in one country, campuses changing hands, purpose and consent, and cross-cell approval (RES-F06; research §08). Those gaps are open questions (OQ-04, OQ-09, OQ-10, OQ-14…OQ-18), not part of this model. Overview of all access paths: [README.md](./README.md).
+
 **Tóm tắt (VI):** Mô hình RBAC đề xuất gồm 6 lớp: grant hierarchy (thay GA phẳng), operational membership (giữ TM), derived scope (từ phân công giảng dạy), relationship-based access (gia đình), record-level ACL (case/Tier 3), và delegation. Giữ nguyên GA/TM entities, mở rộng thêm 3 thành phần.
 
-> This model builds on the Data Dictionary's GA/TM architecture. It does not replace GA/TM — it adds three layers (derived scopes, relationship-based access, record-level ACL) and restructures grants as a hierarchy. Everything here is design direction until confirmed per the [06 process](./06-decision-log.md#how-design-direction-becomes-architecture).
+> This model builds on the Data Dictionary's GA/TM architecture. It does not replace GA/TM — it adds three layers (derived scopes, relationship-based access, record-level ACL) and restructures grants as a hierarchy. Everything here is design direction until confirmed per the [decision-log process](../07-decisions/decision-log.md#how-design-direction-becomes-architecture).
 
 ---
 
@@ -284,4 +286,4 @@ For the Admin Platform design (DL-01), we design with **Layers 1–3 and Layer 5
 | DL-20 | Templates have BASE and MODULE categories; binding resolves both | Assumed |
 | DL-21 | Time-boxed delegation: acting grants with reason, max duration, and audit | Assumed |
 
-See [06-decision-log.md](./06-decision-log.md) for full entries.
+See [decision-log.md](../07-decisions/decision-log.md) for full entries.
