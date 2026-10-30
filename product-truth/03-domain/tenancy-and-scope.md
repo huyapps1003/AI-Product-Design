@@ -11,7 +11,7 @@
 | Group | GSG (Architecture v1 says "GIIS group") | Programme pack masters, brand, core policies, group analytics | Proposed |
 | Country | Singapore, India | Data region, regulator pack, currency and tax, public holidays, refund and fee protection rules, languages offered | Proposed |
 | Campus | SMART Campus Punggol, East Coast, Noida | Calendar, fee plans, buildings and rooms, transport routes, contacts and escalation owners | Proposed |
-| Section | Pre-Primary, Primary, Middle, Higher | School day timings, assembly days, segment events | Proposed |
+| Segment (Architecture: "Section", DL-29) | Pre-Primary, Primary, Middle, Higher | School day timings, assembly days, segment events | Proposed |
 | Programme offering | CBSE 6–8 at Punggol, IGCSE 9–10 at East Coast | Subjects, assessment calendar, grading scale version, promotion rule version | Proposed |
 
 Rules from Architecture v1: settings inherit downward; every row carries `tenant_path` (group/country/campus); policies, fee plans and grading scales are effective-dated; Singapore and Indian data stay in their own country cells; a thin global layer holds identity, directory and anonymised group analytics; parents link to children on any campus or country.

@@ -33,7 +33,8 @@ product-truth/
 ├── 03-domain/
 │   ├── modules-and-services.md   surfaces, 12 modules, 8 core services
 │   ├── tenancy-and-scope.md      Group › Country › Campus hierarchy and its gaps
-│   └── variation-catalogue.md    MC-01…MC-15: what varies, and coverage
+│   ├── variation-catalogue.md    MC-01…MC-15: what varies, and coverage
+│   └── student-directory-data-dictionary.md  students, enrolments, guardians (ST01–ST11)
 ├── 04-access/                 RBAC models
 │   ├── README.md              access paths by actor, constraints, gaps
 │   ├── role-catalogue.md      school roles, access roles, undefined families
@@ -45,8 +46,8 @@ product-truth/
 ├── 06-experience/             design slices
 │   ├── README.md              slice structure and index
 │   └── admin-platform/        brief, scenarios, screen map, flows/, rules-to-ui
-├── 07-decisions/decision-log.md   DL-01…DL-22
-├── 08-open-questions/open-questions.md   OQ-01…OQ-34
+├── 07-decisions/decision-log.md   DL-01…DL-31
+├── 08-open-questions/open-questions.md   OQ-01…OQ-45
 ├── _templates/design-slice/   skeleton for a new slice
 └── _archive/                  superseded reviews (gap analysis, 18 Oct)
 ```
@@ -65,6 +66,7 @@ product-truth/
 | 03-domain | [modules-and-services.md](./03-domain/modules-and-services.md) | Surfaces, modules with codes, core services, market coverage | Proposed / Assumed (DL-04) |
 | 03-domain | [tenancy-and-scope.md](./03-domain/tenancy-and-scope.md) | Hierarchy levels, what each owns, dimensions it doesn't hold | Proposed / Open |
 | 03-domain | [variation-catalogue.md](./03-domain/variation-catalogue.md) | MC-01…MC-15 mapped to product truth | Known |
+| 03-domain | [student-directory-data-dictionary.md](./03-domain/student-directory-data-dictionary.md) | Student, enrolment, guardian, documents, identifiers; field tiers and visibility | Proposed / Assumed (DL-23…DL-27) / Confirmed (DL-28…DL-31) |
 | 04-access | [README.md](./04-access/README.md) | Access paths by actor, constraints, research gaps | Mixed |
 | 04-access | [role-catalogue.md](./04-access/role-catalogue.md) | All role names and the families with none | Known / Assumed / Open |
 | 04-access | [rbac-model.md](./04-access/rbac-model.md) | Six layers, evaluation algorithm, v1 scope, screen impact | Assumed |

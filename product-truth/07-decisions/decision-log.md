@@ -34,6 +34,15 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-20 | Templates have BASE and MODULE categories | Assumed | 07, A08 |
 | DL-21 | Time-boxed delegation with reason, max duration, and audit | Assumed | 07 |
 | DL-22 | Scope is every GSG brand; GSG operates Campus OS; SmartLearn excluded | **Confirmed** (Henry, 25 Oct 2026) | RES-F01, RES-F02 |
+| DL-23 | `student_id` is an immutable UUID, separate from Student ID, board IDs and legacy IDs | Assumed | Student dictionary ST01, ST10 |
+| DL-24 | Enrolment and student directory records are effective-dated; history never overwritten | Assumed | Student dictionary ST02 |
+| DL-25 | Student–guardian relationship is the directory record; Family Link is created only from a verified relationship | Assumed | Student dictionary ST05, DL-18 |
+| DL-26 | Tiers and role visibility for student fields Architecture doesn't classify | Assumed | Student dictionary § Field visibility, DL-11 |
+| DL-27 | Candidate enums for the student directory | Assumed | Student dictionary § Candidate enums |
+| DL-28 | Parents edit their child's profile as in MyGIIS Profile Update | **Confirmed** (Henry, 30 Oct 2026) | OQ-38, DL-18, HB p.35 |
+| DL-29 | Product terms: Class (a group like 7B) and Segment (Pre-Primary…Higher); "Section" not used | **Confirmed** (Henry, 30 Oct 2026) | OQ-40 |
+| DL-30 | Teachers see a student's attendance threshold, not the Student Pass behind it | **Confirmed** (Henry, 30 Oct 2026) | OQ-41, DL-11 |
+| DL-31 | Student ID is unique across Campus OS and stays the same on campus transfer | **Confirmed** (Henry, 30 Oct 2026) | OQ-36 |
 
 ---
 
@@ -134,6 +143,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Why.** Parent access is inherently relational ("my child"), not role-based. Forcing it into GA/TM would create phantom memberships, confuse Module Admins, and break separation of duties. Custody changes and withdrawals cleanly revoke access by ending the link.
 - **Alternatives rejected.** Parent as a TM member with VIEWER role (membership explosion; Module Admin sees parents in their team); parent as a special GA grant (grant doesn't carry the child relationship).
 - **Confirm with.** Admissions owner, legal (custody and data sharing).
+- **Refined by DL-28 (30 Oct 2026).** Parents may also edit their child's profile as in MyGIIS Profile Update.
 
 ### DL-19 — Record-level ACL
 - **Context.** Problem #5 and Tier 3 fields. A discipline case or a restricted HR field should be visible only to specific people, not everyone with the capability.
@@ -161,6 +171,49 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Why.** Stated by Henry on 25 Oct 2026.
 - **What it changes now.** Product truth labels GIIS facts as GIIS examples, not as the whole scope. It does not decide how brands fit the hierarchy, access model or data-controller model; those are open (OQ-01…OQ-07, OQ-14…OQ-17, OQ-26, OQ-33).
 - **Confirmed by.** Henry, 25 Oct 2026.
+
+### DL-23 — Student identity key
+- **Decision.** Every learner has one immutable, never-reused `student_id` (UUID). The Student ID people see (DL-31), board and national IDs and legacy portal IDs are separate attributes or mappings (ST10).
+- **Why.** Same reasoning as BR-01 and E08 for staff; a transfer keeps one identity.
+- **Confirm with.** Data architect.
+
+### DL-24 — Effective-dated enrolment
+- **Decision.** Enrolments, guardian relationships, addresses, documents and identifiers carry valid dates. A transfer or rollover ends the old enrolment and creates a new one linked by `previous_enrolment_id`.
+- **Why.** Architecture's effective-dating rule; BR-03.
+- **Confirm with.** Data architect, Admissions owners.
+
+### DL-25 — Guardian relationship vs. family link
+- **Decision.** The student–guardian relationship (ST05) records who a guardian is to a student. The Family Link (F01, DL-18) is created only from a VERIFIED relationship and ends when it ends.
+- **Why.** Keeps "who is this person to the child" separate from "what can they see", as BR-06 does for staff.
+- **Confirm with.** Admissions owners, legal (OQ-10, OQ-11).
+
+### DL-26 — Student field tiers and visibility
+- **Decision.** Use the tiers marked `T2*` and the Assumed cells of the field visibility matrix in [student-directory-data-dictionary](../03-domain/student-directory-data-dictionary.md#field-visibility-by-role).
+- **Why.** Architecture classifies directory, academic, finance and identity data but not addresses, contacts or dates of birth.
+- **Confirm with.** Admissions owners, DPOs. OQ-13 may raise tiers.
+
+### DL-27 — Student directory enums
+- **Decision.** Adopt the candidate enums in the student dictionary.
+- **Why.** Designers need fixed labels now; same approach as DL-10.
+
+### DL-28 — Parents edit the student profile as in MyGIIS
+- **Context.** DL-18 gives parents a read-only capability set, but MyGIIS Profile Update lets parents update passport details, immigration status, addresses and contact details of the child and both parents (HB p.35), and MyGIIS parity is the Phase 1 gate.
+- **Decision.** Follow MyGIIS: parents edit these fields for their own children. This adds profile edit to the parent capability set (R03); everything else in DL-18 stands.
+- **Confirmed by.** Henry, 30 Oct 2026. Answers OQ-38.
+
+### DL-29 — Class and Segment
+- **Context.** Architecture uses "Section" for a school segment (tenancy table) and for a class (data model).
+- **Decision.** **Class** is a group of students such as 7B. **Segment** is a school segment such as Pre-Primary, Primary, Middle or Higher. "Section" is not used as a product term.
+- **Confirmed by.** Henry, 30 Oct 2026. Answers OQ-40 (the AEPP part is OQ-45).
+
+### DL-30 — Attendance threshold without the Student Pass
+- **Context.** Class teachers apply the 90% attendance rule for Student Pass holders, but immigration status is Tier 3.
+- **Decision.** Teachers and coordinators see the student's attendance threshold (for example "Attendance threshold 90%") without the reason. Student Pass and immigration status stay Tier 3 for Admissions and other named roles with a record ACL.
+- **Confirmed by.** Henry, 30 Oct 2026. Answers OQ-41.
+
+### DL-31 — Student ID
+- **Decision.** The student number is shown as **Student ID**. It is unique across Campus OS and stays the same when a student transfers between campuses. The format is still open (OQ-36).
+- **Confirmed by.** Henry, 30 Oct 2026.
 
 ## How design direction becomes architecture
 
