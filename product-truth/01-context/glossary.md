@@ -15,7 +15,9 @@ Use these terms exactly in screens and specs. Where a term's definition is still
 | **Brand** | A school brand in the group, for example GIIS or OWIS. Has its own identity, curricula and policies across countries. Not yet a level in the tenancy hierarchy (OQ-14) | Known / Open |
 | **Country** | A tenancy level that owns data region, regulator pack, currency and tax, public holidays and languages offered | Known (Architecture) |
 | **Campus** | A school site, identified by a campus code such as `SG-PGL` (catalog entity E06) | Known |
-| **Section** | A segment of a campus such as Pre-Primary, Primary, Middle, Higher | Known (Architecture) |
+| **Segment** | A school segment of a campus such as Pre-Primary, Primary, Middle, Higher. Architecture calls this level "Section"; don't use that word in screens | Confirmed (DL-29) |
+| **Class** | A group of students taught together, such as 7B | Confirmed (DL-29) |
+| **Student ID** | The number people use for a student; unique across Campus OS and kept on campus transfer | Confirmed (DL-31) |
 | **Programme offering** | A curriculum taught on a campus for a grade band, for example CBSE 6–8 at Punggol | Known (Architecture) |
 | **Programme pack** | A curriculum loaded as data: levels, subjects, grade scale, rules, templates | Known (Architecture) |
 | **Country cell** | A deployment of the platform that holds one country's data in that country's region | Known (Architecture) |

@@ -83,6 +83,24 @@ The Data Dictionary's own unresolved decisions (Decision D01–D15) are tracked 
 | OQ-33 | Which non-GIIS brand and campuses should the canonical sample data include? | All sample campuses are GIIS, so designs can't show multi-brand cases (DL-03) | Research §10 (DL-03 verdict); RES-F01 | admin-platform README (sample data) | Henry | Open |
 | OQ-34 | Which personas does the platform need beyond the Admin Platform five (brand leadership, platform operator, DPO, families who move)? | Personas exist only for the admin slice | Research §03 | stakeholders, roles-personas | Henry, after user research | Open |
 
+## G · Student directory
+
+Added 30 Oct 2026 with the [student dictionary](../03-domain/student-directory-data-dictionary.md).
+
+| ID | Question | Why it matters for design | Evidence | Affects | Who can answer | Status |
+|---|---|---|---|---|---|---|
+| OQ-35 | Is there one shared Person record across students, guardians and staff, or separate identities per role? | Decides whether a parent who is also staff has one profile or two | Architecture § Data model "Person"; Data Dictionary uses `employee_id` | student dictionary, rbac-model | Data architect | Open |
+| OQ-36 | What is the format and uniqueness scope of the Student ID, and does it change on transfer? | Directory search, ID cards and exports show it | No source defines it | student dictionary | Henry, Admissions owners | **Answered → DL-31** (unique, kept on transfer); format still open |
+| OQ-37 | Which identity attributes must a student record hold in each country (date of birth, sex or gender values, name structure, nationality, home language)? | Form fields and validation differ by country | MC-05 | student dictionary | Admissions owners, DPOs | Open |
+| OQ-38 | Can parents edit the student profile, documents and contacts themselves, as in MyGIIS Profile Update? | DL-18 gave parents a read-only set | HB p.35; DL-18 | student dictionary, rbac-model | Henry | **Answered → DL-28** |
+| OQ-39 | Do any student or guardian fields sit in the global identity and directory layer, and which cell holds a guardian whose children are in two countries? | Cross-campus search and transfers | Architecture § System architecture | student dictionary, data-controller-model | Data architect, DPOs | Open |
+| OQ-40 | Which product term means a segment and which a class (Architecture uses "Section" for both)? | Labels on every enrolment screen | Architecture § Tenancy vs. § Data model | glossary, tenancy-and-scope | Henry | **Answered → DL-29** |
+| OQ-41 | Can teachers apply the Student Pass attendance threshold without seeing Tier 3 immigration data? | Attendance warnings | Architecture § Absence and leave, § Security | student dictionary | Henry | **Answered → DL-30** |
+| OQ-42 | Which health alerts (allergies, medical conditions), if any, appear on the student card for teachers, transport and security? | Tier 3 health data vs. safety on trips and buses | HB medical conditions; Architecture § Security | student dictionary, data-classification | Nurses, DPOs | Open |
+| OQ-43 | How long are student and guardian records kept after withdrawal or graduation, per country, and what is deleted or anonymised? | Archive and delete states | regulatory-context; Data Dictionary Decision D12 | student dictionary, regulatory-context | Counsel per country | Open |
+| OQ-44 | During migration, which system is authoritative for student data: MyGIIS, other brands' SIS, or Campus OS? | Which fields are read-only with a source chip | Architecture § Integrations; OQ-27, OQ-28 | student dictionary | GIIS IT, brand IT | Open |
+| OQ-45 | Is AEPP a programme offering with its own enrolment, or a placement inside a regular class? | Whether an AEPP student has an AEPP enrolment or a flag on a regular one | Architecture § Admission to enrolment; HB § AEPP | student dictionary | Admissions owners, AEPP coordinator | Open |
+
 ## Research not yet done
 
 These are evidence gaps, not product questions. They are listed in [research §11](../../research/2026-10-25-campus-os-foundation-research.md#11--open-questions-and-research-gaps): contextual inquiry with staff, family research, vendor verification, legal review and a systems inventory. No users have been interviewed yet, so every persona and scenario is an assumption.

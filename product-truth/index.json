@@ -1,6 +1,6 @@
 {
   "$description": "Machine-readable map of product-truth/ for the AI design workflow. Paths are relative to the repository root. 'routes' lists the files to load for each task, in order. Statuses follow product-truth/CONVENTIONS.md: Known (cited), Assumed (DL-xx), Open (OQ-xx), Proposed (source documents).",
-  "updated": "2026-10-25",
+  "updated": "2026-10-30",
   "scope": {
     "product": "Global Campus OS",
     "operator": "Global Schools Group (GSG)",
@@ -26,6 +26,7 @@
     { "path": "product-truth/03-domain/modules-and-services.md", "covers": "Surfaces, 12 modules with codes, 8 core services", "status": "Proposed/Assumed", "cites": ["DL-04", "research §05"] },
     { "path": "product-truth/03-domain/tenancy-and-scope.md", "covers": "Hierarchy, what each level owns, dimensions not held (brand, legal entity)", "status": "Proposed/Open", "cites": ["DL-17", "MC-01", "MC-02", "MC-03", "MC-14"] },
     { "path": "product-truth/03-domain/variation-catalogue.md", "covers": "MC-01..MC-15 mapped to product truth coverage", "status": "Known", "cites": ["MC-01..MC-15"] },
+    { "path": "product-truth/03-domain/student-directory-data-dictionary.md", "covers": "Student directory: entities ST01-ST11, field tiers, role visibility, data controller notes (Admissions and Enrolment, Student Records)", "status": "Proposed/Assumed/Confirmed", "cites": ["DL-23..DL-31", "OQ-35..OQ-45"] },
     { "path": "product-truth/04-access/README.md", "covers": "Access paths by actor, constraints, gaps", "status": "Mixed", "cites": ["RES-F06", "DL-07", "DL-09", "DL-16..DL-21"] },
     { "path": "product-truth/04-access/role-catalogue.md", "covers": "School roles, access roles, role families with no definition", "status": "Known/Assumed/Open" },
     { "path": "product-truth/04-access/rbac-model.md", "covers": "Six-layer RBAC model and evaluation algorithm", "status": "Assumed", "cites": ["DL-16..DL-21"] },
@@ -38,8 +39,8 @@
     { "path": "product-truth/06-experience/admin-platform/ia-screen-map.md", "covers": "Shell, navigation, screen list SCR-*", "status": "Proposed" },
     { "path": "product-truth/06-experience/admin-platform/flows/", "covers": "Flow, state machine and screen states per scenario", "status": "Proposed" },
     { "path": "product-truth/06-experience/admin-platform/rules-to-ui.md", "covers": "BR and Decision D -> UI behaviour, status vocabulary, field visibility", "status": "Proposed" },
-    { "path": "product-truth/07-decisions/decision-log.md", "covers": "DL-01..DL-22 with status and evidence", "status": "Living" },
-    { "path": "product-truth/08-open-questions/open-questions.md", "covers": "OQ-01..OQ-34", "status": "Living" },
+    { "path": "product-truth/07-decisions/decision-log.md", "covers": "DL-01..DL-31 with status and evidence", "status": "Living" },
+    { "path": "product-truth/08-open-questions/open-questions.md", "covers": "OQ-01..OQ-45", "status": "Living" },
     { "path": "research/2026-10-25-campus-os-foundation-research.md", "covers": "Evidence: RES-F01..F07, MC-01..MC-15 (findings only)", "status": "Research v3" }
   ],
   "slices": {
@@ -59,6 +60,13 @@
       "product-truth/06-experience/<slice>/README.md",
       "product-truth/01-context/glossary.md",
       "product-truth/03-domain/variation-catalogue.md",
+      "product-truth/08-open-questions/open-questions.md"
+    ],
+    "student-data": [
+      "product-truth/03-domain/student-directory-data-dictionary.md",
+      "product-truth/04-access/rbac-model.md",
+      "product-truth/05-data-governance/data-classification.md",
+      "product-truth/05-data-governance/data-controller-model.md",
       "product-truth/08-open-questions/open-questions.md"
     ],
     "access-or-permissions": [
