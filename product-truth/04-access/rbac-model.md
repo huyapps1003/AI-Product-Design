@@ -1,8 +1,18 @@
 # Effective RBAC model for Global Campus OS
 
-**Status:** Design direction (working assumption), 18 Oct 2026 · Case study for the Admin Platform design · Decision records: DL-16…DL-21
+**Status:** Design direction 18 Oct 2026; changes Confirmed 7 Nov 2026 (DL-32…DL-38) · Case study for the Admin Platform design · Decision records: DL-16…DL-21
 
 > **Scope note, 25 Oct 2026.** This model was written for one brand's campuses (GIIS). Campus OS now serves every GSG brand (DL-22), and the research found what it doesn't cover yet: platform-operator and support access, a brand level in the scope hierarchy, several brands or entities in one country, campuses changing hands, purpose and consent, and cross-cell approval (RES-F06; research §08). Those gaps are open questions (OQ-04, OQ-09, OQ-10, OQ-14…OQ-18), not part of this model. Overview of all access paths: [README.md](./README.md).
+
+> **Confirmed changes, 7 Nov 2026 (DL-32…DL-38, DL-40, Henry).** These override the text below where they differ:
+> - **Single source (DL-32, DL-33).** The Access Registry is the only writer of everything in this model; the canonical list of capabilities and field policies is [permission-catalogue.md](./permission-catalogue.md).
+> - **Scope nodes (DL-40, DL-35).** Grants *and memberships* sit on Group, Brand, Brand-country or Campus. Campus stays the default for memberships.
+> - **Field visibility by capability (DL-34).** Layer 5 Tier 3 access is a capability on a field group plus A15 (one record) or A17 Tier 3 type grant (a record class, approver OQ-47).
+> - **Delegation (DL-36).** DL-21 delegation is entity A16 and a step in evaluation.
+> - **Parent path (DL-37).** Layer 4 is an alternative path, not a layer every request passes; "Derived: relationship" is removed from Layer 3. R03 includes profile edit (DL-28).
+> - **Explained answers (DL-38).** Every decision returns the deciding layer and source record.
+>
+> Updated evaluation: `CELL → CEILING (grant on scope node ≥ X) → MEMBERSHIP (on scope node ≥ X) → CAPABILITY (deny wins) → SCOPE (no scope = no data) → DELEGATION (A16, if acting) → RECORD (A15 or A17 for restricted records; T3 read logged) → ALLOWED + source`. Parent path: `FAMILY LINK → RECORD OF CHILD → CAPABILITY IN R03`. Either path allowing is enough.
 
 **Tóm tắt (VI):** Mô hình RBAC đề xuất gồm 6 lớp: grant hierarchy (thay GA phẳng), operational membership (giữ TM), derived scope (từ phân công giảng dạy), relationship-based access (gia đình), record-level ACL (case/Tier 3), và delegation. Giữ nguyên GA/TM entities, mở rộng thêm 3 thành phần.
 

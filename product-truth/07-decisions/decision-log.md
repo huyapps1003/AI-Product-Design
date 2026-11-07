@@ -28,8 +28,8 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-14 | Per-member overrides off by default | Assumed | Decision D09 |
 | DL-15 | UI language English, per-user locale for dates and numbers | Assumed | E01 `preferred_locale` |
 | DL-16 | Derived scope is suggestion by default; auto-apply opt-in per module | Assumed | 07, Decision D11 |
-| DL-17 | Grants use scope-node hierarchy (Group > Country > Campus) | Assumed | 07, A03/A04 |
-| DL-18 | Relationship-based access for parents via family links, not grants | Assumed | 07 |
+| DL-17 | Grants use scope-node hierarchy (Group > Country > Campus) | Assumed; refined by DL-35, DL-40 | 07, A03/A04 |
+| DL-18 | Relationship-based access for parents via family links, not grants | Assumed; refined by DL-28, DL-37 | 07 |
 | DL-19 | Record-level ACL for restricted cases and Tier 3 fields | Assumed | 07, Decision D13 |
 | DL-20 | Templates have BASE and MODULE categories | Assumed | 07, A08 |
 | DL-21 | Time-boxed delegation with reason, max duration, and audit | Assumed | 07 |
@@ -43,6 +43,21 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-29 | Product terms: Class (a group like 7B) and Segment (Pre-Primary…Higher); "Section" not used | **Confirmed** (Henry, 30 Oct 2026) | OQ-40 |
 | DL-30 | Teachers see a student's attendance threshold, not the Student Pass behind it | **Confirmed** (Henry, 30 Oct 2026) | OQ-41, DL-11 |
 | DL-31 | Student ID is unique across Campus OS and stays the same on campus transfer | **Confirmed** (Henry, 30 Oct 2026) | OQ-36 |
+| DL-32 | One Access Registry (Identity and Roles) is the only writer of access definitions and assignments; modules keep no permission tables | **Confirmed** (Henry, 7 Nov 2026) | RBAC review 7 Nov; permission-catalogue |
+| DL-33 | `04-access/permission-catalogue.md` is the canonical list of capabilities, field policies and template contents | **Confirmed** (Henry, 7 Nov 2026) | DL-32 |
+| DL-34 | Field visibility is expressed as capabilities on field groups, not school roles | **Confirmed** (Henry, 7 Nov 2026) | BR-06, DL-26 |
+| DL-35 | TM memberships sit on a scope node, like grants; campus is the default | **Confirmed** (Henry, 7 Nov 2026) | A05, DL-17 |
+| DL-36 | Delegation (A16) and Tier 3 type grants (A17) are registry entities and steps in evaluation | **Confirmed** (Henry, 7 Nov 2026) | DL-19, DL-21 |
+| DL-37 | The parent path is an alternative path, not a layer; relationship-derived scope removed from Layer 3 | **Confirmed** (Henry, 7 Nov 2026) | DL-18, DL-28 |
+| DL-38 | The decision service returns the deciding layer and the source record | **Confirmed** (Henry, 7 Nov 2026) | DL-07 |
+| DL-39 | Global layer holds Tier 1 identity, directory index, scope tree, access definitions and de-identified analytics only | **Confirmed** (Henry, 7 Nov 2026) | Arch § System architecture |
+| DL-40 | Scope tree Group › Brand › Brand-country › Campus › Segment / Programme offering | **Confirmed** (Henry, 7 Nov 2026) | OQ-14, OQ-17, DL-17 |
+| DL-41 | Legal entity and campus operator are effective-dated links; `operating_entity_id` on enrolment, employment and cases | **Confirmed** (Henry, 7 Nov 2026) | OQ-02, OQ-04, MC-03 |
+| DL-42 | One Person with Student, Guardian and Employee profiles and one account | **Confirmed** (Henry, 7 Nov 2026) | OQ-35 |
+| DL-43 | One writer per entity, per the object registry | **Confirmed** (Henry, 7 Nov 2026) | OQ-44, Employee DD D01 |
+| DL-44 | Consent, purpose, sharing record and retention policy are first-class records with empty legal slots | **Confirmed** (Henry, 7 Nov 2026) | OQ-07, OQ-09, OQ-10, OQ-43 |
+| DL-45 | Legacy systems are authoritative per field until a cutover date; conflicts are quarantined | **Confirmed** (Henry, 7 Nov 2026) | OQ-44, Student DD D09 |
+| DL-46 | Design works through three layers: architecture rules, object cards, slices | **Confirmed** (Henry, 7 Nov 2026) | 03-domain/architecture.md, 03-domain/objects/ |
 
 ---
 
@@ -214,6 +229,76 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 ### DL-31 — Student ID
 - **Decision.** The student number is shown as **Student ID**. It is unique across Campus OS and stays the same when a student transfers between campuses. The format is still open (OQ-36).
 - **Confirmed by.** Henry, 30 Oct 2026.
+
+### DL-32 — Access Registry is the single source of truth for permissions
+- **Context.** Permission rules were written in six places (Employee DD A01–A14, rbac-model, roles-personas, rules-to-ui, the student field matrix, role-catalogue) and none was canonical; the owners of A06, A08, A09, R02 and A14 were "TBD".
+- **Decision.** One Access Registry, owned by the Identity and Roles core service, is the only writer of access **definitions** (R01, R02, field policy, A06, A08/A09, R03, R05, purpose catalogue) and **assignments** (A03/A04, A05/A07/A10, A12/A13, F01, A15, A16, A17, operator sessions). Inputs (scope tree, employment, allocations, guardian relationships, enrolments) stay with their owning domains and are read by ID; a change to them creates a review or a suggestion, never access (BR-06). One decision service per country cell evaluates every request; modules store no permissions.
+- **Why.** Each new module would otherwise add another matrix that can disagree with the others.
+- **Confirmed by.** Henry, 7 Nov 2026.
+
+### DL-33 — Permission catalogue
+- **Decision.** [`04-access/permission-catalogue.md`](../04-access/permission-catalogue.md) is the canonical product-truth list of capabilities, field policies and template contents. roles-personas, rules-to-ui and the student field matrix link to it and are views of it.
+- **Confirmed by.** Henry, 7 Nov 2026.
+
+### DL-34 — Field visibility by capability
+- **Decision.** Each field group has a tier and the capabilities that view, edit or reveal it (for example `student.contact.view`, `student.identity.reveal`). Templates hand capabilities to access roles. School roles and personas are labels for design, not keys for visibility.
+- **Why.** School roles never grant access (BR-06), so a matrix keyed by them can't be enforced.
+- **Confirmed by.** Henry, 7 Nov 2026.
+
+### DL-35 — Memberships on a scope node
+- **Decision.** A05 gains `scope_node_type` and `scope_node_id`, like A03/A04 (DL-17). Campus remains the default. A membership at a parent node covers every descendant inside the grant ceiling.
+- **Why.** With campus-only memberships a Country Director still needed one membership per campus per module.
+- **Confirmed by.** Henry, 7 Nov 2026.
+
+### DL-36 — Delegation and Tier 3 type grants as entities
+- **Decision.** DL-21 delegation becomes registry entity A16 Delegation (delegator, delegate, capability set, scope node, reason, valid dates, at most 90 days). A Tier 3 type grant, A17 (grantee, record type, scope node, reason, approver, valid dates), lets named roles read a class of restricted records without one A15 row per record. Both are steps in the evaluation algorithm. Who approves an A17 grant is OQ-47.
+- **Confirmed by.** Henry, 7 Nov 2026.
+
+### DL-37 — Parent path is an alternative path
+- **Decision.** Layer 4 (family link) is an alternative path evaluated beside the staff path, not a layer every request passes. Relationship is removed as a Layer 3 derived-scope source. R03 includes profile edit (DL-28).
+- **Confirmed by.** Henry, 7 Nov 2026.
+
+### DL-38 — Explained decisions
+- **Decision.** Every answer from the decision service carries the deciding layer and the source record (grant, membership, family link, ACL, delegation). This powers "Why can I see this?" (AP-07) and "Inherited from…" chips.
+- **Confirmed by.** Henry, 7 Nov 2026.
+
+### DL-39 — What the global layer holds
+- **Decision.** The global layer holds Tier 1 only: Person and account, a directory index (name, role chips, cell pointer), the scope tree and legal entities, access definitions, and de-identified analytics. Everything else lives in the country cell that owns the record.
+- **Confirmed by.** Henry, 7 Nov 2026.
+
+### DL-40 — Scope tree with Brand
+- **Decision.** The scope tree is Group › Brand › Brand-country › Campus, with Segment and Programme offering below campus. A Brand-country node (for example GIIS Singapore) holds the regulator pack, currency and holidays; its country code selects the data cell. Grants and memberships can sit at Group, Brand, Brand-country or Campus.
+- **Why.** Answers OQ-14 (where brand sits) and OQ-17 (a country-level grant now stays inside one brand).
+- **Refines.** DL-17.
+- **Confirmed by.** Henry, 7 Nov 2026.
+
+### DL-41 — Legal entity and campus operator
+- **Decision.** Legal entities (GSG operator, school operating entities, franchise and JV partners, employers) sit beside the scope tree. Campus operator is an effective-dated link from campus to operating entity. Enrolment, employment and cases copy `operating_entity_id` at creation. That field is the controller slot; it is named as controller only after OQ-06 is answered.
+- **Why.** Gives OQ-02 and OQ-04 a structure; the actual list of entities is still OQ-02.
+- **Confirmed by.** Henry, 7 Nov 2026.
+
+### DL-42 — One Person
+- **Decision.** One Person per human (`person_id`, global, Tier 1) with Student (ST01), Guardian (ST04) and Employee (E01) profiles in cells, and one account (A01) linked to the Person. Domain keys (`student_id`, `employee_id`) stay and link to `person_id`. Possible duplicates go to a review queue and are never merged automatically.
+- **Why.** Answers OQ-35 and Student DD D01: a parent who is also staff is one person with one login and a context switch.
+- **Confirmed by.** Henry, 7 Nov 2026.
+
+### DL-43 — One writer per entity
+- **Decision.** Every entity has exactly one owning domain, listed in [`03-domain/objects/README.md`](../03-domain/objects/README.md). Other domains read by ID or through events and show the data read-only with a source chip.
+- **Confirmed by.** Henry, 7 Nov 2026.
+
+### DL-44 — Governance records
+- **Decision.** Consent, purpose catalogue, sharing record and retention policy are first-class records. Their legal fields (lawful basis, controller) stay empty until counsel answers OQ-06 and the related questions.
+- **Why.** Gives OQ-07, OQ-09, OQ-10 and OQ-43 a structure without inventing the legal answers.
+- **Confirmed by.** Henry, 7 Nov 2026.
+
+### DL-45 — Legacy authority per field
+- **Decision.** During migration an authority register records, per field group and system, who is authoritative, from when and in which direction it syncs. Legacy systems (MyGIIS, other brands' SIS) stay authoritative until each field's cutover date; Campus OS shows those fields read-only with a source chip. Conflicts are quarantined for a named reviewer.
+- **Why.** Answers the structure of OQ-44 and Student DD D09. Which systems and dates apply per brand stays open (OQ-27, OQ-28).
+- **Confirmed by.** Henry, 7 Nov 2026.
+
+### DL-46 — Three-layer design workflow
+- **Decision.** The AI design workflow loads, in order: Layer 0 architecture rules (AR) and patterns (AP) in [`03-domain/architecture.md`](../03-domain/architecture.md); Layer 1 design object cards (OBJ) in [`03-domain/objects/`](../03-domain/objects/README.md); Layer 2 design slices in `06-experience/`. Object cards are the design view of the data dictionaries and never a second truth.
+- **Confirmed by.** Henry, 7 Nov 2026.
 
 ## How design direction becomes architecture
 

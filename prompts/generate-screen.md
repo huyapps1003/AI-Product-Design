@@ -54,6 +54,21 @@ Shell specs:
 
 ---
 
+## Campus OS screen request (required for Global Campus OS screens)
+
+Fill these six inputs (screen request contract, `product-truth/03-domain/architecture.md`). They replace the generic content specification below for Campus OS.
+
+- **Screen:** [SCR-ID from the slice's ia-screen-map.md] · screen type [from context-map.json]
+- **Viewer:** [persona] · [access role] · [scope node, e.g. GIIS › GIIS Singapore › Punggol]
+- **Objects:** [OBJ-IDs shown, primary first, e.g. OBJ-02 Student (primary), OBJ-03 Enrolment, OBJ-04 Guardian]
+- **States:** [empty | loading | error | no access | masked | success]
+- **Sample:** [record set from the slice README or the card's `sample`]
+- **Variation:** [MC IDs for what differs by brand, country or campus, or "none"]
+
+Output must start with an HTML comment listing the AR, AP, OBJ, DL and OQ IDs applied, and pass the review checklist in architecture.md.
+
+---
+
 ## Content specification
 
 **Domain:** [e.g. SaaS analytics / e-commerce / project management / HR platform]

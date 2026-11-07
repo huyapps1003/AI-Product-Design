@@ -257,6 +257,8 @@ Conditional rule: a student with an ACTIVE Student Pass (ST09) needs an INTERNAT
 
 ## Field visibility by role
 
+> **View of the [permission catalogue](../04-access/permission-catalogue.md) (DL-33).** Capabilities and field policies are defined there; if this table disagrees, the catalogue wins. Visibility is set by capability, not by school role (DL-34).
+
 `E` edit · `V` view · `M` masked (P-LOCK, reveal logged) · `—` hidden · `?` open. Every cell is limited by scope first (rbac-model Layers 1–3: GA ceiling, TM membership, data scope); Tier 3 also needs a record ACL (Layer 5, DL-19). Roles are Architecture school roles; their access-role mapping for these modules is not set yet (role-catalogue: "Not mapped").
 
 | Field group | Tier | Admissions (campus/country) | Principal / VP (campus) | Coordinator (programme band) | Class teacher (own class) | Subject teacher (own classes) | Nurse / counsellor | Transport / security | Parent (own child, F01) | Student (self) | Group leadership |

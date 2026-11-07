@@ -30,6 +30,8 @@ Architecture v1 and the Employee Data Dictionary v1 are both marked *Proposed*. 
 | `RES-F01`… | Research findings | `../research/2026-10-25-campus-os-foundation-research.md` |
 | `MC-01`… | What varies across the group (research catalogue) | same research file, §04; mapped in [`03-domain/variation-catalogue.md`](./03-domain/variation-catalogue.md) |
 | `DL-01`… | Decisions (Assumed, Confirmed, Superseded) | [`07-decisions/decision-log.md`](./07-decisions/decision-log.md) |
+| `AR-01`…, `AP-01`… | Architecture rules and the UI patterns that express them (Layer 0) | [`03-domain/architecture.md`](./03-domain/architecture.md) |
+| `OBJ-01`… | Design objects and their cards (Layer 1) | [`03-domain/objects/`](./03-domain/objects/README.md) |
 | `OQ-01`… | Open questions | [`08-open-questions/open-questions.md`](./08-open-questions/open-questions.md) |
 | `BR-01`…, `Decision D01`… | Data Dictionary business rules and unresolved decisions | [`00-sources/…Employee_Data_Dictionary_v1.md`](./00-sources/Global_Campus_OS_Employee_Data_Dictionary_v1.md) |
 | `E01`…, `A01`…, `R01`…, entity `D01`–`D03` | Data Dictionary entities (employee, access, reference, academic) | same file |

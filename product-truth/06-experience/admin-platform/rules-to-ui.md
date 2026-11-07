@@ -99,6 +99,8 @@ One label and colour per status, used in chips (MinV Label `soft`, size sm). Can
 
 ## Field visibility (Decision D13)
 
+> **View of the [permission catalogue](../../04-access/permission-catalogue.md) (DL-33).** Capabilities and field policies are defined there; if this table disagrees, the catalogue wins. Visibility is set by capability, not by school role (DL-34).
+
 Architecture tiers and dictionary sensitivity mapped as: **Tier 1 = Internal**, **Tier 2 = Confidential**, **Tier 3 = Restricted** (DL-11).
 
 `E` edit · `V` view · `M` masked (P-LOCK) · `—` hidden

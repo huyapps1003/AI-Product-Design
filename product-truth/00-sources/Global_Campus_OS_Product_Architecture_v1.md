@@ -7,6 +7,8 @@
 
 > **Scope update, 25 Oct 2026 ([DL-22](../07-decisions/decision-log.md#dl-22--scope-is-every-gsg-brand-gsg-operates-campus-os), Confirmed by Henry).** Global Schools Group (GSG) runs Campus OS for **all GSG brands**, not only GIIS. This v1 text has not been rewritten: where it says "GIIS", read it as the first brand described, not the whole scope. What the wider scope changes, and what is still unknown, is in [`../01-context/`](../01-context/product-brief.md) and [`../08-open-questions/`](../08-open-questions/open-questions.md) (evidence: RES-F01, RES-F02).
 
+> **v1.1 update, 7 Nov 2026 (DL-32…DL-46, Confirmed by Henry).** The tenancy hierarchy gains Brand and Brand-country levels (DL-40); legal entities link to campuses by date (DL-41); one Person per human (DL-42); the global layer holds Tier 1 only (DL-39); one Access Registry writes all permissions (DL-32). Where this file differs, [`../03-domain/architecture.md`](../03-domain/architecture.md) and the decision log win.
+
 ## How to use this document (for AI-assisted design)
 
 This file is the canonical description of *what the product is*. The design system (`design-tokens/`, `prompts/system.md`) says *how it looks*. When generating or reviewing a screen:

@@ -10,7 +10,8 @@
 |---|---|
 | this README | Which access paths exist for which actors, and the constraints every path must meet |
 | [role-catalogue.md](./role-catalogue.md) | Every role name in product truth, how they relate, and the role families with no definition |
-| [rbac-model.md](./rbac-model.md) | The six-layer model and evaluation algorithm (Assumed, DL-16…DL-21) |
+| [rbac-model.md](./rbac-model.md) | The six-layer model and evaluation algorithm (Assumed, DL-16…DL-21; confirmed changes DL-32…DL-38) |
+| [permission-catalogue.md](./permission-catalogue.md) | **Canonical** capabilities, field policies, fixed capability sets (DL-33) |
 
 ## Three sources, one model
 
@@ -33,7 +34,7 @@ Which way each kind of actor gets access, as far as product truth defines it. Th
 | Acting staff (cover, leave) | Time-boxed delegation | Assumed (DL-21) | — |
 | Parents and guardians | Family link to a student enrolment; fixed read-only capability set (Layer 4) | Assumed (DL-18) | How custody is recorded (OQ-11); consent (OQ-10) |
 | Students | "Self" scope in Architecture v1 | Known (scope only) | No access path defined (OQ-19) |
-| Brand leadership | None | Open | No brand level in the hierarchy (OQ-14, OQ-16) |
+| Brand leadership | Grants and memberships at a Brand node (DL-40) | Structure Confirmed | What they need to see and do (OQ-16) |
 | GSG platform team (admins, support, security) | None | Open | No platform-operator or support roles (OQ-15) |
 | Franchise / JV partner staff | None | Open | OQ-19, OQ-03 |
 | Group staff working on another country's data | Layer 6: data stays in its cell; each cell evaluates locally | Assumed | How cross-cell access is approved (OQ-18) |
