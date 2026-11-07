@@ -130,6 +130,8 @@ Every employee with an active linked account also gets **self-service** (My prof
 
 ## Persona × capability matrix (admin slice)
 
+> **View of the [permission catalogue](../04-access/permission-catalogue.md) (DL-33).** Capabilities and field policies are defined there; if this table disagrees, the catalogue wins. Visibility is set by capability, not by school role (DL-34).
+
 `●` full · `◐` within own scope · `○` read · `—` none · `R` request/approve only
 
 | Capability (R02 code) | HR Admin | Global Admin | Campus Leader | Module Admin | Teacher |

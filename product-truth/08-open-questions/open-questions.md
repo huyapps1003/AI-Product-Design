@@ -46,10 +46,10 @@ The Data Dictionary's own unresolved decisions (Decision D01–D15) are tracked 
 
 | ID | Question | Why it matters for design | Evidence | Affects | Who can answer | Status |
 |---|---|---|---|---|---|---|
-| OQ-14 | Where does *brand* sit in the tenancy and scope hierarchy? | The hierarchy (Group › Country › Campus) has no brand level, so brand-wide grants and brand settings can't be expressed | RES-F06, MC-02; DL-17 | tenancy-and-scope, rbac-model, role-catalogue | Henry, data architect | Open |
+| OQ-14 | Where does *brand* sit in the tenancy and scope hierarchy? | The hierarchy (Group › Country › Campus) has no brand level, so brand-wide grants and brand settings can't be expressed | RES-F06, MC-02; DL-17 | tenancy-and-scope, rbac-model, role-catalogue | Henry, data architect | **Answered → DL-40** (Brand and Brand-country levels) |
 | OQ-15 | What access does GSG's platform team (admins, support, security) hold, and how is support access to school data controlled? | No platform-operator or support roles exist; the PowerSchool breach began with a support credential | RES-F06; research §06, §08; DL-09 | role-catalogue, rbac-model | Henry, GSG IT security | Open |
 | OQ-16 | What do brand heads and brand academic leads need to see and do across countries? | Brand leadership has no role or persona | Research §03, §08 | role-catalogue, stakeholders | Brand heads | Open |
-| OQ-17 | When one country hosts campuses of several brands or entities, how is a country-level grant limited? | A country grant can't tell brands or entities apart | Research §08 (row 3) | rbac-model, tenancy-and-scope | Data architect, DPOs | Open |
+| OQ-17 | When one country hosts campuses of several brands or entities, how is a country-level grant limited? | A country grant can't tell brands or entities apart | Research §08 (row 3) | rbac-model, tenancy-and-scope | Data architect, DPOs | **Answered → DL-40** (a Brand-country grant stays inside one brand) |
 | OQ-18 | How is cross-cell access approved when group staff need data held in another country? | Layer 6 says data stays in its cell but not how cross-cell access is approved | MC-13; research §08 (row 6) | rbac-model | Data architect, DPOs | Open |
 | OQ-19 | What access do students have beyond "self", and do franchise or JV partner staff use the platform? | No access path is defined for students or partner staff | Architecture § Users and roles; RES-F02 | role-catalogue | Henry | Open |
 
@@ -89,7 +89,7 @@ Added 30 Oct 2026 with the [student dictionary](../03-domain/student-directory-d
 
 | ID | Question | Why it matters for design | Evidence | Affects | Who can answer | Status |
 |---|---|---|---|---|---|---|
-| OQ-35 | Is there one shared Person record across students, guardians and staff, or separate identities per role? | Decides whether a parent who is also staff has one profile or two | Architecture § Data model "Person"; Data Dictionary uses `employee_id` | student dictionary, rbac-model | Data architect | Open |
+| OQ-35 | Is there one shared Person record across students, guardians and staff, or separate identities per role? | Decides whether a parent who is also staff has one profile or two | Architecture § Data model "Person"; Data Dictionary uses `employee_id` | student dictionary, rbac-model | Data architect | **Answered → DL-42** (one Person, role profiles, one account) |
 | OQ-36 | What is the format and uniqueness scope of the Student ID, and does it change on transfer? | Directory search, ID cards and exports show it | No source defines it | student dictionary | Henry, Admissions owners | **Answered → DL-31** (unique, kept on transfer); format still open |
 | OQ-37 | Which identity attributes must a student record hold in each country (date of birth, sex or gender values, name structure, nationality, home language)? | Form fields and validation differ by country | MC-05 | student dictionary | Admissions owners, DPOs | Open |
 | OQ-38 | Can parents edit the student profile, documents and contacts themselves, as in MyGIIS Profile Update? | DL-18 gave parents a read-only set | HB p.35; DL-18 | student dictionary, rbac-model | Henry | **Answered → DL-28** |
@@ -98,8 +98,20 @@ Added 30 Oct 2026 with the [student dictionary](../03-domain/student-directory-d
 | OQ-41 | Can teachers apply the Student Pass attendance threshold without seeing Tier 3 immigration data? | Attendance warnings | Architecture § Absence and leave, § Security | student dictionary | Henry | **Answered → DL-30** |
 | OQ-42 | Which health alerts (allergies, medical conditions), if any, appear on the student card for teachers, transport and security? | Tier 3 health data vs. safety on trips and buses | HB medical conditions; Architecture § Security | student dictionary, data-classification | Nurses, DPOs | Open |
 | OQ-43 | How long are student and guardian records kept after withdrawal or graduation, per country, and what is deleted or anonymised? | Archive and delete states | regulatory-context; Data Dictionary Decision D12 | student dictionary, regulatory-context | Counsel per country | Open |
-| OQ-44 | During migration, which system is authoritative for student data: MyGIIS, other brands' SIS, or Campus OS? | Which fields are read-only with a source chip | Architecture § Integrations; OQ-27, OQ-28 | student dictionary | GIIS IT, brand IT | Open |
+| OQ-44 | During migration, which system is authoritative for student data: MyGIIS, other brands' SIS, or Campus OS? | Which fields are read-only with a source chip | Architecture § Integrations; OQ-27, OQ-28 | student dictionary | GIIS IT, brand IT | **Answered → DL-45** (authoritative per field until cutover; which systems per brand: OQ-27, OQ-28) |
 | OQ-45 | Is AEPP a programme offering with its own enrolment, or a placement inside a regular class? | Whether an AEPP student has an AEPP enrolment or a flag on a regular one | Architecture § Admission to enrolment; HB § AEPP | student dictionary | Admissions owners, AEPP coordinator | Open |
+
+
+## H · Access registry
+
+Added 7 Nov 2026 with DL-32…DL-38 (RBAC review).
+
+| ID | Question | Why it matters for design | Evidence | Affects | Who can answer | Status |
+|---|---|---|---|---|---|---|
+| OQ-46 | Which team owns the Identity and Roles service and the Access Registry? | Every access screen names who to ask and who approves catalogue changes | DL-32; Employee DD owners "TBD" for A06, A08, A09, R02, A14 | permission-catalogue, rbac-model | Henry, GSG IT | Open |
+| OQ-47 | Who approves a Tier 3 type grant (A17), and for how long? | The request and approval screens for restricted record classes | DL-36; DL-30 (Admissions manages Student Pass cases) | rbac-model, data-classification | DPOs, Henry | Open |
+| OQ-48 | Who approves a platform-operator or support session into a school's data, and can the school refuse it? | Support console, approval case and the banner a school sees | OQ-15; research §08 (PowerSchool support credential) | role-catalogue, rbac-model | GSG IT security, brand heads | Open |
+| OQ-49 | Do capability codes follow one naming scheme across modules, and who reviews a module's new capabilities? | Capability names appear in template and access-review screens | DL-33 | permission-catalogue | Data architect | Open |
 
 ## Research not yet done
 

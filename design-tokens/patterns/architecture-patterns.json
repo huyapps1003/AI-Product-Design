@@ -1,0 +1,243 @@
+{
+  "$metadata": {
+    "collection": "[Patterns] Campus OS architecture patterns",
+    "exportedAt": "2026-11-07",
+    "source": "product-truth/03-domain/architecture.md",
+    "decision": "DL-46"
+  },
+  "$description": "Reusable UI treatments that express the Campus OS architecture rules (AR-01..AR-14). Compose these instead of inventing a treatment per screen. AP-06 is the P-LOCK pattern in product-truth/06-experience/admin-platform/rules-to-ui.md.",
+  "patterns": [
+    {
+      "id": "AP-01",
+      "name": "Scope switcher and breadcrumb",
+      "looksLike": "\"GIIS · Singapore · Punggol\" in the app bar; picker limited to nodes the viewer holds",
+      "minvParts": [
+        "sidebar-nav",
+        "page-header",
+        "breadcrumb"
+      ],
+      "states": [
+        "One node",
+        "many nodes",
+        "no scope"
+      ],
+      "expressesRules": [
+        "AR-02"
+      ]
+    },
+    {
+      "id": "AP-02",
+      "name": "Inheritance indicator",
+      "looksLike": "\"Inherited from GIIS Singapore\" under a value; \"Override\" only where allowed",
+      "minvParts": [
+        "form-section",
+        "chip soft"
+      ],
+      "states": [
+        "Inherited",
+        "overridden",
+        "locked by group"
+      ],
+      "expressesRules": [
+        "AR-03"
+      ]
+    },
+    {
+      "id": "AP-03",
+      "name": "Person header and context switch",
+      "looksLike": "Avatar, name, role chips; account menu switch",
+      "minvParts": [
+        "detail-header",
+        "avatar",
+        "menu"
+      ],
+      "states": [
+        "One role",
+        "several roles"
+      ],
+      "expressesRules": [
+        "AR-05"
+      ]
+    },
+    {
+      "id": "AP-04",
+      "name": "Source chip and read-only field",
+      "looksLike": "Field disabled, chip \"From MyGIIS\" or \"From Staff and HR\", link to the owner",
+      "minvParts": [
+        "text field disabled",
+        "chip soft info"
+      ],
+      "states": [
+        "Owned here",
+        "owned elsewhere",
+        "legacy"
+      ],
+      "expressesRules": [
+        "AR-06",
+        "AR-12"
+      ]
+    },
+    {
+      "id": "AP-05",
+      "name": "Effective-dated history",
+      "looksLike": "\"Valid from\" on edit; history drawer as a timeline; future change shown as scheduled",
+      "minvParts": [
+        "timeline",
+        "date-picker",
+        "drawer"
+      ],
+      "states": [
+        "Current",
+        "scheduled",
+        "ended"
+      ],
+      "expressesRules": [
+        "AR-07"
+      ]
+    },
+    {
+      "id": "AP-06",
+      "name": "Tier lock (P-LOCK)",
+      "looksLike": "Masked value, lock icon, \"Reveal\" asks a reason and logs",
+      "minvParts": [
+        "rules-to-ui P-LOCK"
+      ],
+      "states": [
+        "Visible",
+        "masked",
+        "revealed",
+        "hidden"
+      ],
+      "expressesRules": [
+        "AR-08"
+      ]
+    },
+    {
+      "id": "AP-07",
+      "name": "Access explainer",
+      "looksLike": "\"Why can I see this?\" popover naming the grant, link or ACL; no-access page naming who to ask",
+      "minvParts": [
+        "popover",
+        "empty-state"
+      ],
+      "states": [
+        "Allowed",
+        "denied",
+        "acting for"
+      ],
+      "expressesRules": [
+        "AR-09"
+      ]
+    },
+    {
+      "id": "AP-08",
+      "name": "Aggregate-only view",
+      "looksLike": "KPI cards captioned \"De-identified\"; drill-down disabled outside the viewer's cells",
+      "minvParts": [
+        "stats-row",
+        "chart-card"
+      ],
+      "states": [
+        "Aggregate",
+        "drill-down allowed"
+      ],
+      "expressesRules": [
+        "AR-01"
+      ]
+    },
+    {
+      "id": "AP-09",
+      "name": "Controller placeholder",
+      "looksLike": "\"[data controller — OQ-06]\" in notices, consent and exports",
+      "minvParts": [
+        "caption text"
+      ],
+      "states": [
+        "Placeholder until OQ-06"
+      ],
+      "expressesRules": [
+        "AR-04"
+      ]
+    },
+    {
+      "id": "AP-10",
+      "name": "Purpose prompt and consent chip",
+      "looksLike": "Dialog with a purpose picker; chip \"Consent given / refused / not required\"",
+      "minvParts": [
+        "dialog",
+        "chip"
+      ],
+      "states": [
+        "Given",
+        "refused",
+        "withdrawn",
+        "not required"
+      ],
+      "expressesRules": [
+        "AR-10"
+      ]
+    },
+    {
+      "id": "AP-11",
+      "name": "Transfer and sharing review",
+      "looksLike": "Stepper: what moves, from which entity and cell, to which, approver",
+      "minvParts": [
+        "stepper",
+        "form-section"
+      ],
+      "states": [
+        "Draft",
+        "awaiting approval",
+        "approved",
+        "moved"
+      ],
+      "expressesRules": [
+        "AR-11"
+      ]
+    },
+    {
+      "id": "AP-12",
+      "name": "Conflict quarantine",
+      "looksLike": "Side-by-side diff of Campus OS and legacy values, accept or reject",
+      "minvParts": [
+        "listDetailShell",
+        "table"
+      ],
+      "states": [
+        "Open",
+        "resolved"
+      ],
+      "expressesRules": [
+        "AR-12"
+      ]
+    },
+    {
+      "id": "AP-13",
+      "name": "Pending marker",
+      "looksLike": "Outlined warning chip \"Pending\" plus an HTML comment citing the OQ",
+      "minvParts": [
+        "chip outlined warning"
+      ],
+      "states": [
+        "Pending"
+      ],
+      "expressesRules": [
+        "AR-13"
+      ]
+    },
+    {
+      "id": "AP-14",
+      "name": "Status chip",
+      "looksLike": "One chip per lifecycle state, colour from the object card",
+      "minvParts": [
+        "badge-status"
+      ],
+      "states": [
+        "Per object"
+      ],
+      "expressesRules": [
+        "AR-14"
+      ]
+    }
+  ]
+}

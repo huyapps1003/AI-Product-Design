@@ -31,14 +31,17 @@ product-truth/
 │   ├── stakeholders.md        user segments and decision-makers across GSG
 │   └── roles-personas.md      Admin Platform personas P1–P5 mapped to GA/TM
 ├── 03-domain/
+│   ├── architecture.md           Layer 0: data architecture, AR rules, AP patterns, screen contract
+│   ├── objects/                  Layer 1: object registry + cards OBJ-01…OBJ-12
 │   ├── modules-and-services.md   surfaces, 12 modules, 8 core services
-│   ├── tenancy-and-scope.md      Group › Country › Campus hierarchy and its gaps
+│   ├── tenancy-and-scope.md      Group › Brand › Brand-country › Campus tree
 │   ├── variation-catalogue.md    MC-01…MC-15: what varies, and coverage
 │   └── student-directory-data-dictionary.md  students, enrolments, guardians (ST01–ST11)
 ├── 04-access/                 RBAC models
 │   ├── README.md              access paths by actor, constraints, gaps
 │   ├── role-catalogue.md      school roles, access roles, undefined families
-│   └── rbac-model.md          six-layer model (Assumed, DL-16…DL-21)
+│   ├── rbac-model.md          six-layer model (DL-16…DL-21; DL-32…DL-38)
+│   └── permission-catalogue.md   canonical capabilities and field policies (DL-33)
 ├── 05-data-governance/        data controller model
 │   ├── data-controller-model.md  legal roles, parties, known relationships
 │   ├── data-classification.md    Tier 1/2/3
@@ -46,8 +49,8 @@ product-truth/
 ├── 06-experience/             design slices
 │   ├── README.md              slice structure and index
 │   └── admin-platform/        brief, scenarios, screen map, flows/, rules-to-ui
-├── 07-decisions/decision-log.md   DL-01…DL-31
-├── 08-open-questions/open-questions.md   OQ-01…OQ-45
+├── 07-decisions/decision-log.md   DL-01…DL-46
+├── 08-open-questions/open-questions.md   OQ-01…OQ-49
 ├── _templates/design-slice/   skeleton for a new slice
 └── _archive/                  superseded reviews (gap analysis, 18 Oct)
 ```
@@ -64,12 +67,15 @@ product-truth/
 | 02-users | [stakeholders.md](./02-users/stakeholders.md) | Seven user segments, decision-makers, observations | Known (desk research) |
 | 02-users | [roles-personas.md](./02-users/roles-personas.md) | Admin Platform personas P1–P5, access role catalog A06, capability matrix | Assumed (DL-02) |
 | 03-domain | [modules-and-services.md](./03-domain/modules-and-services.md) | Surfaces, modules with codes, core services, market coverage | Proposed / Assumed (DL-04) |
-| 03-domain | [tenancy-and-scope.md](./03-domain/tenancy-and-scope.md) | Hierarchy levels, what each owns, dimensions it doesn't hold | Proposed / Open |
+| 03-domain | [architecture.md](./03-domain/architecture.md) | **Layer 0 for design:** global vs cell, scope tree, Person, ownership, governance records, rules AR-01…AR-14, patterns AP-01…AP-14, screen request contract | Confirmed (DL-39…DL-46) |
+| 03-domain | [objects/](./03-domain/objects/README.md) | **Layer 1 for design:** object registry OBJ-01…OBJ-24 and 12 object cards | Confirmed structure (DL-43, DL-46) |
+| 03-domain | [tenancy-and-scope.md](./03-domain/tenancy-and-scope.md) | Scope tree with Brand and Brand-country, legal entity beside it, what each level owns | Confirmed (DL-40, DL-41) / Open |
 | 03-domain | [variation-catalogue.md](./03-domain/variation-catalogue.md) | MC-01…MC-15 mapped to product truth | Known |
 | 03-domain | [student-directory-data-dictionary.md](./03-domain/student-directory-data-dictionary.md) | Student, enrolment, guardian, documents, identifiers; field tiers and visibility | Proposed / Assumed (DL-23…DL-27) / Confirmed (DL-28…DL-31) |
 | 04-access | [README.md](./04-access/README.md) | Access paths by actor, constraints, research gaps | Mixed |
 | 04-access | [role-catalogue.md](./04-access/role-catalogue.md) | All role names and the families with none | Known / Assumed / Open |
-| 04-access | [rbac-model.md](./04-access/rbac-model.md) | Six layers, evaluation algorithm, v1 scope, screen impact | Assumed |
+| 04-access | [rbac-model.md](./04-access/rbac-model.md) | Six layers, evaluation algorithm, v1 scope, screen impact | Assumed; changes Confirmed (DL-32…DL-38) |
+| 04-access | [permission-catalogue.md](./04-access/permission-catalogue.md) | **Canonical** capabilities, field policies, capability sets | Confirmed (DL-33) |
 | 05-data-governance | [data-controller-model.md](./05-data-governance/data-controller-model.md) | Legal roles, parties, relationships, flows needing an answer | Known / Open |
 | 05-data-governance | [data-classification.md](./05-data-governance/data-classification.md) | Sensitivity tiers and design rules | Known / Assumed |
 | 05-data-governance | [regulatory-context.md](./05-data-governance/regulatory-context.md) | SG and IN rules, timeline, regulators | Known (secondary legal) |
@@ -82,8 +88,8 @@ product-truth/
 
 | Task | Read, in order |
 |---|---|
-| **Generate a screen** | `prompts/system.md` → the slice in `06-experience/<slice>/` (screen map → flow → rules to UI → sample data) → `01-context/glossary.md` → `03-domain/variation-catalogue.md` → OQ IDs the screen touches |
-| **Screen touches access or permissions** | add `04-access/README.md`, `04-access/rbac-model.md` |
+| **Generate a screen** | `prompts/system.md` → `03-domain/architecture.md` (Layer 0) → the object cards in `03-domain/objects/` the screen shows (Layer 1) → the slice in `06-experience/<slice>/` (screen map → flow → rules to UI → sample data) → `01-context/glossary.md` → `03-domain/variation-catalogue.md` → OQ IDs the screen touches |
+| **Screen touches access or permissions** | add `04-access/permission-catalogue.md`, `04-access/rbac-model.md` |
 | **Screen touches several brands, countries, consent or sensitive data** | add `03-domain/tenancy-and-scope.md`, `05-data-governance/`, and the research file |
 | **Shape product truth** (brief, persona, scenario, decision) | the research file first, then `01-context/` → `05-data-governance/`, then add DL or OQ entries |
 | **Start a new design slice** | `06-experience/README.md` → copy `_templates/design-slice/` |

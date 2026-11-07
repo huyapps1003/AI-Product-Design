@@ -53,10 +53,10 @@ flowchart LR
 | Every row carries `tenant_path` (group, country, campus) | Known | Architecture § High-level data model |
 | Employment records the legal employer (`employer_org_id`) | Known | Data Dictionary E02 |
 | Names, passports and health data stay in the country cell; de-identified events go to group analytics | Known | Architecture § tenancy, rbac-model Layer 6 |
-| A *Consent* entity exists in the Engagement area; parents give "consents" | Known (named only, no fields) | Architecture § High-level data model, § Users and roles |
-| The legal entity that controls student and family data | Not recorded | research §09 (OQ-02, OQ-06) |
-| Data sharing between entities | Not modelled | research §09 (OQ-07) |
-| Processing purpose on access or audit events | Not modelled | research §08 (OQ-09) |
+| A *Consent* entity exists in the Engagement area; parents give "consents" | Structure Confirmed: consent record with subject, given by, purpose, status, evidence, valid dates (DL-44); what it must hold per country is open | Architecture § High-level data model; DL-44; OQ-10 |
+| The legal entity that controls student and family data | Structure Confirmed: `operating_entity_id` on enrolment, employment and cases is the controller slot (DL-41); naming it controller waits for OQ-06 | DL-41; OQ-02, OQ-06 |
+| Data sharing between entities | Structure Confirmed: sharing record (DL-44); authority to share is open | DL-44; OQ-07 |
+| Processing purpose on access or audit events | Structure Confirmed: purpose catalogue, asked on Tier 3 reveal, cross-cell and support access (DL-44, AR-10); lawful basis open | DL-44; OQ-09 |
 
 ## Data flows that depend on an open answer
 
