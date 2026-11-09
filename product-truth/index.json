@@ -46,7 +46,7 @@
     { "path": "product-truth/06-experience/admin-platform/flows/", "covers": "Flow, state machine and screen states per scenario", "status": "Proposed" },
     { "path": "product-truth/06-experience/admin-platform/rules-to-ui.md", "covers": "BR and Decision D -> UI behaviour, status vocabulary, field visibility", "status": "Proposed" },
     { "path": "product-truth/07-decisions/decision-log.md", "covers": "DL-01..DL-46 with status and evidence", "status": "Living" },
-    { "path": "product-truth/08-open-questions/open-questions.md", "covers": "OQ-01..OQ-49", "status": "Living" },
+    { "path": "product-truth/08-open-questions/open-questions.md", "covers": "OQ-01..OQ-56", "status": "Living" },
     { "path": "design-tokens/patterns/architecture-patterns.json", "covers": "AP-01..AP-14 architecture UI patterns with MinV parts and states", "status": "Confirmed", "cites": ["DL-46"] },
     { "path": "research/2026-10-25-campus-os-foundation-research.md", "covers": "Evidence: RES-F01..F07, MC-01..MC-15 (findings only)", "status": "Research v3" }
   ],
