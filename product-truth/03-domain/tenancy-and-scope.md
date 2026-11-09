@@ -1,7 +1,7 @@
 # Tenancy and scope hierarchy
 
 **Status:** Confirmed (DL-40, DL-41, Henry, 7 Nov 2026); settings ownership still open, 7 Nov 2026 · **Owner:** Henry
-**Cites:** [Architecture v1 § Multi-campus and tenancy model](../00-sources/Global_Campus_OS_Product_Architecture_v1.md#multi-campus-and-tenancy-model) · [architecture.md](./architecture.md) · DL-17, DL-35, DL-40, DL-41 · RES-F06 · MC-01, MC-02, MC-03, MC-14 · research §08
+**Cites:** [Organisation dictionary](./organisation-data-dictionary.md) (entities OR01–OR09) · [Architecture v1 § Multi-campus and tenancy model](../00-sources/Global_Campus_OS_Product_Architecture_v1.md#multi-campus-and-tenancy-model) · [architecture.md](./architecture.md) · DL-17, DL-35, DL-40, DL-41 · RES-F06 · MC-01, MC-02, MC-03, MC-14 · research §08
 **Tóm tắt (VI):** Cây phạm vi Group › Brand › Brand-country › Campus › Segment / Programme offering (DL-40). Pháp nhân nằm cạnh cây, gắn với campus theo thời gian (DL-41); danh sách pháp nhân vẫn là câu hỏi mở (OQ-02).
 
 ## The hierarchy product truth defines

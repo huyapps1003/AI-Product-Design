@@ -1,6 +1,6 @@
 {
   "$description": "Machine-readable map of product-truth/ for the AI design workflow. Paths are relative to the repository root. 'routes' lists the files to load for each task, in order. Statuses follow product-truth/CONVENTIONS.md: Known (cited), Assumed (DL-xx), Open (OQ-xx), Proposed (source documents).",
-  "updated": "2026-11-07",
+  "updated": "2026-11-09",
   "scope": {
     "product": "Global Campus OS",
     "operator": "Global Schools Group (GSG)",
@@ -23,16 +23,18 @@
     { "path": "product-truth/01-context/operating-context.md", "covers": "GSG structure, brands, countries, entities, systems", "status": "Known", "cites": ["RES-F01", "RES-F02"] },
     { "path": "product-truth/01-context/gsg-landscape.md", "covers": "GSG campus footprint (62 campuses, 21 brand-countries), source systems, authority seed, transfer types, sample scope nodes", "status": "Known", "cites": ["OQ-50", "OQ-55"] },
     { "path": "product-truth/03-domain/samples/student-sample.json", "covers": "Synthetic students, enrolments and guardians across GIIS and five other brands' sample scope nodes", "status": "Synthetic", "cites": ["OQ-36", "OQ-50", "OQ-54", "OQ-55"] },
+    { "path": "product-truth/03-domain/samples/organisation-sample.json", "covers": "Synthetic organisation set: 12 brands, 21 brand-countries, 10 data regions, 9 sample campuses, pending legal entities and settings", "status": "Synthetic", "cites": ["OQ-02", "OQ-20", "OQ-21", "OQ-55", "OQ-57"] },
     { "path": "product-truth/01-context/gsg-footprint.json", "covers": "Machine copy of the 62-campus footprint for screen prompts", "status": "Known", "cites": ["OQ-02", "OQ-21", "OQ-55"] },
     { "path": "product-truth/01-context/glossary.md", "covers": "Terms for organisation, access, data protection", "status": "Living" },
     { "path": "product-truth/02-users/stakeholders.md", "covers": "User segments and decision-makers across GSG", "status": "Known", "cites": ["research §03"] },
     { "path": "product-truth/02-users/roles-personas.md", "covers": "Admin Platform personas P1-P5, access roles A06, capability matrix", "status": "Assumed", "cites": ["DL-02"] },
     { "path": "product-truth/03-domain/modules-and-services.md", "covers": "Surfaces, 12 modules with codes, 8 core services", "status": "Proposed/Assumed", "cites": ["DL-04", "research §05"] },
     { "path": "product-truth/03-domain/architecture.md", "covers": "Layer 0 for design: global vs cell, scope tree, Person, ownership, governance records, AR-01..AR-14, AP-01..AP-14, screen request contract", "status": "Confirmed", "cites": ["DL-39..DL-46"] },
-    { "path": "product-truth/03-domain/objects/", "covers": "Layer 1 for design: object registry OBJ-01..OBJ-24; cards OBJ-01..OBJ-12 (YAML front matter)", "status": "Confirmed structure", "cites": ["DL-43", "DL-46"] },
+    { "path": "product-truth/03-domain/objects/", "covers": "Layer 1 for design: object registry OBJ-01..OBJ-24; cards OBJ-01..OBJ-14 (YAML front matter)", "status": "Confirmed structure", "cites": ["DL-43", "DL-46"] },
     { "path": "product-truth/03-domain/tenancy-and-scope.md", "covers": "Scope tree Group > Brand > Brand-country > Campus > Segment / Programme offering; legal entity beside it", "status": "Confirmed/Open", "cites": ["DL-17", "DL-35", "DL-40", "DL-41", "MC-01", "MC-02", "MC-03", "MC-14"] },
     { "path": "product-truth/03-domain/variation-catalogue.md", "covers": "MC-01..MC-15 mapped to product truth coverage", "status": "Known", "cites": ["MC-01..MC-15"] },
     { "path": "product-truth/03-domain/student-directory-data-dictionary.md", "covers": "Student directory: entities ST01-ST11, field tiers, role visibility, data controller notes (Admissions and Enrolment, Student Records)", "status": "Proposed/Assumed/Confirmed", "cites": ["DL-23..DL-31", "OQ-35..OQ-45"] },
+    { "path": "product-truth/03-domain/organisation-data-dictionary.md", "covers": "Organisation tree: scope node, brand, brand-country, campus, segment (OR01-OR05), data region (OR06), legal entity and campus operator (OR07-OR08), inherited settings (OR09)", "status": "Proposed/Assumed/Confirmed", "cites": ["DL-39..DL-41", "DL-47..DL-50", "OQ-02", "OQ-20", "OQ-21", "OQ-55", "OQ-57..OQ-59"] },
     { "path": "product-truth/04-access/README.md", "covers": "Access paths by actor, constraints, gaps", "status": "Mixed", "cites": ["RES-F06", "DL-07", "DL-09", "DL-16..DL-21"] },
     { "path": "product-truth/04-access/role-catalogue.md", "covers": "School roles, access roles, role families with no definition", "status": "Known/Assumed/Open" },
     { "path": "product-truth/04-access/rbac-model.md", "covers": "Six-layer RBAC model and evaluation algorithm", "status": "Assumed; changes Confirmed", "cites": ["DL-16..DL-21", "DL-32..DL-38"] },
@@ -46,8 +48,8 @@
     { "path": "product-truth/06-experience/admin-platform/ia-screen-map.md", "covers": "Shell, navigation, screen list SCR-*", "status": "Proposed" },
     { "path": "product-truth/06-experience/admin-platform/flows/", "covers": "Flow, state machine and screen states per scenario", "status": "Proposed" },
     { "path": "product-truth/06-experience/admin-platform/rules-to-ui.md", "covers": "BR and Decision D -> UI behaviour, status vocabulary, field visibility", "status": "Proposed" },
-    { "path": "product-truth/07-decisions/decision-log.md", "covers": "DL-01..DL-46 with status and evidence", "status": "Living" },
-    { "path": "product-truth/08-open-questions/open-questions.md", "covers": "OQ-01..OQ-56", "status": "Living" },
+    { "path": "product-truth/07-decisions/decision-log.md", "covers": "DL-01..DL-50 with status and evidence", "status": "Living" },
+    { "path": "product-truth/08-open-questions/open-questions.md", "covers": "OQ-01..OQ-59", "status": "Living" },
     { "path": "design-tokens/patterns/architecture-patterns.json", "covers": "AP-01..AP-14 architecture UI patterns with MinV parts and states", "status": "Confirmed", "cites": ["DL-46"] },
     { "path": "research/2026-10-25-campus-os-foundation-research.md", "covers": "Evidence: RES-F01..F07, MC-01..MC-15 (findings only)", "status": "Research v3" }
   ],
@@ -89,6 +91,17 @@
       "product-truth/04-access/rbac-model.md",
       "product-truth/05-data-governance/data-classification.md",
       "product-truth/05-data-governance/data-controller-model.md",
+      "product-truth/08-open-questions/open-questions.md"
+    ],
+    "organisation-or-scope": [
+      "product-truth/03-domain/architecture.md",
+      "product-truth/03-domain/objects/OBJ-13-scope-node.md",
+      "product-truth/03-domain/objects/OBJ-14-legal-entity.md",
+      "product-truth/03-domain/organisation-data-dictionary.md",
+      "product-truth/03-domain/samples/organisation-sample.json",
+      "product-truth/01-context/gsg-footprint.json",
+      "product-truth/03-domain/tenancy-and-scope.md",
+      "product-truth/04-access/rbac-model.md",
       "product-truth/08-open-questions/open-questions.md"
     ],
     "access-or-permissions": [

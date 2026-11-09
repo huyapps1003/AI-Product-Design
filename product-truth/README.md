@@ -32,11 +32,12 @@ product-truth/
 │   └── roles-personas.md      Admin Platform personas P1–P5 mapped to GA/TM
 ├── 03-domain/
 │   ├── architecture.md           Layer 0: data architecture, AR rules, AP patterns, screen contract
-│   ├── objects/                  Layer 1: object registry + cards OBJ-01…OBJ-12
+│   ├── objects/                  Layer 1: object registry + cards OBJ-01…OBJ-14
 │   ├── modules-and-services.md   surfaces, 12 modules, 8 core services
 │   ├── tenancy-and-scope.md      Group › Brand › Brand-country › Campus tree
 │   ├── variation-catalogue.md    MC-01…MC-15: what varies, and coverage
-│   └── student-directory-data-dictionary.md  students, enrolments, guardians (ST01–ST11)
+│   ├── student-directory-data-dictionary.md  students, enrolments, guardians (ST01–ST11)
+│   └── organisation-data-dictionary.md  scope tree, data regions, legal entities, settings (OR01–OR09)
 ├── 04-access/                 RBAC models
 │   ├── README.md              access paths by actor, constraints, gaps
 │   ├── role-catalogue.md      school roles, access roles, undefined families
@@ -49,8 +50,8 @@ product-truth/
 ├── 06-experience/             design slices
 │   ├── README.md              slice structure and index
 │   └── admin-platform/        brief, scenarios, screen map, flows/, rules-to-ui
-├── 07-decisions/decision-log.md   DL-01…DL-46
-├── 08-open-questions/open-questions.md   OQ-01…OQ-56
+├── 07-decisions/decision-log.md   DL-01…DL-50
+├── 08-open-questions/open-questions.md   OQ-01…OQ-59
 ├── _templates/design-slice/   skeleton for a new slice
 └── _archive/                  superseded reviews (gap analysis, 18 Oct)
 ```
@@ -64,16 +65,17 @@ product-truth/
 | 01-context | [product-brief.md](./01-context/product-brief.md) | Who runs it, for whom, bets, problem, how much product truth covers | Known / Proposed |
 | 01-context | [operating-context.md](./01-context/operating-context.md) | GSG structure, brands, countries, entities, systems in use | Known (labelled) |
 | 01-context | [gsg-landscape.md](./01-context/gsg-landscape.md) + [gsg-footprint.json](./01-context/gsg-footprint.json) | All 62 public campuses by brand, brand-country and data region; source systems; GIIS authority seed; transfer types; sample scope nodes | Known (public list) / Open |
-| 03-domain | [samples/](./03-domain/samples/README.md) | Synthetic record sets the object cards point to (`sample:`), across GIIS and five other brands | Synthetic |
+| 03-domain | [samples/](./03-domain/samples/README.md) | Synthetic record sets the object cards point to (`sample:`): students across GIIS and five other brands, and the organisation tree | Synthetic |
 | 01-context | [glossary.md](./01-context/glossary.md) | Terms for organisation, access and data protection | Living |
 | 02-users | [stakeholders.md](./02-users/stakeholders.md) | Seven user segments, decision-makers, observations | Known (desk research) |
 | 02-users | [roles-personas.md](./02-users/roles-personas.md) | Admin Platform personas P1–P5, access role catalog A06, capability matrix | Assumed (DL-02) |
 | 03-domain | [modules-and-services.md](./03-domain/modules-and-services.md) | Surfaces, modules with codes, core services, market coverage | Proposed / Assumed (DL-04) |
 | 03-domain | [architecture.md](./03-domain/architecture.md) | **Layer 0 for design:** global vs cell, scope tree, Person, ownership, governance records, rules AR-01…AR-14, patterns AP-01…AP-14, screen request contract | Confirmed (DL-39…DL-46) |
-| 03-domain | [objects/](./03-domain/objects/README.md) | **Layer 1 for design:** object registry OBJ-01…OBJ-24 and 12 object cards | Confirmed structure (DL-43, DL-46) |
+| 03-domain | [objects/](./03-domain/objects/README.md) | **Layer 1 for design:** object registry OBJ-01…OBJ-24 and 14 object cards | Confirmed structure (DL-43, DL-46) |
 | 03-domain | [tenancy-and-scope.md](./03-domain/tenancy-and-scope.md) | Scope tree with Brand and Brand-country, legal entity beside it, what each level owns | Confirmed (DL-40, DL-41) / Open |
 | 03-domain | [variation-catalogue.md](./03-domain/variation-catalogue.md) | MC-01…MC-15 mapped to product truth | Known |
 | 03-domain | [student-directory-data-dictionary.md](./03-domain/student-directory-data-dictionary.md) | Student, enrolment, guardian, documents, identifiers; field tiers and visibility | Proposed / Assumed (DL-23…DL-27) / Confirmed (DL-28…DL-31) |
+| 03-domain | [organisation-data-dictionary.md](./03-domain/organisation-data-dictionary.md) | Scope tree nodes, brands, brand-countries, campuses, segments, data regions, legal entities, campus operators, inherited settings | Proposed / Confirmed (DL-39…DL-41) / Assumed (DL-47…DL-50) |
 | 04-access | [README.md](./04-access/README.md) | Access paths by actor, constraints, research gaps | Mixed |
 | 04-access | [role-catalogue.md](./04-access/role-catalogue.md) | All role names and the families with none | Known / Assumed / Open |
 | 04-access | [rbac-model.md](./04-access/rbac-model.md) | Six layers, evaluation algorithm, v1 scope, screen impact | Assumed; changes Confirmed (DL-32…DL-38) |

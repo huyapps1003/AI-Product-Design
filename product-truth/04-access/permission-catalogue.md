@@ -23,6 +23,8 @@ Codes follow `module.object.action` (naming rule and review: OQ-49). **Seed** = 
 | `hr.confidential.view` | VIEW | OBJ-05, OBJ-06 | Seed |
 | `ga.module_grant.manage` / `ga.campus_grant.manage` | MANAGE | OBJ-07 | Seed |
 | `ga.catalog.manage` | MANAGE | R01, R02, A06, E06 | Seed |
+| `org.campus_operator.manage` | MANAGE | OBJ-14 | New (organisation dictionary; owner OQ-58) |
+| `org.setting.manage` | MANAGE | OBJ-13 | New (organisation dictionary; overridable settings OQ-20) |
 | `ga.template.publish` | APPROVE | A08 | Seed |
 | `tm.membership.manage` | MANAGE | OBJ-08 | Seed |
 | `tm.scope.manage` | MANAGE | OBJ-08 | Seed |
