@@ -135,7 +135,7 @@ Codes are placeholders until OQ-55 is answered.
 | UK-HTH | Heath House Tranquil Hall, London | Heath House UK · UK | Non-Asian regulator; British curriculum |
 | MY-RKL | Regent Klang | Regent Malaysia · Malaysia | University pathway; possible adult learners (OQ-54) |
 
-`SG-ECS` stays in the sample data until GSG confirms East Coast still operates.
+Records for these nodes are in [`../03-domain/samples/student-sample.json`](../03-domain/samples/student-sample.json), with `KH-HLP` (Harrods Lower Primary) added so a stage campus move can be shown. `SG-ECS` stays in the sample data until GSG confirms East Coast still operates.
 
 ## 2. What the campus list adds
 

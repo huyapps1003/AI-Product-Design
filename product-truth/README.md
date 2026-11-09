@@ -64,6 +64,7 @@ product-truth/
 | 01-context | [product-brief.md](./01-context/product-brief.md) | Who runs it, for whom, bets, problem, how much product truth covers | Known / Proposed |
 | 01-context | [operating-context.md](./01-context/operating-context.md) | GSG structure, brands, countries, entities, systems in use | Known (labelled) |
 | 01-context | [gsg-landscape.md](./01-context/gsg-landscape.md) + [gsg-footprint.json](./01-context/gsg-footprint.json) | All 62 public campuses by brand, brand-country and data region; source systems; GIIS authority seed; transfer types; sample scope nodes | Known (public list) / Open |
+| 03-domain | [samples/](./03-domain/samples/README.md) | Synthetic record sets the object cards point to (`sample:`), across GIIS and five other brands | Synthetic |
 | 01-context | [glossary.md](./01-context/glossary.md) | Terms for organisation, access and data protection | Living |
 | 02-users | [stakeholders.md](./02-users/stakeholders.md) | Seven user segments, decision-makers, observations | Known (desk research) |
 | 02-users | [roles-personas.md](./02-users/roles-personas.md) | Admin Platform personas P1–P5, access role catalog A06, capability matrix | Assumed (DL-02) |
