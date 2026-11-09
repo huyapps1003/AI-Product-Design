@@ -1,0 +1,793 @@
+{
+ "_about": "GSG public campus footprint for the Campus OS AI design workflow. Source: globalschools.com/campus, all 62 cards loaded 2026-11-09. Known = listed publicly. Operating entity (OQ-02), campus code (OQ-55) and data region (OQ-21) are Open; data_region_candidate assumes one region per country (DL-39). See gsg-landscape.md.",
+ "source": "https://globalschools.com/campus/",
+ "as_of": "2026-11-09",
+ "brands": [
+  {
+   "code": "GIIS",
+   "name": "Global Indian International School"
+  },
+  {
+   "code": "OWIS",
+   "name": "One World International School"
+  },
+  {
+   "code": "WIT",
+   "name": "Witty International School"
+  },
+  {
+   "code": "HIS",
+   "name": "Harrods International Academy"
+  },
+  {
+   "code": "VIK",
+   "name": "Vikaasa"
+  },
+  {
+   "code": "GLE",
+   "name": "Glendale International School"
+  },
+  {
+   "code": "HH",
+   "name": "Heath House"
+  },
+  {
+   "code": "REG",
+   "name": "Regent International School"
+  },
+  {
+   "code": "DWI",
+   "name": "Dwight School Seoul"
+  },
+  {
+   "code": "EAS",
+   "name": "Emirates American School"
+  },
+  {
+   "code": "CISM",
+   "name": "Chinese International School Manila"
+  },
+  {
+   "code": "DOM",
+   "name": "Domuschola International School"
+  }
+ ],
+ "not_listed_but_named_elsewhere": [
+  {
+   "brand": "GIIS",
+   "campus": "East Coast (Siglap)",
+   "country": "Singapore",
+   "note": "Used as SG-ECS in sample data"
+  },
+  {
+   "brand": "GIIS",
+   "campus": "Bangkok",
+   "country": "Thailand"
+  },
+  {
+   "brand": "OWIS",
+   "campus": "Suntec",
+   "country": "Singapore"
+  }
+ ],
+ "campuses": [
+  {
+   "brand": "GIIS",
+   "campus": "SMART Campus",
+   "city": "Singapore",
+   "country": "Singapore",
+   "brand_country": "GIIS Singapore",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [
+    "shared_area_other_brand:OQ-52"
+   ],
+   "data_region_candidate": "Singapore"
+  },
+  {
+   "brand": "GIIS",
+   "campus": "Bannerghatta",
+   "city": "Bangalore",
+   "country": "India",
+   "brand_country": "GIIS India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "GIIS",
+   "campus": "Whitefield",
+   "city": "Bangalore",
+   "country": "India",
+   "brand_country": "GIIS India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [
+    "shared_area_other_brand:OQ-52"
+   ],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "GIIS",
+   "campus": "Hadapsar",
+   "city": "Pune",
+   "country": "India",
+   "brand_country": "GIIS India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "GIIS",
+   "campus": "Balewadi",
+   "city": "Pune",
+   "country": "India",
+   "brand_country": "GIIS India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "GIIS",
+   "campus": "Charholi",
+   "city": "Pune",
+   "country": "India",
+   "brand_country": "GIIS India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "GIIS",
+   "campus": "Ahmedabad",
+   "city": "Ahmedabad",
+   "country": "India",
+   "brand_country": "GIIS India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "GIIS",
+   "campus": "Noida",
+   "city": "Noida",
+   "country": "India",
+   "brand_country": "GIIS India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "GIIS",
+   "campus": "Nagpur",
+   "city": "Nagpur",
+   "country": "India",
+   "brand_country": "GIIS India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "GIIS",
+   "campus": "Higashi Kasai",
+   "city": "Tokyo",
+   "country": "Japan",
+   "brand_country": "GIIS Japan",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "Japan"
+  },
+  {
+   "brand": "GIIS",
+   "campus": "Nishi Kasai",
+   "city": "Tokyo",
+   "country": "Japan",
+   "brand_country": "GIIS Japan",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "Japan"
+  },
+  {
+   "brand": "GIIS",
+   "campus": "Seisincho",
+   "city": "Tokyo",
+   "country": "Japan",
+   "brand_country": "GIIS Japan",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "Japan"
+  },
+  {
+   "brand": "GIIS",
+   "campus": "Kita Kasai",
+   "city": "Tokyo",
+   "country": "Japan",
+   "brand_country": "GIIS Japan",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "Japan"
+  },
+  {
+   "brand": "GIIS",
+   "campus": "Dubai",
+   "city": "Dubai",
+   "country": "UAE",
+   "brand_country": "GIIS UAE",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "UAE"
+  },
+  {
+   "brand": "GIIS",
+   "campus": "Abu Dhabi",
+   "city": "Abu Dhabi",
+   "country": "UAE",
+   "brand_country": "GIIS UAE",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "UAE"
+  },
+  {
+   "brand": "GIIS",
+   "campus": "Kuala Lumpur",
+   "city": "Kuala Lumpur",
+   "country": "Malaysia",
+   "brand_country": "GIIS Malaysia",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "Malaysia"
+  },
+  {
+   "brand": "OWIS",
+   "campus": "Digital Campus",
+   "city": "Singapore",
+   "country": "Singapore",
+   "brand_country": "OWIS Singapore",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [
+    "shared_area_other_brand:OQ-52"
+   ],
+   "data_region_candidate": "Singapore"
+  },
+  {
+   "brand": "OWIS",
+   "campus": "Nanyang",
+   "city": "Singapore",
+   "country": "Singapore",
+   "brand_country": "OWIS Singapore",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "Singapore"
+  },
+  {
+   "brand": "OWIS",
+   "campus": "Newton",
+   "city": "Singapore",
+   "country": "Singapore",
+   "brand_country": "OWIS Singapore",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "Singapore"
+  },
+  {
+   "brand": "OWIS",
+   "campus": "Whitefield",
+   "city": "Bangalore",
+   "country": "India",
+   "brand_country": "OWIS India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [
+    "shared_area_other_brand:OQ-52"
+   ],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "OWIS",
+   "campus": "Sarjapur",
+   "city": "Bangalore",
+   "country": "India",
+   "brand_country": "OWIS India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "OWIS",
+   "campus": "Osaka",
+   "city": "Osaka",
+   "country": "Japan",
+   "brand_country": "OWIS Japan",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "Japan"
+  },
+  {
+   "brand": "OWIS",
+   "campus": "Tsukuba",
+   "city": "Tsukuba",
+   "country": "Japan",
+   "brand_country": "OWIS Japan",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "Japan"
+  },
+  {
+   "brand": "OWIS",
+   "campus": "Al Muruj",
+   "city": "Riyadh",
+   "country": "Saudi Arabia",
+   "brand_country": "OWIS Saudi Arabia",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "Saudi Arabia"
+  },
+  {
+   "brand": "OWIS",
+   "campus": "Al Jazeera",
+   "city": "Riyadh",
+   "country": "Saudi Arabia",
+   "brand_country": "OWIS Saudi Arabia",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "Saudi Arabia"
+  },
+  {
+   "brand": "WIT",
+   "campus": "WIS Malad",
+   "city": "Mumbai",
+   "country": "India",
+   "brand_country": "WIT India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "WIT",
+   "campus": "WIS Borivali",
+   "city": "Mumbai",
+   "country": "India",
+   "brand_country": "WIT India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "WIT",
+   "campus": "WIS Bhilwara",
+   "city": "Bhilwara",
+   "country": "India",
+   "brand_country": "WIT India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "WIT",
+   "campus": "WIS Udaipur",
+   "city": "Udaipur",
+   "country": "India",
+   "brand_country": "WIT India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "WIT",
+   "campus": "Witty Kids Goregaon",
+   "city": "Mumbai",
+   "country": "India",
+   "brand_country": "WIT India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [
+    "preschool_only"
+   ],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "WIT",
+   "campus": "Witty Kids Borivali",
+   "city": "Mumbai",
+   "country": "India",
+   "brand_country": "WIT India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [
+    "preschool_only"
+   ],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "WIT",
+   "campus": "Witty Kids R C Vyas",
+   "city": "Bhilwara",
+   "country": "India",
+   "brand_country": "WIT India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [
+    "preschool_only"
+   ],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "WIT",
+   "campus": "Witty Kids Shastri Nagar",
+   "city": "Bhilwara",
+   "country": "India",
+   "brand_country": "WIT India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [
+    "preschool_only"
+   ],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "WIT",
+   "campus": "Witty Kids Udaipur",
+   "city": "Udaipur",
+   "country": "India",
+   "brand_country": "WIT India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [
+    "preschool_only"
+   ],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "HIS",
+   "campus": "Early Years",
+   "city": "Phnom Penh",
+   "country": "Cambodia",
+   "brand_country": "HIS Cambodia",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [
+    "stage_campus:OQ-50"
+   ],
+   "data_region_candidate": "Cambodia"
+  },
+  {
+   "brand": "HIS",
+   "campus": "Lower Primary",
+   "city": "Phnom Penh",
+   "country": "Cambodia",
+   "brand_country": "HIS Cambodia",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [
+    "stage_campus:OQ-50"
+   ],
+   "data_region_candidate": "Cambodia"
+  },
+  {
+   "brand": "HIS",
+   "campus": "Upper Primary",
+   "city": "Phnom Penh",
+   "country": "Cambodia",
+   "brand_country": "HIS Cambodia",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [
+    "stage_campus:OQ-50"
+   ],
+   "data_region_candidate": "Cambodia"
+  },
+  {
+   "brand": "HIS",
+   "campus": "Lower Secondary",
+   "city": "Phnom Penh",
+   "country": "Cambodia",
+   "brand_country": "HIS Cambodia",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [
+    "stage_campus:OQ-50"
+   ],
+   "data_region_candidate": "Cambodia"
+  },
+  {
+   "brand": "HIS",
+   "campus": "Upper Secondary",
+   "city": "Phnom Penh",
+   "country": "Cambodia",
+   "brand_country": "HIS Cambodia",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [
+    "stage_campus:OQ-50"
+   ],
+   "data_region_candidate": "Cambodia"
+  },
+  {
+   "brand": "HIS",
+   "campus": "Olympic",
+   "city": "Phnom Penh",
+   "country": "Cambodia",
+   "brand_country": "HIS Cambodia",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "Cambodia"
+  },
+  {
+   "brand": "HIS",
+   "campus": "Toul Kork",
+   "city": "Phnom Penh",
+   "country": "Cambodia",
+   "brand_country": "HIS Cambodia",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "Cambodia"
+  },
+  {
+   "brand": "VIK",
+   "campus": "Vikaasa World School",
+   "city": "Madurai",
+   "country": "India",
+   "brand_country": "VIK India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "VIK",
+   "campus": "Vikaasa Public School",
+   "city": "Madurai",
+   "country": "India",
+   "brand_country": "VIK India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "VIK",
+   "campus": "Vikaasa Progressive School",
+   "city": "Madurai",
+   "country": "India",
+   "brand_country": "VIK India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "VIK",
+   "campus": "Vikaasa Heritage Campus",
+   "city": "Madurai",
+   "country": "India",
+   "brand_country": "VIK India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "VIK",
+   "campus": "Vikaasa Jubilee School",
+   "city": "Madurai",
+   "country": "India",
+   "brand_country": "VIK India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "VIK",
+   "campus": "Montessori Campus",
+   "city": null,
+   "country": "India",
+   "brand_country": "VIK India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [
+    "preschool_only"
+   ],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "GLE",
+   "campus": "Sun City",
+   "city": "Hyderabad",
+   "country": "India",
+   "brand_country": "GLE India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "GLE",
+   "campus": "Tellapur",
+   "city": "Hyderabad",
+   "country": "India",
+   "brand_country": "GLE India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "GLE",
+   "campus": "Financial District",
+   "city": "Hyderabad",
+   "country": "India",
+   "brand_country": "GLE India",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "India"
+  },
+  {
+   "brand": "GLE",
+   "campus": "Dubai",
+   "city": "Dubai",
+   "country": "UAE",
+   "brand_country": "GLE UAE",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "UAE"
+  },
+  {
+   "brand": "HH",
+   "campus": "Tranquil Hall",
+   "city": "London",
+   "country": "UK",
+   "brand_country": "HH UK",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "UK"
+  },
+  {
+   "brand": "HH",
+   "campus": "Wemyss Road",
+   "city": "London",
+   "country": "UK",
+   "brand_country": "HH UK",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "UK"
+  },
+  {
+   "brand": "HH",
+   "campus": "Heath House International School",
+   "city": null,
+   "country": "UK",
+   "brand_country": "HH UK",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "UK"
+  },
+  {
+   "brand": "HH",
+   "campus": "Heath House Campus",
+   "city": "Singapore",
+   "country": "Singapore",
+   "brand_country": "HH Singapore",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "Singapore"
+  },
+  {
+   "brand": "REG",
+   "campus": "Klang",
+   "city": "Klang",
+   "country": "Malaysia",
+   "brand_country": "REG Malaysia",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [
+    "adult_learners_possible:OQ-54"
+   ],
+   "data_region_candidate": "Malaysia"
+  },
+  {
+   "brand": "REG",
+   "campus": "Sungei Petani",
+   "city": "Sungei Petani",
+   "country": "Malaysia",
+   "brand_country": "REG Malaysia",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [
+    "adult_learners_possible:OQ-54"
+   ],
+   "data_region_candidate": "Malaysia"
+  },
+  {
+   "brand": "REG",
+   "campus": "Kuantan",
+   "city": "Kuantan",
+   "country": "Malaysia",
+   "brand_country": "REG Malaysia",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [
+    "adult_learners_possible:OQ-54"
+   ],
+   "data_region_candidate": "Malaysia"
+  },
+  {
+   "brand": "DWI",
+   "campus": "Seoul",
+   "city": "Seoul",
+   "country": "South Korea",
+   "brand_country": "DWI South Korea",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "South Korea"
+  },
+  {
+   "brand": "EAS",
+   "campus": "Al Qarrayen",
+   "city": "Sharjah",
+   "country": "UAE",
+   "brand_country": "EAS UAE",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "UAE"
+  },
+  {
+   "brand": "CISM",
+   "campus": "Manila",
+   "city": "Manila",
+   "country": "Philippines",
+   "brand_country": "CISM Philippines",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "Philippines"
+  },
+  {
+   "brand": "DOM",
+   "campus": "Manila",
+   "city": "Manila",
+   "country": "Philippines",
+   "brand_country": "DOM Philippines",
+   "operating_entity": "OPEN:OQ-02",
+   "campus_code": "OPEN:OQ-55",
+   "flags": [],
+   "data_region_candidate": "Philippines"
+  }
+ ]
+}

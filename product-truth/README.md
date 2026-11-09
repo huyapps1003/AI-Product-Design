@@ -50,7 +50,7 @@ product-truth/
 │   ├── README.md              slice structure and index
 │   └── admin-platform/        brief, scenarios, screen map, flows/, rules-to-ui
 ├── 07-decisions/decision-log.md   DL-01…DL-46
-├── 08-open-questions/open-questions.md   OQ-01…OQ-49
+├── 08-open-questions/open-questions.md   OQ-01…OQ-56
 ├── _templates/design-slice/   skeleton for a new slice
 └── _archive/                  superseded reviews (gap analysis, 18 Oct)
 ```
@@ -63,6 +63,7 @@ product-truth/
 | 00-sources | [Employee Data Dictionary v1](./00-sources/Global_Campus_OS_Employee_Data_Dictionary_v1.md) ([xlsx](./00-sources/Global_Campus_OS_Employee_Data_Dictionary_v1.xlsx)) | Employee master data, GA/TM access management | Proposed |
 | 01-context | [product-brief.md](./01-context/product-brief.md) | Who runs it, for whom, bets, problem, how much product truth covers | Known / Proposed |
 | 01-context | [operating-context.md](./01-context/operating-context.md) | GSG structure, brands, countries, entities, systems in use | Known (labelled) |
+| 01-context | [gsg-landscape.md](./01-context/gsg-landscape.md) + [gsg-footprint.json](./01-context/gsg-footprint.json) | All 62 public campuses by brand, brand-country and data region; source systems; GIIS authority seed; transfer types; sample scope nodes | Known (public list) / Open |
 | 01-context | [glossary.md](./01-context/glossary.md) | Terms for organisation, access and data protection | Living |
 | 02-users | [stakeholders.md](./02-users/stakeholders.md) | Seven user segments, decision-makers, observations | Known (desk research) |
 | 02-users | [roles-personas.md](./02-users/roles-personas.md) | Admin Platform personas P1–P5, access role catalog A06, capability matrix | Assumed (DL-02) |

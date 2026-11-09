@@ -113,6 +113,20 @@ Added 7 Nov 2026 with DL-32…DL-38 (RBAC review).
 | OQ-48 | Who approves a platform-operator or support session into a school's data, and can the school refuse it? | Support console, approval case and the banner a school sees | OQ-15; research §08 (PowerSchool support credential) | role-catalogue, rbac-model | GSG IT security, brand heads | Open |
 | OQ-49 | Do capability codes follow one naming scheme across modules, and who reviews a module's new capabilities? | Capability names appear in template and access-review screens | DL-33 | permission-catalogue | Data architect | Open |
 
+## I · GSG footprint
+
+Added 9 Nov 2026 from the public campus list ([gsg-landscape](../01-context/gsg-landscape.md) § 2).
+
+| ID | Question | Why it matters for design | Evidence | Affects | Who can answer | Status |
+|---|---|---|---|---|---|---|
+| OQ-50 | When a student moves between stage campuses of one school, is that a promotion or a campus transfer? | The transfer flow must not offer routine stage moves; enrolment history shows them differently | Harrods Phnom Penh lists Early Years, Lower Primary, Upper Primary, Lower Secondary and Upper Secondary campuses | gsg-landscape, OBJ-03, campus transfer slice | GSG group office, Harrods | Open |
+| OQ-51 | Which curricula make up the group programme catalogue, and which brand labels are the same programme? | Programme offering pickers, grading scales and report cards | 34 curriculum labels on the campus list, e.g. "A-levels", "AS-A levels", "Cambridge 'A'"; Architecture v1 plans CBSE, IB and Cambridge packs only | OBJ-15, tenancy-and-scope | Group academics | Open |
+| OQ-52 | Do campuses of different brands share a site, rooms, buses or gates? | Rooms, transport and visitor screens; cross-brand transfers between neighbours | GIIS SMART Campus and OWIS Digital Campus are both in Punggol; GIIS and OWIS both have a Whitefield campus in Bangalore | OBJ-13, Campus services | GSG group office | Open |
+| OQ-53 | Which languages and scripts must names, notices and UI support per brand-country? | Name fields in native script, notice language, UI beyond English v1 | OWIS Saudi Arabia has an Arabic site; campuses in Japan, Cambodia and South Korea | OBJ-01, OQ-25 | Brand leads | Open |
+| OQ-54 | Which campuses teach learners over 18, and how do guardian and consent rules apply to them? | Guardian links, consent and parent-app access for adult learners | Regent lists the Swinburne Foundation Program (university pathway) | OBJ-02, OBJ-04, OBJ-09 | Regent, counsel | Open |
+| OQ-55 | What is the campus ID and code standard, and who assigns codes? | Campus pickers, exports, sample data codes | No codes on the campus list; names repeat across brands ("Whitefield", "Manila", "Dubai") | OBJ-13, sample data | GSG group office | Open |
+| OQ-56 | What is each brand's legal name and display name? | Brand shown in scope breadcrumb, notices and exports | GSG pages use "Harrods International School" and "Harrods International Academy", "Chinese International School Manila" and "Chinese Indian International School", and two Heath House names | OBJ-13, glossary | GSG group office | Open |
+
 ## Research not yet done
 
 These are evidence gaps, not product questions. They are listed in [research §11](../../research/2026-10-25-campus-os-foundation-research.md#11--open-questions-and-research-gaps): contextual inquiry with staff, family research, vendor verification, legal review and a systems inventory. No users have been interviewed yet, so every persona and scenario is an assumption.
