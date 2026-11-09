@@ -1,0 +1,653 @@
+{
+  "_about": "Synthetic organisation sample for the Campus OS AI design workflow (OBJ-13, OBJ-14). Brands, brand-countries and campus names are real (gsg-footprint.json, 9 Nov 2026); codes and paths are placeholders (OQ-55); every legal entity, operator link and setting value is a pending placeholder. Dictionary: product-truth/03-domain/organisation-data-dictionary.md.",
+  "today": "2026-11-09",
+  "group": {
+    "path": "gsg",
+    "display_name": "Global Schools Group",
+    "node_type": "GROUP"
+  },
+  "brands": [
+    {
+      "path": "gsg/giis",
+      "brand_code": "GIIS",
+      "display_name": "Global Indian International School",
+      "legal_name": "PENDING:OQ-56"
+    },
+    {
+      "path": "gsg/owis",
+      "brand_code": "OWIS",
+      "display_name": "One World International School",
+      "legal_name": "PENDING:OQ-56"
+    },
+    {
+      "path": "gsg/wit",
+      "brand_code": "WIT",
+      "display_name": "Witty International School",
+      "legal_name": "PENDING:OQ-56"
+    },
+    {
+      "path": "gsg/his",
+      "brand_code": "HIS",
+      "display_name": "Harrods International Academy",
+      "legal_name": "PENDING:OQ-56"
+    },
+    {
+      "path": "gsg/vik",
+      "brand_code": "VIK",
+      "display_name": "Vikaasa",
+      "legal_name": "PENDING:OQ-56"
+    },
+    {
+      "path": "gsg/gle",
+      "brand_code": "GLE",
+      "display_name": "Glendale International School",
+      "legal_name": "PENDING:OQ-56"
+    },
+    {
+      "path": "gsg/hh",
+      "brand_code": "HH",
+      "display_name": "Heath House",
+      "legal_name": "PENDING:OQ-56"
+    },
+    {
+      "path": "gsg/reg",
+      "brand_code": "REG",
+      "display_name": "Regent International School",
+      "legal_name": "PENDING:OQ-56"
+    },
+    {
+      "path": "gsg/dwi",
+      "brand_code": "DWI",
+      "display_name": "Dwight School Seoul",
+      "legal_name": "PENDING:OQ-56"
+    },
+    {
+      "path": "gsg/eas",
+      "brand_code": "EAS",
+      "display_name": "Emirates American School",
+      "legal_name": "PENDING:OQ-56"
+    },
+    {
+      "path": "gsg/cism",
+      "brand_code": "CISM",
+      "display_name": "Chinese International School Manila",
+      "legal_name": "PENDING:OQ-56"
+    },
+    {
+      "path": "gsg/dom",
+      "brand_code": "DOM",
+      "display_name": "Domuschola International School",
+      "legal_name": "PENDING:OQ-56"
+    }
+  ],
+  "brand_countries": [
+    {
+      "path": "gsg/cism/cism-ph",
+      "brand": "CISM",
+      "country_code": "PH",
+      "display_name": "CISM Philippines",
+      "data_region": "PH",
+      "campuses_listed": 1,
+      "regulator_pack": "PENDING:OQ-22",
+      "currency": "PENDING:Fees and Finance dictionary"
+    },
+    {
+      "path": "gsg/dom/dom-ph",
+      "brand": "DOM",
+      "country_code": "PH",
+      "display_name": "DOM Philippines",
+      "data_region": "PH",
+      "campuses_listed": 1,
+      "regulator_pack": "PENDING:OQ-22",
+      "currency": "PENDING:Fees and Finance dictionary"
+    },
+    {
+      "path": "gsg/dwi/dwi-kr",
+      "brand": "DWI",
+      "country_code": "KR",
+      "display_name": "DWI South Korea",
+      "data_region": "KR",
+      "campuses_listed": 1,
+      "regulator_pack": "PENDING:OQ-22",
+      "currency": "PENDING:Fees and Finance dictionary"
+    },
+    {
+      "path": "gsg/eas/eas-ae",
+      "brand": "EAS",
+      "country_code": "AE",
+      "display_name": "EAS UAE",
+      "data_region": "AE",
+      "campuses_listed": 1,
+      "regulator_pack": "PENDING:OQ-22",
+      "currency": "PENDING:Fees and Finance dictionary"
+    },
+    {
+      "path": "gsg/giis/giis-in",
+      "brand": "GIIS",
+      "country_code": "IN",
+      "display_name": "GIIS India",
+      "data_region": "IN",
+      "campuses_listed": 8,
+      "regulator_pack": "IN",
+      "currency": "INR"
+    },
+    {
+      "path": "gsg/giis/giis-jp",
+      "brand": "GIIS",
+      "country_code": "JP",
+      "display_name": "GIIS Japan",
+      "data_region": "JP",
+      "campuses_listed": 4,
+      "regulator_pack": "PENDING:OQ-22",
+      "currency": "PENDING:Fees and Finance dictionary"
+    },
+    {
+      "path": "gsg/giis/giis-my",
+      "brand": "GIIS",
+      "country_code": "MY",
+      "display_name": "GIIS Malaysia",
+      "data_region": "MY",
+      "campuses_listed": 1,
+      "regulator_pack": "PENDING:OQ-22",
+      "currency": "PENDING:Fees and Finance dictionary"
+    },
+    {
+      "path": "gsg/giis/giis-sg",
+      "brand": "GIIS",
+      "country_code": "SG",
+      "display_name": "GIIS Singapore",
+      "data_region": "SG",
+      "campuses_listed": 1,
+      "regulator_pack": "SG",
+      "currency": "SGD"
+    },
+    {
+      "path": "gsg/giis/giis-ae",
+      "brand": "GIIS",
+      "country_code": "AE",
+      "display_name": "GIIS UAE",
+      "data_region": "AE",
+      "campuses_listed": 2,
+      "regulator_pack": "PENDING:OQ-22",
+      "currency": "PENDING:Fees and Finance dictionary"
+    },
+    {
+      "path": "gsg/gle/gle-in",
+      "brand": "GLE",
+      "country_code": "IN",
+      "display_name": "GLE India",
+      "data_region": "IN",
+      "campuses_listed": 3,
+      "regulator_pack": "IN",
+      "currency": "INR"
+    },
+    {
+      "path": "gsg/gle/gle-ae",
+      "brand": "GLE",
+      "country_code": "AE",
+      "display_name": "GLE UAE",
+      "data_region": "AE",
+      "campuses_listed": 1,
+      "regulator_pack": "PENDING:OQ-22",
+      "currency": "PENDING:Fees and Finance dictionary"
+    },
+    {
+      "path": "gsg/hh/hh-sg",
+      "brand": "HH",
+      "country_code": "SG",
+      "display_name": "HH Singapore",
+      "data_region": "SG",
+      "campuses_listed": 1,
+      "regulator_pack": "SG",
+      "currency": "SGD"
+    },
+    {
+      "path": "gsg/hh/hh-gb",
+      "brand": "HH",
+      "country_code": "GB",
+      "display_name": "HH UK",
+      "data_region": "GB",
+      "campuses_listed": 3,
+      "regulator_pack": "PENDING:OQ-22",
+      "currency": "PENDING:Fees and Finance dictionary"
+    },
+    {
+      "path": "gsg/his/his-kh",
+      "brand": "HIS",
+      "country_code": "KH",
+      "display_name": "HIS Cambodia",
+      "data_region": "KH",
+      "campuses_listed": 7,
+      "regulator_pack": "PENDING:OQ-22",
+      "currency": "PENDING:Fees and Finance dictionary"
+    },
+    {
+      "path": "gsg/owis/owis-in",
+      "brand": "OWIS",
+      "country_code": "IN",
+      "display_name": "OWIS India",
+      "data_region": "IN",
+      "campuses_listed": 2,
+      "regulator_pack": "IN",
+      "currency": "INR"
+    },
+    {
+      "path": "gsg/owis/owis-jp",
+      "brand": "OWIS",
+      "country_code": "JP",
+      "display_name": "OWIS Japan",
+      "data_region": "JP",
+      "campuses_listed": 2,
+      "regulator_pack": "PENDING:OQ-22",
+      "currency": "PENDING:Fees and Finance dictionary"
+    },
+    {
+      "path": "gsg/owis/owis-sa",
+      "brand": "OWIS",
+      "country_code": "SA",
+      "display_name": "OWIS Saudi Arabia",
+      "data_region": "SA",
+      "campuses_listed": 2,
+      "regulator_pack": "PENDING:OQ-22",
+      "currency": "PENDING:Fees and Finance dictionary"
+    },
+    {
+      "path": "gsg/owis/owis-sg",
+      "brand": "OWIS",
+      "country_code": "SG",
+      "display_name": "OWIS Singapore",
+      "data_region": "SG",
+      "campuses_listed": 3,
+      "regulator_pack": "SG",
+      "currency": "SGD"
+    },
+    {
+      "path": "gsg/reg/reg-my",
+      "brand": "REG",
+      "country_code": "MY",
+      "display_name": "REG Malaysia",
+      "data_region": "MY",
+      "campuses_listed": 3,
+      "regulator_pack": "PENDING:OQ-22",
+      "currency": "PENDING:Fees and Finance dictionary"
+    },
+    {
+      "path": "gsg/vik/vik-in",
+      "brand": "VIK",
+      "country_code": "IN",
+      "display_name": "VIK India",
+      "data_region": "IN",
+      "campuses_listed": 6,
+      "regulator_pack": "IN",
+      "currency": "INR"
+    },
+    {
+      "path": "gsg/wit/wit-in",
+      "brand": "WIT",
+      "country_code": "IN",
+      "display_name": "WIT India",
+      "data_region": "IN",
+      "campuses_listed": 9,
+      "regulator_pack": "IN",
+      "currency": "INR"
+    }
+  ],
+  "data_regions": [
+    {
+      "code": "SG",
+      "display_name": "Singapore data region",
+      "countries": [
+        "SG"
+      ],
+      "status": "PLANNED",
+      "basis": "DL-39 (defined in Architecture)"
+    },
+    {
+      "code": "IN",
+      "display_name": "India data region",
+      "countries": [
+        "IN"
+      ],
+      "status": "PLANNED",
+      "basis": "DL-39 (defined in Architecture)"
+    },
+    {
+      "code": "JP",
+      "display_name": "Japan data region",
+      "countries": [
+        "JP"
+      ],
+      "status": "PLANNED",
+      "basis": "Placeholder: one region per country assumed until OQ-21"
+    },
+    {
+      "code": "MY",
+      "display_name": "Malaysia data region",
+      "countries": [
+        "MY"
+      ],
+      "status": "PLANNED",
+      "basis": "Placeholder: one region per country assumed until OQ-21"
+    },
+    {
+      "code": "AE",
+      "display_name": "UAE data region",
+      "countries": [
+        "AE"
+      ],
+      "status": "PLANNED",
+      "basis": "Placeholder: one region per country assumed until OQ-21"
+    },
+    {
+      "code": "KH",
+      "display_name": "Cambodia data region",
+      "countries": [
+        "KH"
+      ],
+      "status": "PLANNED",
+      "basis": "Placeholder: one region per country assumed until OQ-21"
+    },
+    {
+      "code": "GB",
+      "display_name": "UK data region",
+      "countries": [
+        "GB"
+      ],
+      "status": "PLANNED",
+      "basis": "Placeholder: one region per country assumed until OQ-21"
+    },
+    {
+      "code": "SA",
+      "display_name": "Saudi Arabia data region",
+      "countries": [
+        "SA"
+      ],
+      "status": "PLANNED",
+      "basis": "Placeholder: one region per country assumed until OQ-21"
+    },
+    {
+      "code": "PH",
+      "display_name": "Philippines data region",
+      "countries": [
+        "PH"
+      ],
+      "status": "PLANNED",
+      "basis": "Placeholder: one region per country assumed until OQ-21"
+    },
+    {
+      "code": "KR",
+      "display_name": "South Korea data region",
+      "countries": [
+        "KR"
+      ],
+      "status": "PLANNED",
+      "basis": "Placeholder: one region per country assumed until OQ-21"
+    }
+  ],
+  "campuses": [
+    {
+      "code": "SG-PGL",
+      "campus_name": "SMART Campus Punggol",
+      "brand": "GIIS",
+      "brand_country_path": "gsg/giis/giis-sg",
+      "path": "gsg/giis/giis-sg/sg-pgl",
+      "city": "Singapore",
+      "time_zone": "Asia/Singapore",
+      "stages_served": [
+        "PRESCHOOL",
+        "PRIMARY",
+        "SECONDARY",
+        "SENIOR_SECONDARY"
+      ],
+      "campus_status": "ACTIVE",
+      "operating_entity": "PENDING:OQ-02",
+      "_note": "Same area as OWIS Digital Campus (OQ-52)"
+    },
+    {
+      "code": "SG-ECS",
+      "campus_name": "East Coast Campus",
+      "brand": "GIIS",
+      "brand_country_path": "gsg/giis/giis-sg",
+      "path": "gsg/giis/giis-sg/sg-ecs",
+      "city": "Singapore",
+      "time_zone": "Asia/Singapore",
+      "stages_served": [
+        "PRIMARY",
+        "SECONDARY",
+        "SENIOR_SECONDARY"
+      ],
+      "campus_status": "PENDING:OQ-57",
+      "operating_entity": "PENDING:OQ-02",
+      "_note": "Not on GSG's public list on 9 Nov 2026"
+    },
+    {
+      "code": "IN-NOI",
+      "campus_name": "Noida Campus",
+      "brand": "GIIS",
+      "brand_country_path": "gsg/giis/giis-in",
+      "path": "gsg/giis/giis-in/in-noi",
+      "city": "Noida",
+      "time_zone": "Asia/Kolkata",
+      "stages_served": [
+        "PRESCHOOL",
+        "PRIMARY",
+        "SECONDARY",
+        "SENIOR_SECONDARY"
+      ],
+      "campus_status": "ACTIVE",
+      "operating_entity": "PENDING:OQ-02",
+      "segments": [
+        {
+          "code": "PRE_PRIMARY",
+          "display_name": "Pre-Primary"
+        },
+        {
+          "code": "PRIMARY",
+          "display_name": "Primary"
+        },
+        {
+          "code": "MIDDLE",
+          "display_name": "Middle"
+        },
+        {
+          "code": "HIGHER",
+          "display_name": "Higher"
+        }
+      ],
+      "_segments_source": "GIIS Noida Almanac 2025-26 (DL-29)"
+    },
+    {
+      "code": "SG-OWD",
+      "campus_name": "OWIS Digital Campus, Punggol",
+      "brand": "OWIS",
+      "brand_country_path": "gsg/owis/owis-sg",
+      "path": "gsg/owis/owis-sg/sg-owd",
+      "city": "Singapore",
+      "time_zone": "Asia/Singapore",
+      "stages_served": [
+        "PRIMARY"
+      ],
+      "campus_status": "ACTIVE",
+      "operating_entity": "PENDING:OQ-02",
+      "_note": "Neighbour of GIIS SG-PGL (OQ-52)"
+    },
+    {
+      "code": "KH-HLP",
+      "campus_name": "Harrods Lower Primary Campus",
+      "brand": "HIS",
+      "brand_country_path": "gsg/his/his-kh",
+      "path": "gsg/his/his-kh/kh-hlp",
+      "city": "Phnom Penh",
+      "time_zone": "Asia/Phnom_Penh",
+      "stages_served": [
+        "PRIMARY"
+      ],
+      "campus_status": "ACTIVE",
+      "operating_entity": "PENDING:OQ-02",
+      "_note": "Stage campus (DL-49, OQ-50)"
+    },
+    {
+      "code": "KH-HUP",
+      "campus_name": "Harrods Upper Primary Campus",
+      "brand": "HIS",
+      "brand_country_path": "gsg/his/his-kh",
+      "path": "gsg/his/his-kh/kh-hup",
+      "city": "Phnom Penh",
+      "time_zone": "Asia/Phnom_Penh",
+      "stages_served": [
+        "PRIMARY"
+      ],
+      "campus_status": "ACTIVE",
+      "operating_entity": "PENDING:OQ-02",
+      "_note": "Stage campus (DL-49, OQ-50)"
+    },
+    {
+      "code": "IN-WKB",
+      "campus_name": "Witty Kids Borivali",
+      "brand": "WIT",
+      "brand_country_path": "gsg/wit/wit-in",
+      "path": "gsg/wit/wit-in/in-wkb",
+      "city": "Mumbai",
+      "time_zone": "Asia/Kolkata",
+      "stages_served": [
+        "PRESCHOOL"
+      ],
+      "campus_status": "ACTIVE",
+      "operating_entity": "PENDING:OQ-02"
+    },
+    {
+      "code": "UK-HTH",
+      "campus_name": "Heath House Tranquil Hall",
+      "brand": "HH",
+      "brand_country_path": "gsg/hh/hh-gb",
+      "path": "gsg/hh/hh-gb/uk-hth",
+      "city": "London",
+      "time_zone": "Europe/London",
+      "stages_served": [
+        "PRIMARY"
+      ],
+      "campus_status": "ACTIVE",
+      "operating_entity": "PENDING:OQ-02"
+    },
+    {
+      "code": "MY-RKL",
+      "campus_name": "Regent International School, Klang",
+      "brand": "REG",
+      "brand_country_path": "gsg/reg/reg-my",
+      "path": "gsg/reg/reg-my/my-rkl",
+      "city": "Klang",
+      "time_zone": "Asia/Kuala_Lumpur",
+      "stages_served": [
+        "SECONDARY",
+        "SENIOR_SECONDARY",
+        "POST_SECONDARY"
+      ],
+      "campus_status": "ACTIVE",
+      "operating_entity": "PENDING:OQ-02",
+      "_note": "Swinburne Foundation Program (OQ-54)"
+    }
+  ],
+  "campuses_full_list": "product-truth/01-context/gsg-footprint.json (62 campuses)",
+  "legal_entities": [
+    {
+      "legal_entity_id": "LE-PENDING",
+      "legal_name": "[operating entity — OQ-02]",
+      "entity_type": "SCHOOL_OPERATOR",
+      "status": "PENDING:OQ-02",
+      "_note": "No entity is named in product truth. Show this placeholder; never invent a company name."
+    }
+  ],
+  "campus_operators": [
+    {
+      "campus": "SG-PGL",
+      "legal_entity_id": "LE-PENDING",
+      "operator_role": "PENDING:OQ-03",
+      "valid_from": null
+    },
+    {
+      "campus": "SG-ECS",
+      "legal_entity_id": "LE-PENDING",
+      "operator_role": "PENDING:OQ-03",
+      "valid_from": null
+    },
+    {
+      "campus": "IN-NOI",
+      "legal_entity_id": "LE-PENDING",
+      "operator_role": "PENDING:OQ-03",
+      "valid_from": null
+    },
+    {
+      "campus": "SG-OWD",
+      "legal_entity_id": "LE-PENDING",
+      "operator_role": "PENDING:OQ-03",
+      "valid_from": null
+    },
+    {
+      "campus": "KH-HLP",
+      "legal_entity_id": "LE-PENDING",
+      "operator_role": "PENDING:OQ-03",
+      "valid_from": null
+    },
+    {
+      "campus": "KH-HUP",
+      "legal_entity_id": "LE-PENDING",
+      "operator_role": "PENDING:OQ-03",
+      "valid_from": null
+    },
+    {
+      "campus": "IN-WKB",
+      "legal_entity_id": "LE-PENDING",
+      "operator_role": "PENDING:OQ-03",
+      "valid_from": null
+    },
+    {
+      "campus": "UK-HTH",
+      "legal_entity_id": "LE-PENDING",
+      "operator_role": "PENDING:OQ-03",
+      "valid_from": null
+    },
+    {
+      "campus": "MY-RKL",
+      "legal_entity_id": "LE-PENDING",
+      "operator_role": "PENDING:OQ-03",
+      "valid_from": null
+    }
+  ],
+  "settings": [
+    {
+      "setting_key": "calendar.academic_year_start",
+      "scope_node": "gsg/giis/giis-sg/sg-pgl",
+      "value": "2026-07-13",
+      "override_policy": "PENDING:OQ-20",
+      "_shows": "Campus-level value (MC-06)"
+    },
+    {
+      "setting_key": "calendar.academic_year_start",
+      "scope_node": "gsg/giis/giis-in/in-noi",
+      "value": "2026-04-06",
+      "override_policy": "PENDING:OQ-20",
+      "_shows": "Different year start in another region (MC-06)"
+    },
+    {
+      "setting_key": "finance.currency",
+      "scope_node": "gsg/giis/giis-sg",
+      "value": "SGD",
+      "override_policy": "LOCKED_BELOW",
+      "_shows": "Inherited from GIIS Singapore by SG-PGL and SG-ECS (AP-02); currency is a Brand-country attribute (DL-40)"
+    }
+  ],
+  "viewers": [
+    {
+      "name": "Daniel Ong",
+      "persona": "P2 Global Admin",
+      "scope_node": "gsg",
+      "_note": "Synthetic; sees the whole tree and the campus catalogue (SCR-GA-01)"
+    },
+    {
+      "name": "Dr Anita Rao",
+      "persona": "P3 Campus Leader",
+      "scope_node": "gsg/giis/giis-sg/sg-pgl",
+      "_note": "From student-sample staff_users; sees own campus only"
+    }
+  ]
+}

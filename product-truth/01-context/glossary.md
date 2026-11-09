@@ -24,6 +24,7 @@ Use these terms exactly in screens and specs. Where a term's definition is still
 | **Programme offering** | A curriculum taught on a campus for a grade band, for example CBSE 6–8 at Punggol | Known (Architecture) |
 | **Programme pack** | A curriculum loaded as data: levels, subjects, grade scale, rules, templates | Known (Architecture) |
 | **Country cell** | A deployment of the platform that holds one country's data in that country's region | Known (Architecture) |
+| **Data region** | Product term for a country cell in staff UI ("Singapore data region"); "data home" in parent copy; "cell" only in engineering docs (OR06) | Assumed (DL-47) |
 | **School operating entity** | The legal entity behind a school that enrols students and employs staff. Linked to each campus by date; copied onto enrolments, employments and cases (DL-41) | Structure Confirmed (DL-41); which ones is open (OQ-02) |
 | **Employer** | The legal employer on an employment record (`employer_org_id` on E02; catalog TBD) | Known (Data Dictionary) |
 | **Franchise / JV partner** | A local partner through which some GIIS campuses opened | Known that they exist (OQ-03) |
@@ -33,7 +34,7 @@ Use these terms exactly in screens and specs. Where a term's definition is still
 | Term | Meaning | Status |
 |---|---|---|
 | **GA grant** (Global Admin grant) | The ceiling of what a user may access: modules × campuses (A03, A04) | Known (Data Dictionary) |
-| **Scope node** | The level a grant is made at: Group, Country or Campus | Assumed (DL-17) |
+| **Scope node** | A node of the scope tree: Group, Brand, Brand-country, Campus or Segment. Grants and memberships sit at Group, Brand, Brand-country or Campus (OR01) | Confirmed (DL-40); record Assumed (DL-48) |
 | **TM membership** (Team Management) | A user's place in one module on one campus, with a role, a permission template and a data scope (A05–A13) | Known (Data Dictionary) |
 | **Access role** | A named bundle used in TM, such as `TEACHER` or `MODULE_ADMIN` (A06) | Assumed values ([role catalogue](../04-access/role-catalogue.md)) |
 | **Permission template** | A versioned list of allowed and denied capabilities (A08, A09) | Known (Data Dictionary) |

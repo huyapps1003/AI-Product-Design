@@ -127,6 +127,16 @@ Added 9 Nov 2026 from the public campus list ([gsg-landscape](../01-context/gsg-
 | OQ-55 | What is the campus ID and code standard, and who assigns codes? | Campus pickers, exports, sample data codes | No codes on the campus list; names repeat across brands ("Whitefield", "Manila", "Dubai") | OBJ-13, sample data | GSG group office | Open |
 | OQ-56 | What is each brand's legal name and display name? | Brand shown in scope breadcrumb, notices and exports | GSG pages use "Harrods International School" and "Harrods International Academy", "Chinese International School Manila" and "Chinese Indian International School", and two Heath House names | OBJ-13, glossary | GSG group office | Open |
 
+## J · Organisation tree
+
+Added 9 Nov 2026 with the [Organisation dictionary](../03-domain/organisation-data-dictionary.md).
+
+| ID | Question | Why it matters for design | Evidence | Affects | Who can answer | Status |
+|---|---|---|---|---|---|---|
+| OQ-57 | Which campuses operate today, and are GIIS East Coast, GIIS Bangkok and OWIS Suntec still running? | Sample data uses East Coast (SG-ECS) for the same-entity transfer example; campus pickers must match reality | Not on the public campus list on 9 Nov 2026 but named elsewhere ([gsg-landscape](../01-context/gsg-landscape.md) § 1) | organisation dictionary, samples, S2 campus transfer | GSG group office | Open |
+| OQ-58 | Which team creates, renames and closes brands, campuses and segments, and who approves a campus handover? | Campus catalogue and operator-change screens need an owner and an approver | Employee Data Dictionary E06 owner "Global Admin"; OQ-46 | OBJ-13, OBJ-14, permission-catalogue | Henry, GSG group office | Open |
+| OQ-59 | Does GSG group brand-countries into regions (for example South-East Asia) for leadership, reporting or support? | The tree has no level between Group and Brand, so a regional head can't be granted a region | Not in Architecture or on the public site | tenancy-and-scope, rbac-model | GSG leadership | Open |
+
 ## Research not yet done
 
 These are evidence gaps, not product questions. They are listed in [research §11](../../research/2026-10-25-campus-os-foundation-research.md#11--open-questions-and-research-gaps): contextual inquiry with staff, family research, vendor verification, legal review and a systems inventory. No users have been interviewed yet, so every persona and scenario is an assumption.

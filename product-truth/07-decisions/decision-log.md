@@ -58,6 +58,10 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-44 | Consent, purpose, sharing record and retention policy are first-class records with empty legal slots | **Confirmed** (Henry, 7 Nov 2026) | OQ-07, OQ-09, OQ-10, OQ-43 |
 | DL-45 | Legacy systems are authoritative per field until a cutover date; conflicts are quarantined | **Confirmed** (Henry, 7 Nov 2026) | OQ-44, Student DD D09 |
 | DL-46 | Design works through three layers: architecture rules, object cards, slices | **Confirmed** (Henry, 7 Nov 2026) | 03-domain/architecture.md, 03-domain/objects/ |
+| DL-47 | Product term for a cell is "data region" (staff UI) and "data home" (parent copy) | Assumed | Organisation dictionary, DL-39 |
+| DL-48 | One Scope node record per tree node with typed profiles; nodes close, never move | Assumed | Organisation dictionary OR01, DL-40 |
+| DL-49 | Every publicly listed campus is a Campus node, including stage campuses | Assumed | Organisation dictionary OR04, OQ-50 |
+| DL-50 | Candidate enums for the organisation tree, legal entities and settings | Assumed | Organisation dictionary |
 
 ---
 
@@ -299,6 +303,26 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 ### DL-46 — Three-layer design workflow
 - **Decision.** The AI design workflow loads, in order: Layer 0 architecture rules (AR) and patterns (AP) in [`03-domain/architecture.md`](../03-domain/architecture.md); Layer 1 design object cards (OBJ) in [`03-domain/objects/`](../03-domain/objects/README.md); Layer 2 design slices in `06-experience/`. Object cards are the design view of the data dictionaries and never a second truth.
 - **Confirmed by.** Henry, 7 Nov 2026.
+
+### DL-47 — "Data region" as the product term for a cell
+- **Context.** Henry asked why the architecture says "cell" (9 Nov 2026). It is infrastructure jargon that designers and school staff don't use.
+- **Decision.** Staff UI says **data region** ("Singapore data region"); parent copy says **data home**; "cell" stays in engineering docs. The entity is OR06 Data region.
+- **Confirm with.** Henry.
+
+### DL-48 — Scope node record
+- **Decision.** Each tree node is one Scope node (OR01) with a type and a materialised path; Brand, Brand-country, Campus and Segment are typed profiles. `campus_id` equals the campus node ID. Nodes are closed, never deleted or re-parented; a campus that changes brand gets a new node.
+- **Why.** Grants (A03, A04), memberships (A05) and `tenant_path` all point at one key, and history survives brand moves.
+- **Confirm with.** Henry, data architect.
+
+### DL-49 — Listed campuses are Campus nodes
+- **Decision.** Every campus on GSG's public list is a Campus node, including stage campuses of one school such as Harrods Lower and Upper Primary in Phnom Penh.
+- **Why.** The tree matches how GSG describes itself; whether a move between stage campuses is a transfer stays open (OQ-50).
+- **Confirm with.** Henry, brand admissions owners.
+
+### DL-50 — Organisation candidate enums
+- **Decision.** Use the candidate enums in the [Organisation dictionary](../03-domain/organisation-data-dictionary.md#candidate-enums--require-approval-dl-50) (node type and status, campus status, stages served, data region status, legal entity type and status, operator role, setting override policy).
+- **Why.** Designers need fixed labels; same approach as DL-27.
+- **Confirm with.** Henry.
 
 ## How design direction becomes architecture
 
