@@ -33,7 +33,7 @@ actions:
 events: [StudentCreated, ProfileEditedByParent, ImmigrationStatusChanged]
 variation: [MC-05, MC-08, MC-09]
 open: [OQ-36 Student ID format, OQ-37 identity fields per country, OQ-42 health alerts on card, OQ-43 retention, OQ-19 student self access]
-sample: pending   # student sample set (Lina Goh, SG-PGL) is in project files, not yet in the repo
+sample: product-truth/03-domain/samples/student-sample.json   # viewer Lina Goh, SG-PGL; other brands' scope nodes from gsg-landscape
 patterns: [AP-03, AP-04, AP-05, AP-06, AP-13, AP-14]
 ---
 

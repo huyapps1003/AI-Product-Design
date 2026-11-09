@@ -3,7 +3,7 @@
 **Status:** Proposed, 18 Oct 2026 · scope note added 25 Oct 2026 · **Owner:** Henry
 **Reads with:** [Product Architecture v1](../../00-sources/Global_Campus_OS_Product_Architecture_v1.md) (whole platform) · [Employee Data Dictionary v1](../../00-sources/Global_Campus_OS_Employee_Data_Dictionary_v1.md) (data)
 
-> **Scope note, 25 Oct 2026.** Campus OS serves every GSG brand and GSG operates it (DL-22). This slice was written with GIIS as the only brand, and its sample data is still GIIS-only (DL-03; OQ-33). Read "GIIS" below as the example brand. Platform-level context: [`../../01-context/product-brief.md`](../../01-context/product-brief.md).
+> **Scope note, 25 Oct 2026.** Campus OS serves every GSG brand and GSG operates it (DL-22). This slice was written with GIIS as the only brand, and its sample data is still GIIS-only (DL-03; OQ-33). For other brands, take scope nodes from [gsg-landscape](../../01-context/gsg-landscape.md#sample-scope-nodes-for-screen-prompts) and student records from [`03-domain/samples/`](../../03-domain/samples/README.md). Read "GIIS" below as the example brand. Platform-level context: [`../../01-context/product-brief.md`](../../01-context/product-brief.md).
 
 **Tóm tắt (VI):** Thiết kế đợt đầu tập trung vào **Admin Platform**: quản lý nhân sự (Staff and HR) và quyền truy cập (Global Admin + Team Management) cho các campus của GSG (dữ liệu mẫu hiện là GIIS). Đây là "cửa ngõ" của 12 module: chưa có người và quyền đúng thì không module nào chạy được.
 

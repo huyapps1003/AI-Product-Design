@@ -32,7 +32,7 @@ actions:
 events: [StudentEnrolled, EnrolmentEnded, StudentTransferred]
 variation: [MC-06, MC-07, MC-10]
 open: [OQ-45 AEPP as offering or placement, OQ-07 cross-entity transfer]
-sample: pending   # student sample set (Lina Goh, SG-PGL) is in project files, not yet in the repo
+sample: product-truth/03-domain/samples/student-sample.json   # viewer Lina Goh, SG-PGL; other brands' scope nodes from gsg-landscape
 patterns: [AP-01, AP-04, AP-05, AP-11, AP-13, AP-14]
 ---
 

@@ -59,11 +59,11 @@ Shell specs:
 Fill these six inputs (screen request contract, `product-truth/03-domain/architecture.md`). They replace the generic content specification below for Campus OS.
 
 - **Screen:** [SCR-ID from the slice's ia-screen-map.md] · screen type [from context-map.json]
-- **Viewer:** [persona] · [access role] · [scope node, e.g. GIIS › GIIS Singapore › Punggol]
+- **Viewer:** [persona] · [access role] · [scope node from the sample scope nodes in `product-truth/01-context/gsg-landscape.md`, e.g. GIIS › GIIS Singapore › SMART Campus (SG-PGL)]
 - **Objects:** [OBJ-IDs shown, primary first, e.g. OBJ-02 Student (primary), OBJ-03 Enrolment, OBJ-04 Guardian]
 - **States:** [empty | loading | error | no access | masked | success]
-- **Sample:** [record set from the slice README or the card's `sample`]
-- **Variation:** [MC IDs for what differs by brand, country or campus, or "none"]
+- **Sample:** [record set from the card's `sample` (`product-truth/03-domain/samples/`) or the slice README]
+- **Variation:** [MC IDs for what differs by brand, country or campus, plus any footprint flag the scope node carries (stage campus OQ-50, shared site OQ-52, adult learners OQ-54), or "none"]
 
 Output must start with an HTML comment listing the AR, AP, OBJ, DL and OQ IDs applied, and pass the review checklist in architecture.md.
 

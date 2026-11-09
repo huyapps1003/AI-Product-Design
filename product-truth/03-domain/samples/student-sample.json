@@ -1,0 +1,2674 @@
+{
+ "_about": "Synthetic sample data for Campus OS student screens (OBJ-02, OBJ-03, OBJ-04). All people, numbers and addresses are invented. GIIS campuses (SG-PGL, SG-ECS, IN-NOI) are the original set; five campuses of other brands were added on 9 Nov 2026 from the sample scope nodes in product-truth/01-context/gsg-landscape.md. Campus codes are placeholders (OQ-55); Student ID format is a placeholder (OQ-36). Fields marked restricted are Tier 3. Today in the prototype is 6 Nov 2026.",
+ "group": "Global Schools Group (GSG)",
+ "brand": "GIIS is the detailed example brand; OWIS, Harrods, Witty, Heath House and Regent appear with one student each",
+ "today": "2026-11-06",
+ "campuses": [
+  {
+   "code": "SG-PGL",
+   "name": "SMART Campus Punggol",
+   "country": "SG",
+   "timezone": "Asia/Singapore",
+   "programmes": [
+    "GMP (KG)",
+    "CBSE 1-12",
+    "IB PYP",
+    "Cambridge CLSP 6-8"
+   ],
+   "ay_start": "2026-07-13",
+   "brand": "GIIS"
+  },
+  {
+   "code": "SG-ECS",
+   "name": "East Coast Campus",
+   "country": "SG",
+   "timezone": "Asia/Singapore",
+   "programmes": [
+    "CBSE 1-12",
+    "IGCSE 9-10",
+    "IBDP"
+   ],
+   "ay_start": "2026-07-13",
+   "brand": "GIIS",
+   "note": "Not on GSG's public campus list (9 Nov 2026); kept until GSG confirms it operates"
+  },
+  {
+   "code": "IN-NOI",
+   "name": "Noida Campus",
+   "country": "IN",
+   "timezone": "Asia/Kolkata",
+   "programmes": [
+    "GMP (KG)",
+    "CBSE 1-12"
+   ],
+   "ay_start": "2026-04-06",
+   "brand": "GIIS"
+  },
+  {
+   "code": "SG-OWD",
+   "brand": "OWIS",
+   "name": "OWIS Digital Campus, Punggol",
+   "country": "SG",
+   "timezone": "Asia/Singapore",
+   "programmes": [
+    "IB PYP"
+   ],
+   "ay_start": null,
+   "note": "Same area as GIIS SG-PGL (OQ-52)"
+  },
+  {
+   "code": "KH-HLP",
+   "brand": "Harrods",
+   "name": "Harrods Lower Primary Campus, Phnom Penh",
+   "country": "KH",
+   "timezone": "Asia/Phnom_Penh",
+   "programmes": [
+    "IPC (Cambridge)",
+    "Khmer National Programme"
+   ],
+   "ay_start": null,
+   "note": "Stage campus (OQ-50)"
+  },
+  {
+   "code": "KH-HUP",
+   "brand": "Harrods",
+   "name": "Harrods Upper Primary Campus, Phnom Penh",
+   "country": "KH",
+   "timezone": "Asia/Phnom_Penh",
+   "programmes": [
+    "IPC (Cambridge)",
+    "Khmer National Programme"
+   ],
+   "ay_start": null,
+   "note": "Stage campus (OQ-50)"
+  },
+  {
+   "code": "IN-WKB",
+   "brand": "Witty",
+   "name": "Witty Kids Borivali, Mumbai",
+   "country": "IN",
+   "timezone": "Asia/Kolkata",
+   "programmes": [
+    "Preschool"
+   ],
+   "ay_start": null,
+   "note": "Preschool only"
+  },
+  {
+   "code": "UK-HTH",
+   "brand": "Heath House",
+   "name": "Heath House Tranquil Hall, London",
+   "country": "GB",
+   "timezone": "Europe/London",
+   "programmes": [
+    "British National Curriculum"
+   ],
+   "ay_start": null
+  },
+  {
+   "code": "MY-RKL",
+   "brand": "Regent",
+   "name": "Regent International School, Klang",
+   "country": "MY",
+   "timezone": "Asia/Kuala_Lumpur",
+   "programmes": [
+    "Cambridge Lower Secondary KS3",
+    "Cambridge Upper Secondary KS4",
+    "A-levels",
+    "Swinburne Foundation Program"
+   ],
+   "ay_start": null,
+   "note": "University pathway; possible adult learners (OQ-54)"
+  }
+ ],
+ "illustrative_counts": {
+  "SG-PGL": {
+   "enrolled": 1840,
+   "offered": 62,
+   "confirmed": 38,
+   "transfers_in_review": 3,
+   "guardians_pending_verification": 17,
+   "student_pass_holders": 214
+  },
+  "SG-ECS": {
+   "enrolled": 910,
+   "offered": 25,
+   "confirmed": 19,
+   "transfers_in_review": 1,
+   "guardians_pending_verification": 6,
+   "student_pass_holders": 97
+  },
+  "IN-NOI": {
+   "enrolled": 1320,
+   "offered": 44,
+   "confirmed": 51,
+   "transfers_in_review": 0,
+   "guardians_pending_verification": 9,
+   "student_pass_holders": 0
+  }
+ },
+ "staff_users": [
+  {
+   "name": "Lina Goh",
+   "role": "Admissions Officer",
+   "campus": "SG-PGL"
+  },
+  {
+   "name": "Pooja Malhotra",
+   "role": "Admissions Officer",
+   "campus": "IN-NOI"
+  },
+  {
+   "name": "Dr Anita Rao",
+   "role": "Principal",
+   "campus": "SG-PGL"
+  },
+  {
+   "name": "Suresh Pillai",
+   "role": "Principal",
+   "campus": "SG-ECS"
+  },
+  {
+   "name": "Farah Ismail",
+   "role": "Class Teacher, 7B",
+   "campus": "SG-PGL"
+  },
+  {
+   "name": "Priya Nair",
+   "role": "Subject Teacher, CBSE 6-8 Maths",
+   "campus": "SG-PGL + SG-ECS"
+  },
+  {
+   "name": "Rahul Verma",
+   "role": "Class Teacher, 4A",
+   "campus": "IN-NOI"
+  },
+  {
+   "name": "Ms Tan Hui Min",
+   "role": "Nurse",
+   "campus": "SG-PGL"
+  },
+  {
+   "name": "Kumar Selvam",
+   "role": "Transport Executive",
+   "campus": "SG-PGL"
+  }
+ ],
+ "students": [
+  {
+   "student_number": "GS-2024-001842",
+   "legal_first_name": "Aarav",
+   "legal_last_name": "Sharma",
+   "preferred_name": "Aarav",
+   "date_of_birth": "2014-02-18",
+   "nationality": [
+    "IN"
+   ],
+   "home_language": "Hindi",
+   "record_status": "ACTIVE",
+   "photo": "initials AS",
+   "enrolments": [
+    {
+     "campus": "SG-PGL",
+     "academic_year": "AY 2025-26",
+     "programme": "CBSE 1-12",
+     "grade": "Grade 6",
+     "segment": "Middle",
+     "class": "6B",
+     "house": "House B",
+     "status": "COMPLETED",
+     "start_date": "2025-07-14",
+     "end_date": "2026-06-12",
+     "end_reason": "PROMOTION_ROLLOVER"
+    },
+    {
+     "campus": "SG-PGL",
+     "academic_year": "AY 2026-27",
+     "programme": "CBSE 1-12",
+     "grade": "Grade 7",
+     "segment": "Middle",
+     "class": "7B",
+     "house": "House B",
+     "status": "ENROLLED",
+     "start_date": "2026-07-13",
+     "end_date": null,
+     "end_reason": null,
+     "previous": "AY 2025-26 6B"
+    }
+   ],
+   "subjects": [
+    [
+     "English",
+     "CORE"
+    ],
+    [
+     "Mathematics",
+     "CORE"
+    ],
+    [
+     "Science",
+     "CORE"
+    ],
+    [
+     "Social Science",
+     "CORE"
+    ],
+    [
+     "Hindi",
+     "SECOND_LANGUAGE"
+    ],
+    [
+     "Sanskrit",
+     "THIRD_LANGUAGE"
+    ]
+   ],
+   "guardians": [
+    {
+     "guardian_id": "G-001",
+     "relationship_type": "MOTHER",
+     "can_collect_student": true,
+     "is_emergency_contact": true,
+     "contact_priority": 1,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    },
+    {
+     "guardian_id": "G-002",
+     "relationship_type": "FATHER",
+     "can_collect_student": false,
+     "is_emergency_contact": true,
+     "contact_priority": 2,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "Blk 618 Punggol Drive #08-112, Singapore 820618",
+     "country": "SG"
+    },
+    {
+     "type": "INTERNATIONAL_HOME",
+     "address": "C-41 Sector 50, Noida, UP 201301",
+     "country": "IN"
+    }
+   ],
+   "identity_documents": [
+    {
+     "type": "PASSPORT",
+     "number_masked": "Z•••••4821",
+     "issuing_country": "IN",
+     "expiry_date": "2027-01-09",
+     "expiry_chip": "Expires 9 Jan 2027 (warning, within 60 days)",
+     "verified_by": "Lina Goh"
+    },
+    {
+     "type": "STUDENT_PASS",
+     "number_masked": "G•••••557K",
+     "issuing_country": "SG",
+     "expiry_date": "2027-06-30",
+     "verified_by": "Lina Goh"
+    }
+   ],
+   "immigration_status": {
+    "country": "SG",
+    "status": "STUDENT_PASS",
+    "valid_to": "2027-06-30",
+    "restricted": true
+   },
+   "attendance_threshold": "90%",
+   "external_ids": [
+    {
+     "scheme": "CBSE board registration",
+     "value": null,
+     "status": "NOT_GENERATED",
+     "note": "Board registration from Grade 9"
+    },
+    {
+     "scheme": "MyGIIS legacy ID",
+     "value": "MG-SG-118204",
+     "status": "ACTIVE",
+     "sync": "SYNCED"
+    }
+   ],
+   "login": {
+    "status": "ACTIVE",
+    "account": "aarav.sharma@students.giis.example"
+   },
+   "cases": []
+  },
+  {
+   "student_number": "GS-2022-000917",
+   "legal_first_name": "Ishita",
+   "legal_last_name": "Sharma",
+   "preferred_name": "Ishita",
+   "date_of_birth": "2011-09-03",
+   "nationality": [
+    "IN"
+   ],
+   "home_language": "Hindi",
+   "record_status": "ACTIVE",
+   "photo": "initials IS",
+   "enrolments": [
+    {
+     "campus": "SG-ECS",
+     "academic_year": "AY 2026-27",
+     "programme": "IGCSE 9-10",
+     "grade": "Grade 9",
+     "segment": "Higher",
+     "class": "9A",
+     "house": "House D",
+     "status": "ENROLLED",
+     "start_date": "2026-07-13",
+     "end_date": null,
+     "end_reason": null
+    }
+   ],
+   "subjects": [
+    [
+     "English First Language",
+     "CORE"
+    ],
+    [
+     "Mathematics",
+     "CORE"
+    ],
+    [
+     "Combined Science",
+     "CORE"
+    ],
+    [
+     "Hindi",
+     "SECOND_LANGUAGE"
+    ],
+    [
+     "Business Studies",
+     "ELECTIVE"
+    ],
+    [
+     "Computer Science",
+     "ELECTIVE"
+    ]
+   ],
+   "guardians": [
+    {
+     "guardian_id": "G-001",
+     "relationship_type": "MOTHER",
+     "can_collect_student": true,
+     "is_emergency_contact": true,
+     "contact_priority": 1,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    },
+    {
+     "guardian_id": "G-002",
+     "relationship_type": "FATHER",
+     "can_collect_student": false,
+     "is_emergency_contact": true,
+     "contact_priority": 2,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "Blk 618 Punggol Drive #08-112, Singapore 820618",
+     "country": "SG"
+    },
+    {
+     "type": "INTERNATIONAL_HOME",
+     "address": "C-41 Sector 50, Noida, UP 201301",
+     "country": "IN"
+    }
+   ],
+   "identity_documents": [
+    {
+     "type": "PASSPORT",
+     "number_masked": "Z•••••7730",
+     "issuing_country": "IN",
+     "expiry_date": "2030-05-21"
+    },
+    {
+     "type": "STUDENT_PASS",
+     "number_masked": "G•••••612M",
+     "issuing_country": "SG",
+     "expiry_date": "2027-06-30"
+    }
+   ],
+   "immigration_status": {
+    "country": "SG",
+    "status": "STUDENT_PASS",
+    "valid_to": "2027-06-30",
+    "restricted": true
+   },
+   "attendance_threshold": "90%",
+   "external_ids": [
+    {
+     "scheme": "Cambridge candidate number",
+     "value": null,
+     "status": "PENDING"
+    },
+    {
+     "scheme": "MyGIIS legacy ID",
+     "value": "MG-SG-097311",
+     "status": "ACTIVE",
+     "sync": "SYNCED"
+    }
+   ],
+   "login": {
+    "status": "ACTIVE",
+    "account": "ishita.sharma@students.giis.example"
+   },
+   "cases": [],
+   "note": "Sibling of Aarav. Same guardians, different campus: parent app shows both children."
+  },
+  {
+   "student_number": "GS-2023-003310",
+   "legal_first_name": "Chloe",
+   "legal_last_name": "Tan",
+   "preferred_name": "Chloe Tan Wei Ling",
+   "date_of_birth": "2018-04-27",
+   "nationality": [
+    "SG"
+   ],
+   "home_language": "Mandarin",
+   "record_status": "ACTIVE",
+   "photo": "initials CT",
+   "enrolments": [
+    {
+     "campus": "SG-PGL",
+     "academic_year": "AY 2026-27",
+     "programme": "IB PYP",
+     "grade": "Grade 3",
+     "segment": "Primary",
+     "class": "3C",
+     "house": "House A",
+     "status": "ENROLLED",
+     "start_date": "2026-07-13",
+     "end_date": null,
+     "end_reason": null
+    }
+   ],
+   "subjects": [
+    [
+     "Programme of Inquiry",
+     "CORE"
+    ],
+    [
+     "English",
+     "CORE"
+    ],
+    [
+     "Mathematics",
+     "CORE"
+    ],
+    [
+     "Mandarin",
+     "SECOND_LANGUAGE"
+    ]
+   ],
+   "guardians": [
+    {
+     "guardian_id": "G-003",
+     "relationship_type": "MOTHER",
+     "can_collect_student": true,
+     "is_emergency_contact": true,
+     "contact_priority": 1,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "12 Sumang Walk #05-03, Singapore 828690",
+     "country": "SG"
+    }
+   ],
+   "identity_documents": [
+    {
+     "type": "PASSPORT",
+     "number_masked": "K•••••103A",
+     "issuing_country": "SG",
+     "expiry_date": "2029-11-02"
+    }
+   ],
+   "immigration_status": {
+    "country": "SG",
+    "status": "CITIZEN",
+    "restricted": true
+   },
+   "attendance_threshold": "85%",
+   "external_ids": [
+    {
+     "scheme": "MyGIIS legacy ID",
+     "value": "MG-SG-133907",
+     "status": "ACTIVE",
+     "sync": "SYNCED"
+    }
+   ],
+   "login": {
+    "status": "ACTIVE",
+    "account": "chloe.tan@students.giis.example"
+   },
+   "cases": []
+  },
+  {
+   "student_number": "GS-2021-000455",
+   "legal_first_name": "Rohan",
+   "legal_last_name": "Mehta",
+   "preferred_name": "Rohan",
+   "date_of_birth": "2013-01-30",
+   "nationality": [
+    "IN"
+   ],
+   "home_language": "Gujarati",
+   "record_status": "ACTIVE",
+   "photo": "initials RM",
+   "enrolments": [
+    {
+     "campus": "SG-PGL",
+     "academic_year": "AY 2026-27",
+     "programme": "CBSE 1-12",
+     "grade": "Grade 8",
+     "segment": "Middle",
+     "class": "8A",
+     "house": "House C",
+     "status": "ENROLLED",
+     "start_date": "2026-07-13",
+     "end_date": null,
+     "end_reason": null
+    }
+   ],
+   "subjects": [
+    [
+     "English",
+     "CORE"
+    ],
+    [
+     "Mathematics",
+     "CORE"
+    ],
+    [
+     "Science",
+     "CORE"
+    ],
+    [
+     "Social Science",
+     "CORE"
+    ],
+    [
+     "Hindi",
+     "SECOND_LANGUAGE"
+    ],
+    [
+     "French",
+     "THIRD_LANGUAGE"
+    ]
+   ],
+   "guardians": [
+    {
+     "guardian_id": "G-004",
+     "relationship_type": "FATHER",
+     "can_collect_student": true,
+     "is_emergency_contact": true,
+     "contact_priority": 1,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "Blk 203C Punggol Field #12-45, Singapore 823203",
+     "country": "SG"
+    }
+   ],
+   "identity_documents": [
+    {
+     "type": "PASSPORT",
+     "number_masked": "V•••••2219",
+     "issuing_country": "IN",
+     "expiry_date": "2031-08-14"
+    }
+   ],
+   "immigration_status": {
+    "country": "SG",
+    "status": "PERMANENT_RESIDENT",
+    "restricted": true
+   },
+   "attendance_threshold": "85%",
+   "external_ids": [
+    {
+     "scheme": "MyGIIS legacy ID",
+     "value": "MG-SG-071255",
+     "status": "ACTIVE",
+     "sync": "SYNCED"
+    }
+   ],
+   "login": {
+    "status": "ACTIVE",
+    "account": "rohan.mehta@students.giis.example"
+   },
+   "cases": [
+    {
+     "case_type": "Campus transfer",
+     "status": "IN_REVIEW",
+     "opened": "2026-10-27",
+     "due": "2026-11-17",
+     "sla": "Decision within 3 weeks",
+     "from": "SG-PGL 8A",
+     "to": "SG-ECS, CBSE Grade 8 (class to be assigned)",
+     "programme_change": false,
+     "contract_notice": "Same programme: no new contract needed",
+     "approvals": [
+      {
+       "by": "Dr Anita Rao",
+       "campus": "SG-PGL",
+       "decision": "Approved",
+       "on": "2026-10-30"
+      },
+      {
+       "by": "Suresh Pillai",
+       "campus": "SG-ECS",
+       "decision": "Pending",
+       "on": null
+      }
+     ],
+     "reason": "Family moving to Marine Parade",
+     "requested_by": "Rajesh Mehta (parent, via parent app)"
+    }
+   ],
+   "note": "Transfer in review. Student ID stays GS-2021-000455 after the move."
+  },
+  {
+   "student_number": "GS-2022-001603",
+   "legal_first_name": "Kavya",
+   "legal_last_name": "Nair",
+   "preferred_name": "Kavya",
+   "date_of_birth": "2014-11-11",
+   "nationality": [
+    "IN"
+   ],
+   "home_language": "Malayalam",
+   "record_status": "ACTIVE",
+   "photo": "initials KN",
+   "enrolments": [
+    {
+     "campus": "SG-PGL",
+     "academic_year": "AY 2025-26",
+     "programme": "CBSE 1-12",
+     "grade": "Grade 5",
+     "segment": "Primary",
+     "class": "5D",
+     "house": "House A",
+     "status": "TRANSFERRED_OUT",
+     "start_date": "2025-07-14",
+     "end_date": "2026-06-12",
+     "end_reason": "CAMPUS_TRANSFER"
+    },
+    {
+     "campus": "SG-ECS",
+     "academic_year": "AY 2026-27",
+     "programme": "CBSE 1-12",
+     "grade": "Grade 6",
+     "segment": "Middle",
+     "class": "6A",
+     "house": "House C",
+     "status": "ENROLLED",
+     "start_date": "2026-07-13",
+     "end_date": null,
+     "end_reason": null,
+     "previous": "SG-PGL AY 2025-26 5D"
+    }
+   ],
+   "subjects": [
+    [
+     "English",
+     "CORE"
+    ],
+    [
+     "Mathematics",
+     "CORE"
+    ],
+    [
+     "Science",
+     "CORE"
+    ],
+    [
+     "Social Science",
+     "CORE"
+    ],
+    [
+     "Tamil",
+     "SECOND_LANGUAGE"
+    ],
+    [
+     "Sanskrit",
+     "THIRD_LANGUAGE"
+    ]
+   ],
+   "guardians": [
+    {
+     "guardian_id": "G-005",
+     "relationship_type": "MOTHER",
+     "can_collect_student": true,
+     "is_emergency_contact": true,
+     "contact_priority": 1,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "88 Marine Parade Road #11-02, Singapore 449284",
+     "country": "SG"
+    }
+   ],
+   "identity_documents": [
+    {
+     "type": "PASSPORT",
+     "number_masked": "T•••••0048",
+     "issuing_country": "IN",
+     "expiry_date": "2029-02-17"
+    }
+   ],
+   "immigration_status": {
+    "country": "SG",
+    "status": "PERMANENT_RESIDENT",
+    "restricted": true
+   },
+   "attendance_threshold": "85%",
+   "external_ids": [
+    {
+     "scheme": "MyGIIS legacy ID",
+     "value": "MG-SG-088120",
+     "status": "ACTIVE",
+     "sync": "SYNCED"
+    }
+   ],
+   "login": {
+    "status": "ACTIVE",
+    "account": "kavya.nair@students.giis.example"
+   },
+   "cases": [
+    {
+     "case_type": "Campus transfer",
+     "status": "APPROVED",
+     "opened": "2026-04-20",
+     "closed": "2026-05-08",
+     "from": "SG-PGL 5D",
+     "to": "SG-ECS 6A"
+    }
+   ],
+   "note": "Completed transfer: enrolment history shows both campuses, same Student ID."
+  },
+  {
+   "student_number": "GS-2026-004102",
+   "legal_first_name": "Yuki",
+   "legal_last_name": "Watanabe",
+   "preferred_name": "Yuki",
+   "date_of_birth": "2015-06-08",
+   "nationality": [
+    "JP"
+   ],
+   "home_language": "Japanese",
+   "record_status": "ACTIVE",
+   "photo": "initials YW",
+   "enrolments": [
+    {
+     "campus": "SG-PGL",
+     "academic_year": "AY 2026-27",
+     "programme": "CBSE 1-12",
+     "grade": "Grade 5",
+     "segment": "Primary",
+     "class": "5B",
+     "house": "House D",
+     "status": "ENROLLED",
+     "start_date": "2026-07-13",
+     "end_date": null,
+     "end_reason": null,
+     "placement_note": "AEPP 1 (Academic English Preparatory Program), placement test 2026-07-02. How AEPP is recorded is open (OQ-45)."
+    }
+   ],
+   "subjects": [
+    [
+     "English as a Second Language",
+     "SUPPORT"
+    ],
+    [
+     "Mathematics",
+     "CORE"
+    ],
+    [
+     "Science",
+     "CORE"
+    ],
+    [
+     "French",
+     "SECOND_LANGUAGE"
+    ]
+   ],
+   "guardians": [
+    {
+     "guardian_id": "G-006",
+     "relationship_type": "MOTHER",
+     "can_collect_student": true,
+     "is_emergency_contact": true,
+     "contact_priority": 1,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "5 Edgefield Plains #03-17, Singapore 828868",
+     "country": "SG"
+    },
+    {
+     "type": "INTERNATIONAL_HOME",
+     "address": "2-14-7 Nakameguro, Meguro-ku, Tokyo 153-0061",
+     "country": "JP"
+    }
+   ],
+   "identity_documents": [
+    {
+     "type": "PASSPORT",
+     "number_masked": "T•••••6620",
+     "issuing_country": "JP",
+     "expiry_date": "2030-03-01"
+    },
+    {
+     "type": "STUDENT_PASS",
+     "number_masked": "G•••••903P",
+     "issuing_country": "SG",
+     "expiry_date": "2026-12-15",
+     "expiry_chip": "Expires 15 Dec 2026 (warning)"
+    }
+   ],
+   "immigration_status": {
+    "country": "SG",
+    "status": "STUDENT_PASS",
+    "valid_to": "2026-12-15",
+    "restricted": true
+   },
+   "attendance_threshold": "90%",
+   "external_ids": [],
+   "login": {
+    "status": "ACTIVE",
+    "account": "yuki.watanabe@students.giis.example"
+   },
+   "cases": [
+    {
+     "case_type": "Student Pass renewal",
+     "status": "WAITING",
+     "opened": "2026-10-15",
+     "waiting_for": "Updated passport-size photo from parent"
+    }
+   ]
+  },
+  {
+   "student_number": "GS-2019-000231",
+   "legal_first_name": "Arjun",
+   "legal_last_name": "Reddy",
+   "preferred_name": "Arjun",
+   "date_of_birth": "2010-03-22",
+   "nationality": [
+    "IN"
+   ],
+   "home_language": "Telugu",
+   "record_status": "ACTIVE",
+   "photo": "initials AR",
+   "enrolments": [
+    {
+     "campus": "SG-PGL",
+     "academic_year": "AY 2026-27",
+     "programme": "CBSE 1-12",
+     "grade": "Grade 11",
+     "segment": "Higher",
+     "class": "11 Science A",
+     "house": "House A",
+     "status": "ENROLLED",
+     "start_date": "2026-07-13",
+     "end_date": null,
+     "end_reason": null
+    }
+   ],
+   "subjects": [
+    [
+     "English Core",
+     "CORE"
+    ],
+    [
+     "Physics",
+     "CORE"
+    ],
+    [
+     "Chemistry",
+     "CORE"
+    ],
+    [
+     "Mathematics",
+     "CORE"
+    ],
+    [
+     "Computer Science",
+     "ELECTIVE"
+    ]
+   ],
+   "guardians": [
+    {
+     "guardian_id": "G-008",
+     "relationship_type": "FATHER",
+     "can_collect_student": true,
+     "is_emergency_contact": true,
+     "contact_priority": 1,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "Blk 301 Punggol Central #15-88, Singapore 820301",
+     "country": "SG"
+    }
+   ],
+   "identity_documents": [
+    {
+     "type": "PASSPORT",
+     "number_masked": "R•••••3391",
+     "issuing_country": "IN",
+     "expiry_date": "2028-07-30"
+    }
+   ],
+   "immigration_status": {
+    "country": "SG",
+    "status": "DEPENDENT_PASS",
+    "valid_to": "2028-01-31",
+    "restricted": true
+   },
+   "attendance_threshold": "85%",
+   "external_ids": [
+    {
+     "scheme": "CBSE board registration",
+     "value": "CBSE-REG-SG-26-118734",
+     "status": "ACTIVE"
+    },
+    {
+     "scheme": "MyGIIS legacy ID",
+     "value": "MG-SG-020981",
+     "status": "ACTIVE",
+     "sync": "SYNCED"
+    }
+   ],
+   "login": {
+    "status": "ACTIVE",
+    "account": "arjun.reddy@students.giis.example"
+   },
+   "cases": []
+  },
+  {
+   "student_number": "GS-2026-004790",
+   "legal_first_name": "Sara",
+   "legal_last_name": "Fernandes",
+   "preferred_name": "Sara",
+   "date_of_birth": "2021-08-15",
+   "nationality": [
+    "IN"
+   ],
+   "home_language": "Konkani",
+   "record_status": "ACTIVE",
+   "photo": "no photo yet",
+   "enrolments": [
+    {
+     "campus": "SG-PGL",
+     "academic_year": "AY 2027-28",
+     "programme": "GMP (KG)",
+     "grade": "KG1",
+     "segment": "Pre-Primary",
+     "class": null,
+     "house": null,
+     "status": "OFFERED",
+     "start_date": "2027-07-12",
+     "end_date": null,
+     "end_reason": null
+    }
+   ],
+   "subjects": [],
+   "guardians": [
+    {
+     "guardian_id": "G-009",
+     "relationship_type": "MOTHER",
+     "can_collect_student": true,
+     "is_emergency_contact": true,
+     "contact_priority": 1,
+     "receives_communications": true,
+     "verification_status": "PENDING",
+     "parent_app_access": "No parent app access yet"
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "9 Punggol Walk #07-21, Singapore 828711",
+     "country": "SG"
+    }
+   ],
+   "identity_documents": [],
+   "immigration_status": null,
+   "attendance_threshold": null,
+   "external_ids": [],
+   "login": null,
+   "pipeline": {
+    "stage": "Offered",
+    "offer_sent": "2026-11-02",
+    "offer_expires": "2026-11-16",
+    "registration_fee": "Unpaid"
+   },
+   "cases": [],
+   "note": "Pipeline example. Guardian not verified yet, so no parent app access. No class until enrolled."
+  },
+  {
+   "student_number": "GS-2026-004811",
+   "legal_first_name": "Daniel",
+   "legal_last_name": "Lee",
+   "preferred_name": "Daniel",
+   "date_of_birth": "2010-12-05",
+   "nationality": [
+    "KR"
+   ],
+   "home_language": "Korean",
+   "record_status": "ACTIVE",
+   "photo": "initials DL",
+   "enrolments": [
+    {
+     "campus": "SG-ECS",
+     "academic_year": "AY 2026-27",
+     "programme": "IBDP",
+     "grade": "IBDP Year 1",
+     "segment": "Higher",
+     "class": null,
+     "house": null,
+     "status": "CONFIRMED",
+     "start_date": "2027-01-04",
+     "end_date": null,
+     "end_reason": null
+    }
+   ],
+   "subjects": [
+    [
+     "English A: Language and Literature HL",
+     "CORE"
+    ],
+    [
+     "Mathematics AA SL",
+     "CORE"
+    ],
+    [
+     "Physics HL",
+     "ELECTIVE"
+    ],
+    [
+     "Economics HL",
+     "ELECTIVE"
+    ],
+    [
+     "Korean A SL",
+     "SECOND_LANGUAGE"
+    ],
+    [
+     "Chemistry SL",
+     "ELECTIVE"
+    ]
+   ],
+   "guardians": [
+    {
+     "guardian_id": "G-010",
+     "relationship_type": "FATHER",
+     "can_collect_student": false,
+     "is_emergency_contact": true,
+     "contact_priority": 1,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    },
+    {
+     "guardian_id": "G-007",
+     "relationship_type": "LOCAL_GUARDIAN",
+     "can_collect_student": true,
+     "is_emergency_contact": true,
+     "contact_priority": 1,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "Blk 266A Compassvale Bow #04-09, Singapore 541266 (local guardian)",
+     "country": "SG"
+    },
+    {
+     "type": "INTERNATIONAL_HOME",
+     "address": "Seocho-gu, Seoul 06620",
+     "country": "KR"
+    }
+   ],
+   "identity_documents": [
+    {
+     "type": "PASSPORT",
+     "number_masked": "M•••••8827",
+     "issuing_country": "KR",
+     "expiry_date": "2032-04-11"
+    }
+   ],
+   "immigration_status": {
+    "country": "SG",
+    "status": "STUDENT_PASS (application in progress)",
+    "restricted": true
+   },
+   "attendance_threshold": null,
+   "external_ids": [
+    {
+     "scheme": "IB candidate registration",
+     "value": null,
+     "status": "PENDING"
+    }
+   ],
+   "login": null,
+   "pipeline": {
+    "stage": "Confirmed",
+    "contract_signed": "2026-11-03",
+    "cooling_off_ends": "2026-11-12",
+    "cooling_off_note": "7 working days after signature (GIIS SG handbook)",
+    "registration_fee": "Paid 2026-11-03"
+   },
+   "cases": [
+    {
+     "case_type": "Student Pass application",
+     "status": "IN_REVIEW",
+     "opened": "2026-11-04",
+     "owner": "Lina Goh"
+    }
+   ],
+   "note": "Confirmed, not yet enrolled: no class, no login yet. Father lives in Korea; local guardian collects."
+  },
+  {
+   "student_number": "GS-2020-002260",
+   "legal_first_name": "Ananya",
+   "legal_last_name": "Gupta",
+   "preferred_name": "Ananya",
+   "date_of_birth": "2011-07-19",
+   "nationality": [
+    "IN"
+   ],
+   "home_language": "Hindi",
+   "record_status": "ACTIVE",
+   "photo": "initials AG",
+   "enrolments": [
+    {
+     "campus": "IN-NOI",
+     "academic_year": "AY 2026-27",
+     "programme": "CBSE 1-12",
+     "grade": "Grade 10",
+     "segment": "Higher",
+     "class": "10C",
+     "house": "House B",
+     "status": "ENROLLED",
+     "start_date": "2026-04-06",
+     "end_date": null,
+     "end_reason": null
+    }
+   ],
+   "subjects": [
+    [
+     "English Language and Literature",
+     "CORE"
+    ],
+    [
+     "Mathematics Standard",
+     "CORE"
+    ],
+    [
+     "Science",
+     "CORE"
+    ],
+    [
+     "Social Science",
+     "CORE"
+    ],
+    [
+     "Hindi Course A",
+     "SECOND_LANGUAGE"
+    ]
+   ],
+   "guardians": [
+    {
+     "guardian_id": "G-011",
+     "relationship_type": "MOTHER",
+     "can_collect_student": true,
+     "is_emergency_contact": true,
+     "contact_priority": 1,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "B-112 Sector 62, Noida, UP 201309",
+     "country": "IN"
+    }
+   ],
+   "identity_documents": [],
+   "immigration_status": null,
+   "attendance_threshold": null,
+   "external_ids": [
+    {
+     "scheme": "APAAR ID",
+     "value": "APAAR 4417 2290 1186",
+     "status": "ACTIVE"
+    },
+    {
+     "scheme": "CBSE board registration",
+     "value": "CBSE-REG-IN-26-554108",
+     "status": "ACTIVE"
+    },
+    {
+     "scheme": "MyGIIS legacy ID",
+     "value": "MG-IN-040719",
+     "status": "ACTIVE",
+     "sync": "SYNCED"
+    }
+   ],
+   "login": {
+    "status": "ACTIVE",
+    "account": "ananya.gupta@students.giis.example"
+   },
+   "cases": []
+  },
+  {
+   "student_number": "GS-2023-002981",
+   "legal_first_name": "Kabir",
+   "legal_last_name": "Singh",
+   "preferred_name": "Kabir",
+   "date_of_birth": "2017-01-25",
+   "nationality": [
+    "IN"
+   ],
+   "home_language": "Punjabi",
+   "record_status": "ACTIVE",
+   "photo": "initials KS",
+   "enrolments": [
+    {
+     "campus": "IN-NOI",
+     "academic_year": "AY 2026-27",
+     "programme": "CBSE 1-12",
+     "grade": "Grade 4",
+     "segment": "Primary",
+     "class": "4A",
+     "house": "House C",
+     "status": "ENROLLED",
+     "start_date": "2026-04-06",
+     "end_date": null,
+     "end_reason": null
+    }
+   ],
+   "subjects": [
+    [
+     "English",
+     "CORE"
+    ],
+    [
+     "Mathematics",
+     "CORE"
+    ],
+    [
+     "EVS",
+     "CORE"
+    ],
+    [
+     "Hindi",
+     "SECOND_LANGUAGE"
+    ]
+   ],
+   "guardians": [
+    {
+     "guardian_id": "G-012",
+     "relationship_type": "FATHER",
+     "can_collect_student": true,
+     "is_emergency_contact": true,
+     "contact_priority": 1,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "H-7 Sector 44, Noida, UP 201303",
+     "country": "IN"
+    }
+   ],
+   "identity_documents": [],
+   "immigration_status": null,
+   "attendance_threshold": null,
+   "external_ids": [
+    {
+     "scheme": "APAAR ID",
+     "value": null,
+     "status": "REFUSED",
+     "refusal_evidence": "Parent refusal letter on file (2026-05-12)"
+    },
+    {
+     "scheme": "MyGIIS legacy ID",
+     "value": "MG-IN-061877",
+     "status": "ACTIVE",
+     "sync": "SYNCED"
+    }
+   ],
+   "login": {
+    "status": "ACTIVE",
+    "account": "kabir.singh@students.giis.example"
+   },
+   "cases": [],
+   "note": "APAAR refused by parent: show 'Refused by parent' with the evidence, never a blank."
+  },
+  {
+   "student_number": "GS-2015-000088",
+   "legal_first_name": "Meher",
+   "legal_last_name": "Kapoor",
+   "preferred_name": "Meher",
+   "date_of_birth": "2008-10-02",
+   "nationality": [
+    "IN"
+   ],
+   "home_language": "Hindi",
+   "record_status": "INACTIVE",
+   "photo": "initials MK",
+   "enrolments": [
+    {
+     "campus": "IN-NOI",
+     "academic_year": "AY 2026-27",
+     "programme": "CBSE 1-12",
+     "grade": "Grade 12",
+     "segment": "Higher",
+     "class": "12 Commerce B",
+     "house": "House D",
+     "status": "WITHDRAWN",
+     "start_date": "2026-04-06",
+     "end_date": "2026-08-14",
+     "end_reason": "WITHDRAWAL"
+    }
+   ],
+   "subjects": [
+    [
+     "English Core",
+     "CORE"
+    ],
+    [
+     "Accountancy",
+     "CORE"
+    ],
+    [
+     "Business Studies",
+     "CORE"
+    ],
+    [
+     "Economics",
+     "CORE"
+    ],
+    [
+     "Informatics Practices",
+     "ELECTIVE"
+    ]
+   ],
+   "guardians": [
+    {
+     "guardian_id": "G-013",
+     "relationship_type": "MOTHER",
+     "can_collect_student": true,
+     "is_emergency_contact": true,
+     "contact_priority": 1,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "A-22 Sector 15A, Noida, UP 201301",
+     "country": "IN"
+    }
+   ],
+   "identity_documents": [],
+   "immigration_status": null,
+   "attendance_threshold": null,
+   "external_ids": [
+    {
+     "scheme": "APAAR ID",
+     "value": "APAAR 3309 8812 4470",
+     "status": "ACTIVE"
+    },
+    {
+     "scheme": "CBSE board registration",
+     "value": "CBSE-REG-IN-25-338201",
+     "status": "ACTIVE"
+    }
+   ],
+   "login": {
+    "status": "ENDED",
+    "account": "meher.kapoor@students.giis.example"
+   },
+   "cases": [
+    {
+     "case_type": "Withdrawal",
+     "status": "APPROVED",
+     "opened": "2026-07-30",
+     "closed": "2026-08-14",
+     "last_attendance_date": "2026-08-14",
+     "reason": "Relocating overseas"
+    }
+   ],
+   "note": "Withdrawn: end date = last attendance date. Login ended; record kept (retention open, OQ-43)."
+  },
+  {
+   "student_number": "GS-2026-003377",
+   "legal_first_name": "Riya",
+   "legal_last_name": "Joshi",
+   "preferred_name": "Riya",
+   "date_of_birth": "2020-02-14",
+   "nationality": [
+    "IN"
+   ],
+   "home_language": "Marathi",
+   "record_status": "ACTIVE",
+   "photo": "initials RJ",
+   "enrolments": [
+    {
+     "campus": "IN-NOI",
+     "academic_year": "AY 2026-27",
+     "programme": "CBSE 1-12",
+     "grade": "Grade 1",
+     "segment": "Primary",
+     "class": "1B",
+     "house": "House A",
+     "status": "ENROLLED",
+     "start_date": "2026-04-06",
+     "end_date": null,
+     "end_reason": null
+    }
+   ],
+   "subjects": [
+    [
+     "English",
+     "CORE"
+    ],
+    [
+     "Mathematics",
+     "CORE"
+    ],
+    [
+     "Hindi",
+     "SECOND_LANGUAGE"
+    ]
+   ],
+   "guardians": [
+    {
+     "guardian_id": "G-014",
+     "relationship_type": "FATHER",
+     "can_collect_student": true,
+     "is_emergency_contact": true,
+     "contact_priority": 1,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "D-305 Sector 76, Noida, UP 201304",
+     "country": "IN"
+    }
+   ],
+   "identity_documents": [],
+   "immigration_status": null,
+   "attendance_threshold": null,
+   "external_ids": [
+    {
+     "scheme": "APAAR ID",
+     "value": null,
+     "status": "NOT_GENERATED",
+     "note": "NOGEN recorded"
+    },
+    {
+     "scheme": "MyGIIS legacy ID",
+     "value": "MG-IN-077402",
+     "status": "ACTIVE",
+     "sync": "CONFLICT",
+     "conflict": "MyGIIS has current address 'D-305 Sector 78'; Campus OS has 'D-305 Sector 76'. Quarantined for review."
+    }
+   ],
+   "login": {
+    "status": "ACTIVE",
+    "account": "riya.joshi@students.giis.example"
+   },
+   "cases": [],
+   "note": "MyGIIS sync conflict: show side-by-side compare, never auto-overwrite."
+  },
+  {
+   "student_number": "GS-2026-004655",
+   "legal_first_name": "Zara",
+   "legal_last_name": "Khan",
+   "preferred_name": "Zara",
+   "date_of_birth": "2012-05-30",
+   "nationality": [
+    "PK"
+   ],
+   "home_language": "Urdu",
+   "record_status": "ACTIVE",
+   "photo": "initials ZK",
+   "enrolments": [
+    {
+     "campus": "SG-ECS",
+     "academic_year": "AY 2026-27",
+     "programme": "IGCSE 9-10",
+     "grade": "Grade 9",
+     "segment": "Higher",
+     "class": null,
+     "house": null,
+     "status": "DEFERRED",
+     "start_date": "2027-01-04",
+     "end_date": null,
+     "end_reason": null
+    }
+   ],
+   "subjects": [],
+   "guardians": [
+    {
+     "guardian_id": "G-015",
+     "relationship_type": "MOTHER",
+     "can_collect_student": true,
+     "is_emergency_contact": true,
+     "contact_priority": 1,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "40 Siglap Drive, Singapore 456193",
+     "country": "SG"
+    }
+   ],
+   "identity_documents": [
+    {
+     "type": "PASSPORT",
+     "number_masked": "A•••••1150",
+     "issuing_country": "PK",
+     "expiry_date": "2029-09-09"
+    }
+   ],
+   "immigration_status": {
+    "country": "SG",
+    "status": "DEPENDENT_PASS",
+    "valid_to": "2027-12-31",
+    "restricted": true
+   },
+   "attendance_threshold": null,
+   "external_ids": [],
+   "login": null,
+   "cases": [],
+   "note": "Deferred start from Aug 2026 to Jan 2027 at the family's request."
+  },
+  {
+   "student_number": "GS-2025-005120",
+   "legal_first_name": "Lucas",
+   "legal_last_name": "Lim",
+   "preferred_name": "Lucas",
+   "date_of_birth": "2017-09-03",
+   "nationality": [
+    "SG"
+   ],
+   "home_language": "English",
+   "record_status": "ACTIVE",
+   "photo": "initials LL",
+   "enrolments": [
+    {
+     "campus": "SG-OWD",
+     "academic_year": "AY 2026",
+     "programme": "IB PYP",
+     "grade": "Grade 4",
+     "segment": "Primary",
+     "class": "4 Orchid",
+     "house": null,
+     "status": "ENROLLED",
+     "start_date": "2026-01-05",
+     "end_date": null,
+     "end_reason": null
+    }
+   ],
+   "subjects": [],
+   "guardians": [
+    {
+     "guardian_id": "G-101",
+     "relationship_type": "MOTHER",
+     "can_collect_student": true,
+     "is_emergency_contact": true,
+     "contact_priority": 1,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "Blk 302 Punggol Place #11-08, Singapore 820302",
+     "country": "SG"
+    }
+   ],
+   "identity_documents": [],
+   "immigration_status": null,
+   "attendance_threshold": null,
+   "external_ids": [],
+   "login": {
+    "status": "ACTIVE",
+    "account": "lucas.lim@students.owis.example"
+   },
+   "cases": [],
+   "_note": "OWIS academic year shown as a placeholder; brand calendars differ (OQ-20). Neighbour of GIIS SG-PGL (OQ-52)."
+  },
+  {
+   "student_number": "GS-2023-005871",
+   "legal_first_name": "Sokha",
+   "legal_last_name": "Chan",
+   "preferred_name": "Sokha",
+   "date_of_birth": "2016-02-11",
+   "nationality": [
+    "KH"
+   ],
+   "home_language": "Khmer",
+   "record_status": "ACTIVE",
+   "photo": "initials SC",
+   "enrolments": [
+    {
+     "campus": "KH-HLP",
+     "academic_year": "AY 2025-26",
+     "programme": "IPC (Cambridge)",
+     "grade": "Year 4",
+     "segment": "Primary",
+     "class": "4B",
+     "house": null,
+     "status": "COMPLETED",
+     "start_date": "2025-08-11",
+     "end_date": "2026-06-26",
+     "end_reason": "PROMOTION_ROLLOVER"
+    },
+    {
+     "campus": "KH-HUP",
+     "academic_year": "AY 2026-27",
+     "programme": "IPC (Cambridge)",
+     "grade": "Year 5",
+     "segment": "Primary",
+     "class": "5A",
+     "house": null,
+     "status": "ENROLLED",
+     "start_date": "2026-08-10",
+     "end_date": null,
+     "end_reason": null,
+     "previous": "AY 2025-26 4B at KH-HLP"
+    }
+   ],
+   "subjects": [],
+   "guardians": [
+    {
+     "guardian_id": "G-102",
+     "relationship_type": "FATHER",
+     "can_collect_student": true,
+     "is_emergency_contact": true,
+     "contact_priority": 1,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "Street 271, Toul Kork, Phnom Penh (synthetic)",
+     "country": "KH"
+    }
+   ],
+   "identity_documents": [],
+   "immigration_status": null,
+   "attendance_threshold": null,
+   "external_ids": [],
+   "login": {
+    "status": "ACTIVE",
+    "account": "sokha.chan@students.harrods.example"
+   },
+   "cases": [],
+   "_note": "Moves campus on promotion: Lower Primary to Upper Primary. Whether this is a promotion or a campus transfer is OQ-50. Khmer-script name not modelled (OQ-53)."
+  },
+  {
+   "student_number": "GS-2026-006044",
+   "legal_first_name": "Vihaan",
+   "legal_last_name": "Shah",
+   "preferred_name": "Vihaan",
+   "date_of_birth": "2022-12-19",
+   "nationality": [
+    "IN"
+   ],
+   "home_language": "Gujarati",
+   "record_status": "ACTIVE",
+   "photo": "initials VS",
+   "enrolments": [
+    {
+     "campus": "IN-WKB",
+     "academic_year": "AY 2026-27",
+     "programme": "Preschool",
+     "grade": "Nursery",
+     "segment": "Pre-Primary",
+     "class": "Nursery Blue",
+     "house": null,
+     "status": "ENROLLED",
+     "start_date": "2026-06-08",
+     "end_date": null,
+     "end_reason": null
+    }
+   ],
+   "subjects": [],
+   "guardians": [
+    {
+     "guardian_id": "G-103",
+     "relationship_type": "MOTHER",
+     "can_collect_student": true,
+     "is_emergency_contact": true,
+     "contact_priority": 1,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    },
+    {
+     "guardian_id": "G-104",
+     "relationship_type": "FATHER",
+     "can_collect_student": true,
+     "is_emergency_contact": true,
+     "contact_priority": 2,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "B-704 Sample Heights, Borivali West, Mumbai 400092 (synthetic)",
+     "country": "IN"
+    }
+   ],
+   "identity_documents": [],
+   "immigration_status": null,
+   "attendance_threshold": null,
+   "external_ids": [],
+   "login": {
+    "status": "ACTIVE",
+    "account": "vihaan.shah@students.witty.example"
+   },
+   "cases": [],
+   "_note": "Preschool-only campus; moving on to a Witty International School campus would be a new enrolment at another campus."
+  },
+  {
+   "student_number": "GS-2024-006310",
+   "legal_first_name": "Oliver",
+   "legal_last_name": "Bennett",
+   "preferred_name": "Oliver",
+   "date_of_birth": "2019-03-22",
+   "nationality": [
+    "GB"
+   ],
+   "home_language": "English",
+   "record_status": "ACTIVE",
+   "photo": "initials OB",
+   "enrolments": [
+    {
+     "campus": "UK-HTH",
+     "academic_year": "AY 2026-27",
+     "programme": "British National Curriculum",
+     "grade": "Year 2",
+     "segment": "Primary",
+     "class": "Year 2 Oak",
+     "house": null,
+     "status": "ENROLLED",
+     "start_date": "2026-09-02",
+     "end_date": null,
+     "end_reason": null
+    }
+   ],
+   "subjects": [],
+   "guardians": [
+    {
+     "guardian_id": "G-105",
+     "relationship_type": "MOTHER",
+     "can_collect_student": true,
+     "is_emergency_contact": true,
+     "contact_priority": 1,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "Flat 3, 21 Sample Lane, London (synthetic)",
+     "country": "GB"
+    }
+   ],
+   "identity_documents": [],
+   "immigration_status": null,
+   "attendance_threshold": null,
+   "external_ids": [],
+   "login": {
+    "status": "ACTIVE",
+    "account": "oliver.bennett@students.heathhouse.example"
+   },
+   "cases": []
+  },
+  {
+   "student_number": "GS-2025-006587",
+   "legal_first_name": "Aisyah",
+   "legal_last_name": "Rahman",
+   "preferred_name": "Aisyah",
+   "date_of_birth": "2007-05-14",
+   "nationality": [
+    "MY"
+   ],
+   "home_language": "Malay",
+   "record_status": "ACTIVE",
+   "photo": "initials AR",
+   "enrolments": [
+    {
+     "campus": "MY-RKL",
+     "academic_year": "AY 2026",
+     "programme": "Swinburne Foundation Program",
+     "grade": "Foundation",
+     "segment": "Pending (OQ-54)",
+     "class": null,
+     "house": null,
+     "status": "ENROLLED",
+     "start_date": "2026-01-12",
+     "end_date": null,
+     "end_reason": null
+    }
+   ],
+   "subjects": [],
+   "guardians": [],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "No. 8, Jalan Contoh 3, Klang, Selangor (synthetic)",
+     "country": "MY"
+    }
+   ],
+   "identity_documents": [],
+   "immigration_status": null,
+   "attendance_threshold": null,
+   "external_ids": [],
+   "login": {
+    "status": "ACTIVE",
+    "account": "aisyah.rahman@students.regent.example"
+   },
+   "cases": [],
+   "_note": "Age 19 on 6 Nov 2026. No guardian recorded: how guardian links and consent apply to adult learners is OQ-54."
+  }
+ ],
+ "guardians": [
+  {
+   "guardian_id": "G-001",
+   "legal_first_name": "Neha",
+   "legal_last_name": "Sharma",
+   "preferred_language": "en",
+   "nationality": [
+    "IN"
+   ],
+   "record_status": "ACTIVE",
+   "contacts": [
+    {
+     "channel": "PHONE",
+     "value": "+65 9123 4471",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "EMAIL",
+     "value": "neha.sharma@mail.example",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "WHATSAPP",
+     "value": "+65 9123 4471",
+     "is_primary": false,
+     "verified": false
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "Blk 618 Punggol Drive #08-112, Singapore 820618",
+     "country": "SG"
+    }
+   ],
+   "immigration_status": {
+    "status": "DEPENDENT_PASS",
+    "valid_to": "2028-03-31",
+    "restricted": true
+   }
+  },
+  {
+   "guardian_id": "G-002",
+   "legal_first_name": "Vikram",
+   "legal_last_name": "Sharma",
+   "preferred_language": "hi",
+   "nationality": [
+    "IN"
+   ],
+   "record_status": "ACTIVE",
+   "contacts": [
+    {
+     "channel": "PHONE",
+     "value": "+91 98110 22764",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "EMAIL",
+     "value": "vikram.sharma@mail.example",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "WHATSAPP",
+     "value": "+91 98110 22764",
+     "is_primary": false,
+     "verified": false
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "C-41 Sector 50, Noida, UP 201301",
+     "country": "IN"
+    }
+   ],
+   "immigration_status": null
+  },
+  {
+   "guardian_id": "G-003",
+   "legal_first_name": "Michelle",
+   "legal_last_name": "Tan",
+   "preferred_language": "en",
+   "nationality": [
+    "SG"
+   ],
+   "record_status": "ACTIVE",
+   "contacts": [
+    {
+     "channel": "PHONE",
+     "value": "+65 9776 1043",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "EMAIL",
+     "value": "michelle.tan@mail.example",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "WHATSAPP",
+     "value": "+65 9776 1043",
+     "is_primary": false,
+     "verified": false
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "12 Sumang Walk #05-03, Singapore 828690",
+     "country": "SG"
+    }
+   ],
+   "immigration_status": {
+    "status": "CITIZEN",
+    "restricted": true
+   }
+  },
+  {
+   "guardian_id": "G-004",
+   "legal_first_name": "Rajesh",
+   "legal_last_name": "Mehta",
+   "preferred_language": "en",
+   "nationality": [
+    "IN"
+   ],
+   "record_status": "ACTIVE",
+   "contacts": [
+    {
+     "channel": "PHONE",
+     "value": "+65 8234 5590",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "EMAIL",
+     "value": "rajesh.mehta@mail.example",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "WHATSAPP",
+     "value": "+65 8234 5590",
+     "is_primary": false,
+     "verified": false
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "Blk 203C Punggol Field #12-45, Singapore 823203",
+     "country": "SG"
+    }
+   ],
+   "immigration_status": {
+    "status": "PERMANENT_RESIDENT",
+    "restricted": true
+   }
+  },
+  {
+   "guardian_id": "G-005",
+   "legal_first_name": "Lakshmi",
+   "legal_last_name": "Nair",
+   "preferred_language": "ml",
+   "nationality": [
+    "IN"
+   ],
+   "record_status": "ACTIVE",
+   "contacts": [
+    {
+     "channel": "PHONE",
+     "value": "+65 9650 7781",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "EMAIL",
+     "value": "lakshmi.nair@mail.example",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "WHATSAPP",
+     "value": "+65 9650 7781",
+     "is_primary": false,
+     "verified": false
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "88 Marine Parade Road #11-02, Singapore 449284",
+     "country": "SG"
+    }
+   ],
+   "immigration_status": {
+    "status": "PERMANENT_RESIDENT",
+    "restricted": true
+   }
+  },
+  {
+   "guardian_id": "G-006",
+   "legal_first_name": "Haruka",
+   "legal_last_name": "Watanabe",
+   "preferred_language": "ja",
+   "nationality": [
+    "JP"
+   ],
+   "record_status": "ACTIVE",
+   "contacts": [
+    {
+     "channel": "PHONE",
+     "value": "+65 8899 3012",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "EMAIL",
+     "value": "haruka.watanabe@mail.example",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "WHATSAPP",
+     "value": "+65 8899 3012",
+     "is_primary": false,
+     "verified": false
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "5 Edgefield Plains #03-17, Singapore 828868",
+     "country": "SG"
+    }
+   ],
+   "immigration_status": {
+    "status": "DEPENDENT_PASS",
+    "valid_to": "2027-09-30",
+    "restricted": true
+   }
+  },
+  {
+   "guardian_id": "G-007",
+   "legal_first_name": "Anjali",
+   "legal_last_name": "Iyer",
+   "preferred_language": "en",
+   "nationality": [
+    "IN"
+   ],
+   "record_status": "ACTIVE",
+   "contacts": [
+    {
+     "channel": "PHONE",
+     "value": "+65 9011 2287",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "EMAIL",
+     "value": "anjali.iyer@mail.example",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "WHATSAPP",
+     "value": "+65 9011 2287",
+     "is_primary": false,
+     "verified": false
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "Blk 266A Compassvale Bow #04-09, Singapore 541266",
+     "country": "SG"
+    }
+   ],
+   "immigration_status": null
+  },
+  {
+   "guardian_id": "G-008",
+   "legal_first_name": "Srinivas",
+   "legal_last_name": "Reddy",
+   "preferred_language": "te",
+   "nationality": [
+    "IN"
+   ],
+   "record_status": "ACTIVE",
+   "contacts": [
+    {
+     "channel": "PHONE",
+     "value": "+65 9345 6612",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "EMAIL",
+     "value": "srinivas.reddy@mail.example",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "WHATSAPP",
+     "value": "+65 9345 6612",
+     "is_primary": false,
+     "verified": false
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "Blk 301 Punggol Central #15-88, Singapore 820301",
+     "country": "SG"
+    }
+   ],
+   "immigration_status": {
+    "status": "OTHER",
+    "restricted": true
+   }
+  },
+  {
+   "guardian_id": "G-009",
+   "legal_first_name": "Maria",
+   "legal_last_name": "Fernandes",
+   "preferred_language": "en",
+   "nationality": [
+    "IN"
+   ],
+   "record_status": "ACTIVE",
+   "contacts": [
+    {
+     "channel": "PHONE",
+     "value": "+65 8120 4455",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "EMAIL",
+     "value": "maria.fernandes@mail.example",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "WHATSAPP",
+     "value": "+65 8120 4455",
+     "is_primary": false,
+     "verified": false
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "9 Punggol Walk #07-21, Singapore 828711",
+     "country": "SG"
+    }
+   ],
+   "immigration_status": null
+  },
+  {
+   "guardian_id": "G-010",
+   "legal_first_name": "Joon-ho",
+   "legal_last_name": "Lee",
+   "preferred_language": "ko",
+   "nationality": [
+    "KR"
+   ],
+   "record_status": "ACTIVE",
+   "contacts": [
+    {
+     "channel": "PHONE",
+     "value": "+82 10 4471 2290",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "EMAIL",
+     "value": "joonho.lee@mail.example",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "WHATSAPP",
+     "value": "+82 10 4471 2290",
+     "is_primary": false,
+     "verified": false
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "Seocho-gu, Seoul 06620",
+     "country": "KR"
+    }
+   ],
+   "immigration_status": null
+  },
+  {
+   "guardian_id": "G-011",
+   "legal_first_name": "Sunita",
+   "legal_last_name": "Gupta",
+   "preferred_language": "hi",
+   "nationality": [
+    "IN"
+   ],
+   "record_status": "ACTIVE",
+   "contacts": [
+    {
+     "channel": "PHONE",
+     "value": "+91 98990 11872",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "EMAIL",
+     "value": "sunita.gupta@mail.example",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "WHATSAPP",
+     "value": "+91 98990 11872",
+     "is_primary": false,
+     "verified": false
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "B-112 Sector 62, Noida, UP 201309",
+     "country": "IN"
+    }
+   ],
+   "immigration_status": null
+  },
+  {
+   "guardian_id": "G-012",
+   "legal_first_name": "Harpreet",
+   "legal_last_name": "Singh",
+   "preferred_language": "pa",
+   "nationality": [
+    "IN"
+   ],
+   "record_status": "ACTIVE",
+   "contacts": [
+    {
+     "channel": "PHONE",
+     "value": "+91 97170 55410",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "EMAIL",
+     "value": "harpreet.singh@mail.example",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "WHATSAPP",
+     "value": "+91 97170 55410",
+     "is_primary": false,
+     "verified": false
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "H-7 Sector 44, Noida, UP 201303",
+     "country": "IN"
+    }
+   ],
+   "immigration_status": null
+  },
+  {
+   "guardian_id": "G-013",
+   "legal_first_name": "Ritu",
+   "legal_last_name": "Kapoor",
+   "preferred_language": "hi",
+   "nationality": [
+    "IN"
+   ],
+   "record_status": "ACTIVE",
+   "contacts": [
+    {
+     "channel": "PHONE",
+     "value": "+91 98111 66320",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "EMAIL",
+     "value": "ritu.kapoor@mail.example",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "WHATSAPP",
+     "value": "+91 98111 66320",
+     "is_primary": false,
+     "verified": false
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "A-22 Sector 15A, Noida, UP 201301",
+     "country": "IN"
+    }
+   ],
+   "immigration_status": null
+  },
+  {
+   "guardian_id": "G-014",
+   "legal_first_name": "Amit",
+   "legal_last_name": "Joshi",
+   "preferred_language": "hi",
+   "nationality": [
+    "IN"
+   ],
+   "record_status": "ACTIVE",
+   "contacts": [
+    {
+     "channel": "PHONE",
+     "value": "+91 99580 77123",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "EMAIL",
+     "value": "amit.joshi@mail.example",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "WHATSAPP",
+     "value": "+91 99580 77123",
+     "is_primary": false,
+     "verified": false
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "D-305 Sector 76, Noida, UP 201304",
+     "country": "IN"
+    }
+   ],
+   "immigration_status": null
+  },
+  {
+   "guardian_id": "G-015",
+   "legal_first_name": "Ayesha",
+   "legal_last_name": "Khan",
+   "preferred_language": "ur",
+   "nationality": [
+    "PK"
+   ],
+   "record_status": "ACTIVE",
+   "contacts": [
+    {
+     "channel": "PHONE",
+     "value": "+65 9233 8091",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "EMAIL",
+     "value": "ayesha.khan@mail.example",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "WHATSAPP",
+     "value": "+65 9233 8091",
+     "is_primary": false,
+     "verified": false
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "40 Siglap Drive, Singapore 456193",
+     "country": "SG"
+    }
+   ],
+   "immigration_status": {
+    "status": "DEPENDENT_PASS",
+    "valid_to": "2027-12-31",
+    "restricted": true
+   }
+  },
+  {
+   "guardian_id": "G-101",
+   "legal_first_name": "Grace",
+   "legal_last_name": "Lim",
+   "preferred_language": "en",
+   "nationality": [
+    "SG"
+   ],
+   "record_status": "ACTIVE",
+   "contacts": [
+    {
+     "channel": "PHONE",
+     "value": "+65 9001 2201",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "EMAIL",
+     "value": "grace.lim@mail.example",
+     "is_primary": true,
+     "verified": true
+    }
+   ],
+   "addresses": [],
+   "immigration_status": null
+  },
+  {
+   "guardian_id": "G-102",
+   "legal_first_name": "Dara",
+   "legal_last_name": "Chan",
+   "preferred_language": "km",
+   "nationality": [
+    "KH"
+   ],
+   "record_status": "ACTIVE",
+   "contacts": [
+    {
+     "channel": "PHONE",
+     "value": "+855 12 000 102",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "EMAIL",
+     "value": "dara.chan@mail.example",
+     "is_primary": true,
+     "verified": true
+    }
+   ],
+   "addresses": [],
+   "immigration_status": null
+  },
+  {
+   "guardian_id": "G-103",
+   "legal_first_name": "Kavita",
+   "legal_last_name": "Shah",
+   "preferred_language": "gu",
+   "nationality": [
+    "IN"
+   ],
+   "record_status": "ACTIVE",
+   "contacts": [
+    {
+     "channel": "PHONE",
+     "value": "+91 98200 10103",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "EMAIL",
+     "value": "kavita.shah@mail.example",
+     "is_primary": true,
+     "verified": true
+    }
+   ],
+   "addresses": [],
+   "immigration_status": null
+  },
+  {
+   "guardian_id": "G-104",
+   "legal_first_name": "Rohit",
+   "legal_last_name": "Shah",
+   "preferred_language": "hi",
+   "nationality": [
+    "IN"
+   ],
+   "record_status": "ACTIVE",
+   "contacts": [
+    {
+     "channel": "PHONE",
+     "value": "+91 98200 10104",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "EMAIL",
+     "value": "rohit.shah@mail.example",
+     "is_primary": true,
+     "verified": true
+    }
+   ],
+   "addresses": [],
+   "immigration_status": null
+  },
+  {
+   "guardian_id": "G-105",
+   "legal_first_name": "Emma",
+   "legal_last_name": "Bennett",
+   "preferred_language": "en",
+   "nationality": [
+    "GB"
+   ],
+   "record_status": "ACTIVE",
+   "contacts": [
+    {
+     "channel": "PHONE",
+     "value": "+44 7700 900105",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "EMAIL",
+     "value": "emma.bennett@mail.example",
+     "is_primary": true,
+     "verified": true
+    }
+   ],
+   "addresses": [],
+   "immigration_status": null
+  }
+ ]
+}

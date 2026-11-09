@@ -24,7 +24,7 @@ actions:
 events: [GuardianRelationshipChanged]
 variation: [MC-09, MC-12]
 open: [OQ-11 custody records, OQ-10 consent, OQ-25 notice language]
-sample: pending   # student sample set (Lina Goh, SG-PGL) is in project files, not yet in the repo
+sample: product-truth/03-domain/samples/student-sample.json   # viewer Lina Goh, SG-PGL; other brands' scope nodes from gsg-landscape
 patterns: [AP-03, AP-04, AP-05, AP-13, AP-14]
 ---
 
