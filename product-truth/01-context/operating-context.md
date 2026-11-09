@@ -14,6 +14,7 @@ Use this file for realistic content and to understand which parties a screen may
 | GSG school brands | 12 | Public claim |
 | GSG campuses / countries | 64 / 11 | Public claim (the site's country filter lists 10) |
 | GIIS campuses / countries | 35 / 10 | Public claim (the GIIS page's own description says 23+ campuses in 7 countries) |
+| Campuses / brands / countries on GSG's public campus list (9 Nov 2026) | 62 / 12 / 10 (21 brand-country nodes) | Public list, all cards loaded; see [gsg-landscape](./gsg-landscape.md) |
 
 The figures don't agree with each other. Don't put any of them in a design as an exact count.
 
