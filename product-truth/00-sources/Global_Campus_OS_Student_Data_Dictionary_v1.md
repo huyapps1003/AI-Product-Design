@@ -1,6 +1,6 @@
 # Global Campus OS — Student Data Dictionary v1.0
 
-**Status:** Proposed specification for review; 1 November 2026.
+**Status:** Proposed specification for review; 1 November 2026. **Merged** into [`03-domain/student-directory-data-dictionary.md`](../03-domain/student-directory-data-dictionary.md) (v0.2) on 9 Nov 2026; that file wins where they differ. Decision D01–D14 map to DL and OQ IDs in its § Merge notes.
 **Scope:** Student Master Data + Guardian and Family Access (Student Records, Admissions and Enrolment).
 
 ## Confirmed inputs
