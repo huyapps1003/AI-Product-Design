@@ -38,7 +38,7 @@ product-truth/
 │   ├── tenancy-and-scope.md      Group › Brand › Brand-country › Campus tree
 │   ├── variation-catalogue.md    MC-01…MC-15: what varies, and coverage
 │   ├── student-directory-data-dictionary.md  the one student dictionary: students, enrolments, guardians (ST01–ST11)
-│   └── organisation-data-dictionary.md  scope tree, data regions, legal entities, settings (OR01–OR09)
+│   └── organisation-data-dictionary.md  scope tree, data locations, legal entities, settings (OR01–OR09)
 ├── 04-access/                 RBAC models
 │   ├── README.md              access paths by actor, constraints, gaps
 │   ├── role-catalogue.md      school roles, access roles, undefined families
@@ -66,7 +66,7 @@ product-truth/
 | 00-sources | [Student Data Dictionary v1.0](./00-sources/Global_Campus_OS_Student_Data_Dictionary_v1.md) | Student master data, 1 Nov 2026; merged into the [student dictionary](./03-domain/student-directory-data-dictionary.md), which wins | Proposed (merged) |
 | 01-context | [product-brief.md](./01-context/product-brief.md) | Who runs it, for whom, bets, problem, how much product truth covers | Known / Proposed |
 | 01-context | [operating-context.md](./01-context/operating-context.md) | GSG structure, brands, countries, entities, systems in use | Known (labelled) |
-| 01-context | [gsg-landscape.md](./01-context/gsg-landscape.md) + [gsg-footprint.json](./01-context/gsg-footprint.json) | All 62 public campuses by brand, brand-country and data region; source systems; GIIS authority seed; transfer types; sample scope nodes | Known (public list) / Open |
+| 01-context | [gsg-landscape.md](./01-context/gsg-landscape.md) + [gsg-footprint.json](./01-context/gsg-footprint.json) | All 62 public campuses by brand, brand-country and data location; source systems; GIIS authority seed; transfer types; sample scope nodes | Known (public list) / Open |
 | 03-domain | [samples/](./03-domain/samples/README.md) | Synthetic record sets the object cards point to (`sample:`): students across GIIS and five other brands, and the organisation tree | Synthetic |
 | 01-context | [glossary.md](./01-context/glossary.md) | Terms for organisation, access and data protection | Living |
 | 02-users | [stakeholders.md](./02-users/stakeholders.md) | Seven user segments, decision-makers, observations | Known (desk research) |
@@ -77,7 +77,7 @@ product-truth/
 | 03-domain | [tenancy-and-scope.md](./03-domain/tenancy-and-scope.md) | Scope tree with Brand and Brand-country, legal entity beside it, what each level owns | Confirmed (DL-40, DL-41) / Open |
 | 03-domain | [variation-catalogue.md](./03-domain/variation-catalogue.md) | MC-01…MC-15 mapped to product truth | Known |
 | 03-domain | [student-directory-data-dictionary.md](./03-domain/student-directory-data-dictionary.md) | The one student dictionary (merged with v1.0, 9 Nov 2026): student, enrolment, guardian, documents, identifiers; field tiers and visibility | Proposed / Assumed (DL-23…DL-27) / Confirmed (DL-28…DL-31) |
-| 03-domain | [organisation-data-dictionary.md](./03-domain/organisation-data-dictionary.md) | Scope tree nodes, brands, brand-countries, campuses, segments, data regions, legal entities, campus operators, inherited settings | Proposed / Confirmed (DL-39…DL-41) / Assumed (DL-47…DL-50) |
+| 03-domain | [organisation-data-dictionary.md](./03-domain/organisation-data-dictionary.md) | Scope tree nodes, brands, brand-countries, campuses, segments, data locations, legal entities, campus operators, inherited settings | Proposed / Confirmed (DL-39…DL-41) / Assumed (DL-47…DL-50) |
 | 04-access | [README.md](./04-access/README.md) | Access paths by actor, constraints, research gaps | Mixed |
 | 04-access | [role-catalogue.md](./04-access/role-catalogue.md) | All role names and the families with none | Known / Assumed / Open |
 | 04-access | [rbac-model.md](./04-access/rbac-model.md) | Six layers, evaluation algorithm, v1 scope, screen impact | Assumed; changes Confirmed (DL-32…DL-38) |

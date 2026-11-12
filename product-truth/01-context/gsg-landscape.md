@@ -35,7 +35,7 @@ GSG's public campus list shows **62 campuses, 12 brands, 10 countries and 21 bra
 | Chinese International School Manila | 1 | Philippines 1 |
 | Domuschola International School | 1 | Philippines 1 |
 
-| Country (candidate data region, OQ-21) | Campuses | Brands |
+| Country (candidate data location, OQ-21) | Campuses | Brands |
 |---|---|---|
 | India | 28 | GIIS, OWIS, Witty, Vikaasa, Glendale |
 | Cambodia | 7 | Harrods |
@@ -48,7 +48,7 @@ GSG's public campus list shows **62 campuses, 12 brands, 10 countries and 21 bra
 | Philippines | 2 | CISM, Domuschola |
 | South Korea | 1 | Dwight |
 
-Six countries hold more than one brand, so one data region serves several brands; the Brand-country level (DL-40) carries that.
+Six countries hold more than one brand, so one data location serves several brands; the Brand-country level (DL-40) carries that.
 
 **Gaps (probably explain 62 vs 64 and 10 vs 11):** GIIS East Coast (Siglap, Singapore) is named on the GIIS site and used as `SG-ECS` in sample data but isn't listed; GIIS Bangkok (Thailand) and OWIS Suntec (Singapore) are named on brand sites but not listed; "Heath House International School" (UK) may duplicate the two London campuses.
 
@@ -125,11 +125,11 @@ Flags: `stage_campus` OQ-50 · `shared_area_other_brand` OQ-52 · `adult_learner
 
 Codes are placeholders until OQ-55 is answered.
 
-| Code | Campus | Brand-country · data region | Variation it tests |
+| Code | Campus | Brand-country · data location | Variation it tests |
 |---|---|---|---|
 | SG-PGL | GIIS SMART Campus, Punggol | GIIS Singapore · Singapore | Current sample; multi-brand country |
 | SG-OWD | OWIS Digital Campus, Punggol | OWIS Singapore · Singapore | Neighbouring campus of another brand (OQ-52); cross-brand transfer |
-| IN-NOI | GIIS Noida | GIIS India · India | Second and largest data region |
+| IN-NOI | GIIS Noida | GIIS India · India | Second and largest data location |
 | KH-HUP | Harrods Upper Primary, Phnom Penh | Harrods Cambodia · Cambodia | Stage campus (OQ-50); national curriculum |
 | IN-WKB | Witty Kids Borivali, Mumbai | Witty India · India | Preschool-only campus feeding a school |
 | UK-HTH | Heath House Tranquil Hall, London | Heath House UK · UK | Non-Asian regulator; British curriculum |
@@ -188,7 +188,7 @@ Every transfer ends one enrolment and starts another, keeping the Student ID (DL
 
 | Type | Example | What moves | Authorised by | Designable now | Blocking |
 |---|---|---|---|---|---|
-| A. Same entity, same data region | GIIS Punggol → East Coast | Nothing leaves the region; new enrolment, same profile | Both principals (handbook) | Yes, if both share an entity | OQ-02 |
+| A. Same entity, same data location | GIIS Punggol → East Coast | Nothing leaves the region; new enrolment, same profile | Both principals (handbook) | Yes, if both share an entity | OQ-02 |
 | B. Different entity, same region | GIIS campus → partner-run campus in the same country | Profile stays; new entity gets a defined data set | Sharing record (DL-44) | Structure only | OQ-02, OQ-03, OQ-07 |
 | C. Different country | GIIS Singapore → GIIS India | Profile created in target region; origin keeps history; Tier 3 never moves raw | Sharing record + cross-border rules | Structure only | OQ-07, OQ-21, OQ-39, OQ-43 |
 | D. Different brand | GIIS SMART Campus → OWIS Digital Campus | As B or C, plus the target brand's policies and systems | Sharing record | No | OQ-07, OQ-27, OQ-56 |

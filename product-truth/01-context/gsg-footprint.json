@@ -1,5 +1,5 @@
 {
- "_about": "GSG public campus footprint for the Campus OS AI design workflow. Source: globalschools.com/campus, all 62 cards loaded 2026-11-09. Known = listed publicly. Operating entity (OQ-02), campus code (OQ-55) and data region (OQ-21) are Open; data_region_candidate assumes one region per country (DL-39). See gsg-landscape.md.",
+ "_about": "GSG public campus footprint for the Campus OS AI design workflow. Source: globalschools.com/campus, all 62 cards loaded 2026-11-09. Known = listed publicly. Operating entity (OQ-02), campus code (OQ-55) and data location (OQ-21) are Open; data_region_candidate assumes one region per country (DL-39). See gsg-landscape.md.",
  "source": "https://globalschools.com/campus/",
  "as_of": "2026-11-09",
  "brands": [
