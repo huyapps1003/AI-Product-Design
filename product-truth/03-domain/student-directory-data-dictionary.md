@@ -414,7 +414,7 @@ From v1.0, aligned with the rules above.
 
 - Enforce `valid_to >= valid_from`; no overlapping active records of the same kind unless an approved exception applies; every grant and link is time-bound.
 - Never infer immigration status from anything but ST09. The attendance threshold is the only ST09 output that leaves Tier 3 (DL-30).
-- Identity documents and Student Pass data never leave the student's data region in raw form (Arch § System architecture).
+- Identity documents and Student Pass data never leave the student's data location in raw form (Arch § System architecture).
 - Never name a data controller, fiduciary or processor in a screen, consent flow or notice until OQ-06 is answered.
 - Passwords, tokens and full audit snapshots don't belong in this dictionary.
 - Review PDPA, DPDP and other country rules, residency and retention before any schema is frozen (OQ-21, OQ-43).

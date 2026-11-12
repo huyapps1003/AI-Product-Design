@@ -1,6 +1,6 @@
 # Permission catalogue
 
-**Status:** Canonical (DL-33, Henry, 7 Nov 2026); seed v0.1 · **Owner:** Henry (registry owner: OQ-46)
+**Status:** Canonical (DL-33, Henry, 7 Nov 2026); seed v0.1 · **Owner:** Henry (registry owner: GSG platform team, DL-51)
 **Cites:** DL-32…DL-38 · [roles-personas § capability matrix](../02-users/roles-personas.md#persona--capability-matrix-admin-slice) · [student dictionary § Field visibility by role](../03-domain/student-directory-data-dictionary.md#field-visibility-by-role) · [rules-to-ui § Field visibility](../06-experience/admin-platform/rules-to-ui.md#field-visibility-decision-d13) · Employee DD R01, R02, A06, A08, A09
 **Tóm tắt (VI):** Danh mục quyền chuẩn duy nhất: capability, chính sách trường (field policy) và thành phần template. Các ma trận trong roles-personas, rules-to-ui và từ điển học sinh là "góc nhìn" của file này.
 
@@ -12,7 +12,7 @@ Staff path (DL-07, updated by DL-35…DL-38): cell → grant ceiling on a scope 
 
 ## Capabilities
 
-Codes follow `module.object.action` (naming rule and review: OQ-49). **Seed** = taken from an existing matrix; **New** = introduced by an object card for DL-34 and needing the module owner's review.
+Codes follow `module.object.action` (DL-53; new capabilities reviewed by the registry owner). **Seed** = taken from an existing matrix; **New** = introduced by an object card for DL-34 and needing the module owner's review.
 
 | Code | Action type (R02) | Object | Status |
 |---|---|---|---|
@@ -76,4 +76,4 @@ Which capabilities each access role's templates hold is a view of the [persona �
 
 ## Open
 
-OQ-46 (registry owner) · OQ-47 (A17 approver) · OQ-48 (support sessions) · OQ-49 (naming and review) · OQ-15, OQ-16, OQ-34 (operator, brand, DPO roles).
+OQ-47 (A17 approver) · answered: OQ-46 → DL-51, OQ-48 → DL-52, OQ-49 → DL-53 · OQ-15, OQ-16, OQ-34 (operator, brand, DPO roles).

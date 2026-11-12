@@ -16,7 +16,7 @@ Use these terms exactly in screens and specs. Where a term's definition is still
 | **Brand-country** | A brand in one country, for example GIIS Singapore. Holds the regulator pack, currency and holidays; its country selects the data cell | Confirmed (DL-40) |
 | **Person** | One record per human, with Student, Guardian and Employee profiles and one login | Confirmed (DL-42) |
 | **Design object** | Something users see and act on (Student, Enrolment, Case), described by an object card `OBJ-nn` | Confirmed (DL-46) |
-| **Country** | A tenancy level that owns data region, regulator pack, currency and tax, public holidays and languages offered | Known (Architecture) |
+| **Country** | A tenancy level that owns data location, regulator pack, currency and tax, public holidays and languages offered | Known (Architecture) |
 | **Campus** | A school site, identified by a campus code such as `SG-PGL` (catalog entity E06) | Known |
 | **Segment** | A school segment of a campus such as Pre-Primary, Primary, Middle, Higher. Architecture calls this level "Section"; don't use that word in screens | Confirmed (DL-29) |
 | **Class** | A group of students taught together, such as 7B | Confirmed (DL-29) |
@@ -24,7 +24,7 @@ Use these terms exactly in screens and specs. Where a term's definition is still
 | **Programme offering** | A curriculum taught on a campus for a grade band, for example CBSE 6–8 at Punggol | Known (Architecture) |
 | **Programme pack** | A curriculum loaded as data: levels, subjects, grade scale, rules, templates | Known (Architecture) |
 | **Country cell** | A deployment of the platform that holds one country's data in that country's region | Known (Architecture) |
-| **Data region** | Product term for a country cell in staff UI ("Singapore data region"); "data home" in parent copy; "cell" only in engineering docs (OR06) | Assumed (DL-47) |
+| **Data location** | Product term for a country cell in staff and parent UI ("Data location: Singapore"); "cell" only in engineering docs (OR06) | Confirmed (DL-47) |
 | **School operating entity** | The legal entity behind a school that enrols students and employs staff. Linked to each campus by date; copied onto enrolments, employments and cases (DL-41) | Structure Confirmed (DL-41); which ones is open (OQ-02) |
 | **Employer** | The legal employer on an employment record (`employer_org_id` on E02; catalog TBD) | Known (Data Dictionary) |
 | **Franchise / JV partner** | A local partner through which some GIIS campuses opened | Known that they exist (OQ-03) |

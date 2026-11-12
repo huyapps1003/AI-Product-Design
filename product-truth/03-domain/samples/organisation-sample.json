@@ -295,7 +295,7 @@
   "data_regions": [
     {
       "code": "SG",
-      "display_name": "Singapore data region",
+      "display_name": "Singapore",
       "countries": [
         "SG"
       ],
@@ -304,7 +304,7 @@
     },
     {
       "code": "IN",
-      "display_name": "India data region",
+      "display_name": "India",
       "countries": [
         "IN"
       ],
@@ -313,7 +313,7 @@
     },
     {
       "code": "JP",
-      "display_name": "Japan data region",
+      "display_name": "Japan",
       "countries": [
         "JP"
       ],
@@ -322,7 +322,7 @@
     },
     {
       "code": "MY",
-      "display_name": "Malaysia data region",
+      "display_name": "Malaysia",
       "countries": [
         "MY"
       ],
@@ -331,7 +331,7 @@
     },
     {
       "code": "AE",
-      "display_name": "UAE data region",
+      "display_name": "UAE",
       "countries": [
         "AE"
       ],
@@ -340,7 +340,7 @@
     },
     {
       "code": "KH",
-      "display_name": "Cambodia data region",
+      "display_name": "Cambodia",
       "countries": [
         "KH"
       ],
@@ -349,7 +349,7 @@
     },
     {
       "code": "GB",
-      "display_name": "UK data region",
+      "display_name": "UK",
       "countries": [
         "GB"
       ],
@@ -358,7 +358,7 @@
     },
     {
       "code": "SA",
-      "display_name": "Saudi Arabia data region",
+      "display_name": "Saudi Arabia",
       "countries": [
         "SA"
       ],
@@ -367,7 +367,7 @@
     },
     {
       "code": "PH",
-      "display_name": "Philippines data region",
+      "display_name": "Philippines",
       "countries": [
         "PH"
       ],
@@ -376,7 +376,7 @@
     },
     {
       "code": "KR",
-      "display_name": "South Korea data region",
+      "display_name": "South Korea",
       "countries": [
         "KR"
       ],

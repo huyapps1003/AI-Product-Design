@@ -22,7 +22,7 @@ field_groups:
     tier: T1
     capability: any staff with a grant on the node or above
     edit: [ga.catalog.manage]          # code standard Open (OQ-55)
-  - name: Data region
+  - name: Data location
     tier: T1
     source: OR06 via Brand-country     # read-only; derived from country (DL-40)
   - name: Inherited settings
@@ -34,7 +34,7 @@ actions:
   - org.setting.manage                 # set or override a value where OPEN (AP-02)
 events: [ScopeNodeOpened, ScopeNodeClosed, SettingChanged]
 variation: [MC-01, MC-02, MC-04, MC-06, MC-14]
-open: [OQ-20 overridable settings, OQ-21 data regions beyond SG and IN, OQ-26 brand in shared shells, OQ-50 stage campuses, OQ-52 shared sites, OQ-55 campus codes, OQ-56 brand names, OQ-57 unlisted campuses, OQ-58 tree owner, OQ-59 regions above brand-country]
+open: [OQ-20 overridable settings, OQ-21 data locations beyond SG and IN, OQ-26 brand in shared shells, OQ-50 stage campuses, OQ-52 shared sites, OQ-55 campus codes, OQ-56 brand names, OQ-57 unlisted campuses, OQ-58 tree owner, OQ-59 regions above brand-country]
 sample: product-truth/03-domain/samples/organisation-sample.json   # full list: 01-context/gsg-footprint.json
 patterns: [AP-01, AP-02, AP-08, AP-13, AP-14]
 ---
@@ -44,6 +44,6 @@ patterns: [AP-01, AP-02, AP-08, AP-13, AP-14]
 **Status:** Proposed card, 9 Nov 2026 (Organisation dictionary v0.1; DL-47…DL-50 Assumed) · **Owner:** Henry
 **Cites:** see `entities`, `states` and comments above · [organisation dictionary](../organisation-data-dictionary.md)
 
-The breadcrumb reads Group › Brand › Brand-country › Campus, e.g. "GIIS · Singapore · SMART Campus Punggol" (AP-01). Show a campus with its brand, because names repeat across brands. Call a cell a **data region** (DL-47). Show data regions other than Singapore and India as Planned (OQ-21).
+The breadcrumb reads Group › Brand › Brand-country › Campus, e.g. "GIIS · Singapore · SMART Campus Punggol" (AP-01). Show a campus with its brand, because names repeat across brands. Call a cell a **data location** (DL-47). Show data locations other than Singapore and India as Planned (OQ-21).
 
 Rules: [`../architecture.md`](../architecture.md). Capabilities: [`../../04-access/permission-catalogue.md`](../../04-access/permission-catalogue.md).
