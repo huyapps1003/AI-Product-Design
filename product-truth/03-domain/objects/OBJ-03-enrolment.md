@@ -16,6 +16,7 @@ states:                    # DL-27 values; colours proposed for review
   WITHDRAWN: default
   COMPLETED: default
   CANCELLED: error
+# DL-54: grade up into a new academic year = PROMOTION_ROLLOVER (campus may change); campus move within a year = CAMPUS_TRANSFER
 end_reasons: [WITHDRAWAL, CAMPUS_TRANSFER, COURSE_CHANGE, PROMOTION_ROLLOVER, GRADUATION, NON_DELIVERY, EXPULSION, OTHER]
 field_groups:
   - name: Status, dates, end reason, transfer history
@@ -28,10 +29,10 @@ field_groups:
 actions:
   - admissions.enrolment.create
   - admissions.enrolment.end          # asks end reason and "from when" (AP-05)
-  - admissions.enrolment.transfer     # AP-11 transfer review
+  - admissions.enrolment.transfer     # AP-11 transfer review; within an academic year only (DL-54)
 events: [StudentEnrolled, EnrolmentEnded, StudentTransferred]
 variation: [MC-06, MC-07, MC-10]
-open: [OQ-45 AEPP as offering or placement, OQ-07 cross-entity transfer]
+open: [OQ-45 AEPP as offering or placement, OQ-07 cross-entity transfer, OQ-60 campus-changing promotion approvals]
 sample: product-truth/03-domain/samples/student-sample.json   # viewer Lina Goh, SG-PGL; other brands' scope nodes from gsg-landscape
 patterns: [AP-01, AP-04, AP-05, AP-11, AP-13, AP-14]
 ---

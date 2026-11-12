@@ -23,7 +23,7 @@ actions:
   - identity.account.suspend
 events: [PersonCreated, PersonMerged, AccountStatusChanged]
 variation: [MC-15]
-open: [OQ-39 which cell holds a guardian with children in two countries]
+open: []   # OQ-39 answered by DL-55: guardian profile per child's data location
 sample: product-truth/06-experience/admin-platform/README.md#canonical-sample-data
 patterns: [AP-03, AP-07, AP-14]
 ---

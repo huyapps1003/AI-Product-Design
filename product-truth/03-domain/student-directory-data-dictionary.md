@@ -1,7 +1,7 @@
-# Global Campus OS — Student Data Dictionary v0.2 (merged)
+# Global Campus OS — Student Directory Spec v1.0 (lock candidate)
 
-**Status:** Proposed, 30 Oct 2026; merged with Student Data Dictionary v1.0 on 9 Nov 2026; DL-23…DL-27 Assumed; DL-28…DL-31, DL-41, DL-42, DL-45 Confirmed by Henry · **Owner:** Henry
-**Cites:** [Student Data Dictionary v1.0](../00-sources/Global_Campus_OS_Student_Data_Dictionary_v1.md) (1 Nov 2026, merged here) · [Organisation dictionary](./organisation-data-dictionary.md) OR04, OR08 · DL-39, DL-41, DL-42, DL-45 · [Architecture v1](../00-sources/Global_Campus_OS_Product_Architecture_v1.md) § Users and roles, § Domains and modules, § Key workflows (Admission to enrolment), § Multi-campus and tenancy model, § High-level data model, § Security · [Employee Data Dictionary v1](../00-sources/Global_Campus_OS_Employee_Data_Dictionary_v1.md) (format, BR-01, E08 pattern) · [rbac-model](../04-access/rbac-model.md) Layers 4–6 · [data-classification](../05-data-governance/data-classification.md) · [data-controller-model](../05-data-governance/data-controller-model.md) · [regulatory-context](../05-data-governance/regulatory-context.md) · GIIS Student Handbook 2025-26 (HB) · GIIS Noida Almanac 2025-26 · DL-11, DL-17, DL-18, DL-19, DL-22 · RES-F05, MC-08, MC-09, MC-10 · DL-23…DL-27 (Assumed), DL-28…DL-31 (Confirmed, Henry 30 Oct 2026) · OQ-35…OQ-45
+**Status:** Lock candidate for the first module spec, 12 Nov 2026 (was v0.2, merged 9 Nov 2026). Locks as v1.0 when the items in [§ Readiness](#readiness-and-lock-list) are answered. DL-23…DL-27 Assumed; DL-28…DL-31, DL-41, DL-42, DL-45, DL-47, DL-49, DL-53…DL-55 Confirmed by Henry · **Owner:** Henry
+**Cites:** [Student Data Dictionary v1.0](../00-sources/Global_Campus_OS_Student_Data_Dictionary_v1.md) (1 Nov 2026, merged here) · [Organisation dictionary](./organisation-data-dictionary.md) OR04, OR08 · DL-39, DL-41, DL-42, DL-45 · [Architecture v1](../00-sources/Global_Campus_OS_Product_Architecture_v1.md) § Users and roles, § Domains and modules, § Key workflows (Admission to enrolment), § Multi-campus and tenancy model, § High-level data model, § Security · [Employee Data Dictionary v1](../00-sources/Global_Campus_OS_Employee_Data_Dictionary_v1.md) (format, BR-01, E08 pattern) · [rbac-model](../04-access/rbac-model.md) Layers 4–6 · [data-classification](../05-data-governance/data-classification.md) · [data-controller-model](../05-data-governance/data-controller-model.md) · [regulatory-context](../05-data-governance/regulatory-context.md) · GIIS Student Handbook 2025-26 (HB) · GIIS Noida Almanac 2025-26 · DL-11, DL-17, DL-18, DL-19, DL-22 · RES-F05, MC-08, MC-09, MC-10 · DL-23…DL-27 (Assumed), DL-28…DL-31 (Confirmed, Henry 30 Oct 2026) · DL-32…DL-38 (access), DL-47, DL-49, DL-53 · DL-54, DL-55 (Confirmed, Henry 12 Nov 2026) · OQ-35…OQ-45, OQ-50, OQ-60, OQ-61
 **Tóm tắt (VI):** Bản hợp nhất duy nhất của từ điển dữ liệu học sinh (gộp Student Data Dictionary v1.0 vào bản danh bạ học sinh; xem § Merge notes). Từ điển dữ liệu cho danh bạ học sinh (hồ sơ học sinh, ghi danh, phụ huynh/người giám hộ, giấy tờ, mã định danh) phục vụ thiết kế module Admissions and Enrolment. Mỗi trường có trạng thái Known / Assumed / Open, mức phân loại dữ liệu, quyền xem theo vai trò và ghi chú về bên kiểm soát dữ liệu.
 
 > Drafted by Claude from product truth on 30 Oct 2026 and reviewed by Henry the same day. Henry confirmed DL-28…DL-31; DL-23…DL-27 are Assumed working directions; OQ-35…OQ-45 are in the open-questions register.
@@ -17,7 +17,7 @@
   - **Open** — unknown, cited by OQ ID. Keep the field generic in designs; don't invent values.
 - **Tier** is the data classification from Architecture § Security and DL-11: **T1** Internal (directory), **T2** Confidential (academic, finance), **T3** Restricted (identity documents, health, SEN, counselling, child protection; field-level encryption, named roles only, every read logged). A tier marked `T2*` is assigned by DL-26 (Assumed) because Architecture does not name it. Whether children's data should sit higher across the board is open (OQ-13).
 - `Y` = required, `N` = optional, `C` = conditionally required. Types and keys are proposals for data architect review (as in ED).
-- Every row also carries `tenant_path` (group/brand/brand-country/campus, DL-40), `data_region` (DL-39, DL-47) and the shared common fields from ED § Shared common fields (`created_at`, `created_by_user_id`, `updated_at`, `updated_by_user_id`, `row_version`, `source_system_code`). They are not repeated per table.
+- Every row also carries `tenant_path` (group/brand/brand-country/campus, DL-40), `data_region` (DL-39; shown in the UI as **Data location**, never "cell", DL-47) and the shared common fields from ED § Shared common fields (`created_at`, `created_by_user_id`, `updated_at`, `updated_by_user_id`, `row_version`, `source_system_code`). They are not repeated per table.
 - Scope is every GSG brand (DL-22). Facts from GIIS files are labelled GIIS examples. SmartLearn is excluded.
 
 ## Scope of "student directory"
@@ -41,6 +41,8 @@ The student directory is the record of **who a student is, where they are enroll
 - **Guardian relationship is not access.** The directory records who a guardian is to a student. Parent access comes from a Family Link (F01, DL-18), created from a verified relationship (DL-25 Assumed).
 - **Class and Segment (DL-29, Confirmed).** Architecture uses "Section" for two things. The product terms are **Class** for a group of students like 7B, and **Segment** for a school segment like Pre-Primary, Primary, Middle or Higher. Don't use "Section" in designs.
 - **One Person (DL-42, Confirmed).** Each human has one global Person (`person_id`, Tier 1) with Student (ST01) and Guardian (ST04) profiles here and an Employee profile (E01) in HR, and one account. `student_id` and `guardian_id` stay as domain keys and point to `person_id`. Possible duplicates go to a review queue and are never merged automatically. Answers OQ-35 and v1.0 D01.
+- **Promotion or transfer: the academic year decides (DL-54, Confirmed).** Moving up a grade into a new academic year is a **promotion**, even when the campus changes (for example a Harrods stage campus move, DL-49). Any campus move within the same academic year is a **transfer**. Promotions use `end_reason` PROMOTION_ROLLOVER; transfers use CAMPUS_TRANSFER. Whether a campus-changing promotion needs the approvals a transfer needs, and how it works across brands or countries, is open (OQ-60).
+- **Guardian per data location (DL-55, Confirmed).** A guardian is one global Person (DL-42). The global layer holds only the Person and directory index entry (DL-39). The guardian profile, relationship, addresses and contacts (ST04–ST07) are held in the data location of each child they are linked to, so a parent with children in Singapore and India has two guardian profiles on one Person and one login. Whether a contact change in one data location updates the other is open (OQ-61).
 - All example values are synthetic. All enums are unapproved candidates (DL-27).
 
 ## Entities
@@ -65,7 +67,7 @@ The student directory is the record of **who a student is, where they are enroll
 ### ST01 — Student
 
 **Purpose:** Durable identity of a learner across campuses, brands, enrolments and years.
-**Data controller:** "[data controller — OQ-06]". Record lives in the student's country cell (Arch § System architecture: "everything about a student stays in that student's country cell"). Whether any student fields appear in the global directory layer is open (OQ-39).
+**Data controller:** "[data controller — OQ-06]". Record lives in the student's country cell (Arch § System architecture: "everything about a student stays in that student's country cell"). Only the Person and the directory index entry sit in the global layer (DL-39, DL-55); everything else stays in the student's data location.
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
@@ -124,7 +126,7 @@ The student directory is the record of **who a student is, where they are enroll
 ### ST04 — Guardian
 
 **Purpose:** A parent, legal guardian or local guardian who acts for one or more students, on any campus.
-**Data controller:** "[data controller — OQ-06]". Guardians are data subjects (data-controller-model). Guardian records may span countries (Arch: "a parent account links to children on any campus or country"); which cell holds a guardian linked to children in two countries is open (OQ-39).
+**Data controller:** "[data controller — OQ-06]". Guardians are data subjects (data-controller-model). Guardian records may span countries (Arch: "a parent account links to children on any campus or country"). One Person globally; one guardian profile in each child's data location (DL-55). Contact sync between those profiles: OQ-61.
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
@@ -289,11 +291,11 @@ Basis for the cells:
 
 | Entity | Controller | Residency | Leaves the cell? | Open |
 |---|---|---|---|---|
-| ST01–ST03 Student, enrolment, subjects | [data controller — OQ-06] | Student's country cell (Known, Arch § System architecture) | De-identified events only, to group analytics (Known) | OQ-06, OQ-08, OQ-39 |
-| ST04–ST07 Guardians, relationships, addresses, contacts | [data controller — OQ-06] | Country cell of the linked students; guardian across countries Open | Parent identity for login lives in the global identity layer (Known: "thin global layer holds only identity, directory") | OQ-39 |
+| ST01–ST03 Student, enrolment, subjects | [data controller — OQ-06] | Student's data location (Known, Arch § System architecture) | Person and directory index entry only (DL-39, DL-55); de-identified events to group analytics (Known) | OQ-06, OQ-08 |
+| ST04–ST07 Guardians, relationships, addresses, contacts | [data controller — OQ-06] | Data location of each linked child; one profile per data location (DL-55) | Parent identity for login lives in the global identity layer (Known: "thin global layer holds only identity, directory") | OQ-61 |
 | ST08–ST09 Identity documents, immigration | [data controller — OQ-06] | Country cell; never in raw form outside (Known, rbac-model Layer 6) | Disclosed to ICA and other regulators by law (Known, Arch § Integrations) | OQ-22 |
 | ST10 External identifiers | [data controller — OQ-06] | Country cell | Exported to CBSE, IB, Cambridge (Known, Arch § Integrations) | OQ-23 |
-| ST02 on transfer between brands or countries | Two entities may be involved (MC-10) | Record moves to the receiving cell (Arch "a transfer is a record move") | Yes, under terms not yet defined | OQ-07 |
+| ST02 on transfer or promotion between brands or countries | Two entities may be involved (MC-10) | Record moves to the receiving data location (Arch "a transfer is a record move") | Yes, under terms not yet defined | OQ-07, OQ-60 |
 
 Don't name a controller, fiduciary or processor in any notice, consent or export screen until OQ-06 is answered (data-controller-model § For design). The operating entity on the enrolment is not the data controller.
 
@@ -345,6 +347,8 @@ Don't name a controller, fiduciary or processor in any notice, consent or export
 - **SR-13 (Known, ED § guardrails):** Never join people by name, email, phone or student number; use `student_id`, `guardian_id` and explicit mappings.
 - **SR-14 (Known, ED BR-20 pattern):** Data from MyGIIS or another brand's SIS that conflicts with the directory is quarantined, never silently overwritten.
 - **SR-15 (Known, Arch § Security):** Changes to enrolment, guardianship, identity documents and immigration status produce immutable audit events.
+- **SR-16 (Confirmed, DL-54):** Moving up a grade into a new academic year is a promotion (PROMOTION_ROLLOVER), even when the campus changes. A campus move within one academic year is a transfer (CAMPUS_TRANSFER) and follows SR-05. The transfer flow never offers a year-end stage move.
+- **SR-17 (Confirmed, DL-55):** A guardian has one Person and one login, and one guardian profile (ST04–ST07) in the data location of each linked child. A Family Link (F01) is created in the child's data location.
 
 ## Decisions (Assumed)
 
@@ -364,6 +368,10 @@ Don't name a controller, fiduciary or processor in any notice, consent or export
 | DL-29 | **Class** means a group of students like 7B. **Segment** means a school segment like Pre-Primary, Primary, Middle or Higher. "Section" is not used as a product term. Answers OQ-40 (AEPP part moved to OQ-45). | Henry, 30 Oct 2026 |
 | DL-30 | Teachers and coordinators see a student's attendance threshold (for example 90%) without the reason. Student Pass and immigration status stay Tier 3, visible only to Admissions and other named roles with a record ACL. Answers OQ-41. | Henry, 30 Oct 2026 |
 | DL-31 | The student number is called **Student ID** in the product. It is unique across Campus OS and stays the same when a student transfers between campuses. Answers OQ-36 except the format. | Henry, 30 Oct 2026 |
+| DL-54 | The academic year decides: moving up a grade into a new academic year is a promotion (the campus may change); any campus move within the same academic year is a transfer. Answers OQ-50. | Henry, 12 Nov 2026 |
+| DL-55 | One global Person for a guardian (DL-42); the guardian profile is held in the data location of each child. The global layer holds only the Person and directory index entry (DL-39). Answers OQ-39. | Henry, 12 Nov 2026 |
+
+Decisions made elsewhere that this spec applies: DL-32…DL-38 (access registry; field visibility as capabilities, § Field visibility), DL-47 (UI says **Data location**, never "cell"), DL-49 (stage campuses are separate Campus nodes), DL-53 (capabilities named `module.object.action`, e.g. `student.guardian_contact.view`).
 
 ## Open questions (added to the register)
 
@@ -373,13 +381,16 @@ Don't name a controller, fiduciary or processor in any notice, consent or export
 | OQ-36 | What is the format and uniqueness scope of the student (admission) number, and does it change on transfer between campuses, brands or countries? | Directory search, ID cards and exports show it | No source defines it; ED Decision D02 is the staff equivalent | **Answered → DL-31** (unique, kept on transfer); format still open |
 | OQ-37 | Which identity attributes must a student record hold in each country (date of birth, sex or gender values, name structure, nationality, home language)? | Form fields and validation differ by country | Not in Architecture or HB; MC-05 | Open |
 | OQ-38 | Can parents edit the student profile, identity documents and contacts themselves (as in MyGIIS Profile Update), and does the school verify edits before they apply? | DL-18 gives parents a read-only set, but MyGIIS parity is the Phase 1 gate | HB p.35; Arch § Roadmap Phase 1; DL-18 | **Answered → DL-28** |
-| OQ-39 | Do any student or guardian fields sit in the global identity and directory layer, and which cell holds a guardian whose children are in two countries? | Search across campuses, and transfers | Arch § System architecture ("staff and family directory" at the edge vs. "everything about a student stays in that student's country cell") | Open |
+| OQ-39 | Do any student or guardian fields sit in the global identity and directory layer, and which cell holds a guardian whose children are in two countries? | Search across campuses, and transfers | Arch § System architecture ("staff and family directory" at the edge vs. "everything about a student stays in that student's country cell") | **Answered → DL-55** |
 | OQ-40 | Architecture uses "Section" for both a segment (Pre-Primary…Higher) and a class (7B). Which product term means which? Is AEPP a programme offering? | Labels on every enrolment and class screen | Arch § Tenancy vs. § Data model; Noida Almanac; HB AEPP | **Answered → DL-29** (AEPP part → OQ-45) |
 | OQ-41 | Can teachers see that a student holds a Student Pass (to apply the 90% threshold) without seeing Tier 3 immigration data? | Attendance warnings show the threshold to class teachers | Arch § Absence and leave step 4; Arch § Security | **Answered → DL-30** |
 | OQ-42 | Which health alerts (allergies, medical conditions), if any, appear on the student directory card for teachers, transport and security? | Tier 3 health data vs. safety on trips and buses | HB medical conditions; Arch § Security | Open |
 | OQ-43 | How long are student and guardian records kept after withdrawal or graduation, per country, and what is deleted or anonymised? | Archive and delete states in the directory | regulatory-context (retention not defined); ED Decision D12 | Open |
 | OQ-44 | During migration, which system is authoritative for student data: MyGIIS, other brands' SIS, or Campus OS? | Which fields are read-only with a source chip | Arch § Integrations (MyGIIS two-way sync); OQ-27, OQ-28 | **Answered → DL-45** (systems per brand: OQ-27, OQ-28) |
 | OQ-45 | Is AEPP (Academic English Preparatory Program) a programme offering with its own enrolment, or a placement inside another programme? | Decides whether an AEPP student has an AEPP enrolment or a flag on a regular one | Arch § Admission to enrolment (AEPP placement); HB § AEPP (six-month course, placement test, classes AEPP 1 and 2) | Open |
+| OQ-50 | When a student moves between stage campuses of one school, is that a promotion or a campus transfer? | Transfer flow and enrolment history | Harrods Phnom Penh stage campuses (gsg-landscape) | **Answered → DL-54** |
+| OQ-60 | When a promotion changes campus, does it need the approvals a campus transfer needs (both principals, SR-05), and does a promotion into another brand or country count as a promotion or as a new admission? | Year-end rollover screens and approval steps; cross-entity data moves (OQ-07) | DL-54; HB p.235; DL-49 | Open |
+| OQ-61 | When a guardian with profiles in two data locations changes their phone, email or address in one, does the change apply in the other? | Parent profile edit (DL-28) and staff guardian screens | DL-55; DL-28 | Open |
 
 Existing questions this dictionary depends on: OQ-02, OQ-06, OQ-07, OQ-08, OQ-10, OQ-11, OQ-13, OQ-14, OQ-19, OQ-20, OQ-22, OQ-23, OQ-25.
 
@@ -448,11 +459,27 @@ v1.0's unresolved decisions map to the register; cite the OQ or DL, not the D nu
 | D08 | Student access | OQ-19 |
 | D09 | Migration authority | DL-45; systems OQ-27, OQ-28 |
 | D10 | AEPP | OQ-45 |
-| D11 | Guardian across countries | OQ-39 |
+| D11 | Guardian across countries | DL-55; contact sync OQ-61 |
 | D12 | Retention | OQ-43 |
 | D13 | Health alerts on the card | OQ-42 |
 | D14 | Data controller | OQ-06 |
 
-## Readiness
+## Readiness and lock list
 
-Not ready to freeze as a schema. Design can start on ST01–ST03 and ST05–ST07 with the Assumed decisions. ST08–ST09 screens should show the Tier 3 lock treatment and generic fields until OQ-37 is answered; parent edit screens follow MyGIIS Profile Update (DL-28). Legal authority (OQ-11) and consent (OQ-10) stay out of designs.
+**What v1.0 locks.** Entities ST01–ST11 and F01, their attributes, tiers, field groups and capabilities, business rules SR-01…SR-17, and the Confirmed decisions above. After the lock, a change needs a new DL entry (decision-log § How design direction becomes architecture), not an edit here.
+
+**Answers needed from Henry before the lock** (yes/no on a recommendation, given in the PR):
+
+| Item | Blocks |
+|---|---|
+| OQ-60 Campus-changing promotion approvals; promotion into another brand or country | Year-end rollover and transfer screens |
+| OQ-61 Guardian contact sync across data locations | Parent profile edit, guardian record |
+| OQ-45 AEPP: offering or placement | Enrolment for AEPP students |
+| OQ-42 Health alert on the student card | Directory card, transport and security views |
+| OQ-36 Student ID format (rest of the question) | Directory search, ID cards, exports |
+| OQ-19 Student self-access | Student column of the visibility matrix |
+| DL-23…DL-27 Assumed → Confirmed | Every `Assumed` cell in this file |
+
+**Stays open after the lock, with a Pending treatment in designs (AP-13):** OQ-06 controller, OQ-07 cross-entity sharing, OQ-10 consent, OQ-11 custody, OQ-13 children's data tier, OQ-37 country identity fields (ST08–ST09 stay generic), OQ-43 retention, OQ-47 Tier 3 grant approver, OQ-53 native-script names, OQ-54 adult learners. These need counsel, DPOs or brand owners, not a product call.
+
+Not a database schema: types and keys are still proposals for data architect review. Legal authority (OQ-11) and consent (OQ-10) stay out of designs.

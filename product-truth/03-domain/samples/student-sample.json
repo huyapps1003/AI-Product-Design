@@ -1770,7 +1770,7 @@
     "account": "sokha.chan@students.harrods.example"
    },
    "cases": [],
-   "_note": "Moves campus on promotion: Lower Primary to Upper Primary. Whether this is a promotion or a campus transfer is OQ-50. Khmer-script name not modelled (OQ-53)."
+   "_note": "Moves campus on promotion: Lower Primary to Upper Primary. A promotion, not a transfer (DL-54). Khmer-script name not modelled (OQ-53)."
   },
   {
    "student_number": "GS-2026-006044",

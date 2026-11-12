@@ -3,7 +3,7 @@ id: OBJ-04
 name: Guardian
 entities: [ST04, ST05, ST07]
 owner: student_records
-home: cell              # cross-cell guardian: OQ-39
+home: cell              # one profile per child's data location (DL-55)
 effective_dated: true
 relationship_types: [MOTHER, FATHER, LEGAL_GUARDIAN, LOCAL_GUARDIAN, OTHER]   # DL-27
 states:                 # ST05 verification_status (DL-25); colours proposed for review
@@ -23,7 +23,7 @@ actions:
   - student.guardian.edit
 events: [GuardianRelationshipChanged]
 variation: [MC-09, MC-12]
-open: [OQ-11 custody records, OQ-10 consent, OQ-25 notice language]
+open: [OQ-11 custody records, OQ-10 consent, OQ-25 notice language, OQ-61 contact sync across data locations]
 sample: product-truth/03-domain/samples/student-sample.json   # viewer Lina Goh, SG-PGL; other brands' scope nodes from gsg-landscape
 patterns: [AP-03, AP-04, AP-05, AP-13, AP-14]
 ---

@@ -30,7 +30,7 @@
 - **The scope tree is not the HR org chart.** ED E03 org units (departments, teams) describe reporting lines. Grants and memberships sit on scope nodes only (DL-35, DL-40).
 - **Brand-country is a node, not a country.** "GIIS Singapore" and "OWIS Singapore" are two nodes in one country and one data location. A grant on GIIS Singapore never reaches OWIS Singapore (DL-40, answers OQ-17).
 - **Data location follows country.** A Brand-country's country code selects its data location (DL-39, DL-40). Whether any country shares or splits a region is open (OQ-21). Product term: DL-47.
-- **Campus is what GSG lists as a campus.** A school split by stage across buildings (Harrods Phnom Penh) is several campuses. Whether moving between them is a transfer is OQ-50.
+- **Campus is what GSG lists as a campus.** A school split by stage across buildings (Harrods Phnom Penh) is several campuses. Moving between them at a new academic year is a promotion, not a transfer (DL-54).
 - **Segment sits on a campus.** Segment (DL-29) is a campus-level grouping such as Primary; programme offerings belong to Academic structure.
 
 ## Entities
@@ -104,7 +104,7 @@ Group has no profile entity: there is one GROUP node, GSG (Known, DL-22). Region
 | city | VARCHAR(120) | — | Y | T1 | Known (footprint) | |
 | address_ref | UUID | — | N | T1 | Open (OQ-52) | Whether campuses of different brands share a site is open. |
 | time_zone | VARCHAR(64) | — | Y | T1 | Known (E06) | IANA, e.g. Asia/Singapore. |
-| stages_served | ENUM[] | — | N | T1 | Known (footprint labels, e.g. preschool, primary) | Descriptive only; not Segments (OR05) and not a transfer rule (OQ-50). |
+| stages_served | ENUM[] | — | N | T1 | Known (footprint labels, e.g. preschool, primary) | Descriptive only; not Segments (OR05) and not a transfer rule (DL-54). |
 | campus_status | ENUM | — | Y | T1 | Known ACTIVE, INACTIVE (E06); extended Confirmed (DL-50) | See enums. Whether unlisted campuses still operate: OQ-57. |
 | first_release | BOOLEAN | — | N | T1 | Open (OQ-05, OQ-32) | Not shown in designs until answered. |
 
