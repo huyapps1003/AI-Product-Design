@@ -41,6 +41,14 @@ Codes follow `module.object.action` (DL-53; new capabilities reviewed by the reg
 | `student.attendance_threshold.view` | VIEW | OBJ-02 | New (DL-30) |
 | `student.enrolment.view` | VIEW | OBJ-03 | New |
 | `admissions.enrolment.create`, `.end`, `.transfer` | CREATE, UPDATE | OBJ-03 | New |
+| `admissions.enquiry.view`, `.create`, `.assign` | VIEW, CREATE, UPDATE | OBJ-16 | New (admissions dictionary) |
+| `admissions.application.view`, `.edit`, `.decide` | VIEW, UPDATE, APPROVE | OBJ-16 | New |
+| `admissions.document.review` | VIEW, UPDATE | OBJ-16 (T3) | New |
+| `admissions.assessment.record` | UPDATE | OBJ-16 | New |
+| `admissions.capacity.manage` | MANAGE | OBJ-16 | New (DL-61) |
+| `admissions.offer.issue`, `.rescind` | CREATE, UPDATE | OBJ-16 | New |
+| `admissions.contract.issue`, `.void` | CREATE, UPDATE | OBJ-16 | New |
+| `admissions.approval_case.manage` | MANAGE | OBJ-16, OBJ-10 (T3) | New |
 | `student.guardian.view`, `student.guardian_contact.view` | VIEW | OBJ-04 | New |
 | `student.guardian.verify`, `student.guardian.edit` | APPROVE, UPDATE | OBJ-04 | New |
 | `teaching.allocation.view`, `teaching.allocation.manage` | VIEW, MANAGE | OBJ-12 | New |

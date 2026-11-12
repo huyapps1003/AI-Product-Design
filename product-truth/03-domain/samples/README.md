@@ -10,6 +10,7 @@ Every person, number and address here is invented. Object cards point to their s
 |---|---|---|---|
 | [`student-sample.json`](./student-sample.json) | OBJ-02 Student, OBJ-03 Enrolment, OBJ-04 Guardian | Lina Goh, Admissions, SG-PGL (other staff in `staff_users`) | GIIS SG-PGL, SG-ECS, IN-NOI (14 students); OWIS SG-OWD, Harrods KH-HLP and KH-HUP, Witty IN-WKB, Heath House UK-HTH, Regent MY-RKL (one student each) |
 
+| [`admissions-sample.json`](./admissions-sample.json) | OBJ-16 Application (with OBJ-03) | Lina Goh, Admissions Officer, SG-PGL | 4 enquiries, 10 applications across every stage at SG-PGL, one IN-NOI and one OWIS SG-OWD; reuses the Sharma family (sibling) |
 | [`organisation-sample.json`](./organisation-sample.json) | OBJ-13 Scope node and campus, OBJ-14 Legal entity | Daniel Ong, P2 Global Admin, whole group; Dr Anita Rao, P3 Campus Leader, SG-PGL | 12 brands, 21 brand-countries, 10 data locations; the nine campuses above with Noida segments; legal entities and operator links all pending (OQ-02) |
 
 Records that test an open question carry a `_note` naming it: Sokha Chan (stage campus move, OQ-50), Lucas Lim (neighbouring brand, OQ-52), Aisyah Rahman (adult learner, OQ-54). Campus codes and Student IDs are placeholders (OQ-55, OQ-36). `SG-ECS` is not on GSG's public list and stays until GSG confirms it.

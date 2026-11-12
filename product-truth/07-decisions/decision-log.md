@@ -67,6 +67,12 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-53 | Capability codes follow `module.object.action` in every module | **Confirmed** (Henry, 12 Nov 2026) | OQ-49, DL-33 |
 | DL-54 | The academic year decides promotion vs transfer: grade up into a new year is a promotion, any campus move within a year is a transfer | **Confirmed** (Henry, 12 Nov 2026) | OQ-50, DL-49, student dictionary SR-16 |
 | DL-55 | One global Person for a guardian; guardian profile held in each child's data location | **Confirmed** (Henry, 12 Nov 2026) | OQ-39, DL-39, DL-42 |
+| DL-56 | Enquiry per family; application per child per target (campus × offering × grade × academic year) | Assumed (proposed 12 Nov 2026) | Admissions dictionary AD01–AD03 |
+| DL-57 | Student and Enrolment (OFFERED) are created when an offer is issued | Assumed (proposed 12 Nov 2026) | Admissions dictionary, ST02 |
+| DL-58 | Enquirers and applicants matched to existing Persons via the DL-42 review queue | Assumed (proposed 12 Nov 2026) | DL-42 |
+| DL-59 | Admission rules (cooling-off, fees, documents, assessments, offer validity) are scope-tree settings; GIIS SG values are sample defaults | Assumed (proposed 12 Nov 2026) | MC-14, DL-22 |
+| DL-60 | SEN evaluation and identity documents stay Tier 3 with their owners; Admissions sees outcome and link | Assumed (proposed 12 Nov 2026) | DL-30 pattern |
+| DL-61 | Intake capacity = seat limit per campus × offering × grade × academic year; overrides need a reason | Assumed (proposed 12 Nov 2026) | OQ-65 |
 
 ---
 
@@ -356,6 +362,12 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Why.** Answers OQ-39. Guardian data stays with the child's data, and the parent still has one login.
 - **Still open.** Whether a contact change in one data location applies in the other (OQ-61).
 - **Confirmed by.** Henry, 12 Nov 2026.
+
+### DL-56 to DL-61 — Admissions pipeline (proposed)
+- **Context.** Second module, Admissions and Enrolment; scope approved by Henry 12 Nov 2026 (enquiry to enrolment handoff).
+- **Decision.** See the table above and [admissions dictionary § Decisions proposed](../03-domain/admissions-data-dictionary.md#decisions-proposed-assumed-until-henry-confirms).
+- **Why.** Lets the pipeline be designed while the rules other than GIIS Singapore's are unknown.
+- **Status.** Assumed. Confirm with Henry and Admissions owners per brand.
 
 ## How design direction becomes architecture
 
