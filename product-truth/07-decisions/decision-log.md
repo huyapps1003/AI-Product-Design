@@ -65,6 +65,8 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-51 | The GSG platform team owns the Identity and Roles service and the Access Registry | **Confirmed** (Henry, 12 Nov 2026) | OQ-46, DL-32 |
 | DL-52 | The Campus Leader approves a platform-operator or support session into their campus | **Confirmed** (Henry, 12 Nov 2026) | OQ-48, OQ-15 |
 | DL-53 | Capability codes follow `module.object.action` in every module | **Confirmed** (Henry, 12 Nov 2026) | OQ-49, DL-33 |
+| DL-54 | The academic year decides promotion vs transfer: grade up into a new year is a promotion, any campus move within a year is a transfer | **Confirmed** (Henry, 12 Nov 2026) | OQ-50, DL-49, student dictionary SR-16 |
+| DL-55 | One global Person for a guardian; guardian profile held in each child's data location | **Confirmed** (Henry, 12 Nov 2026) | OQ-39, DL-39, DL-42 |
 
 ---
 
@@ -320,7 +322,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 ### DL-49 — Listed campuses are Campus nodes
 - **Decision.** Every campus on GSG's public list is a Campus node, including stage campuses of one school such as Harrods Lower and Upper Primary in Phnom Penh.
 - **Why.** The tree matches how GSG describes itself; whether a move between stage campuses is a transfer stays open (OQ-50).
-- **Status.** Confirmed by Henry, 12 Nov 2026: each listed stage campus is a separate Campus node. Consequence: moving between stage campuses of one school should read as promotion, not transfer; still to be logged against OQ-50.
+- **Status.** Confirmed by Henry, 12 Nov 2026: each listed stage campus is a separate Campus node. The transfer question is answered by DL-54.
 
 ### DL-50 — Organisation candidate enums
 - **Decision.** Use the candidate enums in the [Organisation dictionary](../03-domain/organisation-data-dictionary.md#candidate-enums--approved-dl-50) (node type and status, campus status, stages served, data location status, legal entity type and status, operator role, setting override policy).
@@ -341,6 +343,19 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Decision.** Every capability code follows `module.object.action`. New module capabilities are reviewed by the registry owner (DL-51).
 - **Why.** Answers OQ-49; names stay readable in templates and access reviews.
 - **Status.** Naming confirmed by Henry, 12 Nov 2026; reviewer follows DL-51.
+
+### DL-54 — Promotion or transfer: the academic year decides
+- **Context.** Harrods Phnom Penh splits one school into stage campuses (DL-49), so a year-end move changes campus without being a transfer (OQ-50).
+- **Decision.** Moving up a grade into a new academic year is a **promotion**, and the campus may change. Any campus move within the same academic year is a **transfer**. Enrolments end with PROMOTION_ROLLOVER or CAMPUS_TRANSFER accordingly (student dictionary SR-16). The transfer flow never offers a year-end stage move.
+- **Why.** Answers OQ-50 with one rule that works for stage campuses and ordinary rollover alike.
+- **Still open.** Approvals for a campus-changing promotion, and promotion into another brand or country (OQ-60).
+- **Confirmed by.** Henry, 12 Nov 2026.
+
+### DL-55 — Guardian per data location
+- **Decision.** A guardian is one global Person with one login (DL-42). The global layer holds only the Person and directory index entry (DL-39). The guardian profile, relationship, addresses and contacts are held in the data location of each linked child, so a parent with children in two countries has two guardian profiles on one Person.
+- **Why.** Answers OQ-39. Guardian data stays with the child's data, and the parent still has one login.
+- **Still open.** Whether a contact change in one data location applies in the other (OQ-61).
+- **Confirmed by.** Henry, 12 Nov 2026.
 
 ## How design direction becomes architecture
 

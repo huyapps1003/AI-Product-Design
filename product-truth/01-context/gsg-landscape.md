@@ -193,7 +193,7 @@ Every transfer ends one enrolment and starts another, keeping the Student ID (DL
 | C. Different country | GIIS Singapore → GIIS India | Profile created in target region; origin keeps history; Tier 3 never moves raw | Sharing record + cross-border rules | Structure only | OQ-07, OQ-21, OQ-39, OQ-43 |
 | D. Different brand | GIIS SMART Campus → OWIS Digital Campus | As B or C, plus the target brand's policies and systems | Sharing record | No | OQ-07, OQ-27, OQ-56 |
 
-A move between stage campuses of one school is a promotion, not a transfer, until OQ-50 is answered; the transfer flow must not offer it.
+A move between stage campuses of one school at a new academic year is a promotion, not a transfer (DL-54); the transfer flow must not offer it.
 
 ## 6. Questions for GSG
 

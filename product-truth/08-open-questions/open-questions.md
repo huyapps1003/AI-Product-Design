@@ -93,7 +93,7 @@ Added 30 Oct 2026 with the [student dictionary](../03-domain/student-directory-d
 | OQ-36 | What is the format and uniqueness scope of the Student ID, and does it change on transfer? | Directory search, ID cards and exports show it | No source defines it | student dictionary | Henry, Admissions owners | **Answered → DL-31** (unique, kept on transfer); format still open |
 | OQ-37 | Which identity attributes must a student record hold in each country (date of birth, sex or gender values, name structure, nationality, home language)? | Form fields and validation differ by country | MC-05 | student dictionary | Admissions owners, DPOs | Open |
 | OQ-38 | Can parents edit the student profile, documents and contacts themselves, as in MyGIIS Profile Update? | DL-18 gave parents a read-only set | HB p.35; DL-18 | student dictionary, rbac-model | Henry | **Answered → DL-28** |
-| OQ-39 | Do any student or guardian fields sit in the global identity and directory layer, and which cell holds a guardian whose children are in two countries? | Cross-campus search and transfers | Architecture § System architecture | student dictionary, data-controller-model | Data architect, DPOs | Open |
+| OQ-39 | Do any student or guardian fields sit in the global identity and directory layer, and which cell holds a guardian whose children are in two countries? | Cross-campus search and transfers | Architecture § System architecture | student dictionary, data-controller-model | Data architect, DPOs | **Answered → DL-55** (one Person; guardian profile per child's data location) |
 | OQ-40 | Which product term means a segment and which a class (Architecture uses "Section" for both)? | Labels on every enrolment screen | Architecture § Tenancy vs. § Data model | glossary, tenancy-and-scope | Henry | **Answered → DL-29** |
 | OQ-41 | Can teachers apply the Student Pass attendance threshold without seeing Tier 3 immigration data? | Attendance warnings | Architecture § Absence and leave, § Security | student dictionary | Henry | **Answered → DL-30** |
 | OQ-42 | Which health alerts (allergies, medical conditions), if any, appear on the student card for teachers, transport and security? | Tier 3 health data vs. safety on trips and buses | HB medical conditions; Architecture § Security | student dictionary, data-classification | Nurses, DPOs | Open |
@@ -119,7 +119,7 @@ Added 9 Nov 2026 from the public campus list ([gsg-landscape](../01-context/gsg-
 
 | ID | Question | Why it matters for design | Evidence | Affects | Who can answer | Status |
 |---|---|---|---|---|---|---|
-| OQ-50 | When a student moves between stage campuses of one school, is that a promotion or a campus transfer? | The transfer flow must not offer routine stage moves; enrolment history shows them differently | Harrods Phnom Penh lists Early Years, Lower Primary, Upper Primary, Lower Secondary and Upper Secondary campuses | gsg-landscape, OBJ-03, campus transfer slice | GSG group office, Harrods | Open |
+| OQ-50 | When a student moves between stage campuses of one school, is that a promotion or a campus transfer? | The transfer flow must not offer routine stage moves; enrolment history shows them differently | Harrods Phnom Penh lists Early Years, Lower Primary, Upper Primary, Lower Secondary and Upper Secondary campuses | gsg-landscape, OBJ-03, campus transfer slice | GSG group office, Harrods | **Answered → DL-54** (the academic year decides: grade up into a new year is a promotion) |
 | OQ-51 | Which curricula make up the group programme catalogue, and which brand labels are the same programme? | Programme offering pickers, grading scales and report cards | 34 curriculum labels on the campus list, e.g. "A-levels", "AS-A levels", "Cambridge 'A'"; Architecture v1 plans CBSE, IB and Cambridge packs only | OBJ-15, tenancy-and-scope | Group academics | Open |
 | OQ-52 | Do campuses of different brands share a site, rooms, buses or gates? | Rooms, transport and visitor screens; cross-brand transfers between neighbours | GIIS SMART Campus and OWIS Digital Campus are both in Punggol; GIIS and OWIS both have a Whitefield campus in Bangalore | OBJ-13, Campus services | GSG group office | Open |
 | OQ-53 | Which languages and scripts must names, notices and UI support per brand-country? | Name fields in native script, notice language, UI beyond English v1 | OWIS Saudi Arabia has an Arabic site; campuses in Japan, Cambodia and South Korea | OBJ-01, OQ-25 | Brand leads | Open |
@@ -136,6 +136,15 @@ Added 9 Nov 2026 with the [Organisation dictionary](../03-domain/organisation-da
 | OQ-57 | Which campuses operate today, and are GIIS East Coast, GIIS Bangkok and OWIS Suntec still running? | Sample data uses East Coast (SG-ECS) for the same-entity transfer example; campus pickers must match reality | Not on the public campus list on 9 Nov 2026 but named elsewhere ([gsg-landscape](../01-context/gsg-landscape.md) § 1) | organisation dictionary, samples, S2 campus transfer | GSG group office | Open |
 | OQ-58 | Which team creates, renames and closes brands, campuses and segments, and who approves a campus handover? | Campus catalogue and operator-change screens need an owner and an approver | Employee Data Dictionary E06 owner "Global Admin"; OQ-46 | OBJ-13, OBJ-14, permission-catalogue | Henry, GSG group office | Open |
 | OQ-59 | Does GSG group brand-countries into regions (for example South-East Asia) for leadership, reporting or support? | The tree has no level between Group and Brand, so a regional head can't be granted a region | Not in Architecture or on the public site | tenancy-and-scope, rbac-model | GSG leadership | Open |
+
+## K · Student directory lock
+
+Added 12 Nov 2026 while locking the [student directory spec](../03-domain/student-directory-data-dictionary.md).
+
+| ID | Question | Why it matters for design | Evidence | Affects | Who can answer | Status |
+|---|---|---|---|---|---|---|
+| OQ-60 | When a promotion changes campus, does it need the approvals a campus transfer needs (both principals), and does a promotion into another brand or country count as a promotion or as a new admission? | Year-end rollover screens and approval steps; cross-entity data moves | DL-54; HB p.235; DL-49; OQ-07 | student dictionary, OBJ-03 | Henry, Admissions owners | Open |
+| OQ-61 | When a guardian with profiles in two data locations changes their phone, email or address in one, does the change apply in the other? | Parent profile edit and staff guardian screens | DL-55; DL-28 | student dictionary, OBJ-04 | Henry, DPOs | Open |
 
 ## Research not yet done
 
