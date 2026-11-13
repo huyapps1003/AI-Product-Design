@@ -67,13 +67,13 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-53 | Capability codes follow `module.object.action` in every module | **Confirmed** (Henry, 12 Nov 2026) | OQ-49, DL-33 |
 | DL-54 | The academic year decides promotion vs transfer: grade up into a new year is a promotion, any campus move within a year is a transfer | **Confirmed** (Henry, 12 Nov 2026) | OQ-50, DL-49, student dictionary SR-16 |
 | DL-55 | One global Person for a guardian; guardian profile held in each child's data location | **Confirmed** (Henry, 12 Nov 2026) | OQ-39, DL-39, DL-42 |
-| DL-56 | Stage-campus promotion needs no extra approval; any other year-end campus change needs both principals | **Confirmed** (Henry, 13 Nov 2026) | OQ-60, DL-54 |
-| DL-57 | A year-end move into another brand or country is a new admission, not a promotion | **Confirmed** (Henry, 13 Nov 2026) | OQ-60, OQ-07 |
-| DL-58 | A guardian's own contact and address changes apply in every data location; per-child flags stay per child | **Confirmed** (Henry, 13 Nov 2026) | OQ-61, DL-55, DL-28 |
-| DL-59 | AEPP is a placement inside a regular enrolment, not a programme offering | **Confirmed** (Henry, 13 Nov 2026) | OQ-45, DL-29 |
-| DL-60 | Student card shows a "Medical alert" flag only, no detail | **Confirmed** (Henry, 13 Nov 2026) | OQ-42 |
-| DL-61 | Student ID = prefix + year of first admission + global sequence, no campus or brand code | **Confirmed** (Henry, 13 Nov 2026) | OQ-36, DL-31 |
-| DL-62 | Students see only their own Tier 1 profile and enrolment | **Confirmed** (Henry, 13 Nov 2026) | OQ-19 |
+| DL-62 | Stage-campus promotion needs no extra approval; any other year-end campus change needs both principals | **Confirmed** (Henry, 13 Nov 2026) | OQ-60, DL-54 |
+| DL-63 | A year-end move into another brand or country is a new admission, not a promotion | **Confirmed** (Henry, 13 Nov 2026) | OQ-60, OQ-07 |
+| DL-64 | A guardian's own contact and address changes apply in every data location; per-child flags stay per child | **Confirmed** (Henry, 13 Nov 2026) | OQ-61, DL-55, DL-28 |
+| DL-65 | AEPP is a placement inside a regular enrolment, not a programme offering | **Confirmed** (Henry, 13 Nov 2026) | OQ-45, DL-29 |
+| DL-66 | Student card shows a "Medical alert" flag only, no detail | **Confirmed** (Henry, 13 Nov 2026) | OQ-42 |
+| DL-67 | Student ID = prefix + year of first admission + global sequence, no campus or brand code | **Confirmed** (Henry, 13 Nov 2026) | OQ-36, DL-31 |
+| DL-68 | Students see only their own Tier 1 profile and enrolment | **Confirmed** (Henry, 13 Nov 2026) | OQ-19 |
 
 ---
 
@@ -364,15 +364,15 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Still open.** Whether a contact change in one data location applies in the other (OQ-61).
 - **Confirmed by.** Henry, 12 Nov 2026.
 
-### DL-56…DL-62 — Student Directory v1.0 lock answers
+### DL-62…DL-68 — Student Directory v1.0 lock answers
 - **Context.** The lock list in the student directory spec (PR #13) gave a recommendation per open item; Henry accepted all of them on 13 Nov 2026, which locked the spec as v1.0.
-- **DL-56.** A promotion between stage campuses of one school needs no extra approval. Any other campus change at year end needs both principals, like a transfer (SR-05).
-- **DL-57.** A year-end move into another brand or country is a new admission with a new contract, not a promotion. Data moves still need OQ-07.
-- **DL-58.** A guardian's own phone, email and address changes apply in every data location they have a profile in. Per-child flags (can-collect, emergency contact, priority, communications) stay per child.
-- **DL-59.** AEPP is a placement inside a regular enrolment: class AEPP 1 or AEPP 2 plus a SUPPORT subject choice.
-- **DL-60.** The student card shows a "Medical alert" flag, never the detail, to class teachers, transport and security. Detail stays Tier 3 in Wellbeing and Inclusion.
-- **DL-61.** Student ID format: fixed prefix, year of first admission, global sequence (e.g. GS-2024-001842). No campus or brand code, so it never changes.
-- **DL-62.** Students see their own Tier 1 profile and enrolment only. Partner staff access (rest of OQ-19) stays open.
+- **DL-62.** A promotion between stage campuses of one school needs no extra approval. Any other campus change at year end needs both principals, like a transfer (SR-05).
+- **DL-63.** A year-end move into another brand or country is a new admission with a new contract, not a promotion. Data moves still need OQ-07.
+- **DL-64.** A guardian's own phone, email and address changes apply in every data location they have a profile in. Per-child flags (can-collect, emergency contact, priority, communications) stay per child.
+- **DL-65.** AEPP is a placement inside a regular enrolment: class AEPP 1 or AEPP 2 plus a SUPPORT subject choice.
+- **DL-66.** The student card shows a "Medical alert" flag, never the detail, to class teachers, transport and security. Detail stays Tier 3 in Wellbeing and Inclusion.
+- **DL-67.** Student ID format: fixed prefix, year of first admission, global sequence (e.g. GS-2024-001842). No campus or brand code, so it never changes.
+- **DL-68.** Students see their own Tier 1 profile and enrolment only. Partner staff access (rest of OQ-19) stays open.
 - **Confirmed by.** Henry, 13 Nov 2026.
 
 ## How design direction becomes architecture

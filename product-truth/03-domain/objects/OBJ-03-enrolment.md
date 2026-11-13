@@ -32,7 +32,7 @@ actions:
   - admissions.enrolment.transfer     # AP-11 transfer review; within an academic year only (DL-54)
 events: [StudentEnrolled, EnrolmentEnded, StudentTransferred]
 variation: [MC-06, MC-07, MC-10]
-open: [OQ-07 cross-entity transfer]   # DL-56/57 promotion approvals and cross-brand = new admission; DL-59 AEPP is a placement
+open: [OQ-07 cross-entity transfer]   # DL-62/57 promotion approvals and cross-brand = new admission; DL-65 AEPP is a placement
 sample: product-truth/03-domain/samples/student-sample.json   # viewer Lina Goh, SG-PGL; other brands' scope nodes from gsg-landscape
 patterns: [AP-01, AP-04, AP-05, AP-11, AP-13, AP-14]
 ---
