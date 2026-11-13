@@ -54,8 +54,9 @@ actions:
   - admissions.enrolment.create       # handoff (SR-AD-07)
 events: [EnquiryReceived, ApplicationSubmitted, ApplicationDecided, OfferIssued, OfferResponded, ContractSigned, ApprovalCaseDecided, StudentEnrolled]
 variation: [MC-01, MC-05, MC-06, MC-07, MC-12, MC-14]
-open: [OQ-45, OQ-62, OQ-63, OQ-64, OQ-65, OQ-66, OQ-67, OQ-68, OQ-69, OQ-70, OQ-71, OQ-72]
+open: [OQ-62, OQ-63, OQ-64, OQ-65, OQ-66, OQ-67, OQ-68, OQ-69, OQ-70, OQ-71, OQ-72]
 sample: product-truth/03-domain/samples/admissions-sample.json
+# AEPP = placement in a regular enrolment (DL-65); year-end cross-brand/country move = new admission (DL-63)
 patterns: [AP-01, AP-04, AP-05, AP-13, AP-14]
 ---
 

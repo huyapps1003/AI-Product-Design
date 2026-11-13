@@ -280,7 +280,7 @@
         {
           "type": "AEPP_PLACEMENT",
           "outcome": "PLACE_IN_AEPP",
-          "_note": "AEPP enrolment vs placement pending (OQ-45)"
+          "_note": "Placement inside the regular Grade 7 enrolment (DL-65)"
         }
       ],
       "decision": "WAITLIST",

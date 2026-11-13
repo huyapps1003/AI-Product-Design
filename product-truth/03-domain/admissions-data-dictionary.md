@@ -1,7 +1,7 @@
 # Global Campus OS — Admissions Data Dictionary v0.1 (draft)
 
 **Status:** Proposed draft, 12 Nov 2026. DL-56…DL-61 Assumed (for Henry's review); OQ-62…OQ-72 Open · **Owner:** Henry
-**Cites:** [Architecture v1](../00-sources/Global_Campus_OS_Product_Architecture_v1.md) § Users and roles, § Domains and modules (module 1), § Key workflows (Admission to enrolment; Fees, withdrawal and refund), § Integrations (ICA) · [Student Directory Spec](./student-directory-data-dictionary.md) ST01, ST02, ST04, ST05, ST08, ST09, ST11, SR-07 · [Organisation dictionary](./organisation-data-dictionary.md) OR04, OR07, OR08, OR09 · [architecture.md](./architecture.md) AR-xx · [operating-context](../01-context/operating-context.md) (enquiry.globalschools.com, MyGIIS) · [regulatory-context](../05-data-governance/regulatory-context.md) (CPE/EduTrust, ICA, FPS) · GIIS Student Handbook 2025-26 (HB) p.125, p.232–245, § SEN · DL-22, DL-24, DL-27, DL-29, DL-39…DL-45, DL-47, DL-53…DL-55 · MC-01, MC-05, MC-06, MC-07, MC-12, MC-14 · OQ-06, OQ-07, OQ-10, OQ-29, OQ-45, OQ-60
+**Cites:** [Architecture v1](../00-sources/Global_Campus_OS_Product_Architecture_v1.md) § Users and roles, § Domains and modules (module 1), § Key workflows (Admission to enrolment; Fees, withdrawal and refund), § Integrations (ICA) · [Student Directory Spec](./student-directory-data-dictionary.md) ST01, ST02, ST04, ST05, ST08, ST09, ST11, SR-07 · [Organisation dictionary](./organisation-data-dictionary.md) OR04, OR07, OR08, OR09 · [architecture.md](./architecture.md) AR-xx · [operating-context](../01-context/operating-context.md) (enquiry.globalschools.com, MyGIIS) · [regulatory-context](../05-data-governance/regulatory-context.md) (CPE/EduTrust, ICA, FPS) · GIIS Student Handbook 2025-26 (HB) p.125, p.232–245, § SEN · DL-22, DL-24, DL-27, DL-29, DL-39…DL-45, DL-47, DL-53…DL-55 · MC-01, MC-05, MC-06, MC-07, MC-12, MC-14 · OQ-06, OQ-07, OQ-10, OQ-29, DL-63, DL-65, DL-67 (Henry, 13 Nov 2026)
 **Tóm tắt (VI):** Từ điển dữ liệu cho module Tuyển sinh và Nhập học: từ lúc gia đình hỏi thông tin đến ngày đầu tiên đi học (hỏi thông tin, hồ sơ, đánh giá/xếp lớp, thư mời nhập học, hợp đồng và phí ghi danh, hồ sơ xin Student Pass/MOE, bàn giao sang hồ sơ học sinh). Mỗi trường có trạng thái Known / Assumed / Open.
 
 > Drafted by Claude from product truth on 12 Nov 2026 after Henry approved the scope the same day. Nothing in this file is confirmed until Henry accepts DL-56…DL-61.
@@ -107,10 +107,10 @@ ST01, ST02, ST04, ST05, ST08, ST09 and ST11 are referenced, not redefined.
 | application_number | VARCHAR(20) | UK | Y | T1 | Open (format) | |
 | enquiry_id | UUID | FK:AD01 | N | T1 | Assumed | Walk-in applications may have none. |
 | child_person_id | UUID | FK:Person | Y | T1 | Confirmed rule (DL-42) | |
-| student_id | UUID | FK:ST01 | C | T1 | Assumed (DL-57) | Set when the offer is issued; existing for a returning student (OQ-71). |
+| student_id | UUID | FK:ST01 | C | T1 | Assumed (DL-57) | Set when the offer is issued; Student ID format per DL-67. A returning student or a year-end move into another brand or country (a new admission, DL-63) keeps the existing student (DL-31). |
 | campus_id | UUID | FK:OR04 | Y | T1 | Known (Arch step 1) | |
 | operating_entity_id | UUID | FK:OR07 | Y | T1 | Confirmed rule (DL-41) | Copied from OR08 at creation. |
-| programme_offering_id | UUID | FK:Offering | Y | T1 | Known (MC-07) | AEPP as offering or placement: OQ-45. |
+| programme_offering_id | UUID | FK:Offering | Y | T1 | Known (MC-07) | AEPP is a placement inside a regular enrolment, never an offering (DL-65). |
 | grade_id | UUID | FK:Grade | Y | T1 | Known | Applied-for grade. |
 | academic_year_id | UUID | FK:Academic year | Y | T1 | Known need (DL-54) | |
 | requested_start_date | DATE | — | Y | T1 | Assumed | Mid-year joiners are common in international schools (assumption, not sourced). |
@@ -296,7 +296,7 @@ Known: Admissions and customer relations work at campus or country scope and own
 - **SR-AD-07 (Known, Arch step 4 = student SR-07):** On ENROLLED the student gets a class, timetable, bus route and logins for parent and student apps. Parent access comes from a Family Link created from the verified ST05 relationship (DL-25), never from the application.
 - **SR-AD-08 (Assumed, DL-60):** SEN evaluation notes never appear on the application; only the outcome and the link to the Wellbeing record.
 - **SR-AD-09 (Assumed, DL-59):** Every Handbook value used here (7 working days, fee types, refund condition) is a setting on the scope tree; screens read it, never hard-code it.
-- **SR-AD-10 (Known, Arch step 1; OQ-45):** AEPP placement is recorded as an AD05 outcome. Whether that produces an AEPP enrolment or a placement flag waits on OQ-45.
+- **SR-AD-10 (Known, Arch step 1; Confirmed DL-65):** AEPP placement is recorded as an AD05 outcome and becomes a placement inside the regular enrolment, not a separate AEPP enrolment.
 
 ## Events
 
@@ -330,10 +330,10 @@ EnquiryReceived, EnquiryRouted, ApplicationSubmitted, AssessmentRecorded, Applic
 | OQ-68 | Which fees are due at admission per brand and country (application, registration, deposit), how much, and when? | Fee step; HB names application and registration fees only |
 | OQ-69 | How long are enquiries and unsuccessful applications kept, and what marketing consent is collected? | Retention and consent on enquiry forms (with OQ-10) |
 | OQ-70 | Do education agents submit applications, and what can they see? (HB p.246 mentions an agent commission fee) | Agent channel and access |
-| OQ-71 | How are returning students, deferred starts and cross-brand or cross-country moves at year end handled (new admission or not, OQ-60)? | Whether a returning student reuses ST01 and skips steps |
+| OQ-71 | How are returning students and deferred starts handled, and which steps does a year-end cross-brand or cross-country move skip now that it is a new admission (DL-63)? | Whether a returning student reuses ST01 (DL-31) and skips steps |
 | OQ-72 | Which documents are required per country, grade and nationality? | Document checklist defaults |
 
 ## Readiness
 
 - **Can be designed now:** enquiry queue, application list and detail, document checklist, assessment outcome entry, offer and contract status, approval case status, enrolment handoff, all with GIIS Singapore sample values labelled as settings.
-- **Keep generic, label Pending:** parent applicant portal (OQ-62), offer approver (OQ-66), contract signature (OQ-67), fee amounts (OQ-68), waitlist order (OQ-65), AEPP enrolment shape (OQ-45).
+- **Keep generic, label Pending:** parent applicant portal (OQ-62), offer approver (OQ-66), contract signature (OQ-67), fee amounts (OQ-68), waitlist order (OQ-65).
