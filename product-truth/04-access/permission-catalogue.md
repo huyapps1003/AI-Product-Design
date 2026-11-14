@@ -84,4 +84,4 @@ Which capabilities each access role's templates hold is a view of the [persona �
 
 ## Open
 
-OQ-47 (A17 approver) · answered: OQ-46 → DL-51, OQ-48 → DL-52, OQ-49 → DL-53 · OQ-15, OQ-16, OQ-34 (operator, brand, DPO roles).
+answered: OQ-46 → DL-51, OQ-47 → DL-69, OQ-48 → DL-52, OQ-49 → DL-53 · OQ-15, OQ-16, OQ-34 (operator, brand, DPO roles).

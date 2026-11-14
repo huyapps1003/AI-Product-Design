@@ -23,7 +23,7 @@ actions:
   - gov.access_review.decide
 events: [CaseOpened, CaseEscalated, CaseClosed]
 variation: [MC-05]
-open: [OQ-47 Tier 3 type grant approver]
+open: []  # OQ-47 answered by DL-69 (Campus Leader approves A17)
 sample: product-truth/06-experience/admin-platform/README.md#canonical-sample-data
 patterns: [AP-06, AP-07, AP-14]
 ---
