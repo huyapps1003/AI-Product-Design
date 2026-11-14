@@ -84,10 +84,10 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-70 | A class is one group per campus × offering × grade × academic year; new records each year; feature area of Academic structure, prefix `classes` | **Confirmed** (Henry, 14 Nov 2026) | Classes dictionary CL01, DL-29 |
 | DL-71 | The Principal's class plan (classes × size limit) is the only place the seat limit is set; AD06 reads it; over-limit placement needs the Principal | **Confirmed** (Henry, 14 Nov 2026) | DL-61, CL02 |
 | DL-72 | Placement history is the single writer of a student's class; an in-year class move doesn't end the enrolment | **Confirmed** (Henry, 14 Nov 2026) | ST02, SR-16, CL04 |
-| DL-73 | Class teacher and co-teacher are dated assignments on the class; they suggest scope, never grant access | Assumed (proposed 14 Nov 2026) | DL-16, CL03 |
+| DL-73 | Class teacher assignment automatically sets the teacher's data scope to that class (Registry auto-derive); never adds capabilities; Tier 3 excluded | **Confirmed** (Henry, 14 Nov 2026) | DL-16, DL-32, DL-38, CL03 |
 | DL-74 | AEPP is only a SUPPORT subject; the student stays in their regular class; AEPP 1/2 are Teaching groups, not classes (narrows DL-65) | **Confirmed** (Henry, 14 Nov 2026) | DL-65, OQ-77 |
 | DL-75 | Year-end rollover: one run per campus and year, outcomes from Assessment, Principal approves before it applies | **Confirmed** (Henry, 14 Nov 2026) | DL-54, DL-62, DL-63, CL06/CL07 |
-| DL-76 | House stays on the enrolment, allocated by Classes and copied forward | Assumed (proposed 14 Nov 2026) | OQ-20, OQ-76 |
+| DL-76 | House stays on the enrolment, allocated by Classes and copied forward; each campus sets whether it uses houses | **Confirmed** (Henry, 14 Nov 2026) | OQ-20, OQ-76 |
 
 ---
 
@@ -408,7 +408,9 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Decision.** See the table above and [classes dictionary § Decisions proposed](../03-domain/classes-data-dictionary.md#decisions-proposed-assumed-pending-henry).
 - **Why.** Gives DL-61's "classes × class size" one owner, keeps class history without new enrolments, and lets rollover be designed while promotion rules stay in Assessment.
 - **DL-74.** Henry chose the support-subject option over AEPP placement classes. DL-65's "class AEPP 1 or AEPP 2" now means a teaching group for the SUPPORT subject; the student's class stays their regular class.
-- **Status.** DL-70, DL-71, DL-72, DL-74, DL-75 Confirmed by Henry, 14 Nov 2026. DL-73 and DL-76 still Assumed.
+- **DL-73.** Henry asked for class-teacher access to be automatic. The Classes module records only the assignment; the Access Registry (DL-32, DL-51) turns it into data scope on the teacher's existing Class teacher membership for the same dates. This switches DL-16's auto-derive on for Classes. Capabilities are never added by the assignment; Tier 3 still needs A17 (DL-69).
+- **DL-76.** Houses are a GIIS concept (HB p.169); other brands are undocumented, so each campus sets whether it uses houses and lists them. Points and events stay in Activities and Awards.
+- **Status.** DL-70…DL-76 all Confirmed by Henry, 14 Nov 2026.
 
 ## How design direction becomes architecture
 
