@@ -17,12 +17,12 @@ Read the attached files before designing:
 Build a desktop staff web app prototype with these screens, linked together:
 1. Student directory: a table of all 14 students with search, a campus switcher (SMART Campus Punggol, East Coast Campus, Noida Campus, All campuses) and filters for grade, class, segment, programme and enrolment status. Columns: photo/initials + name + Student ID, grade · class, programme, campus, enrolment status chip, guardians with verification state, open case.
 2. Student profile, opened from a row. Header: photo, name, Student ID with a copy button, record and enrolment status chips, current campus and class. Tabs: Overview, Enrolment history (timeline, ended enrolments kept), Guardians, Contact and address, Documents (restricted), External IDs, History.
-3. Admissions pipeline board with columns Enquiry, Application, Assessment, Offered, Confirmed, Enrolled. Use Sara Fernandes (Offered) and Daniel Lee (Confirmed, cooling-off ends 12 Nov 2026) as real cards; other cards can be generic placeholders.
+3. Medical alert and AEPP: on the profile show a "Medical alert" flag with no detail where the sample has one (DL-66), and show AEPP as a placement note on the regular enrolment, never a separate enrolment (DL-65).
 
 The viewer is Lina Goh, Admissions Officer at SMART Campus Punggol. Today is 6 November 2026.
 
 Rules to follow:
-- Use the words in section 2 of the brief: "Student ID", "Class" (like 7B), "Segment" (Pre-Primary, Primary, Middle, Higher). Never write "Section" or "admission number".
+- Use the words in section 2 of the brief: "Student ID", "Class" (like 7B), "Segment" (Pre-Primary, Primary, Middle, Higher). Never write "Section", "admission number" or "cell" (say "Data location"). Student ID format is decided (DL-67): use the sample IDs as they are.
 - Use the status labels and chip colours from section 4. Every chip has a text label.
 - Restricted (Tier 3) fields such as passport numbers and immigration status show masked (•••••) with a lock icon and a "Reveal" action that says "This view is recorded".
 - No "Delete" on enrolments, guardians or addresses: use "End…" and "Show history".
@@ -33,6 +33,11 @@ Rules to follow:
 ---
 
 ## Follow-up prompts (one at a time)
+
+**Year-end promotion across stage campuses (Sokha Chan)**
+```
+Add a year-end promotion preview for Harrods Phnom Penh. Sokha Chan moves from the Lower Primary campus (KH-HLP) to the Upper Primary campus (KH-HUP) with the new academic year. Show it as a promotion (PROMOTION_ROLLOVER), not a transfer, with no extra approval (DL-62). Add one example of a year-end move to another brand, flagged "Starts a new admission" (DL-63). The campus transfer flow must refuse a year-end stage move (SR-16).
+```
 
 **Complete enrolment (Daniel Lee)**
 ```

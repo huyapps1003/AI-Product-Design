@@ -1,8 +1,9 @@
 # Campus OS — Student Directory: design brief for Claude Design
 
-**For:** prototyping the Admission and Enrolment module and the Student Directory in Claude Design
-**Built from:** `product-truth/03-domain/student-directory-data-dictionary.md` (merged 30 Oct 2026), `04-access/rbac-model.md`, `06-experience/admin-platform/rules-to-ui.md`, Architecture v1 § Admission to enrolment, GIIS Student Handbook 2025-26 (HB)
-**Sample data:** `2-sample-data.json` (synthetic people, GIIS example brand)
+**For:** prototyping the Student Directory in Claude Design (Admissions has its own package in `../admissions/`)
+**Version:** refreshed 14 Nov 2026 for **Student Directory Spec v1.0 (locked 13 Nov 2026)**
+**Built from:** `product-truth/03-domain/student-directory-data-dictionary.md` (v1.0, locked 13 Nov 2026), `04-access/rbac-model.md`, `06-experience/admin-platform/rules-to-ui.md`, Architecture v1 § Admission to enrolment, GIIS Student Handbook 2025-26 (HB)
+**Sample data:** `2-sample-data.json` = `product-truth/03-domain/samples/student-sample.json` (synthetic; 14 GIIS students plus one student each at OWIS, Harrods, Witty, Heath House and Regent). `2-sample-directory.csv` covers the 14 GIIS students only.
 
 This is a compact, design-ready digest. Where it and the full dictionary disagree, the dictionary wins.
 
@@ -10,23 +11,27 @@ This is a compact, design-ready digest. Where it and the full dictionary disagre
 
 ## 1. Product context in five lines
 
-- **Global Campus OS** is the school platform Global Schools Group (GSG) runs for all of its school brands. GIIS (Global Indian International School) is the example brand in all sample data. Never present a GIIS fact as true for every brand.
-- Campuses in the sample: `SG-PGL` SMART Campus Punggol and `SG-ECS` East Coast Campus (Singapore), `IN-NOI` Noida Campus (India). Academic year AY 2026-27.
+- **Global Campus OS** is the school platform Global Schools Group (GSG) runs for all of its school brands. GIIS (Global Indian International School) is the detailed example brand; five other brands appear with one student each. Never present a GIIS fact as true for every brand.
+- Campuses in the sample: GIIS `SG-PGL` SMART Campus Punggol, `SG-ECS` East Coast Campus (Singapore), `IN-NOI` Noida Campus (India); plus OWIS `SG-OWD`, Harrods `KH-HLP`/`KH-HUP` (stage campuses of one school), Witty `IN-WKB`, Heath House `UK-HTH`, Regent `MY-RKL`. Campus codes are placeholders (OQ-55).
 - Programmes: GMP (KG), CBSE 1–12, IB PYP, Cambridge CLSP 6–8, IGCSE 9–10, IBDP.
-- Staff work in the **staff web app** (desktop). Parents use the **parent app** (mobile). Students use the **student app** (mobile, access still open).
+- Staff work in the **staff web app** (desktop). Parents use the **parent app** (mobile). Students use the **student app** (mobile) and see only their own Tier 1 profile and enrolment (DL-68).
 - Students and staff sign in with Google Workspace SSO. Parents sign in with OTP.
 
 ## 2. Words to use (and not use)
 
 | Use | Meaning | Don't use |
 |---|---|---|
-| **Student ID** | The number people see, e.g. `GS-2026-004817`. Unique across Campus OS, stays the same after a campus transfer (DL-31). The format is not decided (OQ-36): any consistent placeholder is fine. | Admission number, roll number |
+| **Student ID** | The number people see: prefix + year of first admission + global sequence, e.g. `GS-2026-004817`, no campus or brand code (DL-67). Unique across Campus OS, never changes after a transfer or promotion (DL-31). | Admission number, roll number |
 | **Class** | A group of students like 7B (DL-29) | Section |
 | **Segment** | Pre-Primary, Primary, Middle, Higher (DL-29) | Section, wing |
 | **Enrolment** | A student placed in a campus, programme, grade and class for one academic year | Admission (that is the pipeline before it) |
 | **Guardian** | Mother, father, legal guardian or local guardian | Parent (only in parent-facing copy) |
 | **Family link** | A guardian's access to a child in the parent app | |
-| **Campus transfer** | Same student, new enrolment at another campus | Re-admission |
+| **Campus transfer** | A campus move *within* one academic year; same student, new enrolment (DL-54) | Re-admission |
+| **Promotion** | Moving up a grade into a new academic year, even if the campus changes (stage campuses, DL-49, DL-54). A year-end move into another brand or country is a **new admission** (DL-63) | Transfer (for year-end moves) |
+| **Data location** | The country where a person's school data is held (DL-47) | Cell, data region |
+| **AEPP placement** | English support placement inside a regular enrolment (DL-65) | AEPP enrolment, AEPP programme |
+| **Medical alert** | A flag that an alert exists, no detail (DL-66) | Allergy or condition names on the card |
 
 UI copy is English in v1.
 
@@ -53,7 +58,7 @@ MinV Label, `soft` variant, small. Never colour alone: always the text label.
 
 | Object | Status → label · colour |
 |---|---|
-| Enrolment | OFFERED → Offered · info · CONFIRMED → Confirmed · secondary · ENROLLED → Enrolled · success · DEFERRED → Deferred · warning · TRANSFERRED_OUT → Transferred out · default · WITHDRAWN → Withdrawn · default · COMPLETED → Completed · default · CANCELLED → Cancelled · default |
+| Enrolment | OFFERED → Offered · info · CONFIRMED → Confirmed · info · ENROLLED → Enrolled · success · DEFERRED → Deferred · warning · TRANSFERRED_OUT → Transferred out · default · WITHDRAWN → Withdrawn · default · COMPLETED → Completed · default · CANCELLED → Cancelled · default |
 | Student record | ACTIVE → Active · success · INACTIVE → Inactive · default · ARCHIVED → Archived · default |
 | Guardian verification | PENDING → Pending verification · warning · VERIFIED → Verified · success · REJECTED → Rejected · error |
 | External ID | ACTIVE → Active · success · PENDING → Pending · info · REFUSED → Refused by parent · warning · NOT_GENERATED → Not generated · default · RETIRED → Retired · default |
@@ -61,27 +66,30 @@ MinV Label, `soft` variant, small. Never colour alone: always the text label.
 | Case (transfer, withdrawal, Student Pass) | OPEN → New · info · IN_REVIEW → In review · secondary · WAITING → Waiting for info · warning · ESCALATED → Overdue · error · APPROVED → Done · success · REJECTED → Rejected · error · CANCELLED → Withdrawn · default |
 | Document expiry (derived) | > 60 days → no chip · ≤ 60 days → Expires {date} · warning · past → Expired · error |
 
-The colour mapping for enrolment, guardian and external ID statuses is a proposal following the existing Case and Sync pattern. All enum values are candidates (DL-27).
+Enrolment colours follow the OBJ-03 card. Enum values are Confirmed (DL-27, 13 Nov 2026).
 
 ## 5. Who sees what
 
 `E` edit · `V` view · `M` masked (lock icon, "Visible to Admissions") · `—` hidden · `?` open
 
-| Field group | Admissions | Principal / VP | Coordinator | Class teacher | Subject teacher | Nurse / counsellor | Transport / security | Parent (own child) |
-|---|---|---|---|---|---|---|---|---|
-| Name, class, grade, house, programme | E | V | V | V | V | V | V | V |
-| Enrolment status, dates, transfer history | E | V (approves transfers) | V | V (status only) | — | — | — | V |
-| Photo | E | V | V | V | V | V | V | V |
-| Date of birth | E | V | V | V | — | V | — | V |
-| Guardians: names, relationship, can collect, emergency | E | V | V | V | — | V | V (collection only) | V |
-| Guardian phone and email | E | V | V | V | M | V | V (transport only) | E |
-| Addresses | E | V | M | M | — | — | V (pickup point only) | E |
-| Identity documents, nationality, immigration | E (restricted access) | M | — | — | — | — | — | E |
-| Attendance threshold (e.g. "90%", no reason) | V | V | V | V | V | — | — | V |
-| External IDs (APAAR, board IDs) | E | V | V | — | — | — | — | V |
+| Field group | Admissions | Principal / VP | Coordinator | Class teacher | Subject teacher | Nurse / counsellor | Transport / security | Parent (own child) | Student (self) |
+|---|---|---|---|---|---|---|---|---|---|
+| Name, class, grade, house, programme | E | V | V | V | V | V | V | V | V |
+| Enrolment status, dates, transfer history | E | V (approves transfers) | V | V (status only) | — | — | — | V | V |
+| Photo | E | V | V | V | V | V | V | V | V |
+| Date of birth | E | V | V | V | — | V | — | V | — |
+| Guardians: names, relationship, can collect, emergency | E | V | V | V | — | V | V (collection only) | V | — |
+| Guardian phone and email | E | V | V | V | M | V | V (transport only) | E | — |
+| Addresses | E | V | M | M | — | — | V (pickup point only) | E | — |
+| Identity documents, nationality, immigration | E (restricted access) | M | — | — | — | — | — | E | — |
+| Attendance threshold (e.g. "90%", no reason) | V | V | V | V | V | — | — | V | — |
+| External IDs (APAAR, board IDs) | E | V | V | — | — | — | — | V | — |
+| Medical alert flag (no detail) | V | V | V | V | — | V (detail in Wellbeing) | V | V | — |
 
 - Parents edit their child's passport, immigration status, addresses and contacts themselves, like MyGIIS Profile Update today (DL-28).
 - Class teachers see "Attendance threshold 90%" but never why (no Student Pass badge) (DL-30).
+- Medical alert: a flag only, never what it is; detail stays in Wellbeing (DL-66).
+- Students see only their own Tier 1 profile and enrolment (DL-68).
 - Group leadership sees counts only, never names.
 - Every view is limited to the user's campus and scope first. A Grade 7 class teacher sees only 7B.
 
@@ -97,6 +105,8 @@ The colour mapping for enrolment, guardian and external ID statuses is a proposa
 | On enrolment the student gets a class, timetable, bus route and logins (SR-07) | "Complete enrolment" step: assign class, house, subjects; preview of what gets created (logins for student and parents, family links). |
 | Student Pass holders need an international home address (SR-08) | Blocking error on save if missing. |
 | Student Pass → 90% monthly attendance threshold; ICA notice after 7 consecutive days of absence (SR-09) | Admissions sees the Student Pass and its case. Teachers only see the threshold. |
+| Year-end moves (SR-16, SR-18; DL-54, DL-62, DL-63) | Grade up into a new year is a promotion, not a transfer: the transfer flow only offers moves within the same academic year. A promotion between stage campuses of one school (Harrods KH-HLP → KH-HUP) needs no extra approval; any other year-end campus change needs both principals. A year-end move to another brand or country starts a new admission. |
+| Guardian in two data locations (SR-17, SR-19; DL-55, DL-64) | One person, one login, one guardian profile per child's data location. A guardian's own phone, email or address change applies everywhere; per-child flags (can collect, emergency) stay per child. |
 | Restricted data (SR-10) | Masked value `•••••` with lock icon; "Reveal" is logged ("This view is recorded"). Never sent to AI features. |
 | A family link is created only from a verified guardian (SR-11) | Guardian with "Pending verification" shows "No parent app access yet" and a "Verify" action for Admissions. |
 | Enrolment never gives staff access (SR-12) | — |
@@ -109,16 +119,15 @@ Design these as generic or "pending" placeholders. Don't invent values.
 
 | Open item | What to do in a design |
 |---|---|
-| Student ID format (OQ-36) | Use the sample format consistently; don't build validation on it. |
 | Sex / gender values, country-specific identity fields (OQ-37) | Leave out, or one generic field labelled "Pending". |
 | Legal custody, court orders (OQ-11) | Don't design. |
 | Consent records, photo consent (OQ-10) | Don't design consent screens. |
-| Health alerts on the student card (OQ-42) | Don't show allergies or medical flags. |
-| Student app access (OQ-19) | Keep student-facing screens out of scope. |
-| AEPP as programme or placement (OQ-45) | Show AEPP as a class or placement note, not a separate enrolment flow. |
 | Data controller name (OQ-06) | Never name a legal entity in notices or exports. |
 | House names per campus (OQ-20) | Use "House A–D" placeholders. |
-| Admissions pipeline (enquiry, application, assessment, offer, contract, registration fee) | Not in this dictionary yet (next one). Pipeline screens can be lightweight; field lists are not agreed. Known: 7-working-day cooling-off after contract signature (HB), registration fee, AEPP placement test. |
+| Retention after withdrawal or graduation (OQ-43) | No delete or anonymise screens. |
+| Cross-entity transfers (OQ-07) | Only same-entity campus transfers are designable; show others as pending. |
+
+**Decided since the earlier brief (no longer pending):** Student ID format (DL-67), AEPP as a placement (DL-65), medical alert flag only (DL-66), student self-view (DL-68), stage-campus and cross-brand year-end moves (DL-62, DL-63), guardian contact changes across data locations (DL-64). The admissions pipeline now has its own dictionary and package (`../admissions/`).
 
 ## 8. Suggested screens for the Admission and Enrolment prototype
 
@@ -126,7 +135,7 @@ Staff web app (MinV dashboard shell, sidebar 280px, header 64px, content max 120
 
 1. **Student directory** — table with search and filters (campus, grade, class, segment, programme, enrolment status). Columns: photo + name + Student ID, grade · class, programme, campus, enrolment status, guardians count / verification. Campus switcher in the header.
 2. **Student profile** — header (photo, name, Student ID with copy, status chips, current class) and tabs: Overview, Enrolment history (timeline), Guardians, Contact and address, Documents 🔒, External IDs, History (audit).
-3. **Admissions pipeline board** — kanban by stage: Enquiry → Application → Assessment → Offered → Confirmed (contract signed, cooling-off countdown) → Enrolled. Generic cards; see section 7.
+3. **Year-end promotion** — rollover preview by grade; stage-campus moves shown as promotions, cross-brand moves flagged as new admissions. (The admissions pipeline board lives in `../admissions/`.)
 4. **Complete enrolment** — stepper: confirm details → assign class and house → subject choices → guardians and verification → preview what gets created → done.
 5. **Campus transfer case** — request, both principals' approvals, SLA countdown, new enrolment preview, contract notice if programme changes.
 6. **Guardian verification queue** — pending relationships with evidence and Verify / Reject.
