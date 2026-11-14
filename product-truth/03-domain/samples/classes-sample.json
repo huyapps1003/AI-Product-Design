@@ -38,7 +38,7 @@
         "CBSE 1-12 Grades 11-12": "Not set (OQ-74)",
         "IB PYP": 22,
         "Cambridge CLSP 6-8": "Not set (OQ-74)",
-        "AEPP (placement)": 15
+        "_aepp": "AEPP is a SUPPORT subject, not a class (DL-74)"
       },
       "houses": [
         {
@@ -438,45 +438,6 @@
       "class_teacher": "Rachel Lee",
       "class_status": "ACTIVE",
       "grade": "Grade 3"
-    },
-    {
-      "class_name": "AEPP 1",
-      "campus": "SG-PGL",
-      "academic_year": "AY 2026-27",
-      "programme": "CBSE 1-12",
-      "class_type": "PLACEMENT",
-      "size_limit": 15,
-      "enrolled": 9,
-      "home_room": "S3-12",
-      "class_teacher": "Julia Morgan",
-      "class_status": "ACTIVE",
-      "grades": [
-        "Grade 4",
-        "Grade 5",
-        "Grade 6",
-        "Grade 7",
-        "Grade 8"
-      ],
-      "_note": "Placement class (DL-74): students keep their grade enrolment (DL-65). Six-month course (HB § AEPP)."
-    },
-    {
-      "class_name": "AEPP 2",
-      "campus": "SG-PGL",
-      "academic_year": "AY 2026-27",
-      "programme": "CBSE 1-12",
-      "class_type": "PLACEMENT",
-      "size_limit": 15,
-      "enrolled": 11,
-      "home_room": "S3-13",
-      "class_teacher": "Ahmed Rahman",
-      "class_status": "ACTIVE",
-      "grades": [
-        "Grade 6",
-        "Grade 7",
-        "Grade 8",
-        "Grade 9",
-        "Grade 10"
-      ]
     }
   ],
   "rosters": {
@@ -537,7 +498,7 @@
         "house": "House A",
         "student_pass": false,
         "attendance_threshold": "85%",
-        "placement_note": "Joined 7B on 7 Oct 2026 from AEPP 2 (AEPP_EXIT)"
+        "placement_note": "Joined 7B on 7 Oct 2026 (NEW_ENROLMENT, mid-year joiner)"
       },
       {
         "name": "Ira Kapoor",
@@ -694,18 +655,6 @@
       "_note": "Student Pass still with ICA; can be pre-placed from the start date (SR-CL-06)"
     },
     {
-      "student": "Yuki Watanabe",
-      "student_number": "GS-2026-004102",
-      "programme": "CBSE 1-12",
-      "grade": "Grade 5",
-      "enrolment_status": "ENROLLED",
-      "current_class": "AEPP 1",
-      "reason": "AEPP_EXIT",
-      "due": "2027-01-08",
-      "suggested_class": "5C",
-      "why": "Six-month AEPP course ends (placement test 2 Jul 2026); 5C has most room (29 of 32)"
-    },
-    {
       "student": "Mateo Garcia",
       "student_number": "GS-2026-004455",
       "programme": "IB PYP",
@@ -728,27 +677,19 @@
     },
     {
       "student": "Yuki Watanabe",
-      "class": "AEPP 1",
+      "class": "5B",
       "from": "2026-07-13",
-      "reason": "AEPP_ENTRY",
+      "reason": "ALLOCATION",
       "by": "Meera Joshi",
-      "_note": "student-sample.json still shows 5B with a placement note written before DL-65; under DL-74 the class is AEPP 1"
-    },
-    {
-      "student": "Hiroshi Tanaka",
-      "class": "AEPP 2",
-      "from": "2026-07-13",
-      "to": "2026-10-06",
-      "reason": "AEPP_ENTRY"
+      "_note": "Takes AEPP as a SUPPORT subject (teaching group AEPP 1, owned by Teaching) and stays in 5B (DL-74)"
     },
     {
       "student": "Hiroshi Tanaka",
       "class": "7B",
       "from": "2026-10-07",
-      "reason": "AEPP_EXIT",
+      "reason": "NEW_ENROLMENT",
       "by": "Meera Joshi",
-      "approved_by": "Dr Anita Rao",
-      "_note": "7B was at 31; placement made it full (32)"
+      "_note": "Mid-year joiner; 7B was at 31, now full (32)"
     },
     {
       "student": "Dev Khanna",

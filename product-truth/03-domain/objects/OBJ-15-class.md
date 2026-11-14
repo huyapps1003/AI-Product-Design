@@ -48,13 +48,13 @@ events: [ClassPlanApproved, ClassCreated, ClassActivated, ClassClosed, ClassTeac
 variation: [MC-06, MC-07, MC-14]
 open: [OQ-20, OQ-73, OQ-74, OQ-75, OQ-76, OQ-77, OQ-78, OQ-79]
 sample: product-truth/03-domain/samples/classes-sample.json
-# Never "Section" (DL-29). AEPP 1/2 = PLACEMENT classes (DL-74, DL-65). Stage-campus promotion no extra approval; other year-end campus change both principals; cross-brand/country = new admission (DL-62, DL-63)
+# Never "Section" (DL-29). AEPP = SUPPORT subject only, student stays in regular class (DL-74 narrows DL-65). Stage-campus promotion no extra approval; other year-end campus change both principals; cross-brand/country = new admission (DL-62, DL-63)
 patterns: [AP-01, AP-02, AP-04, AP-05, AP-13, AP-14]
 ---
 
 # OBJ-15 · Class
 
-**Status:** Proposed with the classes dictionary v0.1, 14 Nov 2026 (DL-70, DL-72, DL-75 Confirmed 14 Nov 2026; DL-71, DL-73, DL-74, DL-76 Assumed) · **Owner:** Henry
+**Status:** Proposed with the classes dictionary v0.1, 14 Nov 2026 (DL-70, DL-71, DL-72, DL-74, DL-75 Confirmed 14 Nov 2026; DL-73, DL-76 Assumed) · **Owner:** Henry
 **Cites:** [classes dictionary](../classes-data-dictionary.md) · DL-29, DL-54, DL-61, DL-62, DL-63, DL-65
 
 A class is one group for one year (DL-70). The class plan is where the seat limit is set; Admissions shows it read-only (DL-71). Class size limits and house lists are the campus's own settings; show the value or "Not set", never a hard-coded number (DL-59 pattern). Programme offerings, academic years, terms and grades are referenced here and still need the Academic structure dictionary.
