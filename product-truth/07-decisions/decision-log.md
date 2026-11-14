@@ -81,6 +81,13 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-67 | Student ID = prefix + year of first admission + global sequence, no campus or brand code | **Confirmed** (Henry, 13 Nov 2026) | OQ-36, DL-31 |
 | DL-68 | Students see only their own Tier 1 profile and enrolment | **Confirmed** (Henry, 13 Nov 2026) | OQ-19 |
 | DL-69 | The Campus Leader alone approves a Tier 3 type grant (A17); no DPO countersign | **Confirmed** (Henry, 14 Nov 2026) | OQ-47, DL-36 |
+| DL-70 | A class is one group per campus × offering × grade × academic year; new records each year; feature area of Academic structure, prefix `classes` | **Confirmed** (Henry, 14 Nov 2026) | Classes dictionary CL01, DL-29 |
+| DL-71 | The Principal's class plan (classes × size limit) is the only place the seat limit is set; AD06 reads it; over-limit placement needs the Principal | **Confirmed** (Henry, 14 Nov 2026) | DL-61, CL02 |
+| DL-72 | Placement history is the single writer of a student's class; an in-year class move doesn't end the enrolment | **Confirmed** (Henry, 14 Nov 2026) | ST02, SR-16, CL04 |
+| DL-73 | Class teacher and co-teacher are dated assignments on the class; they suggest scope, never grant access | Assumed (proposed 14 Nov 2026) | DL-16, CL03 |
+| DL-74 | AEPP is only a SUPPORT subject; the student stays in their regular class; AEPP 1/2 are Teaching groups, not classes (narrows DL-65) | **Confirmed** (Henry, 14 Nov 2026) | DL-65, OQ-77 |
+| DL-75 | Year-end rollover: one run per campus and year, outcomes from Assessment, Principal approves before it applies | **Confirmed** (Henry, 14 Nov 2026) | DL-54, DL-62, DL-63, CL06/CL07 |
+| DL-76 | House stays on the enrolment, allocated by Classes and copied forward | Assumed (proposed 14 Nov 2026) | OQ-20, OQ-76 |
 
 ---
 
@@ -395,6 +402,13 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Alternatives rejected.** Campus Leader + DPO countersign (Claude's recommendation; adds a privacy check); DPO alone (bottleneck far from the campus).
 - **Watch.** When the Campus Leader is the grantee, the request needs another approver; not yet decided.
 - **Status.** Approver confirmed by Henry, 14 Nov 2026; duration Assumed.
+
+### DL-70…DL-76 — Classes
+- **Context.** Third module, Classes (Henry asked for "Classes & Sections"; DL-29 rules out "Section"). Scope approved by Henry 14 Nov 2026: classes, class plan, class teacher, placement, rollover, houses.
+- **Decision.** See the table above and [classes dictionary § Decisions proposed](../03-domain/classes-data-dictionary.md#decisions-proposed-assumed-pending-henry).
+- **Why.** Gives DL-61's "classes × class size" one owner, keeps class history without new enrolments, and lets rollover be designed while promotion rules stay in Assessment.
+- **DL-74.** Henry chose the support-subject option over AEPP placement classes. DL-65's "class AEPP 1 or AEPP 2" now means a teaching group for the SUPPORT subject; the student's class stays their regular class.
+- **Status.** DL-70, DL-71, DL-72, DL-74, DL-75 Confirmed by Henry, 14 Nov 2026. DL-73 and DL-76 still Assumed.
 
 ## How design direction becomes architecture
 

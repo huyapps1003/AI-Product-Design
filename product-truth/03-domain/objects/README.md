@@ -24,7 +24,7 @@ A design object is something a user sees, finds and acts on. Each maps to dictio
 | OBJ-12 | Teaching allocation | D01–D03 | Teaching | Cell | T1 | [card](./OBJ-12-teaching-allocation.md) |
 | OBJ-13 | Scope node and campus | OR01–OR06, OR09 | Tenancy and config | Global | T1 | [card](./OBJ-13-scope-node.md) |
 | OBJ-14 | Legal entity | OR07, OR08 | Tenancy and config | Global | T1 | [card](./OBJ-14-legal-entity.md) |
-| OBJ-15 | Class and programme offering | Academic year, term, programme pack, offering, grade, subject, class | Academic structure | Global (packs), cell | T1 | Needs the Academic structure dictionary |
+| OBJ-15 | Class | CL01–CL07 (class, class plan, class staff, placement, house, rollover); year, term, pack, offering, grade, subject still need the Academic structure dictionary | Academic structure (Classes, DL-70) | Cell | T2 (rollover outcomes, move notes) | [card](./OBJ-15-class.md) |
 | OBJ-16 | Application | AD01–AD10 | Admissions | Cell | T3 (documents, SEN outcome) | [card](./OBJ-16-application.md) |
 | OBJ-17 | Consent | Consent, purpose | Engagement | Cell | T2 | Needs the Governance dictionary |
 | OBJ-18 | Transfer | Sharing record, two enrolments | Admissions with Engagement | Cell | T2 | Needs the Governance dictionary |

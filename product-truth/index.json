@@ -1,6 +1,6 @@
 {
   "$description": "Machine-readable map of product-truth/ for the AI design workflow. Paths are relative to the repository root. 'routes' lists the files to load for each task, in order. Statuses follow product-truth/CONVENTIONS.md: Known (cited), Assumed (DL-xx), Open (OQ-xx), Proposed (source documents).",
-  "updated": "2026-11-12",
+  "updated": "2026-11-14",
   "scope": {
     "product": "Global Campus OS",
     "operator": "Global Schools Group (GSG)",
@@ -82,6 +82,17 @@
       "product-truth/03-domain/objects/README.md",
       "product-truth/03-domain/objects/<OBJ>.md",
       "product-truth/04-access/permission-catalogue.md"
+    ],
+    "classes-data": [
+      "product-truth/03-domain/objects/OBJ-15-class.md",
+      "product-truth/03-domain/objects/OBJ-03-enrolment.md",
+      "product-truth/03-domain/classes-data-dictionary.md",
+      "product-truth/03-domain/student-directory-data-dictionary.md",
+      "product-truth/03-domain/admissions-data-dictionary.md",
+      "product-truth/03-domain/samples/classes-sample.json",
+      "product-truth/03-domain/samples/student-sample.json",
+      "product-truth/04-access/permission-catalogue.md",
+      "product-truth/08-open-questions/open-questions.md"
     ],
     "admissions-data": [
       "product-truth/03-domain/objects/OBJ-16-application.md",

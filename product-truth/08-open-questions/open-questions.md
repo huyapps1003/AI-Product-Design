@@ -164,6 +164,20 @@ Added 12 Nov 2026 with the [admissions dictionary](../03-domain/admissions-data-
 | OQ-71 | How are returning students, deferred starts and cross-brand or cross-country moves at year end handled (new admission or not, OQ-60)? | Whether a returning student reuses ST01 and skips steps | Admissions dictionary; HB; Arch § Admission to enrolment | admissions dictionary, OBJ-16 | Henry, Admissions owners per brand | Open |
 | OQ-72 | Which documents are required per country, grade and nationality? | Document checklist defaults | Admissions dictionary; HB; Arch § Admission to enrolment | admissions dictionary, OBJ-16 | Henry, Admissions owners per brand | Open |
 
+## M · Classes
+
+Added 14 Nov 2026 with the [classes dictionary](../03-domain/classes-data-dictionary.md).
+
+| ID | Question | Why it matters for design | Evidence | Affects | Who can answer | Status |
+|---|---|---|---|---|---|---|
+| OQ-73 | Who prepares the class plan, allocates students and moves them during the year, and does a class move need approval or a notice to parents? | Who sees the allocation screens; whether a move is one step or an approval | Classes dictionary; HB p.9–14, p.128–131, p.169 | classes dictionary, OBJ-15 | Henry, principals and academic heads per brand | Open |
+| OQ-74 | What class size limits apply per brand, country, programme and grade (board, regulator or early-years ratios)? | Class plan defaults and over-limit warnings | Classes dictionary; HB p.9–14, p.128–131, p.169 | classes dictionary, OBJ-15 | Henry, principals and academic heads per brand | Open |
+| OQ-75 | When are class lists published, and what do parents and students see (class teacher, classmates' names)? | Parent app class card and publishing step | Classes dictionary; HB p.9–14, p.128–131, p.169 | classes dictionary, OBJ-15 | Henry, principals and academic heads per brand | Open |
+| OQ-76 | How are houses allocated (siblings together, balanced by size), and does a student keep their house after a campus transfer or stage-campus promotion? | House allocation suggestions (with OQ-20) | Classes dictionary; HB p.9–14, p.128–131, p.169 | classes dictionary, OBJ-15 | Henry, principals and academic heads per brand | Open |
+| OQ-77 | Are streams (CBSE 11 Science, Commerce) and elective sets part of the class, or subject groups owned by Teaching? | Class names like "11 Science A"; Grade 10 → 11 rollover | Classes dictionary; HB p.9–14, p.128–131, p.169 | classes dictionary, OBJ-15 | Henry, principals and academic heads per brand | Open |
+| OQ-78 | Do any campuses run composite or mixed-age classes (Montessori/GMP, small campuses) beyond AEPP? | Whether a regular class can span grades or offerings | Classes dictionary; HB p.9–14, p.128–131, p.169 | classes dictionary, OBJ-15 | Henry, principals and academic heads per brand | Open |
+| OQ-79 | When results arrive after the rollover (re-tests, conditional promotion, Grade 10 and 12 board results), how and by when is the class changed, and who decides retention? | Late changes to an applied rollover | Classes dictionary; HB p.9–14, p.128–131, p.169 | classes dictionary, OBJ-15 | Henry, principals and academic heads per brand | Open |
+
 ## Research not yet done
 
 These are evidence gaps, not product questions. They are listed in [research §11](../../research/2026-10-25-campus-os-foundation-research.md#11--open-questions-and-research-gaps): contextual inquiry with staff, family research, vendor verification, legal review and a systems inventory. No users have been interviewed yet, so every persona and scenario is an assumption.
