@@ -206,14 +206,14 @@ ST02, ST03, AD06 and Employee DD D01/D02 are referenced, not redefined. Employee
 
 ## Business rules
 
-- **SR-CL-01 (Assumed, DL-70):** A class belongs to one campus, offering, grade and academic year. Classes are never reused across years; a closed class and its roster are read-only.
+- **SR-CL-01 (Confirmed, DL-70):** A class belongs to one campus, offering, grade and academic year. Classes are never reused across years; a closed class and its roster are read-only.
 - **SR-CL-02 (Confirmed seat rule DL-61; mechanism Confirmed DL-71):** The Admissions seat limit for a grade and year is the sum of the size limits in its approved class plan. A plan can't be approved with a size limit "Not set", and can't go below enrolled + held seats.
 - **SR-CL-03 (Known SR-02; Confirmed DL-72):** A student has exactly one current placement per enrolment, in a class of the same campus, offering and academic year. Moving class ends the old placement and starts a new one; the enrolment continues.
 - **SR-CL-04 (Confirmed, DL-71):** Placing a student into a full class is blocked. The Principal may approve one over the limit with a reason, which is logged.
 - **SR-CL-05 (Confirmed, DL-73):** Each ACTIVE class has one current class teacher. A class without one shows "No class teacher" and can't be made ACTIVE.
 - **SR-CL-06 (Known SR-07; Assumed):** A student becomes ENROLLED with a class (ST02 `class_id` required once ENROLLED). CONFIRMED students due to start within the campus's lead time appear in "Needs a class"; they can be pre-placed from their start date.
 - **SR-CL-07 (Confirmed DL-73; DL-16, DL-32, BR-06):** A class teacher assignment automatically becomes data scope for that class in the Access Registry, starting and ending on the assignment's dates. Capabilities still come from the teacher's Class teacher membership at the campus; without one the assignment is flagged and gives no access. Tier 3 is never included.
-- **SR-CL-08 (Assumed, DL-75; Known HB p.128–131 for the outcomes):** Classes never decides promotion. A rollover line waits for an outcome from Assessment, a withdrawal case or a recorded Principal or parent decision.
+- **SR-CL-08 (Confirmed, DL-75; Known HB p.128–131 for the outcomes):** Classes never decides promotion. A rollover line waits for an outcome from Assessment, a withdrawal case or a recorded Principal or parent decision.
 - **SR-CL-09 (Confirmed DL-54, DL-62, DL-63; SR-16, SR-18):** Applying a run ends each enrolment with PROMOTION_ROLLOVER and creates the next-year enrolment linked by `previous_enrolment_id`. Stage-campus promotion needs no extra approval. Any other year-end campus change needs both principals (approval case). A year-end move into another brand or country is excluded and goes to Admissions as a new admission.
 - **SR-CL-10 (Known, GIIS SG, HB p.128):** In Kindergarten to Grade 5 (CBSE/IB PYP) a student is retained only on the parents' written request. Recorded as a GIIS Singapore campus setting, not a group rule.
 - **SR-CL-11 (Known, GIIS SG, HB p.129–131):** Conditional promotion depends on re-tests; the line stays NEEDS_DECISION until the result is in (timing OQ-79).
