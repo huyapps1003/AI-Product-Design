@@ -222,7 +222,7 @@ Chip colours for design: ACTIVE and LIVE `success`; PLANNED `info`; INACTIVE `wa
 |---|---|---|
 | DL-47 | Product term for a cell is **Data location** in staff and parent UI ("Data location: Singapore"); "cell" stays in engineering docs | "Cell" is infrastructure jargon; one plain term reads clearly for staff and parents. Confirmed by Henry, 12 Nov 2026 |
 | DL-48 | One Scope node record (OR01) per tree node with typed profiles (OR02–OR05); `campus_id` equals the campus node ID; nodes are closed, never deleted or moved | Grants, memberships and `tenant_path` point at one key; history survives brand moves |
-| DL-49 | Every campus on GSG's public list is a Campus node, including stage campuses of one school (Harrods Phnom Penh) | Keeps the tree matching how GSG describes itself; the transfer question stays in OQ-50 (recommended: a stage move is promotion, not transfer) |
+| DL-49 | Every campus on GSG's public list is a Campus node, including stage campuses of one school (Harrods Phnom Penh) | Keeps the tree matching how GSG describes itself; a year-end stage move is a promotion, not a transfer (DL-54, DL-62; OQ-50 answered) |
 | DL-50 | Candidate enums above, including PLANNED and CLOSED campus states and setting override policy | Designers need fixed labels; same approach as DL-27 |
 
 ## Open questions (added to the register)

@@ -34,7 +34,7 @@ actions:
   - org.setting.manage                 # set or override a value where OPEN (AP-02)
 events: [ScopeNodeOpened, ScopeNodeClosed, SettingChanged]
 variation: [MC-01, MC-02, MC-04, MC-06, MC-14]
-open: [OQ-20 overridable settings, OQ-21 data locations beyond SG and IN, OQ-26 brand in shared shells, OQ-50 stage campuses, OQ-52 shared sites, OQ-55 campus codes, OQ-56 brand names, OQ-57 unlisted campuses, OQ-58 tree owner, OQ-59 regions above brand-country]
+open: [OQ-20 overridable settings, OQ-21 data locations beyond SG and IN, OQ-26 brand in shared shells, OQ-52 shared sites, OQ-55 campus codes, OQ-56 brand names, OQ-57 unlisted campuses, OQ-58 tree owner, OQ-59 regions above brand-country]
 sample: product-truth/03-domain/samples/organisation-sample.json   # full list: 01-context/gsg-footprint.json
 patterns: [AP-01, AP-02, AP-08, AP-13, AP-14]
 ---

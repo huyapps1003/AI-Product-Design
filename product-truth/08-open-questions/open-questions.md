@@ -109,7 +109,7 @@ Added 7 Nov 2026 with DL-32…DL-38 (RBAC review).
 | ID | Question | Why it matters for design | Evidence | Affects | Who can answer | Status |
 |---|---|---|---|---|---|---|
 | OQ-46 | Which team owns the Identity and Roles service and the Access Registry? | Every access screen names who to ask and who approves catalogue changes | DL-32; Employee DD owners "TBD" for A06, A08, A09, R02, A14 | permission-catalogue, rbac-model | Henry, GSG IT | **Answered → DL-51** (GSG platform team) |
-| OQ-47 | Who approves a Tier 3 type grant (A17), and for how long? | The request and approval screens for restricted record classes | DL-36; DL-30 (Admissions manages Student Pass cases) | rbac-model, data-classification | DPOs, Henry | Open |
+| OQ-47 | Who approves a Tier 3 type grant (A17), and for how long? | The request and approval screens for restricted record classes | DL-36; DL-30 (Admissions manages Student Pass cases) | rbac-model, data-classification | DPOs, Henry | **Answered → DL-69** (Campus Leader alone) |
 | OQ-48 | Who approves a platform-operator or support session into a school's data, and can the school refuse it? | Support console, approval case and the banner a school sees | OQ-15; research §08 (PowerSchool support credential) | role-catalogue, rbac-model | GSG IT security, brand heads | **Answered → DL-52** (Campus Leader approves) |
 | OQ-49 | Do capability codes follow one naming scheme across modules, and who reviews a module's new capabilities? | Capability names appear in template and access-review screens | DL-33 | permission-catalogue | Data architect | **Answered → DL-53** (`module.object.action`) |
 

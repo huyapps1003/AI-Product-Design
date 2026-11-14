@@ -7,7 +7,7 @@
 > **Confirmed changes, 7 Nov 2026 (DL-32…DL-38, DL-40, Henry).** These override the text below where they differ:
 > - **Single source (DL-32, DL-33).** The Access Registry is the only writer of everything in this model; the canonical list of capabilities and field policies is [permission-catalogue.md](./permission-catalogue.md).
 > - **Scope nodes (DL-40, DL-35).** Grants *and memberships* sit on Group, Brand, Brand-country or Campus. Campus stays the default for memberships.
-> - **Field visibility by capability (DL-34).** Layer 5 Tier 3 access is a capability on a field group plus A15 (one record) or A17 Tier 3 type grant (a record class, approver OQ-47).
+> - **Field visibility by capability (DL-34).** Layer 5 Tier 3 access is a capability on a field group plus A15 (one record) or A17 Tier 3 type grant (a record class, approved by the Campus Leader, DL-69).
 > - **Delegation (DL-36).** DL-21 delegation is entity A16 and a step in evaluation.
 > - **Parent path (DL-37).** Layer 4 is an alternative path, not a layer every request passes; "Derived: relationship" is removed from Layer 3. R03 includes profile edit (DL-28).
 > - **Explained answers (DL-38).** Every decision returns the deciding layer and source record.

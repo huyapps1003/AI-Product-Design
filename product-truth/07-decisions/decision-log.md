@@ -80,6 +80,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-66 | Student card shows a "Medical alert" flag only, no detail | **Confirmed** (Henry, 13 Nov 2026) | OQ-42 |
 | DL-67 | Student ID = prefix + year of first admission + global sequence, no campus or brand code | **Confirmed** (Henry, 13 Nov 2026) | OQ-36, DL-31 |
 | DL-68 | Students see only their own Tier 1 profile and enrolment | **Confirmed** (Henry, 13 Nov 2026) | OQ-19 |
+| DL-69 | The Campus Leader alone approves a Tier 3 type grant (A17); no DPO countersign | **Confirmed** (Henry, 14 Nov 2026) | OQ-47, DL-36 |
 | DL-70 | A class is one group per campus × offering × grade × academic year; new records each year; feature area of Academic structure, prefix `classes` | **Confirmed** (Henry, 14 Nov 2026) | Classes dictionary CL01, DL-29 |
 | DL-71 | The Principal's class plan (classes × size limit) is the only place the seat limit is set; AD06 reads it; over-limit placement needs the Principal | Assumed (proposed 14 Nov 2026) | DL-61, CL02 |
 | DL-72 | Placement history is the single writer of a student's class; an in-year class move doesn't end the enrolment | **Confirmed** (Henry, 14 Nov 2026) | ST02, SR-16, CL04 |
@@ -341,7 +342,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 
 ### DL-49 — Listed campuses are Campus nodes
 - **Decision.** Every campus on GSG's public list is a Campus node, including stage campuses of one school such as Harrods Lower and Upper Primary in Phnom Penh.
-- **Why.** The tree matches how GSG describes itself; whether a move between stage campuses is a transfer stays open (OQ-50).
+- **Why.** The tree matches how GSG describes itself; a year-end move between stage campuses is a promotion, not a transfer (DL-54, DL-62; answers OQ-50).
 - **Status.** Confirmed by Henry, 12 Nov 2026: each listed stage campus is a separate Campus node. The transfer question is answered by DL-54.
 
 ### DL-50 — Organisation candidate enums
@@ -393,6 +394,14 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **DL-67.** Student ID format: fixed prefix, year of first admission, global sequence (e.g. GS-2024-001842). No campus or brand code, so it never changes.
 - **DL-68.** Students see their own Tier 1 profile and enrolment only. Partner staff access (rest of OQ-19) stays open.
 - **Confirmed by.** Henry, 13 Nov 2026.
+
+### DL-69 — Tier 3 type grant approver
+- **Context.** A Tier 3 type grant (A17, DL-36) gives standing access to a whole class of restricted records on a campus, for example all counselling notes at Punggol (OQ-47).
+- **Decision.** The Campus Leader of the scope node approves the grant on their own. There is no DPO countersign. Duration: valid until the end of the academic year, then renewed (Assumed; not stated by Henry).
+- **Why.** The Campus Leader knows the person and the need, and one step keeps these rare requests fast.
+- **Alternatives rejected.** Campus Leader + DPO countersign (Claude's recommendation; adds a privacy check); DPO alone (bottleneck far from the campus).
+- **Watch.** When the Campus Leader is the grantee, the request needs another approver; not yet decided.
+- **Status.** Approver confirmed by Henry, 14 Nov 2026; duration Assumed.
 
 ### DL-70…DL-76 — Classes
 - **Context.** Third module, Classes (Henry asked for "Classes & Sections"; DL-29 rules out "Section"). Scope approved by Henry 14 Nov 2026: classes, class plan, class teacher, placement, rollover, houses.
