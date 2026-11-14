@@ -22,8 +22,8 @@ Use these terms exactly in screens and specs. Where a term's definition is still
 | **Class** | A group of students taught together, such as 7B | Confirmed (DL-29) |
 | **Class plan** | How many classes a grade runs in a year and each class's size limit; set by the Principal; its total is the Admissions seat limit | Assumed (DL-71; seat rule Confirmed DL-61) |
 | **Placement class** | A class such as AEPP 1 that takes students from several grades, who keep their grade enrolment | Assumed (DL-74) |
-| **Class move** | Moving a student to another class of the same campus, programme and year; not a transfer | Assumed (DL-72) |
-| **Rollover** | The year-end run that moves a campus's students into next year's grades and classes (promotion, retention, stage-campus promotion) | Assumed (DL-75); promotion vs transfer Confirmed (DL-54) |
+| **Class move** | Moving a student to another class of the same campus, programme and year; not a transfer | Confirmed (DL-72) |
+| **Rollover** | The year-end run that moves a campus's students into next year's grades and classes (promotion, retention, stage-campus promotion) | Confirmed (DL-75); promotion vs transfer Confirmed (DL-54) |
 | **House** | A student team that runs across years, such as House B | Known (HB p.169); list per campus Open (OQ-20) |
 | **Student ID** | The number people use for a student; unique across Campus OS and kept on campus transfer | Confirmed (DL-31) |
 | **Programme offering** | A curriculum taught on a campus for a grade band, for example CBSE 6–8 at Punggol | Known (Architecture) |

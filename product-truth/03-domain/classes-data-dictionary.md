@@ -1,6 +1,6 @@
 # Global Campus OS — Classes Data Dictionary v0.1 (draft)
 
-**Status:** Proposed draft, 14 Nov 2026. DL-70…DL-76 Assumed (pending Henry); OQ-73…OQ-79 Open · **Owner:** Henry
+**Status:** Proposed draft, 14 Nov 2026. DL-70, DL-72, DL-75 Confirmed (Henry, 14 Nov 2026); DL-71, DL-73, DL-74, DL-76 Assumed (pending Henry); OQ-73…OQ-79 Open · **Owner:** Henry
 **Cites:** [Architecture v1](../00-sources/Global_Campus_OS_Product_Architecture_v1.md) § Users and roles (Class teacher), § Data model (Academic structure "Section (class)"; Organisation "Room"), § Key workflows (Admission to enrolment step 4), § Security (least privilege by scope) · [Student Directory Spec v1.0](./student-directory-data-dictionary.md) ST02 (`class_id`, `house_code`, `previous_enrolment_id`), ST03, SR-02, SR-03, SR-07, SR-16, SR-18 · [Admissions dictionary](./admissions-data-dictionary.md) AD06, SR-AD-07 · [Organisation dictionary](./organisation-data-dictionary.md) OR04, segments · [Employee Data Dictionary v1](../00-sources/Global_Campus_OS_Employee_Data_Dictionary_v1.md) D01, D02 (`section_id`) · [architecture.md](./architecture.md) DL-43 domains · GIIS Student Handbook 2025-26 (HB) p.9–14 (classroom allocations), p.125 and § AEPP, p.128–131 (promotion policy), p.169 (house system) · DL-16, DL-22, DL-29, DL-30, DL-53, DL-54, DL-59, DL-61, DL-62, DL-63, DL-65, DL-66, DL-68 · MC-06, MC-07, MC-14 · OQ-20, OQ-55
 **Tóm tắt (VI):** Từ điển dữ liệu cho module Lớp học: lớp (ví dụ 7B) theo cơ sở × chương trình × khối × năm học, kế hoạch số lớp và sĩ số (nguồn cho giới hạn chỗ của Tuyển sinh), giáo viên chủ nhiệm, xếp lớp và chuyển lớp trong năm, nhà (house), và chuyển năm học cuối năm (lên lớp, ở lại, chuyển cơ sở theo giai đoạn). Mỗi trường có trạng thái Known / Assumed / Open.
 
@@ -43,10 +43,10 @@ Approved by Henry, 14 Nov 2026: **how students are grouped into classes for a ye
 | CL01 | Class | Classes (Academic structure domain) | Known (Arch § Data model "Section (class)"; ST02 `class_id`; HB p.9–14); fields Assumed |
 | CL02 | Class Plan | Classes | Assumed (DL-71); the seat limit it produces is Confirmed (DL-61) |
 | CL03 | Class Staff Assignment | Classes | Known role (Arch § Users and roles "Class teacher", scope Section); model Assumed (DL-73) |
-| CL04 | Class Placement | Classes | Known need (Arch step 4 "assigned a class"; ST02 `class_id`); history Assumed (DL-72) |
+| CL04 | Class Placement | Classes | Known need (Arch step 4 "assigned a class"; ST02 `class_id`); history Confirmed (DL-72) |
 | CL05 | House | Classes (list) / Student Records (ST02 `house_code`) | Known for GIIS SG ("one of four Houses", HB p.169); list per campus Open (OQ-20) |
-| CL06 | Rollover Run | Classes | Known need (SR-16 promotion; DL-54; DL-62); model Assumed (DL-75) |
-| CL07 | Rollover Line | Classes (reads Assessment outcome) | Known outcomes (HB p.128–131); model Assumed (DL-75) |
+| CL06 | Rollover Run | Classes | Known need (SR-16 promotion; DL-54; DL-62); model Confirmed (DL-75) |
+| CL07 | Rollover Line | Classes (reads Assessment outcome) | Known outcomes (HB p.128–131); model Confirmed (DL-75) |
 
 ST02, ST03, AD06 and Employee DD D01/D02 are referenced, not redefined. Employee DD D02 `section_id` means CL01 `class_id` (DL-29).
 
@@ -71,7 +71,7 @@ ST02, ST03, AD06 and Employee DD D01/D02 are referenced, not redefined. Employee
 | size_limit | INT | — | Y | T1 | Assumed (DL-71) | From the class plan; may differ per class (e.g. one smaller class). |
 | home_room | VARCHAR(40) | — | N | T1 | Known (HB p.9–14 room per class, e.g. "S4 - 04") | Becomes FK:Room when the Organisation building/room list exists (Arch § Data model "Room"). |
 | class_status | ENUM | — | Y | T1 | Assumed (DL-27) | DRAFT, ACTIVE, CLOSED. See enums. |
-| previous_class_id | UUID | FK:CL01 | N | T1 | Assumed (DL-70) | Suggested predecessor from rollover (7B → 8B). Display only. |
+| previous_class_id | UUID | FK:CL01 | N | T1 | Confirmed (DL-70) | Suggested predecessor from rollover (7B → 8B). Display only. |
 | enrolled_count | INT | — | Y | T1 | Assumed; derived | Current CL04 placements. Never stored by hand. |
 | opened_at / closed_at | DATE | — | C | T1 | Assumed | Closed at year end or when merged mid-year. |
 
@@ -111,7 +111,7 @@ ST02, ST03, AD06 and Employee DD D01/D02 are referenced, not redefined. Employee
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| placement_id | UUID | PK | Y | T1 | Assumed (DL-72) | |
+| placement_id | UUID | PK | Y | T1 | Confirmed (DL-72) | |
 | enrolment_id | UUID | FK:ST02 | Y | T1 | Known (ST02 holds `class_id`) | |
 | class_id | UUID | FK:CL01 | Y | T1 | Known | Same campus, offering and year as the enrolment (SR-CL-03). |
 | valid_from | DATE | — | Y | T1 | Assumed | For a CONFIRMED student, the enrolment start date (pre-placement). |
@@ -139,7 +139,7 @@ ST02, ST03, AD06 and Employee DD D01/D02 are referenced, not redefined. Employee
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| rollover_run_id | UUID | PK | Y | T1 | Assumed (DL-75) | |
+| rollover_run_id | UUID | PK | Y | T1 | Confirmed (DL-75) | |
 | campus_id | UUID | FK:OR04 | Y | T1 | Assumed | The campus students leave. Stage-campus targets are per line. |
 | from_academic_year_id / to_academic_year_id | UUID | FK | Y | T1 | Confirmed rule (DL-54: the year decides promotion) | |
 | run_status | ENUM | — | Y | T1 | Assumed (DL-27) | See enums. |
@@ -154,7 +154,7 @@ ST02, ST03, AD06 and Employee DD D01/D02 are referenced, not redefined. Employee
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| rollover_line_id | UUID | PK | Y | T1 | Assumed (DL-75) | |
+| rollover_line_id | UUID | PK | Y | T1 | Confirmed (DL-75) | |
 | rollover_run_id | UUID | FK:CL06 | Y | T1 | Assumed | |
 | from_enrolment_id | UUID | FK:ST02 | Y | T1 | Known (SR-03) | |
 | promotion_outcome | ENUM | — | Y | T2 | Known values (HB p.128–131: promotion, conditional promotion with re-test, weak pass, retained/detained, board criteria for 10 and 12); source Assessment | See enums. T2 because it reflects academic results. |
@@ -209,7 +209,7 @@ ST02, ST03, AD06 and Employee DD D01/D02 are referenced, not redefined. Employee
 
 - **SR-CL-01 (Assumed, DL-70):** A class belongs to one campus, offering, grade (or grade list for PLACEMENT) and academic year. Classes are never reused across years; a closed class and its roster are read-only.
 - **SR-CL-02 (Confirmed seat rule DL-61; mechanism Assumed DL-71):** The Admissions seat limit for a grade and year is the sum of the size limits in its approved class plan. A plan can't be approved with a size limit "Not set", and can't go below enrolled + held seats.
-- **SR-CL-03 (Known SR-02; Assumed DL-72):** A student has exactly one current placement per enrolment, in a class of the same campus, offering and academic year. Moving class ends the old placement and starts a new one; the enrolment continues.
+- **SR-CL-03 (Known SR-02; Confirmed DL-72):** A student has exactly one current placement per enrolment, in a class of the same campus, offering and academic year. Moving class ends the old placement and starts a new one; the enrolment continues.
 - **SR-CL-04 (Assumed, DL-71):** Placing a student into a full class is blocked. The Principal may approve one over the limit with a reason, which is logged.
 - **SR-CL-05 (Assumed, DL-73):** Each ACTIVE class has one current class teacher. A class without one shows "No class teacher" and can't be made ACTIVE.
 - **SR-CL-06 (Known SR-07; Assumed):** A student becomes ENROLLED with a class (ST02 `class_id` required once ENROLLED). CONFIRMED students due to start within the campus's lead time appear in "Needs a class"; they can be pre-placed from their start date.
@@ -230,16 +230,16 @@ ClassPlanApproved (AD06 recalculates), ClassCreated, ClassActivated, ClassClosed
 
 `classes.class.view`, `.manage` · `classes.roster.view` (scoped to own classes for teachers) · `classes.plan.edit`, `.approve` · `classes.staff.assign` · `classes.placement.manage`, `.approve_over_limit` · `classes.house.assign` · `classes.rollover.prepare`, `.approve`.
 
-## Decisions proposed (Assumed, pending Henry)
+## Decisions proposed (DL-70, DL-72, DL-75 Confirmed by Henry 14 Nov 2026; others Assumed)
 
 | ID | Decision | Why |
 |---|---|---|
-| DL-70 | A class is one group for one campus × offering × grade × academic year; next year's classes are new records, linked only by a suggested `previous_class_id`. Classes is a feature area of the Academic structure domain (DL-43), shown in the staff app beside the Student directory, with capability prefix `classes` | Keeps past rosters intact (SR-03 pattern); matches how the handbook lists classes per year |
+| DL-70 (**Confirmed**) | A class is one group for one campus × offering × grade × academic year; next year's classes are new records, linked only by a suggested `previous_class_id`. Classes is a feature area of the Academic structure domain (DL-43), shown in the staff app beside the Student directory, with capability prefix `classes` | Keeps past rosters intact (SR-03 pattern); matches how the handbook lists classes per year |
 | DL-71 | The Principal's class plan (classes × size limit per grade and year) is the only place the seat limit is set; AD06 reads it. Placing over a class's size limit needs the Principal | DL-61 says seat limit = classes × class size; one number, one writer |
-| DL-72 | Placement history (CL04) is the single writer of a student's class; an in-year class move within the same campus, offering and year doesn't end the enrolment | ST02 `class_id` needs history without a new enrolment for every class change |
+| DL-72 (**Confirmed**) | Placement history (CL04) is the single writer of a student's class; an in-year class move within the same campus, offering and year doesn't end the enrolment | ST02 `class_id` needs history without a new enrolment for every class change |
 | DL-73 | Class teacher and co-teacher are effective-dated assignments on the class; they suggest data scope (DL-16), never grant access | Class teacher is a class fact; subject teaching stays in Academic Allocation |
 | DL-74 | AEPP 1 and AEPP 2 are PLACEMENT classes that can take several grades; students keep their grade and programme; leaving AEPP is a class move | DL-65 and HB p.14 (AEPP rooms) |
-| DL-75 | Year-end rollover is one run per campus and year: Assessment supplies outcomes, Classes builds next-year enrolments and classes, the Principal approves before it applies | Promotion rules live in Assessment (Arch § Key workflows); Principal approves promotion (Arch § Users and roles) |
+| DL-75 (**Confirmed**) | Year-end rollover is one run per campus and year: Assessment supplies outcomes, Classes builds next-year enrolments and classes, the Principal approves before it applies | Promotion rules live in Assessment (Arch § Key workflows); Principal approves promotion (Arch § Users and roles) |
 | DL-76 | House stays on ST02 `house_code`; Classes allocates it from the campus house list and copies it forward at rollover and on class moves | Houses run across years (HB p.169) |
 
 ## Open questions (new)
