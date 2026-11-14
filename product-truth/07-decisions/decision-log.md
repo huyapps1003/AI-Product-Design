@@ -34,11 +34,11 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-20 | Templates have BASE and MODULE categories | Assumed | 07, A08 |
 | DL-21 | Time-boxed delegation with reason, max duration, and audit | Assumed | 07 |
 | DL-22 | Scope is every GSG brand; GSG operates Campus OS; SmartLearn excluded | **Confirmed** (Henry, 25 Oct 2026) | RES-F01, RES-F02 |
-| DL-23 | `student_id` is an immutable UUID, separate from Student ID, board IDs and legacy IDs | Assumed | Student dictionary ST01, ST10 |
-| DL-24 | Enrolment and student directory records are effective-dated; history never overwritten | Assumed | Student dictionary ST02 |
-| DL-25 | Student–guardian relationship is the directory record; Family Link is created only from a verified relationship | Assumed | Student dictionary ST05, DL-18 |
-| DL-26 | Tiers and role visibility for student fields Architecture doesn't classify | Assumed | Student dictionary § Field visibility, DL-11 |
-| DL-27 | Candidate enums for the student directory | Assumed | Student dictionary § Candidate enums |
+| DL-23 | `student_id` is an immutable UUID, separate from Student ID, board IDs and legacy IDs | **Confirmed** (Henry, 13 Nov 2026) | Student dictionary ST01, ST10 |
+| DL-24 | Enrolment and student directory records are effective-dated; history never overwritten | **Confirmed** (Henry, 13 Nov 2026) | Student dictionary ST02 |
+| DL-25 | Student–guardian relationship is the directory record; Family Link is created only from a verified relationship | **Confirmed** (Henry, 13 Nov 2026) | Student dictionary ST05, DL-18 |
+| DL-26 | Tiers and role visibility for student fields Architecture doesn't classify | **Confirmed** (Henry, 13 Nov 2026) | Student dictionary § Field visibility, DL-11 |
+| DL-27 | Candidate enums for the student directory | **Confirmed** (Henry, 13 Nov 2026) | Student dictionary § Candidate enums |
 | DL-28 | Parents edit their child's profile as in MyGIIS Profile Update | **Confirmed** (Henry, 30 Oct 2026) | OQ-38, DL-18, HB p.35 |
 | DL-29 | Product terms: Class (a group like 7B) and Segment (Pre-Primary…Higher); "Section" not used | **Confirmed** (Henry, 30 Oct 2026) | OQ-40 |
 | DL-30 | Teachers see a student's attendance threshold, not the Student Pass behind it | **Confirmed** (Henry, 30 Oct 2026) | OQ-41, DL-11 |
@@ -73,6 +73,13 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-59 | Admission rules (cooling-off, fees, documents, assessments, offer validity) are scope-tree settings; GIIS SG values are sample defaults | Assumed (proposed 12 Nov 2026) | MC-14, DL-22 |
 | DL-60 | SEN evaluation and identity documents stay Tier 3 with their owners; Admissions sees outcome and link | **Confirmed** (Henry, 14 Nov 2026) | DL-30 pattern |
 | DL-61 | Intake capacity = seat limit per campus × offering × grade × academic year; overrides need a reason | Assumed (proposed 12 Nov 2026) | OQ-65 |
+| DL-62 | Stage-campus promotion needs no extra approval; any other year-end campus change needs both principals | **Confirmed** (Henry, 13 Nov 2026) | OQ-60, DL-54 |
+| DL-63 | A year-end move into another brand or country is a new admission, not a promotion | **Confirmed** (Henry, 13 Nov 2026) | OQ-60, OQ-07 |
+| DL-64 | A guardian's own contact and address changes apply in every data location; per-child flags stay per child | **Confirmed** (Henry, 13 Nov 2026) | OQ-61, DL-55, DL-28 |
+| DL-65 | AEPP is a placement inside a regular enrolment, not a programme offering | **Confirmed** (Henry, 13 Nov 2026) | OQ-45, DL-29 |
+| DL-66 | Student card shows a "Medical alert" flag only, no detail | **Confirmed** (Henry, 13 Nov 2026) | OQ-42 |
+| DL-67 | Student ID = prefix + year of first admission + global sequence, no campus or brand code | **Confirmed** (Henry, 13 Nov 2026) | OQ-36, DL-31 |
+| DL-68 | Students see only their own Tier 1 profile and enrolment | **Confirmed** (Henry, 13 Nov 2026) | OQ-19 |
 
 ---
 
@@ -368,6 +375,17 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Decision.** See the table above and [admissions dictionary § Decisions proposed](../03-domain/admissions-data-dictionary.md#decisions-dl-56-57-58-60-confirmed-14-nov-2026-dl-59-61-assumed).
 - **Why.** Lets the pipeline be designed while the rules other than GIIS Singapore's are unknown.
 - **Status.** DL-56, DL-57, DL-58, DL-60 Confirmed by Henry, 14 Nov 2026. DL-59 and DL-61 Assumed, under discussion.
+
+### DL-62…DL-68 — Student Directory v1.0 lock answers
+- **Context.** The lock list in the student directory spec (PR #13) gave a recommendation per open item; Henry accepted all of them on 13 Nov 2026, which locked the spec as v1.0.
+- **DL-62.** A promotion between stage campuses of one school needs no extra approval. Any other campus change at year end needs both principals, like a transfer (SR-05).
+- **DL-63.** A year-end move into another brand or country is a new admission with a new contract, not a promotion. Data moves still need OQ-07.
+- **DL-64.** A guardian's own phone, email and address changes apply in every data location they have a profile in. Per-child flags (can-collect, emergency contact, priority, communications) stay per child.
+- **DL-65.** AEPP is a placement inside a regular enrolment: class AEPP 1 or AEPP 2 plus a SUPPORT subject choice.
+- **DL-66.** The student card shows a "Medical alert" flag, never the detail, to class teachers, transport and security. Detail stays Tier 3 in Wellbeing and Inclusion.
+- **DL-67.** Student ID format: fixed prefix, year of first admission, global sequence (e.g. GS-2024-001842). No campus or brand code, so it never changes.
+- **DL-68.** Students see their own Tier 1 profile and enrolment only. Partner staff access (rest of OQ-19) stays open.
+- **Confirmed by.** Henry, 13 Nov 2026.
 
 ## How design direction becomes architecture
 
