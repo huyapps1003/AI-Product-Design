@@ -1,0 +1,946 @@
+{
+  "_about": "Synthetic sample data for Classes screens (OBJ-15, with OBJ-03 enrolment and OBJ-02 student). All people, numbers and rooms are invented except room codes, which follow the GIIS SG-PGL handbook pattern (HB p.9-14). Viewer Dr Anita Rao, Principal, SG-PGL; 'today' 14 Nov 2026. Class size limits and house lists are each campus's own settings, not group defaults (DL-59 pattern, SR-CL-13). Reuses students from student-sample.json and applicants from admissions-sample.json. Never 'Section' (DL-29).",
+  "today": "2026-11-14",
+  "viewer": {
+    "name": "Dr Anita Rao",
+    "role": "Principal",
+    "campus": "SG-PGL"
+  },
+  "other_viewers": [
+    {
+      "name": "Meera Joshi",
+      "role": "Academic Coordinator, CBSE Middle (Grades 6-8)",
+      "campus": "SG-PGL",
+      "_note": "Who allocates students is pending (OQ-73); the sample gives it to the coordinator"
+    },
+    {
+      "name": "Farah Ismail",
+      "role": "Class Teacher, 7B",
+      "campus": "SG-PGL"
+    },
+    {
+      "name": "Lina Goh",
+      "role": "Admissions Officer",
+      "campus": "SG-PGL"
+    },
+    {
+      "name": "Claire Tan",
+      "role": "Principal",
+      "campus": "SG-OWD",
+      "brand": "OWIS"
+    }
+  ],
+  "campus_settings": {
+    "SG-PGL": {
+      "class_size_limits": {
+        "GMP (KG) KG1-KG2": 20,
+        "CBSE 1-12 Grades 1-10": 32,
+        "CBSE 1-12 Grades 11-12": "Not set (OQ-74)",
+        "IB PYP": 22,
+        "Cambridge CLSP 6-8": "Not set (OQ-74)",
+        "AEPP (placement)": 15
+      },
+      "houses": [
+        {
+          "code": "House A",
+          "colour": "Red"
+        },
+        {
+          "code": "House B",
+          "colour": "Blue"
+        },
+        {
+          "code": "House C",
+          "colour": "Green"
+        },
+        {
+          "code": "House D",
+          "colour": "Yellow"
+        }
+      ],
+      "k5_retention": "Only on the parents' written request (HB p.128, GIIS SG setting)",
+      "needs_class_lead_days": "Not set (pending, SR-CL-06)",
+      "academic_year": "AY 2026-27, 13 Jul 2026 - 25 Jun 2027"
+    },
+    "IN-NOI": {
+      "class_size_limits": "Not set (OQ-74)",
+      "houses": [
+        {
+          "code": "House A"
+        },
+        {
+          "code": "House B"
+        },
+        {
+          "code": "House C"
+        },
+        {
+          "code": "House D"
+        }
+      ],
+      "academic_year": "AY 2026-27, 6 Apr 2026 - Mar 2027"
+    },
+    "SG-OWD": {
+      "class_size_limits": {
+        "IB PYP": 20
+      },
+      "houses": [],
+      "academic_year": "AY 2026, 5 Jan - 27 Nov 2026 (calendar year, MC-06)",
+      "_note": "OWIS values are synthetic; no OWIS policy is documented (DL-22)"
+    }
+  },
+  "class_plans": [
+    {
+      "campus": "SG-PGL",
+      "programme": "CBSE 1-12",
+      "grade": "Grade 5",
+      "academic_year": "AY 2026-27",
+      "classes": 3,
+      "size_limit": 32,
+      "seat_limit": 96,
+      "plan_status": "APPROVED",
+      "approved_by": "Dr Anita Rao",
+      "approved_at": "2026-03-02"
+    },
+    {
+      "campus": "SG-PGL",
+      "programme": "CBSE 1-12",
+      "grade": "Grade 6",
+      "academic_year": "AY 2026-27",
+      "classes": 3,
+      "size_limit": 32,
+      "seat_limit": 96,
+      "plan_status": "APPROVED",
+      "approved_by": "Dr Anita Rao",
+      "approved_at": "2026-03-02",
+      "admissions": {
+        "enrolled": 88,
+        "held": 6
+      },
+      "_note": "Matches admissions-sample intake_capacity (DL-61, DL-70)"
+    },
+    {
+      "campus": "SG-PGL",
+      "programme": "CBSE 1-12",
+      "grade": "Grade 7",
+      "academic_year": "AY 2026-27",
+      "classes": 3,
+      "size_limit": 32,
+      "seat_limit": 96,
+      "plan_status": "APPROVED",
+      "approved_by": "Dr Anita Rao",
+      "approved_at": "2026-03-02",
+      "admissions": {
+        "enrolled": 96,
+        "held": 0
+      }
+    },
+    {
+      "campus": "SG-PGL",
+      "programme": "CBSE 1-12",
+      "grade": "Grade 8",
+      "academic_year": "AY 2026-27",
+      "classes": 3,
+      "size_limit": 32,
+      "seat_limit": 96,
+      "plan_status": "APPROVED",
+      "approved_by": "Dr Anita Rao",
+      "approved_at": "2026-03-02"
+    },
+    {
+      "campus": "SG-PGL",
+      "programme": "IB PYP",
+      "grade": "Grade 2",
+      "academic_year": "AY 2026-27",
+      "classes": 2,
+      "size_limit": 22,
+      "seat_limit": 44,
+      "plan_status": "APPROVED",
+      "approved_by": "Dr Anita Rao",
+      "approved_at": "2026-03-02",
+      "admissions": {
+        "enrolled": 31,
+        "held": 3
+      }
+    },
+    {
+      "campus": "SG-PGL",
+      "programme": "IB PYP",
+      "grade": "Grade 3",
+      "academic_year": "AY 2026-27",
+      "classes": 3,
+      "size_limit": 22,
+      "seat_limit": 66,
+      "plan_status": "APPROVED",
+      "approved_by": "Dr Anita Rao",
+      "approved_at": "2026-03-02"
+    },
+    {
+      "campus": "SG-PGL",
+      "programme": "GMP (KG)",
+      "grade": "KG1",
+      "academic_year": "AY 2027-28",
+      "classes": 3,
+      "size_limit": 20,
+      "seat_limit": 60,
+      "plan_status": "APPROVED",
+      "approved_by": "Dr Anita Rao",
+      "approved_at": "2026-10-12",
+      "admissions": {
+        "enrolled": 0,
+        "held": 4
+      }
+    },
+    {
+      "campus": "SG-PGL",
+      "programme": "CBSE 1-12",
+      "grade": "Grade 6",
+      "academic_year": "AY 2027-28",
+      "classes": 4,
+      "size_limit": 32,
+      "seat_limit": 128,
+      "plan_status": "SUBMITTED",
+      "prepared_by": "Meera Joshi",
+      "_note": "Waiting for the Principal; a fourth class because the AY 2026-27 Grade 7 waitlist is long"
+    },
+    {
+      "campus": "SG-PGL",
+      "programme": "Cambridge CLSP 6-8",
+      "grade": "Grade 6",
+      "academic_year": "AY 2027-28",
+      "classes": 2,
+      "size_limit": "Not set (OQ-74)",
+      "seat_limit": null,
+      "plan_status": "DRAFT",
+      "prepared_by": "Meera Joshi",
+      "_note": "Can't be approved until the campus sets a size limit for CLSP (SR-CL-02)"
+    }
+  ],
+  "classes": [
+    {
+      "class_name": "5A",
+      "campus": "SG-PGL",
+      "academic_year": "AY 2026-27",
+      "programme": "CBSE 1-12",
+      "class_type": "REGULAR",
+      "size_limit": 32,
+      "enrolled": 31,
+      "home_room": "P5-01",
+      "class_teacher": "Shalini Gupta",
+      "class_status": "ACTIVE",
+      "grade": "Grade 5"
+    },
+    {
+      "class_name": "5B",
+      "campus": "SG-PGL",
+      "academic_year": "AY 2026-27",
+      "programme": "CBSE 1-12",
+      "class_type": "REGULAR",
+      "size_limit": 32,
+      "enrolled": 30,
+      "home_room": "P5-02",
+      "class_teacher": "Ravi Shankar",
+      "class_status": "ACTIVE",
+      "grade": "Grade 5"
+    },
+    {
+      "class_name": "5C",
+      "campus": "SG-PGL",
+      "academic_year": "AY 2026-27",
+      "programme": "CBSE 1-12",
+      "class_type": "REGULAR",
+      "size_limit": 32,
+      "enrolled": 29,
+      "home_room": "P5-03",
+      "class_teacher": "Ong Li Ting",
+      "class_status": "ACTIVE",
+      "grade": "Grade 5"
+    },
+    {
+      "class_name": "6A",
+      "campus": "SG-PGL",
+      "academic_year": "AY 2026-27",
+      "programme": "CBSE 1-12",
+      "class_type": "REGULAR",
+      "size_limit": 32,
+      "enrolled": 30,
+      "home_room": "S4-15",
+      "class_teacher": "Kavitha Raman",
+      "class_status": "ACTIVE",
+      "grade": "Grade 6"
+    },
+    {
+      "class_name": "6B",
+      "campus": "SG-PGL",
+      "academic_year": "AY 2026-27",
+      "programme": "CBSE 1-12",
+      "class_type": "REGULAR",
+      "size_limit": 32,
+      "enrolled": 29,
+      "home_room": "S4-14",
+      "class_teacher": "Joel Tan",
+      "class_status": "ACTIVE",
+      "grade": "Grade 6"
+    },
+    {
+      "class_name": "6C",
+      "campus": "SG-PGL",
+      "academic_year": "AY 2026-27",
+      "programme": "CBSE 1-12",
+      "class_type": "REGULAR",
+      "size_limit": 32,
+      "enrolled": 29,
+      "home_room": "S4-26",
+      "class_teacher": "Sunita Bhat",
+      "class_status": "ACTIVE",
+      "grade": "Grade 6"
+    },
+    {
+      "class_name": "7A",
+      "campus": "SG-PGL",
+      "academic_year": "AY 2026-27",
+      "programme": "CBSE 1-12",
+      "class_type": "REGULAR",
+      "size_limit": 32,
+      "enrolled": 32,
+      "home_room": "S4-05",
+      "class_teacher": "Arvind Menon",
+      "class_status": "ACTIVE",
+      "grade": "Grade 7"
+    },
+    {
+      "class_name": "7B",
+      "campus": "SG-PGL",
+      "academic_year": "AY 2026-27",
+      "programme": "CBSE 1-12",
+      "class_type": "REGULAR",
+      "size_limit": 32,
+      "enrolled": 32,
+      "home_room": "S4-04",
+      "class_teacher": "Farah Ismail",
+      "class_status": "ACTIVE",
+      "grade": "Grade 7"
+    },
+    {
+      "class_name": "7C",
+      "campus": "SG-PGL",
+      "academic_year": "AY 2026-27",
+      "programme": "CBSE 1-12",
+      "class_type": "REGULAR",
+      "size_limit": 32,
+      "enrolled": 32,
+      "home_room": "S4-03",
+      "class_teacher": "Grace Wong",
+      "class_status": "ACTIVE",
+      "grade": "Grade 7"
+    },
+    {
+      "class_name": "8A",
+      "campus": "SG-PGL",
+      "academic_year": "AY 2026-27",
+      "programme": "CBSE 1-12",
+      "class_type": "REGULAR",
+      "size_limit": 32,
+      "enrolled": 31,
+      "home_room": "S4-29",
+      "class_teacher": "Deepak Rao",
+      "class_status": "ACTIVE",
+      "grade": "Grade 8"
+    },
+    {
+      "class_name": "8B",
+      "campus": "SG-PGL",
+      "academic_year": "AY 2026-27",
+      "programme": "CBSE 1-12",
+      "class_type": "REGULAR",
+      "size_limit": 32,
+      "enrolled": 30,
+      "home_room": "S4-31",
+      "class_teacher": "Nur Aisyah",
+      "class_status": "ACTIVE",
+      "grade": "Grade 8"
+    },
+    {
+      "class_name": "8C",
+      "campus": "SG-PGL",
+      "academic_year": "AY 2026-27",
+      "programme": "CBSE 1-12",
+      "class_type": "REGULAR",
+      "size_limit": 32,
+      "enrolled": 32,
+      "home_room": "S4-32",
+      "class_teacher": null,
+      "class_status": "ACTIVE",
+      "grade": "Grade 8",
+      "_note": "No class teacher since 30 Oct 2026 (teacher left); class can't be made ACTIVE again until one is assigned (SR-CL-05)"
+    },
+    {
+      "class_name": "IB PYP 2A",
+      "campus": "SG-PGL",
+      "academic_year": "AY 2026-27",
+      "programme": "IB PYP",
+      "class_type": "REGULAR",
+      "size_limit": 22,
+      "enrolled": 16,
+      "home_room": "P2-11",
+      "class_teacher": "Emily Carter",
+      "class_status": "ACTIVE",
+      "grade": "Grade 2"
+    },
+    {
+      "class_name": "IB PYP 2B",
+      "campus": "SG-PGL",
+      "academic_year": "AY 2026-27",
+      "programme": "IB PYP",
+      "class_type": "REGULAR",
+      "size_limit": 22,
+      "enrolled": 15,
+      "home_room": "P2-13",
+      "class_teacher": "Sneha Pai",
+      "class_status": "ACTIVE",
+      "grade": "Grade 2"
+    },
+    {
+      "class_name": "IB PYP 3A",
+      "campus": "SG-PGL",
+      "academic_year": "AY 2026-27",
+      "programme": "IB PYP",
+      "class_type": "REGULAR",
+      "size_limit": 22,
+      "enrolled": 20,
+      "home_room": "N2-02",
+      "class_teacher": "Daniel Koh",
+      "class_status": "ACTIVE",
+      "grade": "Grade 3"
+    },
+    {
+      "class_name": "IB PYP 3B",
+      "campus": "SG-PGL",
+      "academic_year": "AY 2026-27",
+      "programme": "IB PYP",
+      "class_type": "REGULAR",
+      "size_limit": 22,
+      "enrolled": 21,
+      "home_room": "N2-01",
+      "class_teacher": "Priyanka Sen",
+      "class_status": "ACTIVE",
+      "grade": "Grade 3"
+    },
+    {
+      "class_name": "IB PYP 3C",
+      "campus": "SG-PGL",
+      "academic_year": "AY 2026-27",
+      "programme": "IB PYP",
+      "class_type": "REGULAR",
+      "size_limit": 22,
+      "enrolled": 19,
+      "home_room": "P3-14",
+      "class_teacher": "Rachel Lee",
+      "class_status": "ACTIVE",
+      "grade": "Grade 3"
+    },
+    {
+      "class_name": "AEPP 1",
+      "campus": "SG-PGL",
+      "academic_year": "AY 2026-27",
+      "programme": "CBSE 1-12",
+      "class_type": "PLACEMENT",
+      "size_limit": 15,
+      "enrolled": 9,
+      "home_room": "S3-12",
+      "class_teacher": "Julia Morgan",
+      "class_status": "ACTIVE",
+      "grades": [
+        "Grade 4",
+        "Grade 5",
+        "Grade 6",
+        "Grade 7",
+        "Grade 8"
+      ],
+      "_note": "Placement class (DL-73): students keep their grade enrolment (DL-65). Six-month course (HB § AEPP)."
+    },
+    {
+      "class_name": "AEPP 2",
+      "campus": "SG-PGL",
+      "academic_year": "AY 2026-27",
+      "programme": "CBSE 1-12",
+      "class_type": "PLACEMENT",
+      "size_limit": 15,
+      "enrolled": 11,
+      "home_room": "S3-13",
+      "class_teacher": "Ahmed Rahman",
+      "class_status": "ACTIVE",
+      "grades": [
+        "Grade 6",
+        "Grade 7",
+        "Grade 8",
+        "Grade 9",
+        "Grade 10"
+      ]
+    }
+  ],
+  "rosters": {
+    "7B": [
+      {
+        "name": "Aarav Sharma",
+        "house": "House B",
+        "student_pass": true,
+        "attendance_threshold": "90%",
+        "student_number": "GS-2024-001842",
+        "previous_class": "6B (AY 2025-26)"
+      },
+      {
+        "name": "Aditya Rao",
+        "house": "House B",
+        "student_pass": false,
+        "attendance_threshold": "85%"
+      },
+      {
+        "name": "Ananya Iyer",
+        "house": "House C",
+        "student_pass": false,
+        "attendance_threshold": "85%"
+      },
+      {
+        "name": "Ayaan Khan",
+        "house": "House D",
+        "student_pass": true,
+        "attendance_threshold": "90%"
+      },
+      {
+        "name": "Diya Menon",
+        "house": "House A",
+        "student_pass": false,
+        "attendance_threshold": "85%",
+        "medical_alert": true
+      },
+      {
+        "name": "Ethan Lim",
+        "house": "House B",
+        "student_pass": false,
+        "attendance_threshold": "85%"
+      },
+      {
+        "name": "Fatima Noor",
+        "house": "House C",
+        "student_pass": true,
+        "attendance_threshold": "90%"
+      },
+      {
+        "name": "Gauri Patel",
+        "house": "House D",
+        "student_pass": false,
+        "attendance_threshold": "85%"
+      },
+      {
+        "name": "Hiroshi Tanaka",
+        "house": "House A",
+        "student_pass": false,
+        "attendance_threshold": "85%",
+        "placement_note": "Joined 7B on 7 Oct 2026 from AEPP 2 (AEPP_EXIT)"
+      },
+      {
+        "name": "Ira Kapoor",
+        "house": "House B",
+        "student_pass": true,
+        "attendance_threshold": "90%"
+      },
+      {
+        "name": "Ishaan Gupta",
+        "house": "House C",
+        "student_pass": false,
+        "attendance_threshold": "85%"
+      },
+      {
+        "name": "Jia Hui Tan",
+        "house": "House D",
+        "student_pass": false,
+        "attendance_threshold": "85%"
+      },
+      {
+        "name": "Kabir Malhotra",
+        "house": "House A",
+        "student_pass": true,
+        "attendance_threshold": "90%"
+      },
+      {
+        "name": "Kiara D'Souza",
+        "house": "House B",
+        "student_pass": false,
+        "attendance_threshold": "85%"
+      },
+      {
+        "name": "Leah Thomas",
+        "house": "House C",
+        "student_pass": false,
+        "attendance_threshold": "85%"
+      },
+      {
+        "name": "Manav Joshi",
+        "house": "House D",
+        "student_pass": true,
+        "attendance_threshold": "90%"
+      },
+      {
+        "name": "Mei Chen",
+        "house": "House A",
+        "student_pass": false,
+        "attendance_threshold": "85%"
+      },
+      {
+        "name": "Nikhil Reddy",
+        "house": "House B",
+        "student_pass": false,
+        "attendance_threshold": "85%"
+      },
+      {
+        "name": "Nisha Pillai",
+        "house": "House C",
+        "student_pass": true,
+        "attendance_threshold": "90%"
+      },
+      {
+        "name": "Omar Siddiqui",
+        "house": "House D",
+        "student_pass": false,
+        "attendance_threshold": "85%"
+      },
+      {
+        "name": "Pari Bansal",
+        "house": "House A",
+        "student_pass": false,
+        "attendance_threshold": "85%"
+      },
+      {
+        "name": "Rehan Ali",
+        "house": "House B",
+        "student_pass": true,
+        "attendance_threshold": "90%",
+        "medical_alert": true
+      },
+      {
+        "name": "Riya Nair",
+        "house": "House C",
+        "student_pass": false,
+        "attendance_threshold": "85%"
+      },
+      {
+        "name": "Sahil Verma",
+        "house": "House D",
+        "student_pass": false,
+        "attendance_threshold": "85%"
+      },
+      {
+        "name": "Sana Qureshi",
+        "house": "House A",
+        "student_pass": true,
+        "attendance_threshold": "90%"
+      },
+      {
+        "name": "Shreya Das",
+        "house": "House B",
+        "student_pass": false,
+        "attendance_threshold": "85%"
+      },
+      {
+        "name": "Tanvi Kulkarni",
+        "house": "House C",
+        "student_pass": false,
+        "attendance_threshold": "85%"
+      },
+      {
+        "name": "Vedant Singh",
+        "house": "House D",
+        "student_pass": true,
+        "attendance_threshold": "90%"
+      },
+      {
+        "name": "Vivaan Mehta",
+        "house": "House A",
+        "student_pass": false,
+        "attendance_threshold": "85%"
+      },
+      {
+        "name": "Yash Agarwal",
+        "house": "House B",
+        "student_pass": false,
+        "attendance_threshold": "85%"
+      },
+      {
+        "name": "Zoe Fernandes",
+        "house": "House C",
+        "student_pass": true,
+        "attendance_threshold": "90%"
+      },
+      {
+        "name": "Arnav Chopra",
+        "house": "House D",
+        "student_pass": false,
+        "attendance_threshold": "85%"
+      }
+    ]
+  },
+  "needs_class": [
+    {
+      "student": "Noah Fernandes",
+      "student_number": "GS-2026-004388",
+      "programme": "CBSE 1-12",
+      "grade": "Grade 6",
+      "enrolment_status": "CONFIRMED",
+      "start_date": "2027-01-05",
+      "from": "Admissions APP-26-1098",
+      "suggested_class": "6B",
+      "why": "Fewest students (29 of 32); house balance",
+      "_note": "Student Pass still with ICA; can be pre-placed from the start date (SR-CL-06)"
+    },
+    {
+      "student": "Yuki Watanabe",
+      "student_number": "GS-2026-004102",
+      "programme": "CBSE 1-12",
+      "grade": "Grade 5",
+      "enrolment_status": "ENROLLED",
+      "current_class": "AEPP 1",
+      "reason": "AEPP_EXIT",
+      "due": "2027-01-08",
+      "suggested_class": "5C",
+      "why": "Six-month AEPP course ends (placement test 2 Jul 2026); 5C has most room (29 of 32)"
+    },
+    {
+      "student": "Mateo Garcia",
+      "student_number": "GS-2026-004455",
+      "programme": "IB PYP",
+      "grade": "Grade 3",
+      "enrolment_status": "CONFIRMED",
+      "start_date": "2027-01-05",
+      "from": "Admissions (not in admissions-sample)",
+      "suggested_class": "IB PYP 3C",
+      "why": "Fewest students (19 of 22)"
+    }
+  ],
+  "placement_history": [
+    {
+      "student": "Ravi Iyer",
+      "class": "6C",
+      "from": "2026-11-03",
+      "reason": "NEW_ENROLMENT",
+      "by": "Meera Joshi",
+      "_note": "Admissions handoff APP-26-0987 (SR-AD-07)"
+    },
+    {
+      "student": "Yuki Watanabe",
+      "class": "AEPP 1",
+      "from": "2026-07-13",
+      "reason": "AEPP_ENTRY",
+      "by": "Meera Joshi",
+      "_note": "student-sample.json still shows 5B with a placement note written before DL-65; under DL-73 the class is AEPP 1"
+    },
+    {
+      "student": "Hiroshi Tanaka",
+      "class": "AEPP 2",
+      "from": "2026-07-13",
+      "to": "2026-10-06",
+      "reason": "AEPP_ENTRY"
+    },
+    {
+      "student": "Hiroshi Tanaka",
+      "class": "7B",
+      "from": "2026-10-07",
+      "reason": "AEPP_EXIT",
+      "by": "Meera Joshi",
+      "approved_by": "Dr Anita Rao",
+      "_note": "7B was at 31; placement made it full (32)"
+    },
+    {
+      "student": "Dev Khanna",
+      "class": "8C",
+      "from": "2026-07-13",
+      "to": "2026-09-01",
+      "reason": "ALLOCATION"
+    },
+    {
+      "student": "Dev Khanna",
+      "class": "8A",
+      "from": "2026-09-02",
+      "reason": "CLASS_MOVE",
+      "by": "Meera Joshi",
+      "reason_note": "Restricted (T2): shown to coordinator and Principal only"
+    }
+  ],
+  "rollover_runs": [
+    {
+      "campus": "SG-OWD",
+      "brand": "OWIS",
+      "from": "AY 2026",
+      "to": "AY 2027",
+      "run_status": "READY_FOR_APPROVAL",
+      "prepared_by": "OWIS coordinator",
+      "approver": "Claire Tan",
+      "next_year_starts": "2027-01-04",
+      "_note": "Calendar-year campus: rollover happens now while GIIS SG is mid-year (MC-06)",
+      "classes": [
+        {
+          "from": "4 Orchid",
+          "to": "5 Orchid",
+          "lines": [
+            {
+              "student": "Lucas Lim",
+              "outcome": "PROMOTED",
+              "target": "Grade 5 · 5 Orchid",
+              "house": null,
+              "line_status": "READY"
+            },
+            {
+              "student": "Amelia Ng",
+              "outcome": "PROMOTED",
+              "target": "Grade 5 · 5 Orchid",
+              "line_status": "READY"
+            },
+            {
+              "student": "Ben Carter",
+              "outcome": "PROMOTED",
+              "target": "Grade 5 · 5 Lotus",
+              "line_status": "READY"
+            },
+            {
+              "student": "Chloe Yeo",
+              "outcome": "PROMOTED",
+              "target": "Grade 5 · 5 Lotus",
+              "line_status": "READY"
+            },
+            {
+              "student": "Daniel Ho",
+              "outcome": "PROMOTED",
+              "target": "Grade 5 · 5 Orchid",
+              "line_status": "READY"
+            },
+            {
+              "student": "Emma Liu",
+              "outcome": "PROMOTED",
+              "target": "Grade 5 · 5 Orchid",
+              "line_status": "READY"
+            },
+            {
+              "student": "Felix Wong",
+              "outcome": "PROMOTED",
+              "target": "Grade 5 · 5 Lotus",
+              "line_status": "READY"
+            },
+            {
+              "student": "Grace Tan",
+              "outcome": "PROMOTED",
+              "target": "Grade 5 · 5 Lotus",
+              "line_status": "READY"
+            },
+            {
+              "student": "Hannah Seah",
+              "outcome": "PROMOTED",
+              "target": "Grade 5 · 5 Orchid",
+              "line_status": "READY"
+            },
+            {
+              "student": "Isaac Low",
+              "outcome": "PROMOTED",
+              "target": "Grade 5 · 5 Lotus",
+              "line_status": "READY"
+            },
+            {
+              "student": "Jayden Koh",
+              "outcome": "PROMOTED",
+              "target": "Grade 5 · 5 Orchid",
+              "line_status": "READY"
+            },
+            {
+              "student": "Kai Chua",
+              "outcome": "PROMOTED",
+              "target": "Grade 5 · 5 Lotus",
+              "line_status": "READY"
+            },
+            {
+              "student": "Lily Sim",
+              "outcome": "PROMOTED",
+              "target": "Grade 5 · 5 Orchid",
+              "line_status": "READY"
+            },
+            {
+              "student": "Marcus Teo",
+              "outcome": "PROMOTED",
+              "target": "Grade 5 · 5 Lotus",
+              "line_status": "READY"
+            },
+            {
+              "student": "Nora Ang",
+              "outcome": "RETAINED",
+              "outcome_source": "PRINCIPAL_DECISION",
+              "target": "Grade 4 · class to choose",
+              "line_status": "NEEDS_DECISION",
+              "_note": "OWIS retention rule not documented; who decides retention is open (OQ-79)"
+            },
+            {
+              "student": "Owen Lee",
+              "outcome": "LEAVING",
+              "outcome_source": "WITHDRAWAL_CASE",
+              "line_status": "EXCLUDED",
+              "_note": "Withdrawal effective 27 Nov 2026"
+            },
+            {
+              "student": "Priya Raman",
+              "outcome": "NEW_ADMISSION_ELSEWHERE",
+              "target": "GIIS SG-PGL CBSE Grade 5",
+              "line_status": "EXCLUDED",
+              "_note": "Year-end move into another brand = new admission via Admissions (DL-63)"
+            },
+            {
+              "student": "Ryan Goh",
+              "outcome": "PROMOTED_CONDITIONAL",
+              "target": "Grade 5 · 5 Lotus",
+              "line_status": "NEEDS_DECISION",
+              "_note": "Re-test result pending (OQ-79)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campus": "SG-PGL",
+      "from": "AY 2026-27",
+      "to": "AY 2027-28",
+      "run_status": "DRAFT",
+      "next_year_starts": "2027-07-12",
+      "_note": "Outcomes arrive after Semester 2 results (HB p.128-131); nothing to review yet"
+    },
+    {
+      "campus": "SG-PGL",
+      "from": "AY 2025-26",
+      "to": "AY 2026-27",
+      "run_status": "APPLIED",
+      "approved_by": "Dr Anita Rao",
+      "applied_at": "2026-06-20",
+      "counts": {
+        "PROMOTED": 1388,
+        "PROMOTED_CONDITIONAL": 6,
+        "RETAINED": 3,
+        "GRADUATING": 142,
+        "LEAVING": 97
+      },
+      "example": {
+        "student": "Aarav Sharma",
+        "from": "6B",
+        "to": "7B",
+        "house": "House B carried forward (DL-75)"
+      }
+    },
+    {
+      "campus": "KH-HLP",
+      "brand": "Harrods",
+      "from": "AY 2025-26",
+      "to": "AY 2026-27",
+      "run_status": "APPLIED",
+      "example": {
+        "student": "Sokha Chan",
+        "from": "KH-HLP Year 4 · 4B",
+        "to": "KH-HUP Year 5",
+        "approval": "None needed: stage-campus promotion (DL-62)"
+      }
+    }
+  ]
+}
