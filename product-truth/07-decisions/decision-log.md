@@ -94,9 +94,9 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-80 | Invoices only from approved billing runs or defined events; issued invoices never edited, corrected by credit notes | Assumed | FB08–FB10, FB13 |
 | DL-81 | Discounts, scholarships, bursaries, waivers are dated adjustments with an approver, shown on the invoice line | Assumed | FB07, OQ-83 |
 | DL-82 | Gateway confirmation is the truth online; offline payments recorded with receipt; oldest-first allocation; no card numbers stored; refund bank details masked | Assumed | FB11/FB12, OQ-82 |
-| DL-83 | One derived fee status per enrolment (CLEAR, DUE, OVERDUE, PAUSED) for other modules; no automatic sanctions; teachers don't see it | Assumed | OQ-84, AD09 |
+| DL-83 | One derived fee status per enrolment (CLEAR, DUE, OVERDUE, PAUSED) for other modules; no automatic sanctions; teachers don't see it | **Confirmed** (Henry, 14 Nov 2026) | OQ-84, AD09 |
 | DL-84 | Refunds from a versioned refund rule set per brand-country; approval and deadline on the shared Case; approvers a brand-country setting | Assumed | DL-08, FB14, HB p.240–245, OQ-86 |
-| DL-85 | Parents see and pay only accounts they pay or that a payer shared; other guardians see no finance; students never | Assumed | DL-37, DL-68, FB06 |
+| DL-85 | Parents see and pay only accounts they pay or that a payer shared; other guardians see no finance; students never | **Confirmed** (Henry, 14 Nov 2026) | DL-37, DL-68, FB06 |
 | DL-86 | Approved long leave pauses billing; billing after withdrawal follows the campus cut-off setting | Assumed | FB16, HB p.237, p.244 |
 
 ---
@@ -427,7 +427,8 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **DL-77.** Henry chose option A on 14 Nov 2026: Campus OS owns billing and sends journals to the ERP. Rejected: B, the ERP owns billing and Campus OS shows its status (less to build, but the parent app and Admissions would depend on each ERP's API, and the Architecture's "build, buy or hybrid?" question would have to be answered first). This answers that question for finance.
 - **Decision.** See the table above and [fees & billing dictionary § Decisions](../03-domain/fees-billing-data-dictionary.md#decisions).
 - **Why.** One writer for money owed and paid; live status for Admissions, withdrawal and parents; GIIS SG handbook rules become versioned settings (Arch § Principles).
-- **Status.** DL-77 Confirmed by Henry, 14 Nov 2026; DL-78…DL-86 Assumed, pending Henry.
+- **DL-83, DL-85.** Henry chose option A for both (14 Nov 2026). DL-83: fee status is information only, with no automatic holds (rejected B: overdue automatically holds report cards or re-enrolment). DL-85: only payers, or guardians a payer shares with, see finance (rejected B: every verified guardian sees fees).
+- **Status.** DL-77, DL-83 and DL-85 Confirmed by Henry, 14 Nov 2026; DL-78…82, DL-84 and DL-86 Assumed, pending Henry.
 
 ## How design direction becomes architecture
 
