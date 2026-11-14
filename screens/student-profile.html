@@ -1,0 +1,598 @@
+<title>Student Profile</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<!--
+  Screen: SCR-SD-02 Student profile (detail) · Campus OS staff app
+  Viewers: P-Admissions Lina Goh (Admissions Officer) and Class Teacher Farah Ismail (7B), both at GSG › GIIS › GIIS Singapore › SMART Campus Punggol
+  Objects: OBJ-02 Student (primary), OBJ-03 Enrolment, OBJ-04 Guardian, OBJ-11 Audit event (reveal log)
+  States rendered: success, masked, revealed, no access (hidden), pending
+  Sample: /mnt/project-files/student-directory/claude-design/2-sample-data.json · GS-2024-001842 Aarav Sharma · today 6 Nov 2026 · all data synthetic
+  AR: AR-02 AR-05 AR-06 AR-07 AR-08 AR-09 AR-10 AR-12 AR-13 AR-14
+  AP: AP-01 AP-03 AP-04 AP-05 AP-06 AP-07 AP-10 AP-13 AP-14
+  DL: DL-24 DL-25 DL-28 DL-29 DL-30 DL-31 DL-32 DL-34 DL-36 DL-38 DL-41 DL-42 DL-43 DL-45 DL-47 DL-54 DL-55 DL-62 DL-64 DL-66 DL-67
+  OQ: OQ-02 (operating entity list) OQ-09 (purpose catalogue) OQ-11 (custody) OQ-28 (MyGIIS cutover) OQ-47 (A17 approver) BR-06 (student templates pending)
+  Spec: Student Directory v1.0 (locked 13 Nov 2026)
+  Synthetic full document numbers appear only after reveal and are invented for the prototype.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#00A76F;--primary-dark:#007867;--primary-soft:rgba(0,167,111,.08);--primary-soft2:rgba(0,167,111,.16);
+  --secondary:#8E33FF;--secondary-soft:rgba(142,51,255,.08);
+  --error:#B71D18;--error-soft:rgba(255,86,48,.12);
+  --warning:#B76E00;--warning-soft:rgba(255,171,0,.14);--warning-line:#FFAB00;
+  --info:#006C9C;--info-soft:rgba(0,184,217,.12);
+  --success:#118D57;--success-soft:rgba(34,197,94,.14);
+  --text:#212B36;--text2:#637381;--text3:#919EAB;
+  --bg:#FFFFFF;--paper:#FFFFFF;--neutral:#F4F6F8;--canvas:#EDEFF2;
+  --divider:rgba(145,158,171,.2);--line:rgba(145,158,171,.32);
+  --z1:0 1px 2px rgba(145,158,171,.16);
+  --card:0 0 2px 0 rgba(145,158,171,.2),0 12px 24px -4px rgba(145,158,171,.12);
+  --scrim:rgba(22,28,36,.48);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --primary:#5BE49B;--primary-dark:#5BE49B;--primary-soft:rgba(91,228,155,.10);--primary-soft2:rgba(91,228,155,.18);
+  --secondary:#C684FF;--secondary-soft:rgba(198,132,255,.12);
+  --error:#FFAC82;--error-soft:rgba(255,86,48,.18);
+  --warning:#FFD666;--warning-soft:rgba(255,171,0,.16);
+  --info:#61F3F3;--info-soft:rgba(0,184,217,.16);
+  --success:#77ED8B;--success-soft:rgba(34,197,94,.16);
+  --text:#FFFFFF;--text2:#919EAB;--text3:#637381;
+  --bg:#161C24;--paper:#212B36;--neutral:#28323D;--canvas:#10141A;
+  --card:0 0 2px 0 rgba(0,0,0,.2),0 12px 24px -4px rgba(0,0,0,.16);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --primary:#5BE49B;--primary-dark:#5BE49B;--primary-soft:rgba(91,228,155,.10);--primary-soft2:rgba(91,228,155,.18);
+  --secondary:#C684FF;--secondary-soft:rgba(198,132,255,.12);
+  --error:#FFAC82;--error-soft:rgba(255,86,48,.18);
+  --warning:#FFD666;--warning-soft:rgba(255,171,0,.16);
+  --info:#61F3F3;--info-soft:rgba(0,184,217,.16);
+  --success:#77ED8B;--success-soft:rgba(34,197,94,.16);
+  --text:#FFFFFF;--text2:#919EAB;--text3:#637381;
+  --bg:#161C24;--paper:#212B36;--neutral:#28323D;--canvas:#10141A;
+  --card:0 0 2px 0 rgba(0,0,0,.2),0 12px 24px -4px rgba(0,0,0,.16);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--canvas);color:var(--text);font:400 14px/1.57 "Public Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.mono{font-variant-numeric:tabular-nums}
+
+/* ---------- Prototype toolbar (not part of the product) ---------- */
+.proto{position:sticky;top:0;z-index:30;background:var(--paper);border-bottom:1px solid var(--divider);
+  padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));
+  display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+.proto-title{font-weight:700;font-size:13px;margin-right:auto;display:flex;gap:8px;align-items:center}
+.proto-title small{font-weight:500;color:var(--text2)}
+.ctl{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2)}
+.seg{display:inline-flex;background:var(--neutral);border-radius:8px;padding:3px}
+.seg button{border:0;background:transparent;padding:5px 10px;border-radius:6px;font-size:12px;font-weight:600;color:var(--text2);white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--paper);color:var(--text);box-shadow:var(--z1)}
+
+.stage{padding:24px max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
+.device{margin:0 auto;background:var(--bg);border-radius:16px;overflow:hidden;box-shadow:var(--card);max-width:1440px}
+.stage.mobile .device{max-width:390px;height:800px;border-radius:36px;border:10px solid #161C24;display:flex;flex-direction:column}
+.stage.mobile .app{flex:1;overflow:auto}
+
+/* ---------- App shell ---------- */
+.app{container-type:inline-size;background:var(--bg);min-height:640px}
+.shell{display:grid;grid-template-columns:280px 1fr;min-height:100%}
+.side{border-right:1px dashed var(--line);padding:20px 16px;display:flex;flex-direction:column;gap:4px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;padding:4px 8px 20px}
+.logo i{width:32px;height:32px;border-radius:10px;background:var(--primary);display:grid;place-items:center;color:#fff;font-style:normal;font-size:14px}
+:root[data-theme="dark"] .logo i{color:#161C24}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo i{color:#161C24}}
+.nav-h{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);padding:12px 12px 6px}
+.nav a{display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:8px;color:var(--text2);text-decoration:none;font-weight:500;min-height:44px}
+.nav a.on{background:var(--primary-soft);color:var(--primary);font-weight:600}
+.nav svg{width:22px;height:22px;flex:none}
+
+.main{min-width:0;display:flex;flex-direction:column}
+.top{height:64px;display:flex;align-items:center;gap:12px;padding:0 24px;border-bottom:1px solid var(--divider);position:sticky;top:0;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(6px);z-index:5}
+.scope{display:flex;align-items:center;gap:6px;min-width:0;border:1px solid var(--line);border-radius:8px;padding:6px 10px;background:transparent;font-size:13px;font-weight:500}
+.scope span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.scope .sep{color:var(--text3)}
+.scope b{font-weight:700}
+.top .grow{flex:1}
+.iconbtn{width:40px;height:40px;border-radius:50%;border:0;background:transparent;display:grid;place-items:center;color:var(--text2)}
+.iconbtn svg{width:22px;height:22px}
+.me{display:flex;align-items:center;gap:10px}
+.me .who{line-height:1.25;text-align:right}
+.me .who b{display:block;font-size:13px}
+.me .who small{color:var(--text2);font-size:12px}
+
+.avatar{border-radius:50%;display:grid;place-items:center;font-weight:700;flex:none}
+.av-sm{width:36px;height:36px;font-size:13px;background:var(--secondary-soft);color:var(--secondary)}
+
+.content{padding:24px 40px 48px;max-width:1200px;width:100%;margin:0 auto}
+.crumbs{font-size:13px;color:var(--text2);display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.crumbs .dot{width:4px;height:4px;border-radius:50%;background:var(--text3);align-self:center}
+.crumbs b{color:var(--text);font-weight:500}
+
+/* Person header AP-03 */
+.hero{background:var(--paper);border-radius:16px;box-shadow:var(--card);overflow:hidden;margin-bottom:24px}
+.hero-band{height:72px;background:linear-gradient(120deg,var(--primary-soft2),var(--secondary-soft))}
+.hero-body{display:flex;gap:20px;padding:0 24px 20px;align-items:flex-end;flex-wrap:wrap;margin-top:-36px}
+.av-xl{width:96px;height:96px;font-size:32px;background:var(--primary);color:#fff;border:4px solid var(--paper)}
+:root[data-theme="dark"] .av-xl{color:#161C24}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .av-xl{color:#161C24}}
+.hero-id{flex:1;min-width:220px;padding-top:40px}
+.hero-id h1{margin:0;font-size:24px;line-height:1.3;font-weight:700}
+.hero-meta{color:var(--text2);font-size:14px;margin-top:2px;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.hero-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+.chip{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 8px;border-radius:6px;font-size:12px;font-weight:700;line-height:1;white-space:nowrap}
+.c-success{background:var(--success-soft);color:var(--success)}
+.c-warning{background:var(--warning-soft);color:var(--warning)}
+.c-error{background:var(--error-soft);color:var(--error)}
+.c-info{background:var(--info-soft);color:var(--info)}
+.c-default{background:var(--neutral);color:var(--text2)}
+.c-role{background:var(--secondary-soft);color:var(--secondary)}
+.c-pending{background:transparent;border:1px solid var(--warning-line);color:var(--warning);font-weight:600}
+.c-source{background:var(--info-soft);color:var(--info);font-weight:600}
+.chip svg{width:13px;height:13px}
+
+.btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--line);background:transparent;font-weight:700;font-size:14px;white-space:nowrap}
+.btn-primary{background:var(--text);color:var(--bg);border-color:var(--text)}
+.btn-sm{height:30px;padding:0 10px;font-size:13px}
+.btn-ghost{border-color:transparent;color:var(--primary)}
+.btn svg{width:18px;height:18px}
+
+/* Tabs */
+.tabs{display:flex;gap:28px;border-bottom:1px solid var(--divider);padding:0 24px;overflow-x:auto;scrollbar-width:none}
+.tabs a{padding:12px 0;color:var(--text2);text-decoration:none;font-weight:600;white-space:nowrap;border-bottom:2px solid transparent}
+.tabs a.on{color:var(--text);border-color:var(--text)}
+
+/* Cards */
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+.span2{grid-column:1/-1}
+.card{background:var(--paper);border-radius:16px;box-shadow:var(--card);scroll-margin-top:80px}
+.card-h{display:flex;align-items:center;gap:8px;padding:20px 24px 0;flex-wrap:wrap}
+.card-h h2{margin:0;font-size:17px;font-weight:700;margin-right:auto}
+.card-b{padding:16px 24px 24px}
+.why{border:0;background:transparent;color:var(--text2);font-size:12px;font-weight:600;display:inline-flex;gap:4px;align-items:center;padding:4px 6px;border-radius:6px;min-height:32px}
+.why:hover{background:var(--neutral)}
+.why svg{width:16px;height:16px}
+.explain{margin:12px 24px 0;padding:12px 14px;border-radius:10px;background:var(--neutral);font-size:13px}
+.explain dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0}
+.explain dt{color:var(--text2)}
+.explain dd{margin:0;font-weight:500;overflow-wrap:anywhere}
+.explain code{font-size:12px;background:var(--paper);padding:1px 5px;border-radius:4px}
+
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 24px}
+.f{min-width:0}
+.f .l{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.f .v{font-weight:500;margin-top:2px;overflow-wrap:anywhere;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tier{font-size:10px;font-weight:700;color:var(--text3);border:1px solid var(--line);border-radius:4px;padding:0 4px;line-height:16px}
+
+.masked{display:inline-flex;align-items:center;gap:6px;color:var(--text2);font-family:ui-monospace,Menlo,monospace;letter-spacing:.04em}
+.masked svg{width:15px;height:15px}
+
+.noaccess{display:flex;gap:14px;align-items:flex-start;padding:16px;border:1px dashed var(--line);border-radius:12px}
+.noaccess .ico{width:40px;height:40px;border-radius:12px;background:var(--neutral);display:grid;place-items:center;color:var(--text2);flex:none}
+.noaccess .ico svg{width:22px;height:22px}
+.noaccess b{display:block}
+.noaccess p{margin:2px 0 0;color:var(--text2);font-size:13px}
+
+.addr{display:flex;flex-direction:column;gap:12px}
+.addr-row{padding:12px 14px;border-radius:10px;border:1px solid var(--divider)}
+.addr-row .l{font-size:12px;color:var(--text2);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.addr-row .v{font-weight:500;margin-top:2px}
+
+.doc{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:14px;border-radius:12px;border:1px solid var(--divider);margin-bottom:12px}
+.doc .t{font-weight:700;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.doc .s{grid-column:1/-1;color:var(--text2);font-size:13px;display:flex;flex-wrap:wrap;gap:4px 14px}
+.logline{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--text2);padding:10px 12px;border-radius:8px;background:var(--info-soft);margin-top:4px}
+.logline svg{width:16px;height:16px;color:var(--info);flex:none;margin-top:1px}
+
+/* Timeline AP-05 */
+.tl{list-style:none;margin:0;padding:0}
+.tl li{position:relative;padding:0 0 20px 28px}
+.tl li::before{content:"";position:absolute;left:6px;top:20px;bottom:0;width:2px;background:var(--divider)}
+.tl li:last-child::before{display:none}
+.tl .dotm{position:absolute;left:0;top:5px;width:14px;height:14px;border-radius:50%;border:3px solid var(--paper);box-shadow:0 0 0 2px var(--line);background:var(--text3)}
+.tl .dotm.cur{background:var(--success);box-shadow:0 0 0 2px var(--success-soft)}
+.tl .h{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-weight:700}
+.tl .m{color:var(--text2);font-size:13px}
+
+.guard{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.g{border:1px solid var(--divider);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.g-top{display:flex;gap:12px;align-items:center}
+.av-md{width:44px;height:44px;font-size:15px;background:var(--info-soft);color:var(--info)}
+.g-top b{display:block}
+.g-top small{color:var(--text2)}
+.flags{display:flex;gap:6px;flex-wrap:wrap}
+.contact{display:flex;flex-direction:column;gap:4px;font-size:13px}
+.contact div{display:flex;gap:8px;align-items:center}
+.contact svg{width:16px;height:16px;color:var(--text3);flex:none}
+
+.pendcard{border:1px dashed var(--warning-line);border-radius:12px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;background:transparent}
+.pendcard p{margin:2px 0 0;color:var(--text2);font-size:13px}
+
+.foot{margin-top:24px;font-size:12px;color:var(--text3)}
+
+/* Bottom nav for compact widths */
+.bnav{display:none}
+
+/* ---------- Compact layout, driven by frame width ---------- */
+@container (max-width: 1080px){
+  .shell{grid-template-columns:88px 1fr}
+  .side .logo span,.nav-h,.nav a span{display:none}
+  .nav a{justify-content:center;padding:10px}
+  .content{padding:24px 24px 48px}
+}
+@container (max-width: 860px){
+  .grid,.guard{grid-template-columns:minmax(0,1fr)}
+  .me .who{display:none}
+}
+@container (max-width: 640px){
+  .shell{grid-template-columns:1fr}
+  .side{display:none}
+  .top{padding:0 12px;height:56px}
+  .scope .hide-sm{display:none}
+  .content{padding:16px 16px 96px}
+  .hero-body{padding:0 16px 16px;gap:12px}
+  .av-xl{width:72px;height:72px;font-size:24px}
+  .hero-id{padding-top:0;min-width:100%}
+  .hero-id h1{font-size:20px}
+  .hero-actions{width:100%}
+  .hero-actions .btn{flex:1;justify-content:center}
+  .tabs{padding:0 16px;gap:20px}
+  .card-h{padding:16px 16px 0}
+  .card-b{padding:12px 16px 16px}
+  .explain{margin:12px 16px 0}
+  .fields{grid-template-columns:minmax(0,1fr)}
+  .crumbs{display:none}
+  .bnav{display:flex;position:sticky;bottom:0;background:var(--paper);border-top:1px solid var(--divider);justify-content:space-around;padding:6px 0 calc(6px + env(safe-area-inset-bottom,0px))}
+  .bnav a{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;font-weight:600;color:var(--text2);text-decoration:none;min-width:64px;min-height:44px;justify-content:center}
+  .bnav a.on{color:var(--primary)}
+  .bnav svg{width:22px;height:22px}
+}
+
+/* Dialog */
+.scrim{position:fixed;inset:0;background:var(--scrim);display:grid;place-items:center;padding:16px;z-index:50}
+.dlg{background:var(--paper);border-radius:16px;box-shadow:0 24px 48px rgba(0,0,0,.24);width:100%;max-width:480px;padding:24px}
+.dlg h3{margin:0 0 4px;font-size:18px}
+.dlg p{margin:0 0 16px;color:var(--text2);font-size:13px}
+.dlg label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin:12px 0 6px}
+.dlg select,.dlg textarea{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.dlg textarea{min-height:72px;resize:vertical}
+.dlg .row{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+.dlg .btn-primary:disabled{opacity:.4;cursor:not-allowed}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:600;font-size:13px;z-index:60;max-width:calc(100% - 32px)}
+</style>
+
+<div class="proto" role="region" aria-label="Prototype controls">
+  <div class="proto-title">Student profile <small>Direction prototype · synthetic data</small></div>
+  <div class="ctl">Viewer
+    <div class="seg" id="segViewer">
+      <button data-v="admissions" aria-pressed="true">Admissions · Lina Goh</button>
+      <button data-v="teacher" aria-pressed="false">Class teacher · Farah Ismail</button>
+    </div>
+  </div>
+  <div class="ctl">Frame
+    <div class="seg" id="segFrame">
+      <button data-f="desktop" aria-pressed="true">Desktop</button>
+      <button data-f="mobile" aria-pressed="false">Mobile</button>
+    </div>
+  </div>
+  <div class="ctl">Theme
+    <div class="seg" id="segTheme">
+      <button data-t="auto" aria-pressed="true">Auto</button>
+      <button data-t="light" aria-pressed="false">Light</button>
+      <button data-t="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+</div>
+
+<div class="stage" id="stage">
+  <div class="device"><div class="app" id="app"></div></div>
+</div>
+
+<div id="layer"></div>
+
+<script>
+(function(){
+const I={
+  home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>',
+  students:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M17.5 14.5A5 5 0 0 1 21.5 19"/></svg>',
+  admissions:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>',
+  attendance:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18M9 15l2 2 4-4"/></svg>',
+  staff:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
+  access:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6z"/></svg>',
+  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
+  eye:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+  info:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>',
+  link:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>',
+  phone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2"/></svg>',
+  mail:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
+  log:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg>',
+  chev:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="m6 9 6 6 6-6"/></svg>',
+  bell:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg>',
+  search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
+  menu:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>'
+};
+
+/* Sample record: GS-2024-001842 from 2-sample-data.json */
+const S={
+  id:'GS-2024-001842',legal:'Aarav Sharma',preferred:'Aarav',initials:'AS',dob:'18 Feb 2014',age:'12',
+  record:'ACTIVE',threshold:'90%',
+  current:{ay:'AY 2026-27',programme:'CBSE 1-12',grade:'Grade 7',segment:'Middle',cls:'7B',house:'House B',status:'ENROLLED',start:'13 Jul 2026',campus:'SMART Campus Punggol'},
+  history:[
+    {ay:'AY 2026-27',label:'Grade 7 · Class 7B',status:'ENROLLED',dates:'From 13 Jul 2026',reason:null,cur:true},
+    {ay:'AY 2025-26',label:'Grade 6 · Class 6B',status:'COMPLETED',dates:'14 Jul 2025 – 12 Jun 2026',reason:'Promotion rollover'}
+  ],
+  addresses:[
+    {type:'Current',v:'Blk 618 Punggol Drive #08-112, Singapore 820618'},
+    {type:'International home',v:'C-41 Sector 50, Noida, UP 201301, India'}
+  ],
+  docs:[
+    {type:'Passport',masked:'Z•••••4821',full:'Z7718 4821',country:'India',expiry:'9 Jan 2027',chip:['warning','Expires 9 Jan 2027'],verified:'Lina Goh'},
+    {type:'Student Pass',masked:'G•••••557K',full:'G4410 557K',country:'Singapore',expiry:'30 Jun 2027',chip:['success','Valid'],verified:'Lina Goh'}
+  ],
+  nationality:'India',immigration:'Student Pass, valid to 30 Jun 2027',
+  guardians:[
+    {name:'Neha Sharma',initials:'NS',rel:'MOTHER',ver:'VERIFIED',collect:true,emergency:true,priority:1,phone:'+65 9123 4471',email:'neha.sharma@mail.example'},
+    {name:'Vikram Sharma',initials:'VS',rel:'FATHER',ver:'VERIFIED',collect:false,emergency:true,priority:2,alsoIn:'India',phone:'+91 98110 22764',email:'vikram.sharma@mail.example'}
+  ]
+};
+
+/* State colours from object cards (AP-14) */
+const ST={ACTIVE:'success',INACTIVE:'default',ARCHIVED:'default',
+  OFFERED:'info',CONFIRMED:'info',ENROLLED:'success',DEFERRED:'warning',TRANSFERRED_OUT:'default',WITHDRAWN:'default',COMPLETED:'default',CANCELLED:'error',
+  PENDING:'warning',VERIFIED:'success',REJECTED:'error'};
+const label=s=>s.charAt(0)+s.slice(1).toLowerCase().replace(/_/g,' ');
+const chip=(s)=>`<span class="chip c-${ST[s]||'default'}">${label(s)}</span>`;
+const pend=(oq,t)=>`<!-- pending: ${oq} --><span class="chip c-pending" title="Open question ${oq}">Pending · ${oq}${t?' '+t:''}</span>`;
+const tier=t=>`<span class="tier" title="Data tier">${t}</span>`;
+
+/* Viewers: capability sets per DL-34. Student templates are pending (BR-06); sets follow the student field matrix. */
+const V={
+  admissions:{name:'Lina Goh',initials:'LG',role:'Admissions Officer',template:'Admissions Officer',
+    caps:['student.profile.view','student.profile.view_confidential','student.profile.edit','student.address.view','student.identity.reveal','student.attendance_threshold.view','student.enrolment.view','admissions.enrolment.end','admissions.enrolment.transfer','student.guardian.view','student.guardian_contact.view','student.guardian.verify','student.guardian.edit'],
+    t3:'A17'},
+  teacher:{name:'Farah Ismail',initials:'FI',role:'Class Teacher, 7B',template:'Class Teacher',
+    caps:['student.profile.view','student.profile.view_confidential','student.attendance_threshold.view','student.enrolment.view','student.guardian.view','student.guardian_contact.view'],
+    t3:null}
+};
+let viewer='admissions';
+const revealed={};
+const open={};
+const can=c=>V[viewer].caps.includes(c);
+
+/* AP-07 explainer content (DL-38: deciding layer + source record) */
+function explain(key){
+  const v=V[viewer];
+  const base=`<dt>Scope</dt><dd>Membership on SMART Campus Punggol (A05, DL-35)</dd><dt>Template</dt><dd>${v.template} ${pend('BR-06','template')}</dd>`;
+  const m={
+    profile:[`student.profile.view`,'Capability from template'],
+    address:can('student.address.view')?[`student.address.view`,'Capability from template']:[`student.address.view`,'Not held: field group hidden'],
+    identity:v.t3?[`student.identity.reveal`,'Tier 3 type grant A17: Admissions Officers, student identity, SMART Campus Punggol (DL-36)']:[`student.identity.reveal`,'Not held, and no A17 grant or A15 record ACL'],
+    enrolment:[`student.enrolment.view`,'Capability from template'],
+    guardians:[`student.guardian.view · student.guardian_contact.view`,'Capability from template']
+  }[key];
+  let extra='';
+  if(key==='identity'&&v.t3) extra=`<dt>A17 approver</dt><dd>${pend('OQ-47')}</dd>`;
+  if(viewer==='teacher') extra+=`<dt>Note</dt><dd>Being class teacher of 7B is a relationship, not access (AR-09). Access comes only from the Access Registry.</dd>`;
+  return `<div class="explain" role="region" aria-label="Why can I see this"><dl><dt>Capability</dt><dd><code>${m[0]}</code></dd><dt>Deciding layer</dt><dd>${m[1]}</dd>${base}${extra}</dl></div>`;
+}
+const whyBtn=k=>`<button class="why" data-why="${k}" aria-expanded="${!!open[k]}">${I.info}Why can I see this?</button>`;
+
+function field(l,v,t,extra){return `<div class="f"><div class="l">${l} ${t?tier(t):''}${extra||''}</div><div class="v">${v}</div></div>`;}
+
+function render(){
+  const v=V[viewer], c=S.current;
+  const navItems=[['home','Home'],['students','Students'],['admissions','Admissions'],['attendance','Attendance'],['staff','Staff'],['access','Access']];
+  const nav=navItems.filter(([k])=> viewer==='admissions' || !['admissions','staff','access'].includes(k));
+
+  const isAdm=viewer==='admissions';
+
+  /* ---- Identity and documents (T3) ---- */
+  let identity;
+  if(!can('student.identity.reveal')){
+    identity=`<div class="noaccess"><div class="ico">${I.lock}</div><div><b>Identity documents are restricted</b>
+      <p>Passport, Student Pass, nationality and immigration status are Tier 3. You don't hold <code>student.identity.reveal</code> for this student.</p>
+      <p>If you need them for a school task, ask Admissions at SMART Campus Punggol.</p></div></div>`;
+  }else{
+    identity=S.docs.map((d,i)=>{
+      const r=revealed['doc'+i];
+      return `<div class="doc"><div class="t">${d.type} ${tier('T3')} <span class="chip c-${d.chip[0]}">${d.chip[1]}</span></div>
+        <div>${r?`<button class="btn btn-sm" data-mask="doc${i}">${I.lock}Hide</button>`:`<button class="btn btn-sm" data-reveal="doc${i}">${I.eye}Reveal</button>`}</div>
+        <div class="s"><span>Number <b class="mono" style="color:var(--text)">${r?d.full:`<span class="masked">${I.lock}${d.masked}</span>`}</b></span><span>Issued by ${r?d.country:'•••••'}</span><span>Expiry ${d.expiry}</span><span>Verified by ${d.verified}</span></div></div>`;
+    }).join('')+
+    `<div class="fields" style="margin-top:4px">
+      ${field('Nationality',revealed.nat?S.nationality:`<span class="masked">${I.lock}•••••</span>`,'T3')}
+      ${field('Immigration status',revealed.nat?S.immigration:`<span class="masked">${I.lock}•••••••••</span>`,'T3')}
+    </div>
+    <div style="margin-top:12px">${revealed.nat?`<button class="btn btn-sm" data-mask="nat">${I.lock}Hide</button>`:`<button class="btn btn-sm" data-reveal="nat">${I.eye}Reveal nationality and status</button>`}</div>
+    ${Object.values(revealed).some(Boolean)?`<div class="logline" style="margin-top:12px">${I.log}<span>${revealed._log}</span></div>`:''}`;
+  }
+
+  /* ---- Addresses (T2) ---- */
+  let addresses;
+  if(can('student.address.view')){
+    addresses=`<div class="addr">${S.addresses.map(a=>`<div class="addr-row"><div class="l">${a.type} ${tier('T2')}</div><div class="v">${a.v}</div></div>`).join('')}</div>
+      <p style="margin:12px 0 0;font-size:13px;color:var(--text2)">Parents edit addresses in the parent app (DL-28). Campus OS shows them read-only until the MyGIIS cutover ${pend('OQ-28')}</p>`;
+  }else{
+    addresses=`<div class="noaccess"><div class="ico">${I.lock}</div><div><b>Addresses are hidden</b><p>Tier 2. You don't hold <code>student.address.view</code>. Guardian contacts below are how to reach the family.</p></div></div>`;
+  }
+
+  /* ---- Guardians ---- */
+  const guardians=`<div class="guard">${S.guardians.map(g=>`<div class="g">
+      <div class="g-top"><div class="avatar av-md">${g.initials}</div><div><b>${g.name}</b><small>${label(g.rel)} · Contact priority ${g.priority}</small></div><span style="margin-left:auto">${chip(g.ver)}</span></div>
+      ${g.alsoIn?`<div class="logline" style="margin-top:0">${I.info}<span>Also a guardian of a child in <b>Data location: ${g.alsoIn}</b>. One login; a separate guardian profile there (DL-55). Phone, email and address changes apply in both (DL-64).</span></div>`:''}
+      <div class="flags">${g.collect?'<span class="chip c-default">Can collect</span>':'<span class="chip c-default">Cannot collect</span>'}${g.emergency?'<span class="chip c-default">Emergency contact</span>':''}</div>
+      ${can('student.guardian_contact.view')?`<div class="contact"><div>${I.phone}<span class="mono">${g.phone}</span></div><div>${I.mail}<span>${g.email}</span></div></div>`:''}
+      <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center"><span class="chip c-source">${I.link}Contacts edited by parent</span>${isAdm?`<button class="btn btn-sm btn-ghost" data-proto="Guardian record (OBJ-04) opens">Open guardian</button>`:''}</div>
+    </div>`).join('')}</div>
+    <div class="pendcard" style="margin-top:16px">${pend('OQ-11')}<div><b>Custody and court orders</b><p>Where custody limits who may collect or receive information, it will show here. How it is recorded is still open.</p></div></div>`;
+
+  document.getElementById('app').innerHTML=`
+  <div class="shell">
+    <aside class="side" aria-label="Main navigation">
+      <div class="logo"><i>C</i><span>Campus OS</span></div>
+      <div class="nav-h">Campus</div>
+      <nav class="nav">${nav.map(([k,t])=>`<a href="#" class="${k==='students'?'on':''}" data-proto="${t} opens">${I[k]}<span>${t}</span></a>`).join('')}</nav>
+    </aside>
+    <div class="main">
+      <header class="top">
+        <button class="iconbtn" aria-label="Menu" style="display:none" data-compact>${I.menu}</button>
+        <!-- AP-01 scope breadcrumb; picker lists only nodes the viewer holds -->
+        <button class="scope" data-proto="Scope picker: only nodes you hold" aria-label="Current scope">
+          <span class="hide-sm">GIIS</span><span class="sep hide-sm">›</span><span class="hide-sm">GIIS Singapore</span><span class="sep hide-sm">›</span><span><b>SMART Campus Punggol</b></span>${I.chev}
+        </button>
+        <div class="grow"></div>
+        <button class="iconbtn" aria-label="Search">${I.search}</button>
+        <button class="iconbtn" aria-label="Notifications">${I.bell}</button>
+        <div class="me"><div class="who"><b>${v.name}</b><small>${v.role}</small></div><div class="avatar av-sm">${v.initials}</div></div>
+      </header>
+
+      <div class="content">
+        <div class="crumbs"><span>Students</span><span class="dot"></span><span>Grade 7</span><span class="dot"></span><b>${S.legal}</b></div>
+
+        <!-- AP-03 person header · OBJ-02 -->
+        <section class="hero">
+          <div class="hero-band"></div>
+          <div class="hero-body">
+            <div class="avatar av-xl" aria-label="Photo">${S.initials}</div>
+            <div class="hero-id">
+              <h1>${S.legal}</h1>
+              <div class="hero-meta"><span class="mono">${S.id}</span><span>${c.grade} · Class ${c.cls} · ${c.programme}</span></div>
+              <div class="chips">
+                <span class="chip c-role">Student</span>
+                ${chip(S.record)}
+                <span class="chip c-${ST[c.status]}">Enrolment: ${label(c.status)}</span>
+                <span class="chip c-default">${c.house}</span>
+                <span class="chip c-warning" title="Details are with the school nurse (DL-66)">Medical alert</span>
+              </div>
+            </div>
+            <div class="hero-actions">
+              ${isAdm?`<button class="btn" data-proto="Edit profile (student.profile.edit) opens">Edit profile</button><button class="btn btn-primary" data-proto="Campus transfer within AY 2026-27 opens (AP-11). Year-end campus moves are promotions, not transfers (DL-54)">Transfer</button>`:`<button class="btn" data-proto="Class 7B register opens">Class 7B</button>`}
+            </div>
+          </div>
+          <nav class="tabs" aria-label="Profile sections">
+            <a href="#sec-profile" class="on">Profile</a><a href="#sec-enrol">Enrolment</a><a href="#sec-guard">Guardians</a><a href="#sec-id">Identity documents</a><a href="#sec-addr">Addresses</a>
+          </nav>
+        </section>
+
+        <div class="grid">
+          <section class="card" id="sec-profile">
+            <div class="card-h"><h2>Profile</h2>${whyBtn('profile')}</div>
+            ${open.profile?explain('profile'):''}
+            <div class="card-b"><div class="fields">
+              ${field('Legal name',S.legal,'T1')}
+              ${field('Preferred name',S.preferred,'T1')}
+              ${field('Student ID',`<span class="mono">${S.id}</span>`,'T1')}
+              ${field('Date of birth',can('student.profile.view_confidential')?`${S.dob} <span style="color:var(--text2);font-weight:400">(age ${S.age})</span>`:`<span class="masked">${I.lock}Hidden</span>`,'T2')}
+              ${field('Class',c.cls,'T1',`<span class="chip c-source" title="Owned by Academic structure (AR-06)">From Academic structure</span>`)}
+              ${field('Grade',c.grade,'T1')}
+              ${field('Programme',c.programme,'T1')}
+              ${field('House',c.house,'T1')}
+              ${field('Attendance threshold',`${S.threshold}`,'T2',`<span class="tier" title="Reason not shown (DL-30)">reason not shown</span>`)}
+            </div>
+            <div class="logline" style="margin-top:20px">${I.info}<span><b>Medical alert</b> on file. Details stay with the school nurse in Wellbeing (Tier 3); the profile shows the flag only (DL-66).</span></div>
+            </div>
+          </section>
+
+          <section class="card" id="sec-enrol">
+            <div class="card-h"><h2>Enrolment</h2>${whyBtn('enrolment')}</div>
+            ${open.enrolment?explain('enrolment'):''}
+            <div class="card-b">
+              <div class="fields" style="margin-bottom:20px">
+                ${field('Status',`<span class="chip c-${ST[c.status]}">${label(c.status)}</span>`,'T2')}
+                ${field('Academic year',c.ay,'T2')}
+                ${field('Campus',c.campus,'T2')}
+                ${field('Segment',c.segment,'T2')}
+                ${field('Start date',c.start,'T2')}
+                ${field('Operating entity',pend('OQ-02'),'T2')}
+              </div>
+              <div class="l" style="font-size:12px;color:var(--text2);margin-bottom:10px">History <span class="tier">effective-dated</span></div>
+              <ol class="tl">${S.history.map(h=>`<li><span class="dotm ${h.cur?'cur':''}"></span><div class="h">${h.ay} ${chip(h.status)}</div><div class="m">${h.label} · ${h.dates}${h.reason?` · Ended: ${h.reason}`:''}</div></li>`).join('')}</ol>
+              ${isAdm?`<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-sm" data-proto="End enrolment asks for end reason and date (AP-05)">End enrolment</button><button class="btn btn-sm" data-proto="Campus transfer within AY 2026-27 opens (AP-11)">Transfer campus</button></div><p style="margin:10px 0 0;font-size:13px;color:var(--text2)">A transfer is a campus move within AY 2026-27; both principals approve. Moving up a grade into AY 2027-28 is a promotion, even if the campus changes (DL-54, DL-62).</p>`:''}
+            </div>
+          </section>
+
+          <section class="card span2" id="sec-guard">
+            <div class="card-h"><h2>Guardians</h2>${whyBtn('guardians')}</div>
+            ${open.guardians?explain('guardians'):''}
+            <div class="card-b">${guardians}</div>
+          </section>
+
+          <section class="card" id="sec-id">
+            <div class="card-h"><h2>Identity documents</h2>${whyBtn('identity')}</div>
+            ${open.identity?explain('identity'):''}
+            <div class="card-b">${identity}</div>
+          </section>
+
+          <section class="card" id="sec-addr">
+            <div class="card-h"><h2>Addresses</h2><span class="chip c-source">${I.link}From MyGIIS</span>${whyBtn('address')}</div>
+            ${open.address?explain('address'):''}
+            <div class="card-b">${addresses}</div>
+          </section>
+        </div>
+
+        <p class="foot">Synthetic data for design review. Record owned by Student Records (DL-43). Every change keeps history (DL-24).</p>
+      </div>
+      <nav class="bnav" aria-label="App navigation">${nav.slice(0,4).map(([k,t])=>`<a href="#" class="${k==='students'?'on':''}" data-proto="${t} opens">${I[k]}${t}</a>`).join('')}</nav>
+    </div>
+  </div>`;
+}
+
+/* ---------- Reveal dialog (AP-06 + AP-10), no browser dialogs ---------- */
+function openReveal(key){
+  const layer=document.getElementById('layer');
+  const what=key==='nat'?'nationality and immigration status':S.docs[+key.slice(3)].type;
+  layer.innerHTML=`<div class="scrim" data-close><div class="dlg" role="dialog" aria-modal="true" aria-labelledby="dlgT">
+    <h3 id="dlgT">Reveal ${what}</h3>
+    <p>This is Tier 3 data. Choose a purpose. The read is logged to the audit trail with your name, the purpose and the time.</p>
+    <label for="dlgP">Purpose ${pend('OQ-09','catalogue')}</label>
+    <select id="dlgP"><option value="">Choose a purpose</option><option>Verify a document for enrolment</option><option>Renew or check a pass</option><option>Respond to an authority request</option><option>Other (explain below)</option></select>
+    <label for="dlgN">Note (optional)</label>
+    <textarea id="dlgN" placeholder="For example: Student Pass renewal, ICA letter of 4 Nov"></textarea>
+    <div class="row"><button class="btn" data-close>Cancel</button><button class="btn btn-primary" id="dlgOk" disabled>Reveal and log</button></div>
+  </div></div>`;
+  const sel=document.getElementById('dlgP'),ok=document.getElementById('dlgOk');
+  sel.focus();
+  sel.addEventListener('change',()=>{ok.disabled=!sel.value});
+  ok.addEventListener('click',()=>{
+    revealed[key]=true;
+    revealed._log=`Read logged to audit (OBJ-11) · Lina Goh · ${sel.value} · 6 Nov 2026, 10:42. Hidden again when you leave this page.`;
+    layer.innerHTML='';render();
+  });
+  layer.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',e=>{if(e.target===el)layer.innerHTML=''}));
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('layer').innerHTML=''});
+
+let tt;
+function toast(t){
+  const layer=document.getElementById('layer');
+  const d=document.createElement('div');d.className='toast';d.textContent='Prototype: '+t;
+  document.querySelectorAll('.toast').forEach(x=>x.remove());
+  document.body.appendChild(d);clearTimeout(tt);tt=setTimeout(()=>d.remove(),2400);
+}
+
+document.getElementById('app').addEventListener('click',e=>{
+  const w=e.target.closest('[data-why]');if(w){open[w.dataset.why]=!open[w.dataset.why];render();return;}
+  const r=e.target.closest('[data-reveal]');if(r){openReveal(r.dataset.reveal);return;}
+  const m=e.target.closest('[data-mask]');if(m){revealed[m.dataset.mask]=false;render();return;}
+  const p=e.target.closest('[data-proto]');if(p){e.preventDefault();toast(p.dataset.proto);return;}
+  const a=e.target.closest('.tabs a');if(a){e.preventDefault();document.querySelectorAll('.tabs a').forEach(x=>x.classList.toggle('on',x===a));const s=document.querySelector(a.getAttribute('href'));if(s)s.scrollIntoView({behavior:'smooth',block:'start'});}
+});
+
+function seg(id,attr,fn){
+  const g=document.getElementById(id);
+  g.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+    g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));fn(b.dataset[attr]);});
+}
+seg('segViewer','v',v=>{viewer=v;for(const k in revealed)delete revealed[k];for(const k in open)delete open[k];render();});
+seg('segFrame','f',f=>{document.getElementById('stage').classList.toggle('mobile',f==='mobile');});
+seg('segTheme','t',t=>{if(t==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',t);});
+
+render();
+})();
+</script>

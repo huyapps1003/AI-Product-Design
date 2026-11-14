@@ -1,0 +1,15 @@
+Student ID,Name,Campus,Programme,Grade,Segment,Class,House,Enrolment status,Guardians,Guardian verification,Attendance threshold,Open case
+GS-2024-001842,Aarav Sharma,SG-PGL,CBSE 1-12,Grade 7,Middle,7B,House B,Enrolled,Neha Sharma (Mother); Vikram Sharma (Father),Verified; Verified,90%,—
+GS-2022-000917,Ishita Sharma,SG-ECS,IGCSE 9-10,Grade 9,Higher,9A,House D,Enrolled,Neha Sharma (Mother); Vikram Sharma (Father),Verified; Verified,90%,—
+GS-2023-003310,Chloe Tan,SG-PGL,IB PYP,Grade 3,Primary,3C,House A,Enrolled,Michelle Tan (Mother),Verified,85%,—
+GS-2021-000455,Rohan Mehta,SG-PGL,CBSE 1-12,Grade 8,Middle,8A,House C,Enrolled,Rajesh Mehta (Father),Verified,85%,Campus transfer (In Review)
+GS-2022-001603,Kavya Nair,SG-ECS,CBSE 1-12,Grade 6,Middle,6A,House C,Enrolled,Lakshmi Nair (Mother),Verified,85%,—
+GS-2026-004102,Yuki Watanabe,SG-PGL,CBSE 1-12,Grade 5,Primary,5B,House D,Enrolled,Haruka Watanabe (Mother),Verified,90%,Student Pass renewal (Waiting)
+GS-2019-000231,Arjun Reddy,SG-PGL,CBSE 1-12,Grade 11,Higher,11 Science A,House A,Enrolled,Srinivas Reddy (Father),Verified,85%,—
+GS-2026-004790,Sara Fernandes,SG-PGL,GMP (KG),KG1,Pre-Primary,—,—,Offered,Maria Fernandes (Mother),Pending,—,—
+GS-2026-004811,Daniel Lee,SG-ECS,IBDP,IBDP Year 1,Higher,—,—,Confirmed,Joon-ho Lee (Father); Mrs Anjali Iyer (Local Guardian),Verified; Verified,—,Student Pass application (In Review)
+GS-2020-002260,Ananya Gupta,IN-NOI,CBSE 1-12,Grade 10,Higher,10C,House B,Enrolled,Sunita Gupta (Mother),Verified,—,—
+GS-2023-002981,Kabir Singh,IN-NOI,CBSE 1-12,Grade 4,Primary,4A,House C,Enrolled,Harpreet Singh (Father),Verified,—,—
+GS-2015-000088,Meher Kapoor,IN-NOI,CBSE 1-12,Grade 12,Higher,12 Commerce B,House D,Withdrawn,Ritu Kapoor (Mother),Verified,—,—
+GS-2026-003377,Riya Joshi,IN-NOI,CBSE 1-12,Grade 1,Primary,1B,House A,Enrolled,Amit Joshi (Father),Verified,—,—
+GS-2026-004655,Zara Khan,SG-ECS,IGCSE 9-10,Grade 9,Higher,—,—,Deferred,Ayesha Khan (Mother),Verified,—,—
