@@ -117,7 +117,7 @@
         "enrolled": 88,
         "held": 6
       },
-      "_note": "Matches admissions-sample intake_capacity (DL-61, DL-70)"
+      "_note": "Matches admissions-sample intake_capacity (DL-61, DL-71)"
     },
     {
       "campus": "SG-PGL",
@@ -457,7 +457,7 @@
         "Grade 7",
         "Grade 8"
       ],
-      "_note": "Placement class (DL-73): students keep their grade enrolment (DL-65). Six-month course (HB § AEPP)."
+      "_note": "Placement class (DL-74): students keep their grade enrolment (DL-65). Six-month course (HB § AEPP)."
     },
     {
       "class_name": "AEPP 2",
@@ -732,7 +732,7 @@
       "from": "2026-07-13",
       "reason": "AEPP_ENTRY",
       "by": "Meera Joshi",
-      "_note": "student-sample.json still shows 5B with a placement note written before DL-65; under DL-73 the class is AEPP 1"
+      "_note": "student-sample.json still shows 5B with a placement note written before DL-65; under DL-74 the class is AEPP 1"
     },
     {
       "student": "Hiroshi Tanaka",
@@ -926,7 +926,7 @@
         "student": "Aarav Sharma",
         "from": "6B",
         "to": "7B",
-        "house": "House B carried forward (DL-75)"
+        "house": "House B carried forward (DL-76)"
       }
     },
     {

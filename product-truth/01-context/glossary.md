@@ -20,10 +20,10 @@ Use these terms exactly in screens and specs. Where a term's definition is still
 | **Campus** | A school site, identified by a campus code such as `SG-PGL` (catalog entity E06) | Known |
 | **Segment** | A school segment of a campus such as Pre-Primary, Primary, Middle, Higher. Architecture calls this level "Section"; don't use that word in screens | Confirmed (DL-29) |
 | **Class** | A group of students taught together, such as 7B | Confirmed (DL-29) |
-| **Class plan** | How many classes a grade runs in a year and each class's size limit; set by the Principal; its total is the Admissions seat limit | Assumed (DL-70; seat rule Confirmed DL-61) |
-| **Placement class** | A class such as AEPP 1 that takes students from several grades, who keep their grade enrolment | Assumed (DL-73) |
-| **Class move** | Moving a student to another class of the same campus, programme and year; not a transfer | Assumed (DL-71) |
-| **Rollover** | The year-end run that moves a campus's students into next year's grades and classes (promotion, retention, stage-campus promotion) | Assumed (DL-74); promotion vs transfer Confirmed (DL-54) |
+| **Class plan** | How many classes a grade runs in a year and each class's size limit; set by the Principal; its total is the Admissions seat limit | Assumed (DL-71; seat rule Confirmed DL-61) |
+| **Placement class** | A class such as AEPP 1 that takes students from several grades, who keep their grade enrolment | Assumed (DL-74) |
+| **Class move** | Moving a student to another class of the same campus, programme and year; not a transfer | Assumed (DL-72) |
+| **Rollover** | The year-end run that moves a campus's students into next year's grades and classes (promotion, retention, stage-campus promotion) | Assumed (DL-75); promotion vs transfer Confirmed (DL-54) |
 | **House** | A student team that runs across years, such as House B | Known (HB p.169); list per campus Open (OQ-20) |
 | **Student ID** | The number people use for a student; unique across Campus OS and kept on campus transfer | Confirmed (DL-31) |
 | **Programme offering** | A curriculum taught on a campus for a grade band, for example CBSE 6–8 at Punggol | Known (Architecture) |

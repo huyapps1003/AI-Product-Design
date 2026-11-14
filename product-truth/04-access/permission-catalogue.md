@@ -51,11 +51,11 @@ Codes follow `module.object.action` (DL-53; new capabilities reviewed by the reg
 | `admissions.approval_case.manage` | MANAGE | OBJ-16, OBJ-10 (T3) | New |
 | `classes.class.view`, `classes.class.manage` | VIEW, MANAGE | OBJ-15 | New (classes dictionary) |
 | `classes.roster.view` | VIEW | OBJ-15, OBJ-02 | New; teachers scoped to own classes |
-| `classes.plan.edit`, `classes.plan.approve` | UPDATE, APPROVE | OBJ-15 (feeds OBJ-16 seat limit) | New (DL-70) |
-| `classes.staff.assign` | MANAGE | OBJ-15 | New (DL-72) |
-| `classes.placement.manage`, `classes.placement.approve_over_limit` | UPDATE, APPROVE | OBJ-15, OBJ-03 | New (DL-71; who: OQ-73) |
-| `classes.house.assign` | UPDATE | OBJ-15, OBJ-03 | New (DL-75) |
-| `classes.rollover.prepare`, `classes.rollover.approve` | MANAGE, APPROVE | OBJ-15, OBJ-03 | New (DL-74) |
+| `classes.plan.edit`, `classes.plan.approve` | UPDATE, APPROVE | OBJ-15 (feeds OBJ-16 seat limit) | New (DL-71) |
+| `classes.staff.assign` | MANAGE | OBJ-15 | New (DL-73) |
+| `classes.placement.manage`, `classes.placement.approve_over_limit` | UPDATE, APPROVE | OBJ-15, OBJ-03 | New (DL-72; who: OQ-73) |
+| `classes.house.assign` | UPDATE | OBJ-15, OBJ-03 | New (DL-76) |
+| `classes.rollover.prepare`, `classes.rollover.approve` | MANAGE, APPROVE | OBJ-15, OBJ-03 | New (DL-75) |
 | `student.guardian.view`, `student.guardian_contact.view` | VIEW | OBJ-04 | New |
 | `student.guardian.verify`, `student.guardian.edit` | APPROVE, UPDATE | OBJ-04 | New |
 | `teaching.allocation.view`, `teaching.allocation.manage` | VIEW, MANAGE | OBJ-12 | New |
