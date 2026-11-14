@@ -25,7 +25,7 @@ A design object is something a user sees, finds and acts on. Each maps to dictio
 | OBJ-13 | Scope node and campus | OR01–OR06, OR09 | Tenancy and config | Global | T1 | [card](./OBJ-13-scope-node.md) |
 | OBJ-14 | Legal entity | OR07, OR08 | Tenancy and config | Global | T1 | [card](./OBJ-14-legal-entity.md) |
 | OBJ-15 | Class and programme offering | Academic year, term, programme pack, offering, grade, subject, class | Academic structure | Global (packs), cell | T1 | Needs the Academic structure dictionary |
-| OBJ-16 | Application | Enquiry, application, offer, contract | Admissions | Cell | T2 | Needs the Admissions dictionary |
+| OBJ-16 | Application | AD01–AD10 | Admissions | Cell | T3 (documents, SEN outcome) | [card](./OBJ-16-application.md) |
 | OBJ-17 | Consent | Consent, purpose | Engagement | Cell | T2 | Needs the Governance dictionary |
 | OBJ-18 | Transfer | Sharing record, two enrolments | Admissions with Engagement | Cell | T2 | Needs the Governance dictionary |
 | OBJ-19…24 | Mark and report card, attendance mark, incident, wellbeing record, invoice, route | Architecture § High-level data model | Their modules | Cell | T2 or T3 | Needs a dictionary per module |

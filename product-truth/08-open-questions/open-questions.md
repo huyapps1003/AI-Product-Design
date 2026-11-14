@@ -146,6 +146,24 @@ Added 12 Nov 2026 while locking the [student directory spec](../03-domain/studen
 | OQ-60 | When a promotion changes campus, does it need the approvals a campus transfer needs (both principals), and does a promotion into another brand or country count as a promotion or as a new admission? | Year-end rollover screens and approval steps; cross-entity data moves | DL-54; HB p.235; DL-49; OQ-07 | student dictionary, OBJ-03 | Henry, Admissions owners | **Answered → DL-62, DL-63** |
 | OQ-61 | When a guardian with profiles in two data locations changes their phone, email or address in one, does the change apply in the other? | Parent profile edit and staff guardian screens | DL-55; DL-28 | student dictionary, OBJ-04 | Henry, DPOs | **Answered → DL-64** |
 
+## L · Admissions
+
+Added 12 Nov 2026 with the [admissions dictionary](../03-domain/admissions-data-dictionary.md).
+
+| ID | Question | Why it matters for design | Evidence | Affects | Who can answer | Status |
+|---|---|---|---|---|---|---|
+| OQ-62 | Can families apply online before enrolment, and with what login? (GIIS gives MyGIIS logins only on enrolment, HB p.34) | Decides whether there is a parent applicant portal or staff-entered applications only | Admissions dictionary; HB; Arch § Admission to enrolment | admissions dictionary, OBJ-16 | Henry, Admissions owners per brand | Open |
+| OQ-63 | Who owns an enquiry that names several campuses or brands, and where is an unrouted group enquiry held? | Routing, ownership and data location for group-site enquiries (with OQ-29) | Admissions dictionary; HB; Arch § Admission to enrolment | admissions dictionary, OBJ-16 | Henry, Admissions owners per brand | Open |
+| OQ-64 | Which brands, grades and offerings require entrance tests or interviews, what are the age-to-grade cut-offs, and do parents see results? | Assessment steps and grade suggestions | Admissions dictionary; HB; Arch § Admission to enrolment | admissions dictionary, OBJ-16 | Henry, Admissions owners per brand | Open |
+| OQ-65 | Who sets seat limits, can they be overridden, and how is the waitlist ordered (siblings, staff children, date)? | Capacity view and waitlist screens | Admissions dictionary; HB; Arch § Admission to enrolment | admissions dictionary, OBJ-16 | Henry, Admissions owners per brand | **Answered → DL-61** |
+| OQ-66 | Who decides an application and issues an offer (officer, manager, principal), and how long is an offer valid? | Approval step and expiry | Admissions dictionary; HB; Arch § Admission to enrolment | admissions dictionary, OBJ-16 | Henry, Admissions owners per brand | Open |
+| OQ-67 | What contract applies in each country, who signs for the family, and is e-signature allowed? | Contract screen and signature flow; only GIIS SG (CPE) is documented | Admissions dictionary; HB; Arch § Admission to enrolment | admissions dictionary, OBJ-16 | Henry, Admissions owners per brand | Open |
+| OQ-68 | Which fees are due at admission per brand and country (application, registration, deposit), how much, and when? | Fee step; HB names application and registration fees only | Admissions dictionary; HB; Arch § Admission to enrolment | admissions dictionary, OBJ-16 | Henry, Admissions owners per brand | Open |
+| OQ-69 | How long are enquiries and unsuccessful applications kept, and what marketing consent is collected? | Retention and consent on enquiry forms (with OQ-10) | Admissions dictionary; HB; Arch § Admission to enrolment | admissions dictionary, OBJ-16 | Henry, Admissions owners per brand | Open |
+| OQ-70 | Do education agents submit applications, and what can they see? (HB p.246 mentions an agent commission fee) | Agent channel and access | Admissions dictionary; HB; Arch § Admission to enrolment | admissions dictionary, OBJ-16 | Henry, Admissions owners per brand | Open |
+| OQ-71 | How are returning students, deferred starts and cross-brand or cross-country moves at year end handled (new admission or not, OQ-60)? | Whether a returning student reuses ST01 and skips steps | Admissions dictionary; HB; Arch § Admission to enrolment | admissions dictionary, OBJ-16 | Henry, Admissions owners per brand | Open |
+| OQ-72 | Which documents are required per country, grade and nationality? | Document checklist defaults | Admissions dictionary; HB; Arch § Admission to enrolment | admissions dictionary, OBJ-16 | Henry, Admissions owners per brand | Open |
+
 ## Research not yet done
 
 These are evidence gaps, not product questions. They are listed in [research §11](../../research/2026-10-25-campus-os-foundation-research.md#11--open-questions-and-research-gaps): contextual inquiry with staff, family research, vendor verification, legal review and a systems inventory. No users have been interviewed yet, so every persona and scenario is an assumption.

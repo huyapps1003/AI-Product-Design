@@ -1,0 +1,482 @@
+{
+  "_about": "Synthetic sample data for Admissions screens (OBJ-16, with OBJ-03). All people, numbers and amounts are invented. Viewer Lina Goh, Admissions Officer, SG-PGL; 'today' 12 Nov 2026. Rule values (cooling-off 7 working days, fee types, refund on ICA/MOE rejection) are GIIS Singapore's own campus settings from its Handbook, not group defaults (DL-59). Application/enquiry number formats are placeholders. Fee amounts are placeholders (OQ-68). Reuses campuses and guardians from student-sample.json.",
+  "today": "2026-11-12",
+  "viewer": {
+    "name": "Lina Goh",
+    "role": "Admissions Officer",
+    "campus": "SG-PGL"
+  },
+  "other_staff": [
+    {
+      "name": "Marcus Lee",
+      "role": "Admissions Manager",
+      "scope": "GIIS Singapore"
+    },
+    {
+      "name": "Dr Anita Rao",
+      "role": "Principal",
+      "campus": "SG-PGL"
+    },
+    {
+      "name": "Deepa Krishnan",
+      "role": "Counsellor (SEN)",
+      "campus": "SG-PGL"
+    },
+    {
+      "name": "Priya Nair",
+      "role": "Assessor, CBSE Maths",
+      "campus": "SG-PGL + SG-ECS"
+    },
+    {
+      "name": "Pooja Malhotra",
+      "role": "Admissions Officer",
+      "campus": "IN-NOI"
+    }
+  ],
+  "campus_settings": {
+    "SG-PGL": {
+      "cooling_off_working_days": 7,
+      "offer_valid_days": "pending (OQ-66)",
+      "fees_at_admission": [
+        {
+          "fee_type": "APPLICATION",
+          "due_stage": "AT_APPLICATION",
+          "amount": "pending (OQ-68)",
+          "currency": "SGD",
+          "refundable_condition": "ON_APPROVAL_REJECTED"
+        },
+        {
+          "fee_type": "REGISTRATION",
+          "due_stage": "AT_ACCEPTANCE",
+          "amount": "pending (OQ-68)",
+          "currency": "SGD",
+          "refundable_condition": "ON_APPROVAL_REJECTED"
+        }
+      ],
+      "required_documents": "pending (OQ-72); sample uses PASSPORT, BIRTH_CERTIFICATE, LAST_REPORT_CARD, TRANSFER_CERTIFICATE",
+      "government_approval": [
+        "STUDENT_PASS",
+        "MOE_APPROVAL"
+      ]
+    },
+    "IN-NOI": {
+      "cooling_off_working_days": "Not set (DL-59)",
+      "currency": "INR",
+      "government_approval": []
+    }
+  },
+  "intake_capacity": [
+    {
+      "campus": "SG-PGL",
+      "offering": "CBSE 1-12",
+      "grade": "Grade 6",
+      "academic_year": "AY 2026-27",
+      "seat_limit": 96,
+      "seats_enrolled": 88,
+      "seats_held": 6,
+      "waitlist_open": true,
+      "override_buffer": 2
+    },
+    {
+      "campus": "SG-PGL",
+      "offering": "CBSE 1-12",
+      "grade": "Grade 7",
+      "academic_year": "AY 2026-27",
+      "seat_limit": 96,
+      "seats_enrolled": 96,
+      "seats_held": 0,
+      "waitlist_open": true,
+      "_note": "Full; Admissions Manager may override within the campus buffer, beyond that the Principal (DL-61)",
+      "override_buffer": 2
+    },
+    {
+      "campus": "SG-PGL",
+      "offering": "IB PYP",
+      "grade": "Grade 2",
+      "academic_year": "AY 2026-27",
+      "seat_limit": 44,
+      "seats_enrolled": 31,
+      "seats_held": 3,
+      "waitlist_open": false,
+      "override_buffer": 2
+    },
+    {
+      "campus": "SG-PGL",
+      "offering": "GMP (KG)",
+      "grade": "KG1",
+      "academic_year": "AY 2027-28",
+      "seat_limit": 60,
+      "seats_enrolled": 0,
+      "seats_held": 4,
+      "waitlist_open": false,
+      "override_buffer": 2
+    }
+  ],
+  "enquiries": [
+    {
+      "enquiry_number": "ENQ-26-04112",
+      "received_at": "2026-11-11T09:42",
+      "source_channel": "WEBSITE_GROUP",
+      "enquirer": "Daniel Okafor",
+      "relationship": "FATHER",
+      "campus": "SG-PGL",
+      "assigned_to": "Lina Goh",
+      "enquiry_status": "NEW",
+      "children": [
+        {
+          "first_name": "Tobi",
+          "date_of_birth": "2015-05-02",
+          "interested": "CBSE Grade 6, AY 2026-27"
+        },
+        {
+          "first_name": "Ada",
+          "date_of_birth": "2019-09-14",
+          "interested": "IB PYP Grade 2, AY 2026-27"
+        }
+      ],
+      "next_action_at": "2026-11-12T12:00"
+    },
+    {
+      "enquiry_number": "ENQ-26-04098",
+      "received_at": "2026-11-08T15:10",
+      "source_channel": "WALK_IN",
+      "enquirer": "Mei Ling Chua",
+      "relationship": "MOTHER",
+      "campus": "SG-PGL",
+      "assigned_to": "Lina Goh",
+      "enquiry_status": "VISIT_BOOKED",
+      "visit_at": "2026-11-14T10:00",
+      "children": [
+        {
+          "first_name": "Ethan",
+          "date_of_birth": "2022-03-30",
+          "interested": "GMP KG1, AY 2027-28"
+        }
+      ]
+    },
+    {
+      "enquiry_number": "ENQ-26-04071",
+      "received_at": "2026-11-03T11:25",
+      "source_channel": "WEBSITE_GROUP",
+      "enquirer": "Sara Haddad",
+      "relationship": "MOTHER",
+      "campus": null,
+      "assigned_to": null,
+      "enquiry_status": "NEW",
+      "children": [
+        {
+          "first_name": "Omar",
+          "date_of_birth": "2016-01-20",
+          "interested": "GIIS or OWIS, Punggol"
+        }
+      ],
+      "_note": "Names two brands, not routed: owner and data location pending (OQ-63)"
+    },
+    {
+      "enquiry_number": "ENQ-26-03990",
+      "received_at": "2026-10-21T08:05",
+      "source_channel": "PHONE",
+      "enquirer": "Kenji Sato",
+      "relationship": "FATHER",
+      "campus": "SG-PGL",
+      "assigned_to": "Lina Goh",
+      "enquiry_status": "CLOSED_LOST",
+      "lost_reason": "CHOSE_OTHER_SCHOOL",
+      "children": [
+        {
+          "first_name": "Yui",
+          "date_of_birth": "2017-07-07",
+          "interested": "Cambridge CLSP Grade 6"
+        }
+      ]
+    }
+  ],
+  "applications": [
+    {
+      "application_number": "APP-26-1187",
+      "enquiry": "ENQ-26-04112",
+      "applicant": "Tobi Okafor",
+      "date_of_birth": "2015-05-02",
+      "nationality": [
+        "NG"
+      ],
+      "campus": "SG-PGL",
+      "offering": "CBSE 1-12",
+      "grade": "Grade 6",
+      "academic_year": "AY 2026-27",
+      "requested_start_date": "2027-01-05",
+      "needs_government_approval": "STUDENT_PASS",
+      "application_status": "DOCUMENTS_PENDING",
+      "submitted_channel": "STAFF_ENTERED",
+      "primary_contact": "Daniel Okafor",
+      "documents": [
+        {
+          "type": "PASSPORT",
+          "status": "RECEIVED"
+        },
+        {
+          "type": "BIRTH_CERTIFICATE",
+          "status": "REQUESTED"
+        },
+        {
+          "type": "LAST_REPORT_CARD",
+          "status": "ACCEPTED"
+        },
+        {
+          "type": "TRANSFER_CERTIFICATE",
+          "status": "REQUESTED"
+        }
+      ],
+      "fees": [
+        {
+          "fee_type": "APPLICATION",
+          "payment_status": "PAID"
+        }
+      ]
+    },
+    {
+      "application_number": "APP-26-1172",
+      "applicant": "Kavya Sharma",
+      "date_of_birth": "2019-08-11",
+      "nationality": [
+        "IN"
+      ],
+      "campus": "SG-PGL",
+      "offering": "IB PYP",
+      "grade": "Grade 2",
+      "academic_year": "AY 2026-27",
+      "requested_start_date": "2027-01-05",
+      "needs_government_approval": "STUDENT_PASS",
+      "application_status": "ASSESSMENT",
+      "primary_contact": "Neha Sharma (G-001)",
+      "sibling_of": [
+        "Aarav Sharma GS-2024-001842"
+      ],
+      "assessments": [
+        {
+          "type": "ENTRANCE_TEST",
+          "scheduled_at": "2026-11-18T09:00",
+          "assessor": "Priya Nair"
+        }
+      ],
+      "_note": "Sibling: guardian Person reused, not duplicated (DL-58). Siblings come first on a waitlist (DL-61)"
+    },
+    {
+      "application_number": "APP-26-1160",
+      "applicant": "Li Wei Zhang",
+      "date_of_birth": "2014-10-03",
+      "nationality": [
+        "CN"
+      ],
+      "campus": "SG-PGL",
+      "offering": "CBSE 1-12",
+      "grade": "Grade 7",
+      "academic_year": "AY 2026-27",
+      "needs_government_approval": "STUDENT_PASS",
+      "application_status": "WAITLISTED",
+      "waitlist_position": 3,
+      "assessments": [
+        {
+          "type": "ENTRANCE_TEST",
+          "outcome": "MEETS",
+          "score_summary": "Maths 78, English 71"
+        },
+        {
+          "type": "AEPP_PLACEMENT",
+          "outcome": "PLACE_IN_AEPP",
+          "_note": "Placement inside the regular Grade 7 enrolment (DL-65)"
+        }
+      ],
+      "decision": "WAITLIST",
+      "decision_reason": "Grade 7 full"
+    },
+    {
+      "application_number": "APP-26-1149",
+      "applicant": "Arjun Pillai",
+      "date_of_birth": "2015-12-01",
+      "nationality": [
+        "SG"
+      ],
+      "campus": "SG-PGL",
+      "offering": "CBSE 1-12",
+      "grade": "Grade 6",
+      "academic_year": "AY 2026-27",
+      "needs_government_approval": "MOE_APPROVAL",
+      "application_status": "UNDER_REVIEW",
+      "sen_disclosed": true,
+      "assessments": [
+        {
+          "type": "ENTRANCE_TEST",
+          "outcome": "MEETS"
+        },
+        {
+          "type": "SEN_PRE_ADMISSION",
+          "assessor": "Deepa Krishnan",
+          "outcome": "NEEDS_DISCUSSION",
+          "_note": "Notes held in Wellbeing (T3); Admissions sees outcome only (DL-60)"
+        }
+      ],
+      "_note": "Who decides pending (OQ-66)"
+    },
+    {
+      "application_number": "APP-26-1121",
+      "applicant": "Sofia Rossi",
+      "date_of_birth": "2015-04-22",
+      "nationality": [
+        "IT"
+      ],
+      "campus": "SG-PGL",
+      "offering": "CBSE 1-12",
+      "grade": "Grade 6",
+      "academic_year": "AY 2026-27",
+      "needs_government_approval": "STUDENT_PASS",
+      "application_status": "OFFERED",
+      "student_number": "GS-2026-004410",
+      "enrolment_status": "OFFERED",
+      "offer": {
+        "offer_status": "ISSUED",
+        "issued_by": "Lina Goh",
+        "issued_at": "2026-11-05",
+        "expires_at": "pending (OQ-66)",
+        "conditions": "Subject to Student Pass approval"
+      },
+      "fees": [
+        {
+          "fee_type": "APPLICATION",
+          "payment_status": "PAID"
+        },
+        {
+          "fee_type": "REGISTRATION",
+          "payment_status": "DUE"
+        }
+      ],
+      "_note": "Offer issued, so ST01 + ST02 OFFERED exist (DL-57)"
+    },
+    {
+      "application_number": "APP-26-1098",
+      "applicant": "Noah Fernandes",
+      "date_of_birth": "2015-06-09",
+      "nationality": [
+        "IN"
+      ],
+      "campus": "SG-PGL",
+      "offering": "CBSE 1-12",
+      "grade": "Grade 6",
+      "academic_year": "AY 2026-27",
+      "needs_government_approval": "STUDENT_PASS",
+      "application_status": "ACCEPTED",
+      "student_number": "GS-2026-004388",
+      "enrolment_status": "CONFIRMED",
+      "offer": {
+        "offer_status": "ACCEPTED",
+        "responded_at": "2026-11-04"
+      },
+      "contract": {
+        "contract_status": "IN_COOLING_OFF",
+        "signature_method": "pending (OQ-67)",
+        "signed_at": "2026-11-06",
+        "cooling_off_ends_on": "2026-11-17"
+      },
+      "fees": [
+        {
+          "fee_type": "APPLICATION",
+          "payment_status": "PAID"
+        },
+        {
+          "fee_type": "REGISTRATION",
+          "payment_status": "PAID"
+        }
+      ],
+      "approval_case": {
+        "approval_type": "STUDENT_PASS",
+        "authority": "ICA",
+        "approval_status": "SUBMITTED",
+        "submitted_at": "2026-11-07"
+      }
+    },
+    {
+      "application_number": "APP-26-1040",
+      "applicant": "Hana Kim",
+      "date_of_birth": "2019-02-17",
+      "nationality": [
+        "KR"
+      ],
+      "campus": "SG-PGL",
+      "offering": "IB PYP",
+      "grade": "Grade 2",
+      "academic_year": "AY 2026-27",
+      "needs_government_approval": "STUDENT_PASS",
+      "application_status": "ACCEPTED",
+      "student_number": "GS-2026-004301",
+      "enrolment_status": "CANCELLED",
+      "contract": {
+        "contract_status": "TERMINATED"
+      },
+      "approval_case": {
+        "approval_type": "STUDENT_PASS",
+        "authority": "ICA",
+        "approval_status": "REJECTED",
+        "decided_at": "2026-11-02"
+      },
+      "fees": [
+        {
+          "fee_type": "REGISTRATION",
+          "payment_status": "REFUNDED",
+          "_note": "Refund less admin charge on ICA rejection (SR-AD-06, GIIS SG)"
+        }
+      ]
+    },
+    {
+      "application_number": "APP-26-0987",
+      "applicant": "Ravi Iyer",
+      "date_of_birth": "2015-03-12",
+      "nationality": [
+        "IN"
+      ],
+      "campus": "SG-PGL",
+      "offering": "CBSE 1-12",
+      "grade": "Grade 6",
+      "academic_year": "AY 2026-27",
+      "needs_government_approval": "STUDENT_PASS",
+      "application_status": "ENROLLED",
+      "student_number": "GS-2026-004215",
+      "enrolment_status": "ENROLLED",
+      "class": "6C",
+      "approval_case": {
+        "approval_type": "STUDENT_PASS",
+        "approval_status": "APPROVED"
+      },
+      "contract": {
+        "contract_status": "ACTIVE"
+      },
+      "_note": "Handoff done: class, timetable, bus, logins (SR-AD-07)"
+    },
+    {
+      "application_number": "APP-26-0955",
+      "applicant": "Aditi Gupta",
+      "date_of_birth": "2017-11-28",
+      "nationality": [
+        "IN"
+      ],
+      "campus": "IN-NOI",
+      "offering": "CBSE 1-12",
+      "grade": "Grade 4",
+      "academic_year": "AY 2027-28",
+      "needs_government_approval": "NONE",
+      "application_status": "SUBMITTED",
+      "assigned_to": "Pooja Malhotra",
+      "_note": "Out of Lina's scope: hidden from her queue; contract and fee rules pending for India (OQ-67, OQ-68)"
+    },
+    {
+      "application_number": "APP-26-0930",
+      "applicant": "Omar Haddad",
+      "campus": "SG-OWD",
+      "brand": "OWIS",
+      "offering": "IB PYP",
+      "grade": "Grade 5",
+      "academic_year": "AY 2026-27",
+      "application_status": "DRAFT",
+      "_note": "Other brand, same family as ENQ-26-04071; cross-brand routing pending (OQ-63)"
+    }
+  ]
+}
