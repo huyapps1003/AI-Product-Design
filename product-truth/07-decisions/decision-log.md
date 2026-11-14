@@ -88,6 +88,16 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-74 | AEPP is only a SUPPORT subject; the student stays in their regular class; AEPP 1/2 are Teaching groups, not classes (narrows DL-65) | **Confirmed** (Henry, 14 Nov 2026) | DL-65, OQ-77 |
 | DL-75 | Year-end rollover: one run per campus and year, outcomes from Assessment, Principal approves before it applies | **Confirmed** (Henry, 14 Nov 2026) | DL-54, DL-62, DL-63, CL06/CL07 |
 | DL-76 | House stays on the enrolment, allocated by Classes and copied forward; each campus sets whether it uses houses | **Confirmed** (Henry, 14 Nov 2026) | OQ-20, OQ-76 |
+| DL-77 | Campus OS owns billing (fee plans, invoices, payments, credit notes, refunds); the ERP receives journals only; prefix `fees` | **Confirmed** (Henry, 14 Nov 2026) | Arch § Integrations, § Open questions (build, buy or hybrid) |
+| DL-78 | Fee types per brand-country; fee plans per campus × offering × grade(s) × year, versioned, Finance Controller approves; no group default amounts | Assumed | DL-59, FB01–FB03 |
+| DL-79 | Billing account = one payer (verified guardian or sponsor) in one brand-country; enrolments linked by share; siblings on one statement; issuer = operating entity | Assumed | DL-25, DL-41, DL-55, FB05/FB06, OQ-85 |
+| DL-80 | Invoices only from approved billing runs or defined events; issued invoices never edited, corrected by credit notes | Assumed | FB08–FB10, FB13 |
+| DL-81 | Discounts, scholarships, bursaries, waivers are dated adjustments with an approver, shown on the invoice line | Assumed | FB07, OQ-83 |
+| DL-82 | Gateway confirmation is the truth online; offline payments recorded with receipt; oldest-first allocation; no card numbers stored; refund bank details masked | Assumed | FB11/FB12, OQ-82 |
+| DL-83 | One derived fee status per enrolment (CLEAR, DUE, OVERDUE, PAUSED) for other modules; no automatic sanctions; teachers don't see it | Assumed | OQ-84, AD09 |
+| DL-84 | Refunds from a versioned refund rule set per brand-country; approval and deadline on the shared Case; approvers a brand-country setting | Assumed | DL-08, FB14, HB p.240–245, OQ-86 |
+| DL-85 | Parents see and pay only accounts they pay or that a payer shared; other guardians see no finance; students never | Assumed | DL-37, DL-68, FB06 |
+| DL-86 | Approved long leave pauses billing; billing after withdrawal follows the campus cut-off setting | Assumed | FB16, HB p.237, p.244 |
 
 ---
 
@@ -411,6 +421,13 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **DL-73.** Henry asked for class-teacher access to be automatic. The Classes module records only the assignment; the Access Registry (DL-32, DL-51) turns it into data scope on the teacher's existing Class teacher membership for the same dates. This switches DL-16's auto-derive on for Classes. Capabilities are never added by the assignment; Tier 3 still needs A17 (DL-69).
 - **DL-76.** Houses are a GIIS concept (HB p.169); other brands are undocumented, so each campus sets whether it uses houses and lists them. Points and events stay in Activities and Awards.
 - **Status.** DL-70…DL-76 all Confirmed by Henry, 14 Nov 2026.
+
+### DL-77…DL-86 — Fees & Billing
+- **Context.** Fourth module, Fees & Billing. Scope approved by Henry 14 Nov 2026: fee catalogue and plans, payers, billing runs and invoices, discounts and scholarships, payments, reminders, refunds, long-leave pause, FPS, parent view. Admissions (AD09) already defers invoices and payments to this module.
+- **DL-77.** Henry chose option A on 14 Nov 2026: Campus OS owns billing and sends journals to the ERP. Rejected: B, the ERP owns billing and Campus OS shows its status (less to build, but the parent app and Admissions would depend on each ERP's API, and the Architecture's "build, buy or hybrid?" question would have to be answered first). This answers that question for finance.
+- **Decision.** See the table above and [fees & billing dictionary § Decisions](../03-domain/fees-billing-data-dictionary.md#decisions).
+- **Why.** One writer for money owed and paid; live status for Admissions, withdrawal and parents; GIIS SG handbook rules become versioned settings (Arch § Principles).
+- **Status.** DL-77 Confirmed by Henry, 14 Nov 2026; DL-78…DL-86 Assumed, pending Henry.
 
 ## How design direction becomes architecture
 

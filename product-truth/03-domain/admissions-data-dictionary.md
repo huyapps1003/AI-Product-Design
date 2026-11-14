@@ -224,7 +224,7 @@ ST01, ST02, ST04, ST05, ST08, ST09 and ST11 are referenced, not redefined.
 | fee_type | ENUM | — | Y | T2 | Known: APPLICATION, REGISTRATION (HB p.242); others Open (OQ-68) | |
 | due_stage | ENUM | — | Y | T1 | Assumed | AT_APPLICATION, AT_ACCEPTANCE. |
 | amount / currency | DECIMAL / CHAR(3) | — | Y | T2 | Open amounts (OQ-68); currency per country (MC-12) | |
-| invoice_ref | VARCHAR | — | C | T2 | Assumed | Fees and Finance invoice. |
+| invoice_ref | UUID | FK:FB09 | C | T2 | Assumed | Fees and Finance invoice ([fees & billing dictionary](./fees-billing-data-dictionary.md), SR-FB-09). |
 | payment_status | ENUM | — | Y | T2 | Assumed | DUE, PAID, WAIVED, REFUNDED. |
 | refundable_condition | ENUM | — | Y | T1 | Known (GIIS SG, HB p.242: refundable less admin charge only if ICA or MOE rejects) | NONE, ON_APPROVAL_REJECTED. |
 
