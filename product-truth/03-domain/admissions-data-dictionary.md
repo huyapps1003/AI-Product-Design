@@ -1,10 +1,10 @@
 # Global Campus OS — Admissions Data Dictionary v0.1 (draft)
 
-**Status:** Proposed draft, 12 Nov 2026. DL-56…DL-61 Assumed (for Henry's review); OQ-62…OQ-72 Open · **Owner:** Henry
+**Status:** Proposed draft, 12 Nov 2026. DL-56, DL-57, DL-58, DL-60 Confirmed (Henry, 14 Nov 2026); DL-59, DL-61 Assumed; OQ-62…OQ-72 Open · **Owner:** Henry
 **Cites:** [Architecture v1](../00-sources/Global_Campus_OS_Product_Architecture_v1.md) § Users and roles, § Domains and modules (module 1), § Key workflows (Admission to enrolment; Fees, withdrawal and refund), § Integrations (ICA) · [Student Directory Spec](./student-directory-data-dictionary.md) ST01, ST02, ST04, ST05, ST08, ST09, ST11, SR-07 · [Organisation dictionary](./organisation-data-dictionary.md) OR04, OR07, OR08, OR09 · [architecture.md](./architecture.md) AR-xx · [operating-context](../01-context/operating-context.md) (enquiry.globalschools.com, MyGIIS) · [regulatory-context](../05-data-governance/regulatory-context.md) (CPE/EduTrust, ICA, FPS) · GIIS Student Handbook 2025-26 (HB) p.125, p.232–245, § SEN · DL-22, DL-24, DL-27, DL-29, DL-39…DL-45, DL-47, DL-53…DL-55 · MC-01, MC-05, MC-06, MC-07, MC-12, MC-14 · OQ-06, OQ-07, OQ-10, OQ-29, DL-63, DL-65, DL-67 (Henry, 13 Nov 2026)
 **Tóm tắt (VI):** Từ điển dữ liệu cho module Tuyển sinh và Nhập học: từ lúc gia đình hỏi thông tin đến ngày đầu tiên đi học (hỏi thông tin, hồ sơ, đánh giá/xếp lớp, thư mời nhập học, hợp đồng và phí ghi danh, hồ sơ xin Student Pass/MOE, bàn giao sang hồ sơ học sinh). Mỗi trường có trạng thái Known / Assumed / Open.
 
-> Drafted by Claude from product truth on 12 Nov 2026 after Henry approved the scope the same day. Nothing in this file is confirmed until Henry accepts DL-56…DL-61.
+> Drafted by Claude from product truth on 12 Nov 2026 after Henry approved the scope the same day. Henry confirmed DL-56, DL-57, DL-58 and DL-60 on 14 Nov 2026.
 
 ## How to read this file
 
@@ -306,7 +306,7 @@ EnquiryReceived, EnquiryRouted, ApplicationSubmitted, AssessmentRecorded, Applic
 
 `admissions.enquiry.view`, `.create`, `.assign` · `admissions.application.view`, `.edit`, `.decide` · `admissions.document.review` · `admissions.assessment.record` · `admissions.capacity.manage` · `admissions.offer.issue`, `.rescind` · `admissions.contract.issue`, `.void` · `admissions.approval_case.manage` · existing `admissions.enrolment.create`.
 
-## Decisions proposed (Assumed until Henry confirms)
+## Decisions (DL-56, 57, 58, 60 Confirmed 14 Nov 2026; DL-59, 61 Assumed)
 
 | ID | Decision | Why |
 |---|---|---|
