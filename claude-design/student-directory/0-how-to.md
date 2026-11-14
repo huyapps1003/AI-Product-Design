@@ -18,7 +18,7 @@ Open claude.ai/design, click your organization name at the bottom left, and run 
 
 **2. Create a project** called "Admission and Enrolment prototype" and attach the three files above.
 
-**3. Paste Prompt 1** from `3-starter-prompts.md`. It builds the directory, the student profile and the admissions pipeline board.
+**3. Paste Prompt 1** from `3-starter-prompts.md`. It builds the directory and the student profile with the v1.0 rules (medical alert flag, AEPP placement).
 
 **4. Add one screen at a time** with the follow-up prompts: complete enrolment, campus transfer, guardian verification, Student Pass cases, role views, sync conflict, parent app.
 
@@ -26,6 +26,6 @@ Open claude.ai/design, click your organization name at the bottom left, and run 
 
 ## Limits to know
 
-- The admissions pipeline (enquiry, application, assessment, offer, contract) has no data dictionary yet, so pipeline screens stay light. The next dictionary will fill this in.
-- Items in section 7 of the brief are undecided (AEPP, custody, consent, health alerts, student app, Student ID format). Prototypes should show them as "Pending decision".
+- The admissions pipeline has its own package in `../admissions/`.
+- The brief follows the locked v1.0 spec (13 Nov 2026). Items in section 7 (gender values, custody, consent, controller name, house names, retention, cross-entity transfers) are still undecided: show them as "Pending decision".
 - Claude Design uses the same usage limits as the rest of Claude; linking the whole repo uses more than uploading the three files.

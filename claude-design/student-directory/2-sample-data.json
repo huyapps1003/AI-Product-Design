@@ -1,7 +1,7 @@
 {
- "_about": "Synthetic sample data for prototyping the Campus OS Student Directory and Admission and Enrolment screens. All people, numbers and addresses are invented. GIIS is the example brand; Global Schools Group (GSG) runs Campus OS for all its brands. Dates are illustrative. Fields marked restricted are Tier 3: show them masked with a lock unless the viewer is Admissions. Today in the prototype is 6 Nov 2026.",
+ "_about": "Synthetic sample data for Campus OS student screens (OBJ-02, OBJ-03, OBJ-04). All people, numbers and addresses are invented. GIIS campuses (SG-PGL, SG-ECS, IN-NOI) are the original set; five campuses of other brands were added on 9 Nov 2026 from the sample scope nodes in product-truth/01-context/gsg-landscape.md. Campus codes are placeholders (OQ-55); Student ID format is a placeholder (OQ-36). Fields marked restricted are Tier 3. Today in the prototype is 6 Nov 2026.",
  "group": "Global Schools Group (GSG)",
- "brand": "GIIS (example brand)",
+ "brand": "GIIS is the detailed example brand; OWIS, Harrods, Witty, Heath House and Regent appear with one student each",
  "today": "2026-11-06",
  "campuses": [
   {
@@ -15,7 +15,8 @@
     "IB PYP",
     "Cambridge CLSP 6-8"
    ],
-   "ay_start": "2026-07-13"
+   "ay_start": "2026-07-13",
+   "brand": "GIIS"
   },
   {
    "code": "SG-ECS",
@@ -27,7 +28,9 @@
     "IGCSE 9-10",
     "IBDP"
    ],
-   "ay_start": "2026-07-13"
+   "ay_start": "2026-07-13",
+   "brand": "GIIS",
+   "note": "Not on GSG's public campus list (9 Nov 2026); kept until GSG confirms it operates"
   },
   {
    "code": "IN-NOI",
@@ -38,7 +41,84 @@
     "GMP (KG)",
     "CBSE 1-12"
    ],
-   "ay_start": "2026-04-06"
+   "ay_start": "2026-04-06",
+   "brand": "GIIS"
+  },
+  {
+   "code": "SG-OWD",
+   "brand": "OWIS",
+   "name": "OWIS Digital Campus, Punggol",
+   "country": "SG",
+   "timezone": "Asia/Singapore",
+   "programmes": [
+    "IB PYP"
+   ],
+   "ay_start": null,
+   "note": "Same area as GIIS SG-PGL (OQ-52)"
+  },
+  {
+   "code": "KH-HLP",
+   "brand": "Harrods",
+   "name": "Harrods Lower Primary Campus, Phnom Penh",
+   "country": "KH",
+   "timezone": "Asia/Phnom_Penh",
+   "programmes": [
+    "IPC (Cambridge)",
+    "Khmer National Programme"
+   ],
+   "ay_start": null,
+   "note": "Stage campus (OQ-50)"
+  },
+  {
+   "code": "KH-HUP",
+   "brand": "Harrods",
+   "name": "Harrods Upper Primary Campus, Phnom Penh",
+   "country": "KH",
+   "timezone": "Asia/Phnom_Penh",
+   "programmes": [
+    "IPC (Cambridge)",
+    "Khmer National Programme"
+   ],
+   "ay_start": null,
+   "note": "Stage campus (OQ-50)"
+  },
+  {
+   "code": "IN-WKB",
+   "brand": "Witty",
+   "name": "Witty Kids Borivali, Mumbai",
+   "country": "IN",
+   "timezone": "Asia/Kolkata",
+   "programmes": [
+    "Preschool"
+   ],
+   "ay_start": null,
+   "note": "Preschool only"
+  },
+  {
+   "code": "UK-HTH",
+   "brand": "Heath House",
+   "name": "Heath House Tranquil Hall, London",
+   "country": "GB",
+   "timezone": "Europe/London",
+   "programmes": [
+    "British National Curriculum"
+   ],
+   "ay_start": null
+  },
+  {
+   "code": "MY-RKL",
+   "brand": "Regent",
+   "name": "Regent International School, Klang",
+   "country": "MY",
+   "timezone": "Asia/Kuala_Lumpur",
+   "programmes": [
+    "Cambridge Lower Secondary KS3",
+    "Cambridge Upper Secondary KS4",
+    "A-levels",
+    "Swinburne Foundation Program"
+   ],
+   "ay_start": null,
+   "note": "University pathway; possible adult learners (OQ-54)"
   }
  ],
  "illustrative_counts": {
@@ -1561,6 +1641,308 @@
    "login": null,
    "cases": [],
    "note": "Deferred start from Aug 2026 to Jan 2027 at the family's request."
+  },
+  {
+   "student_number": "GS-2025-005120",
+   "legal_first_name": "Lucas",
+   "legal_last_name": "Lim",
+   "preferred_name": "Lucas",
+   "date_of_birth": "2017-09-03",
+   "nationality": [
+    "SG"
+   ],
+   "home_language": "English",
+   "record_status": "ACTIVE",
+   "photo": "initials LL",
+   "enrolments": [
+    {
+     "campus": "SG-OWD",
+     "academic_year": "AY 2026",
+     "programme": "IB PYP",
+     "grade": "Grade 4",
+     "segment": "Primary",
+     "class": "4 Orchid",
+     "house": null,
+     "status": "ENROLLED",
+     "start_date": "2026-01-05",
+     "end_date": null,
+     "end_reason": null
+    }
+   ],
+   "subjects": [],
+   "guardians": [
+    {
+     "guardian_id": "G-101",
+     "relationship_type": "MOTHER",
+     "can_collect_student": true,
+     "is_emergency_contact": true,
+     "contact_priority": 1,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "Blk 302 Punggol Place #11-08, Singapore 820302",
+     "country": "SG"
+    }
+   ],
+   "identity_documents": [],
+   "immigration_status": null,
+   "attendance_threshold": null,
+   "external_ids": [],
+   "login": {
+    "status": "ACTIVE",
+    "account": "lucas.lim@students.owis.example"
+   },
+   "cases": [],
+   "_note": "OWIS academic year shown as a placeholder; brand calendars differ (OQ-20). Neighbour of GIIS SG-PGL (OQ-52)."
+  },
+  {
+   "student_number": "GS-2023-005871",
+   "legal_first_name": "Sokha",
+   "legal_last_name": "Chan",
+   "preferred_name": "Sokha",
+   "date_of_birth": "2016-02-11",
+   "nationality": [
+    "KH"
+   ],
+   "home_language": "Khmer",
+   "record_status": "ACTIVE",
+   "photo": "initials SC",
+   "enrolments": [
+    {
+     "campus": "KH-HLP",
+     "academic_year": "AY 2025-26",
+     "programme": "IPC (Cambridge)",
+     "grade": "Year 4",
+     "segment": "Primary",
+     "class": "4B",
+     "house": null,
+     "status": "COMPLETED",
+     "start_date": "2025-08-11",
+     "end_date": "2026-06-26",
+     "end_reason": "PROMOTION_ROLLOVER"
+    },
+    {
+     "campus": "KH-HUP",
+     "academic_year": "AY 2026-27",
+     "programme": "IPC (Cambridge)",
+     "grade": "Year 5",
+     "segment": "Primary",
+     "class": "5A",
+     "house": null,
+     "status": "ENROLLED",
+     "start_date": "2026-08-10",
+     "end_date": null,
+     "end_reason": null,
+     "previous": "AY 2025-26 4B at KH-HLP"
+    }
+   ],
+   "subjects": [],
+   "guardians": [
+    {
+     "guardian_id": "G-102",
+     "relationship_type": "FATHER",
+     "can_collect_student": true,
+     "is_emergency_contact": true,
+     "contact_priority": 1,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "Street 271, Toul Kork, Phnom Penh (synthetic)",
+     "country": "KH"
+    }
+   ],
+   "identity_documents": [],
+   "immigration_status": null,
+   "attendance_threshold": null,
+   "external_ids": [],
+   "login": {
+    "status": "ACTIVE",
+    "account": "sokha.chan@students.harrods.example"
+   },
+   "cases": [],
+   "_note": "Moves campus on promotion: Lower Primary to Upper Primary. A promotion, not a transfer (DL-54). Khmer-script name not modelled (OQ-53)."
+  },
+  {
+   "student_number": "GS-2026-006044",
+   "legal_first_name": "Vihaan",
+   "legal_last_name": "Shah",
+   "preferred_name": "Vihaan",
+   "date_of_birth": "2022-12-19",
+   "nationality": [
+    "IN"
+   ],
+   "home_language": "Gujarati",
+   "record_status": "ACTIVE",
+   "photo": "initials VS",
+   "enrolments": [
+    {
+     "campus": "IN-WKB",
+     "academic_year": "AY 2026-27",
+     "programme": "Preschool",
+     "grade": "Nursery",
+     "segment": "Pre-Primary",
+     "class": "Nursery Blue",
+     "house": null,
+     "status": "ENROLLED",
+     "start_date": "2026-06-08",
+     "end_date": null,
+     "end_reason": null
+    }
+   ],
+   "subjects": [],
+   "guardians": [
+    {
+     "guardian_id": "G-103",
+     "relationship_type": "MOTHER",
+     "can_collect_student": true,
+     "is_emergency_contact": true,
+     "contact_priority": 1,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    },
+    {
+     "guardian_id": "G-104",
+     "relationship_type": "FATHER",
+     "can_collect_student": true,
+     "is_emergency_contact": true,
+     "contact_priority": 2,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "B-704 Sample Heights, Borivali West, Mumbai 400092 (synthetic)",
+     "country": "IN"
+    }
+   ],
+   "identity_documents": [],
+   "immigration_status": null,
+   "attendance_threshold": null,
+   "external_ids": [],
+   "login": {
+    "status": "ACTIVE",
+    "account": "vihaan.shah@students.witty.example"
+   },
+   "cases": [],
+   "_note": "Preschool-only campus; moving on to a Witty International School campus would be a new enrolment at another campus."
+  },
+  {
+   "student_number": "GS-2024-006310",
+   "legal_first_name": "Oliver",
+   "legal_last_name": "Bennett",
+   "preferred_name": "Oliver",
+   "date_of_birth": "2019-03-22",
+   "nationality": [
+    "GB"
+   ],
+   "home_language": "English",
+   "record_status": "ACTIVE",
+   "photo": "initials OB",
+   "enrolments": [
+    {
+     "campus": "UK-HTH",
+     "academic_year": "AY 2026-27",
+     "programme": "British National Curriculum",
+     "grade": "Year 2",
+     "segment": "Primary",
+     "class": "Year 2 Oak",
+     "house": null,
+     "status": "ENROLLED",
+     "start_date": "2026-09-02",
+     "end_date": null,
+     "end_reason": null
+    }
+   ],
+   "subjects": [],
+   "guardians": [
+    {
+     "guardian_id": "G-105",
+     "relationship_type": "MOTHER",
+     "can_collect_student": true,
+     "is_emergency_contact": true,
+     "contact_priority": 1,
+     "receives_communications": true,
+     "verification_status": "VERIFIED",
+     "parent_app_access": "Active"
+    }
+   ],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "Flat 3, 21 Sample Lane, London (synthetic)",
+     "country": "GB"
+    }
+   ],
+   "identity_documents": [],
+   "immigration_status": null,
+   "attendance_threshold": null,
+   "external_ids": [],
+   "login": {
+    "status": "ACTIVE",
+    "account": "oliver.bennett@students.heathhouse.example"
+   },
+   "cases": []
+  },
+  {
+   "student_number": "GS-2025-006587",
+   "legal_first_name": "Aisyah",
+   "legal_last_name": "Rahman",
+   "preferred_name": "Aisyah",
+   "date_of_birth": "2007-05-14",
+   "nationality": [
+    "MY"
+   ],
+   "home_language": "Malay",
+   "record_status": "ACTIVE",
+   "photo": "initials AR",
+   "enrolments": [
+    {
+     "campus": "MY-RKL",
+     "academic_year": "AY 2026",
+     "programme": "Swinburne Foundation Program",
+     "grade": "Foundation",
+     "segment": "Pending (OQ-54)",
+     "class": null,
+     "house": null,
+     "status": "ENROLLED",
+     "start_date": "2026-01-12",
+     "end_date": null,
+     "end_reason": null
+    }
+   ],
+   "subjects": [],
+   "guardians": [],
+   "addresses": [
+    {
+     "type": "CURRENT",
+     "address": "No. 8, Jalan Contoh 3, Klang, Selangor (synthetic)",
+     "country": "MY"
+    }
+   ],
+   "identity_documents": [],
+   "immigration_status": null,
+   "attendance_threshold": null,
+   "external_ids": [],
+   "login": {
+    "status": "ACTIVE",
+    "account": "aisyah.rahman@students.regent.example"
+   },
+   "cases": [],
+   "_note": "Age 19 on 6 Nov 2026. No guardian recorded: how guardian links and consent apply to adult learners is OQ-54."
   }
  ],
  "guardians": [
@@ -2157,6 +2539,136 @@
     "valid_to": "2027-12-31",
     "restricted": true
    }
+  },
+  {
+   "guardian_id": "G-101",
+   "legal_first_name": "Grace",
+   "legal_last_name": "Lim",
+   "preferred_language": "en",
+   "nationality": [
+    "SG"
+   ],
+   "record_status": "ACTIVE",
+   "contacts": [
+    {
+     "channel": "PHONE",
+     "value": "+65 9001 2201",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "EMAIL",
+     "value": "grace.lim@mail.example",
+     "is_primary": true,
+     "verified": true
+    }
+   ],
+   "addresses": [],
+   "immigration_status": null
+  },
+  {
+   "guardian_id": "G-102",
+   "legal_first_name": "Dara",
+   "legal_last_name": "Chan",
+   "preferred_language": "km",
+   "nationality": [
+    "KH"
+   ],
+   "record_status": "ACTIVE",
+   "contacts": [
+    {
+     "channel": "PHONE",
+     "value": "+855 12 000 102",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "EMAIL",
+     "value": "dara.chan@mail.example",
+     "is_primary": true,
+     "verified": true
+    }
+   ],
+   "addresses": [],
+   "immigration_status": null
+  },
+  {
+   "guardian_id": "G-103",
+   "legal_first_name": "Kavita",
+   "legal_last_name": "Shah",
+   "preferred_language": "gu",
+   "nationality": [
+    "IN"
+   ],
+   "record_status": "ACTIVE",
+   "contacts": [
+    {
+     "channel": "PHONE",
+     "value": "+91 98200 10103",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "EMAIL",
+     "value": "kavita.shah@mail.example",
+     "is_primary": true,
+     "verified": true
+    }
+   ],
+   "addresses": [],
+   "immigration_status": null
+  },
+  {
+   "guardian_id": "G-104",
+   "legal_first_name": "Rohit",
+   "legal_last_name": "Shah",
+   "preferred_language": "hi",
+   "nationality": [
+    "IN"
+   ],
+   "record_status": "ACTIVE",
+   "contacts": [
+    {
+     "channel": "PHONE",
+     "value": "+91 98200 10104",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "EMAIL",
+     "value": "rohit.shah@mail.example",
+     "is_primary": true,
+     "verified": true
+    }
+   ],
+   "addresses": [],
+   "immigration_status": null
+  },
+  {
+   "guardian_id": "G-105",
+   "legal_first_name": "Emma",
+   "legal_last_name": "Bennett",
+   "preferred_language": "en",
+   "nationality": [
+    "GB"
+   ],
+   "record_status": "ACTIVE",
+   "contacts": [
+    {
+     "channel": "PHONE",
+     "value": "+44 7700 900105",
+     "is_primary": true,
+     "verified": true
+    },
+    {
+     "channel": "EMAIL",
+     "value": "emma.bennett@mail.example",
+     "is_primary": true,
+     "verified": true
+    }
+   ],
+   "addresses": [],
+   "immigration_status": null
   }
  ]
 }
