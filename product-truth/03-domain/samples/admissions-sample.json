@@ -1,5 +1,5 @@
 {
-  "_about": "Synthetic sample data for Admissions screens (OBJ-16, with OBJ-03). All people, numbers and amounts are invented. Viewer Lina Goh, Admissions Officer, SG-PGL; 'today' 12 Nov 2026. Rule values (cooling-off 7 working days, fee types, refund on ICA/MOE rejection) are GIIS Singapore Handbook defaults shown as campus settings (DL-59). Application/enquiry number formats are placeholders. Fee amounts are placeholders (OQ-68). Reuses campuses and guardians from student-sample.json.",
+  "_about": "Synthetic sample data for Admissions screens (OBJ-16, with OBJ-03). All people, numbers and amounts are invented. Viewer Lina Goh, Admissions Officer, SG-PGL; 'today' 12 Nov 2026. Rule values (cooling-off 7 working days, fee types, refund on ICA/MOE rejection) are GIIS Singapore's own campus settings from its Handbook, not group defaults (DL-59). Application/enquiry number formats are placeholders. Fee amounts are placeholders (OQ-68). Reuses campuses and guardians from student-sample.json.",
   "today": "2026-11-12",
   "viewer": {
     "name": "Lina Goh",
@@ -60,7 +60,7 @@
       ]
     },
     "IN-NOI": {
-      "cooling_off_working_days": "pending (OQ-67)",
+      "cooling_off_working_days": "Not set (DL-59)",
       "currency": "INR",
       "government_approval": []
     }
@@ -74,7 +74,8 @@
       "seat_limit": 96,
       "seats_enrolled": 88,
       "seats_held": 6,
-      "waitlist_open": true
+      "waitlist_open": true,
+      "override_buffer": 2
     },
     {
       "campus": "SG-PGL",
@@ -85,7 +86,8 @@
       "seats_enrolled": 96,
       "seats_held": 0,
       "waitlist_open": true,
-      "_note": "Full; offers need an override (DL-61, OQ-65)"
+      "_note": "Full; Admissions Manager may override within the campus buffer, beyond that the Principal (DL-61)",
+      "override_buffer": 2
     },
     {
       "campus": "SG-PGL",
@@ -95,7 +97,8 @@
       "seat_limit": 44,
       "seats_enrolled": 31,
       "seats_held": 3,
-      "waitlist_open": false
+      "waitlist_open": false,
+      "override_buffer": 2
     },
     {
       "campus": "SG-PGL",
@@ -105,7 +108,8 @@
       "seat_limit": 60,
       "seats_enrolled": 0,
       "seats_held": 4,
-      "waitlist_open": false
+      "waitlist_open": false,
+      "override_buffer": 2
     }
   ],
   "enquiries": [
@@ -255,7 +259,7 @@
           "assessor": "Priya Nair"
         }
       ],
-      "_note": "Sibling: guardian Person reused, not duplicated (DL-58). Sibling priority pending (OQ-65)"
+      "_note": "Sibling: guardian Person reused, not duplicated (DL-58). Siblings come first on a waitlist (DL-61)"
     },
     {
       "application_number": "APP-26-1160",
@@ -270,7 +274,7 @@
       "academic_year": "AY 2026-27",
       "needs_government_approval": "STUDENT_PASS",
       "application_status": "WAITLISTED",
-      "waitlist_position": "pending rule (OQ-65)",
+      "waitlist_position": 3,
       "assessments": [
         {
           "type": "ENTRANCE_TEST",

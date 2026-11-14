@@ -1,10 +1,10 @@
 # Global Campus OS — Admissions Data Dictionary v0.1 (draft)
 
-**Status:** Proposed draft, 12 Nov 2026. DL-56, DL-57, DL-58, DL-60 Confirmed (Henry, 14 Nov 2026); DL-59, DL-61 Assumed; OQ-62…OQ-72 Open · **Owner:** Henry
+**Status:** Proposed draft, 12 Nov 2026. DL-56…DL-61 Confirmed (Henry, 14 Nov 2026); OQ-62…OQ-72 Open · **Owner:** Henry
 **Cites:** [Architecture v1](../00-sources/Global_Campus_OS_Product_Architecture_v1.md) § Users and roles, § Domains and modules (module 1), § Key workflows (Admission to enrolment; Fees, withdrawal and refund), § Integrations (ICA) · [Student Directory Spec](./student-directory-data-dictionary.md) ST01, ST02, ST04, ST05, ST08, ST09, ST11, SR-07 · [Organisation dictionary](./organisation-data-dictionary.md) OR04, OR07, OR08, OR09 · [architecture.md](./architecture.md) AR-xx · [operating-context](../01-context/operating-context.md) (enquiry.globalschools.com, MyGIIS) · [regulatory-context](../05-data-governance/regulatory-context.md) (CPE/EduTrust, ICA, FPS) · GIIS Student Handbook 2025-26 (HB) p.125, p.232–245, § SEN · DL-22, DL-24, DL-27, DL-29, DL-39…DL-45, DL-47, DL-53…DL-55 · MC-01, MC-05, MC-06, MC-07, MC-12, MC-14 · OQ-06, OQ-07, OQ-10, OQ-29, DL-63, DL-65, DL-67 (Henry, 13 Nov 2026)
 **Tóm tắt (VI):** Từ điển dữ liệu cho module Tuyển sinh và Nhập học: từ lúc gia đình hỏi thông tin đến ngày đầu tiên đi học (hỏi thông tin, hồ sơ, đánh giá/xếp lớp, thư mời nhập học, hợp đồng và phí ghi danh, hồ sơ xin Student Pass/MOE, bàn giao sang hồ sơ học sinh). Mỗi trường có trạng thái Known / Assumed / Open.
 
-> Drafted by Claude from product truth on 12 Nov 2026 after Henry approved the scope the same day. Henry confirmed DL-56, DL-57, DL-58 and DL-60 on 14 Nov 2026.
+> Drafted by Claude from product truth on 12 Nov 2026 after Henry approved the scope the same day. Henry confirmed DL-56…DL-61 on 14 Nov 2026.
 
 ## How to read this file
 
@@ -31,7 +31,7 @@ Approved by Henry, 12 Nov 2026: **a new family's path from first enquiry to firs
 - **One Person, never auto-merged (DL-42, DL-58).** The enquirer and the child are matched to existing Persons by ID-based checks; possible matches go to the duplicate review queue. A sibling or returning family reuses the existing guardian Person.
 - **When a student record exists (DL-57).** Before an offer, the child is a Person plus applicant fields on the application. Issuing an offer creates the Student (ST01) and an Enrolment (ST02) in status `OFFERED`, which the Student Directory already defines. That is why ST02 has `OFFERED` and `CONFIRMED`.
 - **Admissions writes, Student Records holds (OBJ-03, AR-06).** After handoff, profile edits go through the Student Directory, not the application.
-- **Rules are settings, GIIS Singapore is one example (DL-59).** Cooling-off days, fees due at admission, required documents, required assessments and offer expiry are settings on the scope tree (MC-01, MC-14). The Handbook values are the GIIS Singapore defaults in samples, not group rules.
+- **Rules are settings with no group default (DL-59, Confirmed).** Cooling-off days, fees due at admission, required documents, required assessments and offer validity are set by each brand-country or campus (MC-01, MC-14). A value that isn't set shows "Not set" and blocks the step that needs it. GIIS Singapore Handbook values appear only as GIIS Singapore's own settings in sample data, never as defaults for other campuses.
 - **Restricted outcomes only (DL-60).** SEN pre-admission evaluation notes and immigration documents stay Tier 3 with their owners. The application holds only an outcome code and a link.
 - **Data location.** An enquiry is held in the data location of the campus it is routed to. An enquiry not yet routed (group enquiry site) is held where the group site's data is held (OQ-29, OQ-63).
 
@@ -44,7 +44,7 @@ Approved by Henry, 12 Nov 2026: **a new family's path from first enquiry to firs
 | AD03 | Application | Admissions | Known (Arch step 1; module 1 "Enquiry, application, AEPP") |
 | AD04 | Application Document | Admissions | Known need (Arch § Fees "documents checklist" pattern; HB p.35 student particulars); list Open (OQ-72) |
 | AD05 | Admission Assessment | Admissions (outcome) / Wellbeing (SEN notes) | Known (Arch step 1 "assessment… AEPP placement"; HB p.125 placement test; HB § SEN pre-admission evaluation) |
-| AD06 | Intake Capacity | Admissions | Assumed (DL-61); rules Open (OQ-65) |
+| AD06 | Intake Capacity | Admissions | Confirmed (DL-61) |
 | AD07 | Offer | Admissions | Known (Arch step 2) |
 | AD08 | Student Contract | Admissions | Known (Arch step 2; HB p.232–236; ST02 `contract_id`) |
 | AD09 | Admission Fee Requirement | Admissions (status) / Fees and Finance (invoice, payment) | Known (Arch step 2 "registration fee"; HB p.242) |
@@ -123,7 +123,7 @@ ST01, ST02, ST04, ST05, ST08, ST09 and ST11 are referenced, not redefined.
 | previous_school_name | VARCHAR(160) | — | N | T2* | Assumed | |
 | previous_school_country | CHAR(2) | — | N | T2* | Assumed | |
 | sen_disclosed | BOOLEAN | — | N | T3 | Known (HB § SEN: "information shared at the time of seeking admission") | Triggers AD05 SEN evaluation; Tier 3 (Arch § Security: SEN). |
-| sibling_student_ids | UUID[] | — | N | T1 | Assumed | Derived from guardian links; priority rule Open (OQ-65). |
+| sibling_student_ids | UUID[] | — | N | T1 | Assumed | Derived from guardian links; first in waitlist order (DL-61). |
 | primary_contact_guardian_person_id | UUID | FK:Person | Y | T1 | Assumed | Becomes ST04/ST05 at offer (DL-57); relationship unverified until ST05 verification (DL-25). |
 | application_status | ENUM | — | Y | T1 | Assumed (DL-27) | See enums and SR-AD-01. |
 | submitted_at | TIMESTAMP | — | C | T1 | Assumed | |
@@ -131,7 +131,7 @@ ST01, ST02, ST04, ST05, ST08, ST09 and ST11 are referenced, not redefined.
 | decision | ENUM | — | C | T2 | Assumed | OFFER, WAITLIST, REJECT. |
 | decision_by_user_id | UUID | FK:User | C | T2 | Open (OQ-66: who decides) | |
 | decision_reason | TEXT | — | C | T2 | Assumed | Required for REJECT. |
-| waitlist_position | INT | — | C | T2 | Open (OQ-65) | Computed; ordering rule Open. |
+| waitlist_position | INT | — | C | T2 | Confirmed (DL-61) | Computed: siblings, then staff children, then date the application was complete. |
 | closed_reason | ENUM | — | C | T1 | Assumed | When WITHDRAWN or DECLINED. |
 
 ### AD04 — Application Document
@@ -143,7 +143,7 @@ ST01, ST02, ST04, ST05, ST08, ST09 and ST11 are referenced, not redefined.
 | application_document_id | UUID | PK | Y | T1 | Assumed | |
 | application_id | UUID | FK:AD03 | Y | T1 | Assumed | |
 | document_type | ENUM | — | Y | T1 | Open (list, OQ-72) | Required set comes from a setting (DL-59). |
-| required | BOOLEAN | — | Y | T1 | Assumed (DL-59) | From the setting at the time the checklist was made. |
+| required | BOOLEAN | — | Y | T1 | Confirmed (DL-59) | From the setting at the time the checklist was made. |
 | document_status | ENUM | — | Y | T1 | Assumed | REQUESTED, RECEIVED, ACCEPTED, REJECTED, WAIVED. |
 | file_ref | VARCHAR | — | C | per type | Assumed | Passport, birth certificate: T3 (Arch § Security). Report cards: T2. |
 | identity_document_id | UUID | FK:ST08 | N | T3 | Assumed | Accepted passports become ST08 at offer. |
@@ -171,9 +171,10 @@ ST01, ST02, ST04, ST05, ST08, ST09 and ST11 are referenced, not redefined.
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| intake_capacity_id | UUID | PK | Y | T1 | Assumed (DL-61) | |
+| intake_capacity_id | UUID | PK | Y | T1 | Confirmed (DL-61) | |
 | campus_id, programme_offering_id, grade_id, academic_year_id | UUID | UK | Y | T1 | Assumed | One row per target. |
-| seat_limit | INT | — | Y | T1 | Open (OQ-65: who sets it, per grade or per class) | |
+| seat_limit | INT | — | Y | T1 | Confirmed (DL-61) | Classes × class size for the grade; set by the Principal before the year opens. |
+| override_buffer | INT | — | Y | T1 | Confirmed (DL-61) | Seats an Admissions Manager may add over the limit, with a reason; set per campus. |
 | seats_enrolled / seats_held | INT | — | Y | T1 | Assumed | Derived from ST02 (ENROLLED) and open offers (OFFERED, CONFIRMED). |
 | waitlist_open | BOOLEAN | — | Y | T1 | Assumed | |
 
@@ -289,13 +290,13 @@ Known: Admissions and customer relations work at campus or country scope and own
 
 - **SR-AD-01 (Assumed, DL-56):** An application moves forward only; going back (for example UNDER_REVIEW to DOCUMENTS_PENDING) is allowed and logged. ENROLLED, DECLINED, REJECTED and WITHDRAWN are final.
 - **SR-AD-02 (Confirmed rule, DL-42 / DL-58):** Matching an enquirer or child to a Person never merges automatically; possible duplicates go to the review queue.
-- **SR-AD-03 (Assumed, DL-61):** An offer that would exceed `seat_limit` needs an override with a reason (who may override: OQ-65).
+- **SR-AD-03 (Confirmed, DL-61):** Open offers and confirmed students hold seats until they expire or are cancelled. An officer can't issue an offer above `seat_limit`. An Admissions Manager may go over by up to `override_buffer` with a reason; beyond that the Principal approves. When a seat frees, the first waitlisted application gets a time-limited offer.
 - **SR-AD-04 (Assumed, DL-57):** ST02 becomes CONFIRMED when the offer is accepted, the contract is SIGNED and every AT_ACCEPTANCE fee is PAID or WAIVED.
 - **SR-AD-05 (Known, GIIS SG, HB p.233):** Withdrawal within the cooling-off period (7 working days from full signature) is handled as a cooling-off withdrawal. The withdrawal case itself is out of scope.
 - **SR-AD-06 (Known, GIIS SG, HB p.242):** Application and registration fees are non-refundable, except for new admissions when ICA rejects the Student Pass or MOE rejects a Singapore citizen's application, less an administrative charge.
 - **SR-AD-07 (Known, Arch step 4 = student SR-07):** On ENROLLED the student gets a class, timetable, bus route and logins for parent and student apps. Parent access comes from a Family Link created from the verified ST05 relationship (DL-25), never from the application.
 - **SR-AD-08 (Assumed, DL-60):** SEN evaluation notes never appear on the application; only the outcome and the link to the Wellbeing record.
-- **SR-AD-09 (Assumed, DL-59):** Every Handbook value used here (7 working days, fee types, refund condition) is a setting on the scope tree; screens read it, never hard-code it.
+- **SR-AD-09 (Confirmed, DL-59):** Every rule value is a brand-country or campus setting with no group default. Screens read it, never hard-code it, and show "Not set" (step blocked) when it is missing.
 - **SR-AD-10 (Known, Arch step 1; Confirmed DL-65):** AEPP placement is recorded as an AD05 outcome and becomes a placement inside the regular enrolment, not a separate AEPP enrolment.
 
 ## Events
@@ -306,16 +307,16 @@ EnquiryReceived, EnquiryRouted, ApplicationSubmitted, AssessmentRecorded, Applic
 
 `admissions.enquiry.view`, `.create`, `.assign` · `admissions.application.view`, `.edit`, `.decide` · `admissions.document.review` · `admissions.assessment.record` · `admissions.capacity.manage` · `admissions.offer.issue`, `.rescind` · `admissions.contract.issue`, `.void` · `admissions.approval_case.manage` · existing `admissions.enrolment.create`.
 
-## Decisions (DL-56, 57, 58, 60 Confirmed 14 Nov 2026; DL-59, 61 Assumed)
+## Decisions (Confirmed by Henry, 14 Nov 2026)
 
 | ID | Decision | Why |
 |---|---|---|
 | DL-56 | Enquiry is per family (AD01, may name several children and campuses); application is per child per target (campus × offering × grade × academic year) | Matches how families enquire and how seats are counted |
 | DL-57 | Student (ST01) and Enrolment (ST02 OFFERED) are created when an offer is issued; before that the child is a Person plus applicant fields | ST02 already has OFFERED and CONFIRMED; avoids creating student records for every enquiry |
 | DL-58 | Enquirers and applicants are matched to existing Persons with the DL-42 review queue; returning families and siblings reuse their Persons | One Person rule; no duplicate guardians across siblings |
-| DL-59 | Cooling-off days, fees due, required documents, required assessments and offer validity are scope-tree settings; GIIS Singapore Handbook values are sample defaults | Only GIIS SG rules are documented (DL-22, MC-14) |
+| DL-59 | Cooling-off days, fees due, required documents, required assessments and offer validity are set per brand-country or campus, with no group default; unset shows "Not set" and blocks the step | Only GIIS SG rules are documented (DL-22, MC-14); a Singapore default would leak into other countries |
 | DL-60 | SEN evaluation and identity documents stay Tier 3 with their owners; Admissions sees an outcome code and a link | Same pattern as DL-30 |
-| DL-61 | Intake capacity is a seat limit per campus × offering × grade × academic year; offers above it need an override | Officers need to know whether to offer or waitlist |
+| DL-61 | Seat limit per campus × offering × grade × academic year (classes × class size, set by the Principal); open offers and confirmed students hold seats; Admissions Manager may exceed by a campus buffer with a reason, beyond that the Principal; waitlist order siblings, staff children, completion date; freed seat → time-limited offer to the first on the list | Answers OQ-65 |
 
 ## Open questions (new)
 
@@ -324,7 +325,7 @@ EnquiryReceived, EnquiryRouted, ApplicationSubmitted, AssessmentRecorded, Applic
 | OQ-62 | Can families apply online before enrolment, and with what login? (GIIS gives MyGIIS logins only on enrolment, HB p.34) | Decides whether there is a parent applicant portal or staff-entered applications only |
 | OQ-63 | Who owns an enquiry that names several campuses or brands, and where is an unrouted group enquiry held? | Routing, ownership and data location for group-site enquiries (with OQ-29) |
 | OQ-64 | Which brands, grades and offerings require entrance tests or interviews, what are the age-to-grade cut-offs, and do parents see results? | Assessment steps and grade suggestions |
-| OQ-65 | Who sets seat limits, can they be overridden, and how is the waitlist ordered (siblings, staff children, date)? | Capacity view and waitlist screens |
+| OQ-65 | Who sets seat limits, can they be overridden, and how is the waitlist ordered? **Answered → DL-61** | Capacity view and waitlist screens |
 | OQ-66 | Who decides an application and issues an offer (officer, manager, principal), and how long is an offer valid? | Approval step and expiry |
 | OQ-67 | What contract applies in each country, who signs for the family, and is e-signature allowed? | Contract screen and signature flow; only GIIS SG (CPE) is documented |
 | OQ-68 | Which fees are due at admission per brand and country (application, registration, deposit), how much, and when? | Fee step; HB names application and registration fees only |
@@ -336,4 +337,4 @@ EnquiryReceived, EnquiryRouted, ApplicationSubmitted, AssessmentRecorded, Applic
 ## Readiness
 
 - **Can be designed now:** enquiry queue, application list and detail, document checklist, assessment outcome entry, offer and contract status, approval case status, enrolment handoff, all with GIIS Singapore sample values labelled as settings.
-- **Keep generic, label Pending:** parent applicant portal (OQ-62), offer approver (OQ-66), contract signature (OQ-67), fee amounts (OQ-68), waitlist order (OQ-65).
+- **Keep generic, label Pending:** parent applicant portal (OQ-62), offer approver (OQ-66), contract signature (OQ-67), fee amounts (OQ-68).

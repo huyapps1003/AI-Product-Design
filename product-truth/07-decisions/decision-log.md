@@ -70,9 +70,9 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-56 | Enquiry per family; application per child per target (campus × offering × grade × academic year) | **Confirmed** (Henry, 14 Nov 2026) | Admissions dictionary AD01–AD03 |
 | DL-57 | Student and Enrolment (OFFERED) are created when an offer is issued | **Confirmed** (Henry, 14 Nov 2026) | Admissions dictionary, ST02 |
 | DL-58 | Enquirers and applicants matched to existing Persons via the DL-42 review queue | **Confirmed** (Henry, 14 Nov 2026) | DL-42 |
-| DL-59 | Admission rules (cooling-off, fees, documents, assessments, offer validity) are scope-tree settings; GIIS SG values are sample defaults | Assumed (proposed 12 Nov 2026) | MC-14, DL-22 |
+| DL-59 | Admission rules are set per brand-country or campus, no group default; unset = "Not set", step blocked | **Confirmed** (Henry, 14 Nov 2026) | MC-14, DL-22 |
 | DL-60 | SEN evaluation and identity documents stay Tier 3 with their owners; Admissions sees outcome and link | **Confirmed** (Henry, 14 Nov 2026) | DL-30 pattern |
-| DL-61 | Intake capacity = seat limit per campus × offering × grade × academic year; overrides need a reason | Assumed (proposed 12 Nov 2026) | OQ-65 |
+| DL-61 | Seat limit (classes × size, Principal); held seats; manager buffer override, beyond = Principal; waitlist siblings › staff children › completion date | **Confirmed** (Henry, 14 Nov 2026) | OQ-65 |
 | DL-62 | Stage-campus promotion needs no extra approval; any other year-end campus change needs both principals | **Confirmed** (Henry, 13 Nov 2026) | OQ-60, DL-54 |
 | DL-63 | A year-end move into another brand or country is a new admission, not a promotion | **Confirmed** (Henry, 13 Nov 2026) | OQ-60, OQ-07 |
 | DL-64 | A guardian's own contact and address changes apply in every data location; per-child flags stay per child | **Confirmed** (Henry, 13 Nov 2026) | OQ-61, DL-55, DL-28 |
@@ -370,11 +370,11 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Still open.** Whether a contact change in one data location applies in the other (OQ-61).
 - **Confirmed by.** Henry, 12 Nov 2026.
 
-### DL-56 to DL-61 — Admissions pipeline (proposed)
+### DL-56 to DL-61 — Admissions pipeline
 - **Context.** Second module, Admissions and Enrolment; scope approved by Henry 12 Nov 2026 (enquiry to enrolment handoff).
-- **Decision.** See the table above and [admissions dictionary § Decisions proposed](../03-domain/admissions-data-dictionary.md#decisions-dl-56-57-58-60-confirmed-14-nov-2026-dl-59-61-assumed).
+- **Decision.** See the table above and [admissions dictionary § Decisions proposed](../03-domain/admissions-data-dictionary.md#decisions-confirmed-by-henry-14-nov-2026).
 - **Why.** Lets the pipeline be designed while the rules other than GIIS Singapore's are unknown.
-- **Status.** DL-56, DL-57, DL-58, DL-60 Confirmed by Henry, 14 Nov 2026. DL-59 and DL-61 Assumed, under discussion.
+- **Status.** All Confirmed by Henry, 14 Nov 2026. DL-59 was reworded at his question: GIIS Singapore values are not group defaults. DL-61 answers OQ-65.
 
 ### DL-62…DL-68 — Student Directory v1.0 lock answers
 - **Context.** The lock list in the student directory spec (PR #13) gave a recommendation per open item; Henry accepted all of them on 13 Nov 2026, which locked the spec as v1.0.
