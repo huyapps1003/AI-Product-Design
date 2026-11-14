@@ -1,0 +1,585 @@
+<title>Organisation Tree</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<!--
+  Screen: SCR-GA-01 Campuses → reframed as "Organisation" (scope tree + node detail, SCR-GA-02) · Campus OS Admin Platform
+  Purpose: let Henry verify the Organisation data dictionary v0.1 (OR01–OR09) against real GSG brands and campuses
+  Viewers: Daniel Ong (P2 Global Admin, scope GSG) · Dr Anita Rao (P3 Campus Leader, GIIS › Singapore › SMART Campus Punggol)
+  Objects: OBJ-13 Scope node and campus (primary), OBJ-14 Legal entity
+  States: tree browse, node detail per level (Group, Brand, Brand-country, Campus, Segment), data regions list, legal entities empty-pending, read-only (campus leader), no-match search
+  Sample: product-truth/03-domain/samples/organisation-sample.json + 01-context/gsg-footprint.json (62 campuses, 9 Nov 2026) · synthetic people
+  AR: AR-01 AR-02 AR-03 AR-04 AR-13 AR-14
+  AP: AP-01 AP-02 AP-07 AP-09 AP-13 AP-14
+  DL: DL-22 DL-29 DL-39 DL-40 DL-41 DL-45 DL-47 DL-48 DL-49 DL-50
+  OQ: OQ-02 OQ-03 OQ-04 OQ-20 OQ-21 OQ-22 OQ-25 OQ-26 OQ-50 OQ-51 OQ-52 OQ-53 OQ-54 OQ-55 OQ-56 OQ-57 OQ-58 OQ-59
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#00A76F;--primary-dark:#007867;--primary-soft:rgba(0,167,111,.08);--primary-soft2:rgba(0,167,111,.16);
+  --secondary:#8E33FF;--secondary-soft:rgba(142,51,255,.08);
+  --error:#B71D18;--error-soft:rgba(255,86,48,.12);
+  --warning:#B76E00;--warning-soft:rgba(255,171,0,.14);--warning-line:#FFAB00;
+  --info:#006C9C;--info-soft:rgba(0,184,217,.12);
+  --success:#118D57;--success-soft:rgba(34,197,94,.14);
+  --text:#212B36;--text2:#637381;--text3:#919EAB;
+  --bg:#FFFFFF;--paper:#FFFFFF;--neutral:#F4F6F8;--canvas:#EDEFF2;
+  --divider:rgba(145,158,171,.2);--line:rgba(145,158,171,.32);
+  --z1:0 1px 2px rgba(145,158,171,.16);
+  --card:0 0 2px 0 rgba(145,158,171,.2),0 12px 24px -4px rgba(145,158,171,.12);
+  --dict:#8E33FF;--dict-soft:rgba(142,51,255,.06);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --primary:#5BE49B;--primary-dark:#5BE49B;--primary-soft:rgba(91,228,155,.10);--primary-soft2:rgba(91,228,155,.18);
+  --secondary:#C684FF;--secondary-soft:rgba(198,132,255,.12);
+  --error:#FFAC82;--error-soft:rgba(255,86,48,.18);
+  --warning:#FFD666;--warning-soft:rgba(255,171,0,.16);
+  --info:#61F3F3;--info-soft:rgba(0,184,217,.16);
+  --success:#77ED8B;--success-soft:rgba(34,197,94,.16);
+  --text:#FFFFFF;--text2:#919EAB;--text3:#637381;
+  --bg:#161C24;--paper:#212B36;--neutral:#28323D;--canvas:#10141A;
+  --card:0 0 2px 0 rgba(0,0,0,.2),0 12px 24px -4px rgba(0,0,0,.16);
+  --dict:#C684FF;--dict-soft:rgba(198,132,255,.08);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --primary:#5BE49B;--primary-dark:#5BE49B;--primary-soft:rgba(91,228,155,.10);--primary-soft2:rgba(91,228,155,.18);
+  --secondary:#C684FF;--secondary-soft:rgba(198,132,255,.12);
+  --error:#FFAC82;--error-soft:rgba(255,86,48,.18);
+  --warning:#FFD666;--warning-soft:rgba(255,171,0,.16);
+  --info:#61F3F3;--info-soft:rgba(0,184,217,.16);
+  --success:#77ED8B;--success-soft:rgba(34,197,94,.16);
+  --text:#FFFFFF;--text2:#919EAB;--text3:#637381;
+  --bg:#161C24;--paper:#212B36;--neutral:#28323D;--canvas:#10141A;
+  --card:0 0 2px 0 rgba(0,0,0,.2),0 12px 24px -4px rgba(0,0,0,.16);
+  --dict:#C684FF;--dict-soft:rgba(198,132,255,.08);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--canvas);color:var(--text);font:400 14px/1.57 "Public Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+code{font-family:ui-monospace,Menlo,monospace;font-size:12px}
+
+.proto{position:sticky;top:0;z-index:30;background:var(--paper);border-bottom:1px solid var(--divider);padding:10px 16px;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+.proto-title{font-weight:700;font-size:13px;margin-right:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.proto-title small{font-weight:500;color:var(--text2)}
+.ctl{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2);flex-wrap:wrap}
+.seg{display:inline-flex;flex-wrap:wrap;background:var(--neutral);border-radius:8px;padding:3px}
+.seg button{border:0;background:transparent;padding:5px 10px;border-radius:6px;font-size:12px;font-weight:600;color:var(--text2);white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--paper);color:var(--text);box-shadow:var(--z1)}
+
+.stage{padding:24px 16px 40px}
+.device{margin:0 auto;background:var(--bg);border-radius:16px;overflow:hidden;box-shadow:var(--card);max-width:1440px}
+.stage.mobile .device{max-width:390px;height:800px;border-radius:36px;border:10px solid #161C24;display:flex;flex-direction:column}
+.stage.mobile .app{flex:1;overflow:auto}
+
+.app{container-type:inline-size;background:var(--bg);min-height:720px}
+.shell{display:grid;grid-template-columns:240px 1fr;min-height:100%}
+.side{border-right:1px dashed var(--line);padding:20px 12px;display:flex;flex-direction:column;gap:2px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;padding:4px 8px 20px}
+.logo i{width:32px;height:32px;border-radius:10px;background:var(--primary);display:grid;place-items:center;color:#fff;font-style:normal;font-size:13px}
+.nav-h{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);padding:12px 12px 6px}
+.nav a{display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:8px;color:var(--text2);text-decoration:none;font-weight:500;min-height:44px}
+.nav a.on{background:var(--primary-soft);color:var(--primary);font-weight:600}
+.nav svg{width:22px;height:22px;flex:none}
+
+.main{min-width:0;display:flex;flex-direction:column}
+.top{height:64px;display:flex;align-items:center;gap:12px;padding:0 24px;border-bottom:1px solid var(--divider);position:sticky;top:0;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(6px);z-index:5}
+.scope{display:flex;align-items:center;gap:6px;min-width:0;border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:13px;font-weight:500;background:transparent}
+.scope span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.scope .sep{color:var(--text3)}
+.top .grow{flex:1}
+.me{display:flex;align-items:center;gap:10px}
+.me .who{line-height:1.25;text-align:right}
+.me .who b{display:block;font-size:13px}
+.me .who small{color:var(--text2);font-size:12px;white-space:nowrap}
+.avatar{border-radius:50%;display:grid;place-items:center;font-weight:700;flex:none;width:36px;height:36px;font-size:13px;background:var(--secondary-soft);color:var(--secondary)}
+
+.content{padding:24px 32px 48px;width:100%;max-width:1280px;margin:0 auto}
+.page-h{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.page-h h1{margin:0;font-size:24px;font-weight:700;line-height:1.3}
+.page-h p{margin:2px 0 0;color:var(--text2)}
+.page-h .grow{flex:1}
+.show-dict .page-h + .dict{margin-bottom:12px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:20px}
+.stat{background:var(--paper);border-radius:16px;box-shadow:var(--card);padding:16px 20px}
+.stat .n{font-size:24px;font-weight:700;line-height:1.3}
+.stat .t{font-size:13px;color:var(--text2)}
+.stat .cap{font-size:11px;color:var(--text3);margin-top:4px}
+
+.qtabs{display:flex;gap:24px;border-bottom:1px solid var(--divider);margin-bottom:20px;overflow-x:auto;scrollbar-width:none}
+.qtabs button{border:0;background:transparent;padding:12px 0;font-weight:600;color:var(--text2);white-space:nowrap;border-bottom:2px solid transparent;display:flex;gap:6px;align-items:center}
+.qtabs button[aria-pressed="true"]{color:var(--text);border-color:var(--text)}
+.qtabs .cnt{font-size:11px;font-weight:700;border-radius:6px;padding:1px 6px;background:var(--neutral);color:var(--text2)}
+
+.split{display:grid;grid-template-columns:340px minmax(0,1fr);gap:24px;align-items:start}
+.card{background:var(--paper);border-radius:16px;box-shadow:var(--card)}
+.card-h{display:flex;align-items:center;gap:8px;padding:20px 24px 0;flex-wrap:wrap}
+.card-h h2{margin:0;font-size:17px;font-weight:700;margin-right:auto}
+.card-b{padding:16px 24px 24px}
+
+.treebox{position:sticky;top:80px;max-height:calc(100vh - 120px);display:flex;flex-direction:column}
+.stage.mobile .treebox{position:static;max-height:none}
+.search{margin:16px 16px 8px;display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:8px;padding:0 12px;height:44px}
+.search svg{width:20px;height:20px;color:var(--text3);flex:none}
+.search input{border:0;outline:0;background:transparent;font:inherit;color:var(--text);flex:1;min-width:0}
+.tree{list-style:none;margin:0;padding:4px 8px 16px;overflow:auto}
+.tree ul{list-style:none;margin:0;padding:0 0 0 16px;border-left:1px dashed var(--line);margin-left:15px}
+.node{display:flex;align-items:center;gap:6px;width:100%;border:0;background:transparent;text-align:left;padding:6px 8px;border-radius:8px;min-height:40px}
+.node:hover{background:var(--neutral)}
+.node[aria-current="true"]{background:var(--primary-soft);color:var(--primary);font-weight:600}
+.node .tw{width:20px;height:20px;display:grid;place-items:center;color:var(--text3);flex:none;border-radius:4px}
+.node .tw svg{width:16px;height:16px;transition:transform .15s}
+.node[aria-expanded="true"] .tw svg{transform:rotate(90deg)}
+.node .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.node .ct{font-size:11px;font-weight:700;color:var(--text3)}
+.lvl{font-size:10px;font-weight:700;letter-spacing:.04em;color:var(--text3);border:1px solid var(--line);border-radius:4px;padding:0 4px;line-height:16px;flex:none}
+.mark{width:8px;height:8px;border-radius:50%;background:var(--warning-line);flex:none}
+
+.chip{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 8px;border-radius:6px;font-size:12px;font-weight:700;line-height:1;white-space:nowrap}
+.c-success{background:var(--success-soft);color:var(--success)}
+.c-warning{background:var(--warning-soft);color:var(--warning)}
+.c-info{background:var(--info-soft);color:var(--info)}
+.c-default{background:var(--neutral);color:var(--text2)}
+.c-pending{background:transparent;border:1px solid var(--warning-line);color:var(--warning);font-weight:600}
+.c-source{background:var(--info-soft);color:var(--info);font-weight:600}
+.chip svg{width:13px;height:13px}
+
+.btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--line);background:transparent;font-weight:700;font-size:14px;white-space:nowrap}
+.btn-primary{background:var(--text);color:var(--bg);border-color:var(--text)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn svg{width:18px;height:18px}
+
+.dh{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;padding:20px 24px;border-bottom:1px solid var(--divider)}
+.dh .ico{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;background:var(--primary-soft2);color:var(--primary-dark);font-weight:700;flex:none}
+.dh .id{flex:1;min-width:200px}
+.dh h2{margin:0;font-size:20px;line-height:1.3}
+.crumb{color:var(--text2);font-size:13px;display:flex;flex-wrap:wrap;gap:4px 6px;align-items:center;margin-top:2px}
+.crumb button{border:0;background:transparent;padding:0;color:var(--text2);text-decoration:underline;text-underline-offset:2px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+
+.sec{padding:20px 24px;border-bottom:1px solid var(--divider)}
+.sec:last-child{border-bottom:0}
+.sec h3{margin:0 0 12px;font-size:15px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.sec h3 .grow{flex:1}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 24px}
+.f{min-width:0}
+.f .l{font-size:12px;color:var(--text2)}
+.f .v{font-weight:500;margin-top:2px;overflow-wrap:anywhere;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.f .v.muted{color:var(--text3);font-weight:400}
+.dict{display:none;margin-top:4px;font-size:11px;color:var(--dict);background:var(--dict-soft);border-radius:6px;padding:3px 6px;gap:6px;flex-wrap:wrap;align-items:center}
+.show-dict .dict{display:flex}
+.dict code{font-size:11px;color:inherit;font-weight:700}
+.st{font-weight:700;border-radius:4px;padding:0 4px}
+.st-known{background:var(--success-soft);color:var(--success)}
+.st-confirmed{background:var(--success-soft);color:var(--success)}
+.st-assumed{background:var(--info-soft);color:var(--info)}
+.st-open{background:var(--warning-soft);color:var(--warning)}
+
+.rows{display:flex;flex-direction:column;gap:8px}
+.row{display:flex;gap:12px;align-items:center;padding:10px 12px;border-radius:10px;border:1px solid var(--divider);flex-wrap:wrap;width:100%;background:transparent;text-align:left}
+button.row:hover{background:var(--neutral)}
+.row .t{flex:1;min-width:160px}
+.row .t b{display:block;font-weight:600}
+.row .t small{color:var(--text2);font-size:12px}
+
+.inh{display:flex;flex-direction:column;gap:2px}
+.inh small{color:var(--text2);font-size:12px;display:flex;gap:4px;align-items:center}
+.inh small svg{width:14px;height:14px}
+
+.pend{border:1px dashed var(--warning-line);border-radius:12px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start}
+.pend svg{width:20px;height:20px;color:var(--warning);flex:none;margin-top:1px}
+.pend b{display:block}
+.pend p{margin:2px 0 0;color:var(--text2);font-size:13px}
+.note{display:flex;gap:10px;align-items:flex-start;font-size:13px;padding:12px 14px;border-radius:10px;background:var(--info-soft);color:var(--text)}
+.note svg{width:18px;height:18px;color:var(--info);flex:none;margin-top:1px}
+
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:13px;font-weight:600;color:var(--text2);background:var(--neutral);padding:12px 16px;white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px dashed var(--divider);vertical-align:middle}
+.tablewrap{overflow-x:auto}
+.empty{padding:40px 20px;text-align:center;color:var(--text2)}
+.empty b{display:block;color:var(--text);font-size:16px;margin-bottom:4px}
+.back{display:none}
+
+@container (max-width:1080px){
+  .shell{grid-template-columns:76px 1fr}
+  .side .logo span,.nav-h,.nav a span{display:none}
+  .nav a{justify-content:center}
+  .content{padding:24px 20px 48px}
+  .split{grid-template-columns:300px minmax(0,1fr)}
+}
+@container (max-width:860px){
+  .split{grid-template-columns:minmax(0,1fr)}
+  .treebox{position:static;max-height:none}
+  .split.detail-open .treebox{display:none}
+  .split:not(.detail-open) .detail{display:none}
+  .back{display:inline-flex}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .me .who{display:none}
+}
+@container (max-width:640px){
+  .shell{grid-template-columns:1fr}
+  .side{display:none}
+  .top{padding:0 12px;height:56px}
+  .scope .hide-sm{display:none}
+  .content{padding:16px 16px 48px}
+  .fields{grid-template-columns:minmax(0,1fr)}
+  .dh,.sec{padding:16px}
+  .page-h h1{font-size:20px}
+  .stat{padding:12px 14px}
+  .stat .n{font-size:20px}
+}
+</style>
+
+<div class="proto" role="region" aria-label="Prototype controls">
+  <div class="proto-title">Organisation <small>· verify Organisation dictionary v0.1</small></div>
+  <div class="ctl">Viewer
+    <div class="seg" id="viewerSeg">
+      <button aria-pressed="true" data-v="ga">Global Admin</button>
+      <button aria-pressed="false" data-v="cl">Campus Leader</button>
+    </div>
+  </div>
+  <div class="ctl">Dictionary
+    <div class="seg" id="dictSeg">
+      <button aria-pressed="true" data-d="on">Show OR IDs</button>
+      <button aria-pressed="false" data-d="off">Hide</button>
+    </div>
+  </div>
+  <div class="ctl">Frame
+    <div class="seg" id="frameSeg">
+      <button aria-pressed="true" data-f="desktop">Desktop</button>
+      <button aria-pressed="false" data-f="mobile">Mobile</button>
+    </div>
+  </div>
+  <div class="ctl">Theme
+    <div class="seg" id="themeSeg">
+      <button aria-pressed="true" data-t="auto">Auto</button>
+      <button aria-pressed="false" data-t="light">Light</button>
+      <button aria-pressed="false" data-t="dark">Dark</button>
+    </div>
+  </div>
+</div>
+
+<div class="stage" id="stage">
+  <div class="device">
+    <div class="app show-dict" id="app">
+      <div class="shell">
+        <aside class="side" aria-label="Admin navigation">
+          <div class="logo"><i>OS</i><span>Campus OS Admin</span></div>
+          <nav class="nav">
+            <div class="nav-h">Organisation</div>
+            <a href="#" class="on" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-2h12v2"/></svg><span>Organisation</span></a>
+            <div class="nav-h">Access</div>
+            <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.4 3.4-5.5 6.5-5.5s5.7 2.1 6.5 5.5"/><path d="M16 5.5a3 3 0 0 1 0 5.6M18 14.6c2 .7 3.2 2.6 3.5 5.4"/></svg><span>Users and access</span></a>
+            <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Access reviews</span></a>
+            <div class="nav-h">Governance</div>
+            <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h10l4 4v12H5z"/><path d="M9 12h6M9 16h6"/></svg><span>Audit log</span></a>
+          </nav>
+        </aside>
+        <div class="main">
+          <header class="top">
+            <button class="scope" id="scopeBtn" aria-label="Current scope"></button>
+            <div class="grow"></div>
+            <div class="me"><div class="who"><b id="meName"></b><small id="meRole"></small></div><div class="avatar" id="meAv"></div></div>
+          </header>
+          <main class="content" id="content"></main>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const DATA = {"brands": [{"code": "GIIS", "name": "Global Indian International School"}, {"code": "OWIS", "name": "One World International School"}, {"code": "WIT", "name": "Witty International School"}, {"code": "HIS", "name": "Harrods International Academy"}, {"code": "VIK", "name": "Vikaasa"}, {"code": "GLE", "name": "Glendale International School"}, {"code": "HH", "name": "Heath House"}, {"code": "REG", "name": "Regent International School"}, {"code": "DWI", "name": "Dwight School Seoul"}, {"code": "EAS", "name": "Emirates American School"}, {"code": "CISM", "name": "Chinese International School Manila"}, {"code": "DOM", "name": "Domuschola International School"}], "brandCountries": [{"brand": "CISM", "cc": "PH", "country": "Philippines", "display": "CISM Philippines", "currency": null, "regulator": null}, {"brand": "DOM", "cc": "PH", "country": "Philippines", "display": "Domuschola Philippines", "currency": null, "regulator": null}, {"brand": "DWI", "cc": "KR", "country": "South Korea", "display": "Dwight South Korea", "currency": null, "regulator": null}, {"brand": "EAS", "cc": "AE", "country": "UAE", "display": "EAS UAE", "currency": null, "regulator": null}, {"brand": "GIIS", "cc": "IN", "country": "India", "display": "GIIS India", "currency": "INR", "regulator": "IN"}, {"brand": "GIIS", "cc": "JP", "country": "Japan", "display": "GIIS Japan", "currency": null, "regulator": null}, {"brand": "GIIS", "cc": "MY", "country": "Malaysia", "display": "GIIS Malaysia", "currency": null, "regulator": null}, {"brand": "GIIS", "cc": "SG", "country": "Singapore", "display": "GIIS Singapore", "currency": "SGD", "regulator": "SG"}, {"brand": "GIIS", "cc": "AE", "country": "UAE", "display": "GIIS UAE", "currency": null, "regulator": null}, {"brand": "GLE", "cc": "IN", "country": "India", "display": "Glendale India", "currency": "INR", "regulator": "IN"}, {"brand": "GLE", "cc": "AE", "country": "UAE", "display": "Glendale UAE", "currency": null, "regulator": null}, {"brand": "HH", "cc": "SG", "country": "Singapore", "display": "Heath House Singapore", "currency": "SGD", "regulator": "SG"}, {"brand": "HH", "cc": "GB", "country": "UK", "display": "Heath House UK", "currency": null, "regulator": null}, {"brand": "HIS", "cc": "KH", "country": "Cambodia", "display": "Harrods Cambodia", "currency": null, "regulator": null}, {"brand": "OWIS", "cc": "IN", "country": "India", "display": "OWIS India", "currency": "INR", "regulator": "IN"}, {"brand": "OWIS", "cc": "JP", "country": "Japan", "display": "OWIS Japan", "currency": null, "regulator": null}, {"brand": "OWIS", "cc": "SA", "country": "Saudi Arabia", "display": "OWIS Saudi Arabia", "currency": null, "regulator": null}, {"brand": "OWIS", "cc": "SG", "country": "Singapore", "display": "OWIS Singapore", "currency": "SGD", "regulator": "SG"}, {"brand": "REG", "cc": "MY", "country": "Malaysia", "display": "Regent Malaysia", "currency": null, "regulator": null}, {"brand": "VIK", "cc": "IN", "country": "India", "display": "Vikaasa India", "currency": "INR", "regulator": "IN"}, {"brand": "WIT", "cc": "IN", "country": "India", "display": "Witty India", "currency": "INR", "regulator": "IN"}], "regions": [{"cc": "SG", "name": "Singapore data region", "defined": true}, {"cc": "IN", "name": "India data region", "defined": true}, {"cc": "JP", "name": "Japan data region", "defined": false}, {"cc": "MY", "name": "Malaysia data region", "defined": false}, {"cc": "AE", "name": "UAE data region", "defined": false}, {"cc": "KH", "name": "Cambodia data region", "defined": false}, {"cc": "GB", "name": "UK data region", "defined": false}, {"cc": "SA", "name": "Saudi Arabia data region", "defined": false}, {"cc": "PH", "name": "Philippines data region", "defined": false}, {"cc": "KR", "name": "South Korea data region", "defined": false}], "campuses": [{"brand": "GIIS", "cc": "SG", "name": "SMART Campus Punggol", "city": "Singapore", "flags": ["shared_area_other_brand:OQ-52"], "code": "SG-PGL", "sample": "SG-PGL", "tz": "Asia/Singapore", "stages": ["PRESCHOOL", "PRIMARY", "SECONDARY", "SENIOR_SECONDARY"], "ay": "13 Jul 2026"}, {"brand": "GIIS", "cc": "SG", "name": "East Coast Campus", "city": "Singapore", "flags": [], "code": "SG-ECS", "sample": "SG-ECS", "tz": "Asia/Singapore", "stages": ["PRIMARY", "SECONDARY", "SENIOR_SECONDARY"], "ay": "13 Jul 2026", "unlisted": true, "note": "Not on GSG's public campus list on 9 Nov 2026. Kept because the sample data and the transfer example use it (OQ-57)."}, {"brand": "GIIS", "cc": "IN", "name": "Bannerghatta", "city": "Bangalore", "flags": []}, {"brand": "GIIS", "cc": "IN", "name": "Whitefield", "city": "Bangalore", "flags": ["shared_area_other_brand:OQ-52"]}, {"brand": "GIIS", "cc": "IN", "name": "Hadapsar", "city": "Pune", "flags": []}, {"brand": "GIIS", "cc": "IN", "name": "Balewadi", "city": "Pune", "flags": []}, {"brand": "GIIS", "cc": "IN", "name": "Charholi", "city": "Pune", "flags": []}, {"brand": "GIIS", "cc": "IN", "name": "Ahmedabad", "city": "Ahmedabad", "flags": []}, {"brand": "GIIS", "cc": "IN", "name": "Noida", "city": "Noida", "flags": [], "code": "IN-NOI", "sample": "IN-NOI", "tz": "Asia/Kolkata", "stages": ["PRESCHOOL", "PRIMARY", "SECONDARY", "SENIOR_SECONDARY"], "ay": "6 Apr 2026", "segments": ["Pre-Primary", "Primary", "Middle", "Higher"]}, {"brand": "GIIS", "cc": "IN", "name": "Nagpur", "city": "Nagpur", "flags": []}, {"brand": "GIIS", "cc": "JP", "name": "Higashi Kasai", "city": "Tokyo", "flags": []}, {"brand": "GIIS", "cc": "JP", "name": "Nishi Kasai", "city": "Tokyo", "flags": []}, {"brand": "GIIS", "cc": "JP", "name": "Seisincho", "city": "Tokyo", "flags": []}, {"brand": "GIIS", "cc": "JP", "name": "Kita Kasai", "city": "Tokyo", "flags": []}, {"brand": "GIIS", "cc": "AE", "name": "Dubai", "city": "Dubai", "flags": []}, {"brand": "GIIS", "cc": "AE", "name": "Abu Dhabi", "city": "Abu Dhabi", "flags": []}, {"brand": "GIIS", "cc": "MY", "name": "Kuala Lumpur", "city": "Kuala Lumpur", "flags": []}, {"brand": "OWIS", "cc": "SG", "name": "OWIS Digital Campus, Punggol", "city": "Singapore", "flags": ["shared_area_other_brand:OQ-52"], "code": "SG-OWD", "sample": "SG-OWD", "tz": "Asia/Singapore", "stages": ["PRIMARY"], "ay": null}, {"brand": "OWIS", "cc": "SG", "name": "Nanyang", "city": "Singapore", "flags": []}, {"brand": "OWIS", "cc": "SG", "name": "Newton", "city": "Singapore", "flags": []}, {"brand": "OWIS", "cc": "IN", "name": "Whitefield", "city": "Bangalore", "flags": ["shared_area_other_brand:OQ-52"]}, {"brand": "OWIS", "cc": "IN", "name": "Sarjapur", "city": "Bangalore", "flags": []}, {"brand": "OWIS", "cc": "JP", "name": "Osaka", "city": "Osaka", "flags": []}, {"brand": "OWIS", "cc": "JP", "name": "Tsukuba", "city": "Tsukuba", "flags": []}, {"brand": "OWIS", "cc": "SA", "name": "Al Muruj", "city": "Riyadh", "flags": []}, {"brand": "OWIS", "cc": "SA", "name": "Al Jazeera", "city": "Riyadh", "flags": []}, {"brand": "WIT", "cc": "IN", "name": "WIS Malad", "city": "Mumbai", "flags": []}, {"brand": "WIT", "cc": "IN", "name": "WIS Borivali", "city": "Mumbai", "flags": []}, {"brand": "WIT", "cc": "IN", "name": "WIS Bhilwara", "city": "Bhilwara", "flags": []}, {"brand": "WIT", "cc": "IN", "name": "WIS Udaipur", "city": "Udaipur", "flags": []}, {"brand": "WIT", "cc": "IN", "name": "Witty Kids Goregaon", "city": "Mumbai", "flags": ["preschool_only"]}, {"brand": "WIT", "cc": "IN", "name": "Witty Kids Borivali", "city": "Mumbai", "flags": ["preschool_only"], "code": "IN-WKB", "sample": "IN-WKB", "tz": "Asia/Kolkata", "stages": ["PRESCHOOL"], "ay": null}, {"brand": "WIT", "cc": "IN", "name": "Witty Kids R C Vyas", "city": "Bhilwara", "flags": ["preschool_only"]}, {"brand": "WIT", "cc": "IN", "name": "Witty Kids Shastri Nagar", "city": "Bhilwara", "flags": ["preschool_only"]}, {"brand": "WIT", "cc": "IN", "name": "Witty Kids Udaipur", "city": "Udaipur", "flags": ["preschool_only"]}, {"brand": "HIS", "cc": "KH", "name": "Early Years", "city": "Phnom Penh", "flags": ["stage_campus:OQ-50"]}, {"brand": "HIS", "cc": "KH", "name": "Lower Primary", "city": "Phnom Penh", "flags": ["stage_campus:OQ-50"], "code": "KH-HLP", "sample": "KH-HLP", "tz": "Asia/Phnom_Penh", "stages": ["PRIMARY"], "ay": null}, {"brand": "HIS", "cc": "KH", "name": "Upper Primary", "city": "Phnom Penh", "flags": ["stage_campus:OQ-50"], "code": "KH-HUP", "sample": "KH-HUP", "tz": "Asia/Phnom_Penh", "stages": ["PRIMARY"], "ay": null}, {"brand": "HIS", "cc": "KH", "name": "Lower Secondary", "city": "Phnom Penh", "flags": ["stage_campus:OQ-50"]}, {"brand": "HIS", "cc": "KH", "name": "Upper Secondary", "city": "Phnom Penh", "flags": ["stage_campus:OQ-50"]}, {"brand": "HIS", "cc": "KH", "name": "Olympic", "city": "Phnom Penh", "flags": []}, {"brand": "HIS", "cc": "KH", "name": "Toul Kork", "city": "Phnom Penh", "flags": []}, {"brand": "VIK", "cc": "IN", "name": "Vikaasa World School", "city": "Madurai", "flags": []}, {"brand": "VIK", "cc": "IN", "name": "Vikaasa Public School", "city": "Madurai", "flags": []}, {"brand": "VIK", "cc": "IN", "name": "Vikaasa Progressive School", "city": "Madurai", "flags": []}, {"brand": "VIK", "cc": "IN", "name": "Vikaasa Heritage Campus", "city": "Madurai", "flags": []}, {"brand": "VIK", "cc": "IN", "name": "Vikaasa Jubilee School", "city": "Madurai", "flags": []}, {"brand": "VIK", "cc": "IN", "name": "Montessori Campus", "city": "—", "flags": ["preschool_only"]}, {"brand": "GLE", "cc": "IN", "name": "Sun City", "city": "Hyderabad", "flags": []}, {"brand": "GLE", "cc": "IN", "name": "Tellapur", "city": "Hyderabad", "flags": []}, {"brand": "GLE", "cc": "IN", "name": "Financial District", "city": "Hyderabad", "flags": []}, {"brand": "GLE", "cc": "AE", "name": "Dubai", "city": "Dubai", "flags": []}, {"brand": "HH", "cc": "GB", "name": "Tranquil Hall", "city": "London", "flags": [], "code": "UK-HTH", "sample": "UK-HTH", "tz": "Europe/London", "stages": ["PRIMARY"], "ay": null}, {"brand": "HH", "cc": "GB", "name": "Wemyss Road", "city": "London", "flags": []}, {"brand": "HH", "cc": "GB", "name": "Heath House International School", "city": "—", "flags": []}, {"brand": "HH", "cc": "SG", "name": "Heath House Campus", "city": "Singapore", "flags": []}, {"brand": "REG", "cc": "MY", "name": "Klang", "city": "Klang", "flags": ["adult_learners_possible:OQ-54"], "code": "MY-RKL", "sample": "MY-RKL", "tz": "Asia/Kuala_Lumpur", "stages": ["SECONDARY", "SENIOR_SECONDARY", "POST_SECONDARY"], "ay": null}, {"brand": "REG", "cc": "MY", "name": "Sungei Petani", "city": "Sungei Petani", "flags": ["adult_learners_possible:OQ-54"]}, {"brand": "REG", "cc": "MY", "name": "Kuantan", "city": "Kuantan", "flags": ["adult_learners_possible:OQ-54"]}, {"brand": "DWI", "cc": "KR", "name": "Seoul", "city": "Seoul", "flags": []}, {"brand": "EAS", "cc": "AE", "name": "Al Qarrayen", "city": "Sharjah", "flags": []}, {"brand": "CISM", "cc": "PH", "name": "Manila", "city": "Manila", "flags": []}, {"brand": "DOM", "cc": "PH", "name": "Manila", "city": "Manila", "flags": []}]};
+
+const ICON = {
+  chev:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>',
+  search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>',
+  clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+  info:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>',
+  down:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M6 13l6 6 6-6"/></svg>',
+  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>',
+  back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>'
+};
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- Build the tree (OR01) ---------- */
+const nodes = {};
+function add(n){ nodes[n.id]=n; if(n.parent) nodes[n.parent].children.push(n.id); return n; }
+add({id:'gsg',type:'GROUP',name:'Global Schools Group',parent:null,children:[]});
+DATA.brands.forEach(b=>add({id:'b-'+b.code,type:'BRAND',name:b.name,code:b.code,parent:'gsg',children:[]}));
+DATA.brandCountries.forEach(bc=>add({id:'bc-'+bc.brand+'-'+bc.cc,type:'BRAND_COUNTRY',name:bc.display,brand:bc.brand,cc:bc.cc,country:bc.country,region:bc.cc,currency:bc.currency,regulator:bc.regulator,parent:'b-'+bc.brand,children:[]}));
+DATA.campuses.forEach((c,i)=>{
+  const bc='bc-'+c.brand+'-'+c.cc;
+  add({id:'c-'+i,type:'CAMPUS',name:c.name,brand:c.brand,cc:c.cc,city:c.city,code:c.code||null,flags:c.flags||[],sample:c.sample||null,unlisted:!!c.unlisted,parent:bc,children:[],segments:c.segments||null,tz:c.tz||null,stages:c.stages||null,ay:c.ay||null,note:c.note||null});
+});
+Object.values(nodes).filter(n=>n.type==='CAMPUS'&&n.segments).forEach(n=>{
+  n.segments.forEach((s,j)=>add({id:n.id+'-s'+j,type:'SEGMENT',name:s,parent:n.id,children:[],campus:n.id}));
+});
+const TYPE_LABEL={GROUP:'Group',BRAND:'Brand',BRAND_COUNTRY:'Brand-country',CAMPUS:'Campus',SEGMENT:'Segment'};
+const LVL={GROUP:'GRP',BRAND:'BRD',BRAND_COUNTRY:'B·C',CAMPUS:'CMP',SEGMENT:'SEG'};
+function path(id){ const p=[]; let n=nodes[id]; while(n){p.unshift(n); n=n.parent?nodes[n.parent]:null;} return p; }
+function countCampuses(id){ const n=nodes[id]; if(n.type==='CAMPUS') return (n.unlisted||!inScope(id))?0:1; return n.children.reduce((a,c)=>a+countCampuses(c),0); }
+function brandName(code){ return nodes['b-'+code].name; }
+function regionOf(cc){ return DATA.regions.find(r=>r.cc===cc); }
+
+/* ---------- State ---------- */
+const VIEWERS={
+  ga:{name:'Daniel Ong',role:'Global Admin · GSG',initials:'DO',scope:'gsg',canEdit:true},
+  cl:{name:'Dr Anita Rao',role:'Campus Leader · SMART Campus',initials:'AR',scope:null,canEdit:false}
+};
+VIEWERS.cl.scope = Object.values(nodes).find(n=>n.sample==='SG-PGL').id;
+let state={viewer:'ga',tab:'tree',selected:'gsg',open:new Set(['gsg','b-GIIS','bc-GIIS-SG']),q:'',detailOpen:false};
+
+function visible(id){ // campus leader sees own path and below only
+  const v=VIEWERS[state.viewer]; if(v.scope==='gsg') return true;
+  const scopePath=path(v.scope).map(n=>n.id);
+  if(scopePath.includes(id)) return true;
+  return path(id).some(n=>n.id===v.scope);
+}
+function inScope(id){ const v=VIEWERS[state.viewer]; return v.scope==='gsg' || path(id).some(n=>n.id===v.scope); }
+
+/* ---------- Dictionary annotation ---------- */
+function D(ref,status,basis){
+  const cls={Known:'st-known',Confirmed:'st-confirmed',Assumed:'st-assumed',Open:'st-open'}[status];
+  return `<span class="dict"><code>${esc(ref)}</code><span class="st ${cls}">${status}</span>${basis?`<span>${esc(basis)}</span>`:''}</span>`;
+}
+function F(label,value,ref,status,basis,muted){
+  return `<div class="f"><div class="l">${esc(label)}</div><div class="v${muted?' muted':''}">${value}</div>${D(ref,status,basis)}</div>`;
+}
+const P = (oq,text) => `<span class="chip c-pending">${ICON.clock}${esc(text||'Pending')} · ${oq}</span>`;
+
+/* ---------- Render ---------- */
+function render(){
+  const v=VIEWERS[state.viewer];
+  document.getElementById('meName').textContent=v.name;
+  document.getElementById('meRole').textContent=v.role;
+  document.getElementById('meAv').textContent=v.initials;
+  const sp=path(v.scope);
+  document.getElementById('scopeBtn').innerHTML = sp.map((n,i)=>`<span class="${i>0&&i<sp.length-1?'hide-sm':''}">${esc(i===0?'GSG':n.type==='BRAND'?n.code:n.type==='BRAND_COUNTRY'?n.country:n.name)}</span>`).join('<span class="sep">›</span>');
+  const c=document.getElementById('content');
+  const listed=Object.values(nodes).filter(n=>n.type==='CAMPUS'&&!n.unlisted);
+  const scopedCampuses=listed.filter(n=>inScope(n.id)).length;
+  c.innerHTML = `
+    <div class="page-h"><div><h1>Organisation</h1><p>Scope tree, data regions and operating entities${v.scope==='gsg'?' for every GSG brand':' for your campus'}</p></div><div class="grow"></div>
+      ${v.canEdit?`<button class="btn btn-primary" disabled title="Who creates campuses is open (OQ-58)">+ New campus</button>`:''}</div>
+    ${D('OBJ-13 · OR01–OR06','Confirmed','Tree DL-40 · global layer DL-39 · source: globalschools.com/campus, 9 Nov 2026')}
+    <div class="stats">
+      <div class="stat"><div class="n">${v.scope==='gsg'?DATA.brands.length:1}</div><div class="t">Brands</div><div class="cap">OR02</div></div>
+      <div class="stat"><div class="n">${v.scope==='gsg'?DATA.brandCountries.length:1}</div><div class="t">Brand-countries</div><div class="cap">OR03</div></div>
+      <div class="stat"><div class="n">${scopedCampuses}</div><div class="t">Campuses</div><div class="cap">OR04 · ${v.scope==='gsg'?'+1 not on public list (OQ-57)':'your campus'}</div></div>
+      <div class="stat"><div class="n">${v.scope==='gsg'?DATA.regions.length:1}</div><div class="t">Data regions</div><div class="cap">OR06 · ${v.scope==='gsg'?'2 defined, 8 pending OQ-21':'Singapore'}</div></div>
+    </div>
+    <div class="qtabs" role="tablist">
+      ${tabBtn('tree','Scope tree',scopedCampuses)}
+      ${tabBtn('regions','Data regions',v.scope==='gsg'?DATA.regions.length:1)}
+      ${tabBtn('entities','Operating entities',0)}
+    </div>
+    <div id="tabBody"></div>`;
+  c.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{state.tab=b.dataset.tab;render();});
+  const tb=document.getElementById('tabBody');
+  if(state.tab==='tree') renderTree(tb); else if(state.tab==='regions') renderRegions(tb); else renderEntities(tb);
+}
+function tabBtn(id,label,n){ return `<button role="tab" data-tab="${id}" aria-pressed="${state.tab===id}">${label}<span class="cnt">${n}</span></button>`; }
+
+function renderTree(tb){
+  tb.innerHTML = `<div class="split ${state.detailOpen?'detail-open':''}">
+    <section class="card treebox" aria-label="Scope tree">
+      <label class="search">${ICON.search}<input id="q" type="search" placeholder="Search brand, country or campus" value="${esc(state.q)}" aria-label="Search the tree"></label>
+      <ul class="tree" id="tree" role="tree"></ul>
+    </section>
+    <section class="card detail" id="detail" aria-live="polite"></section>
+  </div>`;
+  const q=document.getElementById('q');
+  q.oninput=()=>{state.q=q.value;drawTree();};
+  drawTree(); drawDetail();
+}
+function matches(id,q){ const n=nodes[id]; if(!q) return true;
+  const hay=(n.name+' '+(n.city||'')+' '+(n.code||'')+' '+(n.country||'')).toLowerCase();
+  return hay.includes(q) || n.children.some(c=>matches(c,q)); }
+function drawTree(){
+  const q=state.q.trim().toLowerCase();
+  const el=document.getElementById('tree');
+  function li(id,depth){
+    const n=nodes[id]; if(!visible(id)||!matches(id,q)) return '';
+    const kids=n.children.filter(c=>visible(c)&&matches(c,q));
+    const open=q?true:state.open.has(id);
+    const flag=(n.flags&&n.flags.length)||n.unlisted;
+    const ct=n.type==='CAMPUS'||n.type==='SEGMENT'?'':`<span class="ct">${countCampuses(id)}</span>`;
+    return `<li role="treeitem" aria-expanded="${kids.length?open:''}">
+      <button class="node" data-id="${id}" aria-current="${state.selected===id}" ${kids.length?`aria-expanded="${open}"`:''}>
+        <span class="tw" data-tw="${id}">${kids.length?ICON.chev:''}</span>
+        <span class="lvl">${LVL[n.type]}</span><span class="nm">${esc(n.type==='BRAND_COUNTRY'?n.country:n.name)}</span>${flag?'<span class="mark" title="Has an open question"></span>':''}${ct}
+      </button>
+      ${kids.length&&open?`<ul role="group">${kids.map(k=>li(k,depth+1)).join('')}</ul>`:''}
+    </li>`;
+  }
+  const root=VIEWERS[state.viewer].scope==='gsg'?'gsg':'gsg';
+  const html=li(root,0);
+  el.innerHTML = html || `<li class="empty"><b>No match</b>Try a brand, country or city.</li>`;
+  el.querySelectorAll('.node').forEach(b=>b.onclick=e=>{
+    const id=b.dataset.id;
+    if(e.target.closest('[data-tw]') && nodes[id].children.length){ state.open.has(id)?state.open.delete(id):state.open.add(id); drawTree(); return; }
+    state.selected=id; state.open.add(id); state.detailOpen=true;
+    document.querySelector('.split').classList.add('detail-open');
+    drawTree(); drawDetail();
+  });
+}
+function select(id){ state.selected=id; path(id).forEach(n=>state.open.add(n.id)); state.detailOpen=true; renderTree(document.getElementById('tabBody')); }
+
+function header(n,chips,acts){
+  const p=path(n.id);
+  return `<div class="dh">
+    <button class="btn back" id="backBtn">${ICON.back}Tree</button>
+    <div class="ico">${LVL[n.type]}</div>
+    <div class="id"><h2>${esc(n.type==='BRAND_COUNTRY'?n.name:n.name)}</h2>
+      <div class="crumb">${p.slice(0,-1).map(x=>`<button data-go="${x.id}">${esc(x.type==='GROUP'?'GSG':x.type==='BRAND'?x.code:x.type==='BRAND_COUNTRY'?x.country:x.name)}</button><span>›</span>`).join('')}<span>${TYPE_LABEL[n.type]}</span></div>
+      <div class="chips">${chips}</div>
+    </div>
+    <div class="acts">${acts||''}</div>
+  </div>`;
+}
+function wire(el){
+  el.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>select(b.dataset.go));
+  const bb=el.querySelector('#backBtn'); if(bb) bb.onclick=()=>{state.detailOpen=false;document.querySelector('.split').classList.remove('detail-open');};
+}
+function childRows(n,sub){
+  const kids=n.children.filter(visible);
+  if(!kids.length) return `<div class="empty"><b>Nothing below this node</b></div>`;
+  return `<div class="rows">${kids.map(id=>{const k=nodes[id];
+    return `<button class="row" data-go="${id}"><span class="lvl">${LVL[k.type]}</span><span class="t"><b>${esc(k.type==='BRAND_COUNTRY'?k.name:k.name)}</b><small>${esc(sub(k))}</small></span>${k.unlisted?'<span class="chip c-pending">Not on public list · OQ-57</span>':k.type==='CAMPUS'?'<span class="chip c-success">Active</span>':''}</button>`;}).join('')}</div>`;
+}
+
+function drawDetail(){
+  const el=document.getElementById('detail'); const n=nodes[state.selected]; const v=VIEWERS[state.viewer];
+  const edit=v.canEdit;
+  let h='';
+  if(n.type==='GROUP'){
+    h+=header(n,`<span class="chip c-success">Active</span><span class="chip c-default">${DATA.brands.length} brands · 10 countries</span>`);
+    h+=`<div class="sec"><h3>Group</h3><div class="fields">
+      ${F('Name','Global Schools Group','OR01.display_name','Known','DL-22')}
+      ${F('Level','Group (root, one only)','OR01.node_type','Confirmed','DL-40')}
+      ${F('Path','<code>gsg</code>','OR01.path','Assumed','DL-48')}
+      ${F('Regions above Brand-country',P('OQ-59','Not modelled'),'OR01','Open','No level between Group and Brand')}
+    </div></div>
+    <div class="sec"><h3>Brands</h3>${childRows(n,k=>`${countCampuses(k.id)} campuses · ${k.children.length} ${k.children.length===1?'country':'countries'}`)}</div>
+    <div class="sec"><div class="pend">${ICON.clock}<div><b>Campuses named elsewhere but not on the public list</b><p>GIIS East Coast (Singapore), GIIS Bangkok (Thailand) and OWIS Suntec (Singapore). East Coast is in the tree because the sample data uses it; the others are not shown until GSG confirms they operate (OQ-57).</p></div></div></div>`;
+  }
+  else if(n.type==='BRAND'){
+    h+=header(n,`<span class="chip c-success">Active</span><span class="chip c-default">${countCampuses(n.id)} campuses</span>`, edit?`<button class="btn" disabled title="Owner open (OQ-58)">Edit brand</button>`:'');
+    h+=`<div class="sec"><h3>Brand</h3><div class="fields">
+      ${F('Display name',esc(n.name),'OR02.display_name','Known','Public campus list; final form OQ-56')}
+      ${F('Brand code',`<code>${esc(n.code)}</code> <span class="chip c-pending">Placeholder · OQ-55</span>`,'OR02.brand_code','Open','OQ-55')}
+      ${F('Legal name',P('OQ-56'),'OR02.legal_name','Open','Not the operating entity',true)}
+      ${F('Logo and colours',P('OQ-26'),'OR02.brand_assets_ref','Open','How brand shows in shared shells',true)}
+    </div></div>
+    <div class="sec"><h3>Brand-countries</h3>${childRows(n,k=>`${countCampuses(k.id)} campuses · ${regionOf(k.cc).name}`)}</div>`;
+  }
+  else if(n.type==='BRAND_COUNTRY'){
+    const r=regionOf(n.cc); const reg=n.regulator;
+    h+=header(n,`<span class="chip c-success">Active</span><span class="chip c-source">${esc(r.name)}</span>`, edit?`<button class="btn" disabled title="Owner open (OQ-58)">Edit</button>`:'');
+    const others=DATA.brandCountries.filter(b=>b.cc===n.cc&&b.brand!==n.brand).map(b=>brandName(b.brand));
+    h+=`<div class="sec"><h3>${esc(n.name)}</h3><div class="fields">
+      ${F('Brand',esc(brandName(n.brand)),'OR01.parent_scope_node_id','Confirmed','DL-40')}
+      ${F('Country',`${esc(n.country)} <code>${n.cc}</code>`,'OR03.country_code','Confirmed','One node per brand and country, DL-40')}
+      ${F('Data region',`<span class="chip c-source">${esc(r.name)}</span> ${r.defined?'<span class="chip c-info">Planned</span>':P('OQ-21','Placeholder')}`,'OR03.data_region_id → OR06','Confirmed','Selected by country, never per campus (DL-39, DL-40); term DL-47')}
+      ${F('Regulator pack',reg?`<code>${reg}</code>`:P('OQ-22'),'OR03.regulator_pack_code',reg?'Known':'Open',reg?'regulatory-context':'Packs exist for SG and IN only',!reg)}
+      ${F('Currency',n.currency?`<code>${n.currency}</code>`:P('Fees dictionary'),'OR03.currency_code',n.currency?'Known':'Open','Arch § Tenancy',!n.currency)}
+      ${F('Languages offered',P('OQ-25, OQ-53'),'OR03.languages_offered','Open','UI stays English in v1 (DL-15)',true)}
+      ${F('Public holidays','Holiday calendar <span class="chip c-default">Not loaded in prototype</span>','OR03.holiday_calendar_ref','Known','Arch § Tenancy')}
+    </div></div>
+    ${others.length?`<div class="sec"><div class="note">${ICON.info}<div>The ${esc(r.name)} also holds ${esc(others.join(', '))}. A grant on ${esc(n.name)} never reaches them (DL-40). ${D('OR06 → OR03 1..N','Confirmed','DL-40, answers OQ-17')}</div></div></div>`:''}
+    <div class="sec"><h3>Campuses</h3>${childRows(n,k=>`${k.city||''}${k.code?' · '+k.code:''}`)}</div>`;
+  }
+  else if(n.type==='CAMPUS'){
+    const r=regionOf(n.cc); const bc=nodes[n.parent];
+    const flagChips=(n.flags||[]).map(f=>{const [k,oq]=f.split(':');
+      const lbl={shared_area_other_brand:'Shares area with another brand',stage_campus:'Stage campus',preschool_only:'Preschool only',adult_learners_possible:'Possible adult learners'}[k]||k;
+      return oq?`<span class="chip c-pending">${esc(lbl)} · ${oq}</span>`:`<span class="chip c-default">${esc(lbl)}</span>`;}).join('');
+    const status=n.unlisted?'<span class="chip c-pending">Status pending · OQ-57</span>':'<span class="chip c-success">Active</span>';
+    h+=header(n,`${status}<span class="chip c-default">${esc(brandName(n.brand))}</span><span class="chip c-source">${esc(r.name)}</span>${flagChips}`,
+      edit?`<button class="btn" disabled title="Owner open (OQ-58)">Edit campus</button><button class="btn" disabled title="Owner open (OQ-58)">Close campus</button>`:'<span class="chip c-default">'+ICON.lock+'Read only</span>');
+    h+=`<div class="sec"><h3>Campus</h3><div class="fields">
+      ${F('Campus name',esc(n.name),'OR04.campus_name','Known','Public list; always shown with brand (OR-R09)')}
+      ${F('Campus code',n.code?`<code>${esc(n.code)}</code> <span class="chip c-pending">Placeholder · OQ-55</span>`:P('OQ-55','No code yet'),'OR04.campus_code','Open','Standard and owner OQ-55',!n.code)}
+      ${F('Brand-country',`<button class="btn" style="height:30px;padding:0 10px;font-size:13px" data-go="${bc.id}">${esc(bc.name)}</button>`,'OR04.brand_country_node_id','Confirmed','Replaces E06 organization_id (DL-40)')}
+      ${F('City',esc(n.city||'—'),'OR04.city','Known','Public list')}
+      ${F('Time zone',n.tz?`<code>${esc(n.tz)}</code>`:'<span class="chip c-default">Not in sample</span>','OR04.time_zone','Known','ED E06',!n.tz)}
+      ${F('Stages served',n.stages?n.stages.map(s=>`<span class="chip c-default">${esc(s.replace('_',' ').toLowerCase().replace(/^./,c=>c.toUpperCase()))}</span>`).join(''):'<span class="chip c-default">Not in sample</span>','OR04.stages_served','Assumed','DL-50; descriptive only, not Segments',!n.stages)}
+      ${F('Status',status,'OR04.campus_status',n.unlisted?'Open':'Assumed',n.unlisted?'OQ-57':'DL-50: Planned, Active, Inactive, Closed')}
+      ${F('Data region',`<span class="chip c-source">${esc(r.name)}</span> <small style="color:var(--text2)">from ${esc(bc.name)}</small>`,'OR06 via OR03','Confirmed','Read-only; derived from country (DL-39, DL-40)')}
+      ${F('Address',P('OQ-52'),'OR04.address_ref','Open','Shared sites across brands',true)}
+      ${F('First release',P('OQ-05'),'OR04.first_release','Open','Not shown until answered',true)}
+    </div></div>`;
+    // Operator AP-09
+    h+=`<div class="sec"><h3>Operating entity <span class="grow"></span>${edit?`<button class="btn" disabled title="Owner and approver open (OQ-58)">Change operator</button>`:''}</h3>
+      <div class="rows"><div class="row"><span class="t"><b>[operating entity — OQ-02]</b><small>Operator · from ${n.ay?'—':'—'} · current</small></span>${P('OQ-02')}</div></div>
+      ${D('OR08 → OR07','Confirmed','Effective-dated link (DL-41); names OQ-02; partner role OQ-03; handover OQ-04')}
+      <div class="note" style="margin-top:12px">${ICON.info}<div>Enrolments, employment and cases copy this entity when they are created and keep it after a handover. It is not shown as the data controller (AR-04, OQ-06), and it never appears in the scope picker (DL-41).</div></div>
+    </div>`;
+    // Segments
+    const segs=n.children.filter(c=>nodes[c].type==='SEGMENT');
+    h+=`<div class="sec"><h3>Segments</h3>${segs.length?childRows(n,k=>'Segment · school-day timings and events'):`<div class="pend">${ICON.clock}<div><b>No segment list for this campus yet</b><p>Only GIIS Noida's segments are known (Pre-Primary, Primary, Middle, Higher). Other campuses' lists are open (OQ-20).</p></div></div>`}
+      ${D('OR05','Confirmed','Term DL-29; values per campus OQ-20')}</div>`;
+    // Settings AP-02
+    const cur=bc.currency;
+    h+=`<div class="sec"><h3>Settings</h3><div class="fields">
+      ${F('Currency',cur?`<span class="inh"><span><code>${cur}</code> <span class="chip c-default">${ICON.lock}Locked</span></span><small>${ICON.down}Inherited from ${esc(bc.name)}</small></span>`:P('Fees dictionary'),'OR09 · finance.currency','Known','AR-03 inherit; AP-02 indicator',!cur)}
+      ${F('Academic year start',n.ay?`<span class="inh"><span>${esc(n.ay)}</span><small>Set at this campus</small></span>`:'<span class="chip c-default">Not in sample</span>','OR09 · calendar.academic_year_start','Known','Varies by campus (MC-06)',!n.ay)}
+      ${F('Who may override',P('OQ-20'),'OR09.override_policy','Open','Values Assumed DL-50: Open, Locked below',true)}
+    </div></div>`;
+    if(n.note) h+=`<div class="sec"><div class="note">${ICON.info}<div>${esc(n.note)}</div></div></div>`;
+  }
+  else if(n.type==='SEGMENT'){
+    const cp=nodes[n.parent];
+    h+=header(n,`<span class="chip c-success">Active</span><span class="chip c-default">${esc(cp.name)}</span>`);
+    h+=`<div class="sec"><h3>Segment</h3><div class="fields">
+      ${F('Name',esc(n.name),'OR05.display_name','Known','GIIS Noida Almanac 2025-26')}
+      ${F('Campus',esc(cp.name),'OR01.parent_scope_node_id','Confirmed','SEGMENT → CAMPUS (DL-40)')}
+      ${F('Grade range',P('OQ-51'),'OR05.grade_range','Open','From the programme pack (OBJ-15)',true)}
+      ${F('Grants at this level','Not allowed','OR01.node_type','Confirmed','Grants stop at Campus (DL-40); used for settings and data scope')}
+    </div></div>`;
+  }
+  el.innerHTML=h; wire(el);
+}
+
+function renderRegions(tb){
+  const v=VIEWERS[state.viewer];
+  const rows=DATA.regions.filter(r=>v.scope==='gsg'||r.cc==='SG');
+  tb.innerHTML=`<section class="card"><div class="card-h"><h2>Data regions</h2></div>
+    <div class="card-b">${D('OBJ-13 · OR06','Confirmed','One per country (DL-39); product term "data region" DL-47 (Assumed)')}
+    <p style="color:var(--text2);margin:8px 0 16px">Where each country's school data lives. A brand-country's country selects its region; campuses never choose one.</p>
+    <div class="tablewrap"><table><thead><tr><th>Data region</th><th>Countries</th><th>Brand-countries</th><th>Campuses</th><th>Status</th></tr></thead><tbody>
+    ${rows.map(r=>{const bcs=DATA.brandCountries.filter(b=>b.cc===r.cc);
+      const camp=Object.values(nodes).filter(n=>n.type==='CAMPUS'&&!n.unlisted&&n.cc===r.cc).length;
+      return `<tr><td><b>${esc(r.name)}</b></td><td><code>${r.cc}</code></td><td>${bcs.map(b=>esc(brandName(b.brand).split(' ')[0]==='Global'?'GIIS':b.brand)).join(', ')}</td><td>${camp}</td><td>${r.defined?'<span class="chip c-info">Planned</span>':P('OQ-21','Placeholder')}</td></tr>`;}).join('')}
+    </tbody></table></div>
+    <div class="note" style="margin-top:16px">${ICON.info}<div>Singapore and India are the two regions the architecture defines. The other eight assume one region per country until counsel answers OQ-21.</div></div>
+    </div></section>`;
+}
+function renderEntities(tb){
+  tb.innerHTML=`<section class="card"><div class="card-h"><h2>Operating entities</h2></div><div class="card-b">
+    ${D('OBJ-14 · OR07, OR08','Confirmed','Structure DL-41; list OQ-02')}
+    <div class="empty"><b>No operating entities recorded yet</b>Which companies operate GSG's campuses is an open question (OQ-02). Until it is answered every campus shows "[operating entity — OQ-02]".</div>
+    <div class="fields" style="margin-top:8px">
+      ${F('Legal name',P('OQ-02'),'OR07.legal_name','Open','Never invent a company name',true)}
+      ${F('Type','Group operator, School operator, Partner, Employer','OR07.entity_type','Confirmed','DL-41')}
+      ${F('Operator role on a campus','Operator, Franchisee, JV partner','OR08.operator_role','Assumed','DL-50; which campuses OQ-03')}
+      ${F('Who approves a handover',P('OQ-58'),'OR08.change_case_id','Open','Effects on data OQ-04',true)}
+    </div></div></section>`;
+}
+
+/* ---------- Prototype controls ---------- */
+function seg(id,attr,fn){ const s=document.getElementById(id); s.querySelectorAll('button').forEach(b=>b.onclick=()=>{s.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));fn(b.dataset[attr]);}); }
+seg('viewerSeg','v',v=>{state.viewer=v; state.tab='tree'; state.q=''; state.detailOpen=false;
+  if(v==='cl'){ select(VIEWERS.cl.scope); state.detailOpen=false; } else { state.selected='gsg'; }
+  render();});
+seg('dictSeg','d',d=>document.getElementById('app').classList.toggle('show-dict',d==='on'));
+seg('frameSeg','f',f=>document.getElementById('stage').classList.toggle('mobile',f==='mobile'));
+seg('themeSeg','t',t=>{ if(t==='auto') document.documentElement.removeAttribute('data-theme'); else document.documentElement.setAttribute('data-theme',t); });
+render();
+</script>

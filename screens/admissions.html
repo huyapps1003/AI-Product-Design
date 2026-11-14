@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admissions Prototype</title>
+<!--
+  Screens: SCR-AD-01 Enquiries · SCR-AD-02 Applications board · SCR-AD-03 Application detail · SCR-AD-04 Capacity and waitlist · SCR-AD-05 Admission settings
+  Viewers: Lina Goh (Admissions Officer, SG-PGL) · Marcus Lee (Admissions Manager, GIIS Singapore) · Dr Anita Rao (Principal, SG-PGL) · Pooja Malhotra (Admissions Officer, IN-NOI)
+  Objects: OBJ-16 Application (primary), OBJ-03 Enrolment, OBJ-10 Case (approval)
+  Sample: product-truth/03-domain/samples/admissions-sample.json · today 12 Nov 2026 · synthetic
+  DL: DL-56 DL-57 DL-58 DL-59 DL-60 DL-61 (Confirmed 14 Nov 2026) DL-65 DL-67 · OQ shown as pending: OQ-62 OQ-63 OQ-64 OQ-66 OQ-67 OQ-68 OQ-72
+  Spec: Admissions Data Dictionary v0.1 (PR #14)
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#00A76F;--primary-dark:#007867;--primary-soft:rgba(0,167,111,.08);--primary-soft2:rgba(0,167,111,.16);
+  --secondary:#8E33FF;--secondary-soft:rgba(142,51,255,.08);
+  --error:#B71D18;--error-soft:rgba(255,86,48,.12);
+  --warning:#B76E00;--warning-soft:rgba(255,171,0,.14);--warning-line:#FFAB00;
+  --info:#006C9C;--info-soft:rgba(0,184,217,.12);
+  --success:#118D57;--success-soft:rgba(34,197,94,.14);
+  --text:#212B36;--text2:#637381;--text3:#919EAB;
+  --bg:#FFFFFF;--paper:#FFFFFF;--neutral:#F4F6F8;--canvas:#EDEFF2;
+  --divider:rgba(145,158,171,.2);--line:rgba(145,158,171,.32);
+  --z1:0 1px 2px rgba(145,158,171,.16);
+  --card:0 0 2px 0 rgba(145,158,171,.2),0 12px 24px -4px rgba(145,158,171,.12);
+  --scrim:rgba(22,28,36,.48);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --primary:#5BE49B;--primary-dark:#5BE49B;--primary-soft:rgba(91,228,155,.10);--primary-soft2:rgba(91,228,155,.18);
+  --secondary:#C684FF;--secondary-soft:rgba(198,132,255,.12);
+  --error:#FFAC82;--error-soft:rgba(255,86,48,.18);
+  --warning:#FFD666;--warning-soft:rgba(255,171,0,.16);
+  --info:#61F3F3;--info-soft:rgba(0,184,217,.16);
+  --success:#77ED8B;--success-soft:rgba(34,197,94,.16);
+  --text:#FFFFFF;--text2:#919EAB;--text3:#637381;
+  --bg:#161C24;--paper:#212B36;--neutral:#28323D;--canvas:#10141A;
+  --card:0 0 2px 0 rgba(0,0,0,.2),0 12px 24px -4px rgba(0,0,0,.16);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --primary:#5BE49B;--primary-dark:#5BE49B;--primary-soft:rgba(91,228,155,.10);--primary-soft2:rgba(91,228,155,.18);
+  --secondary:#C684FF;--secondary-soft:rgba(198,132,255,.12);
+  --error:#FFAC82;--error-soft:rgba(255,86,48,.18);
+  --warning:#FFD666;--warning-soft:rgba(255,171,0,.16);
+  --info:#61F3F3;--info-soft:rgba(0,184,217,.16);
+  --success:#77ED8B;--success-soft:rgba(34,197,94,.16);
+  --text:#FFFFFF;--text2:#919EAB;--text3:#637381;
+  --bg:#161C24;--paper:#212B36;--neutral:#28323D;--canvas:#10141A;
+  --card:0 0 2px 0 rgba(0,0,0,.2),0 12px 24px -4px rgba(0,0,0,.16);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--canvas);color:var(--text);font:400 14px/1.57 "Public Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.mono{font-variant-numeric:tabular-nums}
+
+/* ---------- Prototype toolbar (not part of the product) ---------- */
+.proto{position:sticky;top:0;z-index:30;background:var(--paper);border-bottom:1px solid var(--divider);
+  padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));
+  display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+.proto-title{font-weight:700;font-size:13px;margin-right:auto;display:flex;gap:8px;align-items:center}
+.proto-title small{font-weight:500;color:var(--text2)}
+.ctl{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2)}
+.seg{display:inline-flex;background:var(--neutral);border-radius:8px;padding:3px}
+.seg button{border:0;background:transparent;padding:5px 10px;border-radius:6px;font-size:12px;font-weight:600;color:var(--text2);white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--paper);color:var(--text);box-shadow:var(--z1)}
+
+.stage{padding:24px max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
+.device{margin:0 auto;background:var(--bg);border-radius:16px;overflow:hidden;box-shadow:var(--card);max-width:1440px}
+.stage.mobile .device{max-width:390px;height:800px;border-radius:36px;border:10px solid #161C24;display:flex;flex-direction:column}
+.stage.mobile .app{flex:1;overflow:auto}
+
+/* ---------- App shell ---------- */
+.app{container-type:inline-size;background:var(--bg);min-height:640px}
+.shell{display:grid;grid-template-columns:280px 1fr;min-height:100%}
+.side{border-right:1px dashed var(--line);padding:20px 16px;display:flex;flex-direction:column;gap:4px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;padding:4px 8px 20px}
+.logo i{width:32px;height:32px;border-radius:10px;background:var(--primary);display:grid;place-items:center;color:#fff;font-style:normal;font-size:14px}
+:root[data-theme="dark"] .logo i{color:#161C24}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo i{color:#161C24}}
+.nav-h{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);padding:12px 12px 6px}
+.nav a{display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:8px;color:var(--text2);text-decoration:none;font-weight:500;min-height:44px}
+.nav a.on{background:var(--primary-soft);color:var(--primary);font-weight:600}
+.nav svg{width:22px;height:22px;flex:none}
+
+.main{min-width:0;display:flex;flex-direction:column}
+.top{height:64px;display:flex;align-items:center;gap:12px;padding:0 24px;border-bottom:1px solid var(--divider);position:sticky;top:0;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(6px);z-index:5}
+.scope{display:flex;align-items:center;gap:6px;min-width:0;border:1px solid var(--line);border-radius:8px;padding:6px 10px;background:transparent;font-size:13px;font-weight:500}
+.scope span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.scope .sep{color:var(--text3)}
+.scope b{font-weight:700}
+.top .grow{flex:1}
+.iconbtn{width:40px;height:40px;border-radius:50%;border:0;background:transparent;display:grid;place-items:center;color:var(--text2)}
+.iconbtn svg{width:22px;height:22px}
+.me{display:flex;align-items:center;gap:10px}
+.me .who{line-height:1.25;text-align:right}
+.me .who b{display:block;font-size:13px}
+.me .who small{color:var(--text2);font-size:12px;white-space:nowrap}
+.seg{flex-wrap:wrap}
+.proto .ctl{flex-wrap:wrap}
+
+.avatar{border-radius:50%;display:grid;place-items:center;font-weight:700;flex:none}
+.av-sm{width:36px;height:36px;font-size:13px;background:var(--secondary-soft);color:var(--secondary)}
+
+.content{padding:24px 40px 48px;max-width:1200px;width:100%;margin:0 auto}
+.crumbs{font-size:13px;color:var(--text2);display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.crumbs .dot{width:4px;height:4px;border-radius:50%;background:var(--text3);align-self:center}
+.crumbs b{color:var(--text);font-weight:500}
+
+/* Person header AP-03 */
+.hero{background:var(--paper);border-radius:16px;box-shadow:var(--card);overflow:hidden;margin-bottom:24px}
+.hero-band{height:72px;background:linear-gradient(120deg,var(--primary-soft2),var(--secondary-soft))}
+.hero-body{display:flex;gap:20px;padding:0 24px 20px;align-items:flex-end;flex-wrap:wrap;margin-top:-36px}
+.av-xl{width:96px;height:96px;font-size:32px;background:var(--primary);color:#fff;border:4px solid var(--paper)}
+:root[data-theme="dark"] .av-xl{color:#161C24}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .av-xl{color:#161C24}}
+.hero-id{flex:1;min-width:220px;padding-top:40px}
+.hero-id h1{margin:0;font-size:24px;line-height:1.3;font-weight:700}
+.hero-meta{color:var(--text2);font-size:14px;margin-top:2px;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.hero-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+.chip{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 8px;border-radius:6px;font-size:12px;font-weight:700;line-height:1;white-space:nowrap}
+.c-success{background:var(--success-soft);color:var(--success)}
+.c-warning{background:var(--warning-soft);color:var(--warning)}
+.c-error{background:var(--error-soft);color:var(--error)}
+.c-info{background:var(--info-soft);color:var(--info)}
+.c-default{background:var(--neutral);color:var(--text2)}
+.c-role{background:var(--secondary-soft);color:var(--secondary)}
+.c-pending{background:transparent;border:1px solid var(--warning-line);color:var(--warning);font-weight:600}
+.c-source{background:var(--info-soft);color:var(--info);font-weight:600}
+.chip svg{width:13px;height:13px}
+
+.btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--line);background:transparent;font-weight:700;font-size:14px;white-space:nowrap}
+.btn-primary{background:var(--text);color:var(--bg);border-color:var(--text)}
+.btn-sm{height:30px;padding:0 10px;font-size:13px}
+.btn-ghost{border-color:transparent;color:var(--primary)}
+.btn svg{width:18px;height:18px}
+
+/* Tabs */
+.tabs{display:flex;gap:28px;border-bottom:1px solid var(--divider);padding:0 24px;overflow-x:auto;scrollbar-width:none}
+.tabs a{padding:12px 0;color:var(--text2);text-decoration:none;font-weight:600;white-space:nowrap;border-bottom:2px solid transparent}
+.tabs a.on{color:var(--text);border-color:var(--text)}
+
+/* Cards */
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+.span2{grid-column:1/-1}
+.card{background:var(--paper);border-radius:16px;box-shadow:var(--card);scroll-margin-top:80px}
+.card-h{display:flex;align-items:center;gap:8px;padding:20px 24px 0;flex-wrap:wrap}
+.card-h h2{margin:0;font-size:17px;font-weight:700;margin-right:auto}
+.card-b{padding:16px 24px 24px}
+.why{border:0;background:transparent;color:var(--text2);font-size:12px;font-weight:600;display:inline-flex;gap:4px;align-items:center;padding:4px 6px;border-radius:6px;min-height:32px}
+.why:hover{background:var(--neutral)}
+.why svg{width:16px;height:16px}
+.explain{margin:12px 24px 0;padding:12px 14px;border-radius:10px;background:var(--neutral);font-size:13px}
+.explain dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0}
+.explain dt{color:var(--text2)}
+.explain dd{margin:0;font-weight:500;overflow-wrap:anywhere}
+.explain code{font-size:12px;background:var(--paper);padding:1px 5px;border-radius:4px}
+
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 24px}
+.f{min-width:0}
+.f .l{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.f .v{font-weight:500;margin-top:2px;overflow-wrap:anywhere;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tier{font-size:10px;font-weight:700;color:var(--text3);border:1px solid var(--line);border-radius:4px;padding:0 4px;line-height:16px}
+
+.masked{display:inline-flex;align-items:center;gap:6px;color:var(--text2);font-family:ui-monospace,Menlo,monospace;letter-spacing:.04em}
+.masked svg{width:15px;height:15px}
+
+.noaccess{display:flex;gap:14px;align-items:flex-start;padding:16px;border:1px dashed var(--line);border-radius:12px}
+.noaccess .ico{width:40px;height:40px;border-radius:12px;background:var(--neutral);display:grid;place-items:center;color:var(--text2);flex:none}
+.noaccess .ico svg{width:22px;height:22px}
+.noaccess b{display:block}
+.noaccess p{margin:2px 0 0;color:var(--text2);font-size:13px}
+
+.addr{display:flex;flex-direction:column;gap:12px}
+.addr-row{padding:12px 14px;border-radius:10px;border:1px solid var(--divider)}
+.addr-row .l{font-size:12px;color:var(--text2);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.addr-row .v{font-weight:500;margin-top:2px}
+
+.doc{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:14px;border-radius:12px;border:1px solid var(--divider);margin-bottom:12px}
+.doc .t{font-weight:700;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.doc .s{grid-column:1/-1;color:var(--text2);font-size:13px;display:flex;flex-wrap:wrap;gap:4px 14px}
+.logline{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--text2);padding:10px 12px;border-radius:8px;background:var(--info-soft);margin-top:4px}
+.logline svg{width:16px;height:16px;color:var(--info);flex:none;margin-top:1px}
+
+/* Timeline AP-05 */
+.tl{list-style:none;margin:0;padding:0}
+.tl li{position:relative;padding:0 0 20px 28px}
+.tl li::before{content:"";position:absolute;left:6px;top:20px;bottom:0;width:2px;background:var(--divider)}
+.tl li:last-child::before{display:none}
+.tl .dotm{position:absolute;left:0;top:5px;width:14px;height:14px;border-radius:50%;border:3px solid var(--paper);box-shadow:0 0 0 2px var(--line);background:var(--text3)}
+.tl .dotm.cur{background:var(--success);box-shadow:0 0 0 2px var(--success-soft)}
+.tl .h{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-weight:700}
+.tl .m{color:var(--text2);font-size:13px}
+
+.guard{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.g{border:1px solid var(--divider);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.g-top{display:flex;gap:12px;align-items:center}
+.av-md{width:44px;height:44px;font-size:15px;background:var(--info-soft);color:var(--info)}
+.g-top b{display:block}
+.g-top small{color:var(--text2)}
+.flags{display:flex;gap:6px;flex-wrap:wrap}
+.contact{display:flex;flex-direction:column;gap:4px;font-size:13px}
+.contact div{display:flex;gap:8px;align-items:center}
+.contact svg{width:16px;height:16px;color:var(--text3);flex:none}
+
+.pendcard{border:1px dashed var(--warning-line);border-radius:12px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;background:transparent}
+.pendcard p{margin:2px 0 0;color:var(--text2);font-size:13px}
+
+.foot{margin-top:24px;font-size:12px;color:var(--text3)}
+
+/* Bottom nav for compact widths */
+.bnav{display:none}
+
+/* ---------- Compact layout, driven by frame width ---------- */
+@container (max-width: 1080px){
+  .shell{grid-template-columns:88px 1fr}
+  .side .logo span,.nav-h,.nav a span{display:none}
+  .nav a{justify-content:center;padding:10px}
+  .content{padding:24px 24px 48px}
+}
+@container (max-width: 860px){
+  .grid,.guard{grid-template-columns:minmax(0,1fr)}
+  .me .who{display:none}
+}
+@container (max-width: 640px){
+  .shell{grid-template-columns:1fr}
+  .side{display:none}
+  .top{padding:0 12px;height:56px}
+  .scope .hide-sm{display:none}
+  .content{padding:16px 16px 96px}
+  .hero-body{padding:0 16px 16px;gap:12px}
+  .av-xl{width:72px;height:72px;font-size:24px}
+  .hero-id{padding-top:0;min-width:100%}
+  .hero-id h1{font-size:20px}
+  .hero-actions{width:100%}
+  .hero-actions .btn{flex:1;justify-content:center}
+  .tabs{padding:0 16px;gap:20px}
+  .card-h{padding:16px 16px 0}
+  .card-b{padding:12px 16px 16px}
+  .explain{margin:12px 16px 0}
+  .fields{grid-template-columns:minmax(0,1fr)}
+  .crumbs{display:none}
+  .bnav{display:flex;position:sticky;bottom:0;background:var(--paper);border-top:1px solid var(--divider);justify-content:space-around;padding:6px 0 calc(6px + env(safe-area-inset-bottom,0px))}
+  .bnav a{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;font-weight:600;color:var(--text2);text-decoration:none;min-width:64px;min-height:44px;justify-content:center}
+  .bnav a.on{color:var(--primary)}
+  .bnav svg{width:22px;height:22px}
+}
+
+/* Dialog */
+.scrim{position:fixed;inset:0;background:var(--scrim);display:grid;place-items:center;padding:16px;z-index:50}
+.dlg{background:var(--paper);border-radius:16px;box-shadow:0 24px 48px rgba(0,0,0,.24);width:100%;max-width:480px;padding:24px}
+.dlg h3{margin:0 0 4px;font-size:18px}
+.dlg p{margin:0 0 16px;color:var(--text2);font-size:13px}
+.dlg label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin:12px 0 6px}
+.dlg select,.dlg textarea{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.dlg textarea{min-height:72px;resize:vertical}
+.dlg .row{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+.dlg .btn-primary:disabled{opacity:.4;cursor:not-allowed}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:600;font-size:13px;z-index:60;max-width:calc(100% - 32px)}
+
+.content a:not(.btn):not(.tabs a){color:var(--primary-dark);font-weight:600;text-decoration:none}
+.content a:not(.btn):not(.tabs a):hover{text-decoration:underline}
+.page-h{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.page-h h1{margin:0;font-size:24px;font-weight:700;line-height:1.3}
+.page-h p{margin:2px 0 0;color:var(--text2)}
+.page-h .grow{flex:1}
+.listcard{background:var(--paper);border-radius:16px;box-shadow:var(--card);overflow:hidden}
+.qtabs{display:flex;gap:24px;padding:0 20px;border-bottom:1px solid var(--divider);overflow-x:auto;scrollbar-width:none}
+.qtabs button{border:0;background:transparent;padding:12px 0;font-weight:600;color:var(--text2);white-space:nowrap;border-bottom:2px solid transparent;display:flex;gap:6px;align-items:center;min-height:44px}
+.qtabs button[aria-pressed="true"]{color:var(--text);border-color:var(--text)}
+.cnt{font-size:11px;font-weight:700;border-radius:6px;padding:1px 6px;background:var(--neutral);color:var(--text2)}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:13px;font-weight:600;color:var(--text2);background:var(--neutral);padding:12px 16px;white-space:nowrap}
+td{padding:14px 16px;border-bottom:1px dashed var(--divider);vertical-align:middle}
+tbody tr.click{cursor:pointer}
+tbody tr.click:hover td{background:var(--primary-soft)}
+.sub{color:var(--text2);font-size:12px}
+.whoc{display:flex;gap:12px;align-items:center;min-width:0}
+.whoc b{display:block;font-weight:600;white-space:nowrap}
+.av-row{width:40px;height:40px;font-size:13px;background:var(--primary-soft2);color:var(--primary-dark)}
+.scopebar{display:flex;gap:10px;align-items:flex-start;padding:10px 14px;border-radius:10px;background:var(--neutral);font-size:13px;margin:16px 20px}
+.scopebar svg{width:16px;height:16px;color:var(--text2);flex:none;margin-top:2px}
+
+/* Board */
+.board{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(220px,1fr);gap:16px;overflow-x:auto;padding-bottom:8px}
+.col{background:var(--neutral);border-radius:16px;padding:12px;min-height:200px;display:flex;flex-direction:column;gap:10px}
+.col-h{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13px;padding:2px 4px}
+.kcard{background:var(--paper);border-radius:12px;box-shadow:var(--z1);padding:12px;border:1px solid var(--divider);text-align:left;display:flex;flex-direction:column;gap:6px;width:100%}
+.kcard:hover{border-color:var(--primary)}
+.kcard b{font-size:14px}
+.kcard .blk{font-size:12px;color:var(--warning);display:flex;gap:4px;align-items:flex-start}
+.kcard .blk svg{width:14px;height:14px;flex:none;margin-top:2px}
+.kempty{font-size:12px;color:var(--text3);padding:8px 4px}
+
+/* Stepper */
+.steps{display:flex;gap:0;padding:16px 24px 20px;overflow-x:auto;scrollbar-width:none}
+.step{flex:1;min-width:96px;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;font-size:12px;color:var(--text2);text-align:center}
+.step::before{content:"";position:absolute;top:11px;left:-50%;right:50%;height:2px;background:var(--divider)}
+.step:first-child::before{display:none}
+.step .d{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--neutral);color:var(--text2);font-weight:700;font-size:11px;position:relative;z-index:1}
+.step.done .d{background:var(--success);color:#fff}
+.step.done::before,.step.cur::before{background:var(--success)}
+.step.cur .d{background:var(--text);color:var(--bg)}
+.step.cur{color:var(--text);font-weight:700}
+.step.bad .d{background:var(--error);color:#fff}
+
+/* Capacity bar */
+.bar{height:8px;border-radius:4px;background:var(--neutral);overflow:hidden;display:flex;min-width:120px}
+.bar i{display:block;height:100%}
+.bar .e{background:var(--primary)}
+.bar .h{background:var(--warning-line)}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--text2);flex-wrap:wrap}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+.kv{display:grid;grid-template-columns:200px 1fr;gap:10px 16px;font-size:14px}
+.kv dt{color:var(--text2)}
+.kv dd{margin:0;font-weight:500;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.notset{color:var(--warning);font-weight:700;display:inline-flex;gap:4px;align-items:center}
+.notset svg{width:15px;height:15px}
+.settings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.count{display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:12px;background:var(--warning-soft);color:var(--warning);font-weight:600;font-size:13px}
+.count svg{width:20px;height:20px;flex:none}
+.blocked{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:12px;border:1px solid var(--warning-line);font-size:13px}
+.blocked svg{width:20px;height:20px;color:var(--warning);flex:none}
+.blocked b{display:block}
+.list-row{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px dashed var(--divider);flex-wrap:wrap}
+.list-row:last-child{border-bottom:0}
+.list-row .grow{flex:1;min-width:160px}
+.pos{width:28px;height:28px;border-radius:8px;background:var(--neutral);display:grid;place-items:center;font-weight:700;font-size:13px;flex:none}
+.dlg input[type=text]{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.drawer-kids{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.drawer-kids div{padding:10px 12px;border:1px solid var(--divider);border-radius:10px}
+@container (max-width: 860px){.settings{grid-template-columns:minmax(0,1fr)}.kv{grid-template-columns:minmax(0,1fr);gap:2px 0}.kv dd{margin-bottom:10px}}
+@container (max-width: 640px){.page-h h1{font-size:20px}.steps{padding:12px 16px 16px}.board{grid-auto-columns:minmax(240px,80%)}}
+</style></head><body>
+<div class="proto" role="region" aria-label="Prototype controls">
+  <div class="proto-title">Admissions prototype <small>Campus OS · synthetic data · today 12 Nov 2026</small></div>
+  <div class="ctl">Viewer
+    <div class="seg" id="viewers">
+      <button data-v="lina" aria-pressed="true">Lina · Officer SG-PGL</button>
+      <button data-v="marcus" aria-pressed="false">Marcus · Manager GIIS SG</button>
+      <button data-v="anita" aria-pressed="false">Dr Rao · Principal SG-PGL</button>
+      <button data-v="pooja" aria-pressed="false">Pooja · Officer IN-NOI</button>
+    </div>
+  </div>
+  <div class="ctl">Theme
+    <div class="seg" id="theme"><button data-t="light" aria-pressed="false">Light</button><button data-t="dark" aria-pressed="false">Dark</button><button data-t="auto" aria-pressed="true">Auto</button></div>
+  </div>
+</div>
+<div class="stage"><div class="device"><div class="app">
+  <div class="shell">
+    <aside class="side" aria-label="Main navigation">
+      <div class="logo"><i>C</i><span>Campus OS</span></div>
+      <div class="nav-h">Admissions</div>
+      <nav class="nav" id="nav">
+        <a href="#enquiries" data-r="enquiries"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v11H8l-4 4z"/></svg><span>Enquiries</span></a>
+        <a href="#pipeline" data-r="pipeline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="10" y="4" width="5" height="11" rx="1.5"/><rect x="17" y="4" width="4" height="7" rx="1.5"/></svg><span>Applications</span></a>
+        <a href="#capacity" data-r="capacity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Capacity and waitlist</span></a>
+        <a href="#settings" data-r="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></svg><span>Admission settings</span></a>
+      </nav>
+      <div class="nav-h">Students</div>
+      <nav class="nav"><a href="https://claude.ai/artifact/Sneeg5s7geUy7XwHmhJJZA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5c2 .6 3.2 2.5 3.5 5.5"/></svg><span>Student directory ↗</span></a></nav>
+    </aside>
+    <div class="main">
+      <header class="top">
+        <button class="scope" id="scopeBtn" title="Current scope"><span id="scopeTxt"></span></button>
+        <div class="grow"></div>
+        <div class="me"><div class="who"><b id="meName"></b><small id="meRole"></small></div><div class="avatar av-sm" id="meAv"></div></div>
+      </header>
+      <main class="content" id="view" tabindex="-1"></main>
+      <nav class="bnav" id="bnav">
+        <a href="#enquiries" data-r="enquiries"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v11H8l-4 4z"/></svg>Enquiries</a>
+        <a href="#pipeline" data-r="pipeline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="10" y="4" width="5" height="11" rx="1.5"/><rect x="17" y="4" width="4" height="7" rx="1.5"/></svg>Applications</a>
+        <a href="#capacity" data-r="capacity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Capacity</a>
+        <a href="#settings" data-r="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>Settings</a>
+      </nav>
+    </div>
+  </div>
+</div></div></div>
+<div id="layer"></div>
+<script>
+(function(){
+'use strict';
+/* ---------- Data (synthetic, from product-truth/03-domain/samples/admissions-sample.json) ---------- */
+const CAMPUS={'SG-PGL':'SMART Campus Punggol','SG-ECS':'East Coast Campus','IN-NOI':'Noida Campus','SG-OWD':'OWIS Digital Campus, Punggol'};
+const VIEWERS={
+  lina:{name:'Lina Goh',role:'Admissions Officer',ini:'LG',campuses:['SG-PGL'],scope:['GSG','GIIS','Singapore','SMART Campus Punggol'],kind:'officer'},
+  marcus:{name:'Marcus Lee',role:'Admissions Manager',ini:'ML',campuses:['SG-PGL','SG-ECS'],scope:['GSG','GIIS','Singapore'],kind:'manager'},
+  anita:{name:'Dr Anita Rao',role:'Principal',ini:'AR',campuses:['SG-PGL'],scope:['GSG','GIIS','Singapore','SMART Campus Punggol'],kind:'principal'},
+  pooja:{name:'Pooja Malhotra',role:'Admissions Officer',ini:'PM',campuses:['IN-NOI'],scope:['GSG','GIIS','India','Noida Campus'],kind:'officer'}
+};
+const SETTINGS={
+  'SG-PGL':{cooling:'7 working days',offerValid:null,fees:'Application fee (at application) · Registration fee (at acceptance), SGD; amounts pending (OQ-68)',refund:'Refundable less admin charge only if ICA or MOE rejects',docs:'Passport, birth certificate, last report card, transfer certificate (list pending, OQ-72)',tests:'Entrance test; AEPP placement for limited English; SEN pre-admission if disclosed',approval:'Student Pass (ICA), MOE approval'},
+  'IN-NOI':{cooling:null,offerValid:null,fees:null,refund:null,docs:null,tests:null,approval:'None'}
+};
+let CAP=[
+  {campus:'SG-PGL',off:'CBSE 1-12',grade:'Grade 6',ay:'AY 2026-27',limit:96,enr:88,held:6,buf:2,used:0},
+  {campus:'SG-PGL',off:'CBSE 1-12',grade:'Grade 7',ay:'AY 2026-27',limit:96,enr:96,held:0,buf:2,used:0},
+  {campus:'SG-PGL',off:'IB PYP',grade:'Grade 2',ay:'AY 2026-27',limit:44,enr:31,held:3,buf:2,used:0},
+  {campus:'SG-PGL',off:'GMP (KG)',grade:'KG1',ay:'AY 2027-28',limit:60,enr:0,held:4,buf:2,used:0}
+];
+let ENQ=[
+  {no:'ENQ-26-04112',at:'11 Nov, 09:42',src:'Group website',who:'Daniel Okafor',rel:'Father',campus:'SG-PGL',owner:'Lina Goh',st:'NEW',next:'Call today 12:00',kids:[['Tobi','15','CBSE Grade 6, AY 2026-27','APP-26-1187'],['Ada','7','IB PYP Grade 2, AY 2026-27',null]]},
+  {no:'ENQ-26-04098',at:'8 Nov, 15:10',src:'Walk-in',who:'Mei Ling Chua',rel:'Mother',campus:'SG-PGL',owner:'Lina Goh',st:'VISIT_BOOKED',next:'Campus tour 14 Nov, 10:00',kids:[['Ethan','4','GMP KG1, AY 2027-28',null]]},
+  {no:'ENQ-26-04071',at:'3 Nov, 11:25',src:'Group website',who:'Sara Haddad',rel:'Mother',campus:null,owner:null,st:'NEW',next:'—',kids:[['Omar','10','GIIS or OWIS, Punggol',null]],note:'Names two brands. Who owns it and where it is held is pending (OQ-63).'},
+  {no:'ENQ-26-03990',at:'21 Oct, 08:05',src:'Phone',who:'Kenji Sato',rel:'Father',campus:'SG-PGL',owner:'Lina Goh',st:'CLOSED_LOST',next:'Chose another school',kids:[['Yui','9','Cambridge CLSP Grade 6',null]]}
+];
+const D=(t,s)=>({t,s});
+let APPS=[
+ {no:'APP-26-1187',name:'Tobi Okafor',dob:'2 May 2015',nat:'Nigeria',campus:'SG-PGL',off:'CBSE 1-12',grade:'Grade 6',ay:'AY 2026-27',start:'5 Jan 2027',gov:'STUDENT_PASS',st:'DOCUMENTS_PENDING',contact:'Daniel Okafor (father)',enq:'ENQ-26-04112',channel:'Entered by staff',
+  docs:[D('Passport','RECEIVED'),D('Birth certificate','REQUESTED'),D('Last report card','ACCEPTED'),D('Transfer certificate','REQUESTED')],tests:[],fees:[['Application fee','PAID']],block:'2 documents requested'},
+ {no:'APP-26-1172',name:'Kavya Sharma',dob:'11 Aug 2019',nat:'India',campus:'SG-PGL',off:'IB PYP',grade:'Grade 2',ay:'AY 2026-27',start:'5 Jan 2027',gov:'STUDENT_PASS',st:'ASSESSMENT',contact:'Neha Sharma (mother, existing guardian)',sibling:'Aarav Sharma · GS-2024-001842',match:true,
+  docs:[D('Passport','ACCEPTED'),D('Birth certificate','ACCEPTED'),D('Last report card','ACCEPTED'),D('Transfer certificate','RECEIVED')],tests:[{t:'Entrance test',when:'18 Nov, 09:00',by:'Priya Nair',out:null}],fees:[['Application fee','PAID']],block:'Entrance test 18 Nov'},
+ {no:'APP-26-1160',name:'Li Wei Zhang',dob:'3 Oct 2014',nat:'China',campus:'SG-PGL',off:'CBSE 1-12',grade:'Grade 7',ay:'AY 2026-27',start:'5 Jan 2027',gov:'STUDENT_PASS',st:'WAITLISTED',contact:'Zhang Min (mother)',wl:3,
+  docs:[D('Passport','ACCEPTED'),D('Birth certificate','ACCEPTED'),D('Last report card','ACCEPTED'),D('Transfer certificate','ACCEPTED')],tests:[{t:'Entrance test',by:'Priya Nair',out:'Meets',score:'Maths 78, English 71'},{t:'AEPP placement',by:'AEPP coordinator',out:'Place in AEPP',note:'A placement inside the Grade 7 enrolment, not a separate enrolment (DL-65)'}],fees:[['Application fee','PAID']],block:'Grade 7 full'},
+ {no:'APP-26-1149',name:'Arjun Pillai',dob:'1 Dec 2015',nat:'Singapore',campus:'SG-PGL',off:'CBSE 1-12',grade:'Grade 6',ay:'AY 2026-27',start:'5 Jan 2027',gov:'MOE_APPROVAL',st:'UNDER_REVIEW',contact:'Ravi Pillai (father)',sen:'NEEDS_DISCUSSION',
+  docs:[D('Passport','ACCEPTED'),D('Birth certificate','ACCEPTED'),D('Last report card','ACCEPTED'),D('Transfer certificate','ACCEPTED')],tests:[{t:'Entrance test',by:'Priya Nair',out:'Meets'},{t:'SEN pre-admission',by:'Deepa Krishnan',out:'Needs discussion',sen:true}],fees:[['Application fee','PAID']],block:'Decision needed'},
+ {no:'APP-26-1121',name:'Sofia Rossi',dob:'22 Apr 2015',nat:'Italy',campus:'SG-PGL',off:'CBSE 1-12',grade:'Grade 6',ay:'AY 2026-27',start:'5 Jan 2027',gov:'STUDENT_PASS',st:'OFFERED',sid:'GS-2026-004410',enr:'OFFERED',contact:'Marco Rossi (father)',
+  offer:{st:'ISSUED',by:'Lina Goh',at:'5 Nov 2026',cond:'Subject to Student Pass approval'},
+  docs:[D('Passport','ACCEPTED'),D('Birth certificate','ACCEPTED'),D('Last report card','ACCEPTED'),D('Transfer certificate','ACCEPTED')],tests:[{t:'Entrance test',by:'Priya Nair',out:'Meets'}],fees:[['Application fee','PAID'],['Registration fee','DUE']],block:'Waiting for family to accept'},
+ {no:'APP-26-1098',name:'Noah Fernandes',dob:'9 Jun 2015',nat:'India',campus:'SG-PGL',off:'CBSE 1-12',grade:'Grade 6',ay:'AY 2026-27',start:'5 Jan 2027',gov:'STUDENT_PASS',st:'ACCEPTED',sid:'GS-2026-004388',enr:'CONFIRMED',contact:'Anjali Fernandes (mother)',
+  offer:{st:'ACCEPTED',by:'Lina Goh',at:'29 Oct 2026',resp:'4 Nov 2026'},contract:{st:'IN_COOLING_OFF',signed:'6 Nov 2026',ends:'17 Nov 2026',left:3},
+  approval:{type:'Student Pass',auth:'ICA',st:'SUBMITTED',sub:'7 Nov 2026'},
+  docs:[D('Passport','ACCEPTED'),D('Birth certificate','ACCEPTED'),D('Last report card','ACCEPTED'),D('Transfer certificate','ACCEPTED')],tests:[{t:'Entrance test',by:'Priya Nair',out:'Meets'}],fees:[['Application fee','PAID'],['Registration fee','PAID']],block:'ICA decision pending'},
+ {no:'APP-26-1040',name:'Hana Kim',dob:'17 Feb 2019',nat:'South Korea',campus:'SG-PGL',off:'IB PYP',grade:'Grade 2',ay:'AY 2026-27',start:'5 Jan 2027',gov:'STUDENT_PASS',st:'ACCEPTED',closed:true,sid:'GS-2026-004301',enr:'CANCELLED',contact:'Kim Ji-woo (mother)',
+  offer:{st:'ACCEPTED',by:'Lina Goh',at:'2 Oct 2026'},contract:{st:'TERMINATED',signed:'8 Oct 2026'},approval:{type:'Student Pass',auth:'ICA',st:'REJECTED',dec:'2 Nov 2026'},
+  docs:[D('Passport','ACCEPTED'),D('Birth certificate','ACCEPTED')],tests:[],fees:[['Application fee','REFUNDED'],['Registration fee','REFUNDED']],block:'Student Pass rejected'},
+ {no:'APP-26-0987',name:'Ravi Iyer',dob:'12 Mar 2015',nat:'India',campus:'SG-PGL',off:'CBSE 1-12',grade:'Grade 6',ay:'AY 2026-27',start:'3 Nov 2026',gov:'STUDENT_PASS',st:'ENROLLED',sid:'GS-2026-004215',enr:'ENROLLED',cls:'6C',contact:'Lakshmi Iyer (mother)',
+  offer:{st:'ACCEPTED',by:'Lina Goh',at:'1 Sep 2026'},contract:{st:'ACTIVE',signed:'8 Sep 2026'},approval:{type:'Student Pass',auth:'ICA',st:'APPROVED',dec:'20 Oct 2026'},
+  docs:[D('Passport','ACCEPTED'),D('Birth certificate','ACCEPTED'),D('Last report card','ACCEPTED'),D('Transfer certificate','ACCEPTED')],tests:[{t:'Entrance test',by:'Priya Nair',out:'Meets'}],fees:[['Application fee','PAID'],['Registration fee','PAID']]},
+ {no:'APP-26-0955',name:'Aditi Gupta',dob:'28 Nov 2017',nat:'India',campus:'IN-NOI',off:'CBSE 1-12',grade:'Grade 4',ay:'AY 2027-28',start:'1 Apr 2027',gov:'NONE',st:'SUBMITTED',contact:'Rohit Gupta (father)',
+  docs:[D('Birth certificate','RECEIVED'),D('Last report card','REQUESTED')],tests:[],fees:[],block:'Contract rules not set'},
+ {no:'APP-26-0930',name:'Omar Haddad',campus:'SG-OWD',brand:'OWIS',off:'IB PYP',grade:'Grade 5',ay:'AY 2026-27',st:'DRAFT',docs:[],tests:[],fees:[]}
+];
+let pendingPrincipal=null;
+
+/* ---------- Vocabulary (brief § 3) ---------- */
+const AST={DRAFT:['Draft','default'],SUBMITTED:['Submitted','info'],DOCUMENTS_PENDING:['Documents pending','warning'],ASSESSMENT:['Assessment','info'],UNDER_REVIEW:['Under review','info'],WAITLISTED:['Waitlisted','warning'],OFFERED:['Offered','info'],ACCEPTED:['Accepted','success'],ENROLLED:['Enrolled','success'],DECLINED:['Declined','default'],REJECTED:['Rejected','error'],WITHDRAWN:['Withdrawn','default']};
+const EST={NEW:['New','info'],CONTACTED:['Contacted','info'],VISIT_BOOKED:['Visit booked','info'],VISITED:['Visited','info'],APPLICATION_STARTED:['Application started','success'],CLOSED_LOST:['Closed (lost)','default'],DUPLICATE:['Duplicate','default']};
+const ENR={OFFERED:['Offered','info'],CONFIRMED:['Confirmed','info'],ENROLLED:['Enrolled','success'],CANCELLED:['Cancelled','error']};
+const DOC={REQUESTED:['Requested','warning'],RECEIVED:['Received','info'],ACCEPTED:['Accepted','success'],REJECTED:['Rejected','error'],WAIVED:['Waived','default']};
+const FEE={DUE:['Due','warning'],PAID:['Paid','success'],WAIVED:['Waived','default'],REFUNDED:['Refunded','default']};
+const OFF={ISSUED:['Issued','info'],ACCEPTED:['Accepted','success'],DECLINED:['Declined','default'],EXPIRED:['Expired','default'],RESCINDED:['Rescinded','error']};
+const CON={IN_COOLING_OFF:['In cooling-off','warning'],ACTIVE:['Active','success'],TERMINATED:['Terminated','default'],SIGNED:['Signed','info']};
+const APR={PREPARING:['Preparing','default'],SUBMITTED:['Submitted','info'],APPROVED:['Approved','success'],REJECTED:['Rejected','error']};
+const GOV={STUDENT_PASS:'Student Pass',MOE_APPROVAL:'MOE approval',NONE:'Not needed'};
+const COLS=['SUBMITTED','DOCUMENTS_PENDING','ASSESSMENT','UNDER_REVIEW','WAITLISTED','OFFERED','ACCEPTED','ENROLLED'];
+
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const chip=(m,k)=>{const x=m[k]||[k,'default'];return `<span class="chip c-${x[1]}">${esc(x[0])}</span>`};
+const pend=(oq,t)=>`<span class="chip c-pending" title="Not decided yet">${t?esc(t)+' · ':''}Pending decision (${oq})</span>`;
+const ini=n=>n.split(' ').map(w=>w[0]).slice(0,2).join('');
+const I={
+  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
+  warn:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 2 21h20zM12 10v5M12 18h.01"/></svg>',
+  info:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7h.01"/></svg>',
+  clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+  eye:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>'
+};
+
+let V='lina';
+const me=()=>VIEWERS[V];
+const inScope=c=>me().campuses.includes(c);
+const cap=a=>CAP.find(c=>c.campus===a.campus&&c.off===a.off&&c.grade===a.grade&&c.ay===a.ay);
+const free=c=>c.limit+c.used-c.enr-c.held;
+
+/* ---------- Shell ---------- */
+function shell(route){
+  const m=me();
+  document.getElementById('scopeTxt').innerHTML=m.scope.map((s,i)=>i===m.scope.length-1?`<b>${esc(s)}</b>`:`<span class="hide-sm">${esc(s)}</span>`).join(' <span class="sep hide-sm">›</span> ');
+  document.getElementById('meName').textContent=m.name;document.getElementById('meRole').textContent=m.role;document.getElementById('meAv').textContent=m.ini;
+  document.querySelectorAll('[data-r]').forEach(a=>a.classList.toggle('on',a.dataset.r===route));
+}
+
+/* ---------- Enquiries ---------- */
+let enqTab='mine';
+function vEnquiries(){
+  const mine=ENQ.filter(e=>e.campus&&inScope(e.campus)&&e.st!=='CLOSED_LOST');
+  const un=ENQ.filter(e=>!e.campus);
+  const closed=ENQ.filter(e=>e.campus&&inScope(e.campus)&&e.st==='CLOSED_LOST');
+  const rows={mine,un,closed}[enqTab];
+  return `<div class="page-h"><div><h1>Enquiries</h1><p>Families who have been in touch but haven't applied yet.</p></div><div class="grow"></div><button class="btn btn-primary" data-act="newenq">New enquiry</button></div>
+  <div class="listcard"><div class="qtabs" role="tablist">
+   ${[['mine','Open',mine.length],['un','Unassigned',un.length],['closed','Closed',closed.length]].map(t=>`<button data-enqtab="${t[0]}" aria-pressed="${enqTab===t[0]}">${t[1]} <span class="cnt">${t[2]}</span></button>`).join('')}
+  </div>
+  ${enqTab==='un'?`<div class="scopebar">${I.info}<span>Enquiries from the group website that name more than one brand aren't routed to a campus yet. Who owns them and where their data is held is pending (OQ-63).</span></div>`:''}
+  ${rows.length?`<div class="tablewrap"><table><thead><tr><th>Family</th><th>Children</th><th>Source</th><th>Status</th><th>Next action</th><th>Owner</th></tr></thead><tbody>
+  ${rows.map(e=>`<tr class="click" data-enq="${e.no}" tabindex="0"><td><div class="whoc"><div class="avatar av-row">${ini(e.who)}</div><div><b>${esc(e.who)}</b><span class="sub">${esc(e.no)} · ${esc(e.at)}</span></div></div></td>
+   <td>${e.kids.map(k=>`${esc(k[0])} <span class="sub">(${k[1]}) ${esc(k[2])}</span>`).join('<br>')}</td><td>${esc(e.src)}</td><td>${chip(EST,e.st)}</td><td>${esc(e.next)}</td><td>${e.owner?esc(e.owner):pend('OQ-63')}</td></tr>`).join('')}
+  </tbody></table></div>`:`<div class="empty" style="padding:40px;text-align:center"><b>No enquiries here</b><p class="sub">Nothing in this view for your scope.</p></div>`}
+  </div>`;
+}
+function enqDialog(no){
+  const e=ENQ.find(x=>x.no===no);
+  dialog(`<h3>${esc(e.who)}</h3><p>${esc(e.no)} · ${esc(e.rel)} · ${esc(e.src)} · received ${esc(e.at)}</p>
+  ${e.note?`<div class="blocked">${I.warn}<span><b>Not routed</b>${esc(e.note)}</span></div>`:''}
+  <label>Children on this enquiry</label><div class="drawer-kids">${e.kids.map(k=>`<div><b>${esc(k[0])}</b> <span class="sub">age ${k[1]}</span><br><span class="sub">${esc(k[2])}</span><br>${k[3]?`<a href="#app/${k[3]}" data-close>Open application ${k[3]}</a>`:(e.campus&&e.st!=='CLOSED_LOST'?`<button class="btn btn-sm" data-act="startapp" data-kid="${esc(k[0])}">Start application</button>`:'')}</div>`).join('')}</div>
+  <p style="margin-top:12px">Matching checks for an existing family by ID before creating anyone. Possible matches go to review and are never merged automatically (DL-58).</p>
+  <div class="row"><button class="btn" data-close>Close</button></div>`);
+}
+
+/* ---------- Pipeline ---------- */
+let showClosed=false;
+function vPipeline(){
+  const vis=APPS.filter(a=>inScope(a.campus));
+  const hidden=APPS.filter(a=>!inScope(a.campus)).length;
+  const open=vis.filter(a=>!a.closed&&a.st!=='DRAFT');
+  const closed=vis.filter(a=>a.closed);
+  return `<div class="page-h"><div><h1>Applications</h1><p>One card per child for each campus, programme, grade and year (DL-56).</p></div><div class="grow"></div>
+   <div class="seg" role="group" aria-label="Show"><button data-closed="0" aria-pressed="${!showClosed}">Open ${open.length}</button><button data-closed="1" aria-pressed="${showClosed}">Closed ${closed.length}</button></div></div>
+  ${showClosed?`<div class="listcard"><div class="tablewrap"><table><thead><tr><th>Applicant</th><th>Applied for</th><th>Application</th><th>Enrolment</th><th>Why closed</th></tr></thead><tbody>${closed.map(a=>`<tr class="click" data-app="${a.no}" tabindex="0"><td><b>${esc(a.name)}</b><br><span class="sub">${a.no}</span></td><td>${esc(a.off)} · ${esc(a.grade)}</td><td>${chip(AST,a.st)}</td><td>${chip(ENR,a.enr)}</td><td>${esc(a.block||'')}</td></tr>`).join('')||'<tr><td colspan="5" class="sub">No closed applications.</td></tr>'}</tbody></table></div></div>`:
+  `<div class="board">${COLS.map(c=>{const cards=open.filter(a=>a.st===c);return `<section class="col" aria-label="${AST[c][0]}"><div class="col-h">${AST[c][0]} <span class="cnt">${cards.length}</span></div>
+   ${cards.map(a=>`<button class="kcard" data-app="${a.no}"><b>${esc(a.name)}</b><span class="sub">${esc(a.off)} · ${esc(a.grade)} · starts ${esc(a.start)}</span>
+   <span class="chips" style="margin:0">${a.gov!=='NONE'?`<span class="chip c-default">${GOV[a.gov]}</span>`:''}${a.sid?`<span class="chip c-default mono">${a.sid}</span>`:''}${a.sibling?'<span class="chip c-role">Sibling</span>':''}</span>
+   ${a.block?`<span class="blk">${I.clock}${esc(a.block)}</span>`:''}</button>`).join('')||'<div class="kempty">None</div>'}</section>`}).join('')}</div>`}
+  ${hidden?`<p class="foot">${hidden} application${hidden>1?'s are':' is'} at campuses outside your scope and not shown.</p>`:''}`;
+}
+
+/* ---------- Application detail ---------- */
+let appTab='overview';
+function stepsOf(a){
+  const S=['Applied','Documents','Assessment','Decision','Offer','Contract and fee','Approval','Enrolled'];
+  const idx={SUBMITTED:1,DOCUMENTS_PENDING:1,ASSESSMENT:2,UNDER_REVIEW:3,WAITLISTED:3,OFFERED:4,ACCEPTED:a.contract&&a.contract.st!=='TERMINATED'?6:5,ENROLLED:8}[a.st]??0;
+  const bad=a.closed?6:-1;
+  return `<div class="steps" aria-label="Progress">${S.map((s,i)=>`<div class="step ${i===bad?'bad':i<idx?'done':i===idx?'cur':''}"><span class="d">${i===bad?'!':i<idx?'✓':i+1}</span>${s}</div>`).join('')}</div>`;
+}
+function vApp(no){
+  const a=APPS.find(x=>x.no===no);
+  if(!a||!inScope(a.campus)) return `<div class="noaccess"><div class="ico">${I.lock}</div><div><b>Outside your scope</b><p>This application belongs to a campus you don't have access to.</p></div></div><p><a href="#pipeline">Back to applications</a></p>`;
+  const tabs=[['overview','Overview'],['docs','Documents'],['tests','Assessments'],['offer','Offer and contract'],['fees','Fees'],['approval','Approval case'],['history','History']];
+  return `<div class="crumbs"><a href="#pipeline">Applications</a><span class="dot"></span><b>${esc(a.name)}</b></div>
+  <section class="hero"><div class="hero-band"></div><div class="hero-body"><div class="avatar av-xl">${ini(a.name)}</div>
+   <div class="hero-id"><h1>${esc(a.name)}</h1><div class="hero-meta"><span class="mono">${a.no}</span><span>${esc(a.off)} · ${esc(a.grade)} · ${esc(a.ay)}</span><span>${esc(CAMPUS[a.campus])}</span></div>
+   <div class="chips">${chip(AST,a.st)}${a.enr?`<span class="chip c-default">Enrolment:</span>${chip(ENR,a.enr)}`:''}${a.sid?`<span class="chip c-default mono" title="Student ID, created when the offer was issued (DL-57)">${a.sid}</span>`:`<span class="chip c-default" title="No student record until an offer is issued (DL-57)">No Student ID yet</span>`}</div></div>
+   <div class="hero-actions">${actions(a)}</div></div>
+   ${stepsOf(a)}
+   <nav class="tabs">${tabs.map(t=>`<a href="#app/${a.no}" data-apptab="${t[0]}" class="${appTab===t[0]?'on':''}">${t[1]}</a>`).join('')}</nav></section>
+  ${tabBody(a)}`;
+}
+function actions(a){
+  const k=me().kind;
+  if(a.st==='WAITLISTED'||a.st==='UNDER_REVIEW') return `<button class="btn btn-primary" data-act="offer" data-no="${a.no}">Issue offer</button><button class="btn" data-act="decide" data-no="${a.no}">Other decision</button>`;
+  if(a.st==='DOCUMENTS_PENDING') return `<button class="btn btn-primary" data-act="remind" data-no="${a.no}">Send document reminder</button>`;
+  if(a.st==='OFFERED') return `<button class="btn btn-primary" data-act="accept" data-no="${a.no}">Record acceptance</button><button class="btn" data-act="rescind" data-no="${a.no}">Rescind offer…</button>`;
+  if(a.st==='ACCEPTED'&&!a.closed) return `<button class="btn btn-primary" data-act="enrol" data-no="${a.no}">Complete enrolment</button>`;
+  if(a.st==='SUBMITTED') return `<button class="btn btn-primary" data-act="remind" data-no="${a.no}">Request missing documents</button>`;
+  if(a.st==='ENROLLED') return `<a class="btn" href="https://claude.ai/artifact/LNv4WN4X4DYFhwqRXqLsED" target="_blank" rel="noopener">Open student profile ↗</a>`;
+  return '';
+}
+function card(title,body,extra=''){return `<section class="card" style="margin-bottom:24px"><div class="card-h"><h2>${title}</h2>${extra}</div><div class="card-b">${body}</div></section>`}
+function tabBody(a){
+  if(appTab==='overview'){
+    const c=cap(a);
+    return `<div class="grid">
+    ${card('Applicant',`<dl class="kv"><dt>Date of birth</dt><dd>${esc(a.dob)} <span class="tier">T2</span></dd><dt>Nationality</dt><dd>${esc(a.nat)}</dd><dt>Primary contact</dt><dd>${esc(a.contact)}</dd>
+      ${a.sibling?`<dt>Sibling</dt><dd>${esc(a.sibling)} <span class="chip c-role">First on any waitlist (DL-61)</span></dd>`:''}
+      <dt>Applied through</dt><dd>${a.channel?esc(a.channel):'Entered by staff'} ${pend('OQ-62','Online applications')}</dd>
+      ${a.enq?`<dt>Enquiry</dt><dd>${a.enq}</dd>`:''}</dl>
+      ${a.match?`<div class="blocked" style="margin-top:16px">${I.info}<span><b>Existing family found</b>Neha Sharma is already a guardian of Aarav Sharma. Confirm to reuse her record; nothing is merged automatically (DL-58). <br><button class="btn btn-sm" style="margin-top:8px" data-act="match">Confirm same person</button></span></div>`:''}`)}
+    ${card('What happens next',`<dl class="kv"><dt>Government approval</dt><dd>${GOV[a.gov]}</dd><dt>Requested start</dt><dd>${esc(a.start)}</dd>
+      ${c?`<dt>Seats in ${esc(a.grade)}</dt><dd>${free(c)>0?`<span class="chip c-success">${free(c)} free</span>`:'<span class="chip c-warning">Full</span>'} <span class="sub">${c.limit} limit · ${c.enr} enrolled · ${c.held} held</span></dd>`:''}
+      ${a.wl?`<dt>Waitlist position</dt><dd><span class="pos">${a.wl}</span><span class="sub">Siblings, then staff children, then completion date</span></dd>`:''}
+      <dt>Blocker</dt><dd>${a.block?esc(a.block):'None'}</dd></dl>
+      ${a.campus==='IN-NOI'?`<div class="blocked" style="margin-top:16px">${I.warn}<span><b>Contract step blocked: cooling-off period not set</b>Noida Campus hasn't set its cooling-off period or fees at admission. Ask your Admissions Manager to set them (DL-59).</span></div>`:''}`)}
+    </div>`;
+  }
+  if(appTab==='docs') return card('Document checklist',a.docs.length?a.docs.map(d=>{const t3=/Passport|Birth/.test(d.t);return `<div class="list-row"><div class="grow"><b>${esc(d.t)}</b> ${t3?'<span class="tier">T3</span>':'<span class="tier">T2</span>'}<br>${t3&&d.s!=='REQUESTED'?`<span class="masked">${I.lock}•••••••• scan</span>`:'<span class="sub">'+(d.s==='REQUESTED'?'Not received yet':'report_card.pdf')+'</span>'}</div>${chip(DOC,d.s)}
+   ${t3&&d.s!=='REQUESTED'?`<button class="btn btn-sm" data-act="reveal">${I.eye}Reveal</button>`:''}${d.s==='RECEIVED'?`<button class="btn btn-sm btn-primary" data-act="acceptdoc" data-no="${a.no}" data-doc="${esc(d.t)}">Accept</button>`:''}</div>`}).join('')+`<p class="foot">Required documents come from the campus setting. The list per country is pending (OQ-72).</p>`:'<p class="sub">No documents yet.</p>',`<span class="chip c-default">Campus setting</span>`);
+  if(appTab==='tests') return card('Assessments',a.tests.length?a.tests.map(t=>`<div class="list-row"><div class="grow"><b>${esc(t.t)}</b> ${t.sen?'<span class="tier">T3</span>':''}<br><span class="sub">${t.when?'Scheduled '+esc(t.when)+' · ':''}${esc(t.by)}${t.score?' · '+esc(t.score):''}</span>${t.note?`<br><span class="sub">${esc(t.note)}</span>`:''}</div>
+    ${t.out?`<span class="chip c-${t.sen?'warning':t.out==='Meets'?'success':'info'}">${esc(t.out)}</span>`:'<span class="chip c-info">Scheduled</span>'}
+    ${t.sen?`<span class="masked">${I.lock}Notes held in Wellbeing</span>`:''}</div>`).join('')+(a.sen?`<div class="logline">${I.lock}<span>You see the outcome only. Evaluation notes are restricted to the counsellor (DL-60).</span></div>`:'')+`<p class="foot">Which tests each grade needs, and whether parents see results, is pending (OQ-64).</p>`:'<p class="sub">No assessments needed or scheduled.</p>');
+  if(appTab==='offer'){
+    const o=a.offer,c=a.contract;
+    return `<div class="grid">${card('Offer',o?`<dl class="kv"><dt>Status</dt><dd>${chip(OFF,o.st)}</dd><dt>Issued</dt><dd>${esc(o.at)} by ${esc(o.by)}</dd><dt>Valid until</dt><dd>${pend('OQ-66')}</dd>${o.cond?`<dt>Conditions</dt><dd>${esc(o.cond)}</dd>`:''}${o.resp?`<dt>Accepted</dt><dd>${esc(o.resp)}</dd>`:''}</dl>`:'<p class="sub">No offer yet.</p>')}
+    ${card('Contract',c?`<dl class="kv"><dt>Status</dt><dd>${chip(CON,c.st)}</dd><dt>Signed by both parties</dt><dd>${esc(c.signed)}</dd><dt>Signature method</dt><dd>${pend('OQ-67')}</dd>
+     ${c.ends?`<dt>Cooling-off</dt><dd>7 working days <span class="chip c-default">Campus setting</span></dd></dl><div class="count" style="margin-top:16px">${I.clock}<span>Cooling-off ends ${esc(c.ends)} · ${c.left} working days left. A withdrawal before then is a cooling-off withdrawal.</span></div>`:'</dl>'}`:'<p class="sub">No contract yet.</p>')}</div>`;
+  }
+  if(appTab==='fees') return card('Admission fees',a.fees.length?a.fees.map(f=>`<div class="list-row"><div class="grow"><b>${esc(f[0])}</b><br><span class="sub">Amount pending (OQ-68) · invoiced by Finance</span></div>${chip(FEE,f[1])}</div>`).join('')+`<p class="foot">GIIS Singapore setting: application and registration fees are non-refundable, except when ICA or MOE rejects, less an administrative charge.</p>`:'<p class="sub">No fees set for this campus. Fees at admission: <span class="notset">'+I.warn+'Not set</span></p>');
+  if(appTab==='approval'){const p=a.approval;return card('Government approval',a.gov==='NONE'?'<p class="sub">Not needed for this application.</p>':p?`<dl class="kv"><dt>Type</dt><dd>${esc(p.type)} · ${esc(p.auth)}</dd><dt>Status</dt><dd>${chip(APR,p.st)}</dd>${p.sub?`<dt>Submitted</dt><dd>${esc(p.sub)}</dd>`:''}${p.dec?`<dt>Decided</dt><dd>${esc(p.dec)}</dd>`:''}<dt>Reference number</dt><dd><span class="masked">${I.lock}••••••</span> <span class="tier">T3</span></dd></dl>
+    ${p.st==='SUBMITTED'?`<div class="row" style="display:flex;gap:8px;margin-top:16px"><button class="btn" data-act="apr" data-no="${a.no}" data-r="APPROVED">Record approval</button><button class="btn" data-act="apr" data-no="${a.no}" data-r="REJECTED">Record rejection</button></div>`:''}
+    ${p.st==='REJECTED'?`<div class="logline">${I.info}<span>Enrolment cancelled and contract terminated. Fees refunded less the administrative charge (GIIS Singapore setting).</span></div>`:''}`:`<p class="sub">${GOV[a.gov]} case starts after the offer is accepted.</p>`)}
+  return card('History',`<ul class="tl">${hist(a).map((h,i)=>`<li><span class="dotm ${i===0?'cur':''}"></span><div class="h">${esc(h[1])}</div><div class="m">${esc(h[0])}</div></li>`).join('')}</ul>`);
+}
+function hist(a){const h=[];if(a.enr==='ENROLLED')h.push(['3 Nov 2026 · system','Enrolled in class '+a.cls+'; logins created']);if(a.approval&&a.approval.dec)h.push([a.approval.dec+' · Lina Goh','Student Pass '+a.approval.st.toLowerCase()]);if(a.approval&&a.approval.sub)h.push([a.approval.sub+' · Lina Goh','Student Pass submitted to ICA']);if(a.contract)h.push([a.contract.signed+' · family + school','Contract signed']);if(a.offer)h.push([a.offer.at+' · '+a.offer.by,'Offer issued; Student ID '+a.sid+' created']);h.push(['Oct 2026 · '+(a.channel||'staff'),'Application submitted']);return h;}
+
+/* ---------- Capacity ---------- */
+function vCapacity(){
+  const rows=CAP.filter(c=>inScope(c.campus));
+  const wl=APPS.filter(a=>a.st==='WAITLISTED'&&inScope(a.campus));
+  return `<div class="page-h"><div><h1>Capacity and waitlist</h1><p>Seat limits are set by the Principal per grade and year (DL-61).</p></div></div>
+  ${pendingPrincipal?`<div class="blocked" style="margin-bottom:24px">${I.warn}<span><b>Over-limit offer waiting for the Principal</b>${esc(pendingPrincipal.name)} · ${esc(pendingPrincipal.grade)} · reason: “${esc(pendingPrincipal.reason)}” ${me().kind==='principal'?`<br><button class="btn btn-sm btn-primary" style="margin-top:8px" data-act="papprove">Approve offer</button>`:''}</span></div>`:''}
+  ${rows.length?`<div class="listcard" style="margin-bottom:24px"><div class="tablewrap"><table><thead><tr><th>Programme · grade</th><th>Year</th><th>Seats</th><th>Limit</th><th>Enrolled</th><th>Held</th><th>Free</th><th>Manager buffer</th></tr></thead><tbody>
+  ${rows.map(c=>{const f=free(c),L=c.limit+c.used;return `<tr><td><b>${esc(c.off)} · ${esc(c.grade)}</b><br><span class="sub">${esc(CAMPUS[c.campus])}</span></td><td>${esc(c.ay)}</td><td><div class="bar" title="${c.enr} enrolled, ${c.held} held of ${L}"><i class="e" style="width:${c.enr/L*100}%"></i><i class="h" style="width:${c.held/L*100}%"></i></div></td><td class="mono">${c.limit}${c.used?` <span class="sub">+${c.used}</span>`:''}</td><td class="mono">${c.enr}</td><td class="mono">${c.held}</td><td>${f>0?`<span class="chip c-success">${f}</span>`:'<span class="chip c-warning">Full</span>'}</td><td class="mono">${c.used} of ${c.buf} used</td></tr>`}).join('')}
+  </tbody></table></div><div class="foot-row" style="padding:12px 20px"><div class="legend"><span><i style="background:var(--primary)"></i>Enrolled</span><span><i style="background:var(--warning-line)"></i>Held by open offers and confirmed students</span></div></div></div>`:`<p class="sub">No capacity set for your campuses.</p>`}
+  ${card('Waitlist',wl.length?wl.map(a=>`<div class="list-row"><span class="pos">${a.wl}</span><div class="grow"><b>${esc(a.name)}</b><br><span class="sub">${esc(a.off)} · ${esc(a.grade)} · ${esc(a.ay)}</span></div><a class="btn btn-sm" href="#app/${a.no}">Open</a><button class="btn btn-sm btn-primary" data-act="offer" data-no="${a.no}">Issue offer</button></div>`).join('')+'<p class="foot">Order: siblings, then staff children, then the date the application was complete. When a seat frees up, the first on the list gets a time-limited offer.</p>':'<p class="sub">Nobody is waitlisted.</p>')}`;
+}
+
+/* ---------- Settings ---------- */
+function vSettings(){
+  const cs=Object.keys(SETTINGS); // shown side by side for comparison
+  const val=v=>v?esc(v):`<span class="notset">${I.warn}Not set</span>`;
+  return `<div class="page-h"><div><h1>Admission settings</h1><p>Each campus sets its own rules. There is no group default (DL-59). A rule that isn't set blocks the step that needs it.</p></div></div>
+  <div class="settings">${cs.map(c=>{const s=SETTINGS[c];const missing=Object.entries(s).filter(([k,v])=>k!=='offerValid'&&!v).length;return card(esc(CAMPUS[c]),`<dl class="kv"><dt>Cooling-off period</dt><dd>${val(s.cooling)}</dd><dt>Offer valid for</dt><dd>${s.offerValid?esc(s.offerValid):pend('OQ-66')}</dd><dt>Fees at admission</dt><dd>${val(s.fees)}</dd><dt>Refund rule</dt><dd>${val(s.refund)}</dd><dt>Required documents</dt><dd>${val(s.docs)}</dd><dt>Required assessments</dt><dd>${val(s.tests)}</dd><dt>Government approval</dt><dd>${val(s.approval)}</dd></dl>
+   ${me().kind==='manager'?`<button class="btn btn-sm" style="margin-top:16px" data-act="editset">Edit settings</button>`:`<p class="foot">Only an Admissions Manager can change these.</p>`}`,missing?`<span class="chip c-warning">${missing} not set</span>`:'<span class="chip c-success">Complete</span>')}).join('')}</div>`;
+}
+
+/* ---------- Dialogs and actions ---------- */
+function dialog(html){const L=document.getElementById('layer');L.innerHTML=`<div class="scrim" data-scrim><div class="dlg" role="dialog" aria-modal="true">${html}</div></div>`;const f=L.querySelector('button,textarea,input');f&&f.focus();}
+function close(){document.getElementById('layer').innerHTML='';}
+let tt;function toast(t){document.querySelectorAll('.toast').forEach(x=>x.remove());const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);clearTimeout(tt);tt=setTimeout(()=>d.remove(),2800);}
+let nextSid=4431;
+function makeOffer(a,over){const c=cap(a);if(over)c.used++;c.held++;a.st='OFFERED';a.enr='OFFERED';a.sid='GS-2026-00'+(nextSid++);a.offer={st:'ISSUED',by:me().name,at:'12 Nov 2026'};a.block='Waiting for family to accept';delete a.wl;APPS.filter(x=>x.wl).forEach(x=>x.wl--);}
+function offerFlow(no){
+  const a=APPS.find(x=>x.no===no),c=cap(a),f=free(c),k=me().kind;
+  if(f>0){dialog(`<h3>Issue offer to ${esc(a.name)}</h3><p>${esc(a.off)} · ${esc(a.grade)} · ${f} seat${f>1?'s':''} free. Issuing the offer creates the Student ID and an Offered enrolment (DL-57).</p><label>Offer valid until</label><p>${pend('OQ-66')}</p>${a.sen?'<p>SEN outcome is “Needs discussion”. Who makes this decision is pending (OQ-66).</p>':''}<div class="row"><button class="btn" data-close>Cancel</button><button class="btn btn-primary" data-act="doofer" data-no="${no}">Issue offer</button></div>`);return;}
+  if(k==='officer'){dialog(`<h3>${esc(a.grade)} is full</h3><p>${c.limit} seats, ${c.enr} enrolled, ${c.held} held. An Admissions Manager can add up to ${c.buf} seats with a reason; beyond that the Principal approves (DL-61).</p><div class="row"><button class="btn" data-close>Close</button><button class="btn btn-primary" disabled>Issue offer</button></div>`);return;}
+  const within=c.used<c.buf||k==='principal';
+  dialog(`<h3>Offer over the seat limit</h3><p>${esc(a.grade)} is full. ${k==='principal'?'As Principal you can approve an offer over the limit.':within?`You can use the campus buffer (${c.buf-c.used} of ${c.buf} left).`:'The campus buffer is used up, so this goes to the Principal for approval.'}</p><label for="rs">Reason (required)</label><textarea id="rs" placeholder="For example: second class opens in January"></textarea><div class="row"><button class="btn" data-close>Cancel</button><button class="btn btn-primary" id="goov" data-act="${within?'override':'toprincipal'}" data-no="${no}" disabled>${within?'Override and issue offer':'Send to Principal'}</button></div>`);
+  document.getElementById('rs').addEventListener('input',e=>{document.getElementById('goov').disabled=!e.target.value.trim();});
+}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-act],[data-close],[data-scrim],[data-enq],[data-app],[data-enqtab],[data-closed],[data-apptab],#viewers button,#theme button');
+  if(!t)return;
+  if(t.matches('[data-scrim]')&&e.target!==t)return;
+  if(t.hasAttribute('data-close')||t.matches('[data-scrim]')){close();return;}
+  if(t.closest('#viewers')){V=t.dataset.v;document.querySelectorAll('#viewers button').forEach(b=>b.setAttribute('aria-pressed',b===t));render();return;}
+  if(t.closest('#theme')){const m=t.dataset.t;document.querySelectorAll('#theme button').forEach(b=>b.setAttribute('aria-pressed',b===t));if(m==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',m);return;}
+  if(t.dataset.enqtab){enqTab=t.dataset.enqtab;render();return;}
+  if(t.dataset.closed){showClosed=t.dataset.closed==='1';render();return;}
+  if(t.dataset.apptab){e.preventDefault();appTab=t.dataset.apptab;render();return;}
+  if(t.dataset.enq){enqDialog(t.dataset.enq);return;}
+  if(t.dataset.app&&!t.dataset.act){appTab='overview';location.hash='app/'+t.dataset.app;return;}
+  const a=t.dataset.no&&APPS.find(x=>x.no===t.dataset.no);
+  switch(t.dataset.act){
+    case 'offer':offerFlow(t.dataset.no);break;
+    case 'doofer':makeOffer(a,false);close();toast('Offer issued. Student ID '+a.sid+' created.');render();break;
+    case 'override':makeOffer(a,true);close();toast('Offer issued over the limit (buffer). Reason recorded.');render();break;
+    case 'toprincipal':pendingPrincipal={no:a.no,name:a.name,grade:a.grade,reason:document.getElementById('rs').value};close();toast('Sent to Dr Anita Rao for approval.');render();break;
+    case 'papprove':{const x=APPS.find(y=>y.no===pendingPrincipal.no);makeOffer(x,true);pendingPrincipal=null;toast('Approved. Offer issued to '+x.name+'.');render();break;}
+    case 'decide':dialog(`<h3>Decision for ${esc(a.name)}</h3><p>Who decides an application is pending (OQ-66).</p><label>Decision</label><select><option>Waitlist</option><option>Reject</option></select><label>Reason (required for Reject)</label><textarea></textarea><div class="row"><button class="btn" data-close>Cancel</button><button class="btn btn-primary" data-close>Save decision</button></div>`);break;
+    case 'remind':toast('Reminder sent to '+a.contact.split(' (')[0]+' for missing documents.');break;
+    case 'acceptdoc':a.docs.find(d=>d.t===t.dataset.doc).s='ACCEPTED';if(a.docs.every(d=>d.s==='ACCEPTED')){a.st='ASSESSMENT';a.block='Schedule entrance test';}toast(t.dataset.doc+' accepted.');render();break;
+    case 'reveal':dialog(`<h3>Reveal restricted document?</h3><p>This view is recorded with your name and the time.</p><label>Purpose</label><select><option>Verify identity for admission</option><option>Student Pass application</option></select><div class="row"><button class="btn" data-close>Cancel</button><button class="btn btn-primary" data-close>Reveal</button></div>`);break;
+    case 'accept':a.offer.st='ACCEPTED';a.st='ACCEPTED';a.block='Contract and registration fee';toast('Acceptance recorded. Next: contract and registration fee.');render();break;
+    case 'rescind':dialog(`<h3>Rescind offer?</h3><p>The enrolment becomes Cancelled and the seat is released. Nothing is deleted.</p><label>Reason (required)</label><textarea></textarea><div class="row"><button class="btn" data-close>Cancel</button><button class="btn btn-primary" data-close>Rescind</button></div>`);break;
+    case 'enrol':{const ok=a.approval&&a.approval.st==='APPROVED'&&!(a.contract&&a.contract.st==='IN_COOLING_OFF');dialog(ok?`<h3>Complete enrolment</h3><p>Assign a class, then the student gets a timetable, bus route and logins.</p><div class="row"><button class="btn" data-close>Cancel</button><button class="btn btn-primary" data-close>Continue</button></div>`:`<h3>Not ready to enrol</h3><div class="blocked">${I.warn}<span><b>Waiting on</b>${a.approval&&a.approval.st!=='APPROVED'?'ICA decision on the Student Pass. ':''}${a.contract&&a.contract.st==='IN_COOLING_OFF'?'Cooling-off ends '+a.contract.ends+'.':''}</span></div><div class="row"><button class="btn" data-close>Close</button></div>`);break;}
+    case 'apr':a.approval.st=t.dataset.r;a.approval.dec='12 Nov 2026';if(t.dataset.r==='REJECTED'){a.closed=true;a.enr='CANCELLED';a.contract.st='TERMINATED';a.fees.forEach(f=>f[1]='REFUNDED');a.block='Student Pass rejected';}else a.block='Cooling-off ends '+a.contract.ends;toast('ICA decision recorded.');render();break;
+    case 'contract':toast('Prepare contract opens the contract template for this campus.');break;
+    case 'match':a.match=false;toast('Confirmed: Neha Sharma reused as guardian. No duplicate created.');render();break;
+    case 'startapp':close();toast('Draft application started for '+t.dataset.kid+'.');break;
+    case 'newenq':toast('New enquiry form opens here.');break;
+    case 'editset':toast('Settings editor opens here.');break;
+  }
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')close();if(e.key==='Enter'&&e.target.matches('tr[data-enq],tr[data-app]'))e.target.click();});
+
+function render(){
+  const h=location.hash.slice(1)||'pipeline';
+  const [r,arg]=h.split('/');
+  const route=r==='app'?'pipeline':r;
+  shell(route);
+  const v=document.getElementById('view');
+  v.innerHTML=r==='enquiries'?vEnquiries():r==='capacity'?vCapacity():r==='settings'?vSettings():r==='app'?vApp(arg):vPipeline();
+}
+window.addEventListener('hashchange',()=>{if(location.hash.startsWith('#app/'))appTab='overview';render();window.scrollTo(0,0);});
+render();
+})();
+</script>
+</body></html>
