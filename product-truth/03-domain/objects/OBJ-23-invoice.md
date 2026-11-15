@@ -76,7 +76,7 @@ patterns: [AP-01, AP-02, AP-04, AP-05, AP-13, AP-14]
 
 # OBJ-23 · Billing account and invoice
 
-**Status:** Proposed with the fees & billing dictionary v0.1, 14 Nov 2026 (DL-77, DL-83, DL-85 Confirmed; others Assumed) · **Owner:** Henry
+**Status:** Proposed with the fees & billing dictionary v0.1, 14 Nov 2026 (DL-77…DL-86 Confirmed 14–15 Nov 2026) · **Owner:** Henry
 **Cites:** [fees & billing dictionary](../fees-billing-data-dictionary.md) · DL-08, DL-41, DL-47, DL-59, DL-68 · HB p.237–247
 
 The family sees a **billing account** (one payer in one brand-country) with invoices for each child it pays for. Staff see the same account with runs, payments, credits and refunds. Invoices are never edited once issued (DL-80); a correction is a credit note. Fee status is the only finance fact other modules read, and it never blocks learning on its own (DL-83).

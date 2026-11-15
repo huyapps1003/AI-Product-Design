@@ -1,6 +1,6 @@
 # Global Campus OS — Fees & Billing Data Dictionary v0.1 (draft)
 
-**Status:** Proposed draft, 14 Nov 2026. DL-77, DL-83, DL-85 Confirmed (Henry, 14 Nov 2026); other DL-78…DL-86 Assumed pending Henry; OQ-80…OQ-92 Open · **Owner:** Henry
+**Status:** Proposed draft, 14 Nov 2026. DL-77…DL-86 Confirmed (Henry, 14–15 Nov 2026); OQ-80…OQ-92 Open · **Owner:** Henry
 **Cites:** [Architecture v1](../00-sources/Global_Campus_OS_Product_Architecture_v1.md) § Context (refunds, MyGIIS "Fees History"), § Users and roles (Country Director, Finance Controller, Parent), § Domains and modules (module 7 Fees and Finance), § Key workflows (Fees, withdrawal and refund; Admission to enrolment step 2), § Tenancy (fee plans per campus; currency, tax, refund and fee protection per country; effective dating; regulator packs), § Data model (Finance: fee plan, invoice, payment, refund case, scholarship, insurance policy), § Integrations (payment gateways, accounting/ERP, FPS insurer), § Security (Tier 2 finance), § Open questions (build, buy or hybrid) · [Student Directory Spec v1.0](./student-directory-data-dictionary.md) ST02, ST04, ST05, F01, StudentEnrolled, EnrolmentEnded · [Admissions dictionary](./admissions-data-dictionary.md) AD08, AD09, AD10, SR-AD-04, SR-AD-06 · [Classes dictionary](./classes-data-dictionary.md) CL01 · [Organisation dictionary](./organisation-data-dictionary.md) OR03 brand-country, OR04 campus, OR07/OR08 legal entity and operator link · [architecture.md](./architecture.md) DL-41 `operating_entity_id`, DL-44 events · [data-classification](../05-data-governance/data-classification.md) · [regulatory-context](../05-data-governance/regulatory-context.md) (FPS) · GIIS Student Handbook 2025-26 (HB) p.34, p.137, p.236, p.237–239 (deferment, withdrawal, transfer), p.240–246 (refund policy, FPS) · DL-08, DL-11, DL-22, DL-25, DL-27, DL-28, DL-32, DL-37, DL-41, DL-47, DL-53, DL-55, DL-59, DL-68 · MC-12, MC-14 · OQ-06, OQ-28, OQ-68
 **Tóm tắt (VI):** Từ điển dữ liệu cho module Học phí & Thanh toán: danh mục loại phí theo brand-country, biểu phí theo cơ sở × chương trình × khối × năm học, tài khoản thanh toán của người trả (phụ huynh hoặc nhà tài trợ), đợt lập hoá đơn, hoá đơn, giảm trừ và học bổng, thanh toán và biên lai, nhắc nợ, hoàn phí, tạm dừng tính phí khi nghỉ dài hạn, và bảo hiểm học phí (FPS). Campus OS là nơi lập hoá đơn; ERP chỉ nhận bút toán (DL-77). Mỗi trường có trạng thái Known / Assumed / Open.
 
@@ -47,19 +47,19 @@ Approved by Henry, 14 Nov 2026: **what a family is charged, who pays, how they p
 
 | ID | Entity | Module | Status |
 |---|---|---|---|
-| FB01 | Fee Type | Fees and Finance | Known need (HB p.242 fee categories; Arch § Tenancy currency and tax per country); model Assumed (DL-78) |
+| FB01 | Fee Type | Fees and Finance | Known need (HB p.242 fee categories; Arch § Tenancy currency and tax per country); model Confirmed (DL-78) |
 | FB02 | Fee Plan | Fees and Finance | Known (Arch § Key workflows "Fee plans are set per campus and programme"; § Data model "Fee plan") |
-| FB03 | Fee Plan Line | Fees and Finance | Assumed (DL-78) |
+| FB03 | Fee Plan Line | Fees and Finance | Confirmed (DL-78) |
 | FB04 | Billing Period | Fees and Finance (reads Academic year) | Known for GIIS SG (4-month terms, HB p.244; Arch § Context); per campus Assumed |
-| FB05 | Billing Account | Fees and Finance | Assumed (DL-79) |
-| FB06 | Billing Responsibility | Fees and Finance | Assumed (DL-79); who can pay Open (OQ-85) |
-| FB07 | Fee Adjustment | Fees and Finance | Known "Scholarship" (Arch § Data model; HB p.236 scholarship office); model Assumed (DL-81) |
-| FB08 | Billing Run | Fees and Finance | Assumed (DL-80) |
+| FB05 | Billing Account | Fees and Finance | Confirmed (DL-79) |
+| FB06 | Billing Responsibility | Fees and Finance | Confirmed (DL-79); who can pay Open (OQ-85) |
+| FB07 | Fee Adjustment | Fees and Finance | Known "Scholarship" (Arch § Data model; HB p.236 scholarship office); model Confirmed (DL-81) |
+| FB08 | Billing Run | Fees and Finance | Confirmed (DL-80) |
 | FB09 | Invoice | Fees and Finance | Known (Arch § Data model "Invoice"; HB p.137 "School Fees / Invoice") |
-| FB10 | Invoice Line | Fees and Finance | Assumed (DL-80) |
+| FB10 | Invoice Line | Fees and Finance | Confirmed (DL-80) |
 | FB11 | Payment | Fees and Finance | Known (Arch § Data model "Payment"; § Integrations payment gateways) |
-| FB12 | Payment Allocation | Fees and Finance | Assumed (DL-82) |
-| FB13 | Credit Note | Fees and Finance | Assumed (DL-80) |
+| FB12 | Payment Allocation | Fees and Finance | Confirmed (DL-82) |
+| FB13 | Credit Note | Fees and Finance | Confirmed (DL-80) |
 | FB14 | Refund | Fees and Finance (workflow on Case, OBJ-10) | Known (Arch § Data model "Refund case"; HB p.240–245) |
 | FB15 | Payment Reminder | Fees and Finance (sends through Engagement) | Known need (MyGIIS "outstanding fees", HB p.34); schedule Open (OQ-84) |
 | FB16 | Billing Pause | Fees and Finance | Known for GIIS SG (HB p.237 long leave) |
@@ -76,7 +76,7 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
 | fee_type_id | UUID | PK | Y | T1 | Assumed | |
-| brand_country_id | UUID | FK:OR03 | Y | T1 | Assumed (DL-78) | The list belongs to the brand-country. |
+| brand_country_id | UUID | FK:OR03 | Y | T1 | Confirmed (DL-78) | The list belongs to the brand-country. |
 | fee_code | VARCHAR(32) | UK with brand-country | Y | T1 | Known examples (HB p.242: Tuition, Student Welfare, Activity, Bus, Resource, Building Development, School Event, Technology, Registration, Application) | |
 | fee_name | VARCHAR(80) | — | Y | T1 | Known | Shown to parents. |
 | fee_category | ENUM | — | Y | T1 | Assumed (DL-27) | See enums. |
@@ -142,17 +142,17 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| billing_account_id | UUID | PK | Y | T2 | Assumed (DL-79) | |
+| billing_account_id | UUID | PK | Y | T2 | Confirmed (DL-79) | |
 | account_number | VARCHAR(20) | UK | Y | T2 | Assumed | Shown on statements and bank transfer references. Format Open (with OQ-55). |
-| brand_country_id | UUID | FK:OR03 | Y | T1 | Assumed (DL-79) | Selects the data location (DL-47). |
+| brand_country_id | UUID | FK:OR03 | Y | T1 | Confirmed (DL-79) | Selects the data location (DL-47). |
 | payer_type | ENUM | — | Y | T2 | Assumed; sponsors Open (OQ-85) | GUARDIAN, SPONSOR_ORGANISATION. |
 | payer_person_id | UUID | FK:Person | C | T2 | Assumed (DL-55) | Required for GUARDIAN. Must hold a VERIFIED ST05 to every student billed to the account (SR-FB-05). |
 | sponsor_name / sponsor_contact | VARCHAR / JSON | — | C | T2 | Assumed | Required for SPONSOR_ORGANISATION. Sponsors never get a parent-app login (OQ-85). |
 | billing_address | TEXT | — | Y | T2 | Assumed | Defaults from the guardian's current address (ST06). |
 | tax_registration_no | VARCHAR(32) | — | N | T2 | Open (OQ-87) | For sponsors who need tax invoices. |
-| shared_with_person_ids | UUID[] | — | N | T2 | Assumed (DL-85) | Other verified guardians the payer lets see the account. |
+| shared_with_person_ids | UUID[] | — | N | T2 | Confirmed (DL-85) | Other verified guardians the payer lets see the account. |
 | statement_language | VARCHAR(8) | — | N | T1 | Assumed | From the guardian's preferred language (ST04). |
-| fee_status | ENUM | — | Y | T2 | Assumed; derived (DL-83) | Worst status across the account's open invoices. |
+| fee_status | ENUM | — | Y | T2 | Confirmed; derived (DL-83) | Worst status across the account's open invoices. |
 | balance | DECIMAL | — | Y | T2 | Assumed; derived | Open invoice totals minus unallocated payments and credits. |
 | account_status | ENUM | — | Y | T1 | Assumed | ACTIVE, CLOSED. |
 
@@ -162,7 +162,7 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| responsibility_id | UUID | PK | Y | T2 | Assumed (DL-79) | |
+| responsibility_id | UUID | PK | Y | T2 | Confirmed (DL-79) | |
 | enrolment_id | UUID | FK:ST02 | Y | T1 | Assumed | Per enrolment, so a new year or campus can change who pays. |
 | billing_account_id | UUID | FK:FB05 | Y | T2 | Assumed | |
 | share_percent | DECIMAL(5,2) | — | Y | T2 | Assumed | Shares for the same fee types add up to 100 (SR-FB-04). |
@@ -176,7 +176,7 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| adjustment_id | UUID | PK | Y | T2 | Assumed (DL-81) | |
+| adjustment_id | UUID | PK | Y | T2 | Confirmed (DL-81) | |
 | enrolment_id | UUID | FK:ST02 | Y | T1 | Assumed | |
 | adjustment_type | ENUM | — | Y | T2 | Known: SCHOLARSHIP (Arch § Data model; HB p.236); others Open (OQ-83) | See enums. |
 | fee_type_ids | UUID[] | — | Y | T2 | Assumed | Usually tuition only. |
@@ -194,7 +194,7 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| billing_run_id | UUID | PK | Y | T2 | Assumed (DL-80) | |
+| billing_run_id | UUID | PK | Y | T2 | Confirmed (DL-80) | |
 | campus_id | UUID | FK:OR04 | Y | T1 | Assumed | |
 | billing_period_id | UUID | FK:FB04 | Y | T1 | Assumed | One APPLIED run per campus and period, plus supplementary runs for late joiners. |
 | run_type | ENUM | — | Y | T1 | Assumed | REGULAR, SUPPLEMENTARY. |
@@ -216,7 +216,7 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 | billing_account_id | UUID | FK:FB05 | Y | T2 | Assumed | |
 | issuer_legal_entity_id | UUID | FK:OR07 | Y | T1 | Known slot (DL-41 `operating_entity_id`) | From the enrolment's operating entity; named once OQ-06 is answered. |
 | campus_id | UUID | FK:OR04 | Y | T1 | Assumed | |
-| source | ENUM | — | Y | T1 | Assumed (DL-80) | See enums. |
+| source | ENUM | — | Y | T1 | Confirmed (DL-80) | See enums. |
 | billing_run_id / billing_period_id | UUID | FK | C | T1 | Assumed | For BILLING_RUN invoices. |
 | invoice_date / due_date | DATE | — | Y | T2 | Assumed | |
 | currency | CHAR(3) | — | Y | T2 | Known (MC-12) | |
@@ -241,7 +241,7 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 | description | VARCHAR(160) | — | Y | T2 | Assumed | e.g. "Tuition, Term 2 (Nov 2026–Feb 2027)". |
 | quantity / unit_amount | DECIMAL | — | Y | T2 | Assumed | Proration uses quantity (months billed / months in period). |
 | share_percent | DECIMAL(5,2) | — | Y | T2 | Assumed (FB06) | |
-| adjustment_id / adjustment_amount | UUID / DECIMAL | FK:FB07 | C | T2 | Assumed (DL-81) | |
+| adjustment_id / adjustment_amount | UUID / DECIMAL | FK:FB07 | C | T2 | Confirmed (DL-81) | |
 | tax_code / tax_amount | — | — | Y | T2 | Open rates (OQ-87) | |
 | line_total | DECIMAL | — | Y | T2 | Assumed; derived | |
 
@@ -255,7 +255,7 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 | billing_account_id | UUID | FK:FB05 | Y | T2 | Assumed | |
 | channel | ENUM | — | Y | T2 | Known: online gateway (Arch § Integrations "cards, PayNow in Singapore, UPI in India"); others Open (OQ-82) | See enums. |
 | method | ENUM | — | Y | T2 | Known: CARD, PAYNOW, UPI; others Open (OQ-82) | |
-| gateway_reference | VARCHAR(64) | — | C | T2 | Assumed (DL-82) | Required for GATEWAY. No card number is ever stored. |
+| gateway_reference | VARCHAR(64) | — | C | T2 | Confirmed (DL-82) | Required for GATEWAY. No card number is ever stored. |
 | amount / currency | DECIMAL / CHAR(3) | — | Y | T2 | Assumed | |
 | surcharge_amount | DECIMAL | — | N | T2 | Known that card charges exist (HB p.246 "charges for credit card payment"); policy Open (OQ-82) | |
 | payment_status | ENUM | — | Y | T2 | Assumed (DL-27) | See enums. |
@@ -270,7 +270,7 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| allocation_id | UUID | PK | Y | T2 | Assumed (DL-82) | |
+| allocation_id | UUID | PK | Y | T2 | Confirmed (DL-82) | |
 | payment_id | UUID | FK:FB11 | Y | T2 | Assumed | |
 | invoice_id | UUID | FK:FB09 | Y | T2 | Assumed | Same billing account and currency. |
 | amount | DECIMAL | — | Y | T2 | Assumed | Sum per payment ≤ payment amount; the rest stays as account credit. |
@@ -282,7 +282,7 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| credit_note_id | UUID | PK | Y | T2 | Assumed (DL-80) | |
+| credit_note_id | UUID | PK | Y | T2 | Confirmed (DL-80) | |
 | credit_note_number | VARCHAR(24) | UK per issuer | Y | T2 | Assumed | |
 | invoice_id | UUID | FK:FB09 | Y | T2 | Assumed | |
 | lines | JSON | — | Y | T2 | Assumed | Which invoice lines and how much. |
@@ -298,20 +298,20 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
 | refund_id | UUID | PK | Y | T2 | Known entity (Arch § Data model "Refund case") | |
-| case_id | UUID | FK:Case | Y | T2 | Assumed (DL-08, DL-84) | Approval steps, documents, deadline and escalation run on the shared Case. |
+| case_id | UUID | FK:Case | Y | T2 | Confirmed (DL-08, DL-84) | Approval steps, documents, deadline and escalation run on the shared Case. |
 | billing_account_id | UUID | FK:FB05 | Y | T2 | Assumed | |
 | enrolment_id | UUID | FK:ST02 | Y | T1 | Assumed | |
 | refund_basis | ENUM | — | Y | T2 | Known for GIIS SG (HB p.240–244) | See enums. |
 | notice_date | DATE | — | Y | T2 | Known (HB p.241: refund within 7 working days of written notice) | Written notice of withdrawal, or the date the school learned of non-delivery. |
 | contract_signed_date | DATE | — | C | T2 | Known (AD08; cooling-off counts from signature by both parties, HB p.241) | |
-| rule_set_version | VARCHAR(32) | — | Y | T1 | Assumed (DL-84) | e.g. "GIIS SG refund rules 2025-26". |
+| rule_set_version | VARCHAR(32) | — | Y | T1 | Confirmed (DL-84) | e.g. "GIIS SG refund rules 2025-26". |
 | calculation | JSON | — | Y | T2 | Assumed | Per fee: paid, refund %, admin charge, amount. Table 3A/3B percentages Open (OQ-86). |
 | refund_amount | DECIMAL | — | Y | T2 | Assumed; derived | Finance can change it only with a reason (humanitarian). |
 | refund_status | ENUM | — | Y | T2 | Assumed (DL-27) | See enums. |
 | approvals | JSON | — | Y | T1 | Known for GIIS SG (HB p.244: committee of Country Director and Finance Controller) | Approver roles per brand-country setting. |
 | documents_requested_at | DATE | — | C | T2 | Known (HB p.245: notify within 3 working days; parent has 7 working days; else forfeited unless extended) | |
 | due_by | DATE | — | Y | T2 | Known for GIIS SG (7 working days, HB p.241; Arch § Key workflows) | Escalation: Finance Controller, then Country Director after 4 working days (HB p.245). |
-| payout_method / payout_account_masked | ENUM / VARCHAR | — | C | T2 | Assumed (DL-82) | Bank details masked; full value only to `fees.refund.pay`. |
+| payout_method / payout_account_masked | ENUM / VARCHAR | — | C | T2 | Confirmed (DL-82) | Bank details masked; full value only to `fees.refund.pay`. |
 | paid_at | TIMESTAMP | — | C | T2 | Assumed | |
 
 ### FB15 — Payment Reminder
@@ -333,7 +333,7 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| pause_id | UUID | PK | Y | T2 | Assumed (DL-86) | |
+| pause_id | UUID | PK | Y | T2 | Confirmed (DL-86) | |
 | enrolment_id | UUID | FK:ST02 | Y | T1 | Assumed | |
 | reason | ENUM | — | Y | T2 | Known: LONG_LEAVE (HB p.237); others Assumed | LONG_LEAVE, OTHER. |
 | pause_from / pause_to | DATE | — | Y | T2 | Known need (HB p.237) | Billing runs skip covered months. |
@@ -410,25 +410,25 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 ## Business rules
 
 - **SR-FB-01 (Confirmed, DL-77):** Campus OS is the only writer of fee plans, invoices, payments, credit notes and refunds. Every posting emits a journal to the brand-country's ERP; the ERP never writes back to an invoice.
-- **SR-FB-02 (Assumed, DL-78; DL-59 pattern):** Fee amounts, billing periods, due dates, tax codes, reminder steps and refund rules are set per brand-country or campus, with no group default. A value that isn't set shows "Not set" and blocks the step that needs it (approving a plan, approving a run, calculating a refund).
-- **SR-FB-03 (Known Arch § Tenancy; Assumed DL-78):** An approved fee plan is never edited. A change is a new version with a valid-from date and a reason; invoices already issued keep the version they used.
-- **SR-FB-04 (Assumed, DL-79):** For each enrolment and fee type, the shares across billing accounts add up to 100%. A student without a full 100% shows as a run exception and is not billed until fixed.
-- **SR-FB-05 (Assumed, DL-79; DL-25):** A guardian can be a payer only for students they have a VERIFIED relationship (ST05) with. A sponsor organisation needs Finance to record the sponsor letter (OQ-85).
-- **SR-FB-06 (Assumed, DL-80):** Term invoices are issued only from an approved billing run. One REGULAR run per campus and billing period; later joiners go in SUPPLEMENTARY runs.
-- **SR-FB-07 (Assumed, DL-80):** An issued invoice is never edited. Before any payment it may be voided with a reason; after that, only a credit note reduces it.
+- **SR-FB-02 (Confirmed, DL-78; DL-59 pattern):** Fee amounts, billing periods, due dates, tax codes, reminder steps and refund rules are set per brand-country or campus, with no group default. A value that isn't set shows "Not set" and blocks the step that needs it (approving a plan, approving a run, calculating a refund).
+- **SR-FB-03 (Known Arch § Tenancy; Confirmed DL-78):** An approved fee plan is never edited. A change is a new version with a valid-from date and a reason; invoices already issued keep the version they used.
+- **SR-FB-04 (Confirmed, DL-79):** For each enrolment and fee type, the shares across billing accounts add up to 100%. A student without a full 100% shows as a run exception and is not billed until fixed.
+- **SR-FB-05 (Confirmed, DL-79; DL-25):** A guardian can be a payer only for students they have a VERIFIED relationship (ST05) with. A sponsor organisation needs Finance to record the sponsor letter (OQ-85).
+- **SR-FB-06 (Confirmed, DL-80):** Term invoices are issued only from an approved billing run. One REGULAR run per campus and billing period; later joiners go in SUPPLEMENTARY runs.
+- **SR-FB-07 (Confirmed, DL-80):** An issued invoice is never edited. Before any payment it may be voided with a reason; after that, only a credit note reduces it.
 - **SR-FB-08 (Assumed):** A student who joins or leaves mid-period is billed by whole months by default (GIIS SG bills "till September" for a 20 September withdrawal, HB p.244). The proration rule is a campus setting.
 - **SR-FB-09 (Known SR-AD-04; Assumed):** Admission fees (AD09) are invoiced as soon as they are due; AD09 `payment_status` mirrors the invoice: PAID, WAIVED (fully credited) or REFUNDED.
-- **SR-FB-10 (Assumed, DL-82):** An online payment counts only when the gateway confirms it. A payment is allocated to the oldest due invoice first unless the parent picked invoices or Finance reallocates. Leftover money stays as account credit.
+- **SR-FB-10 (Confirmed, DL-82):** An online payment counts only when the gateway confirms it. A payment is allocated to the oldest due invoice first unless the parent picked invoices or Finance reallocates. Leftover money stays as account credit.
 - **SR-FB-11 (Confirmed, DL-83):** Fee status per enrolment is CLEAR, DUE, OVERDUE or PAUSED, derived from its invoice lines. No module may block attendance, lessons, results or app access on fee status without a campus setting that names the consequence (OQ-84).
 - **SR-FB-12 (Known GIIS SG HB p.237; Assumed elsewhere):** A withdrawal can't reach final clearance while the enrolment's fee status is DUE or OVERDUE, unless Finance records a write-off or a refund offset.
 - **SR-FB-13 (Known GIIS SG HB p.241–242):** Registration and application fees are not refundable, except for new admissions when ICA rejects the Student Pass or MOE rejects a Singapore citizen's application, less an administrative charge of SGD 50 (HB p.243).
 - **SR-FB-14 (Known GIIS SG HB p.241):** A written withdrawal within 7 working days of the contract being signed by both parties is refunded under Table 3A, whether or not the course has started.
 - **SR-FB-15 (Known GIIS SG HB p.241, p.244–245):** A refund is paid within 7 working days of the notice; missing documents are requested within 3 working days and due within 7, or the refund is forfeited unless the Finance Controller and Country Director extend; late refunds escalate to the Finance Controller, then the Country Director after 4 working days.
 - **SR-FB-16 (Known GIIS SG HB p.244):** A withdrawal approved at least one month before a term starts is not billed for that term.
-- **SR-FB-17 (Known GIIS SG HB p.237; Assumed DL-86):** No fees are billed for months covered by an approved long-leave pause.
+- **SR-FB-17 (Known GIIS SG HB p.237; Confirmed DL-86):** No fees are billed for months covered by an approved long-leave pause.
 - **SR-FB-18 (Known SG regulator pack, HB p.246–247):** Where fee protection applies, each enrolled student has an FPS record; it is cancelled by Finance on withdrawal and purchased again after a course change.
 - **SR-FB-19 (Confirmed, DL-85; DL-68):** Parents see finance only for accounts they pay or that a payer shares with them. Students never see fees.
-- **SR-FB-20 (Assumed, DL-82):** Card numbers are never stored. Refund bank details are masked and revealed only to holders of `fees.refund.pay`; every reveal is logged.
+- **SR-FB-20 (Confirmed, DL-82):** Card numbers are never stored. Refund bank details are masked and revealed only to holders of `fees.refund.pay`; every reveal is logged.
 
 ## Events
 
@@ -443,15 +443,15 @@ FeePlanApproved, BillingRunApproved, InvoiceIssued (Engagement notifies payers),
 | ID | Decision | Why |
 |---|---|---|
 | DL-77 (**Confirmed**, Henry chose option A, 14 Nov 2026) | Campus OS owns billing: fee plans, invoices, payments, credit notes and refunds are written in the Fees and Finance domain (DL-43), capability prefix `fees`. The ERP receives journals and never writes back | Admissions, withdrawal and the parent app need live paid/overdue status in one place (Arch § Integrations already lists outbound journals) |
-| DL-78 (Assumed) | Fee types are a brand-country list; amounts are set per campus in fee plans per offering × grade(s) × academic year; the Finance Controller approves; approved plans are versioned, never edited; no group default amounts | Arch § Tenancy (fee plans per campus, effective dating); DL-59 pattern |
-| DL-79 (Assumed) | Billing account = one payer in one brand-country (verified guardian or sponsor organisation); each enrolment links to accounts with a share and fee types; siblings across that brand-country's campuses share one statement; the invoice issuer is the enrolment's operating legal entity | Handles split parents, employer-paid tuition and siblings at two campuses (Aarav at Punggol, Ishita at East Coast) without copying families |
-| DL-80 (Assumed) | Invoices come from approved billing runs (per campus × period) or defined events (admission fee, one-off charge, proration). Issued invoices are never edited; corrections are credit notes | One reviewed batch per term; a clean audit trail for regulators and the ERP |
-| DL-81 (Assumed) | Discounts, scholarships, bursaries and waivers are dated adjustments with an approver, applied when invoices are built and shown on the line | Parents see the full fee and the reduction; scholarship selection stays outside |
-| DL-82 (Assumed) | Gateway confirmation is the truth for online payments; Finance records offline payments with a receipt; oldest-due-first allocation by default; card numbers never stored; refund bank details masked | Fewer mismatches; keeps card data out of Campus OS |
+| DL-78 (**Confirmed**, Henry, 15 Nov 2026) | Fee types are a brand-country list; amounts are set per campus in fee plans per offering × grade(s) × academic year; the Finance Controller approves; approved plans are versioned, never edited; no group default amounts | Arch § Tenancy (fee plans per campus, effective dating); DL-59 pattern |
+| DL-79 (**Confirmed**, Henry, 15 Nov 2026) | Billing account = one payer in one brand-country (verified guardian or sponsor organisation); each enrolment links to accounts with a share and fee types; siblings across that brand-country's campuses share one statement; the invoice issuer is the enrolment's operating legal entity | Handles split parents, employer-paid tuition and siblings at two campuses (Aarav at Punggol, Ishita at East Coast) without copying families |
+| DL-80 (**Confirmed**, Henry, 15 Nov 2026) | Invoices come from approved billing runs (per campus × period) or defined events (admission fee, one-off charge, proration). Issued invoices are never edited; corrections are credit notes | One reviewed batch per term; a clean audit trail for regulators and the ERP |
+| DL-81 (**Confirmed**, Henry, 15 Nov 2026) | Discounts, scholarships, bursaries and waivers are dated adjustments with an approver, applied when invoices are built and shown on the line | Parents see the full fee and the reduction; scholarship selection stays outside |
+| DL-82 (**Confirmed**, Henry, 15 Nov 2026) | Gateway confirmation is the truth for online payments; Finance records offline payments with a receipt; oldest-due-first allocation by default; card numbers never stored; refund bank details masked | Fewer mismatches; keeps card data out of Campus OS |
 | DL-83 (**Confirmed**, Henry chose A, 14 Nov 2026) | One derived fee status per enrolment (CLEAR, DUE, OVERDUE, PAUSED) that other modules read; it causes no automatic sanction; teachers don't see it | Admissions and withdrawal need it; children shouldn't lose learning because of an automatic rule (OQ-84 decides any consequence) |
-| DL-84 (Assumed) | Refunds are calculated from a versioned refund rule set per brand-country and the refund records which version it used; approval, documents and the deadline run on the shared Case (DL-08); approver roles are a brand-country setting (GIIS SG: Country Director + Finance Controller) | Arch § Principles "refund tables become versioned rules"; one SLA engine for cases |
+| DL-84 (**Confirmed**, Henry, 15 Nov 2026) | Refunds are calculated from a versioned refund rule set per brand-country and the refund records which version it used; approval, documents and the deadline run on the shared Case (DL-08); approver roles are a brand-country setting (GIIS SG: Country Director + Finance Controller) | Arch § Principles "refund tables become versioned rules"; one SLA engine for cases |
 | DL-85 (**Confirmed**, Henry chose A, 14 Nov 2026) | Parents see and pay only accounts where they are a payer, or that a payer shared with them; other verified guardians see no finance; students never see fees | Separated parents and sponsors make "every linked guardian sees fees" unsafe |
-| DL-86 (Assumed) | An approved long leave creates a billing pause; billing after withdrawal follows the campus's cut-off setting (GIIS SG: approved ≥ 1 month before term = not billed) | HB p.237 and p.244 rules, kept as GIIS SG settings |
+| DL-86 (**Confirmed**, Henry, 15 Nov 2026) | An approved long leave creates a billing pause; billing after withdrawal follows the campus's cut-off setting (GIIS SG: approved ≥ 1 month before term = not billed) | HB p.237 and p.244 rules, kept as GIIS SG settings |
 
 ## Open questions (new)
 
