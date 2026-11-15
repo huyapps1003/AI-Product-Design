@@ -29,7 +29,8 @@ Use these terms exactly in screens and specs. Where a term's definition is still
 | **Mark sheet** | The marks for one assessment and one class; entered by the teacher, moderated and locked by the coordinator | Confirmed (DL-88) |
 | **Report card** | A student's released results for one reporting period (term or semester); never edited, reissued if corrected | Confirmed (DL-90) |
 | **Appeal** | A parent's request to re-check a released mark; one round only | Confirmed (DL-91) |
-| **Rollover** | The year-end run that moves a campus's students into next year's grades and classes (promotion, retention, stage-campus promotion) | Confirmed (DL-75); promotion vs transfer Confirmed (DL-54) |
+| **Academic year** | The dates of one school year for one curriculum at one campus; a campus running several curricula has several (GIIS SG CBSE April–March, IB DP July–May) | Confirmed (DL-96) |
+| **Rollover** | The year-end run, per campus and curriculum, that moves students into next year's grades and classes (promotion, retention, stage-campus promotion) | Confirmed (DL-75); promotion vs transfer Confirmed (DL-54) |
 | **House** | A student team that runs across years, such as House B | Known (HB p.169); list per campus Open (OQ-20) |
 | **Student ID** | The number people use for a student; unique across Campus OS and kept on campus transfer | Confirmed (DL-31) |
 | **Programme offering** | A curriculum taught on a campus for a grade band, for example CBSE 6–8 at Punggol | Known (Architecture) |

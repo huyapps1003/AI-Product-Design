@@ -123,14 +123,15 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 
 ### FB04 — Billing Period
 
-**Purpose:** The slices of a campus's academic year that invoices are raised for.
+**Purpose:** The slices of an academic year that invoices are raised for. Years are per campus × programme offering (DL-96), so one campus can have different periods per curriculum.
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
 | billing_period_id | UUID | PK | Y | T1 | Assumed | |
 | campus_id | UUID | FK:OR04 | Y | T1 | Assumed | |
 | academic_year_id | UUID | FK | Y | T1 | Assumed | |
-| period_label | VARCHAR(40) | — | Y | T1 | Known for GIIS SG ("term period of four (4) months", HB p.244) | e.g. "Term 2 (Nov–Feb)". |
+| programme_offering_id | UUID | FK:Offering | C | T1 | Confirmed (DL-96) | Set when the offering's year differs from the campus default (e.g. IB DP July start). |
+| period_label | VARCHAR(40) | — | Y | T1 | Known for GIIS SG ("term period of four (4) months", HB p.244) | e.g. "Term 2 (Aug–Nov)" for GIIS SG CBSE (April year; HB p.244 example "Term 2 … starts in August"). |
 | period_start / period_end | DATE | — | Y | T1 | Assumed | Must sit inside the academic year (MC-06). |
 | invoice_date | DATE | — | Y | T1 | Assumed | When the run issues invoices. |
 | due_date | DATE | — | Y | T1 | Open (OQ-84) | Campus setting; "Not set" blocks the run. |

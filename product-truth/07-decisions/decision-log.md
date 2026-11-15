@@ -86,7 +86,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-72 | Placement history is the single writer of a student's class; an in-year class move doesn't end the enrolment | **Confirmed** (Henry, 14 Nov 2026) | ST02, SR-16, CL04 |
 | DL-73 | Class teacher assignment automatically sets the teacher's data scope to that class (Registry auto-derive); never adds capabilities; Tier 3 excluded | **Confirmed** (Henry, 14 Nov 2026) | DL-16, DL-32, DL-38, CL03 |
 | DL-74 | AEPP is only a SUPPORT subject; the student stays in their regular class; AEPP 1/2 are Teaching groups, not classes (narrows DL-65) | **Confirmed** (Henry, 14 Nov 2026) | DL-65, OQ-77 |
-| DL-75 | Year-end rollover: one run per campus and year, outcomes from Assessment, Principal approves before it applies | **Confirmed** (Henry, 14 Nov 2026) | DL-54, DL-62, DL-63, CL06/CL07 |
+| DL-75 | Year-end rollover: one run per campus and year, outcomes from Assessment, Principal approves before it applies (run is per campus × offering × year since DL-96) | **Confirmed** (Henry, 14 Nov 2026) | DL-54, DL-62, DL-63, CL06/CL07 |
 | DL-76 | House stays on the enrolment, allocated by Classes and copied forward; each campus sets whether it uses houses | **Confirmed** (Henry, 14 Nov 2026) | OQ-20, OQ-76 |
 | DL-77 | Campus OS owns billing (fee plans, invoices, payments, credit notes, refunds); the ERP receives journals only; prefix `fees` | **Confirmed** (Henry, 14 Nov 2026) | Arch § Integrations, § Open questions (build, buy or hybrid) |
 | DL-78 | Fee types per brand-country; fee plans per campus × offering × grade(s) × year, versioned, Finance Controller approves; no group default amounts | **Confirmed** (Henry, 15 Nov 2026) | DL-59, FB01–FB03 |
@@ -107,6 +107,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-93 | Subject teachers: own subjects and classes; class teacher: all subjects of own class; parents: published marks and released report cards of own children; students: own released report cards where the campus allows (extends DL-68) | **Confirmed** (Henry, 15 Nov 2026) | DL-68, DL-73, OQ-96 |
 | DL-94 | Predicted grades (IB DP, CBSE 12): teacher enters, coordinator releases, appeal on a Case to the Principal-led committee | **Confirmed** (Henry, 15 Nov 2026) | AS13, HB p.132–133 |
 | DL-95 | Missing marks carry a code (ABSENT, APPROVED_ABSENCE, EXEMPT, NOT_ASSESSED); proration needs the Principal; reasons stay in Attendance or Wellbeing | **Confirmed** (Henry, 15 Nov 2026) | AS08, HB p.43, DL-66 |
+| DL-96 | Academic year and term dates are set per campus × programme offering (a campus runs several curricula with different starts: GIIS SG CBSE, CLSP, IGCSE in April; IB DP in July); the brand-country keeps a default per curriculum that campuses copy; year-based records (classes, plans, rollover, billing periods, assessment schemes) key on the offering's year; rollover runs per campus × offering × year (narrows DL-75) | **Confirmed** (Henry, 15 Nov 2026) | MC-06, OQ-24, OQ-107, DL-54, DL-70, DL-75, HB p.68, p.109 |
 
 ---
 
@@ -445,6 +446,13 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Decision.** See the table above and [assessment dictionary § Decisions](../03-domain/assessment-data-dictionary.md#decisions).
 - **Why.** Board rules live once in a template; brand rules become versioned settings (Arch § Principles "policy as rules"); marks get one audited path to a released report card.
 - **Status.** DL-87 Confirmed by Henry, 15 Nov 2026; DL-88…DL-95 Confirmed by Henry ("All A"), 15 Nov 2026. All DL-87…DL-95 Confirmed.
+
+### DL-96 — Academic year per campus × curriculum
+- **Context.** While drafting Assessment, the GIIS SG sources showed two year starts at one campus: CBSE, Cambridge CLSP and IGCSE run April to March (HB p.68 "Term 1 April - September"; 2026-27 exam schedule: Semester 1 in September, Semester 2 in March), while IB DP runs July to May (HB p.109: FA1 July, Semester 1 November, Semester 2 May). Samples had used one campus date (13 Jul 2026).
+- **Decision.** Henry, 15 Nov 2026: "Campus will cover multiple curriculum, each curriculum have different start date." Academic year and term dates belong to the programme offering at a campus. The brand-country holds a default calendar per curriculum that each campus copies and may adjust. Everything keyed on an academic year (DL-54 promotion vs transfer, DL-56 applications, DL-70 classes, class plans, FB04 billing periods, AS02 schemes) uses the offering's year. The year-end rollover (DL-75) runs per campus × offering × year, so East Coast can roll CBSE over in March and IB DP in May.
+- **Rejected.** B: one calendar per curriculum for the whole brand-country (campuses could not differ, e.g. Noida's staggered starts). C: one year per campus (contradicts the handbook).
+- **Open.** PYP and KG (GMP) start dates, and whether staggered starts by grade band (Noida, 7-8 April) are separate years or one year with different first days: OQ-107. Group views across different years: OQ-24.
+- **Status.** Confirmed by Henry, 15 Nov 2026.
 
 ## How design direction becomes architecture
 

@@ -156,7 +156,7 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 |---|---|---|:---:|---|---|---|
 | assessment_id | UUID | PK | Y | T1 | Known (Arch § Data model) | |
 | campus_id | UUID | FK:OR04 | Y | T1 | Known | |
-| academic_year_id | UUID | FK | Y | T1 | Known | |
+| academic_year_id | UUID | FK | Y | T1 | Known; per offering (DL-96) | The offering's year: GIIS SG CBSE April–March, IB DP July–May. |
 | scheme_id / component_id | UUID | FK:AS02 / AS03 | Y | T1 | Confirmed (DL-88) | Must be an APPROVED scheme version. |
 | grade_id | UUID | FK:Grade | Y | T1 | Known (Exam Schedule: per grade) | |
 | subject_id | UUID | FK:Subject | Y | T1 | Known | Language groups (L2 Hindi/Tamil/French) are one assessment with several mark sheets. |

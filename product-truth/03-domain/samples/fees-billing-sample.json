@@ -222,6 +222,7 @@
       }
     ],
     "SG-ECS": "Same as SG-PGL",
+    "_note": "Pending re-dating (DL-96): GIIS SG CBSE years run April-March, so 4-month terms are Apr-Jul, Aug-Nov, Dec-Mar (HB p.244 example: Term 2 starts in August); IB DP at SG-ECS runs July-May. The periods above still use the earlier synthetic July start.",
     "IN-NOI": "Not set (OQ-80)",
     "SG-OWD": "Not set"
   },

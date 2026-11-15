@@ -218,6 +218,7 @@ Added 15 Nov 2026 with the [assessment dictionary](../03-domain/assessment-data-
 | OQ-104 | Does PYP reporting stay in Toddle (HB p.87), and does the KG Holistic Progress Card move to Campus OS? | Whether descriptor report cards are in Phase 2 | Assessment dictionary; HB p.43, p.65–88, p.127–133; Exam Schedule 2026-27 | assessment dictionary, OBJ-19 | Henry, PYP and KG coordinators | Open |
 | OQ-105 | Who enters co-scholastic and Holistic Progress Card descriptors, and against which indicators? | Descriptor entry screens | Assessment dictionary; HB p.43, p.65–88, p.127–133; Exam Schedule 2026-27 | assessment dictionary, OBJ-19 | Henry, coordinators | Open |
 | OQ-106 | How long are marks, report cards and answer-script records kept (some scripts five years, HB p.88), and how much MyGIIS results history moves at cutover? | Retention policy; past report cards on day one | Assessment dictionary; HB p.43, p.65–88, p.127–133; Exam Schedule 2026-27 | assessment dictionary, OBJ-19 | Henry, DPO, GSG IT | Open |
+| OQ-107 | When do IB PYP and KG (GMP) years start at each GIIS SG campus, and are Noida's staggered starts by grade band (7-8 April) separate academic years or one year with different first days? | Year dates per offering (DL-96); rollover timing; billing periods | HB p.68, p.87, p.109; Exam Schedule 2026-27; Noida Almanac 2025-26 | DL-96, classes, fees, assessment dictionaries | Henry, campus academic heads | Open |
 
 ## Research not yet done
 

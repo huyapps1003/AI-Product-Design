@@ -451,9 +451,9 @@ const ROSTERS={};
 function roster(c){
   if(ROSTERS[c.n])return ROSTERS[c.n];
   let r;
-  if(c.n==='7B'){r=R7B.map((n,i)=>({n,h:n==='Aarav Sharma'?'House B':H[i%4],sp:i%3===0||n==='Aarav Sharma',med:n==='Diya Menon'||n==='Rehan Ali',since:n==='Hiroshi Tanaka'?'7 Oct 2026':'13 Jul 2026',via:n==='Hiroshi Tanaka'?'New enrolment (mid-year)':(n==='Aarav Sharma'?'Rollover from 6B':'Allocation')}));}
-  else{let seed=[...c.n].reduce((a,ch)=>a+ch.charCodeAt(0),0);r=[];for(let i=0;i<c.enr;i++){const f=FIRST[(seed+i*7)%FIRST.length],l=LAST[(seed*3+i*11)%LAST.length];r.push({n:f+' '+l,h:c.campus==='SG-OWD'?null:H[(seed+i)%4],sp:(seed+i)%4===0,med:(seed+i)%17===0,since:c.campus==='SG-OWD'?'5 Jan 2026':'13 Jul 2026',via:'Allocation'});}
-    if(c.n==='5B')r[0]={n:'Yuki Watanabe',h:'House D',sp:true,med:false,since:'13 Jul 2026',via:'Allocation',aepp:true};
+  if(c.n==='7B'){r=R7B.map((n,i)=>({n,h:n==='Aarav Sharma'?'House B':H[i%4],sp:i%3===0||n==='Aarav Sharma',med:n==='Diya Menon'||n==='Rehan Ali',since:n==='Hiroshi Tanaka'?'7 Oct 2026':'6 Apr 2026',via:n==='Hiroshi Tanaka'?'New enrolment (mid-year)':(n==='Aarav Sharma'?'Rollover from 6B':'Allocation')}));}
+  else{let seed=[...c.n].reduce((a,ch)=>a+ch.charCodeAt(0),0);r=[];for(let i=0;i<c.enr;i++){const f=FIRST[(seed+i*7)%FIRST.length],l=LAST[(seed*3+i*11)%LAST.length];r.push({n:f+' '+l,h:c.campus==='SG-OWD'?null:H[(seed+i)%4],sp:(seed+i)%4===0,med:(seed+i)%17===0,since:c.campus==='SG-OWD'?'5 Jan 2026':'6 Apr 2026',via:'Allocation'});}
+    if(c.n==='5B')r[0]={n:'Yuki Watanabe',h:'House D',sp:true,med:false,since:'6 Apr 2026',via:'Allocation',aepp:true};
     if(c.n==='6C')r[r.length-1]={n:'Ravi Iyer',h:'House C',sp:true,med:false,since:'3 Nov 2026',via:'New enrolment (APP-26-0987)'};
     if(c.n==='4 Orchid')r[0]={n:'Lucas Lim',h:null,sp:false,med:false,since:'5 Jan 2026',via:'Allocation'};
     r.sort((a,b)=>a.n.localeCompare(b.n));}
@@ -468,7 +468,7 @@ let HIST=[
  {s:'Ravi Iyer',c:'6C',from:'3 Nov 2026',r:'New enrolment',by:'Meera Joshi'},
  {s:'Hiroshi Tanaka',c:'7B',from:'7 Oct 2026',r:'New enrolment',by:'Meera Joshi'},
  {s:'Dev Khanna',c:'8A',from:'2 Sep 2026',r:'Class move',by:'Meera Joshi',prev:'8C',note:'Parent request after a seating issue; agreed with both class teachers.'},
- {s:'Yuki Watanabe',c:'5B',from:'13 Jul 2026',r:'Allocation',by:'Meera Joshi'}
+ {s:'Yuki Watanabe',c:'5B',from:'6 Apr 2026',r:'Allocation',by:'Meera Joshi'}
 ];
 let PENDING=[]; // over-limit requests to the Principal
 let PLANS=[
@@ -580,7 +580,7 @@ function vClass(name,tab){
     </tbody></table></div>
     <p class="foot" style="padding:0 20px 16px">Rosters show the medical alert flag and attendance threshold only. Health detail, Student Pass and passport stay restricted (DL-30, DL-66). What parents see of the class list is pending (OQ-75).</p>`;
   }else if(tab==='staff'){
-    body=`<div style="padding:20px 24px"><dl class="kv"><dt>Class teacher</dt><dd>${c.teacher?esc(c.teacher)+' <span class="sub">since 13 Jul 2026</span>':`<span class="notset">${I.warn}No class teacher</span>`}${canManage()?` <button class="btn btn-sm" data-act="teacher" data-c="${esc(c.n)}">${c.teacher?'Change':'Assign'}</button>`:''}</dd>
+    body=`<div style="padding:20px 24px"><dl class="kv"><dt>Class teacher</dt><dd>${c.teacher?esc(c.teacher)+' <span class="sub">since 6 Apr 2026</span>':`<span class="notset">${I.warn}No class teacher</span>`}${canManage()?` <button class="btn btn-sm" data-act="teacher" data-c="${esc(c.n)}">${c.teacher?'Change':'Assign'}</button>`:''}</dd>
      <dt>Co-class teacher</dt><dd>${c.co?esc(c.co):'<span class="sub">None</span>'}</dd>
      <dt>Subject teachers</dt><dd><span class="sub">From Academic Allocation (Teaching), not set here</span></dd></dl>
      <p class="foot">Being class teacher automatically gives access to this class's students for the same dates. What the teacher can do still comes from their Class teacher role; restricted (Tier 3) data is never included (DL-73).</p></div>`;
@@ -634,7 +634,7 @@ function vRollover(){
   if(V!=='claire')return `<div class="page-h"><div><h1>Year-end rollover</h1><p>Moves students into next year's grades and classes. Outcomes come from Assessment; the Principal approves (DL-75).</p></div></div>
    <div class="listcard"><div class="tablewrap"><table><thead><tr><th>Run</th><th>Next year starts</th><th>Status</th><th>Summary</th></tr></thead><tbody>
    <tr><td><b>AY 2026-27 → AY 2027-28</b></td><td>12 Jul 2027</td><td>${chip(RST,'DRAFT')}</td><td class="sub">Outcomes arrive after Semester 2 results (HB p.128–131). Nothing to review yet.</td></tr>
-   <tr><td><b>AY 2025-26 → AY 2026-27</b></td><td>13 Jul 2026</td><td>${chip(RST,'APPLIED')}</td><td class="sub">1,388 promoted · 6 conditional · 3 retained · 142 graduating · 97 leaving · approved by Dr Anita Rao, applied 20 Jun 2026. Example: Aarav Sharma 6B → 7B, House B carried forward (DL-76).</td></tr>
+   <tr><td><b>AY 2025-26 → AY 2026-27</b></td><td>6 Apr 2026</td><td>${chip(RST,'APPLIED')}</td><td class="sub">1,388 promoted · 6 conditional · 3 retained · 142 graduating · 97 leaving · approved by Dr Anita Rao, applied 20 Jun 2026. Example: Aarav Sharma 6B → 7B, House B carried forward (DL-76).</td></tr>
    </tbody></table></div></div>
    <div class="proto-note"><b>Prototype note:</b> switch to Claire Tan (OWIS) to review a run in progress; her calendar-year campus rolls over in November while GIIS Singapore is mid-year (MC-06).<br>Stage-campus example (Harrods): Sokha Chan moved from Lower Primary KH-HLP Year 4 to Upper Primary KH-HUP Year 5 with no extra approval (DL-62). Any other year-end campus change needs both principals.</div>`;
   const L=ROLL.lines,cnt=k=>L.filter(l=>l.st===k).length,dec=cnt('NEEDS_DECISION');
