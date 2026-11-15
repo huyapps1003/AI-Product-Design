@@ -1,0 +1,1985 @@
+{
+  "_about": "Synthetic sample data for Fees & Billing screens (OBJ-23, with OBJ-03 enrolment and OBJ-04 guardian). All amounts, account numbers, receipts and the sponsor are invented and are NOT GIIS's real fees. Fee amounts, billing periods, tax, reminder steps and refund rules are each brand-country's or campus's own settings, never group defaults (DL-59 pattern, SR-FB-02). GIIS Singapore rules come from the GIIS Handbook 2025-26 (HB p.237-247). Reuses students and guardians from student-sample.json and applicants from admissions-sample.json. Viewer Siti Rahman, Finance Executive, SG-PGL; 'today' 14 Nov 2026.",
+  "today": "2026-11-14",
+  "viewer": {
+    "name": "Siti Rahman",
+    "role": "Finance Executive",
+    "scope": "SG-PGL and SG-ECS (GIIS Singapore finance team)"
+  },
+  "other_viewers": [
+    {
+      "name": "Wendy Koh",
+      "role": "Finance Controller",
+      "scope": "GIIS Singapore",
+      "_note": "Approves fee plans, billing runs, credit notes and refunds (Arch § Users and roles)"
+    },
+    {
+      "name": "Vivek Menon",
+      "role": "Country Director",
+      "scope": "GIIS Singapore",
+      "_note": "Co-approves refunds (HB p.244)"
+    },
+    {
+      "name": "Dr Anita Rao",
+      "role": "Principal",
+      "campus": "SG-PGL",
+      "_note": "Sees fee status and summaries, not invoices"
+    },
+    {
+      "name": "Lina Goh",
+      "role": "Admissions Officer",
+      "campus": "SG-PGL",
+      "_note": "Sees admission fee invoices only"
+    },
+    {
+      "name": "Neha Sharma",
+      "role": "Parent (payer)",
+      "accounts": [
+        "BA-SG-000418"
+      ],
+      "children": [
+        "Aarav Sharma (SG-PGL 7B)",
+        "Ishita Sharma (SG-ECS 9A)"
+      ]
+    },
+    {
+      "name": "Vikram Sharma",
+      "role": "Parent (verified guardian, not a payer)",
+      "_note": "Sees no finance unless Neha shares the account (DL-85)"
+    },
+    {
+      "name": "Ankit Bansal",
+      "role": "Finance Executive",
+      "campus": "IN-NOI",
+      "_note": "India settings not set; shows blocked states"
+    }
+  ],
+  "brand_country_settings": {
+    "GIIS Singapore": {
+      "currency": "SGD",
+      "tax": {
+        "code": "SG-GST",
+        "rate": "9% on all fee types (synthetic sample setting; which fees carry GST is OQ-87)"
+      },
+      "fee_types": [
+        {
+          "code": "TUITION",
+          "name": "Tuition fee",
+          "category": "TUITION",
+          "refund_class": "REFUNDABLE",
+          "fps_covered": true
+        },
+        {
+          "code": "WELFARE",
+          "name": "Student welfare fee",
+          "category": "RECURRING_SERVICE",
+          "refund_class": "REFUNDABLE",
+          "fps_covered": true
+        },
+        {
+          "code": "ACTIVITY",
+          "name": "Activity fee",
+          "category": "RECURRING_SERVICE",
+          "refund_class": "REFUNDABLE",
+          "fps_covered": true
+        },
+        {
+          "code": "TECH",
+          "name": "Technology fee",
+          "category": "RECURRING_SERVICE",
+          "refund_class": "REFUNDABLE",
+          "fps_covered": true
+        },
+        {
+          "code": "BUS",
+          "name": "Bus fee",
+          "category": "RECURRING_SERVICE",
+          "refund_class": "REFUNDABLE",
+          "fps_covered": true,
+          "optional": true
+        },
+        {
+          "code": "EVENT",
+          "name": "School event fee",
+          "category": "ONE_OFF",
+          "refund_class": "REFUNDABLE",
+          "fps_covered": false
+        },
+        {
+          "code": "APPLICATION",
+          "name": "Application fee",
+          "category": "ADMISSION",
+          "refund_class": "REFUNDABLE_ON_APPROVAL_REJECTED",
+          "fps_covered": false
+        },
+        {
+          "code": "REGISTRATION",
+          "name": "Registration fee",
+          "category": "ADMISSION",
+          "refund_class": "REFUNDABLE_ON_APPROVAL_REJECTED",
+          "fps_covered": true
+        }
+      ],
+      "refund_rule_set": {
+        "version": "GIIS SG refund rules 2025-26",
+        "cooling_off_working_days": 7,
+        "table_3A": "Percentages not in handbook text (images); Not set (OQ-86)",
+        "table_3B": "Percentages not in handbook text (images); Not set (OQ-86)",
+        "non_refundable": [
+          "APPLICATION",
+          "REGISTRATION (except ICA/MOE rejection for new admissions)"
+        ],
+        "admin_charge": 50,
+        "refund_within_working_days": 7,
+        "documents": {
+          "notify_within": 3,
+          "parent_has": 7
+        },
+        "escalation": [
+          "Finance Controller",
+          "Country Director after 4 working days"
+        ],
+        "approvers": [
+          "Country Director",
+          "Finance Controller"
+        ],
+        "humanitarian_examples": [
+          "Parent loses job and must relocate outside Singapore",
+          "Moving out of Singapore for medical treatment"
+        ],
+        "source": "HB p.240-245"
+      },
+      "fee_protection": {
+        "required": true,
+        "scheme": "FPS (CPE)",
+        "source": "HB p.246-247"
+      },
+      "payment_methods": [
+        "PAYNOW",
+        "CARD",
+        "BANK_TRANSFER",
+        "CHEQUE (counter)"
+      ],
+      "card_surcharge": "Not set (OQ-82)",
+      "reminder_steps": [
+        "BEFORE_DUE_7D",
+        "OVERDUE_7D",
+        "OVERDUE_30D"
+      ],
+      "overdue_consequence": "None set (OQ-84, DL-83)",
+      "withdrawal_billing_cutoff": "Approved at least 1 month before term start = not billed for that term (HB p.244)"
+    },
+    "GIIS India": {
+      "currency": "INR",
+      "tax": {
+        "code": "IN-GST",
+        "rate": "Not set (OQ-87)"
+      },
+      "fee_types": "Not set (OQ-80)",
+      "refund_rule_set": "Not set (OQ-86)",
+      "fee_protection": {
+        "required": "Not set (OQ-88)"
+      },
+      "payment_methods": [
+        "UPI",
+        "CARD",
+        "BANK_TRANSFER"
+      ],
+      "_note": "Methods from Arch § Integrations; nothing else documented"
+    },
+    "OWIS Singapore": {
+      "currency": "SGD",
+      "fee_types": "Not set",
+      "refund_rule_set": "Not set",
+      "_note": "No OWIS fee policy is documented (DL-22)"
+    }
+  },
+  "billing_periods": {
+    "SG-PGL": [
+      {
+        "label": "Term 1 (Jul-Oct 2026)",
+        "start": "2026-07-13",
+        "end": "2026-10-31",
+        "invoice_date": "2026-07-01",
+        "due_date": "2026-07-31",
+        "withdrawal_cutoff": "2026-06-13"
+      },
+      {
+        "label": "Term 2 (Nov 2026-Feb 2027)",
+        "start": "2026-11-01",
+        "end": "2027-02-28",
+        "invoice_date": "2026-11-03",
+        "due_date": "2026-11-30",
+        "withdrawal_cutoff": "2026-10-01"
+      },
+      {
+        "label": "Term 3 (Mar-Jun 2027)",
+        "start": "2027-03-01",
+        "end": "2027-06-25",
+        "invoice_date": "2027-03-02",
+        "due_date": "2027-03-31",
+        "withdrawal_cutoff": "2027-02-01"
+      }
+    ],
+    "SG-ECS": "Same as SG-PGL",
+    "IN-NOI": "Not set (OQ-80)",
+    "SG-OWD": "Not set"
+  },
+  "fee_plans": [
+    {
+      "id": "FP-PGL-CBSE-6-8",
+      "campus": "SG-PGL",
+      "programme": "CBSE 1-12",
+      "grades": "Grades 6-8",
+      "ay": "AY 2026-27",
+      "version": 1,
+      "valid_from": "2026-07-13",
+      "currency": "SGD",
+      "status": "APPROVED",
+      "prepared_by": "Siti Rahman",
+      "approved_by": "Wendy Koh",
+      "approved_at": "2026-03-18",
+      "lines": [
+        {
+          "fee": "TUITION",
+          "amount": 6480,
+          "frequency": "PER_BILLING_PERIOD",
+          "applies_to": "ALL_STUDENTS"
+        },
+        {
+          "fee": "WELFARE",
+          "amount": 150,
+          "frequency": "PER_BILLING_PERIOD",
+          "applies_to": "ALL_STUDENTS"
+        },
+        {
+          "fee": "ACTIVITY",
+          "amount": 180,
+          "frequency": "PER_BILLING_PERIOD",
+          "applies_to": "ALL_STUDENTS"
+        },
+        {
+          "fee": "TECH",
+          "amount": 320,
+          "frequency": "PER_BILLING_PERIOD",
+          "applies_to": "ALL_STUDENTS"
+        },
+        {
+          "fee": "BUS",
+          "amount": 1040,
+          "frequency": "PER_BILLING_PERIOD",
+          "applies_to": "OPT_IN"
+        },
+        {
+          "fee": "APPLICATION",
+          "amount": 300,
+          "frequency": "ONCE",
+          "applies_to": "NEW_STUDENTS_ONLY"
+        },
+        {
+          "fee": "REGISTRATION",
+          "amount": 1200,
+          "frequency": "ONCE",
+          "applies_to": "NEW_STUDENTS_ONLY"
+        }
+      ],
+      "annual_total_before_tax": 21390
+    },
+    {
+      "id": "FP-PGL-CBSE-1-5",
+      "campus": "SG-PGL",
+      "programme": "CBSE 1-12",
+      "grades": "Grades 1-5",
+      "ay": "AY 2026-27",
+      "version": 1,
+      "valid_from": "2026-07-13",
+      "currency": "SGD",
+      "status": "APPROVED",
+      "prepared_by": "Siti Rahman",
+      "approved_by": "Wendy Koh",
+      "approved_at": "2026-03-18",
+      "lines": [
+        {
+          "fee": "TUITION",
+          "amount": 5900,
+          "frequency": "PER_BILLING_PERIOD",
+          "applies_to": "ALL_STUDENTS"
+        },
+        {
+          "fee": "WELFARE",
+          "amount": 150,
+          "frequency": "PER_BILLING_PERIOD",
+          "applies_to": "ALL_STUDENTS"
+        },
+        {
+          "fee": "ACTIVITY",
+          "amount": 180,
+          "frequency": "PER_BILLING_PERIOD",
+          "applies_to": "ALL_STUDENTS"
+        },
+        {
+          "fee": "TECH",
+          "amount": 280,
+          "frequency": "PER_BILLING_PERIOD",
+          "applies_to": "ALL_STUDENTS"
+        },
+        {
+          "fee": "BUS",
+          "amount": 1040,
+          "frequency": "PER_BILLING_PERIOD",
+          "applies_to": "OPT_IN"
+        },
+        {
+          "fee": "APPLICATION",
+          "amount": 300,
+          "frequency": "ONCE",
+          "applies_to": "NEW_STUDENTS_ONLY"
+        },
+        {
+          "fee": "REGISTRATION",
+          "amount": 1200,
+          "frequency": "ONCE",
+          "applies_to": "NEW_STUDENTS_ONLY"
+        }
+      ],
+      "annual_total_before_tax": 19530
+    },
+    {
+      "id": "FP-PGL-PYP",
+      "campus": "SG-PGL",
+      "programme": "IB PYP",
+      "grades": "Grades 1-5",
+      "ay": "AY 2026-27",
+      "version": 2,
+      "valid_from": "2026-09-01",
+      "currency": "SGD",
+      "status": "APPROVED",
+      "prepared_by": "Siti Rahman",
+      "approved_by": "Wendy Koh",
+      "approved_at": "2026-08-20",
+      "change_reason": "Technology fee added for the new device programme from Term 1 month 2 (synthetic)",
+      "lines": [
+        {
+          "fee": "TUITION",
+          "amount": 7100,
+          "frequency": "PER_BILLING_PERIOD",
+          "applies_to": "ALL_STUDENTS"
+        },
+        {
+          "fee": "WELFARE",
+          "amount": 150,
+          "frequency": "PER_BILLING_PERIOD",
+          "applies_to": "ALL_STUDENTS"
+        },
+        {
+          "fee": "ACTIVITY",
+          "amount": 220,
+          "frequency": "PER_BILLING_PERIOD",
+          "applies_to": "ALL_STUDENTS"
+        },
+        {
+          "fee": "TECH",
+          "amount": 300,
+          "frequency": "PER_BILLING_PERIOD",
+          "applies_to": "ALL_STUDENTS"
+        },
+        {
+          "fee": "BUS",
+          "amount": 1040,
+          "frequency": "PER_BILLING_PERIOD",
+          "applies_to": "OPT_IN"
+        },
+        {
+          "fee": "APPLICATION",
+          "amount": 300,
+          "frequency": "ONCE",
+          "applies_to": "NEW_STUDENTS_ONLY"
+        },
+        {
+          "fee": "REGISTRATION",
+          "amount": 1200,
+          "frequency": "ONCE",
+          "applies_to": "NEW_STUDENTS_ONLY"
+        }
+      ],
+      "annual_total_before_tax": 23310
+    },
+    {
+      "id": "FP-PGL-CBSE-11-12",
+      "campus": "SG-PGL",
+      "programme": "CBSE 1-12",
+      "grades": "Grades 11-12",
+      "ay": "AY 2026-27",
+      "version": 1,
+      "valid_from": "2026-07-13",
+      "currency": "SGD",
+      "status": "DRAFT",
+      "prepared_by": "Siti Rahman",
+      "approved_by": null,
+      "lines": [
+        {
+          "fee": "TUITION",
+          "amount": "Not set",
+          "frequency": "PER_BILLING_PERIOD",
+          "applies_to": "ALL_STUDENTS"
+        },
+        {
+          "fee": "WELFARE",
+          "amount": 150,
+          "frequency": "PER_BILLING_PERIOD",
+          "applies_to": "ALL_STUDENTS"
+        },
+        {
+          "fee": "TECH",
+          "amount": 320,
+          "frequency": "PER_BILLING_PERIOD",
+          "applies_to": "ALL_STUDENTS"
+        }
+      ],
+      "_note": "Tuition 'Not set' blocks approval (SR-FB-02); Arjun Reddy is a run exception"
+    },
+    {
+      "id": "FP-ECS-IGCSE",
+      "campus": "SG-ECS",
+      "programme": "IGCSE 9-10",
+      "grades": "Grades 9-10",
+      "ay": "AY 2026-27",
+      "version": 1,
+      "valid_from": "2026-07-13",
+      "currency": "SGD",
+      "status": "APPROVED",
+      "prepared_by": "Siti Rahman",
+      "approved_by": "Wendy Koh",
+      "approved_at": "2026-03-18",
+      "lines": [
+        {
+          "fee": "TUITION",
+          "amount": 7350,
+          "frequency": "PER_BILLING_PERIOD",
+          "applies_to": "ALL_STUDENTS"
+        },
+        {
+          "fee": "WELFARE",
+          "amount": 150,
+          "frequency": "PER_BILLING_PERIOD",
+          "applies_to": "ALL_STUDENTS"
+        },
+        {
+          "fee": "ACTIVITY",
+          "amount": 200,
+          "frequency": "PER_BILLING_PERIOD",
+          "applies_to": "ALL_STUDENTS"
+        },
+        {
+          "fee": "TECH",
+          "amount": 320,
+          "frequency": "PER_BILLING_PERIOD",
+          "applies_to": "ALL_STUDENTS"
+        },
+        {
+          "fee": "REGISTRATION",
+          "amount": 1200,
+          "frequency": "ONCE",
+          "applies_to": "NEW_STUDENTS_ONLY"
+        }
+      ],
+      "annual_total_before_tax": 24060
+    },
+    {
+      "id": "FP-ECS-IBDP",
+      "campus": "SG-ECS",
+      "programme": "IBDP",
+      "grades": "IBDP Years 1-2",
+      "ay": "AY 2026-27",
+      "version": 1,
+      "valid_from": "2026-07-13",
+      "currency": "SGD",
+      "status": "APPROVED",
+      "prepared_by": "Siti Rahman",
+      "approved_by": "Wendy Koh",
+      "approved_at": "2026-03-18",
+      "lines": [
+        {
+          "fee": "TUITION",
+          "amount": 9800,
+          "frequency": "PER_BILLING_PERIOD",
+          "applies_to": "ALL_STUDENTS"
+        },
+        {
+          "fee": "WELFARE",
+          "amount": 150,
+          "frequency": "PER_BILLING_PERIOD",
+          "applies_to": "ALL_STUDENTS"
+        },
+        {
+          "fee": "TECH",
+          "amount": 320,
+          "frequency": "PER_BILLING_PERIOD",
+          "applies_to": "ALL_STUDENTS"
+        },
+        {
+          "fee": "REGISTRATION",
+          "amount": 1200,
+          "frequency": "ONCE",
+          "applies_to": "NEW_STUDENTS_ONLY"
+        }
+      ],
+      "annual_total_before_tax": 30810
+    },
+    {
+      "id": "FP-NOI-CBSE",
+      "campus": "IN-NOI",
+      "programme": "CBSE 1-12",
+      "grades": "Grades 1-12",
+      "ay": "AY 2026-27",
+      "version": 1,
+      "valid_from": "2026-04-06",
+      "currency": "INR",
+      "status": "DRAFT",
+      "prepared_by": "Ankit Bansal",
+      "approved_by": null,
+      "lines": [
+        {
+          "fee": "TUITION",
+          "amount": "Not set",
+          "frequency": "Not set (OQ-80)",
+          "applies_to": "ALL_STUDENTS"
+        }
+      ],
+      "_note": "India billing frequency and amounts not set; no run possible"
+    }
+  ],
+  "billing_runs": [
+    {
+      "id": "RUN-PGL-2026-T2",
+      "campus": "SG-PGL",
+      "period": "Term 2 (Nov 2026-Feb 2027)",
+      "run_type": "REGULAR",
+      "status": "ISSUED",
+      "prepared_by": "Siti Rahman",
+      "approved_by": "Wendy Koh",
+      "approved_at": "2026-11-02",
+      "issued_at": "2026-11-03",
+      "totals": {
+        "invoices": 1184,
+        "gross": 7712400.0,
+        "adjustments": -186250.0,
+        "tax": 677347.5,
+        "net": 8203497.5,
+        "currency": "SGD",
+        "_note": "illustrative campus totals"
+      },
+      "exceptions": [
+        {
+          "student": "Arjun Reddy",
+          "grade": "Grade 11",
+          "issue": "Fee plan CBSE Grades 11-12 tuition 'Not set'",
+          "resolution": "Excluded; bill in a supplementary run once approved"
+        },
+        {
+          "student": "Sara Fernandes",
+          "grade": "KG1",
+          "issue": "Enrolment OFFERED for AY 2027-28",
+          "resolution": "Not in this year; skipped automatically"
+        }
+      ]
+    },
+    {
+      "id": "RUN-ECS-2026-T2",
+      "campus": "SG-ECS",
+      "period": "Term 2 (Nov 2026-Feb 2027)",
+      "run_type": "REGULAR",
+      "status": "NEEDS_REVIEW",
+      "prepared_by": "Siti Rahman",
+      "totals": {
+        "invoices": 742,
+        "gross": 5869900.0,
+        "adjustments": -98400.0,
+        "tax": 519435.0,
+        "net": 6290935.0,
+        "currency": "SGD",
+        "_note": "illustrative"
+      },
+      "exceptions": [
+        {
+          "student": "Daniel Lee",
+          "grade": "IBDP Year 1",
+          "issue": "Welfare and Technology fees have no payer (shares 0%, SR-FB-04)",
+          "resolution": null
+        },
+        {
+          "student": "Kavya Nair",
+          "grade": "Grade 6",
+          "issue": "Billing pause covers Dec-Feb (3 of 4 months)",
+          "resolution": "Bill November only (auto)"
+        }
+      ],
+      "_note": "Daniel starts 4 Jan 2027, so he would be in a supplementary run; kept here to show the exception"
+    },
+    {
+      "id": "RUN-NOI-2026-Q3",
+      "campus": "IN-NOI",
+      "period": "Not set (OQ-80)",
+      "run_type": "REGULAR",
+      "status": "DRAFT",
+      "exceptions": [
+        {
+          "issue": "Billing periods 'Not set' for IN-NOI AY 2026-27"
+        },
+        {
+          "issue": "Fee plan CBSE 1-12 tuition 'Not set'"
+        }
+      ],
+      "_note": "Blocked until GIIS India settings exist"
+    }
+  ],
+  "billing_accounts": [
+    {
+      "account_number": "BA-SG-000418",
+      "brand_country": "GIIS Singapore",
+      "payer_type": "GUARDIAN",
+      "payer": "Neha Sharma (G-001)",
+      "students": [
+        {
+          "student": "Aarav Sharma",
+          "campus": "SG-PGL",
+          "grade": "Grade 7",
+          "class_name": "7B",
+          "share": 100,
+          "fee_status": "DUE"
+        },
+        {
+          "student": "Ishita Sharma",
+          "campus": "SG-ECS",
+          "grade": "Grade 9",
+          "class_name": "9A",
+          "share": 100,
+          "fee_status": "DUE"
+        }
+      ],
+      "shared_with": [],
+      "not_shared_note": "Vikram Sharma (G-002) is a verified guardian but not a payer, so he sees no finance (DL-85)",
+      "billing_address": "Blk 618 Punggol Drive #08-112, Singapore 820618",
+      "statement_language": "en",
+      "balance": 16161.98,
+      "account_status": "ACTIVE"
+    },
+    {
+      "account_number": "BA-SG-000377",
+      "brand_country": "GIIS Singapore",
+      "payer_type": "GUARDIAN",
+      "payer": "Rajesh Mehta (G-004)",
+      "students": [
+        {
+          "student": "Rohan Mehta",
+          "campus": "SG-PGL",
+          "grade": "Grade 8",
+          "class_name": "8A",
+          "share": 100,
+          "fee_status": "OVERDUE",
+          "bus": "Opted in"
+        }
+      ],
+      "shared_with": [],
+      "balance": 13810.6,
+      "account_status": "ACTIVE"
+    },
+    {
+      "account_number": "BA-SG-000522",
+      "brand_country": "GIIS Singapore",
+      "payer_type": "GUARDIAN",
+      "payer": "Michelle Tan (G-003)",
+      "students": [
+        {
+          "student": "Chloe Tan Wei Ling",
+          "campus": "SG-PGL",
+          "grade": "Grade 3",
+          "class_name": "3C",
+          "share": 100,
+          "fee_status": "CLEAR"
+        }
+      ],
+      "shared_with": [],
+      "balance": 0.0,
+      "account_status": "ACTIVE"
+    },
+    {
+      "account_number": "BA-SG-000601",
+      "brand_country": "GIIS Singapore",
+      "payer_type": "GUARDIAN",
+      "payer": "Haruka Watanabe (G-006)",
+      "students": [
+        {
+          "student": "Yuki Watanabe",
+          "campus": "SG-PGL",
+          "grade": "Grade 5",
+          "class_name": "5B",
+          "share": 100,
+          "fee_status": "CLEAR",
+          "bus": "Opted in"
+        }
+      ],
+      "shared_with": [],
+      "balance": 0.0,
+      "account_status": "ACTIVE"
+    },
+    {
+      "account_number": "BA-SG-000655",
+      "brand_country": "GIIS Singapore",
+      "payer_type": "SPONSOR_ORGANISATION",
+      "payer": "Hanbit Logistics Pte Ltd (synthetic employer)",
+      "sponsor_contact": "HR benefits desk, hr.benefits@hanbit.example",
+      "students": [
+        {
+          "student": "Daniel Lee",
+          "campus": "SG-ECS",
+          "grade": "IBDP Year 1",
+          "class_name": null,
+          "share": 100,
+          "fee_types": [
+            "TUITION"
+          ],
+          "fee_status": "CLEAR",
+          "starts": "2027-01-04"
+        }
+      ],
+      "_note": "Sponsor letter on file; sponsors get statements, no login (OQ-85)",
+      "balance": 0.0,
+      "account_status": "ACTIVE"
+    },
+    {
+      "account_number": "BA-SG-000656",
+      "brand_country": "GIIS Singapore",
+      "payer_type": "GUARDIAN",
+      "payer": "Joon-ho Lee (G-010)",
+      "students": [
+        {
+          "student": "Daniel Lee",
+          "campus": "SG-ECS",
+          "grade": "IBDP Year 1",
+          "class_name": null,
+          "share": 100,
+          "fee_types": [
+            "REGISTRATION"
+          ],
+          "fee_status": "CLEAR",
+          "starts": "2027-01-04"
+        }
+      ],
+      "_note": "Pays registration only; welfare and technology fees have no payer from Term 2 → run exception (SR-FB-04)",
+      "balance": 0.0,
+      "account_status": "ACTIVE"
+    },
+    {
+      "account_number": "BA-SG-000437",
+      "brand_country": "GIIS Singapore",
+      "payer_type": "GUARDIAN",
+      "payer": "Lakshmi Nair (G-005)",
+      "students": [
+        {
+          "student": "Kavya Nair",
+          "campus": "SG-ECS",
+          "grade": "Grade 6",
+          "class_name": "6A",
+          "share": 100,
+          "fee_status": "PAUSED"
+        }
+      ],
+      "_note": "Long leave 1 Dec 2026 - 28 Feb 2027 (synthetic); billing pause (HB p.237)",
+      "balance": 0.0,
+      "account_status": "ACTIVE"
+    },
+    {
+      "account_number": "BA-SG-000690",
+      "brand_country": "GIIS Singapore",
+      "payer_type": "GUARDIAN",
+      "payer": "Noah's parent (admissions sample)",
+      "students": [
+        {
+          "student": "Noah Fernandes",
+          "campus": "SG-PGL",
+          "grade": "Grade 6",
+          "class_name": null,
+          "share": 100,
+          "fee_status": "CLEAR"
+        }
+      ],
+      "balance": 0.0,
+      "account_status": "ACTIVE"
+    },
+    {
+      "account_number": "BA-SG-000702",
+      "brand_country": "GIIS Singapore",
+      "payer_type": "GUARDIAN",
+      "payer": "Sofia's parent (admissions sample)",
+      "students": [
+        {
+          "student": "Sofia Rossi",
+          "campus": "SG-PGL",
+          "grade": "Grade 6",
+          "class_name": null,
+          "share": 100,
+          "fee_status": "DUE"
+        }
+      ],
+      "balance": 1308.0,
+      "account_status": "ACTIVE"
+    },
+    {
+      "account_number": "BA-SG-000611",
+      "brand_country": "GIIS Singapore",
+      "payer_type": "GUARDIAN",
+      "payer": "Hana's parent (admissions sample)",
+      "account_status": "CLOSED",
+      "students": [
+        {
+          "student": "Hana Kim",
+          "campus": "SG-PGL",
+          "grade": "Grade 2",
+          "class_name": null,
+          "share": 100,
+          "fee_status": "CLEAR"
+        }
+      ],
+      "balance": 0.0
+    },
+    {
+      "account_number": "BA-IN-000212",
+      "brand_country": "GIIS India",
+      "payer_type": "GUARDIAN",
+      "payer": "Harpreet Singh (G-012)",
+      "students": [
+        {
+          "student": "Kabir Singh",
+          "campus": "IN-NOI",
+          "grade": "Grade 4",
+          "class_name": "4A",
+          "share": 100,
+          "fee_status": "Not billed in Campus OS yet"
+        }
+      ],
+      "_note": "India billing periods and fee plan not set; history still in MyGIIS until cutover (OQ-90)",
+      "balance": 0.0,
+      "account_status": "ACTIVE"
+    },
+    {
+      "account_number": "BA-IN-000198",
+      "brand_country": "GIIS India",
+      "payer_type": "GUARDIAN",
+      "payer": "Ritu Kapoor (G-013)",
+      "students": [
+        {
+          "student": "Meher Kapoor",
+          "campus": "IN-NOI",
+          "grade": "Grade 12",
+          "class_name": "12 Commerce B",
+          "share": 100,
+          "fee_status": "CLEAR"
+        }
+      ],
+      "balance": 0.0,
+      "account_status": "ACTIVE"
+    }
+  ],
+  "invoices": [
+    {
+      "invoice_number": "SG-2026-030418",
+      "billing_account": "BA-SG-000418",
+      "campus": "SG-PGL / SG-ECS",
+      "issuer": "GIIS Singapore operating entity (named after OQ-06)",
+      "source": "BILLING_RUN",
+      "billing_period": "Term 1 (Jul-Oct 2026)",
+      "invoice_date": "2026-07-01",
+      "due_date": "2026-07-31",
+      "currency": "SGD",
+      "lines": [
+        {
+          "student": "Aarav Sharma",
+          "campus": "SG-PGL",
+          "class_name": "7B",
+          "fee": "TUITION",
+          "description": "Tuition, Term 1 (Jul-Oct 2026)",
+          "quantity": 1,
+          "unit_amount": 6480,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 583.2,
+          "line_total": 7063.2
+        },
+        {
+          "student": "Aarav Sharma",
+          "campus": "SG-PGL",
+          "class_name": "7B",
+          "fee": "WELFARE",
+          "description": "Student welfare, Term 1 (Jul-Oct 2026)",
+          "quantity": 1,
+          "unit_amount": 150,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 13.5,
+          "line_total": 163.5
+        },
+        {
+          "student": "Aarav Sharma",
+          "campus": "SG-PGL",
+          "class_name": "7B",
+          "fee": "ACTIVITY",
+          "description": "Activity, Term 1 (Jul-Oct 2026)",
+          "quantity": 1,
+          "unit_amount": 180,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 16.2,
+          "line_total": 196.2
+        },
+        {
+          "student": "Aarav Sharma",
+          "campus": "SG-PGL",
+          "class_name": "7B",
+          "fee": "TECH",
+          "description": "Technology, Term 1 (Jul-Oct 2026)",
+          "quantity": 1,
+          "unit_amount": 320,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 28.8,
+          "line_total": 348.8
+        },
+        {
+          "student": "Ishita Sharma",
+          "campus": "SG-ECS",
+          "class_name": "9A",
+          "fee": "TUITION",
+          "description": "Tuition, Term 1 (Jul-Oct 2026)",
+          "quantity": 1,
+          "unit_amount": 7350,
+          "share_percent": 100,
+          "adjustment": {
+            "type": "SIBLING",
+            "label": "Sibling discount 5% (synthetic, OQ-83)",
+            "amount": -367.5
+          },
+          "tax": 628.43,
+          "line_total": 7610.93
+        },
+        {
+          "student": "Ishita Sharma",
+          "campus": "SG-ECS",
+          "class_name": "9A",
+          "fee": "WELFARE",
+          "description": "Student welfare, Term 1 (Jul-Oct 2026)",
+          "quantity": 1,
+          "unit_amount": 150,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 13.5,
+          "line_total": 163.5
+        },
+        {
+          "student": "Ishita Sharma",
+          "campus": "SG-ECS",
+          "class_name": "9A",
+          "fee": "ACTIVITY",
+          "description": "Activity, Term 1 (Jul-Oct 2026)",
+          "quantity": 1,
+          "unit_amount": 200,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 18.0,
+          "line_total": 218.0
+        },
+        {
+          "student": "Ishita Sharma",
+          "campus": "SG-ECS",
+          "class_name": "9A",
+          "fee": "TECH",
+          "description": "Technology, Term 1 (Jul-Oct 2026)",
+          "quantity": 1,
+          "unit_amount": 320,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 28.8,
+          "line_total": 348.8
+        }
+      ],
+      "subtotal": 15150.0,
+      "adjustments": -367.5,
+      "tax": 1330.43,
+      "total": 16112.93,
+      "amount_paid": 16112.93,
+      "amount_credited": 0,
+      "status": "PAID",
+      "amount_due": 0.0
+    },
+    {
+      "invoice_number": "SG-2026-041877",
+      "billing_account": "BA-SG-000418",
+      "campus": "SG-PGL / SG-ECS",
+      "issuer": "GIIS Singapore operating entity (named after OQ-06)",
+      "source": "BILLING_RUN",
+      "billing_period": "Term 2 (Nov 2026-Feb 2027)",
+      "invoice_date": "2026-11-03",
+      "due_date": "2026-11-30",
+      "currency": "SGD",
+      "lines": [
+        {
+          "student": "Aarav Sharma",
+          "campus": "SG-PGL",
+          "class_name": "7B",
+          "fee": "TUITION",
+          "description": "Tuition, Term 2 (Nov 2026-Feb 2027)",
+          "quantity": 1,
+          "unit_amount": 6480,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 583.2,
+          "line_total": 7063.2
+        },
+        {
+          "student": "Aarav Sharma",
+          "campus": "SG-PGL",
+          "class_name": "7B",
+          "fee": "WELFARE",
+          "description": "Student welfare, Term 2 (Nov 2026-Feb 2027)",
+          "quantity": 1,
+          "unit_amount": 150,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 13.5,
+          "line_total": 163.5
+        },
+        {
+          "student": "Aarav Sharma",
+          "campus": "SG-PGL",
+          "class_name": "7B",
+          "fee": "ACTIVITY",
+          "description": "Activity, Term 2 (Nov 2026-Feb 2027)",
+          "quantity": 1,
+          "unit_amount": 180,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 16.2,
+          "line_total": 196.2
+        },
+        {
+          "student": "Aarav Sharma",
+          "campus": "SG-PGL",
+          "class_name": "7B",
+          "fee": "TECH",
+          "description": "Technology, Term 2 (Nov 2026-Feb 2027)",
+          "quantity": 1,
+          "unit_amount": 320,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 28.8,
+          "line_total": 348.8
+        },
+        {
+          "student": "Ishita Sharma",
+          "campus": "SG-ECS",
+          "class_name": "9A",
+          "fee": "TUITION",
+          "description": "Tuition, Term 2 (Nov 2026-Feb 2027)",
+          "quantity": 1,
+          "unit_amount": 7350,
+          "share_percent": 100,
+          "adjustment": {
+            "type": "SIBLING",
+            "label": "Sibling discount 5% (synthetic, OQ-83)",
+            "amount": -367.5
+          },
+          "tax": 628.43,
+          "line_total": 7610.93
+        },
+        {
+          "student": "Ishita Sharma",
+          "campus": "SG-ECS",
+          "class_name": "9A",
+          "fee": "WELFARE",
+          "description": "Student welfare, Term 2 (Nov 2026-Feb 2027)",
+          "quantity": 1,
+          "unit_amount": 150,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 13.5,
+          "line_total": 163.5
+        },
+        {
+          "student": "Ishita Sharma",
+          "campus": "SG-ECS",
+          "class_name": "9A",
+          "fee": "ACTIVITY",
+          "description": "Activity, Term 2 (Nov 2026-Feb 2027)",
+          "quantity": 1,
+          "unit_amount": 200,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 18.0,
+          "line_total": 218.0
+        },
+        {
+          "student": "Ishita Sharma",
+          "campus": "SG-ECS",
+          "class_name": "9A",
+          "fee": "TECH",
+          "description": "Technology, Term 2 (Nov 2026-Feb 2027)",
+          "quantity": 1,
+          "unit_amount": 320,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 28.8,
+          "line_total": 348.8
+        }
+      ],
+      "subtotal": 15150.0,
+      "adjustments": -367.5,
+      "tax": 1330.43,
+      "total": 16112.93,
+      "amount_paid": 0,
+      "amount_credited": 0,
+      "status": "ISSUED",
+      "amount_due": 16112.93
+    },
+    {
+      "invoice_number": "SG-2026-042010",
+      "billing_account": "BA-SG-000418",
+      "campus": "SG-PGL",
+      "issuer": "GIIS Singapore operating entity (named after OQ-06)",
+      "source": "ONE_OFF",
+      "billing_period": null,
+      "invoice_date": "2026-11-10",
+      "due_date": "2026-11-24",
+      "currency": "SGD",
+      "lines": [
+        {
+          "student": "Aarav Sharma",
+          "campus": "SG-PGL",
+          "class_name": "7B",
+          "fee": "EVENT",
+          "description": "Grade 7 Science Centre visit, 27 Nov 2026 (synthetic one-off charge)",
+          "quantity": 1,
+          "unit_amount": 45,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 4.05,
+          "line_total": 49.05
+        }
+      ],
+      "subtotal": 45.0,
+      "adjustments": 0.0,
+      "tax": 4.05,
+      "total": 49.05,
+      "amount_paid": 0,
+      "amount_credited": 0,
+      "status": "ISSUED",
+      "amount_due": 49.05
+    },
+    {
+      "invoice_number": "SG-2026-030377",
+      "billing_account": "BA-SG-000377",
+      "campus": "SG-PGL",
+      "issuer": "GIIS Singapore operating entity (named after OQ-06)",
+      "source": "BILLING_RUN",
+      "billing_period": "Term 1 (Jul-Oct 2026)",
+      "invoice_date": "2026-07-01",
+      "due_date": "2026-07-31",
+      "currency": "SGD",
+      "lines": [
+        {
+          "student": "Rohan Mehta",
+          "campus": "SG-PGL",
+          "class_name": "8A",
+          "fee": "TUITION",
+          "description": "Tuition, Term 1 (Jul-Oct 2026)",
+          "quantity": 1,
+          "unit_amount": 6480,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 583.2,
+          "line_total": 7063.2
+        },
+        {
+          "student": "Rohan Mehta",
+          "campus": "SG-PGL",
+          "class_name": "8A",
+          "fee": "WELFARE",
+          "description": "Student welfare, Term 1 (Jul-Oct 2026)",
+          "quantity": 1,
+          "unit_amount": 150,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 13.5,
+          "line_total": 163.5
+        },
+        {
+          "student": "Rohan Mehta",
+          "campus": "SG-PGL",
+          "class_name": "8A",
+          "fee": "ACTIVITY",
+          "description": "Activity, Term 1 (Jul-Oct 2026)",
+          "quantity": 1,
+          "unit_amount": 180,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 16.2,
+          "line_total": 196.2
+        },
+        {
+          "student": "Rohan Mehta",
+          "campus": "SG-PGL",
+          "class_name": "8A",
+          "fee": "TECH",
+          "description": "Technology, Term 1 (Jul-Oct 2026)",
+          "quantity": 1,
+          "unit_amount": 320,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 28.8,
+          "line_total": 348.8
+        },
+        {
+          "student": "Rohan Mehta",
+          "campus": "SG-PGL",
+          "class_name": "8A",
+          "fee": "BUS",
+          "description": "Bus (Punggol route), Term 1 (Jul-Oct 2026)",
+          "quantity": 1,
+          "unit_amount": 1040,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 93.6,
+          "line_total": 1133.6
+        }
+      ],
+      "subtotal": 8170.0,
+      "adjustments": 0.0,
+      "tax": 735.3,
+      "total": 8905.3,
+      "amount_paid": 4000,
+      "amount_credited": 0,
+      "status": "OVERDUE",
+      "amount_due": 4905.3
+    },
+    {
+      "invoice_number": "SG-2026-041802",
+      "billing_account": "BA-SG-000377",
+      "campus": "SG-PGL",
+      "issuer": "GIIS Singapore operating entity (named after OQ-06)",
+      "source": "BILLING_RUN",
+      "billing_period": "Term 2 (Nov 2026-Feb 2027)",
+      "invoice_date": "2026-11-03",
+      "due_date": "2026-11-30",
+      "currency": "SGD",
+      "lines": [
+        {
+          "student": "Rohan Mehta",
+          "campus": "SG-PGL",
+          "class_name": "8A",
+          "fee": "TUITION",
+          "description": "Tuition, Term 2 (Nov 2026-Feb 2027)",
+          "quantity": 1,
+          "unit_amount": 6480,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 583.2,
+          "line_total": 7063.2
+        },
+        {
+          "student": "Rohan Mehta",
+          "campus": "SG-PGL",
+          "class_name": "8A",
+          "fee": "WELFARE",
+          "description": "Student welfare, Term 2 (Nov 2026-Feb 2027)",
+          "quantity": 1,
+          "unit_amount": 150,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 13.5,
+          "line_total": 163.5
+        },
+        {
+          "student": "Rohan Mehta",
+          "campus": "SG-PGL",
+          "class_name": "8A",
+          "fee": "ACTIVITY",
+          "description": "Activity, Term 2 (Nov 2026-Feb 2027)",
+          "quantity": 1,
+          "unit_amount": 180,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 16.2,
+          "line_total": 196.2
+        },
+        {
+          "student": "Rohan Mehta",
+          "campus": "SG-PGL",
+          "class_name": "8A",
+          "fee": "TECH",
+          "description": "Technology, Term 2 (Nov 2026-Feb 2027)",
+          "quantity": 1,
+          "unit_amount": 320,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 28.8,
+          "line_total": 348.8
+        },
+        {
+          "student": "Rohan Mehta",
+          "campus": "SG-PGL",
+          "class_name": "8A",
+          "fee": "BUS",
+          "description": "Bus (Punggol route), Term 2 (Nov 2026-Feb 2027)",
+          "quantity": 1,
+          "unit_amount": 1040,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 93.6,
+          "line_total": 1133.6
+        }
+      ],
+      "subtotal": 8170.0,
+      "adjustments": 0.0,
+      "tax": 735.3,
+      "total": 8905.3,
+      "amount_paid": 0,
+      "amount_credited": 0,
+      "status": "ISSUED",
+      "amount_due": 8905.3
+    },
+    {
+      "invoice_number": "SG-2026-041655",
+      "billing_account": "BA-SG-000522",
+      "campus": "SG-PGL",
+      "issuer": "GIIS Singapore operating entity (named after OQ-06)",
+      "source": "BILLING_RUN",
+      "billing_period": "Term 2 (Nov 2026-Feb 2027)",
+      "invoice_date": "2026-11-03",
+      "due_date": "2026-11-30",
+      "currency": "SGD",
+      "lines": [
+        {
+          "student": "Chloe Tan Wei Ling",
+          "campus": "SG-PGL",
+          "class_name": "3C",
+          "fee": "TUITION",
+          "description": "Tuition, Term 2 (Nov 2026-Feb 2027)",
+          "quantity": 1,
+          "unit_amount": 7100,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 639.0,
+          "line_total": 7739.0
+        },
+        {
+          "student": "Chloe Tan Wei Ling",
+          "campus": "SG-PGL",
+          "class_name": "3C",
+          "fee": "WELFARE",
+          "description": "Student welfare, Term 2 (Nov 2026-Feb 2027)",
+          "quantity": 1,
+          "unit_amount": 150,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 13.5,
+          "line_total": 163.5
+        },
+        {
+          "student": "Chloe Tan Wei Ling",
+          "campus": "SG-PGL",
+          "class_name": "3C",
+          "fee": "ACTIVITY",
+          "description": "Activity, Term 2 (Nov 2026-Feb 2027)",
+          "quantity": 1,
+          "unit_amount": 220,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 19.8,
+          "line_total": 239.8
+        },
+        {
+          "student": "Chloe Tan Wei Ling",
+          "campus": "SG-PGL",
+          "class_name": "3C",
+          "fee": "TECH",
+          "description": "Technology, Term 2 (Nov 2026-Feb 2027)",
+          "quantity": 1,
+          "unit_amount": 300,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 27.0,
+          "line_total": 327.0
+        }
+      ],
+      "subtotal": 7770.0,
+      "adjustments": 0.0,
+      "tax": 699.3,
+      "total": 8469.3,
+      "amount_paid": 8469.3,
+      "amount_credited": 0,
+      "status": "PAID",
+      "amount_due": 0.0
+    },
+    {
+      "invoice_number": "SG-2026-041690",
+      "billing_account": "BA-SG-000601",
+      "campus": "SG-PGL",
+      "issuer": "GIIS Singapore operating entity (named after OQ-06)",
+      "source": "BILLING_RUN",
+      "billing_period": "Term 2 (Nov 2026-Feb 2027)",
+      "invoice_date": "2026-11-03",
+      "due_date": "2026-11-30",
+      "currency": "SGD",
+      "lines": [
+        {
+          "student": "Yuki Watanabe",
+          "campus": "SG-PGL",
+          "class_name": "5B",
+          "fee": "TUITION",
+          "description": "Tuition, Term 2 (Nov 2026-Feb 2027)",
+          "quantity": 1,
+          "unit_amount": 5900,
+          "share_percent": 100,
+          "adjustment": {
+            "type": "SCHOLARSHIP",
+            "label": "Merit scholarship 25% (synthetic)",
+            "amount": -1475.0
+          },
+          "tax": 398.25,
+          "line_total": 4823.25
+        },
+        {
+          "student": "Yuki Watanabe",
+          "campus": "SG-PGL",
+          "class_name": "5B",
+          "fee": "WELFARE",
+          "description": "Student welfare, Term 2 (Nov 2026-Feb 2027)",
+          "quantity": 1,
+          "unit_amount": 150,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 13.5,
+          "line_total": 163.5
+        },
+        {
+          "student": "Yuki Watanabe",
+          "campus": "SG-PGL",
+          "class_name": "5B",
+          "fee": "ACTIVITY",
+          "description": "Activity, Term 2 (Nov 2026-Feb 2027)",
+          "quantity": 1,
+          "unit_amount": 180,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 16.2,
+          "line_total": 196.2
+        },
+        {
+          "student": "Yuki Watanabe",
+          "campus": "SG-PGL",
+          "class_name": "5B",
+          "fee": "TECH",
+          "description": "Technology, Term 2 (Nov 2026-Feb 2027)",
+          "quantity": 1,
+          "unit_amount": 280,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 25.2,
+          "line_total": 305.2
+        },
+        {
+          "student": "Yuki Watanabe",
+          "campus": "SG-PGL",
+          "class_name": "5B",
+          "fee": "BUS",
+          "description": "Bus (Punggol route), Term 2 (Nov 2026-Feb 2027)",
+          "quantity": 1,
+          "unit_amount": 1040,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 93.6,
+          "line_total": 1133.6
+        }
+      ],
+      "subtotal": 7550.0,
+      "adjustments": -1475.0,
+      "tax": 546.75,
+      "total": 6621.75,
+      "amount_paid": 6621.75,
+      "amount_credited": 0,
+      "status": "PAID",
+      "amount_due": 0.0
+    },
+    {
+      "invoice_number": "SG-2026-040950",
+      "billing_account": "BA-SG-000690",
+      "campus": "SG-PGL",
+      "issuer": "GIIS Singapore operating entity (named after OQ-06)",
+      "source": "ADMISSION",
+      "billing_period": null,
+      "invoice_date": "2026-11-04",
+      "due_date": "2026-11-04",
+      "currency": "SGD",
+      "lines": [
+        {
+          "student": "Noah Fernandes",
+          "campus": "SG-PGL",
+          "class_name": null,
+          "fee": "REGISTRATION",
+          "description": "Registration fee, AY 2026-27 admission",
+          "quantity": 1,
+          "unit_amount": 1200,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 108.0,
+          "line_total": 1308.0
+        }
+      ],
+      "subtotal": 1200.0,
+      "adjustments": 0.0,
+      "tax": 108.0,
+      "total": 1308.0,
+      "amount_paid": 1308.0,
+      "amount_credited": 0,
+      "status": "PAID",
+      "amount_due": 0.0,
+      "linked_to": "AD09 Noah Fernandes REGISTRATION (contract in cooling-off until 17 Nov 2026)"
+    },
+    {
+      "invoice_number": "SG-2026-041120",
+      "billing_account": "BA-SG-000702",
+      "campus": "SG-PGL",
+      "issuer": "GIIS Singapore operating entity (named after OQ-06)",
+      "source": "ADMISSION",
+      "billing_period": null,
+      "invoice_date": "2026-11-05",
+      "due_date": "2026-11-05",
+      "currency": "SGD",
+      "lines": [
+        {
+          "student": "Sofia Rossi",
+          "campus": "SG-PGL",
+          "class_name": null,
+          "fee": "REGISTRATION",
+          "description": "Registration fee, AY 2026-27 admission",
+          "quantity": 1,
+          "unit_amount": 1200,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 108.0,
+          "line_total": 1308.0
+        }
+      ],
+      "subtotal": 1200.0,
+      "adjustments": 0.0,
+      "tax": 108.0,
+      "total": 1308.0,
+      "amount_paid": 0,
+      "amount_credited": 0,
+      "status": "ISSUED",
+      "amount_due": 1308.0,
+      "linked_to": "AD09 Sofia Rossi REGISTRATION DUE"
+    },
+    {
+      "invoice_number": "SG-2026-038640",
+      "billing_account": "BA-SG-000611",
+      "campus": "SG-PGL",
+      "issuer": "GIIS Singapore operating entity (named after OQ-06)",
+      "source": "ADMISSION",
+      "billing_period": null,
+      "invoice_date": "2026-10-08",
+      "due_date": "2026-10-08",
+      "currency": "SGD",
+      "lines": [
+        {
+          "student": "Hana Kim",
+          "campus": "SG-PGL",
+          "class_name": null,
+          "fee": "REGISTRATION",
+          "description": "Registration fee, AY 2026-27 admission",
+          "quantity": 1,
+          "unit_amount": 1200,
+          "share_percent": 100,
+          "adjustment": null,
+          "tax": 108.0,
+          "line_total": 1308.0
+        }
+      ],
+      "subtotal": 1200.0,
+      "adjustments": 0.0,
+      "tax": 108.0,
+      "total": 1308.0,
+      "amount_paid": 1308.0,
+      "amount_credited": 0,
+      "status": "CREDITED",
+      "amount_due": 0.0,
+      "linked_to": "AD09 Hana Kim REGISTRATION REFUNDED"
+    }
+  ],
+  "payments": [
+    {
+      "receipt": "RC-SG-2026-018220",
+      "account": "BA-SG-000418",
+      "channel": "GATEWAY",
+      "method": "PAYNOW",
+      "gateway_reference": "PN-7Q2K-88310",
+      "amount": 16112.93,
+      "status": "SUCCEEDED",
+      "received_at": "2026-07-22T09:14",
+      "allocations": [
+        {
+          "invoice": "SG-2026-030418",
+          "amount": 16112.93,
+          "allocated_by": "AUTO_OLDEST_FIRST"
+        }
+      ]
+    },
+    {
+      "receipt": "RC-SG-2026-019004",
+      "account": "BA-SG-000377",
+      "channel": "COUNTER",
+      "method": "CHEQUE",
+      "amount": 4000,
+      "status": "SUCCEEDED",
+      "received_at": "2026-08-19T11:02",
+      "recorded_by": "Siti Rahman",
+      "allocations": [
+        {
+          "invoice": "SG-2026-030377",
+          "amount": 4000,
+          "allocated_by": "FINANCE"
+        }
+      ]
+    },
+    {
+      "receipt": null,
+      "account": "BA-SG-000377",
+      "channel": "GATEWAY",
+      "method": "CARD",
+      "gateway_reference": "CRD-55X1-02977",
+      "amount": 2000,
+      "status": "FAILED",
+      "received_at": "2026-11-12T21:40",
+      "failure": "Card declined by issuer"
+    },
+    {
+      "receipt": "RC-SG-2026-024410",
+      "account": "BA-SG-000522",
+      "channel": "GATEWAY",
+      "method": "PAYNOW",
+      "gateway_reference": "PN-9M4C-11872",
+      "amount": 8469.3,
+      "status": "SUCCEEDED",
+      "received_at": "2026-11-06T08:31",
+      "allocations": [
+        {
+          "invoice": "SG-2026-041655",
+          "amount": 8469.3,
+          "allocated_by": "AUTO_OLDEST_FIRST"
+        }
+      ]
+    },
+    {
+      "receipt": "RC-SG-2026-024512",
+      "account": "BA-SG-000601",
+      "channel": "GATEWAY",
+      "method": "CARD",
+      "gateway_reference": "CRD-11B7-44120",
+      "amount": 6621.75,
+      "status": "SUCCEEDED",
+      "received_at": "2026-11-08T19:05",
+      "surcharge_amount": "Not set (OQ-82)",
+      "allocations": [
+        {
+          "invoice": "SG-2026-041690",
+          "amount": 6621.75,
+          "allocated_by": "AUTO_OLDEST_FIRST"
+        }
+      ]
+    },
+    {
+      "receipt": "RC-SG-2026-024020",
+      "account": "BA-SG-000690",
+      "channel": "BANK_TRANSFER",
+      "method": "BANK_TRANSFER",
+      "amount": 1308.0,
+      "status": "SUCCEEDED",
+      "received_at": "2026-11-04T15:20",
+      "recorded_by": "Siti Rahman",
+      "allocations": [
+        {
+          "invoice": "SG-2026-040950",
+          "amount": 1308.0,
+          "allocated_by": "FINANCE"
+        }
+      ]
+    }
+  ],
+  "credit_notes": [
+    {
+      "number": "CN-SG-2026-000311",
+      "invoice": "SG-2026-038640",
+      "reason_code": "REFUND",
+      "reason_note": "ICA rejected Student Pass on 2 Nov 2026; registration fee refunded less SGD 50 administrative charge (HB p.242-243)",
+      "total": 1258.0,
+      "approved_by": "Wendy Koh",
+      "status": "APPROVED"
+    },
+    {
+      "number": "CN-SG-2026-000318 (draft)",
+      "invoice": "SG-2026-041655",
+      "reason_code": "WITHDRAWAL_PRORATION",
+      "reason_note": "Chloe's last day 31 Dec 2026; withdrawal approved after the Term 2 cut-off (1 Oct), so Term 2 billed to December only: credit Jan-Feb, 2 of 4 months (SR-FB-08, SR-FB-16)",
+      "total": 4234.65,
+      "approved_by": null,
+      "status": "DRAFT"
+    }
+  ],
+  "refunds": [
+    {
+      "refund_id": "RF-SG-2026-0041",
+      "case": "CASE-SG-2026-1187",
+      "student": "Hana Kim",
+      "account": "BA-SG-000611",
+      "basis": "APPROVAL_REJECTED",
+      "notice_date": "2026-11-02",
+      "rule_set": "GIIS SG refund rules 2025-26",
+      "calculation": [
+        {
+          "fee": "REGISTRATION",
+          "paid": 1308.0,
+          "refund_percent": 100,
+          "admin_charge": 50,
+          "amount": 1258.0
+        }
+      ],
+      "refund_amount": 1258.0,
+      "approvals": [
+        {
+          "role": "Finance Controller",
+          "name": "Wendy Koh",
+          "decision": "APPROVED",
+          "at": "2026-11-04"
+        },
+        {
+          "role": "Country Director",
+          "name": "Vivek Menon",
+          "decision": "APPROVED",
+          "at": "2026-11-05"
+        }
+      ],
+      "due_by": "2026-11-11",
+      "status": "PAID",
+      "paid_at": "2026-11-10",
+      "payout": "Bank transfer to ••••4417"
+    },
+    {
+      "refund_id": "RF-SG-2026-0047",
+      "case": "CASE-SG-2026-1203",
+      "student": "Chloe Tan Wei Ling",
+      "account": "BA-SG-000522",
+      "basis": "OTHER_REASONS",
+      "notice_date": "2026-11-10",
+      "last_day": "2026-12-31",
+      "reason": "Family relocating to Australia",
+      "rule_set": "GIIS SG refund rules 2025-26",
+      "calculation": [
+        {
+          "fee": "TUITION",
+          "paid": "Term 2 paid in full",
+          "refund_percent": "Table 3B % not set (OQ-86)",
+          "amount": "Blocked"
+        }
+      ],
+      "refund_amount": "Blocked: Table 3B percentages not set (OQ-86)",
+      "documents_requested_at": "2026-11-11",
+      "documents_due": "2026-11-20",
+      "approvals": [
+        {
+          "role": "Finance Controller",
+          "name": "Wendy Koh",
+          "decision": "PENDING"
+        },
+        {
+          "role": "Country Director",
+          "name": "Vivek Menon",
+          "decision": "PENDING"
+        }
+      ],
+      "due_by": "2026-11-19",
+      "status": "CALCULATING",
+      "escalation": "Finance Controller if unpaid by 19 Nov; Country Director 4 working days later (HB p.245)"
+    },
+    {
+      "refund_id": "RF-IN-2026-0006",
+      "case": "CASE-IN-2026-0312",
+      "student": "Meher Kapoor",
+      "account": "BA-IN-000198",
+      "basis": "OTHER_REASONS",
+      "notice_date": "2026-07-30",
+      "rule_set": "Not set: GIIS India has no refund rule set (DL-59 pattern, OQ-86)",
+      "refund_amount": "Blocked",
+      "status": "CALCULATING",
+      "_note": "Shows the 'Not set' path; no India rule is documented"
+    }
+  ],
+  "adjustments": [
+    {
+      "student": "Ishita Sharma",
+      "type": "SIBLING",
+      "value": "5% of tuition",
+      "valid": "AY 2026-27",
+      "status": "APPROVED",
+      "approved_by": "Wendy Koh",
+      "_note": "Rule synthetic (OQ-83)"
+    },
+    {
+      "student": "Yuki Watanabe",
+      "type": "SCHOLARSHIP",
+      "value": "25% of tuition",
+      "valid": "AY 2026-27",
+      "status": "APPROVED",
+      "scholarship_ref": "SCH-26-0112",
+      "approved_by": "Wendy Koh"
+    },
+    {
+      "student": "Rohan Mehta",
+      "type": "WAIVER",
+      "value": "Bus fee Term 2 (route change)",
+      "status": "REQUESTED",
+      "requested_by": "Siti Rahman",
+      "reason": "Family moved off the bus route in October"
+    }
+  ],
+  "billing_pauses": [
+    {
+      "student": "Kavya Nair",
+      "campus": "SG-ECS",
+      "reason": "LONG_LEAVE",
+      "pause_from": "2026-12-01",
+      "pause_to": "2027-02-28",
+      "case": "CASE-SG-2026-1150",
+      "approved_by": "Associate Director Academic Quality Assurance (HB p.239)",
+      "_note": "Synthetic: family returning to India for three months"
+    }
+  ],
+  "reminders": [
+    {
+      "invoice": "SG-2026-030377",
+      "step": "OVERDUE_7D",
+      "channel": "PARENT_APP",
+      "sent_at": "2026-08-07",
+      "sent_by": "SCHEDULE"
+    },
+    {
+      "invoice": "SG-2026-030377",
+      "step": "OVERDUE_30D",
+      "channel": "EMAIL",
+      "sent_at": "2026-08-30",
+      "sent_by": "SCHEDULE"
+    },
+    {
+      "invoice": "SG-2026-030377",
+      "step": "MANUAL",
+      "channel": "WHATSAPP",
+      "sent_at": "2026-10-15",
+      "sent_by": "FINANCE_MANUAL",
+      "by": "Siti Rahman"
+    },
+    {
+      "invoice": "SG-2026-041877",
+      "step": "BEFORE_DUE_7D",
+      "channel": "PARENT_APP",
+      "scheduled_for": "2026-11-23",
+      "sent_by": "SCHEDULE"
+    }
+  ],
+  "fee_protection_records": [
+    {
+      "student": "Aarav Sharma",
+      "campus": "SG-PGL",
+      "insurer": "Insurer named in the brand-country setting (HB p.246)",
+      "certificate": "FPS-26-PGL-00418A",
+      "cover_from": "2026-07-13",
+      "cover_to": "2027-06-25",
+      "status": "PURCHASED"
+    },
+    {
+      "student": "Ishita Sharma",
+      "campus": "SG-ECS",
+      "insurer": "Insurer named in the brand-country setting (HB p.246)",
+      "certificate": "FPS-26-ECS-00418B",
+      "cover_from": "2026-07-13",
+      "cover_to": "2027-06-25",
+      "status": "PURCHASED"
+    },
+    {
+      "student": "Rohan Mehta",
+      "campus": "SG-PGL",
+      "insurer": "Insurer named in the brand-country setting (HB p.246)",
+      "certificate": "FPS-26-PGL-00377A",
+      "cover_from": "2026-07-13",
+      "cover_to": "2027-06-25",
+      "status": "PURCHASED"
+    },
+    {
+      "student": "Chloe Tan Wei Ling",
+      "campus": "SG-PGL",
+      "insurer": "Insurer named in the brand-country setting (HB p.246)",
+      "certificate": "FPS-26-PGL-00522A",
+      "cover_from": "2026-07-13",
+      "cover_to": "2027-06-25",
+      "status": "PURCHASED (to cancel on withdrawal, HB p.237)"
+    },
+    {
+      "student": "Yuki Watanabe",
+      "campus": "SG-PGL",
+      "insurer": "Insurer named in the brand-country setting (HB p.246)",
+      "certificate": "FPS-26-PGL-00601A",
+      "cover_from": "2026-07-13",
+      "cover_to": "2027-06-25",
+      "status": "PURCHASED"
+    },
+    {
+      "student": "Daniel Lee",
+      "campus": "SG-ECS",
+      "insurer": "Insurer named in the brand-country setting (HB p.246)",
+      "certificate": null,
+      "cover_from": "2027-01-04",
+      "cover_to": null,
+      "status": "REQUIRED"
+    },
+    {
+      "student": "Noah Fernandes",
+      "campus": "SG-PGL",
+      "insurer": "Insurer named in the brand-country setting (HB p.246)",
+      "certificate": null,
+      "cover_from": null,
+      "cover_to": null,
+      "status": "REQUIRED (after enrolment)"
+    }
+  ],
+  "parent_view_neha": {
+    "whats_due": [
+      {
+        "invoice": "SG-2026-041877",
+        "label": "Term 2 (Nov 2026-Feb 2027)",
+        "amount": 16112.93,
+        "due": "2026-11-30"
+      },
+      {
+        "invoice": "SG-2026-042010",
+        "label": "Science Centre visit (Aarav)",
+        "amount": 49.05,
+        "due": "2026-11-24"
+      }
+    ],
+    "total_due": 16161.98,
+    "pay_methods": [
+      "PayNow",
+      "Card"
+    ],
+    "history": [
+      "RC-SG-2026-018220 PayNow 22 Jul 2026"
+    ]
+  }
+}

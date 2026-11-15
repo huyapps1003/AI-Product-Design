@@ -56,6 +56,17 @@ Codes follow `module.object.action` (DL-53; new capabilities reviewed by the reg
 | `classes.placement.manage`, `classes.placement.approve_over_limit` | UPDATE, APPROVE | OBJ-15, OBJ-03 | New (DL-72; who: OQ-73) |
 | `classes.house.assign` | UPDATE | OBJ-15, OBJ-03 | New (DL-76) |
 | `classes.rollover.prepare`, `classes.rollover.approve` | MANAGE, APPROVE | OBJ-15, OBJ-03 | New (DL-75) |
+| `fees.catalogue.manage` | MANAGE | OBJ-23 | New (fees & billing dictionary, DL-78) |
+| `fees.plan.edit`, `fees.plan.approve` | UPDATE, APPROVE | OBJ-23 | New (DL-78; Finance Controller approves) |
+| `fees.account.view`, `fees.account.manage` | VIEW, MANAGE | OBJ-23, OBJ-04 | New (DL-79) |
+| `fees.adjustment.request`, `fees.adjustment.approve` | CREATE, APPROVE | OBJ-23 | New (DL-81; approver OQ-83) |
+| `fees.run.prepare`, `fees.run.approve` | MANAGE, APPROVE | OBJ-23 | New (DL-80) |
+| `fees.invoice.view`, `fees.invoice.issue_one_off`, `fees.invoice.void` | VIEW, CREATE, UPDATE | OBJ-23 | New (DL-80) |
+| `fees.credit_note.create`, `fees.credit_note.approve` | CREATE, APPROVE | OBJ-23 | New (DL-80) |
+| `fees.payment.record`, `fees.payment.reverse` | CREATE, UPDATE | OBJ-23 | New (DL-82) |
+| `fees.status.view` | VIEW | OBJ-23, OBJ-03 | New (DL-83; Admissions, Principal; never teachers) |
+| `fees.refund.prepare`, `fees.refund.approve`, `fees.refund.pay` | MANAGE, APPROVE, UPDATE | OBJ-23, OBJ-10 | New (DL-84; `.pay` reveals masked bank details) |
+| `fees.fps.manage` | MANAGE | OBJ-23 | New (SG regulator pack) |
 | `student.guardian.view`, `student.guardian_contact.view` | VIEW | OBJ-04 | New |
 | `student.guardian.verify`, `student.guardian.edit` | APPROVE, UPDATE | OBJ-04 | New |
 | `teaching.allocation.view`, `teaching.allocation.manage` | VIEW, MANAGE | OBJ-12 | New |

@@ -22,6 +22,9 @@ Use these terms exactly in screens and specs. Where a term's definition is still
 | **Class** | A group of students taught together, such as 7B | Confirmed (DL-29) |
 | **Class plan** | How many classes a grade runs in a year and each class's size limit; set by the Principal; its total is the Admissions seat limit | Confirmed (DL-71; seat rule Confirmed DL-61) |
 | **Class move** | Moving a student to another class of the same campus, programme and year; not a transfer | Confirmed (DL-72) |
+| **Billing account** | What one payer (a parent or a sponsor) settles in one brand-country; siblings they pay for share one statement | Confirmed (DL-79) |
+| **Fee plan** | A campus's fees for one programme offering, grade(s) and academic year; approved by the Finance Controller and versioned, never edited | Confirmed (DL-78) |
+| **Fee status** | CLEAR, DUE, OVERDUE or PAUSED per enrolment; the only finance fact other modules read | Confirmed (DL-83) |
 | **Rollover** | The year-end run that moves a campus's students into next year's grades and classes (promotion, retention, stage-campus promotion) | Confirmed (DL-75); promotion vs transfer Confirmed (DL-54) |
 | **House** | A student team that runs across years, such as House B | Known (HB p.169); list per campus Open (OQ-20) |
 | **Student ID** | The number people use for a student; unique across Campus OS and kept on campus transfer | Confirmed (DL-31) |
