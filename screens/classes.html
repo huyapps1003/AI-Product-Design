@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Classes Prototype</title>
+<!--
+  Screens: SCR-CL-01 Classes overview · SCR-CL-02 Class detail (roster, staff, history) · SCR-CL-03 Needs a class · SCR-CL-04 Class plan · SCR-CL-05 Rollover · SCR-CL-06 Houses · SCR-CL-07 Class settings
+  Viewers: Dr Anita Rao (Principal, SG-PGL) · Meera Joshi (Academic Coordinator, SG-PGL) · Farah Ismail (Class teacher 7B) · Lina Goh (Admissions, SG-PGL) · Claire Tan (Principal, OWIS SG-OWD)
+  Objects: OBJ-15 Class (primary), OBJ-03 Enrolment, OBJ-02 Student
+  Sample: product-truth/03-domain/samples/classes-sample.json · today 14 Nov 2026 · synthetic
+  DL: DL-70…DL-76 (Confirmed 14 Nov 2026, PR #19) · DL-29 DL-30 DL-54 DL-61 DL-62 DL-63 DL-65 DL-66 · OQ shown as pending: OQ-73 OQ-74 OQ-75 OQ-76 OQ-77 OQ-79
+  Spec: Classes Data Dictionary v0.1 (PR #19)
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#00A76F;--primary-dark:#007867;--primary-soft:rgba(0,167,111,.08);--primary-soft2:rgba(0,167,111,.16);
+  --secondary:#8E33FF;--secondary-soft:rgba(142,51,255,.08);
+  --error:#B71D18;--error-soft:rgba(255,86,48,.12);
+  --warning:#B76E00;--warning-soft:rgba(255,171,0,.14);--warning-line:#FFAB00;
+  --info:#006C9C;--info-soft:rgba(0,184,217,.12);
+  --success:#118D57;--success-soft:rgba(34,197,94,.14);
+  --text:#212B36;--text2:#637381;--text3:#919EAB;
+  --bg:#FFFFFF;--paper:#FFFFFF;--neutral:#F4F6F8;--canvas:#EDEFF2;
+  --divider:rgba(145,158,171,.2);--line:rgba(145,158,171,.32);
+  --z1:0 1px 2px rgba(145,158,171,.16);
+  --card:0 0 2px 0 rgba(145,158,171,.2),0 12px 24px -4px rgba(145,158,171,.12);
+  --scrim:rgba(22,28,36,.48);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --primary:#5BE49B;--primary-dark:#5BE49B;--primary-soft:rgba(91,228,155,.10);--primary-soft2:rgba(91,228,155,.18);
+  --secondary:#C684FF;--secondary-soft:rgba(198,132,255,.12);
+  --error:#FFAC82;--error-soft:rgba(255,86,48,.18);
+  --warning:#FFD666;--warning-soft:rgba(255,171,0,.16);
+  --info:#61F3F3;--info-soft:rgba(0,184,217,.16);
+  --success:#77ED8B;--success-soft:rgba(34,197,94,.16);
+  --text:#FFFFFF;--text2:#919EAB;--text3:#637381;
+  --bg:#161C24;--paper:#212B36;--neutral:#28323D;--canvas:#10141A;
+  --card:0 0 2px 0 rgba(0,0,0,.2),0 12px 24px -4px rgba(0,0,0,.16);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --primary:#5BE49B;--primary-dark:#5BE49B;--primary-soft:rgba(91,228,155,.10);--primary-soft2:rgba(91,228,155,.18);
+  --secondary:#C684FF;--secondary-soft:rgba(198,132,255,.12);
+  --error:#FFAC82;--error-soft:rgba(255,86,48,.18);
+  --warning:#FFD666;--warning-soft:rgba(255,171,0,.16);
+  --info:#61F3F3;--info-soft:rgba(0,184,217,.16);
+  --success:#77ED8B;--success-soft:rgba(34,197,94,.16);
+  --text:#FFFFFF;--text2:#919EAB;--text3:#637381;
+  --bg:#161C24;--paper:#212B36;--neutral:#28323D;--canvas:#10141A;
+  --card:0 0 2px 0 rgba(0,0,0,.2),0 12px 24px -4px rgba(0,0,0,.16);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--canvas);color:var(--text);font:400 14px/1.57 "Public Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.mono{font-variant-numeric:tabular-nums}
+
+/* ---------- Prototype toolbar (not part of the product) ---------- */
+.proto{position:sticky;top:0;z-index:30;background:var(--paper);border-bottom:1px solid var(--divider);
+  padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));
+  display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+.proto-title{font-weight:700;font-size:13px;margin-right:auto;display:flex;gap:8px;align-items:center}
+.proto-title small{font-weight:500;color:var(--text2)}
+.ctl{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2)}
+.seg{display:inline-flex;background:var(--neutral);border-radius:8px;padding:3px}
+.seg button{border:0;background:transparent;padding:5px 10px;border-radius:6px;font-size:12px;font-weight:600;color:var(--text2);white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--paper);color:var(--text);box-shadow:var(--z1)}
+
+.stage{padding:24px max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
+.device{margin:0 auto;background:var(--bg);border-radius:16px;overflow:hidden;box-shadow:var(--card);max-width:1440px}
+.stage.mobile .device{max-width:390px;height:800px;border-radius:36px;border:10px solid #161C24;display:flex;flex-direction:column}
+.stage.mobile .app{flex:1;overflow:auto}
+
+/* ---------- App shell ---------- */
+.app{container-type:inline-size;background:var(--bg);min-height:640px}
+.shell{display:grid;grid-template-columns:280px 1fr;min-height:100%}
+.side{border-right:1px dashed var(--line);padding:20px 16px;display:flex;flex-direction:column;gap:4px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;padding:4px 8px 20px}
+.logo i{width:32px;height:32px;border-radius:10px;background:var(--primary);display:grid;place-items:center;color:#fff;font-style:normal;font-size:14px}
+:root[data-theme="dark"] .logo i{color:#161C24}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo i{color:#161C24}}
+.nav-h{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);padding:12px 12px 6px}
+.nav a{display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:8px;color:var(--text2);text-decoration:none;font-weight:500;min-height:44px}
+.nav a.on{background:var(--primary-soft);color:var(--primary);font-weight:600}
+.nav svg{width:22px;height:22px;flex:none}
+
+.main{min-width:0;display:flex;flex-direction:column}
+.top{height:64px;display:flex;align-items:center;gap:12px;padding:0 24px;border-bottom:1px solid var(--divider);position:sticky;top:0;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(6px);z-index:5}
+.scope{display:flex;align-items:center;gap:6px;min-width:0;border:1px solid var(--line);border-radius:8px;padding:6px 10px;background:transparent;font-size:13px;font-weight:500}
+.scope span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.scope .sep{color:var(--text3)}
+.scope b{font-weight:700}
+.top .grow{flex:1}
+.iconbtn{width:40px;height:40px;border-radius:50%;border:0;background:transparent;display:grid;place-items:center;color:var(--text2)}
+.iconbtn svg{width:22px;height:22px}
+.me{display:flex;align-items:center;gap:10px}
+.me .who{line-height:1.25;text-align:right}
+.me .who b{display:block;font-size:13px}
+.me .who small{color:var(--text2);font-size:12px;white-space:nowrap}
+.seg{flex-wrap:wrap}
+.proto .ctl{flex-wrap:wrap}
+
+.avatar{border-radius:50%;display:grid;place-items:center;font-weight:700;flex:none}
+.av-sm{width:36px;height:36px;font-size:13px;background:var(--secondary-soft);color:var(--secondary)}
+
+.content{padding:24px 40px 48px;max-width:1200px;width:100%;margin:0 auto}
+.crumbs{font-size:13px;color:var(--text2);display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.crumbs .dot{width:4px;height:4px;border-radius:50%;background:var(--text3);align-self:center}
+.crumbs b{color:var(--text);font-weight:500}
+
+/* Person header AP-03 */
+.hero{background:var(--paper);border-radius:16px;box-shadow:var(--card);overflow:hidden;margin-bottom:24px}
+.hero-band{height:72px;background:linear-gradient(120deg,var(--primary-soft2),var(--secondary-soft))}
+.hero-body{display:flex;gap:20px;padding:0 24px 20px;align-items:flex-end;flex-wrap:wrap;margin-top:-36px}
+.av-xl{width:96px;height:96px;font-size:32px;background:var(--primary);color:#fff;border:4px solid var(--paper)}
+:root[data-theme="dark"] .av-xl{color:#161C24}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .av-xl{color:#161C24}}
+.hero-id{flex:1;min-width:220px;padding-top:40px}
+.hero-id h1{margin:0;font-size:24px;line-height:1.3;font-weight:700}
+.hero-meta{color:var(--text2);font-size:14px;margin-top:2px;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.hero-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+.chip{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 8px;border-radius:6px;font-size:12px;font-weight:700;line-height:1;white-space:nowrap}
+.c-success{background:var(--success-soft);color:var(--success)}
+.c-warning{background:var(--warning-soft);color:var(--warning)}
+.c-error{background:var(--error-soft);color:var(--error)}
+.c-info{background:var(--info-soft);color:var(--info)}
+.c-default{background:var(--neutral);color:var(--text2)}
+.c-role{background:var(--secondary-soft);color:var(--secondary)}
+.c-pending{background:transparent;border:1px solid var(--warning-line);color:var(--warning);font-weight:600}
+.c-source{background:var(--info-soft);color:var(--info);font-weight:600}
+.chip svg{width:13px;height:13px}
+
+.btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--line);background:transparent;font-weight:700;font-size:14px;white-space:nowrap}
+.btn-primary{background:var(--text);color:var(--bg);border-color:var(--text)}
+.btn-sm{height:30px;padding:0 10px;font-size:13px}
+.btn-ghost{border-color:transparent;color:var(--primary)}
+.btn svg{width:18px;height:18px}
+
+/* Tabs */
+.tabs{display:flex;gap:28px;border-bottom:1px solid var(--divider);padding:0 24px;overflow-x:auto;scrollbar-width:none}
+.tabs a{padding:12px 0;color:var(--text2);text-decoration:none;font-weight:600;white-space:nowrap;border-bottom:2px solid transparent}
+.tabs a.on{color:var(--text);border-color:var(--text)}
+
+/* Cards */
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+.span2{grid-column:1/-1}
+.card{background:var(--paper);border-radius:16px;box-shadow:var(--card);scroll-margin-top:80px}
+.card-h{display:flex;align-items:center;gap:8px;padding:20px 24px 0;flex-wrap:wrap}
+.card-h h2{margin:0;font-size:17px;font-weight:700;margin-right:auto}
+.card-b{padding:16px 24px 24px}
+.why{border:0;background:transparent;color:var(--text2);font-size:12px;font-weight:600;display:inline-flex;gap:4px;align-items:center;padding:4px 6px;border-radius:6px;min-height:32px}
+.why:hover{background:var(--neutral)}
+.why svg{width:16px;height:16px}
+.explain{margin:12px 24px 0;padding:12px 14px;border-radius:10px;background:var(--neutral);font-size:13px}
+.explain dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0}
+.explain dt{color:var(--text2)}
+.explain dd{margin:0;font-weight:500;overflow-wrap:anywhere}
+.explain code{font-size:12px;background:var(--paper);padding:1px 5px;border-radius:4px}
+
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 24px}
+.f{min-width:0}
+.f .l{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.f .v{font-weight:500;margin-top:2px;overflow-wrap:anywhere;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tier{font-size:10px;font-weight:700;color:var(--text3);border:1px solid var(--line);border-radius:4px;padding:0 4px;line-height:16px}
+
+.masked{display:inline-flex;align-items:center;gap:6px;color:var(--text2);font-family:ui-monospace,Menlo,monospace;letter-spacing:.04em}
+.masked svg{width:15px;height:15px}
+
+.noaccess{display:flex;gap:14px;align-items:flex-start;padding:16px;border:1px dashed var(--line);border-radius:12px}
+.noaccess .ico{width:40px;height:40px;border-radius:12px;background:var(--neutral);display:grid;place-items:center;color:var(--text2);flex:none}
+.noaccess .ico svg{width:22px;height:22px}
+.noaccess b{display:block}
+.noaccess p{margin:2px 0 0;color:var(--text2);font-size:13px}
+
+.addr{display:flex;flex-direction:column;gap:12px}
+.addr-row{padding:12px 14px;border-radius:10px;border:1px solid var(--divider)}
+.addr-row .l{font-size:12px;color:var(--text2);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.addr-row .v{font-weight:500;margin-top:2px}
+
+.doc{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:14px;border-radius:12px;border:1px solid var(--divider);margin-bottom:12px}
+.doc .t{font-weight:700;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.doc .s{grid-column:1/-1;color:var(--text2);font-size:13px;display:flex;flex-wrap:wrap;gap:4px 14px}
+.logline{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--text2);padding:10px 12px;border-radius:8px;background:var(--info-soft);margin-top:4px}
+.logline svg{width:16px;height:16px;color:var(--info);flex:none;margin-top:1px}
+
+/* Timeline AP-05 */
+.tl{list-style:none;margin:0;padding:0}
+.tl li{position:relative;padding:0 0 20px 28px}
+.tl li::before{content:"";position:absolute;left:6px;top:20px;bottom:0;width:2px;background:var(--divider)}
+.tl li:last-child::before{display:none}
+.tl .dotm{position:absolute;left:0;top:5px;width:14px;height:14px;border-radius:50%;border:3px solid var(--paper);box-shadow:0 0 0 2px var(--line);background:var(--text3)}
+.tl .dotm.cur{background:var(--success);box-shadow:0 0 0 2px var(--success-soft)}
+.tl .h{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-weight:700}
+.tl .m{color:var(--text2);font-size:13px}
+
+.guard{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.g{border:1px solid var(--divider);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.g-top{display:flex;gap:12px;align-items:center}
+.av-md{width:44px;height:44px;font-size:15px;background:var(--info-soft);color:var(--info)}
+.g-top b{display:block}
+.g-top small{color:var(--text2)}
+.flags{display:flex;gap:6px;flex-wrap:wrap}
+.contact{display:flex;flex-direction:column;gap:4px;font-size:13px}
+.contact div{display:flex;gap:8px;align-items:center}
+.contact svg{width:16px;height:16px;color:var(--text3);flex:none}
+
+.pendcard{border:1px dashed var(--warning-line);border-radius:12px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;background:transparent}
+.pendcard p{margin:2px 0 0;color:var(--text2);font-size:13px}
+
+.foot{margin-top:24px;font-size:12px;color:var(--text3)}
+
+/* Bottom nav for compact widths */
+.bnav{display:none}
+
+/* ---------- Compact layout, driven by frame width ---------- */
+@container (max-width: 1080px){
+  .shell{grid-template-columns:88px 1fr}
+  .side .logo span,.nav-h,.nav a span{display:none}
+  .nav a{justify-content:center;padding:10px}
+  .content{padding:24px 24px 48px}
+}
+@container (max-width: 860px){
+  .grid,.guard{grid-template-columns:minmax(0,1fr)}
+  .me .who{display:none}
+}
+@container (max-width: 640px){
+  .shell{grid-template-columns:1fr}
+  .side{display:none}
+  .top{padding:0 12px;height:56px}
+  .scope .hide-sm{display:none}
+  .content{padding:16px 16px 96px}
+  .hero-body{padding:0 16px 16px;gap:12px}
+  .av-xl{width:72px;height:72px;font-size:24px}
+  .hero-id{padding-top:0;min-width:100%}
+  .hero-id h1{font-size:20px}
+  .hero-actions{width:100%}
+  .hero-actions .btn{flex:1;justify-content:center}
+  .tabs{padding:0 16px;gap:20px}
+  .card-h{padding:16px 16px 0}
+  .card-b{padding:12px 16px 16px}
+  .explain{margin:12px 16px 0}
+  .fields{grid-template-columns:minmax(0,1fr)}
+  .crumbs{display:none}
+  .bnav{display:flex;position:sticky;bottom:0;background:var(--paper);border-top:1px solid var(--divider);justify-content:space-around;padding:6px 0 calc(6px + env(safe-area-inset-bottom,0px))}
+  .bnav a{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;font-weight:600;color:var(--text2);text-decoration:none;min-width:64px;min-height:44px;justify-content:center}
+  .bnav a.on{color:var(--primary)}
+  .bnav svg{width:22px;height:22px}
+}
+
+/* Dialog */
+.scrim{position:fixed;inset:0;background:var(--scrim);display:grid;place-items:center;padding:16px;z-index:50}
+.dlg{background:var(--paper);border-radius:16px;box-shadow:0 24px 48px rgba(0,0,0,.24);width:100%;max-width:480px;padding:24px}
+.dlg h3{margin:0 0 4px;font-size:18px}
+.dlg p{margin:0 0 16px;color:var(--text2);font-size:13px}
+.dlg label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin:12px 0 6px}
+.dlg select,.dlg textarea{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.dlg textarea{min-height:72px;resize:vertical}
+.dlg .row{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+.dlg .btn-primary:disabled{opacity:.4;cursor:not-allowed}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:600;font-size:13px;z-index:60;max-width:calc(100% - 32px)}
+
+.content a:not(.btn):not(.tabs a){color:var(--primary-dark);font-weight:600;text-decoration:none}
+.content a:not(.btn):not(.tabs a):hover{text-decoration:underline}
+.page-h{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.page-h h1{margin:0;font-size:24px;font-weight:700;line-height:1.3}
+.page-h p{margin:2px 0 0;color:var(--text2)}
+.page-h .grow{flex:1}
+.listcard{background:var(--paper);border-radius:16px;box-shadow:var(--card);overflow:hidden}
+.qtabs{display:flex;gap:24px;padding:0 20px;border-bottom:1px solid var(--divider);overflow-x:auto;scrollbar-width:none}
+.qtabs button{border:0;background:transparent;padding:12px 0;font-weight:600;color:var(--text2);white-space:nowrap;border-bottom:2px solid transparent;display:flex;gap:6px;align-items:center;min-height:44px}
+.qtabs button[aria-pressed="true"]{color:var(--text);border-color:var(--text)}
+.cnt{font-size:11px;font-weight:700;border-radius:6px;padding:1px 6px;background:var(--neutral);color:var(--text2)}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:13px;font-weight:600;color:var(--text2);background:var(--neutral);padding:12px 16px;white-space:nowrap}
+td{padding:14px 16px;border-bottom:1px dashed var(--divider);vertical-align:middle}
+tbody tr.click{cursor:pointer}
+tbody tr.click:hover td{background:var(--primary-soft)}
+.sub{color:var(--text2);font-size:12px}
+.whoc{display:flex;gap:12px;align-items:center;min-width:0}
+.whoc b{display:block;font-weight:600;white-space:nowrap}
+.av-row{width:40px;height:40px;font-size:13px;background:var(--primary-soft2);color:var(--primary-dark)}
+.scopebar{display:flex;gap:10px;align-items:flex-start;padding:10px 14px;border-radius:10px;background:var(--neutral);font-size:13px;margin:16px 20px}
+.scopebar svg{width:16px;height:16px;color:var(--text2);flex:none;margin-top:2px}
+
+/* Board */
+.board{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(220px,1fr);gap:16px;overflow-x:auto;padding-bottom:8px}
+.col{background:var(--neutral);border-radius:16px;padding:12px;min-height:200px;display:flex;flex-direction:column;gap:10px}
+.col-h{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13px;padding:2px 4px}
+.kcard{background:var(--paper);border-radius:12px;box-shadow:var(--z1);padding:12px;border:1px solid var(--divider);text-align:left;display:flex;flex-direction:column;gap:6px;width:100%}
+.kcard:hover{border-color:var(--primary)}
+.kcard b{font-size:14px}
+.kcard .blk{font-size:12px;color:var(--warning);display:flex;gap:4px;align-items:flex-start}
+.kcard .blk svg{width:14px;height:14px;flex:none;margin-top:2px}
+.kempty{font-size:12px;color:var(--text3);padding:8px 4px}
+
+/* Stepper */
+.steps{display:flex;gap:0;padding:16px 24px 20px;overflow-x:auto;scrollbar-width:none}
+.step{flex:1;min-width:96px;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;font-size:12px;color:var(--text2);text-align:center}
+.step::before{content:"";position:absolute;top:11px;left:-50%;right:50%;height:2px;background:var(--divider)}
+.step:first-child::before{display:none}
+.step .d{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--neutral);color:var(--text2);font-weight:700;font-size:11px;position:relative;z-index:1}
+.step.done .d{background:var(--success);color:#fff}
+.step.done::before,.step.cur::before{background:var(--success)}
+.step.cur .d{background:var(--text);color:var(--bg)}
+.step.cur{color:var(--text);font-weight:700}
+.step.bad .d{background:var(--error);color:#fff}
+
+/* Capacity bar */
+.bar{height:8px;border-radius:4px;background:var(--neutral);overflow:hidden;display:flex;min-width:120px}
+.bar i{display:block;height:100%}
+.bar .e{background:var(--primary)}
+.bar .h{background:var(--warning-line)}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--text2);flex-wrap:wrap}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+.kv{display:grid;grid-template-columns:200px 1fr;gap:10px 16px;font-size:14px}
+.kv dt{color:var(--text2)}
+.kv dd{margin:0;font-weight:500;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.notset{color:var(--warning);font-weight:700;display:inline-flex;gap:4px;align-items:center}
+.notset svg{width:15px;height:15px}
+.settings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.count{display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:12px;background:var(--warning-soft);color:var(--warning);font-weight:600;font-size:13px}
+.count svg{width:20px;height:20px;flex:none}
+.blocked{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:12px;border:1px solid var(--warning-line);font-size:13px}
+.blocked svg{width:20px;height:20px;color:var(--warning);flex:none}
+.blocked b{display:block}
+.list-row{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px dashed var(--divider);flex-wrap:wrap}
+.list-row:last-child{border-bottom:0}
+.list-row .grow{flex:1;min-width:160px}
+.pos{width:28px;height:28px;border-radius:8px;background:var(--neutral);display:grid;place-items:center;font-weight:700;font-size:13px;flex:none}
+.dlg input[type=text]{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.drawer-kids{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.drawer-kids div{padding:10px 12px;border:1px solid var(--divider);border-radius:10px}
+@container (max-width: 860px){.settings{grid-template-columns:minmax(0,1fr)}.kv{grid-template-columns:minmax(0,1fr);gap:2px 0}.kv dd{margin-bottom:10px}}
+@container (max-width: 640px){.page-h h1{font-size:20px}.steps{padding:12px 16px 16px}.board{grid-auto-columns:minmax(240px,80%)}}
+/* ---------- Classes additions ---------- */
+.ccards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.ccard{background:var(--paper);border-radius:14px;box-shadow:var(--card);padding:16px;text-align:left;border:1px solid transparent;display:flex;flex-direction:column;gap:8px;width:100%}
+.ccard:hover{border-color:var(--primary)}
+.ccard .t{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ccard .t b{font-size:16px;margin-right:auto}
+.ccard .m{font-size:13px;color:var(--text2);display:flex;gap:4px 12px;flex-wrap:wrap}
+.gh{display:flex;align-items:baseline;gap:10px;margin:28px 0 12px;flex-wrap:wrap}
+.gh h2{margin:0;font-size:16px}
+.gh .sub{font-size:13px}
+.fill{display:flex;align-items:center;gap:10px;font-size:13px}
+.fill .bar{flex:1;min-width:80px}
+.bar .o{background:var(--error)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.filters select,.dlg input[type=date],.dlg input[type=number]{font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 10px}
+.dlg input[type=date]{width:100%;padding:10px 12px}
+.hdot{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none}
+.stepper{display:inline-flex;align-items:center;gap:6px}
+.stepper button{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:transparent;font-weight:700}
+.stepper button:disabled{opacity:.35;cursor:not-allowed}
+.dlg .opt,.opt{display:flex;font-size:14px;font-weight:400;color:var(--text);margin:0 0 8px;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--divider);border-radius:10px;margin-bottom:8px;cursor:pointer}
+.opt input{accent-color:var(--primary)}
+.opt.dis{opacity:.55}
+.opt .grow{flex:1}
+.houses{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.house{background:var(--paper);border-radius:14px;box-shadow:var(--card);padding:16px;display:flex;flex-direction:column;gap:6px}
+.house b{font-size:22px}
+.note{font-size:12px;color:var(--text2);margin-top:6px}
+.proto-note{border:1px dashed var(--line);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--text2);margin-top:24px}
+.sumrow{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 16px}
+.stat{background:var(--paper);border-radius:12px;box-shadow:var(--card);padding:12px 16px;min-width:120px}
+.stat b{display:block;font-size:20px}
+.stat span{font-size:12px;color:var(--text2)}
+@container (max-width: 860px){.houses{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@container (max-width: 640px){.roster td,.roster th{padding:10px 8px}.roster .hname{display:none}.roster .whoc{gap:8px}.roster .av-row{display:none}.ccards{grid-template-columns:minmax(0,1fr)}.hide-phone{display:none}}
+</style></head><body>
+<div class="proto" role="region" aria-label="Prototype controls">
+  <div class="proto-title">Classes prototype <small>Campus OS · synthetic data · today 14 Nov 2026</small></div>
+  <div class="ctl">Viewer
+    <div class="seg" id="viewers">
+      <button data-v="anita" aria-pressed="true">Dr Rao · Principal SG-PGL</button>
+      <button data-v="meera" aria-pressed="false">Meera · Coordinator</button>
+      <button data-v="farah" aria-pressed="false">Farah · Class teacher 7B</button>
+      <button data-v="lina" aria-pressed="false">Lina · Admissions</button>
+      <button data-v="claire" aria-pressed="false">Claire · Principal OWIS</button>
+    </div>
+  </div>
+  <div class="ctl">Frame
+    <div class="seg" id="frame"><button data-f="desk" aria-pressed="true">Desktop</button><button data-f="phone" aria-pressed="false">Phone</button></div>
+  </div>
+  <div class="ctl">Theme
+    <div class="seg" id="theme"><button data-t="light" aria-pressed="false">Light</button><button data-t="dark" aria-pressed="false">Dark</button><button data-t="auto" aria-pressed="true">Auto</button></div>
+  </div>
+</div>
+<div class="stage" id="stage"><div class="device"><div class="app">
+  <div class="shell">
+    <aside class="side" aria-label="Main navigation">
+      <div class="logo"><i>C</i><span>Campus OS</span></div>
+      <div class="nav-h">Classes</div>
+      <nav class="nav" id="nav"></nav>
+      <div class="nav-h">Students</div>
+      <nav class="nav"><a href="https://claude.ai/artifact/Sneeg5s7geUy7XwHmhJJZA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5c2 .6 3.2 2.5 3.5 5.5"/></svg><span>Student directory ↗</span></a>
+      <a href="https://claude.ai/artifact/6MBfaHBUpbffAVR3hoEckJ" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v11H8l-4 4z"/></svg><span>Admissions ↗</span></a></nav>
+    </aside>
+    <div class="main">
+      <header class="top">
+        <button class="scope" id="scopeBtn" title="Current scope"><span id="scopeTxt"></span></button>
+        <div class="grow"></div>
+        <div class="me"><div class="who"><b id="meName"></b><small id="meRole"></small></div><div class="avatar av-sm" id="meAv"></div></div>
+      </header>
+      <main class="content" id="view" tabindex="-1"></main>
+      <nav class="bnav" id="bnav"></nav>
+    </div>
+  </div>
+</div></div></div>
+<div id="layer"></div>
+<script>
+(function(){
+'use strict';
+/* ---------- Data (synthetic, from product-truth/03-domain/samples/classes-sample.json) ---------- */
+const VIEWERS={
+  anita:{name:'Dr Anita Rao',role:'Principal',ini:'AR',campus:'SG-PGL',kind:'principal',scope:['GSG','GIIS','Singapore','SMART Campus Punggol']},
+  meera:{name:'Meera Joshi',role:'Academic Coordinator, CBSE 6-8',ini:'MJ',campus:'SG-PGL',kind:'coord',scope:['GSG','GIIS','Singapore','SMART Campus Punggol']},
+  farah:{name:'Farah Ismail',role:'Class teacher, 7B',ini:'FI',campus:'SG-PGL',kind:'teacher',own:'7B',scope:['SMART Campus Punggol','7B']},
+  lina:{name:'Lina Goh',role:'Admissions Officer',ini:'LG',campus:'SG-PGL',kind:'admissions',scope:['GSG','GIIS','Singapore','SMART Campus Punggol']},
+  claire:{name:'Claire Tan',role:'Principal',ini:'CT',campus:'SG-OWD',kind:'principal',scope:['GSG','OWIS','Singapore','OWIS Digital Campus']}
+};
+const CAMPUS={'SG-PGL':'SMART Campus Punggol','SG-OWD':'OWIS Digital Campus, Punggol'};
+const YEAR={'SG-PGL':'AY 2026-27','SG-OWD':'AY 2026'};
+const mk=(n,off,grade,lim,enr,room,teacher,extra)=>Object.assign({n,off,grade,lim,enr,room,teacher,campus:'SG-PGL',ay:'AY 2026-27',type:'REGULAR',st:'ACTIVE',over:0},extra||{});
+let CLASSES=[
+ mk('5A','CBSE 1-12','Grade 5',32,31,'P5-01','Shalini Gupta'),mk('5B','CBSE 1-12','Grade 5',32,30,'P5-02','Ravi Shankar'),mk('5C','CBSE 1-12','Grade 5',32,29,'P5-03','Ong Li Ting'),
+ mk('6A','CBSE 1-12','Grade 6',32,30,'S4-15','Kavitha Raman'),mk('6B','CBSE 1-12','Grade 6',32,29,'S4-14','Joel Tan'),mk('6C','CBSE 1-12','Grade 6',32,29,'S4-26','Sunita Bhat'),
+ mk('7A','CBSE 1-12','Grade 7',32,32,'S4-05','Arvind Menon'),mk('7B','CBSE 1-12','Grade 7',32,32,'S4-04','Farah Ismail',{co:'Vikram Iyer'}),mk('7C','CBSE 1-12','Grade 7',32,32,'S4-03','Grace Wong'),
+ mk('8A','CBSE 1-12','Grade 8',32,31,'S4-29','Deepak Rao'),mk('8B','CBSE 1-12','Grade 8',32,30,'S4-31','Nur Aisyah'),mk('8C','CBSE 1-12','Grade 8',32,32,'S4-32',null),
+ mk('IB PYP 2A','IB PYP','Grade 2',22,16,'P2-11','Emily Carter'),mk('IB PYP 2B','IB PYP','Grade 2',22,15,'P2-13','Sneha Pai'),
+ mk('IB PYP 3A','IB PYP','Grade 3',22,20,'N2-02','Daniel Koh'),mk('IB PYP 3B','IB PYP','Grade 3',22,21,'N2-01','Priyanka Sen'),mk('IB PYP 3C','IB PYP','Grade 3',22,19,'P3-14','Rachel Lee'),
+ {n:'4 Orchid',off:'IB PYP',grade:'Grade 4',lim:20,enr:18,room:'L2-04',teacher:'Hannah Lim',campus:'SG-OWD',ay:'AY 2026',type:'REGULAR',st:'ACTIVE',over:0},
+ {n:'4 Lotus',off:'IB PYP',grade:'Grade 4',lim:20,enr:17,room:'L2-05',teacher:'Ian Foster',campus:'SG-OWD',ay:'AY 2026',type:'REGULAR',st:'ACTIVE',over:0},
+ {n:'5 Orchid',off:'IB PYP',grade:'Grade 5',lim:20,enr:19,room:'L3-01',teacher:'Mia Soh',campus:'SG-OWD',ay:'AY 2026',type:'REGULAR',st:'ACTIVE',over:0}
+];
+const TEACHERS=['Vikram Iyer','Lakshmi Nair','Tan Wei Ling','Rohit Bhalla'];
+const H=['House A','House B','House C','House D'];
+const HCOL={'House A':'#E53935','House B':'#1E88E5','House C':'#43A047','House D':'#FDD835'};
+const R7B=["Aarav Sharma","Aditya Rao","Ananya Iyer","Ayaan Khan","Diya Menon","Ethan Lim","Fatima Noor","Gauri Patel","Hiroshi Tanaka","Ira Kapoor","Ishaan Gupta","Jia Hui Tan","Kabir Malhotra","Kiara D'Souza","Leah Thomas","Manav Joshi","Mei Chen","Nikhil Reddy","Nisha Pillai","Omar Siddiqui","Pari Bansal","Rehan Ali","Riya Nair","Sahil Verma","Sana Qureshi","Shreya Das","Tanvi Kulkarni","Vedant Singh","Vivaan Mehta","Yash Agarwal","Zoe Fernandes","Arnav Chopra"];
+const FIRST=['Aanya','Arjun','Chloe','Dev','Elena','Farhan','Gia','Harsh','Isla','Jai','Kriti','Liam','Maya','Neel','Olivia','Pranav','Rhea','Samir','Tara','Uma','Varun','Wen','Xavier','Yara','Zain','Asha','Bilal','Charu','Dhruv','Esha','Felix','Gita'];
+const LAST=['Bose','Chua','Dutta','Fernandes','Ghosh','Hegde','Jain','Kaur','Lee','Mishra','Ng','Ortiz','Prasad','Quah','Rana','Saxena','Teo','Usman','Vora','Wong'];
+const ROSTERS={};
+function roster(c){
+  if(ROSTERS[c.n])return ROSTERS[c.n];
+  let r;
+  if(c.n==='7B'){r=R7B.map((n,i)=>({n,h:n==='Aarav Sharma'?'House B':H[i%4],sp:i%3===0||n==='Aarav Sharma',med:n==='Diya Menon'||n==='Rehan Ali',since:n==='Hiroshi Tanaka'?'7 Oct 2026':'13 Jul 2026',via:n==='Hiroshi Tanaka'?'New enrolment (mid-year)':(n==='Aarav Sharma'?'Rollover from 6B':'Allocation')}));}
+  else{let seed=[...c.n].reduce((a,ch)=>a+ch.charCodeAt(0),0);r=[];for(let i=0;i<c.enr;i++){const f=FIRST[(seed+i*7)%FIRST.length],l=LAST[(seed*3+i*11)%LAST.length];r.push({n:f+' '+l,h:c.campus==='SG-OWD'?null:H[(seed+i)%4],sp:(seed+i)%4===0,med:(seed+i)%17===0,since:c.campus==='SG-OWD'?'5 Jan 2026':'13 Jul 2026',via:'Allocation'});}
+    if(c.n==='5B')r[0]={n:'Yuki Watanabe',h:'House D',sp:true,med:false,since:'13 Jul 2026',via:'Allocation',aepp:true};
+    if(c.n==='6C')r[r.length-1]={n:'Ravi Iyer',h:'House C',sp:true,med:false,since:'3 Nov 2026',via:'New enrolment (APP-26-0987)'};
+    if(c.n==='4 Orchid')r[0]={n:'Lucas Lim',h:null,sp:false,med:false,since:'5 Jan 2026',via:'Allocation'};
+    r.sort((a,b)=>a.n.localeCompare(b.n));}
+  r.forEach(s=>s.thr=s.sp?'90%':'85%');
+  return ROSTERS[c.n]=r;
+}
+let QUEUE=[
+ {id:'q1',n:'Noah Fernandes',sid:'GS-2026-004388',off:'CBSE 1-12',grade:'Grade 6',st:'Confirmed',start:'5 Jan 2027',from:'Admissions · APP-26-1098',sug:'6B',why:'Fewest students in Grade 6 (29 of 32); keeps houses balanced',note:'Student Pass still with ICA. Pre-placed from the start date.'},
+ {id:'q3',n:'Mateo Garcia',sid:'GS-2026-004455',off:'IB PYP',grade:'Grade 3',st:'Confirmed',start:'5 Jan 2027',from:'Admissions',sug:'IB PYP 3C',why:'Fewest students in Grade 3 (19 of 22)'}
+];
+let HIST=[
+ {s:'Ravi Iyer',c:'6C',from:'3 Nov 2026',r:'New enrolment',by:'Meera Joshi'},
+ {s:'Hiroshi Tanaka',c:'7B',from:'7 Oct 2026',r:'New enrolment',by:'Meera Joshi'},
+ {s:'Dev Khanna',c:'8A',from:'2 Sep 2026',r:'Class move',by:'Meera Joshi',prev:'8C',note:'Parent request after a seating issue; agreed with both class teachers.'},
+ {s:'Yuki Watanabe',c:'5B',from:'13 Jul 2026',r:'Allocation',by:'Meera Joshi'}
+];
+let PENDING=[]; // over-limit requests to the Principal
+let PLANS=[
+ {id:'p1',ay:'AY 2026-27',off:'CBSE 1-12',grade:'Grade 5',k:3,lim:32,st:'APPROVED',enr:90,held:0},
+ {id:'p2',ay:'AY 2026-27',off:'CBSE 1-12',grade:'Grade 6',k:3,lim:32,st:'APPROVED',enr:88,held:6},
+ {id:'p3',ay:'AY 2026-27',off:'CBSE 1-12',grade:'Grade 7',k:3,lim:32,st:'APPROVED',enr:96,held:0},
+ {id:'p4',ay:'AY 2026-27',off:'CBSE 1-12',grade:'Grade 8',k:3,lim:32,st:'APPROVED',enr:93,held:0},
+ {id:'p5',ay:'AY 2026-27',off:'IB PYP',grade:'Grade 2',k:2,lim:22,st:'APPROVED',enr:31,held:3},
+ {id:'p6',ay:'AY 2026-27',off:'IB PYP',grade:'Grade 3',k:3,lim:22,st:'APPROVED',enr:60,held:1},
+ {id:'p7',ay:'AY 2027-28',off:'GMP (KG)',grade:'KG1',k:3,lim:20,st:'APPROVED',enr:0,held:4},
+ {id:'p8',ay:'AY 2027-28',off:'CBSE 1-12',grade:'Grade 6',k:4,lim:32,st:'SUBMITTED',enr:0,held:0,by:'Meera Joshi',note:'A fourth class: the Grade 7 waitlist this year is long.'},
+ {id:'p9',ay:'AY 2027-28',off:'Cambridge CLSP 6-8',grade:'Grade 6',k:2,lim:null,st:'DRAFT',enr:0,held:0,by:'Meera Joshi'}
+];
+const SIZE={'GMP (KG)':20,'CBSE 1-12 Grades 1-10':32,'CBSE 1-12 Grades 11-12':null,'IB PYP':22,'Cambridge CLSP 6-8':null};
+let ROLL={campus:'SG-OWD',from:'AY 2026',to:'AY 2027',st:'READY_FOR_APPROVAL',starts:'4 Jan 2027',cls:'4 Orchid',lines:[
+ ...['Lucas Lim','Amelia Ng','Ben Carter','Chloe Yeo','Daniel Ho','Emma Liu','Felix Wong','Grace Tan','Hannah Seah','Isaac Low','Jayden Koh','Kai Chua','Lily Sim','Marcus Teo'].map((n,i)=>({n,o:'PROMOTED',t:'Grade 5 · '+(i%2?'5 Lotus':'5 Orchid'),st:'READY'})),
+ {n:'Nora Ang',o:'RETAINED',src:'Principal decision',t:'Grade 4 · class to choose',st:'NEEDS_DECISION',why:'Retention needs the Principal to confirm. Who decides retention at OWIS is pending (OQ-79).'},
+ {n:'Ryan Goh',o:'PROMOTED_CONDITIONAL',src:'Assessment',t:'Grade 5 · 5 Lotus',st:'NEEDS_DECISION',why:'Re-test result not in yet. Outcomes come from Assessment; this screen can\'t change them.'},
+ {n:'Owen Lee',o:'LEAVING',src:'Withdrawal case',t:'—',st:'EXCLUDED',why:'Withdrawal effective 27 Nov 2026.'},
+ {n:'Priya Raman',o:'NEW_ADMISSION_ELSEWHERE',src:'Admissions',t:'GIIS SMART Campus Punggol · CBSE Grade 5',st:'EXCLUDED',why:'Moving into another brand at year end is a new admission (DL-63). Handled in Admissions.'}
+]};
+let houseUnassigned=6;
+let HCOUNT={'House A':352,'House B':349,'House C':355,'House D':347};
+
+/* ---------- Vocabulary (brief § 3) ---------- */
+const PST={DRAFT:['Draft','default'],SUBMITTED:['Submitted','info'],APPROVED:['Approved','success']};
+const RST={DRAFT:['Draft','default'],OUTCOMES_PENDING:['Outcomes pending','warning'],READY_FOR_APPROVAL:['Ready for approval','info'],APPROVED:['Approved','info'],APPLIED:['Applied','success'],CANCELLED:['Cancelled','default']};
+const LST={AWAITING_OUTCOME:['Awaiting outcome','warning'],READY:['Ready','success'],NEEDS_DECISION:['Needs decision','warning'],APPLIED:['Applied','success'],EXCLUDED:['Excluded','default']};
+const OUT={PROMOTED:['Promoted','success'],PROMOTED_CONDITIONAL:['Conditional','warning'],RETAINED:['Retained','warning'],GRADUATING:['Graduating','info'],LEAVING:['Leaving','default'],NEW_ADMISSION_ELSEWHERE:['New admission elsewhere','info']};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const chip=(m,k)=>{const x=m[k]||[k,'default'];return `<span class="chip c-${x[1]}">${esc(x[0])}</span>`};
+const pend=(oq,t)=>`<span class="chip c-pending" title="Not decided yet">${t?esc(t)+' · ':''}Pending decision (${oq})</span>`;
+const ini=n=>n.replace(/^Dr /,'').split(' ').map(w=>w[0]).slice(0,2).join('');
+const I={
+  warn:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 2 21h20zM12 10v5M12 18h.01"/></svg>',
+  info:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7h.01"/></svg>',
+  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
+  heart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg>'
+};
+const NAVI={
+ classes:['Classes','<rect x="3" y="4" width="7" height="7" rx="1.5"/><rect x="14" y="4" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>'],
+ myclass:['My class','<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5"/>'],
+ queue:['Needs a class','<path d="M4 6h16M4 12h10M4 18h7"/><circle cx="18" cy="17" r="3"/>'],
+ plan:['Class plan','<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'],
+ rollover:['Year-end rollover','<path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 4v5h-5M20 12a8 8 0 0 1-14 5.3L4 15M4 20v-5h5"/>'],
+ houses:['Houses','<path d="M3 11 12 4l9 7M5 10v10h14V10"/>'],
+ settings:['Class settings','<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/>']
+};
+const ROUTES={principal:['classes','queue','plan','rollover','houses','settings'],coord:['classes','queue','plan','rollover','houses','settings'],teacher:['myclass'],admissions:['classes','queue','plan']};
+let V='anita';
+const me=()=>VIEWERS[V];
+const routesFor=()=>V==='claire'?['classes','rollover','settings']:ROUTES[me().kind];
+const canManage=()=>V==='meera'||V==='anita';
+const isP=()=>me().kind==='principal';
+const myClasses=()=>CLASSES.filter(c=>c.campus===me().campus&&(me().kind!=='teacher'||c.n===me().own));
+const cls=n=>CLASSES.find(c=>c.n===n);
+const total=c=>c.enr;
+const full=c=>c.enr>=c.lim;
+
+/* ---------- Shell ---------- */
+function shell(route){
+  const m=me();
+  document.getElementById('scopeTxt').innerHTML=m.scope.map((s,i)=>i===m.scope.length-1?`<b>${esc(s)}</b>`:`<span class="hide-sm">${esc(s)}</span>`).join(' <span class="sep hide-sm">›</span> ')+` <span class="sep">·</span> <span>${esc(YEAR[m.campus])}</span>`;
+  document.getElementById('meName').textContent=m.name;document.getElementById('meRole').textContent=m.role;document.getElementById('meAv').textContent=m.ini;
+  const rs=routesFor();
+  const link=r=>`<a href="#${r==='myclass'?'class/'+encodeURIComponent(m.own):r}" data-r="${r}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">${NAVI[r][1]}</svg><span>${NAVI[r][0]}</span></a>`;
+  document.getElementById('nav').innerHTML=rs.map(link).join('');
+  document.getElementById('bnav').innerHTML=rs.slice(0,5).map(r=>`<a href="#${r==='myclass'?'class/'+encodeURIComponent(m.own):r}" data-r="${r}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">${NAVI[r][1]}</svg>${NAVI[r][0].replace('Year-end ','')}</a>`).join('');
+  const on=route==='class'?(m.kind==='teacher'?'myclass':'classes'):route;
+  document.querySelectorAll('[data-r]').forEach(a=>a.classList.toggle('on',a.dataset.r===on));
+}
+const card=(t,b,right)=>`<section class="card"><div class="card-h"><h2>${t}</h2>${right||''}</div><div class="card-b">${b}</div></section>`;
+const fillbar=c=>{const L=c.lim,p=Math.min(c.enr,L)/L*100,o=c.enr>L;return `<div class="fill"><div class="bar" title="${c.enr} of ${L}"><i class="${o?'o':'e'}" style="width:${p}%"></i></div><span class="mono">${c.enr} of ${L}</span></div>`};
+const fillchip=c=>c.enr>c.lim?'<span class="chip c-error">Over limit (approved)</span>':full(c)?'<span class="chip c-warning">Full</span>':'';
+
+/* ---------- Classes overview ---------- */
+let offFilter='all';
+function vClasses(){
+  const cs=myClasses();const m=me();
+  const offs=[...new Set(cs.map(c=>c.off))];
+  const shown=cs.filter(c=>offFilter==='all'||c.off===offFilter);
+  const groups=[];shown.forEach(c=>{const k=c.off+' · '+c.grade;let g=groups.find(x=>x.k===k);if(!g){g={k,cs:[]};groups.push(g)}g.cs.push(c)});
+  const noTeacher=cs.filter(c=>!c.teacher);
+  const pendBanner=PENDING.length&&isP()&&m.campus==='SG-PGL'?`<div class="blocked" style="margin-bottom:20px">${I.warn}<span><b>${PENDING.length} placement${PENDING.length>1?'s':''} over a class limit waiting for you</b>${PENDING.map(p=>`${esc(p.s)} → ${esc(p.to)} (${esc(p.reason)}) <button class="btn btn-sm btn-primary" style="margin:6px 0 0 8px" data-act="approveover" data-id="${p.id}">Approve</button>`).join('<br>')}</span></div>`:'';
+  return `<div class="page-h"><div><h1>Classes</h1><p>${esc(CAMPUS[m.campus])} · ${esc(YEAR[m.campus])}. A class is one group for one year (DL-70).</p></div><div class="grow"></div>
+   <div class="filters"><label class="sub" for="offf">Programme</label><select id="offf"><option value="all">All programmes</option>${offs.map(o=>`<option ${o===offFilter?'selected':''}>${esc(o)}</option>`).join('')}</select></div></div>
+   ${pendBanner}
+   ${noTeacher.length&&canManage()?`<div class="blocked" style="margin-bottom:8px">${I.warn}<span><b>${noTeacher.map(c=>c.n).join(', ')} ${noTeacher.length>1?'have':'has'} no class teacher</b>Every active class needs one (SR-CL-05). <a href="#class/${encodeURIComponent(noTeacher[0].n)}/staff">Assign</a></span></div>`:''}
+   ${V==='lina'?`<div class="scopebar" style="margin:0 0 8px">${I.info}<span>You see classes so you can check that new students have one. Placing students is done by the academic team (who exactly is pending, OQ-73).</span></div>`:''}
+   ${groups.map(g=>`<div class="gh"><h2>${esc(g.k)}</h2><span class="sub">${g.cs.reduce((a,c)=>a+c.enr,0)} students · ${g.cs.length} class${g.cs.length>1?'es':''}</span></div>
+   <div class="ccards">${g.cs.map(c=>`<button class="ccard" data-cls="${esc(c.n)}"><div class="t"><b>${esc(c.n)}</b>${c.type==='PLACEMENT'?`<span class="chip c-role">Placement · ${esc(c.grade)}</span>`:''}${fillchip(c)}</div>${fillbar(c)}<div class="m"><span>${c.teacher?esc(c.teacher):`<span class="notset">${I.warn}No class teacher</span>`}</span><span>Room ${esc(c.room)}</span></div></button>`).join('')}</div>`).join('')}`;
+}
+
+/* ---------- Class detail ---------- */
+function vClass(name,tab){
+  const c=cls(name);const m=me();
+  if(!c||c.campus!==m.campus||(m.kind==='teacher'&&c.n!==m.own))return `<div class="noaccess"><div class="ico">${I.lock}</div><div><b>Not in your scope</b><p>Class teachers see their own class only.</p></div></div>`;
+  tab=tab||'roster';
+  const r=roster(c);
+  const tabs=[['roster','Roster'],['staff','Staff'],['history','History']];
+  const crumbs=m.kind==='teacher'?'':`<div class="crumbs"><a href="#classes">Classes</a><span class="dot"></span><span>${esc(c.off)}</span><span class="dot"></span><b>${esc(c.n)}</b></div>`;
+  let body='';
+  if(tab==='roster'){
+    body=`<div class="tablewrap"><table class="roster"><thead><tr><th>Student</th>${c.type==='PLACEMENT'?'<th>Grade</th>':''}<th>House</th><th>Flags</th><th class="hide-phone">In class since</th>${canManage()?'<th></th>':''}</tr></thead><tbody>
+     ${r.map(s=>`<tr><td><div class="whoc"><div class="avatar av-row">${ini(s.n)}</div><div><b>${esc(s.n)}</b><span class="sub">${esc(s.via)}</span></div></div></td>${c.type==='PLACEMENT'?`<td>${esc(s.grade)}</td>`:''}
+      <td>${s.h?`<span style="display:inline-flex;gap:6px;align-items:center"><i class="hdot" style="background:${HCOL[s.h]}"></i><span class="hname">House </span>${esc(s.h.slice(-1))}</span>`:'<span class="sub">No houses</span>'}</td>
+      <td><div class="flags">${s.aepp?'<span class="chip c-role" title="AEPP is a support subject; Yuki stays in 5B (DL-74)">AEPP support</span>':''}${s.med?`<span class="chip c-error" title="Detail is restricted to Wellbeing (DL-66)">${I.heart}<span class="hname">Medical alert</span></span>`:''}<span class="chip c-default" title="Why this threshold applies isn't shown (DL-30)"><span class="hname">Attendance </span>${s.thr}</span></div></td>
+      <td class="hide-phone">${esc(s.since)}</td>${canManage()?`<td><button class="btn btn-sm" data-act="move" data-s="${esc(s.n)}" data-c="${esc(c.n)}">${c.type==='PLACEMENT'?'Move to mainstream':'Move'}</button></td>`:''}</tr>`).join('')}
+    </tbody></table></div>
+    <p class="foot" style="padding:0 20px 16px">Rosters show the medical alert flag and attendance threshold only. Health detail, Student Pass and passport stay restricted (DL-30, DL-66). What parents see of the class list is pending (OQ-75).</p>`;
+  }else if(tab==='staff'){
+    body=`<div style="padding:20px 24px"><dl class="kv"><dt>Class teacher</dt><dd>${c.teacher?esc(c.teacher)+' <span class="sub">since 13 Jul 2026</span>':`<span class="notset">${I.warn}No class teacher</span>`}${canManage()?` <button class="btn btn-sm" data-act="teacher" data-c="${esc(c.n)}">${c.teacher?'Change':'Assign'}</button>`:''}</dd>
+     <dt>Co-class teacher</dt><dd>${c.co?esc(c.co):'<span class="sub">None</span>'}</dd>
+     <dt>Subject teachers</dt><dd><span class="sub">From Academic Allocation (Teaching), not set here</span></dd></dl>
+     <p class="foot">Being class teacher automatically gives access to this class's students for the same dates. What the teacher can do still comes from their Class teacher role; restricted (Tier 3) data is never included (DL-73).</p></div>`;
+  }else{
+    const h=HIST.filter(x=>x.c===c.n||x.prev===c.n);
+    const seeNote=canManage();
+    body=`<div style="padding:20px 24px">${h.length?`<ul class="tl">${h.map((x,i)=>`<li><span class="dotm ${i===0?'cur':''}"></span><div class="h">${esc(x.s)} <span class="chip c-default">${esc(x.r)}</span></div><div class="m">${x.prev?esc(x.prev)+' → ':''}${esc(x.c)} from ${esc(x.from)}${m.kind==='teacher'?'':' · by '+esc(x.by)}${x.ap?' · over-limit approved by '+esc(x.ap):''}</div>${x.note?(seeNote?`<div class="logline">${I.lock}<span>Reason (restricted): ${esc(x.note)}</span></div>`:''):''}</li>`).join('')}</ul>`:'<p class="sub">No placement changes since the year started.</p>'}
+     <p class="foot">A class move ends one placement and starts another; the enrolment doesn't change (DL-72).</p></div>`;
+  }
+  return `${crumbs}<section class="hero"><div class="hero-band"></div><div class="hero-body"><div class="avatar av-xl">${esc(c.n.replace('IB PYP ','').replace('AEPP ','A'))}</div><div class="hero-id"><h1>${esc(c.n)}</h1>
+   <div class="hero-meta"><span>${esc(c.off)} · ${esc(c.grade)}</span><span>${esc(c.ay)}</span><span>Room ${esc(c.room)}</span></div>
+   <div class="chips"><span class="chip c-success">Active</span>${c.type==='PLACEMENT'?'<span class="chip c-role">Placement class (DL-74)</span>':''}${fillchip(c)}</div></div>
+   <div class="hero-actions" style="min-width:200px">${fillbar(c)}</div></div>
+   <nav class="tabs">${tabs.map(t=>`<a href="#class/${encodeURIComponent(c.n)}/${t[0]}" class="${t[0]===tab?'on':''}">${t[1]}</a>`).join('')}</nav>${body}</section>`;
+}
+
+/* ---------- Needs a class ---------- */
+function vQueue(){
+  const ro=!canManage();
+  return `<div class="page-h"><div><h1>Needs a class</h1><p>Confirmed students from Admissions. Placing pre-places them from their start date.</p></div></div>
+  ${ro?`<div class="scopebar" style="margin:0 0 16px">${I.info}<span>Read-only for Admissions. Who places students is pending (OQ-73).</span></div>`:''}
+  <div class="listcard">${QUEUE.length?QUEUE.map(q=>`<div class="list-row" style="padding:16px 20px"><div class="avatar av-row">${ini(q.n)}</div><div class="grow"><b>${esc(q.n)}</b> <span class="sub">${esc(q.sid)}</span><br><span class="sub">${esc(q.off)} · ${esc(q.grade)} · ${esc(q.from)} · ${q.aepp?'leaves AEPP':'starts'} ${esc(q.start)}</span>${q.note?`<br><span class="sub">${esc(q.note)}</span>`:''}</div>
+   <span class="chip c-${q.st==='Confirmed'?'info':'success'}">${esc(q.st)}</span>
+   <div style="min-width:180px"><span class="sub">Suggested</span><br><b>${esc(q.sug)}</b> <span class="sub">${esc(q.why)}</span></div>
+   ${ro?'<span class="chip c-warning">Not placed yet</span>':`<button class="btn btn-sm btn-primary" data-act="place" data-id="${q.id}">Place</button>`}</div>`).join(''):'<div class="empty" style="padding:40px;text-align:center"><b>Everyone has a class</b></div>'}</div>
+  <p class="foot">How many days before the start date students appear here is a campus setting that isn't set yet (SR-CL-06).</p>`;
+}
+
+/* ---------- Class plan ---------- */
+let planAY='AY 2026-27';
+function seat(p){return p.lim?p.k*p.lim:null}
+function vPlan(){
+  const ps=PLANS.filter(p=>p.ay===planAY);
+  const edit=V==='meera',appr=V==='anita';
+  return `<div class="page-h"><div><h1>Class plan</h1><p>Classes × size limit per grade. The total is the Admissions seat limit, set by the Principal (DL-61, DL-71).</p></div><div class="grow"></div>
+   <div class="seg">${['AY 2026-27','AY 2027-28'].map(a=>`<button data-ay="${a}" aria-pressed="${a===planAY}">${a}</button>`).join('')}</div></div>
+   ${V==='lina'?`<div class="scopebar" style="margin:0 0 16px">${I.info}<span>Read-only. The seat limit on your Capacity screen comes from this plan.</span></div>`:''}
+   <div class="listcard"><div class="tablewrap"><table><thead><tr><th>Programme · grade</th><th>Classes</th><th>Size limit</th><th>Seat limit</th><th>Enrolled</th><th>Held</th><th>Status</th><th></th></tr></thead><tbody>
+   ${ps.map(p=>{const s=seat(p),floor=p.enr+p.held,canDown=s===null||(p.k-1)*p.lim>=floor;const editable=edit&&p.st!=='APPROVED';
+    return `<tr><td><b>${esc(p.off)} · ${esc(p.grade)}</b>${p.note?`<br><span class="sub">${esc(p.note)}</span>`:''}</td>
+     <td>${editable?`<span class="stepper"><button data-act="k" data-id="${p.id}" data-d="-1" ${canDown&&p.k>1?'':'disabled'} aria-label="Fewer classes">−</button><b class="mono">${p.k}</b><button data-act="k" data-id="${p.id}" data-d="1" aria-label="More classes">+</button></span>`:`<span class="mono">${p.k}</span>`}</td>
+     <td>${p.lim?`<span class="mono">${p.lim}</span> <span class="sub">campus setting</span>`:`<span class="notset">${I.warn}Not set</span> ${pend('OQ-74')}`}</td>
+     <td class="mono"><b>${s===null?'—':s}</b></td><td class="mono">${p.enr}</td><td class="mono">${p.held}</td><td>${chip(PST,p.st)}</td>
+     <td>${appr&&p.st==='SUBMITTED'?`<button class="btn btn-sm btn-primary" data-act="approveplan" data-id="${p.id}">Approve</button>`:''}${edit&&p.st==='DRAFT'?`<button class="btn btn-sm" data-act="submitplan" data-id="${p.id}" ${p.lim?'':'disabled title="Size limit not set"'}>Submit</button>`:''}${appr&&p.st==='DRAFT'&&!p.lim?'<span class="sub">Blocked: size limit not set</span>':''}${(edit||appr)&&p.st==='APPROVED'?`<button class="btn btn-sm" data-act="revise" data-id="${p.id}">Revise</button>`:''}</td></tr>`}).join('')}
+   </tbody></table></div></div>
+   <p class="foot">A plan can't go below enrolled + held seats. Changing an approved plan needs a reason and the Principal's approval again. Who prepares plans is pending (OQ-73).</p>`;
+}
+
+/* ---------- Rollover ---------- */
+function vRollover(){
+  if(V!=='claire')return `<div class="page-h"><div><h1>Year-end rollover</h1><p>Moves students into next year's grades and classes. Outcomes come from Assessment; the Principal approves (DL-75).</p></div></div>
+   <div class="listcard"><div class="tablewrap"><table><thead><tr><th>Run</th><th>Next year starts</th><th>Status</th><th>Summary</th></tr></thead><tbody>
+   <tr><td><b>AY 2026-27 → AY 2027-28</b></td><td>12 Jul 2027</td><td>${chip(RST,'DRAFT')}</td><td class="sub">Outcomes arrive after Semester 2 results (HB p.128–131). Nothing to review yet.</td></tr>
+   <tr><td><b>AY 2025-26 → AY 2026-27</b></td><td>13 Jul 2026</td><td>${chip(RST,'APPLIED')}</td><td class="sub">1,388 promoted · 6 conditional · 3 retained · 142 graduating · 97 leaving · approved by Dr Anita Rao, applied 20 Jun 2026. Example: Aarav Sharma 6B → 7B, House B carried forward (DL-76).</td></tr>
+   </tbody></table></div></div>
+   <div class="proto-note"><b>Prototype note:</b> switch to Claire Tan (OWIS) to review a run in progress; her calendar-year campus rolls over in November while GIIS Singapore is mid-year (MC-06).<br>Stage-campus example (Harrods): Sokha Chan moved from Lower Primary KH-HLP Year 4 to Upper Primary KH-HUP Year 5 with no extra approval (DL-62). Any other year-end campus change needs both principals.</div>`;
+  const L=ROLL.lines,cnt=k=>L.filter(l=>l.st===k).length,dec=cnt('NEEDS_DECISION');
+  return `<div class="page-h"><div><h1>Year-end rollover</h1><p>Outcomes come from Assessment and can't be changed here. You approve the run before it applies (DL-75).</p></div></div>
+  <section class="card" style="margin-bottom:24px"><div class="card-h"><h2>${esc(ROLL.from)} → ${esc(ROLL.to)} · OWIS Digital Campus</h2>${chip(RST,ROLL.st)}</div><div class="card-b">
+   <div class="sumrow"><div class="stat"><b>${L.filter(l=>l.o==='PROMOTED').length}</b><span>Promoted</span></div><div class="stat"><b>${dec}</b><span>Need a decision</span></div><div class="stat"><b>${cnt('EXCLUDED')}</b><span>Excluded</span></div><div class="stat"><b>${esc(ROLL.starts)}</b><span>Next year starts</span></div></div>
+   ${ROLL.st==='APPLIED'?`<div class="count" style="background:var(--success-soft);color:var(--success)">${I.info}Applied. Next-year enrolments were created and linked to this year's (SR-03). 4 Orchid is now closed and read-only.</div>`:
+   dec?`<div class="blocked">${I.warn}<span><b>${dec} line${dec>1?'s':''} need a decision before you can approve</b>Outcomes come from Assessment. You can confirm a retention; a conditional promotion waits for its re-test.</span></div>`:
+   `<button class="btn btn-primary" data-act="applyrun">Approve and apply rollover</button>`}
+  </div></section>
+  <div class="listcard"><div class="qtabs"><button aria-pressed="true">${esc(ROLL.cls)} <span class="cnt">${L.length}</span></button></div><div class="tablewrap"><table><thead><tr><th>Student</th><th>Outcome</th><th>Next year</th><th>Line</th><th></th></tr></thead><tbody>
+  ${L.map((l,i)=>`<tr><td><b>${esc(l.n)}</b>${l.why?`<br><span class="sub">${esc(l.why)}</span>`:''}</td><td>${chip(OUT,l.o)}${l.src?`<br><span class="sub">${esc(l.src)}</span>`:''}</td><td>${esc(l.t)}</td><td>${chip(LST,l.st)}</td>
+   <td>${l.st==='NEEDS_DECISION'&&l.o==='RETAINED'?`<button class="btn btn-sm" data-act="retain" data-i="${i}">Confirm retention</button>`:''}${l.st==='NEEDS_DECISION'&&l.o==='PROMOTED_CONDITIONAL'?`<button class="btn btn-sm btn-ghost" data-act="retest" data-i="${i}" title="Prototype only: simulates Assessment sending the result">Simulate re-test result</button>`:''}</td></tr>`).join('')}
+  </tbody></table></div></div>
+  <p class="foot">Late results after the run is applied (re-tests, board results) are pending (OQ-79).</p>`;
+}
+
+/* ---------- Houses ---------- */
+function vHouses(){
+  const tot=Object.values(HCOUNT).reduce((a,b)=>a+b,0);
+  return `<div class="page-h"><div><h1>Houses</h1><p>House stays with the student across years (DL-76). The list is a campus setting.</p></div></div>
+  <div class="houses">${H.map(h=>`<div class="house"><span style="display:flex;gap:8px;align-items:center"><i class="hdot" style="background:${HCOL[h]}"></i><span class="sub">${h}</span></span><b class="mono">${HCOUNT[h]}</b><div class="bar"><i class="e" style="width:${HCOUNT[h]/tot*400}%"></i></div></div>`).join('')}</div>
+  <div style="margin-top:24px">${card('Students without a house',houseUnassigned?`<p style="margin:0 0 12px">${houseUnassigned} students who joined this term have no house yet.</p><p class="sub" style="margin:0 0 12px">Suggested: put each in the smallest house. Whether siblings share a house is ${pend('OQ-76')}</p>${canManage()?'<button class="btn btn-primary btn-sm" data-act="houses">Assign suggested houses</button>':''}`:'<p class="sub" style="margin:0">Everyone has a house.</p>')}</div>`;
+}
+
+/* ---------- Settings ---------- */
+function vSettings(){
+  const val=v=>v?`<span class="mono">${v}</span>`:`<span class="notset">${I.warn}Not set</span>`;
+  if(V==='claire')return `<div class="page-h"><div><h1>Class settings</h1><p>OWIS Digital Campus sets its own values. There is no group default.</p></div></div>${card('OWIS Digital Campus',`<dl class="kv"><dt>Size limit · IB PYP</dt><dd>${val(20)}</dd><dt>Houses</dt><dd><span class="sub">None</span></dd><dt>Academic year</dt><dd>AY 2026, 5 Jan to 27 Nov 2026</dd></dl>`)}`;
+  return `<div class="page-h"><div><h1>Class settings</h1><p>Each campus sets its own values; there is no group default. A value that isn't set blocks the step that needs it.</p></div></div>
+  <div class="settings">${card('SMART Campus Punggol',`<dl class="kv">${Object.entries(SIZE).map(([k,v])=>`<dt>Size limit · ${esc(k)}</dt><dd>${val(v)}${v?'':' '+pend('OQ-74')}</dd>`).join('')}
+   <dt>Houses</dt><dd>${H.map(h=>`<span style="display:inline-flex;gap:4px;align-items:center"><i class="hdot" style="background:${HCOL[h]}"></i>${h}</span>`).join(' ')}</dd>
+   <dt>Retention in KG–Grade 5</dt><dd>Only on the parents' written request <span class="sub">(GIIS SG, HB p.128)</span></dd>
+   <dt>"Needs a class" lead time</dt><dd>${val(null)}</dd></dl>${canManage()?'<p class="foot">Changing a size limit doesn\'t change approved plans until they are revised.</p>':''}`,'<span class="chip c-warning">3 not set</span>')}
+  ${card('Noida Campus',`<dl class="kv"><dt>Size limits</dt><dd>${val(null)} ${pend('OQ-74')}</dd><dt>Houses</dt><dd>House A–D</dd><dt>Academic year</dt><dd>AY 2026-27, 6 Apr 2026 to Mar 2027</dd></dl><p class="foot">Shown for comparison. Noida can't approve a class plan until it sets size limits.</p>`,'<span class="chip c-warning">Not set</span>')}</div>`;
+}
+
+/* ---------- Dialogs and actions ---------- */
+function dialog(html){const L=document.getElementById('layer');L.innerHTML=`<div class="scrim" data-scrim><div class="dlg" role="dialog" aria-modal="true">${html}</div></div>`;const f=L.querySelector('input,button,textarea,select');f&&f.focus();}
+function close(){document.getElementById('layer').innerHTML='';}
+let tt;function toast(t){document.querySelectorAll('.toast').forEach(x=>x.remove());const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);clearTimeout(tt);tt=setTimeout(()=>d.remove(),3000);}
+function options(grade,off,except,sug){
+  return CLASSES.filter(c=>c.campus===me().campus&&c.type==='REGULAR'&&c.grade===grade&&c.off===off&&c.n!==except).map(c=>{const f=full(c);return `<label class="opt ${f&&!isP()?'dis':''}"><input type="radio" name="tc" value="${esc(c.n)}" ${c.n===sug?'checked':''}><span class="grow"><b>${esc(c.n)}</b> <span class="sub">${esc(c.teacher||'No class teacher')}</span></span><span class="sub mono">${c.enr} of ${c.lim}</span>${f?'<span class="chip c-warning">Full</span>':''}</label>`}).join('');
+}
+function moveDialog(s,from,qid){
+  const fc=cls(from);let grade=fc.grade,off=fc.off,sug=null,title=`Move ${esc(s)}`;
+  if(fc.type==='PLACEMENT'){const st=roster(fc).find(x=>x.n===s);grade=st.grade;title=`Move ${esc(s)} to a mainstream class`;}
+  dialog(`<h3>${title}</h3><p>From ${esc(from)}. The enrolment stays the same; this ends one placement and starts another (DL-72).</p>
+   ${options(grade,off,from,sug)}
+   <label for="eff">Effective from</label><input type="date" id="eff" value="2026-11-16">
+   <label for="rs">Reason (required, restricted)</label><textarea id="rs" placeholder="For example: parent request, agreed with both class teachers"></textarea>
+   <p class="sub" style="margin:8px 0 0">Whether a move needs approval or a notice to parents: ${pend('OQ-73')}</p>
+   <div class="row"><button class="btn" data-close>Cancel</button><button class="btn btn-primary" id="go" data-act="domove" data-s="${esc(s)}" data-c="${esc(from)}" disabled>Move</button></div>`);
+  wire();
+}
+function wire(){const go=document.getElementById('go'),rs=document.getElementById('rs');const upd=()=>{const t=document.querySelector('input[name=tc]:checked');const c=t&&cls(t.value);go.disabled=!t||(rs&&!rs.value.trim());if(c&&full(c)){go.textContent=isP()?'Approve over limit and move':'Send to Principal';}else go.textContent=go.dataset.label||'Move';};document.querySelectorAll('input[name=tc]').forEach(x=>x.addEventListener('change',upd));rs&&rs.addEventListener('input',upd);upd();}
+function placeDialog(q){
+  dialog(`<h3>Place ${esc(q.n)}</h3><p>${esc(q.off)} · ${esc(q.grade)} · from ${esc(q.start)}. Suggested: ${esc(q.sug)} (${esc(q.why)}).</p>${options(q.grade,q.off,q.cur,q.sug)}
+   <div class="row"><button class="btn" data-close>Cancel</button><button class="btn btn-primary" id="go" data-label="Place" data-act="doplace" data-id="${q.id}">Place</button></div>`);wire();
+}
+function doPlace(sname,to,fromName,reason,label){
+  const t=cls(to);
+  if(full(t)&&!isP()){PENDING.push({id:'x'+Date.now(),s:sname,to,from:fromName,reason:reason||label});toast('Sent to Dr Anita Rao: '+to+' is full.');return false;}
+  if(fromName){const f=cls(fromName);f.enr--;if(ROSTERS[f.n])ROSTERS[f.n]=ROSTERS[f.n].filter(x=>x.n!==sname);}
+  t.enr++;if(ROSTERS[t.n])ROSTERS[t.n].push({n:sname,h:'House B',sp:false,med:false,thr:'85%',since:'16 Nov 2026',via:label});
+  HIST.unshift({s:sname,c:to,prev:fromName||null,from:'16 Nov 2026',r:label,by:me().name,ap:full(t)&&t.enr>t.lim?me().name:null,note:reason||null});
+  return true;
+}
+document.addEventListener('change',e=>{if(e.target.id==='offf'){offFilter=e.target.value;render();}});
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-act],[data-close],[data-scrim],[data-cls],[data-ay],#viewers button,#theme button,#frame button');
+  if(!t)return;
+  if(t.matches('[data-scrim]')&&e.target!==t)return;
+  if(t.hasAttribute('data-close')||t.matches('[data-scrim]')){close();return;}
+  if(t.closest('#viewers')){V=t.dataset.v;offFilter='all';document.querySelectorAll('#viewers button').forEach(b=>b.setAttribute('aria-pressed',b===t));const rs=routesFor();location.hash=rs[0]==='myclass'?'class/'+encodeURIComponent(me().own):rs[0];render();return;}
+  if(t.closest('#theme')){const m=t.dataset.t;document.querySelectorAll('#theme button').forEach(b=>b.setAttribute('aria-pressed',b===t));if(m==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',m);return;}
+  if(t.closest('#frame')){document.querySelectorAll('#frame button').forEach(b=>b.setAttribute('aria-pressed',b===t));document.getElementById('stage').classList.toggle('mobile',t.dataset.f==='phone');return;}
+  if(t.dataset.ay){planAY=t.dataset.ay;render();return;}
+  if(t.dataset.cls&&!t.dataset.act){location.hash='class/'+encodeURIComponent(t.dataset.cls);return;}
+  const sel=()=>{const x=document.querySelector('input[name=tc]:checked');return x&&x.value};
+  switch(t.dataset.act){
+    case 'move':moveDialog(t.dataset.s,t.dataset.c);break;
+    case 'domove':{const to=sel(),from=cls(t.dataset.c),label=from.type==='PLACEMENT'?'AEPP exit':'Class move',ok=doPlace(t.dataset.s,to,t.dataset.c,document.getElementById('rs').value,label);close();if(ok)toast(t.dataset.s+' moved to '+to+' from 16 Nov 2026.');render();break;}
+    case 'place':placeDialog(QUEUE.find(q=>q.id===t.dataset.id));break;
+    case 'doplace':{const q=QUEUE.find(x=>x.id===t.dataset.id),to=sel(),ok=doPlace(q.n,to,q.cur||null,null,q.aepp?'AEPP exit':'New enrolment');QUEUE=QUEUE.filter(x=>x!==q);close();if(ok)toast(q.n+' placed in '+to+' from '+q.start+'.');render();break;}
+    case 'approveover':{const p=PENDING.find(x=>x.id===t.dataset.id);PENDING=PENDING.filter(x=>x!==p);doPlace(p.s,p.to,p.from,p.reason,p.from&&cls(p.from).type==='PLACEMENT'?'AEPP exit':(p.from?'Class move':'New enrolment'));toast('Approved. '+p.to+' is over its limit; logged.');render();break;}
+    case 'teacher':{const c=cls(t.dataset.c);dialog(`<h3>Class teacher for ${esc(c.n)}</h3><p>Access to this class's students follows automatically for the same dates. It needs an existing Class teacher role at this campus (DL-73).</p>${TEACHERS.map((n,i)=>`<label class="opt"><input type="radio" name="tc" value="${esc(n)}" ${i===0?'checked':''}><span class="grow">${esc(n)}</span></label>`).join('')}<label for="eff">From</label><input type="date" id="eff" value="2026-11-16"><div class="row"><button class="btn" data-close>Cancel</button><button class="btn btn-primary" data-act="doteacher" data-c="${esc(c.n)}">Assign</button></div>`);break;}
+    case 'doteacher':{const c=cls(t.dataset.c);c.teacher=sel();close();toast(c.teacher+' is class teacher of '+c.n+' from 16 Nov 2026.');render();break;}
+    case 'k':{const p=PLANS.find(x=>x.id===t.dataset.id);p.k+=+t.dataset.d;if(p.st==='SUBMITTED')p.st='DRAFT';render();break;}
+    case 'submitplan':{const p=PLANS.find(x=>x.id===t.dataset.id);p.st='SUBMITTED';toast('Sent to Dr Anita Rao for approval.');render();break;}
+    case 'approveplan':{const p=PLANS.find(x=>x.id===t.dataset.id);p.st='APPROVED';toast('Approved. Admissions seat limit for '+p.grade+' '+p.ay+' is now '+seat(p)+'.');render();break;}
+    case 'revise':{const p=PLANS.find(x=>x.id===t.dataset.id);dialog(`<h3>Revise ${esc(p.off)} · ${esc(p.grade)}</h3><p>Approved: ${p.k} × ${p.lim} = ${seat(p)} seats. Enrolled + held: ${p.enr+p.held}, so the plan can't go below ${Math.ceil((p.enr+p.held)/p.lim)} class${Math.ceil((p.enr+p.held)/p.lim)>1?'es':''}.</p><label for="rs">Reason (required)</label><textarea id="rs"></textarea><div class="row"><button class="btn" data-close>Cancel</button><button class="btn btn-primary" id="rv" data-act="dorevise" data-id="${p.id}" disabled>Start revision</button></div>`);document.getElementById('rs').addEventListener('input',e=>{document.getElementById('rv').disabled=!e.target.value.trim()});break;}
+    case 'dorevise':{const p=PLANS.find(x=>x.id===t.dataset.id);p.st='DRAFT';close();toast('Plan back to Draft. It needs the Principal again.');render();break;}
+    case 'retain':{const l=ROLL.lines[+t.dataset.i];l.st='READY';l.t='Grade 4 · 4 Lotus (AY 2027)';l.why='Retention confirmed by Claire Tan.';render();break;}
+    case 'retest':{const l=ROLL.lines[+t.dataset.i];l.o='PROMOTED';l.st='READY';l.why='Re-test passed (from Assessment).';render();break;}
+    case 'applyrun':ROLL.st='APPLIED';ROLL.lines.forEach(l=>{if(l.st==='READY')l.st='APPLIED'});toast('Rollover applied. Next-year enrolments created.');render();break;
+    case 'houses':{const add=houseUnassigned;HCOUNT['House D']+=2;HCOUNT['House B']+=2;HCOUNT['House A']+=1;HCOUNT['House C']+=add-5;houseUnassigned=0;toast(add+' students given a house.');render();break;}
+  }
+});
+function render(){
+  const h=decodeURIComponent(location.hash.slice(1)||routesFor()[0]);
+  let [route,a,b]=h.split('/');
+  if(route==='myclass'){route='class';a=me().own;}
+  if(me().kind==='teacher'&&route!=='class'){route='class';a=me().own;}
+  if(route!=='class'&&!routesFor().includes(route))route=routesFor()[0];
+  shell(route);
+  const v=document.getElementById('view');
+  v.innerHTML=route==='class'?vClass(a,b):{classes:vClasses,queue:vQueue,plan:vPlan,rollover:vRollover,houses:vHouses,settings:vSettings}[route]();
+}
+window.addEventListener('hashchange',()=>{render();document.getElementById('view').focus({preventScroll:true});});
+render();
+})();
+</script>
+</body></html>

@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fees & Billing Prototype</title>
+<!--
+  Screens: SCR-FB-01 Finance home · SCR-FB-02 Billing accounts + account · SCR-FB-03 Invoice · SCR-FB-04 Billing runs + run review · SCR-FB-05 Fee plans + plan · SCR-FB-06 Overdue · SCR-FB-07 Refunds + refund · SCR-FB-08 Settings · SCR-FB-09 Fee status (Principal) · SCR-FB-10 Admission fees · SCR-FB-11 Parent: What's due, History, Receipts
+  Viewers: Siti Rahman (Finance Executive GIIS SG) · Wendy Koh (Finance Controller) · Vivek Menon (Country Director) · Dr Anita Rao (Principal SG-PGL) · Lina Goh (Admissions) · Neha Sharma (parent, payer) · Vikram Sharma (parent, not payer) · Ankit Bansal (Finance IN-NOI)
+  Objects: OBJ-23 Billing account and invoice (primary), OBJ-03 Enrolment, OBJ-04 Guardian
+  Sample: product-truth/03-domain/samples/fees-billing-sample.json · today 14 Nov 2026 · synthetic amounts
+  DL: DL-77 Confirmed; DL-78…DL-86 Assumed (PR #20) · DL-08 DL-41 DL-59 DL-68 · OQ shown as pending: OQ-06 OQ-68 OQ-80…OQ-90
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#00A76F;--primary-dark:#007867;--primary-soft:rgba(0,167,111,.08);--primary-soft2:rgba(0,167,111,.16);
+  --secondary:#8E33FF;--secondary-soft:rgba(142,51,255,.08);
+  --error:#B71D18;--error-soft:rgba(255,86,48,.12);
+  --warning:#B76E00;--warning-soft:rgba(255,171,0,.14);--warning-line:#FFAB00;
+  --info:#006C9C;--info-soft:rgba(0,184,217,.12);
+  --success:#118D57;--success-soft:rgba(34,197,94,.14);
+  --text:#212B36;--text2:#637381;--text3:#919EAB;
+  --bg:#FFFFFF;--paper:#FFFFFF;--neutral:#F4F6F8;--canvas:#EDEFF2;
+  --divider:rgba(145,158,171,.2);--line:rgba(145,158,171,.32);
+  --z1:0 1px 2px rgba(145,158,171,.16);
+  --card:0 0 2px 0 rgba(145,158,171,.2),0 12px 24px -4px rgba(145,158,171,.12);
+  --scrim:rgba(22,28,36,.48);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --primary:#5BE49B;--primary-dark:#5BE49B;--primary-soft:rgba(91,228,155,.10);--primary-soft2:rgba(91,228,155,.18);
+  --secondary:#C684FF;--secondary-soft:rgba(198,132,255,.12);
+  --error:#FFAC82;--error-soft:rgba(255,86,48,.18);
+  --warning:#FFD666;--warning-soft:rgba(255,171,0,.16);
+  --info:#61F3F3;--info-soft:rgba(0,184,217,.16);
+  --success:#77ED8B;--success-soft:rgba(34,197,94,.16);
+  --text:#FFFFFF;--text2:#919EAB;--text3:#637381;
+  --bg:#161C24;--paper:#212B36;--neutral:#28323D;--canvas:#10141A;
+  --card:0 0 2px 0 rgba(0,0,0,.2),0 12px 24px -4px rgba(0,0,0,.16);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --primary:#5BE49B;--primary-dark:#5BE49B;--primary-soft:rgba(91,228,155,.10);--primary-soft2:rgba(91,228,155,.18);
+  --secondary:#C684FF;--secondary-soft:rgba(198,132,255,.12);
+  --error:#FFAC82;--error-soft:rgba(255,86,48,.18);
+  --warning:#FFD666;--warning-soft:rgba(255,171,0,.16);
+  --info:#61F3F3;--info-soft:rgba(0,184,217,.16);
+  --success:#77ED8B;--success-soft:rgba(34,197,94,.16);
+  --text:#FFFFFF;--text2:#919EAB;--text3:#637381;
+  --bg:#161C24;--paper:#212B36;--neutral:#28323D;--canvas:#10141A;
+  --card:0 0 2px 0 rgba(0,0,0,.2),0 12px 24px -4px rgba(0,0,0,.16);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--canvas);color:var(--text);font:400 14px/1.57 "Public Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.mono{font-variant-numeric:tabular-nums}
+
+/* ---------- Prototype toolbar (not part of the product) ---------- */
+.proto{position:sticky;top:0;z-index:30;background:var(--paper);border-bottom:1px solid var(--divider);
+  padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));
+  display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+.proto-title{font-weight:700;font-size:13px;margin-right:auto;display:flex;gap:8px;align-items:center}
+.proto-title small{font-weight:500;color:var(--text2)}
+.ctl{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2)}
+.seg{display:inline-flex;background:var(--neutral);border-radius:8px;padding:3px}
+.seg button{border:0;background:transparent;padding:5px 10px;border-radius:6px;font-size:12px;font-weight:600;color:var(--text2);white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--paper);color:var(--text);box-shadow:var(--z1)}
+
+.stage{padding:24px max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
+.device{margin:0 auto;background:var(--bg);border-radius:16px;overflow:hidden;box-shadow:var(--card);max-width:1440px}
+.stage.mobile .device{max-width:390px;height:800px;border-radius:36px;border:10px solid #161C24;display:flex;flex-direction:column}
+.stage.mobile .app{flex:1;overflow:auto}
+
+/* ---------- App shell ---------- */
+.app{container-type:inline-size;background:var(--bg);min-height:640px}
+.shell{display:grid;grid-template-columns:280px 1fr;min-height:100%}
+.side{border-right:1px dashed var(--line);padding:20px 16px;display:flex;flex-direction:column;gap:4px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;padding:4px 8px 20px}
+.logo i{width:32px;height:32px;border-radius:10px;background:var(--primary);display:grid;place-items:center;color:#fff;font-style:normal;font-size:14px}
+:root[data-theme="dark"] .logo i{color:#161C24}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo i{color:#161C24}}
+.nav-h{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);padding:12px 12px 6px}
+.nav a{display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:8px;color:var(--text2);text-decoration:none;font-weight:500;min-height:44px}
+.nav a.on{background:var(--primary-soft);color:var(--primary);font-weight:600}
+.nav svg{width:22px;height:22px;flex:none}
+
+.main{min-width:0;display:flex;flex-direction:column}
+.top{height:64px;display:flex;align-items:center;gap:12px;padding:0 24px;border-bottom:1px solid var(--divider);position:sticky;top:0;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(6px);z-index:5}
+.scope{display:flex;align-items:center;gap:6px;min-width:0;border:1px solid var(--line);border-radius:8px;padding:6px 10px;background:transparent;font-size:13px;font-weight:500}
+.scope span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.scope .sep{color:var(--text3)}
+.scope b{font-weight:700}
+.top .grow{flex:1}
+.iconbtn{width:40px;height:40px;border-radius:50%;border:0;background:transparent;display:grid;place-items:center;color:var(--text2)}
+.iconbtn svg{width:22px;height:22px}
+.me{display:flex;align-items:center;gap:10px}
+.me .who{line-height:1.25;text-align:right}
+.me .who b{display:block;font-size:13px}
+.me .who small{color:var(--text2);font-size:12px;white-space:nowrap}
+.seg{flex-wrap:wrap}
+.proto .ctl{flex-wrap:wrap}
+
+.avatar{border-radius:50%;display:grid;place-items:center;font-weight:700;flex:none}
+.av-sm{width:36px;height:36px;font-size:13px;background:var(--secondary-soft);color:var(--secondary)}
+
+.content{padding:24px 40px 48px;max-width:1200px;width:100%;margin:0 auto}
+.crumbs{font-size:13px;color:var(--text2);display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.crumbs .dot{width:4px;height:4px;border-radius:50%;background:var(--text3);align-self:center}
+.crumbs b{color:var(--text);font-weight:500}
+
+/* Person header AP-03 */
+.hero{background:var(--paper);border-radius:16px;box-shadow:var(--card);overflow:hidden;margin-bottom:24px}
+.hero-band{height:72px;background:linear-gradient(120deg,var(--primary-soft2),var(--secondary-soft))}
+.hero-body{display:flex;gap:20px;padding:0 24px 20px;align-items:flex-end;flex-wrap:wrap;margin-top:-36px}
+.av-xl{width:96px;height:96px;font-size:32px;background:var(--primary);color:#fff;border:4px solid var(--paper)}
+:root[data-theme="dark"] .av-xl{color:#161C24}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .av-xl{color:#161C24}}
+.hero-id{flex:1;min-width:220px;padding-top:40px}
+.hero-id h1{margin:0;font-size:24px;line-height:1.3;font-weight:700}
+.hero-meta{color:var(--text2);font-size:14px;margin-top:2px;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.hero-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+.chip{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 8px;border-radius:6px;font-size:12px;font-weight:700;line-height:1;white-space:nowrap}
+.c-success{background:var(--success-soft);color:var(--success)}
+.c-warning{background:var(--warning-soft);color:var(--warning)}
+.c-error{background:var(--error-soft);color:var(--error)}
+.c-info{background:var(--info-soft);color:var(--info)}
+.c-default{background:var(--neutral);color:var(--text2)}
+.c-role{background:var(--secondary-soft);color:var(--secondary)}
+.c-pending{background:transparent;border:1px solid var(--warning-line);color:var(--warning);font-weight:600}
+.c-source{background:var(--info-soft);color:var(--info);font-weight:600}
+.chip svg{width:13px;height:13px}
+
+.btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--line);background:transparent;font-weight:700;font-size:14px;white-space:nowrap}
+.btn-primary{background:var(--text);color:var(--bg);border-color:var(--text)}
+.btn-sm{height:30px;padding:0 10px;font-size:13px}
+.btn-ghost{border-color:transparent;color:var(--primary)}
+.btn svg{width:18px;height:18px}
+
+/* Tabs */
+.tabs{display:flex;gap:28px;border-bottom:1px solid var(--divider);padding:0 24px;overflow-x:auto;scrollbar-width:none}
+.tabs a{padding:12px 0;color:var(--text2);text-decoration:none;font-weight:600;white-space:nowrap;border-bottom:2px solid transparent}
+.tabs a.on{color:var(--text);border-color:var(--text)}
+
+/* Cards */
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+.span2{grid-column:1/-1}
+.card{background:var(--paper);border-radius:16px;box-shadow:var(--card);scroll-margin-top:80px}
+.card-h{display:flex;align-items:center;gap:8px;padding:20px 24px 0;flex-wrap:wrap}
+.card-h h2{margin:0;font-size:17px;font-weight:700;margin-right:auto}
+.card-b{padding:16px 24px 24px}
+.why{border:0;background:transparent;color:var(--text2);font-size:12px;font-weight:600;display:inline-flex;gap:4px;align-items:center;padding:4px 6px;border-radius:6px;min-height:32px}
+.why:hover{background:var(--neutral)}
+.why svg{width:16px;height:16px}
+.explain{margin:12px 24px 0;padding:12px 14px;border-radius:10px;background:var(--neutral);font-size:13px}
+.explain dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0}
+.explain dt{color:var(--text2)}
+.explain dd{margin:0;font-weight:500;overflow-wrap:anywhere}
+.explain code{font-size:12px;background:var(--paper);padding:1px 5px;border-radius:4px}
+
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 24px}
+.f{min-width:0}
+.f .l{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.f .v{font-weight:500;margin-top:2px;overflow-wrap:anywhere;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tier{font-size:10px;font-weight:700;color:var(--text3);border:1px solid var(--line);border-radius:4px;padding:0 4px;line-height:16px}
+
+.masked{display:inline-flex;align-items:center;gap:6px;color:var(--text2);font-family:ui-monospace,Menlo,monospace;letter-spacing:.04em}
+.masked svg{width:15px;height:15px}
+
+.noaccess{display:flex;gap:14px;align-items:flex-start;padding:16px;border:1px dashed var(--line);border-radius:12px}
+.noaccess .ico{width:40px;height:40px;border-radius:12px;background:var(--neutral);display:grid;place-items:center;color:var(--text2);flex:none}
+.noaccess .ico svg{width:22px;height:22px}
+.noaccess b{display:block}
+.noaccess p{margin:2px 0 0;color:var(--text2);font-size:13px}
+
+.addr{display:flex;flex-direction:column;gap:12px}
+.addr-row{padding:12px 14px;border-radius:10px;border:1px solid var(--divider)}
+.addr-row .l{font-size:12px;color:var(--text2);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.addr-row .v{font-weight:500;margin-top:2px}
+
+.doc{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:14px;border-radius:12px;border:1px solid var(--divider);margin-bottom:12px}
+.doc .t{font-weight:700;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.doc .s{grid-column:1/-1;color:var(--text2);font-size:13px;display:flex;flex-wrap:wrap;gap:4px 14px}
+.logline{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--text2);padding:10px 12px;border-radius:8px;background:var(--info-soft);margin-top:4px}
+.logline svg{width:16px;height:16px;color:var(--info);flex:none;margin-top:1px}
+
+/* Timeline AP-05 */
+.tl{list-style:none;margin:0;padding:0}
+.tl li{position:relative;padding:0 0 20px 28px}
+.tl li::before{content:"";position:absolute;left:6px;top:20px;bottom:0;width:2px;background:var(--divider)}
+.tl li:last-child::before{display:none}
+.tl .dotm{position:absolute;left:0;top:5px;width:14px;height:14px;border-radius:50%;border:3px solid var(--paper);box-shadow:0 0 0 2px var(--line);background:var(--text3)}
+.tl .dotm.cur{background:var(--success);box-shadow:0 0 0 2px var(--success-soft)}
+.tl .h{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-weight:700}
+.tl .m{color:var(--text2);font-size:13px}
+
+.guard{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.g{border:1px solid var(--divider);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.g-top{display:flex;gap:12px;align-items:center}
+.av-md{width:44px;height:44px;font-size:15px;background:var(--info-soft);color:var(--info)}
+.g-top b{display:block}
+.g-top small{color:var(--text2)}
+.flags{display:flex;gap:6px;flex-wrap:wrap}
+.contact{display:flex;flex-direction:column;gap:4px;font-size:13px}
+.contact div{display:flex;gap:8px;align-items:center}
+.contact svg{width:16px;height:16px;color:var(--text3);flex:none}
+
+.pendcard{border:1px dashed var(--warning-line);border-radius:12px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;background:transparent}
+.pendcard p{margin:2px 0 0;color:var(--text2);font-size:13px}
+
+.foot{margin-top:24px;font-size:12px;color:var(--text3)}
+
+/* Bottom nav for compact widths */
+.bnav{display:none}
+
+/* ---------- Compact layout, driven by frame width ---------- */
+@container (max-width: 1080px){
+  .shell{grid-template-columns:88px 1fr}
+  .side .logo span,.nav-h,.nav a span{display:none}
+  .nav a{justify-content:center;padding:10px}
+  .content{padding:24px 24px 48px}
+}
+@container (max-width: 860px){
+  .grid,.guard{grid-template-columns:minmax(0,1fr)}
+  .me .who{display:none}
+}
+@container (max-width: 640px){
+  .shell{grid-template-columns:1fr}
+  .side{display:none}
+  .top{padding:0 12px;height:56px}
+  .scope .hide-sm{display:none}
+  .content{padding:16px 16px 96px}
+  .hero-body{padding:0 16px 16px;gap:12px}
+  .av-xl{width:72px;height:72px;font-size:24px}
+  .hero-id{padding-top:0;min-width:100%}
+  .hero-id h1{font-size:20px}
+  .hero-actions{width:100%}
+  .hero-actions .btn{flex:1;justify-content:center}
+  .tabs{padding:0 16px;gap:20px}
+  .card-h{padding:16px 16px 0}
+  .card-b{padding:12px 16px 16px}
+  .explain{margin:12px 16px 0}
+  .fields{grid-template-columns:minmax(0,1fr)}
+  .crumbs{display:none}
+  .bnav{display:flex;position:sticky;bottom:0;background:var(--paper);border-top:1px solid var(--divider);justify-content:space-around;padding:6px 0 calc(6px + env(safe-area-inset-bottom,0px))}
+  .bnav a{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;font-weight:600;color:var(--text2);text-decoration:none;min-width:64px;min-height:44px;justify-content:center}
+  .bnav a.on{color:var(--primary)}
+  .bnav svg{width:22px;height:22px}
+}
+
+/* Dialog */
+.scrim{position:fixed;inset:0;background:var(--scrim);display:grid;place-items:center;padding:16px;z-index:50}
+.dlg{background:var(--paper);border-radius:16px;box-shadow:0 24px 48px rgba(0,0,0,.24);width:100%;max-width:480px;padding:24px}
+.dlg h3{margin:0 0 4px;font-size:18px}
+.dlg p{margin:0 0 16px;color:var(--text2);font-size:13px}
+.dlg label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin:12px 0 6px}
+.dlg select,.dlg textarea{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.dlg textarea{min-height:72px;resize:vertical}
+.dlg .row{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+.dlg .btn-primary:disabled{opacity:.4;cursor:not-allowed}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:600;font-size:13px;z-index:60;max-width:calc(100% - 32px)}
+
+.content a:not(.btn):not(.tabs a){color:var(--primary-dark);font-weight:600;text-decoration:none}
+.content a:not(.btn):not(.tabs a):hover{text-decoration:underline}
+.page-h{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.page-h h1{margin:0;font-size:24px;font-weight:700;line-height:1.3}
+.page-h p{margin:2px 0 0;color:var(--text2)}
+.page-h .grow{flex:1}
+.listcard{background:var(--paper);border-radius:16px;box-shadow:var(--card);overflow:hidden}
+.qtabs{display:flex;gap:24px;padding:0 20px;border-bottom:1px solid var(--divider);overflow-x:auto;scrollbar-width:none}
+.qtabs button{border:0;background:transparent;padding:12px 0;font-weight:600;color:var(--text2);white-space:nowrap;border-bottom:2px solid transparent;display:flex;gap:6px;align-items:center;min-height:44px}
+.qtabs button[aria-pressed="true"]{color:var(--text);border-color:var(--text)}
+.cnt{font-size:11px;font-weight:700;border-radius:6px;padding:1px 6px;background:var(--neutral);color:var(--text2)}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:13px;font-weight:600;color:var(--text2);background:var(--neutral);padding:12px 16px;white-space:nowrap}
+td{padding:14px 16px;border-bottom:1px dashed var(--divider);vertical-align:middle}
+tbody tr.click{cursor:pointer}
+tbody tr.click:hover td{background:var(--primary-soft)}
+.sub{color:var(--text2);font-size:12px}
+.whoc{display:flex;gap:12px;align-items:center;min-width:0}
+.whoc b{display:block;font-weight:600;white-space:nowrap}
+.av-row{width:40px;height:40px;font-size:13px;background:var(--primary-soft2);color:var(--primary-dark)}
+.scopebar{display:flex;gap:10px;align-items:flex-start;padding:10px 14px;border-radius:10px;background:var(--neutral);font-size:13px;margin:16px 20px}
+.scopebar svg{width:16px;height:16px;color:var(--text2);flex:none;margin-top:2px}
+
+/* Board */
+.board{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(220px,1fr);gap:16px;overflow-x:auto;padding-bottom:8px}
+.col{background:var(--neutral);border-radius:16px;padding:12px;min-height:200px;display:flex;flex-direction:column;gap:10px}
+.col-h{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13px;padding:2px 4px}
+.kcard{background:var(--paper);border-radius:12px;box-shadow:var(--z1);padding:12px;border:1px solid var(--divider);text-align:left;display:flex;flex-direction:column;gap:6px;width:100%}
+.kcard:hover{border-color:var(--primary)}
+.kcard b{font-size:14px}
+.kcard .blk{font-size:12px;color:var(--warning);display:flex;gap:4px;align-items:flex-start}
+.kcard .blk svg{width:14px;height:14px;flex:none;margin-top:2px}
+.kempty{font-size:12px;color:var(--text3);padding:8px 4px}
+
+/* Stepper */
+.steps{display:flex;gap:0;padding:16px 24px 20px;overflow-x:auto;scrollbar-width:none}
+.step{flex:1;min-width:96px;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;font-size:12px;color:var(--text2);text-align:center}
+.step::before{content:"";position:absolute;top:11px;left:-50%;right:50%;height:2px;background:var(--divider)}
+.step:first-child::before{display:none}
+.step .d{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--neutral);color:var(--text2);font-weight:700;font-size:11px;position:relative;z-index:1}
+.step.done .d{background:var(--success);color:#fff}
+.step.done::before,.step.cur::before{background:var(--success)}
+.step.cur .d{background:var(--text);color:var(--bg)}
+.step.cur{color:var(--text);font-weight:700}
+.step.bad .d{background:var(--error);color:#fff}
+
+/* Capacity bar */
+.bar{height:8px;border-radius:4px;background:var(--neutral);overflow:hidden;display:flex;min-width:120px}
+.bar i{display:block;height:100%}
+.bar .e{background:var(--primary)}
+.bar .h{background:var(--warning-line)}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--text2);flex-wrap:wrap}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+.kv{display:grid;grid-template-columns:200px 1fr;gap:10px 16px;font-size:14px}
+.kv dt{color:var(--text2)}
+.kv dd{margin:0;font-weight:500;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.notset{color:var(--warning);font-weight:700;display:inline-flex;gap:4px;align-items:center}
+.notset svg{width:15px;height:15px}
+.settings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.count{display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:12px;background:var(--warning-soft);color:var(--warning);font-weight:600;font-size:13px}
+.count svg{width:20px;height:20px;flex:none}
+.blocked{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:12px;border:1px solid var(--warning-line);font-size:13px}
+.blocked svg{width:20px;height:20px;color:var(--warning);flex:none}
+.blocked b{display:block}
+.list-row{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px dashed var(--divider);flex-wrap:wrap}
+.list-row:last-child{border-bottom:0}
+.list-row .grow{flex:1;min-width:160px}
+.pos{width:28px;height:28px;border-radius:8px;background:var(--neutral);display:grid;place-items:center;font-weight:700;font-size:13px;flex:none}
+.dlg input[type=text]{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.drawer-kids{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.drawer-kids div{padding:10px 12px;border:1px solid var(--divider);border-radius:10px}
+@container (max-width: 860px){.settings{grid-template-columns:minmax(0,1fr)}.kv{grid-template-columns:minmax(0,1fr);gap:2px 0}.kv dd{margin-bottom:10px}}
+@container (max-width: 640px){.page-h h1{font-size:20px}.steps{padding:12px 16px 16px}.board{grid-auto-columns:minmax(240px,80%)}}
+
+/* ---------- Fees additions ---------- */
+.money{font-variant-numeric:tabular-nums;white-space:nowrap}
+.r{text-align:right}
+td.r,th.r{text-align:right}
+.todo{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-bottom:24px}
+.tcard{background:var(--paper);border-radius:14px;box-shadow:var(--card);padding:16px;text-align:left;border:1px solid transparent;display:flex;flex-direction:column;gap:8px;width:100%}
+.tcard:hover{border-color:var(--primary)}
+.tcard b{font-size:15px}
+.tcard .big{font-size:22px;font-weight:700}
+.tcard .m{font-size:13px;color:var(--text2)}
+.inv-lines td{padding:10px 16px}
+.inv-lines tr.adj td{color:var(--success);font-size:13px;padding-top:0}
+.inv-lines tr.stu td{background:var(--neutral);font-weight:700;font-size:13px;padding:8px 16px}
+.tot{display:grid;grid-template-columns:1fr auto;gap:6px 24px;max-width:340px;margin-left:auto;padding:16px 24px 20px;font-size:14px}
+.tot dt{color:var(--text2)}
+.tot dd{margin:0;text-align:right;font-weight:600}
+.tot .gt{font-size:17px;font-weight:700;color:var(--text)}
+.proto-note{border:1px dashed var(--line);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--text2);margin-top:24px}
+.note{font-size:12px;color:var(--text2);margin-top:8px}
+.sumrow{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 16px}
+.stat{background:var(--paper);border-radius:12px;box-shadow:var(--card);padding:12px 16px;min-width:120px}
+.stat b{display:block;font-size:20px}
+.stat span{font-size:12px;color:var(--text2)}
+.kids{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.kid{border:1px solid var(--divider);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.kid b{font-size:14px}
+.pay-sheet{display:flex;flex-direction:column;gap:12px}
+.duecard{background:var(--paper);border-radius:16px;box-shadow:var(--card);padding:18px}
+.duecard .amt{font-size:28px;font-weight:700}
+.calc td,.calc th{padding:10px 12px}
+.appr{display:flex;flex-direction:column;gap:8px}
+.appr div{display:flex;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--divider);border-radius:10px;flex-wrap:wrap}
+.appr div .grow{flex:1}
+.dlg .sumline{display:flex;justify-content:space-between;font-size:14px;padding:6px 0;border-bottom:1px dashed var(--divider)}
+.dlg input[type=number],.dlg input[type=text]{width:100%}
+@container (max-width: 640px){.todo{grid-template-columns:minmax(0,1fr)}.tot{max-width:none;padding:12px 16px 16px}.hide-phone{display:none}td,th{padding:10px 10px}}
+</style></head><body>
+<div class="proto" role="region" aria-label="Prototype controls">
+  <div class="proto-title">Fees &amp; Billing prototype <small>Campus OS · synthetic amounts · today 14 Nov 2026</small></div>
+  <div class="ctl">Viewer
+    <div class="seg" id="viewers">
+      <button data-v="siti" aria-pressed="true">Siti · Finance SG</button>
+      <button data-v="wendy" aria-pressed="false">Wendy · Finance Controller</button>
+      <button data-v="vivek" aria-pressed="false">Vivek · Country Director</button>
+      <button data-v="anita" aria-pressed="false">Dr Rao · Principal</button>
+      <button data-v="lina" aria-pressed="false">Lina · Admissions</button>
+      <button data-v="neha" aria-pressed="false">Neha · Parent (payer)</button>
+      <button data-v="vikram" aria-pressed="false">Vikram · Parent</button>
+      <button data-v="ankit" aria-pressed="false">Ankit · Finance IN-NOI</button>
+    </div>
+  </div>
+  <div class="ctl">Frame
+    <div class="seg" id="frame"><button data-f="desk" aria-pressed="true">Desktop</button><button data-f="phone" aria-pressed="false">Phone</button></div>
+  </div>
+  <div class="ctl">Theme
+    <div class="seg" id="theme"><button data-t="light" aria-pressed="false">Light</button><button data-t="dark" aria-pressed="false">Dark</button><button data-t="auto" aria-pressed="true">Auto</button></div>
+  </div>
+</div>
+<div class="stage" id="stage"><div class="device"><div class="app">
+  <div class="shell">
+    <aside class="side" aria-label="Main navigation">
+      <div class="logo"><i>C</i><span>Campus OS</span></div>
+      <div class="nav-h" id="navh">Fees</div>
+      <nav class="nav" id="nav"></nav>
+      <div class="nav-h">Other modules</div>
+      <nav class="nav"><a href="https://claude.ai/artifact/6MBfaHBUpbffAVR3hoEckJ" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v11H8l-4 4z"/></svg><span>Admissions ↗</span></a>
+      <a href="https://claude.ai/artifact/1gUrzodtAHH9jXDXW56TYE" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 10v10"/></svg><span>Classes ↗</span></a></nav>
+    </aside>
+    <div class="main">
+      <header class="top">
+        <button class="scope" title="Current scope"><span id="scopeTxt"></span></button>
+        <div class="grow"></div>
+        <div class="me"><div class="who"><b id="meName"></b><small id="meRole"></small></div><div class="avatar av-sm" id="meAv"></div></div>
+      </header>
+      <main class="content" id="view" tabindex="-1"></main>
+      <nav class="bnav" id="bnav"></nav>
+    </div>
+  </div>
+</div></div></div>
+<div id="layer"></div>
+<script>
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt=(n,c='SGD')=>typeof n==='number'?`${c} ${n.toLocaleString('en-SG',{minimumFractionDigits:2,maximumFractionDigits:2})}`:esc(n);
+const r2=x=>Math.round((x+1e-9)*100)/100;
+const chip=(t,c)=>`<span class="chip c-${c}">${esc(t)}</span>`;
+const pend=(oq,t)=>`<span class="chip c-pending" title="Not decided yet">${t?esc(t)+' · ':''}Pending decision (${oq})</span>`;
+const notset=(why)=>`<span class="notset" title="${esc(why||'')}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 2 21h20zM12 10v5M12 18v.5"/></svg>Not set</span>`;
+const IC={home:'<path d="M3 11 12 4l9 7v9H3z"/>',acct:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5M16 4.5a3.5 3.5 0 0 1 0 7"/>',run:'<path d="M4 4h16v4H4zM4 12h16v8H4z"/>',plan:'<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>',over:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',ref:'<path d="M4 12a8 8 0 1 0 3-6.2"/><path d="M4 4v4h4"/>',set:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>',due:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/>',hist:'<path d="M4 6h16M4 12h16M4 18h10"/>',rec:'<path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/>',stat:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',adm:'<path d="M4 5h16v11H8l-4 4z"/>'};
+const svg=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">${IC[k]}</svg>`;
+
+/* ---------- Data (from fees-billing-sample.json, synthetic) ---------- */
+const GST=0.09;
+const PLANS={
+ 'CBSE 6-8':{id:'FP-PGL-CBSE-6-8',campus:'SG-PGL',prog:'CBSE 1-12',grades:'Grades 6–8',v:1,from:'13 Jul 2026',status:'Approved',by:'Wendy Koh, 18 Mar 2026',lines:[['Tuition',6480,'Per term','All students'],['Student welfare',150,'Per term','All students'],['Activity',180,'Per term','All students'],['Technology',320,'Per term','All students'],['Bus',1040,'Per term','Opt-in'],['Application',300,'Once','New students'],['Registration',1200,'Once','New students']]},
+ 'CBSE 1-5':{id:'FP-PGL-CBSE-1-5',campus:'SG-PGL',prog:'CBSE 1-12',grades:'Grades 1–5',v:1,from:'13 Jul 2026',status:'Approved',by:'Wendy Koh, 18 Mar 2026',lines:[['Tuition',5900,'Per term','All students'],['Student welfare',150,'Per term','All students'],['Activity',180,'Per term','All students'],['Technology',280,'Per term','All students'],['Bus',1040,'Per term','Opt-in'],['Application',300,'Once','New students'],['Registration',1200,'Once','New students']]},
+ 'IB PYP':{id:'FP-PGL-PYP',campus:'SG-PGL',prog:'IB PYP',grades:'Grades 1–5',v:2,from:'1 Sep 2026',status:'Approved',by:'Wendy Koh, 20 Aug 2026',reason:'Technology fee added for the new device programme (synthetic). Version 1 (valid 13 Jul 2026) is Superseded; Term 1 invoices keep version 1.',lines:[['Tuition',7100,'Per term','All students'],['Student welfare',150,'Per term','All students'],['Activity',220,'Per term','All students'],['Technology',300,'Per term','All students'],['Bus',1040,'Per term','Opt-in'],['Application',300,'Once','New students'],['Registration',1200,'Once','New students']]},
+ 'CBSE 11-12':{id:'FP-PGL-CBSE-11-12',campus:'SG-PGL',prog:'CBSE 1-12',grades:'Grades 11–12',v:1,from:'13 Jul 2026',status:'Draft',lines:[['Tuition',null,'Per term','All students'],['Student welfare',150,'Per term','All students'],['Technology',320,'Per term','All students']]},
+ 'IGCSE':{id:'FP-ECS-IGCSE',campus:'SG-ECS',prog:'IGCSE 9-10',grades:'Grades 9–10',v:1,from:'13 Jul 2026',status:'Approved',by:'Wendy Koh, 18 Mar 2026',lines:[['Tuition',7350,'Per term','All students'],['Student welfare',150,'Per term','All students'],['Activity',200,'Per term','All students'],['Technology',320,'Per term','All students'],['Registration',1200,'Once','New students']]},
+ 'IBDP':{id:'FP-ECS-IBDP',campus:'SG-ECS',prog:'IBDP',grades:'IBDP Years 1–2',v:1,from:'13 Jul 2026',status:'Submitted',lines:[['Tuition',9800,'Per term','All students'],['Student welfare',150,'Per term','All students'],['Technology',320,'Per term','All students'],['Registration',1200,'Once','New students']],_note:'Sample shows it Approved; set to Submitted here so Wendy has one to approve'},
+};
+const T2='Term 2 (Nov 2026–Feb 2027)',T1='Term 1 (Jul–Oct 2026)';
+function L(stu,cls,plan,fee,term,opt={}){const p=PLANS[plan].lines.find(l=>l[0]===fee);const unit=opt.unit??p[1];const q=opt.q??1;const share=opt.share??100;const gross=r2(unit*q*share/100);const adj=opt.adj?r2(gross*opt.adj.pct/100):0;const tax=r2((gross-adj)*GST);return{stu,cls,fee,desc:opt.desc||`${fee}, ${term}`,unit,q,share,gross,adj:opt.adj?{label:opt.adj.label,amt:adj}:null,tax,total:r2(gross-adj+tax)};}
+function term(stu,cls,plan,t,o={}){const fees=['Tuition','Student welfare','Activity','Technology'].filter(f=>PLANS[plan].lines.some(l=>l[0]===f));const out=fees.map(f=>L(stu,cls,plan,f,t,f==='Tuition'&&o.adj?{adj:o.adj}:{}));if(o.bus)out.push(L(stu,cls,plan,'Bus',t,{desc:`Bus (Punggol route), ${t}`}));return out;}
+const SIB={label:'Sibling discount 5% (rule synthetic, OQ-83)',pct:5},SCH={label:'Merit scholarship 25% (synthetic)',pct:25};
+const INV={};
+function mk(num,acct,campus,source,period,date,due,lines,status,paid,extra={}){const tot=r2(lines.reduce((a,l)=>a+l.total,0));const i={num,acct,campus,source,period,date,due,lines,status,total:tot,paid:paid==='all'?tot:(paid||0),credited:0,cur:campus.startsWith('IN')?'INR':'SGD',...extra};INV[num]=i;return i;}
+mk('SG-2026-030418','BA-SG-000418','SG-PGL / SG-ECS','Billing run',T1,'1 Jul 2026','31 Jul 2026',[...term('Aarav Sharma','SG-PGL · 7B','CBSE 6-8',T1),...term('Ishita Sharma','SG-ECS · 9A','IGCSE',T1,{adj:SIB})],'Paid','all');
+mk('SG-2026-041877','BA-SG-000418','SG-PGL / SG-ECS','Billing run',T2,'3 Nov 2026','30 Nov 2026',[...term('Aarav Sharma','SG-PGL · 7B','CBSE 6-8',T2),...term('Ishita Sharma','SG-ECS · 9A','IGCSE',T2,{adj:SIB})],'Issued',0);
+mk('SG-2026-042010','BA-SG-000418','SG-PGL','One-off charge',null,'10 Nov 2026','24 Nov 2026',[{stu:'Aarav Sharma',cls:'SG-PGL · 7B',fee:'School event',desc:'Grade 7 Science Centre visit, 27 Nov 2026',unit:45,q:1,share:100,gross:45,adj:null,tax:4.05,total:49.05}],'Issued',0);
+mk('SG-2026-030377','BA-SG-000377','SG-PGL','Billing run',T1,'1 Jul 2026','31 Jul 2026',term('Rohan Mehta','SG-PGL · 8A','CBSE 6-8',T1,{bus:true}),'Overdue',4000);
+mk('SG-2026-041802','BA-SG-000377','SG-PGL','Billing run',T2,'3 Nov 2026','30 Nov 2026',term('Rohan Mehta','SG-PGL · 8A','CBSE 6-8',T2,{bus:true}),'Issued',0);
+mk('SG-2026-041655','BA-SG-000522','SG-PGL','Billing run',T2,'3 Nov 2026','30 Nov 2026',term('Chloe Tan Wei Ling','SG-PGL · 3C','IB PYP',T2),'Paid','all');
+mk('SG-2026-041690','BA-SG-000601','SG-PGL','Billing run',T2,'3 Nov 2026','30 Nov 2026',term('Yuki Watanabe','SG-PGL · 5B','CBSE 1-5',T2,{adj:SCH,bus:true}),'Paid','all');
+mk('SG-2026-040950','BA-SG-000690','SG-PGL','Admission',null,'4 Nov 2026','4 Nov 2026',[L('Noah Fernandes','SG-PGL · Grade 6','CBSE 6-8','Registration',null,{desc:'Registration fee, AY 2026-27 admission'})],'Paid','all',{ad09:'Contract in cooling-off until 17 Nov 2026'});
+mk('SG-2026-041120','BA-SG-000702','SG-PGL','Admission',null,'5 Nov 2026','5 Nov 2026',[L('Sofia Rossi','SG-PGL · Grade 6','CBSE 6-8','Registration',null,{desc:'Registration fee, AY 2026-27 admission'})],'Issued',0,{ad09:'Offer issued 5 Nov; Student Pass pending'});
+mk('SG-2026-038640','BA-SG-000611','SG-PGL','Admission',null,'8 Oct 2026','8 Oct 2026',[L('Hana Kim','SG-PGL · Grade 2','IB PYP','Registration',null,{desc:'Registration fee, AY 2026-27 admission'})],'Credited','all',{ad09:'ICA rejected Student Pass 2 Nov; refunded less SGD 50'});
+const ACC={
+ 'BA-SG-000418':{payer:'Neha Sharma',ptype:'Guardian',kids:[['Aarav Sharma','SG-PGL · Grade 7 · 7B','100%'],['Ishita Sharma','SG-ECS · Grade 9 · 9A','100%']],shared:[],note:'Vikram Sharma is a verified guardian of both children but not a payer (DL-85).',addr:'Blk 618 Punggol Drive #08-112, Singapore 820618'},
+ 'BA-SG-000377':{payer:'Rajesh Mehta',ptype:'Guardian',kids:[['Rohan Mehta','SG-PGL · Grade 8 · 8A','100% · Bus opted in']],shared:[]},
+ 'BA-SG-000522':{payer:'Michelle Tan',ptype:'Guardian',kids:[['Chloe Tan Wei Ling','SG-PGL · Grade 3 · 3C','100%']],shared:[],note:'Withdrawal: last day 31 Dec 2026; refund case open.'},
+ 'BA-SG-000601':{payer:'Haruka Watanabe',ptype:'Guardian',kids:[['Yuki Watanabe','SG-PGL · Grade 5 · 5B','100% · Bus opted in']],shared:[]},
+ 'BA-SG-000655':{payer:'Hanbit Logistics Pte Ltd',ptype:'Sponsor',kids:[['Daniel Lee','SG-ECS · IBDP Year 1 · starts 4 Jan 2027','Tuition 100%']],shared:[],note:'Synthetic employer. Sponsor letter on file. Statements by email, no login (OQ-85).'},
+ 'BA-SG-000656':{payer:'Joon-ho Lee',ptype:'Guardian',kids:[['Daniel Lee','SG-ECS · IBDP Year 1','Registration 100%']],shared:[],note:'Welfare and technology fees have no payer yet (run exception).'},
+ 'BA-SG-000437':{payer:'Lakshmi Nair',ptype:'Guardian',kids:[['Kavya Nair','SG-ECS · Grade 6 · 6A','100% · Long leave Dec–Feb']],shared:[]},
+ 'BA-SG-000690':{payer:"Noah's parent",ptype:'Guardian',kids:[['Noah Fernandes','SG-PGL · Grade 6 (Confirmed)','100%']],shared:[]},
+ 'BA-SG-000702':{payer:"Sofia's parent",ptype:'Guardian',kids:[['Sofia Rossi','SG-PGL · Grade 6 (Offered)','100%']],shared:[]},
+ 'BA-SG-000611':{payer:"Hana's parent",ptype:'Guardian',kids:[['Hana Kim','SG-PGL · Grade 2 (Cancelled)','100%']],shared:[],closed:true},
+};
+const PAY=[
+ {rc:'RC-SG-2026-018220',acct:'BA-SG-000418',ch:'Gateway',m:'PayNow',ref:'PN-7Q2K-88310',amt:INV['SG-2026-030418'].total,st:'Succeeded',at:'22 Jul 2026',alloc:[['SG-2026-030418',INV['SG-2026-030418'].total]]},
+ {rc:'RC-SG-2026-019004',acct:'BA-SG-000377',ch:'Counter',m:'Cheque',amt:4000,st:'Succeeded',at:'19 Aug 2026',by:'Siti Rahman',alloc:[['SG-2026-030377',4000]]},
+ {rc:null,acct:'BA-SG-000377',ch:'Gateway',m:'Card',ref:'CRD-55X1-02977',amt:2000,st:'Failed',at:'12 Nov 2026',fail:'Card declined by issuer'},
+ {rc:'RC-SG-2026-024410',acct:'BA-SG-000522',ch:'Gateway',m:'PayNow',ref:'PN-9M4C-11872',amt:INV['SG-2026-041655'].total,st:'Succeeded',at:'6 Nov 2026',alloc:[['SG-2026-041655',INV['SG-2026-041655'].total]]},
+ {rc:'RC-SG-2026-024512',acct:'BA-SG-000601',ch:'Gateway',m:'Card',ref:'CRD-11B7-44120',amt:INV['SG-2026-041690'].total,st:'Succeeded',at:'8 Nov 2026',alloc:[['SG-2026-041690',INV['SG-2026-041690'].total]]},
+ {rc:'RC-SG-2026-024020',acct:'BA-SG-000690',ch:'Bank transfer',m:'Bank transfer',amt:INV['SG-2026-040950'].total,st:'Succeeded',at:'4 Nov 2026',by:'Siti Rahman',alloc:[['SG-2026-040950',INV['SG-2026-040950'].total]]},
+];
+const REM={'SG-2026-030377':[['7 days overdue','Parent app','7 Aug 2026','Schedule'],['30 days overdue','Email','30 Aug 2026','Schedule'],['Manual','WhatsApp','15 Oct 2026','Siti Rahman']],'SG-2026-041877':[['7 days before due','Parent app','scheduled 23 Nov 2026','Schedule']]};
+const hana=INV['SG-2026-038640'].total;
+const REF={
+ 'RF-SG-2026-0041':{stu:'Hana Kim',acct:'BA-SG-000611',basis:'ICA/MOE rejection',basisNote:'Student Pass rejected by ICA on 2 Nov 2026. Registration fee refundable for new admissions, less the administrative charge (HB p.242–243).',notice:'2 Nov 2026',rules:'GIIS SG refund rules 2025-26',calc:[['Registration fee',hana,'100%',50,r2(hana-50)]],amount:r2(hana-50),appr:[['Finance Controller','Wendy Koh','Approved 4 Nov'],['Country Director','Vivek Menon','Approved 5 Nov']],due:'11 Nov 2026',status:'Paid',paid:'Paid 10 Nov 2026 by bank transfer to ••••4417'},
+ 'RF-SG-2026-0047':{stu:'Chloe Tan Wei Ling',acct:'BA-SG-000522',basis:'Table 3B (other reasons)',basisNote:'Family relocating to Australia. Written notice 10 Nov 2026; last day 31 Dec 2026. Withdrawal approved after the Term 2 cut-off (1 Oct), so Term 2 is billed to December (credit note for Jan–Feb).',notice:'10 Nov 2026',rules:'GIIS SG refund rules 2025-26',calc:null,amount:null,appr:[['Finance Controller','Wendy Koh','Pending'],['Country Director','Vivek Menon','Pending']],due:'19 Nov 2026',status:'Calculating',docs:'Requested 11 Nov 2026 (within 3 working days); due 20 Nov 2026 (7 working days) or the refund is forfeited unless extended (HB p.245)',cn:{num:'CN-SG-2026-000318',amt:r2(INV['SG-2026-041655'].total/2),status:'Draft'}},
+ 'RF-IN-2026-0006':{stu:'Meher Kapoor',acct:'BA-IN-000198',basis:'Other reasons',basisNote:'Withdrawn 14 Aug 2026.',notice:'30 Jul 2026',rules:null,calc:null,amount:null,appr:[],due:'Not set',status:'Calculating',india:true},
+};
+const RUNS={
+ 'RUN-ECS-2026-T2':{campus:'SG-ECS',period:T2,status:'Needs review',count:742,gross:5869900,adj:-98400,tax:519435,net:6290935,exc:[{id:'x1',stu:'Daniel Lee',g:'IBDP Year 1',issue:'Student welfare and Technology have no payer (shares add up to 0%, SR-FB-04)',fix:null},{id:'x2',stu:'Kavya Nair',g:'Grade 6',issue:'Long leave covers Dec–Feb (3 of 4 months)',fix:'Bill November only (automatic, DL-86)'}]},
+ 'RUN-PGL-2026-T2':{campus:'SG-PGL',period:T2,status:'Issued',count:1184,gross:7712400,adj:-186250,tax:677347.5,net:8203497.5,appr:'Wendy Koh, 2 Nov 2026',issued:'3 Nov 2026',exc:[{id:'y1',stu:'Arjun Reddy',g:'Grade 11',issue:'Fee plan CBSE Grades 11–12: tuition Not set',fix:'Excluded; bill in a supplementary run once the plan is approved'},{id:'y2',stu:'Sara Fernandes',g:'KG1',issue:'Enrolment is for AY 2027-28',fix:'Skipped automatically'}]},
+ 'RUN-NOI-2026':{campus:'IN-NOI',period:'Not set',status:'Draft',count:0,exc:[{id:'z1',stu:'All students',g:'',issue:'Billing periods Not set for IN-NOI AY 2026-27 (OQ-80)',fix:null},{id:'z2',stu:'All students',g:'',issue:'Fee plan CBSE 1-12: tuition Not set',fix:null}],india:true},
+};
+const ADJ=[{stu:'Ishita Sharma',type:'Sibling',val:'5% of tuition',st:'Approved',by:'Wendy Koh',reason:'Second child at GIIS Singapore'},{stu:'Yuki Watanabe',type:'Scholarship',val:'25% of tuition',st:'Approved',by:'Wendy Koh',reason:'Award SCH-26-0112 from the scholarship office'},{id:'adj3',stu:'Rohan Mehta',type:'Waiver',val:'Bus fee, Term 2',st:'Requested',by:null,reason:'Family moved off the bus route in October'}];
+
+/* ---------- Viewers ---------- */
+const VIEW={
+ siti:{name:'Siti Rahman',role:'Finance Executive · GIIS Singapore',av:'SR',scope:['GIIS','Singapore','SG-PGL + SG-ECS'],routes:['home','accounts','runs','plans','overdue','refunds','settings']},
+ wendy:{name:'Wendy Koh',role:'Finance Controller · GIIS Singapore',av:'WK',scope:['GIIS','Singapore'],routes:['home','accounts','runs','plans','overdue','refunds','settings']},
+ vivek:{name:'Vivek Menon',role:'Country Director · GIIS Singapore',av:'VM',scope:['GIIS','Singapore'],routes:['refunds','status']},
+ anita:{name:'Dr Anita Rao',role:'Principal · SG-PGL',av:'AR',scope:['GIIS','Singapore','SMART Campus Punggol'],routes:['status']},
+ lina:{name:'Lina Goh',role:'Admissions Officer · SG-PGL',av:'LG',scope:['GIIS','Singapore','SMART Campus Punggol'],routes:['admfees']},
+ neha:{name:'Neha Sharma',role:'Parent',av:'NS',scope:['Parent app'],routes:['due','history','receipts'],parent:true},
+ vikram:{name:'Vikram Sharma',role:'Parent',av:'VS',scope:['Parent app'],routes:['due','history','receipts'],parent:true},
+ ankit:{name:'Ankit Bansal',role:'Finance Executive · IN-NOI',av:'AB',scope:['GIIS','India','Noida Campus'],routes:['home','runs','refunds','settings']},
+};
+const RT={home:['Finance home','home'],accounts:['Billing accounts','acct'],runs:['Billing runs','run'],plans:['Fee plans','plan'],overdue:['Overdue','over'],refunds:['Refunds','ref'],settings:['Settings','set'],status:['Fee status','stat'],admfees:['Admission fees','adm'],due:["What's due",'due'],history:['History','hist'],receipts:['Receipts','rec']};
+let V='siti';const me=()=>VIEW[V];
+const isFC=()=>V==='wendy',isFin=()=>V==='siti'||V==='wendy',canPay=()=>V==='neha'||(V==='vikram'&&ACC['BA-SG-000418'].shared.includes('Vikram Sharma'));
+
+/* ---------- Derived ---------- */
+const due=i=>r2(i.total-i.paid-i.credited);
+function invStatus(i){if(i.status==='Void'||i.status==='Credited')return i.status;const d=due(i);if(d<=0.001)return'Paid';if(i.status==='Overdue')return i.paid>0?'Overdue':'Overdue';return i.paid>0?'Partially paid':'Issued';}
+const IC2={Draft:'default',Issued:'info','Partially paid':'warning',Paid:'success',Overdue:'error',Void:'default',Credited:'default'};
+const invChip=i=>chip(invStatus(i),IC2[invStatus(i)]);
+const acctInv=a=>Object.values(INV).filter(i=>i.acct===a);
+const bal=a=>r2(acctInv(a).reduce((s,i)=>s+(['Void','Credited'].includes(i.status)?0:due(i)),0));
+function feeStatus(a){if(a==='BA-SG-000437')return'Paused';const inv=acctInv(a).filter(i=>!['Void','Credited'].includes(i.status));if(inv.some(i=>invStatus(i)==='Overdue'))return'Overdue';if(inv.some(i=>due(i)>0))return'Due';return'Clear';}
+const FS={Clear:'success',Due:'info',Overdue:'error',Paused:'default'};
+const fsChip=s=>chip(s,FS[s]);
+
+/* ---------- Views ---------- */
+function page(h,p,actions=''){return`<div class="page-h"><div><h1>${h}</h1>${p?`<p>${p}</p>`:''}</div><div class="grow"></div>${actions}</div>`;}
+function vHome(){
+ if(V==='ankit')return page('Finance home','GIIS India · Noida Campus')+`<div class="blocked"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 2 21h20zM12 10v5M12 18v.5"/></svg><div><b>Billing can't start at Noida yet</b>GIIS India has no billing periods, fee plan amounts, tax code or refund rules set. Each one blocks a step (SR-FB-02). <a href="#settings">Open settings</a> · <a href="#runs">See the blocked run</a> · <a href="#refunds">Meher Kapoor's refund</a></div></div><p class="note">Fee history for Noida families still lives in MyGIIS until cutover ${pend('OQ-90')}.</p>`;
+ const ecs=RUNS['RUN-ECS-2026-T2'],open=ecs.exc.filter(x=>!x.fix).length;
+ const overdue=Object.keys(ACC).filter(a=>feeStatus(a)==='Overdue');
+ const reqAdj=ADJ.filter(a=>a.st==='Requested').length;
+ return page('Finance home','GIIS Singapore · today 14 Nov 2026 · Term 2 invoices due 30 Nov')+`<div class="todo">
+ <button class="tcard" data-go="run/RUN-ECS-2026-T2"><span>${chip(ecs.status,ecs.status==='Issued'?'success':ecs.status==='Ready for approval'?'info':'warning')}</span><b>East Coast Term 2 run</b><span class="m">${open?`${open} exception${open>1?'s':''} to fix before approval`:(ecs.status==='Issued'?'Issued':'Ready for Wendy to approve')}</span></button>
+ <button class="tcard" data-go="refund/RF-SG-2026-0047"><span>${chip('Due 19 Nov','warning')}</span><b>Refund: Chloe Tan</b><span class="m">Blocked: Table 3B percentages Not set (OQ-86)</span></button>
+ <button class="tcard" data-go="overdue"><span>${chip(overdue.length+' overdue','error')}</span><b>Overdue accounts</b><span class="m">${overdue.map(a=>esc(ACC[a].payer)).join(', ')||'None'}</span></button>
+ <button class="tcard" data-go="account/BA-SG-000377"><span>${chip('1 failed','error')}</span><b>Failed card payment</b><span class="m">Rajesh Mehta, SGD 2,000.00 on 12 Nov · declined by issuer · no change to invoices</span></button>
+ ${reqAdj?`<button class="tcard" data-go="adjust"><span>${chip(reqAdj+' requested','info')}</span><b>Discounts and waivers</b><span class="m">Rohan Mehta: bus fee waiver, Term 2</span></button>`:''}
+ <button class="tcard" data-go="plans"><span>${chip('1 submitted','info')}</span><b>Fee plans</b><span class="m">SG-ECS IBDP waiting for approval · SG-PGL CBSE 11–12 Draft (tuition Not set)</span></button>
+ </div>
+ <div class="listcard"><div class="card-h" style="padding-bottom:12px"><h2>Recent payments</h2></div><div class="tablewrap"><table><thead><tr><th>Received</th><th>Account</th><th class="hide-phone">Method</th><th class="r">Amount</th><th>Status</th></tr></thead><tbody>${PAY.slice().reverse().map(p=>`<tr class="click" data-go="account/${p.acct}"><td>${p.at}</td><td>${esc(ACC[p.acct].payer)}<div class="sub">${p.acct}</div></td><td class="hide-phone">${p.m} · ${p.ch}</td><td class="r money">${fmt(p.amt)}</td><td>${chip(p.st,p.st==='Succeeded'?'success':'error')}</td></tr>`).join('')}</tbody></table></div></div>`;
+}
+function vAccounts(){
+ const rows=Object.entries(ACC).map(([k,a])=>`<tr class="click" data-go="account/${k}"><td><div class="whoc"><div class="avatar av-row">${a.ptype==='Sponsor'?'Co':esc(a.payer.split(' ').map(x=>x[0]).join('').slice(0,2))}</div><div><b>${esc(a.payer)}</b><span class="sub">${k} · ${a.ptype}</span></div></div></td><td class="hide-phone">${a.kids.map(x=>esc(x[0])).join(', ')}</td><td class="r money">${fmt(bal(k))}</td><td>${a.closed?chip('Closed','default'):fsChip(feeStatus(k))}</td></tr>`).join('');
+ return page('Billing accounts','One account per payer in GIIS Singapore. Siblings at both campuses share one statement (DL-79).')+`<div class="listcard"><div class="tablewrap"><table><thead><tr><th>Payer</th><th class="hide-phone">Students</th><th class="r">Balance</th><th>Fee status</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
+}
+function invTable(list,clickable=true){return`<div class="tablewrap"><table><thead><tr><th>Invoice</th><th class="hide-phone">For</th><th>Due</th><th class="r">Total</th><th class="r">Due now</th><th>Status</th></tr></thead><tbody>${list.map(i=>`<tr class="${clickable?'click':''}" ${clickable?`data-go="invoice/${i.num}"`:''}><td><b>${i.num}</b><div class="sub">${i.source}</div></td><td class="hide-phone">${esc(i.period||i.lines[0].desc)}</td><td>${i.due}</td><td class="r money">${fmt(i.total,i.cur)}</td><td class="r money">${fmt(Math.max(0,due(i)),i.cur)}</td><td>${invChip(i)}</td></tr>`).join('')}</tbody></table></div>`;}
+function vAccount(k){
+ const a=ACC[k];if(!a)return'Not found';
+ const pays=PAY.filter(p=>p.acct===k);
+ return`<div class="crumbs"><a href="#accounts">Billing accounts</a><span class="dot"></span><b>${k}</b></div>`+page(esc(a.payer),`${k} · ${a.ptype} · GIIS Singapore · Data location: Singapore`,`${isFin()?`<button class="btn" data-act="record" data-acct="${k}">Record payment</button><button class="btn" data-act="oneoff" data-acct="${k}">One-off charge</button>`:''}`)+
+ `<div class="sumrow"><div class="stat"><b class="money">${fmt(bal(k))}</b><span>Balance</span></div><div class="stat"><b>${a.closed?'Closed':feeStatus(k)}</b><span>Fee status</span></div><div class="stat"><b>${a.kids.length}</b><span>Student${a.kids.length>1?'s':''} billed</span></div></div>
+ <div class="grid"><div class="card span2"><div class="card-h"><h2>Students and shares</h2></div><div class="card-b"><div class="kids">${a.kids.map(x=>`<div class="kid"><b>${esc(x[0])}</b><span class="sub">${esc(x[1])}</span><span>${esc(x[2])}</span></div>`).join('')}</div>${a.note?`<p class="note">${esc(a.note)}</p>`:''}${a.shared.length?`<p class="note">Shared with ${a.shared.map(esc).join(', ')} by the payer.</p>`:''}</div></div>
+ <div class="card span2"><div class="card-h"><h2>Invoices</h2></div><div class="card-b" style="padding:12px 0 8px">${invTable(acctInv(k))}</div></div>
+ <div class="card span2"><div class="card-h"><h2>Payments</h2></div><div class="card-b">${pays.length?pays.map(p=>`<div class="list-row"><div class="grow"><b>${p.m} · ${p.ch}</b><div class="sub">${p.at}${p.ref?' · gateway ref '+p.ref:''}${p.by?' · recorded by '+esc(p.by):''}${p.fail?' · '+esc(p.fail):''}</div></div><span class="money">${fmt(p.amt)}</span>${chip(p.st,p.st==='Succeeded'?'success':'error')}${p.rc?`<span class="sub">${p.rc}</span>`:''}</div>`).join(''):'<p class="sub">No payments yet.</p>'}<p class="note">Card numbers are never stored, only the gateway reference (DL-82).</p></div></div></div>`;
+}
+function vInvoice(n){
+ const i=INV[n];if(!i)return'Not found';let rows='',last='';
+ i.lines.forEach(l=>{if(l.stu!==last){rows+=`<tr class="stu"><td colspan="4">${esc(l.stu)} · ${esc(l.cls)}</td></tr>`;last=l.stu;}rows+=`<tr><td>${esc(l.desc)}</td><td class="r hide-phone">${l.share}%</td><td class="r money">${fmt(l.gross,i.cur)}</td><td class="r money hide-phone">${fmt(l.tax,i.cur)}</td></tr>`;if(l.adj)rows+=`<tr class="adj"><td>${esc(l.adj.label)}</td><td class="hide-phone"></td><td class="r money">− ${fmt(l.adj.amt,i.cur)}</td><td class="hide-phone"></td></tr>`;});
+ const sub=r2(i.lines.reduce((a,l)=>a+l.gross,0)),adj=r2(i.lines.reduce((a,l)=>a+(l.adj?l.adj.amt:0),0)),tax=r2(i.lines.reduce((a,l)=>a+l.tax,0));
+ const paidAny=i.paid>0;
+ const acts=isFin()&&!['Void','Credited'].includes(i.status)?(paidAny?`<button class="btn" data-act="credit" data-inv="${n}">Credit note</button>`:`<button class="btn" data-act="void" data-inv="${n}">Void</button>`):'';
+ const back=me().parent?`<a href="#due">What's due</a>`:V==='lina'?`<a href="#admfees">Admission fees</a>`:`<a href="#account/${i.acct}">${esc(ACC[i.acct].payer)}</a>`;
+ return`<div class="crumbs">${back}<span class="dot"></span><b>${n}</b></div>`+page(`Invoice ${n}`,`${i.source}${i.period?' · '+esc(i.period):''} · issued ${i.date} · due ${i.due}`,`${invChip(i)} ${acts} ${me().parent&&due(i)>0&&canPay()?`<button class="btn btn-primary" data-act="pay" data-inv="${n}">Pay ${fmt(due(i),i.cur)}</button>`:''}`)+
+ `<div class="card"><div class="card-b" style="padding:16px 0 0"><div class="fields" style="padding:0 24px 16px"><div class="f"><div class="l">Bill to</div><div class="v">${esc(ACC[i.acct].payer)} · ${i.acct}</div></div><div class="f"><div class="l">Issued by</div><div class="v">${i.cur==='SGD'?'GIIS Singapore operating entity':'GIIS India operating entity'} ${pend('OQ-06','Legal name')}</div></div>${i.ad09?`<div class="f"><div class="l">Admissions (AD09)</div><div class="v">${esc(i.ad09)}</div></div>`:''}</div>
+ <div class="tablewrap"><table class="inv-lines"><thead><tr><th>Item</th><th class="r hide-phone">Share</th><th class="r">Amount</th><th class="r hide-phone">GST</th></tr></thead><tbody>${rows}</tbody></table></div>
+ <dl class="tot"><dt>Subtotal</dt><dd class="money">${fmt(sub,i.cur)}</dd>${adj?`<dt>Discounts</dt><dd class="money">− ${fmt(adj,i.cur)}</dd>`:''}<dt>GST 9% <span class="sub">(sample setting, OQ-87)</span></dt><dd class="money">${fmt(tax,i.cur)}</dd><dt class="gt">Total</dt><dd class="gt money">${fmt(i.total,i.cur)}</dd><dt>Paid</dt><dd class="money">${fmt(i.paid,i.cur)}</dd>${i.credited?`<dt>Credited</dt><dd class="money">${fmt(i.credited,i.cur)}</dd>`:''}<dt class="gt">Due now</dt><dd class="gt money">${fmt(Math.max(0,due(i)),i.cur)}</dd></dl></div></div>
+ ${!me().parent&&REM[n]?`<div class="card" style="margin-top:24px"><div class="card-h"><h2>Reminders</h2>${pend('OQ-84','Schedule')}</div><div class="card-b">${REM[n].map(x=>`<div class="list-row"><div class="grow"><b>${x[0]}</b><div class="sub">${x[1]} · ${x[3]}</div></div><span class="sub">${x[2]}</span></div>`).join('')}</div></div>`:''}
+ <p class="note">Issued invoices are never edited. Before any payment: Void. After a payment: Credit note (DL-80).</p>`;
+}
+function vRuns(){
+ const list=Object.entries(RUNS).filter(([k,r])=>V==='ankit'?r.india:!r.india);
+ return page('Billing runs','One reviewed batch per campus and billing period (DL-80).',isFin()?`<button class="btn" disabled title="Term 3 opens on 2 Mar 2027">New run</button>`:'')+`<div class="listcard"><div class="tablewrap"><table><thead><tr><th>Run</th><th>Period</th><th class="r hide-phone">Invoices</th><th>Exceptions</th><th>Status</th></tr></thead><tbody>${list.map(([k,r])=>{const o=r.exc.filter(x=>!x.fix).length;return`<tr class="click" data-go="run/${k}"><td><b>${r.campus}</b><div class="sub">${k}</div></td><td>${r.period==='Not set'?notset():esc(r.period)}</td><td class="r hide-phone">${r.count||'–'}</td><td>${o?chip(o+' open','warning'):chip('None open','success')}</td><td>${chip(r.status,{Issued:'success','Needs review':'warning','Ready for approval':'info',Draft:'default',Approved:'info'}[r.status])}</td></tr>`;}).join('')}</tbody></table></div></div>`;
+}
+function vRun(k){
+ const r=RUNS[k];const open=r.exc.filter(x=>!x.fix);
+ let act='';if(r.status!=='Issued'&&!r.india){if(isFC())act=`<button class="btn btn-primary" data-act="approverun" data-run="${k}" ${open.length?'disabled title="Fix or exclude every exception first"':''}>Approve and issue</button>`;else if(V==='siti')act=open.length?'':`${chip('Waiting for Wendy Koh','info')}`;}
+ return`<div class="crumbs"><a href="#runs">Billing runs</a><span class="dot"></span><b>${k}</b></div>`+page(`${r.campus} · ${r.period==='Not set'?'Billing period Not set':esc(r.period)}`,`${r.status}${r.appr?' · approved by '+esc(r.appr):''}${r.issued?' · issued '+r.issued:''}`,act)+
+ (r.count?`<div class="sumrow"><div class="stat"><b>${r.count}</b><span>Invoices</span></div><div class="stat"><b class="money">${fmt(r.gross)}</b><span>Gross</span></div><div class="stat"><b class="money">${fmt(r.adj)}</b><span>Discounts</span></div><div class="stat"><b class="money">${fmt(r.tax)}</b><span>GST</span></div><div class="stat"><b class="money">${fmt(r.net)}</b><span>Total</span></div></div><p class="note" style="margin-top:-8px">Campus totals are illustrative.</p>`:'')+
+ `<div class="card" style="margin-top:16px"><div class="card-h"><h2>Exceptions</h2>${open.length?chip(open.length+' open','warning'):chip('All resolved','success')}</div><div class="card-b">${r.exc.map(x=>`<div class="list-row"><div class="grow"><b>${esc(x.stu)}${x.g?' · '+esc(x.g):''}</b><div class="sub">${esc(x.issue)}</div>${x.fix?`<div class="sub" style="color:var(--success)">✓ ${esc(x.fix)}</div>`:''}</div>${!x.fix&&V==='siti'&&!r.india?`<button class="btn btn-sm" data-act="setpayer" data-run="${k}" data-x="${x.id}">Set payer</button><button class="btn btn-sm" data-act="exclude" data-run="${k}" data-x="${x.id}">Exclude</button>`:''}${!x.fix&&r.india?`<a href="#settings">Open settings</a>`:''}</div>`).join('')}</div></div>
+ ${open.length&&isFC()?`<p class="note">Approve is disabled until Siti fixes or excludes each exception.</p>`:''}`;
+}
+function vPlans(){
+ return page('Fee plans','GIIS Singapore · AY 2026-27. Amounts are this campus\'s own settings, never group defaults (DL-78). Sample amounts are synthetic.',V==='siti'?`<button class="btn">New plan</button>`:'')+`<div class="listcard"><div class="tablewrap"><table><thead><tr><th>Plan</th><th>Grades</th><th class="r hide-phone">Tuition per term</th><th>Version</th><th>Status</th></tr></thead><tbody>${Object.entries(PLANS).map(([k,p])=>{const t=p.lines[0][1];return`<tr class="click" data-go="plan/${encodeURIComponent(k)}"><td><b>${p.campus} · ${esc(p.prog)}</b><div class="sub">${p.id}</div></td><td>${esc(p.grades)}</td><td class="r hide-phone">${t==null?notset():`<span class="money">${fmt(t)}</span>`}</td><td>v${p.v} · from ${p.from}</td><td>${chip(p.status,{Approved:'success',Draft:'default',Submitted:'info',Superseded:'default'}[p.status])}</td></tr>`;}).join('')}</tbody></table></div></div>`;
+}
+function vPlan(k){
+ const p=PLANS[k];const miss=p.lines.some(l=>l[1]==null);
+ let act='';if(V==='siti'&&p.status==='Draft')act=`<button class="btn btn-primary" ${miss?'disabled title="Tuition is Not set"':''} data-act="submitplan" data-plan="${esc(k)}">Submit for approval</button>`;if(isFC()&&p.status==='Submitted')act=`<button class="btn btn-primary" data-act="approveplan" data-plan="${esc(k)}">Approve</button>`;if(isFin()&&p.status==='Approved')act=`<button class="btn" data-act="newver" data-plan="${esc(k)}">New version</button>`;
+ const per=p.lines.filter(l=>l[2]==='Per term'&&l[3]==='All students'&&l[1]!=null).reduce((a,l)=>a+l[1],0);
+ return`<div class="crumbs"><a href="#plans">Fee plans</a><span class="dot"></span><b>${p.id}</b></div>`+page(`${p.campus} · ${esc(p.prog)} · ${esc(p.grades)}`,`AY 2026-27 · version ${p.v} · valid from ${p.from}${p.by?' · approved by '+esc(p.by):''}`,`${chip(p.status,{Approved:'success',Draft:'default',Submitted:'info'}[p.status])} ${act}`)+
+ (p.reason?`<div class="pendcard" style="border-color:var(--line)"><div><b>Why version ${p.v}</b><p>${esc(p.reason)}</p></div></div><br>`:'')+
+ (miss?`<div class="blocked"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 2 21h20zM12 10v5M12 18v.5"/></svg><div><b>Can't submit: tuition is Not set</b>Arjun Reddy (Grade 11) is excluded from Term 2 billing until this plan is approved.</div></div><br>`:'')+
+ `<div class="listcard"><div class="tablewrap"><table><thead><tr><th>Fee</th><th class="r">Amount</th><th>How often</th><th class="hide-phone">Applies to</th></tr></thead><tbody>${p.lines.map(l=>`<tr><td><b>${l[0]}</b></td><td class="r">${l[1]==null?notset():`<span class="money">${fmt(l[1])}</span>`}</td><td>${l[2]}</td><td class="hide-phone">${l[3]}</td></tr>`).join('')}</tbody></table></div><dl class="tot"><dt>Per term, every student (before GST)</dt><dd class="money">${fmt(per)}</dd><dt class="gt">Year (3 terms)</dt><dd class="gt money">${fmt(per*3)}</dd></dl></div>
+ <p class="note">Billing frequency outside GIIS SG ${pend('OQ-80')} · An approved plan is never edited; a change is a new version with a valid-from date (DL-78).</p>`;
+}
+function vOverdue(){
+ const list=Object.keys(ACC).filter(a=>feeStatus(a)==='Overdue');
+ return page('Overdue','Invoices past their due date. Nothing is blocked automatically (DL-83).')+`<div class="pendcard"><div><b>Late fees and consequences</b><p>Whether overdue fees lead to a late fee, a held report card or a re-enrolment block isn't decided. ${pend('OQ-84')}</p></div></div><br><div class="listcard"><div class="tablewrap"><table><thead><tr><th>Account</th><th>Oldest invoice</th><th class="r">Overdue</th><th class="hide-phone">Last reminder</th><th>Fee status</th></tr></thead><tbody>${list.length?list.map(a=>{const old=acctInv(a).find(i=>invStatus(i)==='Overdue');const rm=(REM[old.num]||[]).slice(-1)[0];return`<tr class="click" data-go="invoice/${old.num}"><td><b>${esc(ACC[a].payer)}</b><div class="sub">${ACC[a].kids.map(x=>esc(x[0])).join(', ')}</div></td><td>${old.num}<div class="sub">due ${old.due} · 106 days</div></td><td class="r money">${fmt(due(old))}</td><td class="hide-phone">${rm?esc(rm[1]+' · '+rm[2]):'–'}</td><td>${fsChip('Overdue')}</td></tr>`;}).join(''):`<tr><td colspan="5" class="sub">No overdue accounts.</td></tr>`}</tbody></table></div></div>`;
+}
+function vRefunds(){
+ const list=Object.entries(REF).filter(([k,r])=>V==='ankit'?r.india:!r.india);
+ return page('Refunds','Worked out from the brand-country refund rules; approved on a case with a deadline (DL-84).')+`<div class="listcard"><div class="tablewrap"><table><thead><tr><th>Student</th><th>Basis</th><th class="r">Amount</th><th class="hide-phone">Due by</th><th>Status</th></tr></thead><tbody>${list.map(([k,r])=>`<tr class="click" data-go="refund/${k}"><td><b>${esc(r.stu)}</b><div class="sub">${k}</div></td><td>${esc(r.basis)}</td><td class="r">${r.amount==null?chip('Blocked: Not set','warning'):`<span class="money">${fmt(r.amount)}</span>`}</td><td class="hide-phone">${r.due==='Not set'?notset():r.due}</td><td>${chip(r.status,{Paid:'success',Calculating:'info','Awaiting approval':'info',Approved:'info'}[r.status]||'default')}</td></tr>`).join('')}</tbody></table></div></div>`;
+}
+function vRefund(k){
+ const r=REF[k];const canAppr=(V==='wendy'||V==='vivek')&&r.status==='Awaiting approval';
+ const role=V==='wendy'?'Finance Controller':V==='vivek'?'Country Director':null;
+ const mine=role&&r.appr.find(a=>a[0]===role);
+ return`<div class="crumbs"><a href="#refunds">Refunds</a><span class="dot"></span><b>${k}</b></div>`+page(`Refund · ${esc(r.stu)}`,`${esc(r.basis)} · notice ${r.notice} · rules: ${r.rules?esc(r.rules):'Not set'}`,`${chip(r.status,{Paid:'success'}[r.status]||'info')} ${canAppr&&mine&&mine[2]==='Pending'?`<button class="btn btn-primary" data-act="approveref" data-ref="${k}">Approve as ${role}</button>`:''}`)+
+ `<div class="grid"><div class="card span2"><div class="card-h"><h2>Basis</h2></div><div class="card-b"><p style="margin:0">${esc(r.basisNote)}</p>${r.docs?`<p class="note">Documents: ${esc(r.docs)}</p>`:''}</div></div>
+ <div class="card span2"><div class="card-h"><h2>Calculation</h2>${r.calc?'':chip('Blocked','warning')}</div><div class="card-b">${r.calc?`<div class="tablewrap"><table class="calc"><thead><tr><th>Fee</th><th class="r">Paid</th><th class="r">Refund %</th><th class="r">Admin charge</th><th class="r">Refund</th></tr></thead><tbody>${r.calc.map(c=>`<tr><td>${c[0]}</td><td class="r money">${fmt(c[1])}</td><td class="r">${c[2]}</td><td class="r money">− ${fmt(c[3])}</td><td class="r money"><b>${fmt(c[4])}</b></td></tr>`).join('')}</tbody></table></div><p class="note">Registration fee refunded for new admissions on ICA/MOE rejection, less SGD 50 (HB p.242–243). Rule version recorded on the refund.</p>`:r.india?`<div class="blocked"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 2 21h20zM12 10v5M12 18v.5"/></svg><div><b>GIIS India has no refund rules set</b>No India refund policy is documented. Finance can't calculate or promise a refund until the rule set exists ${pend('OQ-86')}</div></div>`:`<div class="blocked"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 2 21h20zM12 10v5M12 18v.5"/></svg><div><b>Table 3B percentages are Not set</b>The GIIS SG handbook shows Table 3B only as an image, so the percentages haven't been entered in the refund rules. Campus OS won't guess them ${pend('OQ-86')}</div></div>${r.cn?`<div class="list-row" style="margin-top:12px"><div class="grow"><b>Credit note ${r.cn.num}</b><div class="sub">Term 2 prorated to December: Jan–Feb credited (2 of 4 months, SR-FB-08)</div></div><span class="money">${fmt(r.cn.amt)}</span>${chip(r.cn.status,r.cn.status==='Approved'?'success':'default')}${isFC()&&r.cn.status==='Draft'?`<button class="btn btn-sm" data-act="approvecn" data-ref="${k}">Approve</button>`:''}</div>`:''}`}</div></div>
+ <div class="card"><div class="card-h"><h2>Approvals</h2></div><div class="card-b"><div class="appr">${r.appr.length?r.appr.map(a=>`<div><span class="grow"><b>${a[0]}</b> · ${esc(a[1])}</span>${chip(a[2],a[2].startsWith('Approved')?'success':'default')}</div>`).join(''):`<p class="sub">Approvers ${notset()} for GIIS India.</p>`}</div><p class="note">GIIS SG: committee of Country Director and Finance Controller (HB p.244).</p></div></div>
+ <div class="card"><div class="card-h"><h2>Deadline and payout</h2></div><div class="card-b"><dl class="kv" style="grid-template-columns:120px 1fr"><dt>Due by</dt><dd>${r.due==='Not set'?notset():r.due} <span class="sub">7 working days from notice</span></dd><dt>Escalation</dt><dd>Finance Controller, then Country Director after 4 working days</dd><dt>Payout</dt><dd>${r.paid?esc(r.paid):'<span class="masked">••••••••</span> bank details masked'}</dd></dl></div></div></div>`;
+}
+function vSettings(){
+ const india=V==='ankit';
+ const row=(k,v)=>`<dt>${k}</dt><dd>${v}</dd>`;
+ return page('Settings',india?'GIIS India · Noida Campus':'GIIS Singapore · each value belongs to this brand-country or campus; there is no group default (SR-FB-02)')+`<div class="settings">
+ <div class="card"><div class="card-h"><h2>Money</h2></div><div class="card-b"><dl class="kv">${row('Currency',india?'INR':'SGD')}${row('Tax',india?notset()+' '+pend('OQ-87'):'SG-GST 9% on all fee types '+pend('OQ-87','Which fees'))}${row('Payment methods',india?'UPI, Card, Bank transfer (Arch § Integrations) '+pend('OQ-82'):'PayNow, Card, Bank transfer, Cheque at counter')}${row('Card surcharge',notset()+' '+pend('OQ-82'))}${row('ERP',pend('OQ-81'))}</dl></div></div>
+ <div class="card"><div class="card-h"><h2>Billing</h2></div><div class="card-b"><dl class="kv">${row('Billing periods',india?notset()+' '+pend('OQ-80'):'3 terms of 4 months (HB p.244)')}${row('Due date',india?notset():'Last day of the first month of the term')}${row('Reminders',india?notset():'7 days before, 7 and 30 days after '+pend('OQ-84'))}${row('Overdue consequence','None '+pend('OQ-84'))}${row('Withdrawal cut-off',india?notset():'Approved ≥ 1 month before term = not billed (HB p.244)')}${row('Proration','Whole months')}</dl></div></div>
+ <div class="card span2"><div class="card-h"><h2>Refund rules</h2>${india?'':chip('GIIS SG refund rules 2025-26','default')}</div><div class="card-b"><dl class="kv">${india?row('Rule set',notset()+' '+pend('OQ-86')):row('Cooling-off','7 working days from signature by both parties (HB p.241)')+row('Table 3A (non-delivery, cooling-off)',notset()+' '+pend('OQ-86','Image only in handbook'))+row('Table 3B (other reasons)',notset()+' '+pend('OQ-86','Image only in handbook'))+row('Non-refundable','Application and registration fees, except ICA/MOE rejection for new admissions')+row('Administrative charge','SGD 50 (HB p.243)')+row('Pay within','7 working days of notice')+row('Approvers','Country Director + Finance Controller')+row('Fee protection','FPS required (HB p.246)')}</dl></div></div></div>`;
+}
+function vStatus(){
+ const rows=[['Aarav Sharma','7B','BA-SG-000418'],['Rohan Mehta','8A','BA-SG-000377'],['Chloe Tan Wei Ling','3C','BA-SG-000522'],['Yuki Watanabe','5B','BA-SG-000601'],['Noah Fernandes','Grade 6 (Confirmed)','BA-SG-000690'],['Sofia Rossi','Grade 6 (Offered)','BA-SG-000702']];
+ const vv=V==='vivek';
+ return page('Fee status',vv?'GIIS Singapore · summary':'SMART Campus Punggol · fee status only, no invoices or amounts (DL-83)')+`<div class="sumrow"><div class="stat"><b>1,184</b><span>Students billed Term 2</span></div><div class="stat"><b>61%</b><span>Term 2 paid so far</span></div><div class="stat"><b>${Object.keys(ACC).filter(a=>feeStatus(a)==='Overdue').length}</b><span>Overdue accounts</span></div></div><p class="note" style="margin-top:-8px">Illustrative campus totals.</p>
+ ${vv?`<div class="pendcard" style="border-color:var(--line)"><div><b>Your approvals</b><p>You co-approve refunds with the Finance Controller. <a href="#refunds">Open refunds</a></p></div></div>`:`<div class="listcard"><div class="tablewrap"><table><thead><tr><th>Student</th><th>Class</th><th>Fee status</th></tr></thead><tbody>${rows.map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${fsChip(feeStatus(r[2]))}</td></tr>`).join('')}</tbody></table></div></div><p class="note">Teachers never see fee status. Nothing is blocked automatically ${pend('OQ-84')}.</p>`}`;
+}
+function vAdm(){
+ const list=Object.values(INV).filter(i=>i.source==='Admission');
+ return page('Admission fees','SMART Campus Punggol · only admission fee invoices; Admissions reads their status on AD09 (SR-FB-09)')+`<div class="listcard"><div class="tablewrap"><table><thead><tr><th>Applicant</th><th>Fee</th><th class="r">Amount</th><th>Status</th><th class="hide-phone">Admissions note</th></tr></thead><tbody>${list.map(i=>`<tr class="click" data-go="invoice/${i.num}"><td><b>${esc(i.lines[0].stu)}</b><div class="sub">${i.num}</div></td><td>Registration</td><td class="r money">${fmt(i.total)}</td><td>${i.status==='Credited'?chip('Refunded','default'):invChip(i)}</td><td class="hide-phone sub">${esc(i.ad09)}</td></tr>`).join('')}</tbody></table></div></div><p class="note">Amounts at admission per brand-country ${pend('OQ-68')}. No tuition invoices or billing accounts here.</p>`;
+}
+/* Parent */
+function vDue(){
+ if(!canPay())return page("Fees",'Aarav and Ishita')+`<div class="noaccess"><div class="ico">${svg('acct')}</div><div><b>Fees are managed by the payer on this account</b><p>Aarav's and Ishita's fees are paid by another guardian. They can share the account with you from their app (DL-85).</p></div></div>`;
+ const list=acctInv('BA-SG-000418').filter(i=>due(i)>0);const tot=r2(list.reduce((a,i)=>a+due(i),0));
+ return page("What's due",'Aarav (7B, Punggol) and Ishita (9A, East Coast)')+`<div class="pay-sheet"><div class="duecard"><span class="sub">Total due</span><div class="amt money">${fmt(tot)}</div>${tot>0?`<button class="btn btn-primary" style="margin-top:12px;width:100%;justify-content:center;height:44px" data-act="payall">Pay now</button>`:`<div style="margin-top:8px">${chip('All paid','success')}</div>`}</div>
+ ${list.map(i=>`<button class="tcard" data-go="invoice/${i.num}"><span>${invChip(i)}</span><b>${esc(i.period||i.lines[0].desc)}</b><span class="m">Due ${i.due} · ${fmt(due(i))}</span></button>`).join('')}
+ ${V==='neha'?`<div class="card"><div class="card-b"><b>Who can see this account</b><p class="sub" style="margin:4px 0 10px">Only you. Vikram is a guardian of both children but not a payer.</p>${ACC['BA-SG-000418'].shared.includes('Vikram Sharma')?chip('Shared with Vikram','success'):`<button class="btn btn-sm" data-act="share">Share with Vikram</button>`}</div></div>`:''}</div>`;
+}
+function vHistory(){
+ if(!canPay())return vDue();
+ return page('History','Invoices for Aarav and Ishita')+`<div class="listcard">${invTable(acctInv('BA-SG-000418'))}</div><p class="note">Earlier years from MyGIIS ${pend('OQ-90')}</p>`;
+}
+function vReceipts(){
+ if(!canPay())return vDue();
+ const pays=PAY.filter(p=>p.acct==='BA-SG-000418'&&p.rc);
+ return page('Receipts','')+`<div class="card"><div class="card-b">${pays.map(p=>`<div class="list-row"><div class="grow"><b>${p.rc}</b><div class="sub">${p.at} · ${p.m}</div></div><span class="money">${fmt(p.amt)}</span><button class="btn btn-sm" data-act="dl">Download</button></div>`).join('')}</div></div>`;
+}
+function vAdjust(){
+ return page('Discounts and waivers','Dated reductions with an approver, shown as their own invoice line (DL-81).')+`<div class="card"><div class="card-b">${ADJ.map(a=>`<div class="list-row"><div class="grow"><b>${esc(a.stu)} · ${a.type}</b><div class="sub">${esc(a.val)} · ${esc(a.reason)}</div></div>${chip(a.st,a.st==='Approved'?'success':a.st==='Rejected'?'default':'info')}${a.st==='Requested'&&isFC()?`<button class="btn btn-sm" data-act="approveadj" data-id="${a.id}">Approve</button>`:''}</div>`).join('')}<p class="note">Discount rules and approval limits ${pend('OQ-83')}</p></div></div>`;
+}
+
+/* ---------- Shell ---------- */
+function routesFor(){return me().routes;}
+function render(){
+ const m=me();document.getElementById('meName').textContent=m.name;document.getElementById('meRole').textContent=m.role;document.getElementById('meAv').textContent=m.av;
+ document.getElementById('scopeTxt').innerHTML=m.scope.map((s,i)=>i===m.scope.length-1?`<b>${esc(s)}</b>`:`<span class="hide-sm">${esc(s)}</span><span class="sep hide-sm">›</span>`).join('');
+ document.getElementById('navh').textContent=m.parent?'Fees':'Fees & Billing';
+ let h=location.hash.slice(1)||routesFor()[0];const [r,arg]=h.split('/');const id=arg&&decodeURIComponent(arg);
+ const top={account:'accounts',invoice:m.parent?'due':V==='lina'?'admfees':'accounts',run:'runs',plan:'plans',refund:'refunds',adjust:'home'}[r]||r;
+ const nav=routesFor().map(k=>`<a href="#${k}" class="${k===top?'on':''}">${svg(RT[k][1])}<span>${RT[k][0]}</span></a>`).join('');
+ document.getElementById('nav').innerHTML=nav;document.getElementById('bnav').innerHTML=routesFor().slice(0,5).map(k=>`<a href="#${k}" class="${k===top?'on':''}">${svg(RT[k][1])}<span>${RT[k][0]}</span></a>`).join('');
+ const allowed=routesFor().includes(top)||(top==='home'&&r==='adjust'&&isFin());
+ const V2={home:vHome,accounts:vAccounts,account:()=>vAccount(id),invoice:()=>vInvoice(id),runs:vRuns,run:()=>vRun(id),plans:vPlans,plan:()=>vPlan(id),overdue:vOverdue,refunds:vRefunds,refund:()=>vRefund(id),settings:vSettings,status:vStatus,admfees:vAdm,due:vDue,history:vHistory,receipts:vReceipts,adjust:vAdjust};
+ let out;
+ if(!allowed){out=`<div class="noaccess"><div class="ico">${svg('set')}</div><div><b>You don't have access to this</b><p>${esc(m.name)} can't open ${esc(r)}. <a href="#${routesFor()[0]}">Go to ${RT[routesFor()[0]][0]}</a></p></div></div>`;}
+ else if(r==='invoice'&&m.parent){const i=INV[id];out=(i&&i.acct==='BA-SG-000418'&&canPay())?vInvoice(id):vDue();}
+ else if(r==='invoice'&&V==='lina'&&INV[id]&&INV[id].source!=='Admission'){out=`<div class="noaccess"><div class="ico">${svg('set')}</div><div><b>Admissions sees admission fee invoices only</b></div></div>`;}
+ else out=(V2[r]||V2[routesFor()[0]])();
+ document.getElementById('view').innerHTML=out+`<div class="proto-note">Prototype · Fees &amp; Billing dictionary v0.1 (PR #20) · DL-77…DL-86 Confirmed · all amounts synthetic, not GIIS's real fees.</div>`;
+}
+/* ---------- Dialogs ---------- */
+function dialog(html){const L=document.getElementById('layer');L.innerHTML=`<div class="scrim" data-scrim><div class="dlg" role="dialog" aria-modal="true">${html}</div></div>`;const f=L.querySelector('input,select,textarea,button');f&&f.focus();}
+function close(){document.getElementById('layer').innerHTML='';}
+let tt;function toast(t){document.querySelectorAll('.toast').forEach(x=>x.remove());const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);clearTimeout(tt);tt=setTimeout(()=>d.remove(),3200);}
+function allocPreview(acct,amt){let left=amt;const order=acctInv(acct).filter(i=>due(i)>0&&!['Void','Credited'].includes(i.status));const out=[];for(const i of order){if(left<=0)break;const a=Math.min(left,due(i));out.push([i,r2(a)]);left=r2(left-a);}return{out,left};}
+function recordDialog(acct){
+ dialog(`<h3>Record payment</h3><p>${esc(ACC[acct].payer)} · ${acct}. Counter, cheque or bank transfer. Online payments come from the gateway.</p>
+ <label for="pm">Method</label><select id="pm"><option>Cheque</option><option>Bank transfer</option><option>Cash</option></select>
+ <label for="pa">Amount (SGD)</label><input type="number" id="pa" step="0.01" value="${acct==='BA-SG-000377'?'4905.30':''}">
+ <label>Allocation (oldest due first)</label><div id="alloc" class="sub"></div>
+ <div class="row"><button class="btn" data-close>Cancel</button><button class="btn btn-primary" id="go" data-act="dorecord" data-acct="${acct}">Record and issue receipt</button></div>`);
+ const upd=()=>{const v=parseFloat(document.getElementById('pa').value)||0;const p=allocPreview(acct,v);document.getElementById('alloc').innerHTML=p.out.map(([i,a])=>`<div class="sumline"><span>${i.num}</span><span class="money">${fmt(a)}</span></div>`).join('')+(p.left>0?`<div class="sumline"><span>Account credit</span><span class="money">${fmt(p.left)}</span></div>`:'')||'Enter an amount';document.getElementById('go').disabled=v<=0;};
+ document.getElementById('pa').addEventListener('input',upd);upd();
+}
+function applyPayment(acct,amt,method,ch,by){const p=allocPreview(acct,amt);p.out.forEach(([i,a])=>{i.paid=r2(i.paid+a);if(due(i)<=0.001)i.status='Paid';});const rc='RC-SG-2026-0'+(24600+PAY.length);PAY.push({rc,acct,ch,m:method,amt,st:'Succeeded',at:'14 Nov 2026',by,ref:ch==='Gateway'?'PN-DEMO-'+(1000+PAY.length):undefined,alloc:p.out.map(([i,a])=>[i.num,a])});return rc;}
+/* ---------- Events ---------- */
+document.addEventListener('click',e=>{
+ const t=e.target.closest('[data-act],[data-close],[data-scrim],[data-go],#viewers button,#theme button,#frame button');if(!t)return;
+ if(t.hasAttribute('data-scrim')&&e.target!==t)return;
+ if(t.hasAttribute('data-close')||t.hasAttribute('data-scrim')){close();return;}
+ if(t.closest('#viewers')){V=t.dataset.v;document.querySelectorAll('#viewers button').forEach(b=>b.setAttribute('aria-pressed',b===t));const ph=me().parent;setFrame(ph?'phone':'desk');location.hash=routesFor()[0];render();return;}
+ if(t.closest('#theme')){const v=t.dataset.t;document.querySelectorAll('#theme button').forEach(b=>b.setAttribute('aria-pressed',b===t));if(v==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',v);return;}
+ if(t.closest('#frame')){setFrame(t.dataset.f);return;}
+ if(t.dataset.go){location.hash=t.dataset.go;return;}
+ const a=t.dataset.act;
+ if(a==='record')recordDialog(t.dataset.acct);
+ if(a==='dorecord'){const v=parseFloat(document.getElementById('pa').value);const rc=applyPayment(t.dataset.acct,v,document.getElementById('pm').value,'Counter','Siti Rahman');close();render();toast(`Receipt ${rc} issued · fee status now ${feeStatus(t.dataset.acct)}`);}
+ if(a==='oneoff')dialog(`<h3>One-off charge</h3><p>Adds a separate invoice, e.g. a trip or a re-exam. Fee type must exist in the GIIS SG list.</p><label>Fee type</label><select><option>School event fee</option></select><label>Description</label><input type="text" value=""><label>Amount (SGD, before GST)</label><input type="number"><div class="row"><button class="btn" data-close>Cancel</button><button class="btn btn-primary" data-act="donothing">Issue invoice</button></div>`);
+ if(a==='donothing'){close();toast('Invoice issued (prototype: not saved)');}
+ if(a==='void')dialog(`<h3>Void invoice ${t.dataset.inv}?</h3><p>Only possible because nothing has been paid. The invoice stays in history marked Void.</p><label for="vr">Reason (required)</label><textarea id="vr"></textarea><div class="row"><button class="btn" data-close>Cancel</button><button class="btn btn-primary" data-act="dovoid" data-inv="${t.dataset.inv}">Void</button></div>`);
+ if(a==='dovoid'){if(!document.getElementById('vr').value.trim()){toast('A reason is required');return;}INV[t.dataset.inv].status='Void';close();render();toast('Invoice voided');}
+ if(a==='credit')dialog(`<h3>Credit note for ${t.dataset.inv}</h3><p>The invoice is paid or part-paid, so it can't be voided or edited. A credit note reduces it (DL-80). ${isFC()?'':'Wendy Koh approves.'}</p><label>Reason</label><select><option>Billing error</option><option>Withdrawal proration</option><option>Goodwill</option></select><label>Amount (SGD)</label><input type="number"><div class="row"><button class="btn" data-close>Cancel</button><button class="btn btn-primary" data-act="donothing">Send for approval</button></div>`);
+ if(a==='setpayer'){const r=RUNS[t.dataset.run],x=r.exc.find(y=>y.id===t.dataset.x);x.fix='Payer set: Joon-ho Lee 100% for all fees except tuition';render();toast('Payer set · exception resolved');}
+ if(a==='exclude'){const r=RUNS[t.dataset.run],x=r.exc.find(y=>y.id===t.dataset.x);x.fix='Excluded from this run by Siti Rahman';render();toast('Excluded from the run');}
+ if(['setpayer','exclude'].includes(a)){const r=RUNS[t.dataset.run];if(!r.exc.some(x=>!x.fix)){r.status='Ready for approval';render();}}
+ if(a==='approverun'){const r=RUNS[t.dataset.run];r.status='Issued';r.appr='Wendy Koh, 14 Nov 2026';r.issued='14 Nov 2026';render();toast(`${r.count} invoices issued · parents notified`);}
+ if(a==='approveplan'){PLANS[t.dataset.plan].status='Approved';PLANS[t.dataset.plan].by='Wendy Koh, 14 Nov 2026';render();toast('Plan approved');}
+ if(a==='submitplan'){PLANS[t.dataset.plan].status='Submitted';render();}
+ if(a==='newver')dialog(`<h3>New version</h3><p>The approved version stays as it is. Invoices already issued keep it.</p><label>Valid from</label><input type="date" value="2027-03-01"><label>Reason (required)</label><textarea></textarea><div class="row"><button class="btn" data-close>Cancel</button><button class="btn btn-primary" data-act="donothing">Create draft</button></div>`);
+ if(a==='approvecn'){const r=REF[t.dataset.ref];r.cn.status='Approved';INV['SG-2026-041655'].credited=r.cn.amt;render();toast('Credit note approved · SGD credit on Michelle Tan\'s account');}
+ if(a==='approveref'){toast('Approved');}
+ if(a==='approveadj'){ADJ.find(x=>x.id===t.dataset.id).st='Approved';render();toast('Waiver approved · applies from the next invoice');}
+ if(a==='payall'||a==='pay'){const list=a==='pay'?[INV[t.dataset.inv]]:acctInv('BA-SG-000418').filter(i=>due(i)>0);const tot=r2(list.reduce((s,i)=>s+due(i),0));dialog(`<h3>Pay ${fmt(tot)}</h3><p>${list.map(i=>esc(i.period||i.lines[0].desc)).join(' + ')}</p><label class="opt"><input type="radio" name="pm" checked> PayNow</label><label class="opt"><input type="radio" name="pm"> Card</label><p class="sub">You'll be taken to the payment provider. Card charges ${pend('OQ-82')}</p><div class="row"><button class="btn" data-close>Cancel</button><button class="btn btn-primary" data-act="dopay" data-amt="${tot}">Continue</button></div>`);}
+ if(a==='dopay'){const rc=applyPayment('BA-SG-000418',parseFloat(t.dataset.amt),'PayNow','Gateway');close();render();toast(`Paid · receipt ${rc}`);}
+ if(a==='share'){ACC['BA-SG-000418'].shared.push('Vikram Sharma');render();toast('Shared with Vikram · he can now see and pay');}
+ if(a==='dl')toast('Receipt PDF (prototype)');
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
+function setFrame(f){document.getElementById('stage').classList.toggle('mobile',f==='phone');document.querySelectorAll('#frame button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f));}
+window.addEventListener('hashchange',()=>{render();document.getElementById('view').focus({preventScroll:true});});
+render();
+</script></body></html>
