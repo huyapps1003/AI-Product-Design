@@ -25,6 +25,10 @@ Use these terms exactly in screens and specs. Where a term's definition is still
 | **Billing account** | What one payer (a parent or a sponsor) settles in one brand-country; siblings they pay for share one statement | Confirmed (DL-79) |
 | **Fee plan** | A campus's fees for one programme offering, grade(s) and academic year; approved by the Finance Controller and versioned, never edited | Confirmed (DL-78) |
 | **Fee status** | CLEAR, DUE, OVERDUE or PAUSED per enrolment; the only finance fact other modules read | Confirmed (DL-83) |
+| **Assessment scheme** | A brand-country's rules for one programme and grade band in a year: components and weights, grade scale, promotion rule; copied from a GSG template and approved per version | Confirmed (DL-87) |
+| **Mark sheet** | The marks for one assessment and one class; entered by the teacher, moderated and locked by the coordinator | Assumed (DL-88) |
+| **Report card** | A student's released results for one reporting period (term or semester); never edited, reissued if corrected | Assumed (DL-90) |
+| **Appeal** | A parent's request to re-check a released mark; one round only | Assumed (DL-91) |
 | **Rollover** | The year-end run that moves a campus's students into next year's grades and classes (promotion, retention, stage-campus promotion) | Confirmed (DL-75); promotion vs transfer Confirmed (DL-54) |
 | **House** | A student team that runs across years, such as House B | Known (HB p.169); list per campus Open (OQ-20) |
 | **Student ID** | The number people use for a student; unique across Campus OS and kept on campus transfer | Confirmed (DL-31) |

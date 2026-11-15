@@ -56,6 +56,17 @@ Codes follow `module.object.action` (DL-53; new capabilities reviewed by the reg
 | `classes.placement.manage`, `classes.placement.approve_over_limit` | UPDATE, APPROVE | OBJ-15, OBJ-03 | New (DL-72; who: OQ-73) |
 | `classes.house.assign` | UPDATE | OBJ-15, OBJ-03 | New (DL-76) |
 | `classes.rollover.prepare`, `classes.rollover.approve` | MANAGE, APPROVE | OBJ-15, OBJ-03 | New (DL-75) |
+| `assessment.template.manage` | MANAGE | OBJ-19 | New (DL-87; GSG platform team) |
+| `assessment.scheme.edit`, `assessment.scheme.approve` | UPDATE, APPROVE | OBJ-19 | New (DL-87; Academic Supervisor approves, OQ-93) |
+| `assessment.calendar.manage` | MANAGE | OBJ-19 | New (Arch § Key workflows: coordinator) |
+| `assessment.mark.enter`, `assessment.mark.moderate`, `assessment.mark.lock`, `assessment.mark.correct` | UPDATE, APPROVE, APPROVE, UPDATE | OBJ-19 | New (DL-88; enter scoped to own teaching, OBJ-12) |
+| `assessment.mark.approve_proration` | APPROVE | OBJ-19 | New (DL-95; Principal, HB p.43) |
+| `assessment.mark.publish` | APPROVE | OBJ-19 | New (DL-93; coordinator publishes locked marks to parents) |
+| `assessment.result.view` | VIEW | OBJ-19, OBJ-03 | New (DL-93) |
+| `assessment.report_card.generate`, `assessment.report_card.release`, `assessment.report_card.remark` | CREATE, APPROVE, UPDATE | OBJ-19 | New (DL-90) |
+| `assessment.appeal.raise`, `assessment.appeal.review`, `assessment.appeal.endorse` | CREATE, UPDATE, APPROVE | OBJ-19 | New (DL-91; raise = parent path) |
+| `assessment.promotion.review`, `assessment.promotion.decide` | MANAGE, APPROVE | OBJ-19, OBJ-15 | New (DL-92; Principal decides) |
+| `assessment.predicted.enter`, `assessment.predicted.release` | UPDATE, APPROVE | OBJ-19 | New (DL-94) |
 | `fees.catalogue.manage` | MANAGE | OBJ-23 | New (fees & billing dictionary, DL-78) |
 | `fees.plan.edit`, `fees.plan.approve` | UPDATE, APPROVE | OBJ-23 | New (DL-78; Finance Controller approves) |
 | `fees.account.view`, `fees.account.manage` | VIEW, MANAGE | OBJ-23, OBJ-04 | New (DL-79) |

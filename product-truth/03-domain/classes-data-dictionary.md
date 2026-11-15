@@ -157,7 +157,7 @@ ST02, ST03, AD06 and Employee DD D01/D02 are referenced, not redefined. Employee
 | rollover_run_id | UUID | FK:CL06 | Y | T1 | Assumed | |
 | from_enrolment_id | UUID | FK:ST02 | Y | T1 | Known (SR-03) | |
 | promotion_outcome | ENUM | — | Y | T2 | Known values (HB p.128–131: promotion, conditional promotion with re-test, weak pass, retained/detained, board criteria for 10 and 12); source Assessment | See enums. T2 because it reflects academic results. |
-| outcome_source | ENUM | — | Y | T1 | Assumed | ASSESSMENT, WITHDRAWAL_CASE, PRINCIPAL_DECISION, PARENT_REQUEST (K–5 retention, HB p.128). |
+| outcome_source | ENUM | — | Y | T1 | Assumed | ASSESSMENT (promotion decision AS12, [assessment dictionary](./assessment-data-dictionary.md)), WITHDRAWAL_CASE, PRINCIPAL_DECISION, PARENT_REQUEST (K–5 retention, HB p.128). |
 | target_campus_id | UUID | FK:OR04 | C | T1 | Confirmed rule (DL-62) | Differs from the run's campus for a stage-campus promotion. |
 | target_offering_id / target_grade_id | UUID | — | C | T1 | Known need (SR-16) | Grade 10 CBSE → Grade 11 needs a stream choice (OQ-77). |
 | target_class_id | UUID | FK:CL01 | C | T1 | Assumed | Next-year class; may be left for start-of-year allocation. |

@@ -28,7 +28,8 @@ A design object is something a user sees, finds and acts on. Each maps to dictio
 | OBJ-16 | Application | AD01–AD10 | Admissions | Cell | T3 (documents, SEN outcome) | [card](./OBJ-16-application.md) |
 | OBJ-17 | Consent | Consent, purpose | Engagement | Cell | T2 | Needs the Governance dictionary |
 | OBJ-18 | Transfer | Sharing record, two enrolments | Admissions with Engagement | Cell | T2 | Needs the Governance dictionary |
-| OBJ-19…22, OBJ-24 | Mark and report card, attendance mark, incident, wellbeing record, route | Architecture § High-level data model | Their modules | Cell | T2 or T3 | Needs a dictionary per module |
+| OBJ-19 | Mark and report card | AS01–AS13 (scheme template, assessment scheme, component, grade scale, promotion rule, assessment, mark sheet, mark, subject result, report card, appeal, promotion decision, predicted grade) | Assessment (DL-87) | Cell | T2 | [card](./OBJ-19-report-card.md) |
+| OBJ-20…22, OBJ-24 | Attendance mark, incident, wellbeing record, route | Architecture § High-level data model | Their modules | Cell | T2 or T3 | Needs a dictionary per module |
 | OBJ-23 | Billing account and invoice | FB01–FB17 (fee type, fee plan, billing period, billing account, responsibility, adjustment, billing run, invoice, payment, credit note, refund, reminder, billing pause, fee protection) | Fees and finance (DL-77) | Cell | T2 | [card](./OBJ-23-invoice.md) |
 
 ## Card format

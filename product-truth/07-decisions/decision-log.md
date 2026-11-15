@@ -98,6 +98,15 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-84 | Refunds from a versioned refund rule set per brand-country; approval and deadline on the shared Case; approvers a brand-country setting | **Confirmed** (Henry, 15 Nov 2026) | DL-08, FB14, HB p.240–245, OQ-86 |
 | DL-85 | Parents see and pay only accounts they pay or that a payer shared; other guardians see no finance; students never | **Confirmed** (Henry, 14 Nov 2026) | DL-37, DL-68, FB06 |
 | DL-86 | Approved long leave pauses billing; billing after withdrawal follows the campus cut-off setting | **Confirmed** (Henry, 15 Nov 2026) | FB16, HB p.237, p.244 |
+| DL-87 | GSG platform team keeps a scheme template per board; each brand-country adapts it into versioned assessment schemes; an Academic Supervisor approves each version; prefix `assessment` | **Confirmed** (Henry, 15 Nov 2026) | Arch § Principles (programme packs), § Tenancy, AS01/AS02, OQ-93 |
+| DL-88 | Assessments are dated per grade and subject; marks entered per class on a mark sheet (Open → Submitted → Moderated → Locked); after lock only appeal, re-test or correction with reason, each a new version | Assumed | AS06–AS08, Arch § Security |
+| DL-89 | Results and grades calculated by the year's scheme version; no manual grade override; descriptors entered as descriptors | Assumed | AS04, AS09 |
+| DL-90 | Report card = released snapshot per student and period; coordinator releases per grade; corrections reissue a new version; fee status never checked | Assumed | AS10, DL-83, OQ-94, OQ-95 |
+| DL-91 | One appeal round per mark: parent raises in the app within the brand-country window; teacher re-marks via HOD; Examination Board endorses; coordinator sends outcome | Assumed | AS11, HB p.88, p.127, OQ-97, OQ-98 |
+| DL-92 | Promotion rule proposes outcomes from results and attendance %; judgment cases wait for a decision; confirmed outcomes go to the Classes rollover; re-tests are RETEST assessments | Assumed | AS05, AS12, DL-75, CL07, OQ-99 |
+| DL-93 | Subject teachers: own subjects and classes; class teacher: all subjects of own class; parents: published marks and released report cards of own children; students: own released report cards where the campus allows (extends DL-68) | Assumed | DL-68, DL-73, OQ-96 |
+| DL-94 | Predicted grades (IB DP, CBSE 12): teacher enters, coordinator releases, appeal on a Case to the Principal-led committee | Assumed | AS13, HB p.132–133 |
+| DL-95 | Missing marks carry a code (ABSENT, APPROVED_ABSENCE, EXEMPT, NOT_ASSESSED); proration needs the Principal; reasons stay in Attendance or Wellbeing | Assumed | AS08, HB p.43, DL-66 |
 
 ---
 
@@ -429,6 +438,13 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Why.** One writer for money owed and paid; live status for Admissions, withdrawal and parents; GIIS SG handbook rules become versioned settings (Arch § Principles).
 - **DL-83, DL-85.** Henry chose option A for both (14 Nov 2026). DL-83: fee status is information only, with no automatic holds (rejected B: overdue automatically holds report cards or re-enrolment). DL-85: only payers, or guardians a payer shares with, see finance (rejected B: every verified guardian sees fees).
 - **Status.** DL-77, DL-83 and DL-85 Confirmed by Henry, 14 Nov 2026; DL-78…82, DL-84 and DL-86 Confirmed by Henry ("All A"), 15 Nov 2026. All DL-77…DL-86 Confirmed.
+
+### DL-87…DL-95 — Assessment & Report Cards
+- **Context.** Fifth module, Assessment & Report Cards. Scope approved by Henry 15 Nov 2026: assessment schemes, dated assessments, marks entry, moderation and lock, grades, report cards, appeals, promotion outcomes and re-tests, predicted grades. DL-75 already says promotion outcomes come from Assessment; DL-83 says fees never block report cards.
+- **DL-87.** Henry chose option A on 15 Nov 2026: GSG keeps a template per board, each brand-country adapts it, an Academic Supervisor approves each version. Rejected: B, fixed packs from GSG only, with no local weights or bands (simpler, but GIIS already layers its own weights and weak-pass rules on top of board rules, HB p.66–131, and every change would be a central release).
+- **Decision.** See the table above and [assessment dictionary § Decisions](../03-domain/assessment-data-dictionary.md#decisions).
+- **Why.** Board rules live once in a template; brand rules become versioned settings (Arch § Principles "policy as rules"); marks get one audited path to a released report card.
+- **Status.** DL-87 Confirmed by Henry, 15 Nov 2026; DL-88…DL-95 Assumed, pending Henry.
 
 ## How design direction becomes architecture
 
