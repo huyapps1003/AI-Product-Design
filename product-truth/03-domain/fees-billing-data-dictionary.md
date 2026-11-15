@@ -239,7 +239,7 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 | fee_type_id | UUID | FK:FB01 | Y | T1 | Assumed | |
 | plan_line_id | UUID | FK:FB03 | C | T1 | Assumed | Which plan version priced it. Empty for one-off charges. |
 | fee_requirement_id | UUID | FK:AD09 | C | T2 | Known link (AD09) | Admission fee lines. |
-| description | VARCHAR(160) | — | Y | T2 | Assumed | e.g. "Tuition, Term 2 (Nov 2026–Feb 2027)". |
+| description | VARCHAR(160) | — | Y | T2 | Assumed | e.g. "Tuition, Term 3 (Dec 2026–Mar 2027)". |
 | quantity / unit_amount | DECIMAL | — | Y | T2 | Assumed | Proration uses quantity (months billed / months in period). |
 | share_percent | DECIMAL(5,2) | — | Y | T2 | Assumed (FB06) | |
 | adjustment_id / adjustment_amount | UUID / DECIMAL | FK:FB07 | C | T2 | Confirmed (DL-81) | |

@@ -1,5 +1,5 @@
 {
-  "_about": "Synthetic sample data for Fees & Billing screens (OBJ-23, with OBJ-03 enrolment and OBJ-04 guardian). All amounts, account numbers, receipts and the sponsor are invented and are NOT GIIS's real fees. Fee amounts, billing periods, tax, reminder steps and refund rules are each brand-country's or campus's own settings, never group defaults (DL-59 pattern, SR-FB-02). GIIS Singapore rules come from the GIIS Handbook 2025-26 (HB p.237-247). Reuses students and guardians from student-sample.json and applicants from admissions-sample.json. Viewer Siti Rahman, Finance Executive, SG-PGL; 'today' 14 Nov 2026.",
+  "_about": "Synthetic sample data for Fees & Billing screens (OBJ-23, with OBJ-03 enrolment and OBJ-04 guardian). All amounts, account numbers, receipts and the sponsor are invented and are NOT GIIS's real fees. Fee amounts, billing periods, tax, reminder steps and refund rules are each brand-country's or campus's own settings, never group defaults (DL-59 pattern, SR-FB-02). GIIS Singapore rules come from the GIIS Handbook 2025-26 (HB p.237-247). Reuses students and guardians from student-sample.json and applicants from admissions-sample.json. Viewer Siti Rahman, Finance Executive, SG-PGL; 'today' 14 Nov 2026. Billing periods are per programme offering (DL-96): CBSE/Cambridge/IGCSE Apr-Mar, IB DP Jul-May.",
   "today": "2026-11-14",
   "viewer": {
     "name": "Siti Rahman",
@@ -195,34 +195,67 @@
     }
   },
   "billing_periods": {
-    "SG-PGL": [
-      {
-        "label": "Term 1 (Jul-Oct 2026)",
-        "start": "2026-07-13",
-        "end": "2026-10-31",
-        "invoice_date": "2026-07-01",
-        "due_date": "2026-07-31",
-        "withdrawal_cutoff": "2026-06-13"
-      },
-      {
-        "label": "Term 2 (Nov 2026-Feb 2027)",
-        "start": "2026-11-01",
-        "end": "2027-02-28",
-        "invoice_date": "2026-11-03",
-        "due_date": "2026-11-30",
-        "withdrawal_cutoff": "2026-10-01"
-      },
-      {
-        "label": "Term 3 (Mar-Jun 2027)",
-        "start": "2027-03-01",
-        "end": "2027-06-25",
-        "invoice_date": "2027-03-02",
-        "due_date": "2027-03-31",
-        "withdrawal_cutoff": "2027-02-01"
-      }
-    ],
-    "SG-ECS": "Same as SG-PGL",
-    "_note": "Pending re-dating (DL-96): GIIS SG CBSE years run April-March, so 4-month terms are Apr-Jul, Aug-Nov, Dec-Mar (HB p.244 example: Term 2 starts in August); IB DP at SG-ECS runs July-May. The periods above still use the earlier synthetic July start.",
+    "_note": "Billing periods belong to campus x programme offering x academic year (DL-96). GIIS SG CBSE, Cambridge and IGCSE years run April-March, so 4-month terms are Apr-Jul, Aug-Nov, Dec-Mar (HB p.244 example: Term 2 starts in August). IB DP at SG-ECS runs July-May (HB p.109). Dates are synthetic.",
+    "SG-PGL": {
+      "CBSE 1-12": [
+        {
+          "label": "Term 1 (Apr-Jul 2026)",
+          "start": "2026-04-06",
+          "end": "2026-07-31",
+          "invoice_date": "2026-03-02",
+          "due_date": "2026-03-31",
+          "withdrawal_cutoff": "2026-03-06"
+        },
+        {
+          "label": "Term 2 (Aug-Nov 2026)",
+          "start": "2026-08-01",
+          "end": "2026-11-30",
+          "invoice_date": "2026-07-01",
+          "due_date": "2026-07-31",
+          "withdrawal_cutoff": "2026-07-01"
+        },
+        {
+          "label": "Term 3 (Dec 2026-Mar 2027)",
+          "start": "2026-12-01",
+          "end": "2027-03-31",
+          "invoice_date": "2026-11-03",
+          "due_date": "2026-11-30",
+          "withdrawal_cutoff": "2026-11-01"
+        }
+      ],
+      "Cambridge CLSP 6-8": "Same as CBSE 1-12",
+      "IB PYP": "Same as CBSE 1-12 (pending OQ-107)"
+    },
+    "SG-ECS": {
+      "CBSE 1-12": "Same as SG-PGL CBSE 1-12",
+      "IGCSE 9-10": "Same as SG-PGL CBSE 1-12",
+      "IBDP": [
+        {
+          "label": "IB DP Term 1 (Jul-Oct 2026)",
+          "start": "2026-07-13",
+          "end": "2026-10-31",
+          "invoice_date": "2026-07-01",
+          "due_date": "2026-07-31",
+          "withdrawal_cutoff": "2026-06-13"
+        },
+        {
+          "label": "IB DP Term 2 (Nov 2026-Feb 2027)",
+          "start": "2026-11-01",
+          "end": "2027-02-28",
+          "invoice_date": "2026-11-03",
+          "due_date": "2026-11-30",
+          "withdrawal_cutoff": "2026-10-01"
+        },
+        {
+          "label": "IB DP Term 3 (Mar-May 2027)",
+          "start": "2027-03-01",
+          "end": "2027-05-28",
+          "invoice_date": "2027-03-02",
+          "due_date": "2027-03-31",
+          "withdrawal_cutoff": "2027-02-01"
+        }
+      ]
+    },
     "IN-NOI": "Not set (OQ-80)",
     "SG-OWD": "Not set"
   },
@@ -234,7 +267,7 @@
       "grades": "Grades 6-8",
       "ay": "AY 2026-27",
       "version": 1,
-      "valid_from": "2026-07-13",
+      "valid_from": "2026-04-06",
       "currency": "SGD",
       "status": "APPROVED",
       "prepared_by": "Siti Rahman",
@@ -293,7 +326,7 @@
       "grades": "Grades 1-5",
       "ay": "AY 2026-27",
       "version": 1,
-      "valid_from": "2026-07-13",
+      "valid_from": "2026-04-06",
       "currency": "SGD",
       "status": "APPROVED",
       "prepared_by": "Siti Rahman",
@@ -358,7 +391,7 @@
       "prepared_by": "Siti Rahman",
       "approved_by": "Wendy Koh",
       "approved_at": "2026-08-20",
-      "change_reason": "Technology fee added for the new device programme from Term 1 month 2 (synthetic)",
+      "change_reason": "Technology fee added for the new device programme from 1 Sep, month 2 of Term 2 (synthetic)",
       "lines": [
         {
           "fee": "TUITION",
@@ -412,7 +445,7 @@
       "grades": "Grades 11-12",
       "ay": "AY 2026-27",
       "version": 1,
-      "valid_from": "2026-07-13",
+      "valid_from": "2026-04-06",
       "currency": "SGD",
       "status": "DRAFT",
       "prepared_by": "Siti Rahman",
@@ -446,7 +479,7 @@
       "grades": "Grades 9-10",
       "ay": "AY 2026-27",
       "version": 1,
-      "valid_from": "2026-07-13",
+      "valid_from": "2026-04-06",
       "currency": "SGD",
       "status": "APPROVED",
       "prepared_by": "Siti Rahman",
@@ -552,9 +585,9 @@
   ],
   "billing_runs": [
     {
-      "id": "RUN-PGL-2026-T2",
+      "id": "RUN-PGL-2026-T3",
       "campus": "SG-PGL",
-      "period": "Term 2 (Nov 2026-Feb 2027)",
+      "period": "Term 3 (Dec 2026-Mar 2027)",
       "run_type": "REGULAR",
       "status": "ISSUED",
       "prepared_by": "Siti Rahman",
@@ -583,21 +616,49 @@
           "issue": "Enrolment OFFERED for AY 2027-28",
           "resolution": "Not in this year; skipped automatically"
         }
-      ]
+      ],
+      "programmes": "CBSE 1-12, Cambridge CLSP 6-8, IB PYP"
     },
     {
-      "id": "RUN-ECS-2026-T2",
+      "id": "RUN-ECS-2026-T3",
       "campus": "SG-ECS",
-      "period": "Term 2 (Nov 2026-Feb 2027)",
+      "period": "Term 3 (Dec 2026-Mar 2027)",
       "run_type": "REGULAR",
+      "status": "READY_FOR_APPROVAL",
+      "prepared_by": "Siti Rahman",
+      "totals": {
+        "invoices": 640,
+        "gross": 5038400.0,
+        "adjustments": -84600.0,
+        "tax": 445826.0,
+        "net": 5399626.0,
+        "currency": "SGD",
+        "_note": "illustrative"
+      },
+      "exceptions": [
+        {
+          "student": "Kavya Nair",
+          "grade": "Grade 6",
+          "issue": "Billing pause covers Dec-Feb (3 of 4 months)",
+          "resolution": "Bill March only (auto)"
+        }
+      ],
+      "programmes": "CBSE 1-12, IGCSE 9-10"
+    },
+    {
+      "id": "RUN-ECS-IBDP-2026-T2S",
+      "campus": "SG-ECS",
+      "programmes": "IBDP",
+      "period": "IB DP Term 2 (Nov 2026-Feb 2027)",
+      "run_type": "SUPPLEMENTARY",
       "status": "NEEDS_REVIEW",
       "prepared_by": "Siti Rahman",
       "totals": {
-        "invoices": 742,
-        "gross": 5869900.0,
-        "adjustments": -98400.0,
-        "tax": 519435.0,
-        "net": 6290935.0,
+        "invoices": 3,
+        "gross": 30600.0,
+        "adjustments": 0.0,
+        "tax": 2754.0,
+        "net": 33354.0,
         "currency": "SGD",
         "_note": "illustrative"
       },
@@ -607,15 +668,9 @@
           "grade": "IBDP Year 1",
           "issue": "Welfare and Technology fees have no payer (shares 0%, SR-FB-04)",
           "resolution": null
-        },
-        {
-          "student": "Kavya Nair",
-          "grade": "Grade 6",
-          "issue": "Billing pause covers Dec-Feb (3 of 4 months)",
-          "resolution": "Bill November only (auto)"
         }
       ],
-      "_note": "Daniel starts 4 Jan 2027, so he would be in a supplementary run; kept here to show the exception"
+      "_note": "January joiners to IB DP Term 2. IB DP has its own July-May year (DL-96), so it gets its own runs; the regular IB DP Term 2 run was issued on 3 Nov."
     },
     {
       "id": "RUN-NOI-2026-Q3",
@@ -767,7 +822,7 @@
           "starts": "2027-01-04"
         }
       ],
-      "_note": "Pays registration only; welfare and technology fees have no payer from Term 2 → run exception (SR-FB-04)",
+      "_note": "Pays registration only; welfare and technology fees have no payer for IB DP Term 2 → run exception in the January joiners run (SR-FB-04)",
       "balance": 0.0,
       "account_status": "ACTIVE"
     },
@@ -889,7 +944,7 @@
       "campus": "SG-PGL / SG-ECS",
       "issuer": "GIIS Singapore operating entity (named after OQ-06)",
       "source": "BILLING_RUN",
-      "billing_period": "Term 1 (Jul-Oct 2026)",
+      "billing_period": "Term 2 (Aug-Nov 2026)",
       "invoice_date": "2026-07-01",
       "due_date": "2026-07-31",
       "currency": "SGD",
@@ -899,7 +954,7 @@
           "campus": "SG-PGL",
           "class_name": "7B",
           "fee": "TUITION",
-          "description": "Tuition, Term 1 (Jul-Oct 2026)",
+          "description": "Tuition, Term 2 (Aug-Nov 2026)",
           "quantity": 1,
           "unit_amount": 6480,
           "share_percent": 100,
@@ -912,7 +967,7 @@
           "campus": "SG-PGL",
           "class_name": "7B",
           "fee": "WELFARE",
-          "description": "Student welfare, Term 1 (Jul-Oct 2026)",
+          "description": "Student welfare, Term 2 (Aug-Nov 2026)",
           "quantity": 1,
           "unit_amount": 150,
           "share_percent": 100,
@@ -925,7 +980,7 @@
           "campus": "SG-PGL",
           "class_name": "7B",
           "fee": "ACTIVITY",
-          "description": "Activity, Term 1 (Jul-Oct 2026)",
+          "description": "Activity, Term 2 (Aug-Nov 2026)",
           "quantity": 1,
           "unit_amount": 180,
           "share_percent": 100,
@@ -938,7 +993,7 @@
           "campus": "SG-PGL",
           "class_name": "7B",
           "fee": "TECH",
-          "description": "Technology, Term 1 (Jul-Oct 2026)",
+          "description": "Technology, Term 2 (Aug-Nov 2026)",
           "quantity": 1,
           "unit_amount": 320,
           "share_percent": 100,
@@ -951,7 +1006,7 @@
           "campus": "SG-ECS",
           "class_name": "9A",
           "fee": "TUITION",
-          "description": "Tuition, Term 1 (Jul-Oct 2026)",
+          "description": "Tuition, Term 2 (Aug-Nov 2026)",
           "quantity": 1,
           "unit_amount": 7350,
           "share_percent": 100,
@@ -968,7 +1023,7 @@
           "campus": "SG-ECS",
           "class_name": "9A",
           "fee": "WELFARE",
-          "description": "Student welfare, Term 1 (Jul-Oct 2026)",
+          "description": "Student welfare, Term 2 (Aug-Nov 2026)",
           "quantity": 1,
           "unit_amount": 150,
           "share_percent": 100,
@@ -981,7 +1036,7 @@
           "campus": "SG-ECS",
           "class_name": "9A",
           "fee": "ACTIVITY",
-          "description": "Activity, Term 1 (Jul-Oct 2026)",
+          "description": "Activity, Term 2 (Aug-Nov 2026)",
           "quantity": 1,
           "unit_amount": 200,
           "share_percent": 100,
@@ -994,7 +1049,7 @@
           "campus": "SG-ECS",
           "class_name": "9A",
           "fee": "TECH",
-          "description": "Technology, Term 1 (Jul-Oct 2026)",
+          "description": "Technology, Term 2 (Aug-Nov 2026)",
           "quantity": 1,
           "unit_amount": 320,
           "share_percent": 100,
@@ -1018,7 +1073,7 @@
       "campus": "SG-PGL / SG-ECS",
       "issuer": "GIIS Singapore operating entity (named after OQ-06)",
       "source": "BILLING_RUN",
-      "billing_period": "Term 2 (Nov 2026-Feb 2027)",
+      "billing_period": "Term 3 (Dec 2026-Mar 2027)",
       "invoice_date": "2026-11-03",
       "due_date": "2026-11-30",
       "currency": "SGD",
@@ -1028,7 +1083,7 @@
           "campus": "SG-PGL",
           "class_name": "7B",
           "fee": "TUITION",
-          "description": "Tuition, Term 2 (Nov 2026-Feb 2027)",
+          "description": "Tuition, Term 3 (Dec 2026-Mar 2027)",
           "quantity": 1,
           "unit_amount": 6480,
           "share_percent": 100,
@@ -1041,7 +1096,7 @@
           "campus": "SG-PGL",
           "class_name": "7B",
           "fee": "WELFARE",
-          "description": "Student welfare, Term 2 (Nov 2026-Feb 2027)",
+          "description": "Student welfare, Term 3 (Dec 2026-Mar 2027)",
           "quantity": 1,
           "unit_amount": 150,
           "share_percent": 100,
@@ -1054,7 +1109,7 @@
           "campus": "SG-PGL",
           "class_name": "7B",
           "fee": "ACTIVITY",
-          "description": "Activity, Term 2 (Nov 2026-Feb 2027)",
+          "description": "Activity, Term 3 (Dec 2026-Mar 2027)",
           "quantity": 1,
           "unit_amount": 180,
           "share_percent": 100,
@@ -1067,7 +1122,7 @@
           "campus": "SG-PGL",
           "class_name": "7B",
           "fee": "TECH",
-          "description": "Technology, Term 2 (Nov 2026-Feb 2027)",
+          "description": "Technology, Term 3 (Dec 2026-Mar 2027)",
           "quantity": 1,
           "unit_amount": 320,
           "share_percent": 100,
@@ -1080,7 +1135,7 @@
           "campus": "SG-ECS",
           "class_name": "9A",
           "fee": "TUITION",
-          "description": "Tuition, Term 2 (Nov 2026-Feb 2027)",
+          "description": "Tuition, Term 3 (Dec 2026-Mar 2027)",
           "quantity": 1,
           "unit_amount": 7350,
           "share_percent": 100,
@@ -1097,7 +1152,7 @@
           "campus": "SG-ECS",
           "class_name": "9A",
           "fee": "WELFARE",
-          "description": "Student welfare, Term 2 (Nov 2026-Feb 2027)",
+          "description": "Student welfare, Term 3 (Dec 2026-Mar 2027)",
           "quantity": 1,
           "unit_amount": 150,
           "share_percent": 100,
@@ -1110,7 +1165,7 @@
           "campus": "SG-ECS",
           "class_name": "9A",
           "fee": "ACTIVITY",
-          "description": "Activity, Term 2 (Nov 2026-Feb 2027)",
+          "description": "Activity, Term 3 (Dec 2026-Mar 2027)",
           "quantity": 1,
           "unit_amount": 200,
           "share_percent": 100,
@@ -1123,7 +1178,7 @@
           "campus": "SG-ECS",
           "class_name": "9A",
           "fee": "TECH",
-          "description": "Technology, Term 2 (Nov 2026-Feb 2027)",
+          "description": "Technology, Term 3 (Dec 2026-Mar 2027)",
           "quantity": 1,
           "unit_amount": 320,
           "share_percent": 100,
@@ -1181,7 +1236,7 @@
       "campus": "SG-PGL",
       "issuer": "GIIS Singapore operating entity (named after OQ-06)",
       "source": "BILLING_RUN",
-      "billing_period": "Term 1 (Jul-Oct 2026)",
+      "billing_period": "Term 2 (Aug-Nov 2026)",
       "invoice_date": "2026-07-01",
       "due_date": "2026-07-31",
       "currency": "SGD",
@@ -1191,7 +1246,7 @@
           "campus": "SG-PGL",
           "class_name": "8A",
           "fee": "TUITION",
-          "description": "Tuition, Term 1 (Jul-Oct 2026)",
+          "description": "Tuition, Term 2 (Aug-Nov 2026)",
           "quantity": 1,
           "unit_amount": 6480,
           "share_percent": 100,
@@ -1204,7 +1259,7 @@
           "campus": "SG-PGL",
           "class_name": "8A",
           "fee": "WELFARE",
-          "description": "Student welfare, Term 1 (Jul-Oct 2026)",
+          "description": "Student welfare, Term 2 (Aug-Nov 2026)",
           "quantity": 1,
           "unit_amount": 150,
           "share_percent": 100,
@@ -1217,7 +1272,7 @@
           "campus": "SG-PGL",
           "class_name": "8A",
           "fee": "ACTIVITY",
-          "description": "Activity, Term 1 (Jul-Oct 2026)",
+          "description": "Activity, Term 2 (Aug-Nov 2026)",
           "quantity": 1,
           "unit_amount": 180,
           "share_percent": 100,
@@ -1230,7 +1285,7 @@
           "campus": "SG-PGL",
           "class_name": "8A",
           "fee": "TECH",
-          "description": "Technology, Term 1 (Jul-Oct 2026)",
+          "description": "Technology, Term 2 (Aug-Nov 2026)",
           "quantity": 1,
           "unit_amount": 320,
           "share_percent": 100,
@@ -1243,7 +1298,7 @@
           "campus": "SG-PGL",
           "class_name": "8A",
           "fee": "BUS",
-          "description": "Bus (Punggol route), Term 1 (Jul-Oct 2026)",
+          "description": "Bus (Punggol route), Term 2 (Aug-Nov 2026)",
           "quantity": 1,
           "unit_amount": 1040,
           "share_percent": 100,
@@ -1267,7 +1322,7 @@
       "campus": "SG-PGL",
       "issuer": "GIIS Singapore operating entity (named after OQ-06)",
       "source": "BILLING_RUN",
-      "billing_period": "Term 2 (Nov 2026-Feb 2027)",
+      "billing_period": "Term 3 (Dec 2026-Mar 2027)",
       "invoice_date": "2026-11-03",
       "due_date": "2026-11-30",
       "currency": "SGD",
@@ -1277,7 +1332,7 @@
           "campus": "SG-PGL",
           "class_name": "8A",
           "fee": "TUITION",
-          "description": "Tuition, Term 2 (Nov 2026-Feb 2027)",
+          "description": "Tuition, Term 3 (Dec 2026-Mar 2027)",
           "quantity": 1,
           "unit_amount": 6480,
           "share_percent": 100,
@@ -1290,7 +1345,7 @@
           "campus": "SG-PGL",
           "class_name": "8A",
           "fee": "WELFARE",
-          "description": "Student welfare, Term 2 (Nov 2026-Feb 2027)",
+          "description": "Student welfare, Term 3 (Dec 2026-Mar 2027)",
           "quantity": 1,
           "unit_amount": 150,
           "share_percent": 100,
@@ -1303,7 +1358,7 @@
           "campus": "SG-PGL",
           "class_name": "8A",
           "fee": "ACTIVITY",
-          "description": "Activity, Term 2 (Nov 2026-Feb 2027)",
+          "description": "Activity, Term 3 (Dec 2026-Mar 2027)",
           "quantity": 1,
           "unit_amount": 180,
           "share_percent": 100,
@@ -1316,7 +1371,7 @@
           "campus": "SG-PGL",
           "class_name": "8A",
           "fee": "TECH",
-          "description": "Technology, Term 2 (Nov 2026-Feb 2027)",
+          "description": "Technology, Term 3 (Dec 2026-Mar 2027)",
           "quantity": 1,
           "unit_amount": 320,
           "share_percent": 100,
@@ -1329,7 +1384,7 @@
           "campus": "SG-PGL",
           "class_name": "8A",
           "fee": "BUS",
-          "description": "Bus (Punggol route), Term 2 (Nov 2026-Feb 2027)",
+          "description": "Bus (Punggol route), Term 3 (Dec 2026-Mar 2027)",
           "quantity": 1,
           "unit_amount": 1040,
           "share_percent": 100,
@@ -1353,7 +1408,7 @@
       "campus": "SG-PGL",
       "issuer": "GIIS Singapore operating entity (named after OQ-06)",
       "source": "BILLING_RUN",
-      "billing_period": "Term 2 (Nov 2026-Feb 2027)",
+      "billing_period": "Term 3 (Dec 2026-Mar 2027)",
       "invoice_date": "2026-11-03",
       "due_date": "2026-11-30",
       "currency": "SGD",
@@ -1363,7 +1418,7 @@
           "campus": "SG-PGL",
           "class_name": "3C",
           "fee": "TUITION",
-          "description": "Tuition, Term 2 (Nov 2026-Feb 2027)",
+          "description": "Tuition, Term 3 (Dec 2026-Mar 2027)",
           "quantity": 1,
           "unit_amount": 7100,
           "share_percent": 100,
@@ -1376,7 +1431,7 @@
           "campus": "SG-PGL",
           "class_name": "3C",
           "fee": "WELFARE",
-          "description": "Student welfare, Term 2 (Nov 2026-Feb 2027)",
+          "description": "Student welfare, Term 3 (Dec 2026-Mar 2027)",
           "quantity": 1,
           "unit_amount": 150,
           "share_percent": 100,
@@ -1389,7 +1444,7 @@
           "campus": "SG-PGL",
           "class_name": "3C",
           "fee": "ACTIVITY",
-          "description": "Activity, Term 2 (Nov 2026-Feb 2027)",
+          "description": "Activity, Term 3 (Dec 2026-Mar 2027)",
           "quantity": 1,
           "unit_amount": 220,
           "share_percent": 100,
@@ -1402,7 +1457,7 @@
           "campus": "SG-PGL",
           "class_name": "3C",
           "fee": "TECH",
-          "description": "Technology, Term 2 (Nov 2026-Feb 2027)",
+          "description": "Technology, Term 3 (Dec 2026-Mar 2027)",
           "quantity": 1,
           "unit_amount": 300,
           "share_percent": 100,
@@ -1426,7 +1481,7 @@
       "campus": "SG-PGL",
       "issuer": "GIIS Singapore operating entity (named after OQ-06)",
       "source": "BILLING_RUN",
-      "billing_period": "Term 2 (Nov 2026-Feb 2027)",
+      "billing_period": "Term 3 (Dec 2026-Mar 2027)",
       "invoice_date": "2026-11-03",
       "due_date": "2026-11-30",
       "currency": "SGD",
@@ -1436,7 +1491,7 @@
           "campus": "SG-PGL",
           "class_name": "5B",
           "fee": "TUITION",
-          "description": "Tuition, Term 2 (Nov 2026-Feb 2027)",
+          "description": "Tuition, Term 3 (Dec 2026-Mar 2027)",
           "quantity": 1,
           "unit_amount": 5900,
           "share_percent": 100,
@@ -1453,7 +1508,7 @@
           "campus": "SG-PGL",
           "class_name": "5B",
           "fee": "WELFARE",
-          "description": "Student welfare, Term 2 (Nov 2026-Feb 2027)",
+          "description": "Student welfare, Term 3 (Dec 2026-Mar 2027)",
           "quantity": 1,
           "unit_amount": 150,
           "share_percent": 100,
@@ -1466,7 +1521,7 @@
           "campus": "SG-PGL",
           "class_name": "5B",
           "fee": "ACTIVITY",
-          "description": "Activity, Term 2 (Nov 2026-Feb 2027)",
+          "description": "Activity, Term 3 (Dec 2026-Mar 2027)",
           "quantity": 1,
           "unit_amount": 180,
           "share_percent": 100,
@@ -1479,7 +1534,7 @@
           "campus": "SG-PGL",
           "class_name": "5B",
           "fee": "TECH",
-          "description": "Technology, Term 2 (Nov 2026-Feb 2027)",
+          "description": "Technology, Term 3 (Dec 2026-Mar 2027)",
           "quantity": 1,
           "unit_amount": 280,
           "share_percent": 100,
@@ -1492,7 +1547,7 @@
           "campus": "SG-PGL",
           "class_name": "5B",
           "fee": "BUS",
-          "description": "Bus (Punggol route), Term 2 (Nov 2026-Feb 2027)",
+          "description": "Bus (Punggol route), Term 3 (Dec 2026-Mar 2027)",
           "quantity": 1,
           "unit_amount": 1040,
           "share_percent": 100,
@@ -1729,8 +1784,8 @@
       "number": "CN-SG-2026-000318 (draft)",
       "invoice": "SG-2026-041655",
       "reason_code": "WITHDRAWAL_PRORATION",
-      "reason_note": "Chloe's last day 31 Dec 2026; withdrawal approved after the Term 2 cut-off (1 Oct), so Term 2 billed to December only: credit Jan-Feb, 2 of 4 months (SR-FB-08, SR-FB-16)",
-      "total": 4234.65,
+      "reason_note": "Chloe's last day 31 Dec 2026; withdrawal approved after the Term 3 cut-off (1 Nov), so Term 3 billed for December only: credit Jan-Mar, 3 of 4 months (SR-FB-08, SR-FB-16)",
+      "total": 6351.98,
       "approved_by": null,
       "status": "DRAFT"
     }
@@ -1786,7 +1841,7 @@
       "calculation": [
         {
           "fee": "TUITION",
-          "paid": "Term 2 paid in full",
+          "paid": "Term 3 paid in full",
           "refund_percent": "Table 3B % not set (OQ-86)",
           "amount": "Blocked"
         }
@@ -1845,7 +1900,7 @@
     {
       "student": "Rohan Mehta",
       "type": "WAIVER",
-      "value": "Bus fee Term 2 (route change)",
+      "value": "Bus fee Term 3 (route change)",
       "status": "REQUESTED",
       "requested_by": "Siti Rahman",
       "reason": "Family moved off the bus route in October"
@@ -1900,8 +1955,8 @@
       "campus": "SG-PGL",
       "insurer": "Insurer named in the brand-country setting (HB p.246)",
       "certificate": "FPS-26-PGL-00418A",
-      "cover_from": "2026-07-13",
-      "cover_to": "2027-06-25",
+      "cover_from": "2026-04-06",
+      "cover_to": "2027-03-31",
       "status": "PURCHASED"
     },
     {
@@ -1909,8 +1964,8 @@
       "campus": "SG-ECS",
       "insurer": "Insurer named in the brand-country setting (HB p.246)",
       "certificate": "FPS-26-ECS-00418B",
-      "cover_from": "2026-07-13",
-      "cover_to": "2027-06-25",
+      "cover_from": "2026-04-06",
+      "cover_to": "2027-03-31",
       "status": "PURCHASED"
     },
     {
@@ -1918,8 +1973,8 @@
       "campus": "SG-PGL",
       "insurer": "Insurer named in the brand-country setting (HB p.246)",
       "certificate": "FPS-26-PGL-00377A",
-      "cover_from": "2026-07-13",
-      "cover_to": "2027-06-25",
+      "cover_from": "2026-04-06",
+      "cover_to": "2027-03-31",
       "status": "PURCHASED"
     },
     {
@@ -1927,8 +1982,8 @@
       "campus": "SG-PGL",
       "insurer": "Insurer named in the brand-country setting (HB p.246)",
       "certificate": "FPS-26-PGL-00522A",
-      "cover_from": "2026-07-13",
-      "cover_to": "2027-06-25",
+      "cover_from": "2026-04-06",
+      "cover_to": "2027-03-31",
       "status": "PURCHASED (to cancel on withdrawal, HB p.237)"
     },
     {
@@ -1936,8 +1991,8 @@
       "campus": "SG-PGL",
       "insurer": "Insurer named in the brand-country setting (HB p.246)",
       "certificate": "FPS-26-PGL-00601A",
-      "cover_from": "2026-07-13",
-      "cover_to": "2027-06-25",
+      "cover_from": "2026-04-06",
+      "cover_to": "2027-03-31",
       "status": "PURCHASED"
     },
     {
@@ -1963,7 +2018,7 @@
     "whats_due": [
       {
         "invoice": "SG-2026-041877",
-        "label": "Term 2 (Nov 2026-Feb 2027)",
+        "label": "Term 3 (Dec 2026-Mar 2027)",
         "amount": 16112.93,
         "due": "2026-11-30"
       },
