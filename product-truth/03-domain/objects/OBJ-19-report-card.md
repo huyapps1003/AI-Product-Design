@@ -78,7 +78,7 @@ patterns: [AP-01, AP-02, AP-04, AP-05, AP-06, AP-13, AP-14]
 
 # OBJ-19 · Mark and report card
 
-**Status:** Proposed with the assessment dictionary v0.1, 15 Nov 2026 (DL-87 Confirmed; DL-88…DL-95 Assumed) · **Owner:** Henry
+**Status:** Proposed with the assessment dictionary v0.1, 15 Nov 2026 (DL-87…DL-95 Confirmed) · **Owner:** Henry
 **Cites:** [assessment dictionary](../assessment-data-dictionary.md) · DL-73, DL-75, DL-83, DL-87
 
 Rules come from a GSG template per board that each brand-country adapts; an Academic Supervisor approves each version (DL-87). Marks are entered per class on a mark sheet and locked after moderation; grades are calculated from the scheme version for that year. A report card is a released snapshot that never changes; a correction reissues it. Parents see only published marks and released report cards, and fee status never holds a report card back (DL-83). Promotion outcomes go to the Classes rollover, where the Principal approves (DL-75). Appeal windows, release deadlines and attendance thresholds are settings: show the value or "Not set", never a hard-coded number.

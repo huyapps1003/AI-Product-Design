@@ -99,14 +99,14 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-85 | Parents see and pay only accounts they pay or that a payer shared; other guardians see no finance; students never | **Confirmed** (Henry, 14 Nov 2026) | DL-37, DL-68, FB06 |
 | DL-86 | Approved long leave pauses billing; billing after withdrawal follows the campus cut-off setting | **Confirmed** (Henry, 15 Nov 2026) | FB16, HB p.237, p.244 |
 | DL-87 | GSG platform team keeps a scheme template per board; each brand-country adapts it into versioned assessment schemes; an Academic Supervisor approves each version; prefix `assessment` | **Confirmed** (Henry, 15 Nov 2026) | Arch § Principles (programme packs), § Tenancy, AS01/AS02, OQ-93 |
-| DL-88 | Assessments are dated per grade and subject; marks entered per class on a mark sheet (Open → Submitted → Moderated → Locked); after lock only appeal, re-test or correction with reason, each a new version | Assumed | AS06–AS08, Arch § Security |
-| DL-89 | Results and grades calculated by the year's scheme version; no manual grade override; descriptors entered as descriptors | Assumed | AS04, AS09 |
-| DL-90 | Report card = released snapshot per student and period; coordinator releases per grade; corrections reissue a new version; fee status never checked | Assumed | AS10, DL-83, OQ-94, OQ-95 |
-| DL-91 | One appeal round per mark: parent raises in the app within the brand-country window; teacher re-marks via HOD; Examination Board endorses; coordinator sends outcome | Assumed | AS11, HB p.88, p.127, OQ-97, OQ-98 |
-| DL-92 | Promotion rule proposes outcomes from results and attendance %; judgment cases wait for a decision; confirmed outcomes go to the Classes rollover; re-tests are RETEST assessments | Assumed | AS05, AS12, DL-75, CL07, OQ-99 |
-| DL-93 | Subject teachers: own subjects and classes; class teacher: all subjects of own class; parents: published marks and released report cards of own children; students: own released report cards where the campus allows (extends DL-68) | Assumed | DL-68, DL-73, OQ-96 |
-| DL-94 | Predicted grades (IB DP, CBSE 12): teacher enters, coordinator releases, appeal on a Case to the Principal-led committee | Assumed | AS13, HB p.132–133 |
-| DL-95 | Missing marks carry a code (ABSENT, APPROVED_ABSENCE, EXEMPT, NOT_ASSESSED); proration needs the Principal; reasons stay in Attendance or Wellbeing | Assumed | AS08, HB p.43, DL-66 |
+| DL-88 | Assessments are dated per grade and subject; marks entered per class on a mark sheet (Open → Submitted → Moderated → Locked); after lock only appeal, re-test or correction with reason, each a new version | **Confirmed** (Henry, 15 Nov 2026) | AS06–AS08, Arch § Security |
+| DL-89 | Results and grades calculated by the year's scheme version; no manual grade override; descriptors entered as descriptors | **Confirmed** (Henry, 15 Nov 2026) | AS04, AS09 |
+| DL-90 | Report card = released snapshot per student and period; coordinator releases per grade; corrections reissue a new version; fee status never checked | **Confirmed** (Henry, 15 Nov 2026) | AS10, DL-83, OQ-94, OQ-95 |
+| DL-91 | One appeal round per mark: parent raises in the app within the brand-country window; teacher re-marks via HOD; Examination Board endorses; coordinator sends outcome | **Confirmed** (Henry, 15 Nov 2026) | AS11, HB p.88, p.127, OQ-97, OQ-98 |
+| DL-92 | Promotion rule proposes outcomes from results and attendance %; judgment cases wait for a decision; confirmed outcomes go to the Classes rollover; re-tests are RETEST assessments | **Confirmed** (Henry, 15 Nov 2026) | AS05, AS12, DL-75, CL07, OQ-99 |
+| DL-93 | Subject teachers: own subjects and classes; class teacher: all subjects of own class; parents: published marks and released report cards of own children; students: own released report cards where the campus allows (extends DL-68) | **Confirmed** (Henry, 15 Nov 2026) | DL-68, DL-73, OQ-96 |
+| DL-94 | Predicted grades (IB DP, CBSE 12): teacher enters, coordinator releases, appeal on a Case to the Principal-led committee | **Confirmed** (Henry, 15 Nov 2026) | AS13, HB p.132–133 |
+| DL-95 | Missing marks carry a code (ABSENT, APPROVED_ABSENCE, EXEMPT, NOT_ASSESSED); proration needs the Principal; reasons stay in Attendance or Wellbeing | **Confirmed** (Henry, 15 Nov 2026) | AS08, HB p.43, DL-66 |
 
 ---
 
@@ -444,7 +444,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **DL-87.** Henry chose option A on 15 Nov 2026: GSG keeps a template per board, each brand-country adapts it, an Academic Supervisor approves each version. Rejected: B, fixed packs from GSG only, with no local weights or bands (simpler, but GIIS already layers its own weights and weak-pass rules on top of board rules, HB p.66–131, and every change would be a central release).
 - **Decision.** See the table above and [assessment dictionary § Decisions](../03-domain/assessment-data-dictionary.md#decisions).
 - **Why.** Board rules live once in a template; brand rules become versioned settings (Arch § Principles "policy as rules"); marks get one audited path to a released report card.
-- **Status.** DL-87 Confirmed by Henry, 15 Nov 2026; DL-88…DL-95 Assumed, pending Henry.
+- **Status.** DL-87 Confirmed by Henry, 15 Nov 2026; DL-88…DL-95 Confirmed by Henry ("All A"), 15 Nov 2026. All DL-87…DL-95 Confirmed.
 
 ## How design direction becomes architecture
 

@@ -1,6 +1,6 @@
 # Global Campus OS — Assessment & Report Cards Data Dictionary v0.1 (draft)
 
-**Status:** Proposed draft, 15 Nov 2026. DL-87 Confirmed (Henry, 15 Nov 2026); DL-88…DL-95 Assumed, pending Henry; OQ-93…OQ-106 Open · **Owner:** Henry
+**Status:** Proposed draft, 15 Nov 2026. DL-87…DL-95 Confirmed (Henry, 15 Nov 2026) (Henry, "All A", 15 Nov 2026); OQ-93…OQ-106 Open · **Owner:** Henry
 **Cites:** [Architecture v1](../00-sources/Global_Campus_OS_Product_Architecture_v1.md) § Principles (programme packs, policy as rules), § Context (assessment rhythm, grading, promotion; MyGIIS "Exam and Results"), § Users and roles (Principal, Academic Supervisor, Programme or level coordinator, Subject teacher), § Domains and modules (module 4 Assessment and Reporting), § Key workflows (Assessment to report card), § Tenancy (programme offering owns grading scale and promotion rule versions; effective dating), § Data model (Assessment row), § Integrations (IB and Cambridge), § Security (audit of marks changes), § Phases (Phase 2 gate "report cards issued from the OS") · [architecture.md](./architecture.md) (Assessment domain) · [Classes dictionary](./classes-data-dictionary.md) CL01, CL06, CL07 · [Fees & billing dictionary](./fees-billing-data-dictionary.md) fee status (DL-83) · [Student Directory Spec](./student-directory-data-dictionary.md) ST02, ST03 · [Employee Data Dictionary v1](../00-sources/Global_Campus_OS_Employee_Data_Dictionary_v1.md) D01–D03 · GIIS Student Handbook 2025-26 (HB) p.34 (MyGIIS), p.43 (absence and proration), p.65 (KG Holistic Progress Card), p.66–79 (CBSE, CLSP, IGCSE, IBDP schemes and grade scales), p.85 (co-scholastic), p.86–88 (PYP reports, return of scripts and appeals), p.127 (appeal policy), p.128–131 (promotion), p.132–133 (predicted grades) · GIIS SG Exam Schedule 2026-27 · DL-11, DL-16, DL-22, DL-26, DL-27, DL-30, DL-32…DL-38, DL-47, DL-53, DL-54, DL-59, DL-66, DL-68, DL-70, DL-73, DL-75, DL-83 · MC-06, MC-07 · OQ-79
 **Tóm tắt (VI):** Từ điển dữ liệu cho module Đánh giá & Học bạ: khung đánh giá (thành phần, trọng số, thang điểm, quy tắc lên lớp) lấy từ mẫu theo chương trình (CBSE, IB, Cambridge…) rồi mỗi brand-country điều chỉnh và Academic Supervisor duyệt từng phiên bản; lịch các bài kiểm tra; nhập điểm, kiểm duyệt và khoá điểm; quy đổi điểm sang xếp loại; học bạ phát hành cho phụ huynh; phúc khảo; kết quả lên lớp chuyển sang Lớp học; điểm dự đoán (IB, CBSE 12). Mỗi trường có trạng thái Known / Assumed / Open.
 
@@ -50,14 +50,14 @@ Approved by Henry, 15 Nov 2026: **how students are assessed, how marks become gr
 | AS02 | Assessment Scheme | Assessment | Known (Arch § Tenancy: offering owns grading scale and promotion rule versions); model Confirmed (DL-87) |
 | AS03 | Scheme Component | Assessment | Known values for GIIS SG (HB p.66–79 weightages) |
 | AS04 | Grade Scale | Assessment | Known (Arch § Data model "Grade scale"; HB p.67–85) |
-| AS05 | Promotion Rule | Assessment (Rules service) | Known for GIIS SG (HB p.128–131); model Assumed (DL-92) |
+| AS05 | Promotion Rule | Assessment (Rules service) | Known for GIIS SG (HB p.128–131); model Confirmed (DL-92) |
 | AS06 | Assessment | Assessment (reads Calendar exam windows) | Known (Arch § Data model "Assessment"; Exam Schedule 2026-27) |
-| AS07 | Mark Sheet | Assessment | Known need (Arch § Key workflows "moderation and lock"; HB "answer script moderation form"); model Assumed (DL-88) |
+| AS07 | Mark Sheet | Assessment | Known need (Arch § Key workflows "moderation and lock"; HB "answer script moderation form"); model Confirmed (DL-88) |
 | AS08 | Mark | Assessment | Known (Arch § Data model "Mark") |
 | AS09 | Subject Result | Assessment | Known (Arch § Data model "Grade"); calculated (DL-89) |
 | AS10 | Report Card | Assessment | Known (Arch § Data model "Report card"; HB p.34, p.67–79 release counts) |
 | AS11 | Appeal | Assessment | Known (Arch § Data model "Appeal"; HB p.88, p.127) |
-| AS12 | Promotion Decision | Assessment (hands outcome to Classes CL07) | Known outcomes (HB p.128–131); model Assumed (DL-92) |
+| AS12 | Promotion Decision | Assessment (hands outcome to Classes CL07) | Known outcomes (HB p.128–131); model Confirmed (DL-92) |
 | AS13 | Predicted Grade | Assessment | Known (Arch § Data model "Predicted grade"; HB p.132–133) |
 
 ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's exam window are referenced, not redefined. Academic year, term, programme offering, grade and subject still need the Academic structure dictionary.
@@ -139,7 +139,7 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| promotion_rule_id | UUID | PK | Y | T1 | Assumed (DL-92) | |
+| promotion_rule_id | UUID | PK | Y | T1 | Confirmed (DL-92) | |
 | scheme_id | UUID | FK:AS02 | Y | T1 | Assumed | One per scheme version. |
 | rule_kind | ENUM | — | Y | T1 | Known (HB p.128–131) | NO_RETENTION (K–5: retention only on parent request), MIN_GRADE_ALL_SUBJECTS (CBSE 6–9: D), MIN_PERCENT_ALL_SUBJECTS (CLSP, IGCSE, CBSE 11: 40%), POINTS_AND_REQUIREMENTS (IB Year 1: 24 points, 4/4/4 HL and SL, CAS, lab reports, EE draft), BOARD (CBSE 10 and 12). |
 | min_attendance_percent | DECIMAL(5,2) | — | C | T1 | Known for GIIS SG: 85%, 90% for Student Pass holders (HB p.128) | From the student's attendance threshold (DL-30). "Not set" blocks proposals. |
@@ -157,7 +157,7 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 | assessment_id | UUID | PK | Y | T1 | Known (Arch § Data model) | |
 | campus_id | UUID | FK:OR04 | Y | T1 | Known | |
 | academic_year_id | UUID | FK | Y | T1 | Known | |
-| scheme_id / component_id | UUID | FK:AS02 / AS03 | Y | T1 | Assumed (DL-88) | Must be an APPROVED scheme version. |
+| scheme_id / component_id | UUID | FK:AS02 / AS03 | Y | T1 | Confirmed (DL-88) | Must be an APPROVED scheme version. |
 | grade_id | UUID | FK:Grade | Y | T1 | Known (Exam Schedule: per grade) | |
 | subject_id | UUID | FK:Subject | Y | T1 | Known | Language groups (L2 Hindi/Tamil/French) are one assessment with several mark sheets. |
 | assessment_kind | ENUM | — | Y | T1 | Assumed (DL-27) | REGULAR, RETEST, IMPROVEMENT, PRE_BOARD. |
@@ -166,7 +166,7 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 | max_marks | DECIMAL(6,2) | — | C | T1 | Known | Defaults from AS03. |
 | syllabus_note | TEXT | — | N | T1 | Known (HB: syllabus sent one week before a PT, 15 days before a term exam) | Shared to parents with the date. |
 | assessment_status | ENUM | — | Y | T1 | Assumed (DL-27) | SCHEDULED, HELD, MARKING, LOCKED, PUBLISHED, CANCELLED. Derived from mark sheets once held. |
-| marks_published_at / published_by_user_id | — | — | C | T1 | Known need (HB p.34: MyGIIS "Exam & Results" shows test marks online); Assumed (DL-93) | Coordinator publishes locked marks to parents per assessment; this starts the appeal window where the setting counts from results. |
+| marks_published_at / published_by_user_id | — | — | C | T1 | Known need (HB p.34: MyGIIS "Exam & Results" shows test marks online); Confirmed (DL-93) | Coordinator publishes locked marks to parents per assessment; this starts the appeal window where the setting counts from results. |
 | scheduled_by_user_id | UUID | FK:User | Y | T1 | Known: coordinator publishes the assessment calendar (Arch § Key workflows step 1) | |
 
 ### AS07 — Mark Sheet
@@ -175,7 +175,7 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| mark_sheet_id | UUID | PK | Y | T2 | Assumed (DL-88) | |
+| mark_sheet_id | UUID | PK | Y | T2 | Confirmed (DL-88) | |
 | assessment_id | UUID | FK:AS06 | Y | T1 | Assumed | |
 | class_id / teaching_group_id | UUID | FK:CL01 / Teaching | Y (one) | T1 | Known (CL01; teaching groups OQ-77) | |
 | teacher_employee_id | UUID | FK:E01 | Y | T1 | Known (Employee DD D02 subject allocation) | Default from the teaching allocation. |
@@ -198,10 +198,10 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 | enrolment_id | UUID | FK:ST02 | Y | T1 | Known | |
 | raw_mark | DECIMAL(6,2) | — | C | T2 | Known | 0 ≤ raw_mark ≤ max_marks. Null when a code is set. |
 | descriptor | VARCHAR(32) | — | C | T2 | Known (descriptor scales, AS04) | For DESCRIPTOR components only. |
-| absence_code | ENUM | — | C | T2 | Confirmed need (HB p.43); codes Assumed (DL-95) | ABSENT, APPROVED_ABSENCE, EXEMPT, NOT_ASSESSED ("NA", HB p.88). |
+| absence_code | ENUM | — | C | T2 | Confirmed need (HB p.43); codes Confirmed (DL-95) | ABSENT, APPROVED_ABSENCE, EXEMPT, NOT_ASSESSED ("NA", HB p.88). |
 | prorated | BOOLEAN | — | N | T2 | Known (HB p.43 "marks would be prorated for the report card") | Only with APPROVED_ABSENCE and a Principal approval (SR-AS-07). |
 | proration_approved_by_user_id | UUID | FK:User | C | T1 | Known (HB p.43 "approval from the principal") | |
-| mark_version | INT | — | Y | T1 | Assumed (DL-88) | Every change after lock adds a version. |
+| mark_version | INT | — | Y | T1 | Confirmed (DL-88) | Every change after lock adds a version. |
 | change_reason | ENUM | — | C | T1 | Assumed (DL-27) | APPEAL, CORRECTION, RETEST. Required after lock. |
 | appeal_id | UUID | FK:AS11 | C | T1 | Assumed | |
 | entered_by_user_id / entered_at | — | — | Y | T1 | Assumed | |
@@ -212,7 +212,7 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| subject_result_id | UUID | PK | Y | T2 | Assumed (DL-89) | |
+| subject_result_id | UUID | PK | Y | T2 | Confirmed (DL-89) | |
 | enrolment_id / subject_id / reporting_period_code | — | UK | Y | T2 | Known | |
 | scheme_id | UUID | FK:AS02 | Y | T1 | Known (Arch: effective-dated rules) | The version used. |
 | weighted_percent | DECIMAL(5,2) | — | C | T2 | Known (HB weightages) | Calculated from locked marks; never typed. |
@@ -234,7 +234,7 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 | card_version | INT | UK | Y | T1 | Confirmed need (DL-90) | 1, then 2… on reissue. |
 | scheme_id / layout_code | — | — | Y | T1 | Known; layout Open (OQ-94) | |
 | class_id_snapshot / class_teacher_snapshot | — | — | Y | T1 | Assumed | As printed; not updated by later class moves. |
-| results_snapshot | JSON | — | Y | T2 | Assumed (DL-90) | Subject results, co-scholastic grades, descriptors at generation. |
+| results_snapshot | JSON | — | Y | T2 | Confirmed (DL-90) | Subject results, co-scholastic grades, descriptors at generation. |
 | attendance_snapshot | JSON | — | N | T2 | Assumed; source Attendance | Days present / working days. Threshold only, never leave reasons. |
 | class_teacher_remark | TEXT | — | N | T2 | Known practice (HB p.114: "well-defined report card to record student progress") | Written by the class teacher. |
 | card_status | ENUM | — | Y | T1 | Assumed (DL-27) | DRAFT, READY, RELEASED, SUPERSEDED. |
@@ -270,7 +270,7 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| promotion_decision_id | UUID | PK | Y | T2 | Assumed (DL-92) | |
+| promotion_decision_id | UUID | PK | Y | T2 | Confirmed (DL-92) | |
 | enrolment_id / academic_year_id | UUID | UK | Y | T1 | Known | |
 | promotion_rule_id | UUID | FK:AS05 | Y | T1 | Assumed | |
 | proposed_outcome | ENUM | — | Y | T2 | Known values (HB p.128–131) | Calculated. See enums. |
@@ -359,19 +359,19 @@ Fee status (DL-83) never appears on any assessment screen.
 - **SR-AS-01 (Confirmed, DL-87):** An assessment can only use an APPROVED scheme version. Approving needs an Academic Supervisor; an approved version is read-only and a change is a new version from a later year.
 - **SR-AS-02 (Known HB weightages; Assumed):** Component weights in a reporting period add up to 100. The scheme can't be submitted otherwise.
 - **SR-AS-03 (Assumed):** Grade bands are ordered with no gaps or overlaps; every percentage from 0 to 100 maps to one grade.
-- **SR-AS-04 (Known, Arch § Users and roles "marks entry" for subject teachers; Assumed DL-93):** A teacher can enter marks only on mark sheets for subjects and classes in their teaching allocation (OBJ-12). The coordinator can enter on any sheet in their band, logged.
-- **SR-AS-05 (Assumed, DL-88):** A mark sheet can be submitted only when every student has a mark, a descriptor or an absence code.
-- **SR-AS-06 (Known Arch § Security; Assumed DL-88):** After lock, a mark changes only through an upheld appeal, a re-test or a correction with a reason. Each change creates a new mark version and an audit event; the old value stays visible in history.
+- **SR-AS-04 (Known, Arch § Users and roles "marks entry" for subject teachers; Confirmed DL-93):** A teacher can enter marks only on mark sheets for subjects and classes in their teaching allocation (OBJ-12). The coordinator can enter on any sheet in their band, logged.
+- **SR-AS-05 (Confirmed DL-88):** A mark sheet can be submitted only when every student has a mark, a descriptor or an absence code.
+- **SR-AS-06 (Known Arch § Security; Confirmed DL-88):** After lock, a mark changes only through an upheld appeal, a re-test or a correction with a reason. Each change creates a new mark version and an audit event; the old value stays visible in history.
 - **SR-AS-07 (Known, GIIS SG, HB p.43):** A prorated mark needs APPROVED_ABSENCE and the Principal's approval. A student with any absence in an assessment is flagged "Not eligible for awards" for Activities and Awards (HB p.43); the award rules stay there.
-- **SR-AS-08 (Assumed, DL-89):** Grades are calculated by the scheme version in force for the academic year. There is no manual grade override.
-- **SR-AS-09 (Assumed, DL-90):** A report card can be released only when all its subject results are FINAL. Release is per grade and reporting period; a single student can be held back only with a reason (for example an open re-test).
+- **SR-AS-08 (Confirmed DL-89):** Grades are calculated by the scheme version in force for the academic year. There is no manual grade override.
+- **SR-AS-09 (Confirmed DL-90):** A report card can be released only when all its subject results are FINAL. Release is per grade and reporting period; a single student can be held back only with a reason (for example an open re-test).
 - **SR-AS-10 (Confirmed, DL-83):** Fee status is never checked before generating, releasing or showing a report card or result.
-- **SR-AS-11 (Assumed, DL-90):** A released report card never changes. A corrected result creates the next card version, marks the old one SUPERSEDED and notifies the parents.
-- **SR-AS-12 (Known, GIIS SG, HB p.88, p.127; Assumed DL-91):** An appeal is accepted only inside the window set for the brand-country and grade band. One appeal per mark; no second appeal. Outcomes are due within the response time setting.
+- **SR-AS-11 (Confirmed DL-90):** A released report card never changes. A corrected result creates the next card version, marks the old one SUPERSEDED and notifies the parents.
+- **SR-AS-12 (Known, GIIS SG, HB p.88, p.127; Confirmed DL-91):** An appeal is accepted only inside the window set for the brand-country and grade band. One appeal per mark; no second appeal. Outcomes are due within the response time setting.
 - **SR-AS-13 (Known, GIIS SG, HB p.128):** In Kindergarten to Grade 5 (CBSE, IB PYP) the proposal is always PROMOTED; RETAINED_ON_REQUEST needs the parents' written request (Case). GIIS Singapore setting, not a group rule.
-- **SR-AS-14 (Known, GIIS SG, HB p.128–131; Assumed DL-92):** The promotion proposal uses the attendance threshold on the enrolment (85%, or 90% for Student Pass holders at GIIS SG). Below it, the line is NEEDS_DECISION, never automatically DETAINED.
+- **SR-AS-14 (Known, GIIS SG, HB p.128–131; Confirmed DL-92):** The promotion proposal uses the attendance threshold on the enrolment (85%, or 90% for Student Pass holders at GIIS SG). Below it, the line is NEEDS_DECISION, never automatically DETAINED.
 - **SR-AS-15 (Confirmed, DL-75):** Only CONFIRMED decisions are sent to the Classes rollover. Classes never changes an outcome; a later change (re-test result) is sent again and the rollover line updates (timing OQ-79).
-- **SR-AS-16 (Known HB p.133; Assumed DL-94):** Predicted grades are released by the coordinator; an appeal opens a Case for the committee headed by the Principal.
+- **SR-AS-16 (Known HB p.133; Confirmed DL-94):** Predicted grades are released by the coordinator; an appeal opens a Case for the committee headed by the Principal.
 - **SR-AS-17 (Assumed, DL-59 pattern):** Appeal windows, response times, release deadline, attendance thresholds for promotion, student access to report cards and K–5 retention are settings with no group default. "Not set" blocks the step that needs it.
 
 ## Events
@@ -387,14 +387,14 @@ SchemeTemplatePublished, SchemeApproved, AssessmentScheduled, MarkSheetSubmitted
 | ID | Decision | Why |
 |---|---|---|
 | DL-87 (**Confirmed**, Henry chose A, 15 Nov 2026) | GSG platform team keeps a scheme template per board or programme pack. Each brand-country copies it into a versioned assessment scheme per programme offering and grade band, adjusting weights, grade bands, re-test rules and report card layout. An Academic Supervisor approves each version. Assessment is its own domain (architecture.md), capability prefix `assessment` | GIIS already adds its own weights and weak-pass rules on top of the board rules, and other brands will differ; one template keeps board rules in one place |
-| DL-88 (Assumed) | An assessment is one component on one date for one grade and subject; marks are entered per class on a mark sheet (Open → Submitted → Moderated → Locked); after lock only appeals, re-tests or corrections with a reason change a mark, each as a new version | Arch § Key workflows "moderation and lock"; audit of marks changes (Arch § Security) |
-| DL-89 (Assumed) | Results and grades are calculated by the scheme version for that year; no manual grade override; descriptor scales are entered as descriptors | One source for a grade; 2025-26 results keep 2025-26 rules |
-| DL-90 (Assumed) | A report card is a snapshot per student per reporting period; the coordinator releases per grade; released cards never change, corrections reissue a new version with a parent notice; fee status is never checked (DL-83) | Parents and universities need a stable record; Arch § Users and roles gives results release to coordinators |
-| DL-91 (Assumed) | One appeal round per mark: parent raises it in the app within the brand-country window, subject teacher re-marks via the HOD, Examination Board endorses, coordinator sends the outcome; board re-evaluations tracked as a reference | HB p.88, p.127 process; windows differ by grade so they are settings |
-| DL-92 (Assumed) | The promotion rule proposes an outcome per student from results and attendance %; judgment cases wait for a decision (Principal for detention and retention); confirmed outcomes go to the Classes rollover; re-tests are RETEST assessments | DL-75 says outcomes come from Assessment; HB p.128–131 rules |
-| DL-93 (Assumed) | Subject teachers see and enter marks for their own subjects and classes; class teachers see all subjects of their own class; parents see only published marks and released report cards for their own children; students see their own released report cards only where the campus turns it on for their grade (extends DL-68) | Least privilege by scope (Arch § Security); DL-73 class scope |
-| DL-94 (Assumed) | Predicted grades (IB DP, CBSE 12) are entered by subject teachers, released by the coordinator, appealed on a Case to a committee headed by the Principal | HB p.132–133 |
-| DL-95 (Assumed) | A missing mark carries a code (ABSENT, APPROVED_ABSENCE, EXEMPT, NOT_ASSESSED); proration needs the Principal; the reason stays in Attendance or Wellbeing | HB p.43; DL-66 keeps health detail out of other modules |
+| DL-88 (**Confirmed**) | An assessment is one component on one date for one grade and subject; marks are entered per class on a mark sheet (Open → Submitted → Moderated → Locked); after lock only appeals, re-tests or corrections with a reason change a mark, each as a new version | Arch § Key workflows "moderation and lock"; audit of marks changes (Arch § Security) |
+| DL-89 (**Confirmed**) | Results and grades are calculated by the scheme version for that year; no manual grade override; descriptor scales are entered as descriptors | One source for a grade; 2025-26 results keep 2025-26 rules |
+| DL-90 (**Confirmed**) | A report card is a snapshot per student per reporting period; the coordinator releases per grade; released cards never change, corrections reissue a new version with a parent notice; fee status is never checked (DL-83) | Parents and universities need a stable record; Arch § Users and roles gives results release to coordinators |
+| DL-91 (**Confirmed**) | One appeal round per mark: parent raises it in the app within the brand-country window, subject teacher re-marks via the HOD, Examination Board endorses, coordinator sends the outcome; board re-evaluations tracked as a reference | HB p.88, p.127 process; windows differ by grade so they are settings |
+| DL-92 (**Confirmed**) | The promotion rule proposes an outcome per student from results and attendance %; judgment cases wait for a decision (Principal for detention and retention); confirmed outcomes go to the Classes rollover; re-tests are RETEST assessments | DL-75 says outcomes come from Assessment; HB p.128–131 rules |
+| DL-93 (**Confirmed**) | Subject teachers see and enter marks for their own subjects and classes; class teachers see all subjects of their own class; parents see only published marks and released report cards for their own children; students see their own released report cards only where the campus turns it on for their grade (extends DL-68) | Least privilege by scope (Arch § Security); DL-73 class scope |
+| DL-94 (**Confirmed**) | Predicted grades (IB DP, CBSE 12) are entered by subject teachers, released by the coordinator, appealed on a Case to a committee headed by the Principal | HB p.132–133 |
+| DL-95 (**Confirmed**) | A missing mark carries a code (ABSENT, APPROVED_ABSENCE, EXEMPT, NOT_ASSESSED); proration needs the Principal; the reason stays in Attendance or Wellbeing | HB p.43; DL-66 keeps health detail out of other modules |
 
 ## Open questions (new)
 

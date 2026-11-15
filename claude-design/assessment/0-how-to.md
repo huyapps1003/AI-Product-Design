@@ -2,7 +2,7 @@
 
 | File | What it is | Upload? |
 |---|---|---|
-| `1-design-brief.md` | Design-ready digest of the Assessment dictionary v0.1 (DL-87 Confirmed 15 Nov 2026; DL-88…DL-95 Assumed) | Yes |
+| `1-design-brief.md` | Design-ready digest of the Assessment dictionary v0.1 (DL-87 Confirmed 15 Nov 2026; DL-88…DL-95 Confirmed) | Yes |
 | `2-sample-data.json` | SMART Campus Punggol CBSE 6-8 scheme (v2 approved, v3 waiting), Grade 7 Term 2 calendar from the real 2026-27 exam schedule, mark sheets, 7B Term 1 results, Aarav's report card, appeals, OWIS Grade 4 promotion decisions, IB Year 2 predicted grades; viewer Meera Joshi; "today" 15 Nov 2026 | Yes |
 | `3-starter-prompts.md` | First prompt, follow-ups per screen, review checklist | No, paste from it |
 
@@ -20,4 +20,4 @@ All people and marks are invented. Weights, grade bands, appeal windows and exam
 
 - Section 6 of the brief lists what is still open. Show those as "Pending decision".
 - Appeal windows, release deadlines and attendance thresholds are settings, not group defaults.
-- DL-87 is Confirmed; DL-88…DL-95 are Assumed until Henry confirms them.
+- DL-87 is Confirmed; DL-88…DL-95 are Confirmed (15 Nov 2026).
