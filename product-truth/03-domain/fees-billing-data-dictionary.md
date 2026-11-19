@@ -123,14 +123,15 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 
 ### FB04 — Billing Period
 
-**Purpose:** The slices of a campus's academic year that invoices are raised for.
+**Purpose:** The slices of an academic year that invoices are raised for. Years are per campus × programme offering (DL-96), so one campus can have different periods per curriculum.
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
 | billing_period_id | UUID | PK | Y | T1 | Assumed | |
 | campus_id | UUID | FK:OR04 | Y | T1 | Assumed | |
 | academic_year_id | UUID | FK | Y | T1 | Assumed | |
-| period_label | VARCHAR(40) | — | Y | T1 | Known for GIIS SG ("term period of four (4) months", HB p.244) | e.g. "Term 2 (Nov–Feb)". |
+| programme_offering_id | UUID | FK:Offering | C | T1 | Confirmed (DL-96) | Set when the offering's year differs from the campus default (e.g. IB DP July start). |
+| period_label | VARCHAR(40) | — | Y | T1 | Known for GIIS SG ("term period of four (4) months", HB p.244) | e.g. "Term 2 (Aug–Nov)" for GIIS SG CBSE (April year; HB p.244 example "Term 2 … starts in August"). |
 | period_start / period_end | DATE | — | Y | T1 | Assumed | Must sit inside the academic year (MC-06). |
 | invoice_date | DATE | — | Y | T1 | Assumed | When the run issues invoices. |
 | due_date | DATE | — | Y | T1 | Open (OQ-84) | Campus setting; "Not set" blocks the run. |
@@ -238,7 +239,7 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 | fee_type_id | UUID | FK:FB01 | Y | T1 | Assumed | |
 | plan_line_id | UUID | FK:FB03 | C | T1 | Assumed | Which plan version priced it. Empty for one-off charges. |
 | fee_requirement_id | UUID | FK:AD09 | C | T2 | Known link (AD09) | Admission fee lines. |
-| description | VARCHAR(160) | — | Y | T2 | Assumed | e.g. "Tuition, Term 2 (Nov 2026–Feb 2027)". |
+| description | VARCHAR(160) | — | Y | T2 | Assumed | e.g. "Tuition, Term 3 (Dec 2026–Mar 2027)". |
 | quantity / unit_amount | DECIMAL | — | Y | T2 | Assumed | Proration uses quantity (months billed / months in period). |
 | share_percent | DECIMAL(5,2) | — | Y | T2 | Assumed (FB06) | |
 | adjustment_id / adjustment_amount | UUID / DECIMAL | FK:FB07 | C | T2 | Confirmed (DL-81) | |

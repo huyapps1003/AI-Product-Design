@@ -15,7 +15,7 @@
     "IB PYP",
     "Cambridge CLSP 6-8"
    ],
-   "ay_start": "2026-07-13",
+   "ay_start": {"CBSE 1-12": "2026-04-06", "Cambridge CLSP 6-8": "2026-04-06", "IB PYP": "2026-04-06 (pending OQ-107)", "GMP (KG)": "Not set (OQ-107)", "_note": "Per programme offering (DL-96)"},
    "brand": "GIIS"
   },
   {
@@ -28,7 +28,7 @@
     "IGCSE 9-10",
     "IBDP"
    ],
-   "ay_start": "2026-07-13",
+   "ay_start": {"CBSE 1-12": "2026-04-06", "IGCSE 9-10": "2026-04-06", "IBDP": "2026-07-13", "_note": "Per programme offering (DL-96): IB DP runs July-May (HB p.109)"},
    "brand": "GIIS",
    "note": "Not on GSG's public campus list (9 Nov 2026); kept until GSG confirms it operates"
   },
@@ -230,7 +230,7 @@
      "class": "7B",
      "house": "House B",
      "status": "ENROLLED",
-     "start_date": "2026-07-13",
+     "start_date": "2026-04-06",
      "end_date": null,
      "end_reason": null,
      "previous": "AY 2025-26 6B"
@@ -362,7 +362,7 @@
      "class": "9A",
      "house": "House D",
      "status": "ENROLLED",
-     "start_date": "2026-07-13",
+     "start_date": "2026-04-06",
      "end_date": null,
      "end_reason": null
     }
@@ -490,7 +490,7 @@
      "class": "3C",
      "house": "House A",
      "status": "ENROLLED",
-     "start_date": "2026-07-13",
+     "start_date": "2026-04-06",
      "end_date": null,
      "end_reason": null
     }
@@ -582,7 +582,7 @@
      "class": "8A",
      "house": "House C",
      "status": "ENROLLED",
-     "start_date": "2026-07-13",
+     "start_date": "2026-04-06",
      "end_date": null,
      "end_reason": null
     }
@@ -724,7 +724,7 @@
      "class": "6A",
      "house": "House C",
      "status": "ENROLLED",
-     "start_date": "2026-07-13",
+     "start_date": "2026-04-06",
      "end_date": null,
      "end_reason": null,
      "previous": "SG-PGL AY 2025-26 5D"
@@ -835,7 +835,7 @@
      "class": "5B",
      "house": "House D",
      "status": "ENROLLED",
-     "start_date": "2026-07-13",
+     "start_date": "2026-04-06",
      "end_date": null,
      "end_reason": null,
      "placement_note": "AEPP 1 (Academic English Preparatory Program), placement test 2026-07-02. How AEPP is recorded is open (OQ-45)."
@@ -941,7 +941,7 @@
      "class": "11 Science A",
      "house": "House A",
      "status": "ENROLLED",
-     "start_date": "2026-07-13",
+     "start_date": "2026-04-06",
      "end_date": null,
      "end_reason": null
     }

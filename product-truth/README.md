@@ -41,7 +41,8 @@ product-truth/
 │   ├── organisation-data-dictionary.md  scope tree, data locations, legal entities, settings (OR01–OR09)
 │   ├── admissions-data-dictionary.md  enquiry to enrolment handoff (AD01–AD10)
 │   ├── classes-data-dictionary.md  classes, class plan, placement, houses, year-end rollover (CL01–CL07)
-│   └── fees-billing-data-dictionary.md  fee plans, billing accounts, invoices, payments, refunds (FB01–FB17)
+│   ├── fees-billing-data-dictionary.md  fee plans, billing accounts, invoices, payments, refunds (FB01–FB17)
+│   └── assessment-data-dictionary.md  schemes, assessments, marks, report cards, appeals, promotion, predicted grades (AS01–AS13)
 ├── 04-access/                 RBAC models
 │   ├── README.md              access paths by actor, constraints, gaps
 │   ├── role-catalogue.md      school roles, access roles, undefined families
@@ -84,6 +85,7 @@ product-truth/
 | 03-domain | [admissions-data-dictionary.md](./03-domain/admissions-data-dictionary.md) | Admissions pipeline: enquiry, application, documents, assessment, capacity, offer, contract, admission fees, Student Pass/MOE case, enrolment handoff | Proposed / Assumed (DL-56…DL-61) |
 | 03-domain | [classes-data-dictionary.md](./03-domain/classes-data-dictionary.md) | Classes: class per campus × offering × grade × year, class plan (seat limit source), class teacher, placement and class moves, houses, year-end rollover | Proposed / Confirmed (DL-70…DL-76) |
 | 03-domain | [fees-billing-data-dictionary.md](./03-domain/fees-billing-data-dictionary.md) | Fees & Billing: fee types and plans, billing periods, payers and family accounts, billing runs, invoices, discounts, payments, reminders, refunds, long-leave pause, FPS, parent view | Proposed / Confirmed (DL-77…DL-86) |
+| 03-domain | [assessment-data-dictionary.md](./03-domain/assessment-data-dictionary.md) | Assessment & Report Cards: scheme templates and brand-country schemes, assessments, mark sheets, marks, grades, report cards, appeals, promotion decisions, predicted grades | Proposed (DL-87…DL-95 Confirmed) |
 | 04-access | [README.md](./04-access/README.md) | Access paths by actor, constraints, research gaps | Mixed |
 | 04-access | [role-catalogue.md](./04-access/role-catalogue.md) | All role names and the families with none | Known / Assumed / Open |
 | 04-access | [rbac-model.md](./04-access/rbac-model.md) | Six layers, evaluation algorithm, v1 scope, screen impact | Assumed; changes Confirmed (DL-32…DL-38) |

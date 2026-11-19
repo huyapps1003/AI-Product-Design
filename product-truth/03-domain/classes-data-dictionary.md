@@ -31,6 +31,7 @@ Approved by Henry, 14 Nov 2026: **how students are grouped into classes for a ye
 - **Classes writes the placement, Student Records holds the enrolment (DL-72).** Placement history (CL04) is the single writer of the student's class. ST02 `class_id` always shows the current placement. A class move within the same campus, offering and year is not a transfer and does not end the enrolment; a campus move within the year still is (SR-16).
 - **Class teacher lives on the class (DL-73).** Class teacher and co-teacher are assignments on the class (CL03). The Access Registry applies them automatically as data scope for that class (DL-73; auto-derive on for Classes under DL-16) and never grant access on their own (BR-06, SR-12). Subject teaching stays in Academic Allocation.
 - **AEPP is a support subject, not a class (DL-74, Confirmed).** An AEPP student stays in their regular class (Yuki stays in 5B) and takes AEPP as a SUPPORT subject choice (ST03). The handbook rooms "AEPP 1" and "AEPP 2" (HB p.14) are teaching groups for that subject, owned by Teaching with other subject groups (OQ-77). This narrows DL-65, which named "class AEPP 1 or AEPP 2".
+- **Years belong to the curriculum (DL-96, Confirmed 15 Nov 2026).** A campus can run several programme offerings with different year dates (GIIS SG: CBSE and CLSP April–March, IB DP July–May). A class's academic year is its offering's year, and rollover runs per campus × offering.
 - **Promotion is decided elsewhere (DL-75).** Assessment and Reporting applies promotion rules (HB p.128–131) and hands Classes an outcome per student. Classes turns the outcomes into next-year enrolments and classes, and the Principal approves the run.
 - **Houses carry over (DL-76).** House stays on ST02 `house_code`; Classes allocates it and copies it forward at rollover and on class moves.
 - **Rules are settings with no group default (DL-59 pattern).** Class size limits per grade and the house list are campus settings. A value that isn't set shows "Not set" and blocks the step that needs it (approving the class plan; allocating houses). GIIS Singapore values appear only as GIIS Singapore's own settings in sample data.
@@ -134,12 +135,13 @@ ST02, ST03, AD06 and Employee DD D01/D02 are referenced, not redefined. Employee
 
 ### CL06 — Rollover Run
 
-**Purpose:** Moving one campus's students from one academic year into the next, as one reviewed batch.
+**Purpose:** Moving one campus's students in one programme offering from one academic year into the next, as one reviewed batch. A campus with several curricula has several runs at different times (DL-96).
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
 | rollover_run_id | UUID | PK | Y | T1 | Confirmed (DL-75) | |
 | campus_id | UUID | FK:OR04 | Y | T1 | Assumed | The campus students leave. Stage-campus targets are per line. |
+| programme_offering_id | UUID | FK:Offering | Y | T1 | Confirmed (DL-96) | One run per campus × offering × year: GIIS SG CBSE rolls over in March, IB DP in May. |
 | from_academic_year_id / to_academic_year_id | UUID | FK | Y | T1 | Confirmed rule (DL-54: the year decides promotion) | |
 | run_status | ENUM | — | Y | T1 | Assumed (DL-27) | See enums. |
 | prepared_by_user_id | UUID | FK:User | Y | T1 | Open (OQ-73) | |
@@ -157,7 +159,7 @@ ST02, ST03, AD06 and Employee DD D01/D02 are referenced, not redefined. Employee
 | rollover_run_id | UUID | FK:CL06 | Y | T1 | Assumed | |
 | from_enrolment_id | UUID | FK:ST02 | Y | T1 | Known (SR-03) | |
 | promotion_outcome | ENUM | — | Y | T2 | Known values (HB p.128–131: promotion, conditional promotion with re-test, weak pass, retained/detained, board criteria for 10 and 12); source Assessment | See enums. T2 because it reflects academic results. |
-| outcome_source | ENUM | — | Y | T1 | Assumed | ASSESSMENT, WITHDRAWAL_CASE, PRINCIPAL_DECISION, PARENT_REQUEST (K–5 retention, HB p.128). |
+| outcome_source | ENUM | — | Y | T1 | Assumed | ASSESSMENT (promotion decision AS12, [assessment dictionary](./assessment-data-dictionary.md)), WITHDRAWAL_CASE, PRINCIPAL_DECISION, PARENT_REQUEST (K–5 retention, HB p.128). |
 | target_campus_id | UUID | FK:OR04 | C | T1 | Confirmed rule (DL-62) | Differs from the run's campus for a stage-campus promotion. |
 | target_offering_id / target_grade_id | UUID | — | C | T1 | Known need (SR-16) | Grade 10 CBSE → Grade 11 needs a stream choice (OQ-77). |
 | target_class_id | UUID | FK:CL01 | C | T1 | Assumed | Next-year class; may be left for start-of-year allocation. |
@@ -238,7 +240,7 @@ ClassPlanApproved (AD06 recalculates), ClassCreated, ClassActivated, ClassClosed
 | DL-72 (**Confirmed**) | Placement history (CL04) is the single writer of a student's class; an in-year class move within the same campus, offering and year doesn't end the enrolment | ST02 `class_id` needs history without a new enrolment for every class change |
 | DL-73 (**Confirmed**) | Class teacher and co-teacher are dated assignments on the class. The Access Registry automatically sets the teacher's data scope to that class for the same dates (auto-derive on for Classes, DL-16). It never adds capabilities: those come from the teacher's existing Class teacher membership at the campus; without one the assignment is flagged and gives no access. Tier 3 excluded (A17, DL-69). The access decision cites the assignment (DL-38) | Henry wants access to follow the class automatically; the Registry stays the only writer (DL-32) |
 | DL-74 (**Confirmed**, Henry chose the support-subject option) | AEPP is only a SUPPORT subject choice; the student stays in their regular class; AEPP 1 and 2 are teaching groups owned by Teaching, not classes. Narrows DL-65 | Keeps one class per student; AEPP teaching groups sit with other subject groups (OQ-77) |
-| DL-75 (**Confirmed**) | Year-end rollover is one run per campus and year: Assessment supplies outcomes, Classes builds next-year enrolments and classes, the Principal approves before it applies | Promotion rules live in Assessment (Arch § Key workflows); Principal approves promotion (Arch § Users and roles) |
+| DL-75 (**Confirmed**; per offering since DL-96) | Year-end rollover is one run per campus and year (per campus × programme offering × year, DL-96): Assessment supplies outcomes, Classes builds next-year enrolments and classes, the Principal approves before it applies | Promotion rules live in Assessment (Arch § Key workflows); Principal approves promotion (Arch § Users and roles) |
 | DL-76 (**Confirmed**) | House stays on ST02 `house_code`; Classes allocates it from the campus house list and copies it forward at rollover and on class moves | Houses run across years (HB p.169) |
 
 ## Open questions (new)

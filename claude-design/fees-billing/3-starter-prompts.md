@@ -11,12 +11,12 @@ Read the attached files first:
 - 1-design-brief.md: words, chips, rules that change the UI, who sees what, pending decisions.
 - 2-sample-data.json: fee plans, billing runs, billing accounts, invoices, payments, credit notes, refunds. Use only these records and amounts.
 
-The viewer is Siti Rahman, Finance Executive for GIIS Singapore (SG-PGL and SG-ECS). Today is 14 November 2026. Term 2 (Nov 2026–Feb 2027) invoices were issued on 3 Nov, due 30 Nov. Desktop staff web app.
+The viewer is Siti Rahman, Finance Executive for GIIS Singapore (SG-PGL and SG-ECS). Today is 14 November 2026. Term 3 (Dec 2026–Mar 2027) invoices were issued on 3 Nov, due 30 Nov. Billing periods are per curriculum (DL-96): CBSE, Cambridge and IGCSE run April–March; IB DP runs July–May with its own runs. Desktop staff web app.
 
 Build these linked screens:
-1. Finance home: to-do cards for the SG-ECS Term 2 run (Needs review, 2 exceptions), Chloe Tan's refund (due 19 Nov, blocked: Table 3B Not set), overdue accounts (Rohan Mehta, SGD 4,905.30 from Term 1) and one failed card payment.
-2. Billing account BA-SG-000418 (payer Neha Sharma): Aarav (SG-PGL 7B) and Ishita (SG-ECS 9A) on one statement; balance; invoices (Term 1 Paid, Term 2 Issued, Science Centre visit Issued); payments; Ishita's sibling discount. Note that Vikram Sharma is a guardian but not a payer.
-3. Billing run review for SG-ECS Term 2: totals, the exceptions list (Daniel Lee: no payer for welfare and technology fees; Kavya Nair: long leave, bill November only), and Approve disabled until the exceptions are fixed or excluded.
+1. Finance home: to-do cards for the SG-ECS IB DP January joiners run (Needs review, 1 exception), Chloe Tan's refund (due 19 Nov, blocked: Table 3B Not set), overdue accounts (Rohan Mehta, SGD 4,905.30 from Term 2) and one failed card payment.
+2. Billing account BA-SG-000418 (payer Neha Sharma): Aarav (SG-PGL 7B) and Ishita (SG-ECS 9A) on one statement; balance; invoices (Term 2 Paid, Term 3 Issued, Science Centre visit Issued); payments; Ishita's sibling discount. Note that Vikram Sharma is a guardian but not a payer.
+3. Billing run review for the SG-ECS IB DP January joiners run (IB DP Term 2, Nov 2026–Feb 2027): totals, the exception (Daniel Lee: no payer for welfare and technology fees), and Approve disabled until it is fixed or excluded. Also show the SG-ECS CBSE & IGCSE Term 3 run (Ready for approval; Kavya Nair: long leave, bill March only, resolved automatically).
 
 Rules:
 - Use the words and chip colours in the brief.
@@ -33,12 +33,12 @@ Rules:
 
 **Parent app (phone)**
 ```
-Switch the viewer to Neha Sharma on a phone. Tabs: What's due, History, Receipts. What's due lists Term 2 (SGD 16,112.93, due 30 Nov) and the Science Centre visit (SGD 49.05, due 24 Nov) with a total and Pay now (PayNow or Card). Each invoice expands to both children's lines and the sibling discount. Then switch to Vikram Sharma: he sees "Fees for Aarav and Ishita are managed by the payer on this account" and no amounts.
+Switch the viewer to Neha Sharma on a phone. Tabs: What's due, History, Receipts. What's due lists Term 3 (SGD 16,112.93, due 30 Nov) and the Science Centre visit (SGD 49.05, due 24 Nov) with a total and Pay now (PayNow or Card). Each invoice expands to both children's lines and the sibling discount. Then switch to Vikram Sharma: he sees "Fees for Aarav and Ishita are managed by the payer on this account" and no amounts.
 ```
 
 **Record a payment**
 ```
-As Siti, record a counter cheque payment of SGD 4,905.30 from Rajesh Mehta. Show the allocation preview (oldest due first: Term 1 invoice SG-2026-030377), the receipt number issued, and Rohan's fee status changing from Overdue to Due.
+As Siti, record a counter cheque payment of SGD 4,905.30 from Rajesh Mehta. Show the allocation preview (oldest due first: Term 2 invoice SG-2026-030377), the receipt number issued, and Rohan's fee status changing from Overdue to Due.
 ```
 
 **Overdue and reminders**

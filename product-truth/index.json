@@ -94,6 +94,17 @@
       "product-truth/04-access/permission-catalogue.md",
       "product-truth/08-open-questions/open-questions.md"
     ],
+    "assessment-data": [
+      "product-truth/03-domain/objects/OBJ-19-report-card.md",
+      "product-truth/03-domain/objects/OBJ-15-class.md",
+      "product-truth/03-domain/objects/OBJ-03-enrolment.md",
+      "product-truth/03-domain/assessment-data-dictionary.md",
+      "product-truth/03-domain/classes-data-dictionary.md",
+      "product-truth/03-domain/samples/assessment-sample.json",
+      "product-truth/03-domain/samples/classes-sample.json",
+      "product-truth/04-access/permission-catalogue.md",
+      "product-truth/08-open-questions/open-questions.md"
+    ],
     "fees-billing-data": [
       "product-truth/03-domain/objects/OBJ-23-invoice.md",
       "product-truth/03-domain/objects/OBJ-03-enrolment.md",

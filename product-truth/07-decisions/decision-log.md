@@ -86,7 +86,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-72 | Placement history is the single writer of a student's class; an in-year class move doesn't end the enrolment | **Confirmed** (Henry, 14 Nov 2026) | ST02, SR-16, CL04 |
 | DL-73 | Class teacher assignment automatically sets the teacher's data scope to that class (Registry auto-derive); never adds capabilities; Tier 3 excluded | **Confirmed** (Henry, 14 Nov 2026) | DL-16, DL-32, DL-38, CL03 |
 | DL-74 | AEPP is only a SUPPORT subject; the student stays in their regular class; AEPP 1/2 are Teaching groups, not classes (narrows DL-65) | **Confirmed** (Henry, 14 Nov 2026) | DL-65, OQ-77 |
-| DL-75 | Year-end rollover: one run per campus and year, outcomes from Assessment, Principal approves before it applies | **Confirmed** (Henry, 14 Nov 2026) | DL-54, DL-62, DL-63, CL06/CL07 |
+| DL-75 | Year-end rollover: one run per campus and year, outcomes from Assessment, Principal approves before it applies (run is per campus × offering × year since DL-96) | **Confirmed** (Henry, 14 Nov 2026) | DL-54, DL-62, DL-63, CL06/CL07 |
 | DL-76 | House stays on the enrolment, allocated by Classes and copied forward; each campus sets whether it uses houses | **Confirmed** (Henry, 14 Nov 2026) | OQ-20, OQ-76 |
 | DL-77 | Campus OS owns billing (fee plans, invoices, payments, credit notes, refunds); the ERP receives journals only; prefix `fees` | **Confirmed** (Henry, 14 Nov 2026) | Arch § Integrations, § Open questions (build, buy or hybrid) |
 | DL-78 | Fee types per brand-country; fee plans per campus × offering × grade(s) × year, versioned, Finance Controller approves; no group default amounts | **Confirmed** (Henry, 15 Nov 2026) | DL-59, FB01–FB03 |
@@ -98,6 +98,16 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-84 | Refunds from a versioned refund rule set per brand-country; approval and deadline on the shared Case; approvers a brand-country setting | **Confirmed** (Henry, 15 Nov 2026) | DL-08, FB14, HB p.240–245, OQ-86 |
 | DL-85 | Parents see and pay only accounts they pay or that a payer shared; other guardians see no finance; students never | **Confirmed** (Henry, 14 Nov 2026) | DL-37, DL-68, FB06 |
 | DL-86 | Approved long leave pauses billing; billing after withdrawal follows the campus cut-off setting | **Confirmed** (Henry, 15 Nov 2026) | FB16, HB p.237, p.244 |
+| DL-87 | GSG platform team keeps a scheme template per board; each brand-country adapts it into versioned assessment schemes; an Academic Supervisor approves each version; prefix `assessment` | **Confirmed** (Henry, 15 Nov 2026) | Arch § Principles (programme packs), § Tenancy, AS01/AS02, OQ-93 |
+| DL-88 | Assessments are dated per grade and subject; marks entered per class on a mark sheet (Open → Submitted → Moderated → Locked); after lock only appeal, re-test or correction with reason, each a new version | **Confirmed** (Henry, 15 Nov 2026) | AS06–AS08, Arch § Security |
+| DL-89 | Results and grades calculated by the year's scheme version; no manual grade override; descriptors entered as descriptors | **Confirmed** (Henry, 15 Nov 2026) | AS04, AS09 |
+| DL-90 | Report card = released snapshot per student and period; coordinator releases per grade; corrections reissue a new version; fee status never checked | **Confirmed** (Henry, 15 Nov 2026) | AS10, DL-83, OQ-94, OQ-95 |
+| DL-91 | One appeal round per mark: parent raises in the app within the brand-country window; teacher re-marks via HOD; Examination Board endorses; coordinator sends outcome | **Confirmed** (Henry, 15 Nov 2026) | AS11, HB p.88, p.127, OQ-97, OQ-98 |
+| DL-92 | Promotion rule proposes outcomes from results and attendance %; judgment cases wait for a decision; confirmed outcomes go to the Classes rollover; re-tests are RETEST assessments | **Confirmed** (Henry, 15 Nov 2026) | AS05, AS12, DL-75, CL07, OQ-99 |
+| DL-93 | Subject teachers: own subjects and classes; class teacher: all subjects of own class; parents: published marks and released report cards of own children; students: own released report cards where the campus allows (extends DL-68) | **Confirmed** (Henry, 15 Nov 2026) | DL-68, DL-73, OQ-96 |
+| DL-94 | Predicted grades (IB DP, CBSE 12): teacher enters, coordinator releases, appeal on a Case to the Principal-led committee | **Confirmed** (Henry, 15 Nov 2026) | AS13, HB p.132–133 |
+| DL-95 | Missing marks carry a code (ABSENT, APPROVED_ABSENCE, EXEMPT, NOT_ASSESSED); proration needs the Principal; reasons stay in Attendance or Wellbeing | **Confirmed** (Henry, 15 Nov 2026) | AS08, HB p.43, DL-66 |
+| DL-96 | Academic year and term dates are set per campus × programme offering (a campus runs several curricula with different starts: GIIS SG CBSE, CLSP, IGCSE in April; IB DP in July); the brand-country keeps a default per curriculum that campuses copy; year-based records (classes, plans, rollover, billing periods, assessment schemes) key on the offering's year; rollover runs per campus × offering × year (narrows DL-75) | **Confirmed** (Henry, 15 Nov 2026) | MC-06, OQ-24, OQ-107, DL-54, DL-70, DL-75, HB p.68, p.109 |
 
 ---
 
@@ -429,6 +439,20 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Why.** One writer for money owed and paid; live status for Admissions, withdrawal and parents; GIIS SG handbook rules become versioned settings (Arch § Principles).
 - **DL-83, DL-85.** Henry chose option A for both (14 Nov 2026). DL-83: fee status is information only, with no automatic holds (rejected B: overdue automatically holds report cards or re-enrolment). DL-85: only payers, or guardians a payer shares with, see finance (rejected B: every verified guardian sees fees).
 - **Status.** DL-77, DL-83 and DL-85 Confirmed by Henry, 14 Nov 2026; DL-78…82, DL-84 and DL-86 Confirmed by Henry ("All A"), 15 Nov 2026. All DL-77…DL-86 Confirmed.
+
+### DL-87…DL-95 — Assessment & Report Cards
+- **Context.** Fifth module, Assessment & Report Cards. Scope approved by Henry 15 Nov 2026: assessment schemes, dated assessments, marks entry, moderation and lock, grades, report cards, appeals, promotion outcomes and re-tests, predicted grades. DL-75 already says promotion outcomes come from Assessment; DL-83 says fees never block report cards.
+- **DL-87.** Henry chose option A on 15 Nov 2026: GSG keeps a template per board, each brand-country adapts it, an Academic Supervisor approves each version. Rejected: B, fixed packs from GSG only, with no local weights or bands (simpler, but GIIS already layers its own weights and weak-pass rules on top of board rules, HB p.66–131, and every change would be a central release).
+- **Decision.** See the table above and [assessment dictionary § Decisions](../03-domain/assessment-data-dictionary.md#decisions).
+- **Why.** Board rules live once in a template; brand rules become versioned settings (Arch § Principles "policy as rules"); marks get one audited path to a released report card.
+- **Status.** DL-87 Confirmed by Henry, 15 Nov 2026; DL-88…DL-95 Confirmed by Henry ("All A"), 15 Nov 2026. All DL-87…DL-95 Confirmed.
+
+### DL-96 — Academic year per campus × curriculum
+- **Context.** While drafting Assessment, the GIIS SG sources showed two year starts at one campus: CBSE, Cambridge CLSP and IGCSE run April to March (HB p.68 "Term 1 April - September"; 2026-27 exam schedule: Semester 1 in September, Semester 2 in March), while IB DP runs July to May (HB p.109: FA1 July, Semester 1 November, Semester 2 May). Samples had used one campus date (13 Jul 2026).
+- **Decision.** Henry, 15 Nov 2026: "Campus will cover multiple curriculum, each curriculum have different start date." Academic year and term dates belong to the programme offering at a campus. The brand-country holds a default calendar per curriculum that each campus copies and may adjust. Everything keyed on an academic year (DL-54 promotion vs transfer, DL-56 applications, DL-70 classes, class plans, FB04 billing periods, AS02 schemes) uses the offering's year. The year-end rollover (DL-75) runs per campus × offering × year, so East Coast can roll CBSE over in March and IB DP in May.
+- **Rejected.** B: one calendar per curriculum for the whole brand-country (campuses could not differ, e.g. Noida's staggered starts). C: one year per campus (contradicts the handbook).
+- **Open.** PYP and KG (GMP) start dates, and whether staggered starts by grade band (Noida, 7-8 April) are separate years or one year with different first days: OQ-107. Group views across different years: OQ-24.
+- **Status.** Confirmed by Henry, 15 Nov 2026.
 
 ## How design direction becomes architecture
 

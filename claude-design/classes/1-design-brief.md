@@ -7,7 +7,7 @@
 
 - Global Campus OS is the school platform GSG runs for all its brands. GIIS SMART Campus Punggol (SG-PGL) is the detailed example. An OWIS campus (SG-OWD) shows a calendar-year school rolling over while GIIS is mid-year.
 - Scope: **how students are grouped into classes for a year, and how they move up at year end.** Timetable, subject teachers, electives, attendance and promotion rules are other modules.
-- Main viewer: **Dr Anita Rao, Principal, SG-PGL**. Today is **14 Nov 2026**; AY 2026-27 runs 13 Jul 2026 to 25 Jun 2027. Other viewers: Meera Joshi (Academic Coordinator, CBSE Grades 6–8), Farah Ismail (Class teacher, 7B), Lina Goh (Admissions Officer), Claire Tan (Principal, OWIS SG-OWD).
+- Main viewer: **Dr Anita Rao, Principal, SG-PGL**. Today is **14 Nov 2026**; AY 2026-27 for CBSE runs from 6 Apr 2026 to March 2027 (years are per curriculum, DL-96; IB DP starts in July). Other viewers: Meera Joshi (Academic Coordinator, CBSE Grades 6–8), Farah Ismail (Class teacher, 7B), Lina Goh (Admissions Officer), Claire Tan (Principal, OWIS SG-OWD).
 - Staff web app, desktop first; the class teacher view must work on a phone.
 
 ## 2. Words

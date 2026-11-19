@@ -8,5 +8,6 @@ Upload-ready packages for prototyping a module in Claude Design (claude.ai/desig
 | [admissions/](./admissions/0-how-to.md) | Admissions dictionary v0.1 (PR #14), DL-56…DL-61 Confirmed 14 Nov 2026 | `admissions.html` | Current |
 | [classes/](./classes/0-how-to.md) | Classes dictionary v0.1 (PR #19), DL-70…DL-76 Confirmed 14 Nov 2026 | `classes.html` | Current |
 | [fees-billing/](./fees-billing/0-how-to.md) | Fees & Billing dictionary v0.1 (PR #20), DL-77…DL-86 Confirmed 14–15 Nov 2026 | `fees-billing.html` | Current |
+| [assessment/](./assessment/0-how-to.md) | Assessment & Report Cards dictionary v0.1, DL-87…DL-95 Confirmed 15 Nov 2026 | `assessment.html` | Current (draft) |
 
 `screens/organisation.html` is the organisation dictionary check screen (OR01–OR09). All people and numbers are synthetic.

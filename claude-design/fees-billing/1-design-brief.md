@@ -7,7 +7,7 @@
 
 - Global Campus OS is the school platform GSG runs for all its brands. GIIS Singapore is the detailed example: SMART Campus Punggol (SG-PGL) and East Coast (SG-ECS). GIIS Noida (IN-NOI) and OWIS show the "Not set" path.
 - Scope: **what a family is charged, who pays, how they pay, and how money goes back.** Campus OS bills; the ERP only receives journals (DL-77, Confirmed). The ledger, tax filing, transport routes, shops and scholarship selection are out.
-- Main viewer: **Siti Rahman, Finance Executive, GIIS Singapore** (SG-PGL and SG-ECS). Today is **14 Nov 2026**. Term 2 (Nov 2026–Feb 2027) invoices were issued on 3 Nov and are due on 30 Nov.
+- Main viewer: **Siti Rahman, Finance Executive, GIIS Singapore** (SG-PGL and SG-ECS). Today is **14 Nov 2026**. Term 3 (Dec 2026–Mar 2027) invoices were issued on 3 Nov and are due on 30 Nov. Billing periods belong to each campus × curriculum (DL-96): CBSE, Cambridge and IGCSE run April–March (Apr–Jul, Aug–Nov, Dec–Mar), IB DP at SG-ECS runs July–May with its own terms and runs.
 - Other viewers: Wendy Koh (Finance Controller, GIIS Singapore), Vivek Menon (Country Director), Dr Anita Rao (Principal SG-PGL), Lina Goh (Admissions SG-PGL), Neha Sharma (parent, payer), Vikram Sharma (parent, not a payer), Ankit Bansal (Finance Executive IN-NOI).
 - Staff web app, desktop first. The parent app is mobile first.
 
@@ -45,7 +45,7 @@ FPS: Required · warning, Purchased · success, Cancelled · default.
 
 1. **Settings, no group default** (SR-FB-02). Amounts, billing periods, due dates, tax and refund rules belong to each brand-country or campus. Missing values show "Not set" and block the step: plan approval, the billing run, or the refund calculation. IN-NOI and OWIS have nothing set.
 2. **Fee plans are versioned** (DL-78). An approved plan can't be edited. "New version" asks for a valid-from date and a reason. IB PYP is on version 2 (technology fee added from 1 Sep). CBSE Grades 11–12 is a Draft with tuition "Not set".
-3. **Billing run review** (DL-80). A run lists exceptions that must be fixed or excluded before Wendy approves: Arjun Reddy (plan Not set, excluded), Daniel Lee (welfare and technology fees have no payer). Approving issues all invoices, and parents are notified.
+3. **Billing run review** (DL-80). A run lists exceptions that must be fixed or excluded before Wendy approves: Arjun Reddy (plan Not set, excluded), Daniel Lee (welfare and technology fees have no payer, in the IB DP January joiners run). Approving issues all invoices, and parents are notified.
 4. **Invoices never change** (DL-80). Issued invoices have no Edit button. Before any payment: Void with a reason. After a payment: Credit note.
 5. **Billing account = payer** (DL-79). The Sharma account shows Aarav (SG-PGL 7B) and Ishita (SG-ECS 9A) on one statement. Daniel Lee's tuition is paid by a sponsor (Hanbit Logistics) and his registration by his father. Each student shows their share (100%, or a split).
 6. **Discounts on the line** (DL-81). The invoice shows the full fee, then the discount as its own line (Ishita: sibling 5%; Yuki: scholarship 25%). The reason is visible to Finance only.
@@ -53,7 +53,7 @@ FPS: Required · warning, Purchased · success, Cancelled · default.
 8. **Fee status, no sanctions** (DL-83). Principals and Admissions see Clear/Due/Overdue/Paused. Teachers never do. Nothing is blocked automatically. Any consequence of overdue fees shows "Pending decision (OQ-84)".
 9. **Refunds** (DL-84). The refund screen shows the rule set version, the basis (cooling-off, Table 3A, Table 3B, ICA/MOE rejection, humanitarian), the calculation per fee, the two approvals (Finance Controller and Country Director at GIIS SG) and the 7-working-day deadline with escalation. Hana Kim: registration fee refunded less SGD 50, Paid. Chloe Tan: blocked, because the Table 3B percentages are "Not set (OQ-86)". Never invent percentages.
 10. **Parents see only what they pay** (DL-85). Neha sees both children's invoices, Pay now, history and receipts. Vikram is a verified guardian but not a payer, so he sees "Fees are managed by the payer on this account" and nothing else. Students never see fees.
-11. **Long leave and withdrawal** (DL-86). Kavya Nair's long leave pauses billing from Dec to Feb, so the run bills November only. A withdrawal approved at least one month before a term isn't billed for that term (GIIS SG setting). Chloe's credit note prorates Term 2 to December.
+11. **Long leave and withdrawal** (DL-86). Kavya Nair's long leave pauses billing from Dec to Feb, so her Term 3 (Dec–Mar) invoice bills March only. A withdrawal approved at least one month before a term isn't billed for that term (GIIS SG setting). Chloe's withdrawal came after the Term 3 cut-off (1 Nov), so her credit note bills December only and credits Jan–Mar.
 12. **Admission fees** (SR-FB-09). Admissions sees only admission fee invoices and their status, mirrored on AD09: Noah Paid, Sofia Due, Hana Refunded.
 13. **No delete.** Void, credit, reverse, end, cancel.
 
