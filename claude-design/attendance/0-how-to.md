@@ -2,7 +2,7 @@
 
 | File | What it is | Upload? |
 |---|---|---|
-| `1-design-brief.md` | Design-ready digest of the Attendance dictionary v0.1 (scope approved by Henry 19 Nov 2026; DL-97…DL-107 Assumed) | Yes |
+| `1-design-brief.md` | Design-ready digest of the Attendance dictionary v0.1 (scope approved by Henry 19 Nov 2026; DL-97…DL-107 Confirmed 21 Nov 2026) | Yes |
 | `2-sample-data.json` | SMART Campus Punggol CBSE 2026-27 school days (real holidays, 196 study days), campus rules (90/85/75%), 7B register for Thu 19 Nov 2026, gate log, leave requests, corrections, 7B attendance summary, alerts incl. an ICA review, Grades 6-8 register board, parent view; viewer Farah Ismail | Yes |
 | `3-starter-prompts.md` | First prompt, follow-ups per screen, review checklist | No, paste from it |
 
@@ -20,4 +20,4 @@ All people and numbers are invented. Holidays and study days come from the GIIS 
 
 - Section 6 of the brief lists what is still open. Show those as "Pending decision".
 - Thresholds, cut-off and lock times, warning margin and leave routing limits are campus settings, not group defaults.
-- DL-99, DL-100, DL-103 and DL-105 are Confirmed (21 Nov 2026); the rest of DL-97…DL-107 are Assumed until Henry confirms them.
+- DL-97…DL-107 are all Confirmed (Henry, 21 Nov 2026).

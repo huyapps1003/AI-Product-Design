@@ -108,17 +108,17 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-94 | Predicted grades (IB DP, CBSE 12): teacher enters, coordinator releases, appeal on a Case to the Principal-led committee | **Confirmed** (Henry, 15 Nov 2026) | AS13, HB p.132–133 |
 | DL-95 | Missing marks carry a code (ABSENT, APPROVED_ABSENCE, EXEMPT, NOT_ASSESSED); proration needs the Principal; reasons stay in Attendance or Wellbeing | **Confirmed** (Henry, 15 Nov 2026) | AS08, HB p.43, DL-66 |
 | DL-96 | Academic year and term dates are set per campus × programme offering (a campus runs several curricula with different starts: GIIS SG CBSE, CLSP, IGCSE in April; IB DP in July); the brand-country keeps a default per curriculum that campuses copy; year-based records (classes, plans, rollover, billing periods, assessment schemes) key on the offering's year; rollover runs per campus × offering × year (narrows DL-75) | **Confirmed** (Henry, 15 Nov 2026) | MC-06, OQ-24, OQ-107, DL-54, DL-70, DL-75, HB p.68, p.109 |
-| DL-97 | Attendance is its own module (capability prefix `attendance`); Conduct gets a separate dictionary; team key `attendance_conduct` stays until then | Assumed (awaiting Henry) | AT01–AT10, DL-43, DL-53 |
-| DL-98 | School days = weekdays in the term dates of a campus × offering × year minus a non-school-day list Attendance keeps until a calendar engine exists; the % denominator is school days | Assumed (awaiting Henry) | AT01, AT02, DL-96 |
+| DL-97 | Attendance is its own module (capability prefix `attendance`); Conduct gets a separate dictionary; team key `attendance_conduct` stays until then | **Confirmed** (Henry, 21 Nov 2026) | AT01–AT10, DL-43, DL-53 |
+| DL-98 | School days = weekdays in the term dates of a campus × offering × year minus a non-school-day list Attendance keeps until a calendar engine exists; the % denominator is school days | **Confirmed** (Henry, 21 Nov 2026) | AT01, AT02, DL-96 |
 | DL-99 | One day mark per student per school day (PRESENT, LATE, LEFT_EARLY, ABSENT, ON_LEAVE, SCHOOL_ACTIVITY); period registers are a campus setting that derive the day mark | **Confirmed** (Henry, 21 Nov 2026) | AT03, AT04 |
 | DL-100 | Registers lock at end of day; later changes are corrections with a reason approved by the coordinator, except changes from approved leave or the gate log | **Confirmed** (Henry, 21 Nov 2026) | AT05, S4 |
-| DL-101 | Parents request leave in the app; 1–2 school days → class teacher, more than 2 → Principal with a Case; medical leave needs a certificate on return | Assumed (awaiting Henry) | AT06, HB p.23, p.166 |
-| DL-102 | Reception/security keep the gate log; late sign-in sets LATE, an approved out pass sets LEFT_EARLY; devices may feed it later | Assumed (awaiting Henry) | AT07, HB p.23, p.174 |
+| DL-101 | Parents request leave in the app; 1–2 school days → class teacher, more than 2 → Principal with a Case; medical leave needs a certificate on return | **Confirmed** (Henry, 21 Nov 2026) | AT06, HB p.23, p.166 |
+| DL-102 | Reception/security keep the gate log; late sign-in sets LATE, an approved out pass sets LEFT_EARLY; devices may feed it later | **Confirmed** (Henry, 21 Nov 2026) | AT07, HB p.23, p.174 |
 | DL-103 | Attendance % = days attended ÷ school days from enrolment start; LATE, LEFT_EARLY, SCHOOL_ACTIVITY count as attended, ON_LEAVE (incl. approved leave) doesn't; calculated, never typed | **Confirmed** (Henry, 21 Nov 2026) | AT09 |
-| DL-104 | Thresholds are campus rules per student group and period, no group default; projected % warns teacher, coordinator and parent | Assumed (awaiting Henry) | AT08, AT10, DL-30, DL-59 |
+| DL-104 | Thresholds are campus rules per student group and period, no group default; projected % warns teacher, coordinator and parent | **Confirmed** (Henry, 21 Nov 2026) | AT08, AT10, DL-30, DL-59 |
 | DL-105 | ICA trigger (Student Pass) opens a Tier 3 Case for the Admissions/registrar owner, who files and records the notice; never automatic; teachers never see it | **Confirmed** (Henry, 21 Nov 2026) | AT10, HB p.166–167, DL-30 |
-| DL-106 | Other modules read only the attendance summary, never reasons or certificates; fee status never blocks attendance | Assumed (awaiting Henry) | AT09, DL-83, DL-95 |
-| DL-107 | Parents see own child's marks, times, leave and % the same day; same-day notice for an unexplained absence | Assumed (awaiting Henry) | AT04, AT10 |
+| DL-106 | Other modules read only the attendance summary, never reasons or certificates; fee status never blocks attendance | **Confirmed** (Henry, 21 Nov 2026) | AT09, DL-83, DL-95 |
+| DL-107 | Parents see own child's marks, times, leave and % the same day; same-day notice for an unexplained absence | **Confirmed** (Henry, 21 Nov 2026) | AT04, AT10 |
 
 ---
 
@@ -469,7 +469,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Context.** Sixth module. The architecture's module 5 is "Attendance and Conduct"; Henry approved an Attendance-only scope on 19 Nov 2026: school days, registers and marks, leave requests, gate log, thresholds and early warnings, ICA notices, the attendance % feed to Assessment. Conduct follows later.
 - **Decision.** See the table above and [attendance dictionary § Decisions](../03-domain/attendance-data-dictionary.md#decisions-proposed-awaiting-henry).
 - **Why.** Attendance is the Phase 1 daily loop (Arch § Roadmap). GIIS SG rules (HB p.23, p.166–167, p.174) become campus settings; one denominator (school days per offering, DL-96) for every %; Tier 3 stays with named roles (DL-30).
-- **Status.** DL-99, DL-100, DL-103 and DL-105 Confirmed by Henry, 21 Nov 2026 ("All yes": one mark per day, registers lock at end of day, approved leave doesn't count as attended, ICA cases never sent automatically). DL-103 answers OQ-108 for leave. DL-97, DL-98, DL-101, DL-102, DL-104, DL-106, DL-107 still Assumed.
+- **Status.** DL-99, DL-100, DL-103 and DL-105 Confirmed by Henry, 21 Nov 2026 ("All yes": one mark per day, registers lock at end of day, approved leave doesn't count as attended, ICA cases never sent automatically). DL-103 answers OQ-108 for leave. DL-97, DL-98, DL-101, DL-102, DL-104, DL-106 and DL-107 Confirmed by Henry ("Yes"), 21 Nov 2026. All DL-97…DL-107 Confirmed.
 
 ## How design direction becomes architecture
 

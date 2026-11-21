@@ -6,7 +6,7 @@
   Viewers: Farah Ismail (Class teacher 7B) · Meera Joshi (Coordinator CBSE 6-8) · Dr Anita Rao (Principal) · Siti Rahman (Reception) · Lina Goh (Admissions, Tier 3) · Neha Sharma (parent)
   Objects: OBJ-20 Attendance mark (primary), OBJ-15 Class, OBJ-03 Enrolment, OBJ-10 Case
   Sample: product-truth/03-domain/samples/attendance-sample.json · today Thu 19 Nov 2026 10:20 SGT · synthetic
-  DL: DL-99 DL-100 DL-103 DL-105 Confirmed 21 Nov 2026; DL-97 98 101 102 104 106 107 Assumed · DL-30 DL-73 DL-83 DL-96 · OQ shown as pending: OQ-110 OQ-111 OQ-112 OQ-113 OQ-117 OQ-120
+  DL: DL-97…DL-107 Confirmed 21 Nov 2026 · DL-30 DL-73 DL-83 DL-96 · OQ shown as pending: OQ-110 OQ-111 OQ-112 OQ-113 OQ-117 OQ-120
   Spec: Attendance Data Dictionary v0.1
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -597,7 +597,7 @@ function render(){
  $('#meName').textContent=v.name;$('#meRole').textContent=v.role;$('#meAv').textContent=initials(v.name);$('#scopeTxt').innerHTML=v.scope;
  const nav=v.nav.map(n=>`<a href="#" data-go="${n[0]}" class="${n[0]===st.view?'on':''}">${n[2]}<span>${n[1]}</span></a>`).join('');
  $('#nav').innerHTML=nav;$('#bnav').innerHTML=nav;
- const [fn,bind]=VIEWS[st.view];$('#view').innerHTML=fn()+`<p class="foot">Synthetic data · Attendance dictionary v0.1 · DL-99, 100, 103, 105 Confirmed · others Assumed</p>`;bind&&bind();
+ const [fn,bind]=VIEWS[st.view];$('#view').innerHTML=fn()+`<p class="foot">Synthetic data · Attendance dictionary v0.1 · DL-97…DL-107 Confirmed</p>`;bind&&bind();
  document.querySelectorAll('[data-go]').forEach(a=>a.onclick=e=>{e.preventDefault();st.view=a.dataset.go;render();$('#view').focus()});
 }
 function setFrame(f){$('#stage').classList.toggle('mobile',f==='phone');document.querySelectorAll('#frame button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f))}
