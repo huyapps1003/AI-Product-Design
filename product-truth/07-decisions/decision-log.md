@@ -119,6 +119,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-105 | ICA trigger (Student Pass) opens a Tier 3 Case for the Admissions/registrar owner, who files and records the notice; never automatic; teachers never see it | **Confirmed** (Henry, 21 Nov 2026) | AT10, HB p.166–167, DL-30 |
 | DL-106 | Other modules read only the attendance summary, never reasons or certificates; fee status never blocks attendance | **Confirmed** (Henry, 21 Nov 2026) | AT09, DL-83, DL-95 |
 | DL-107 | Parents see own child's marks, times, leave and % the same day; same-day notice for an unexplained absence | **Confirmed** (Henry, 21 Nov 2026) | AT04, AT10 |
+| DL-108 | The attendance minimum applies by student group, not one figure for all: GIIS SG Student Pass 90% per month, others Class 6+ 85% per semester, KG–5 75% per term (HB p.166, which wins over the p.23 "90% for all" wording); values stay campus settings (DL-104) | **Confirmed** (Henry, 21 Nov 2026) | OQ-108, AT08, DL-104 |
 
 ---
 
@@ -469,7 +470,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Context.** Sixth module. The architecture's module 5 is "Attendance and Conduct"; Henry approved an Attendance-only scope on 19 Nov 2026: school days, registers and marks, leave requests, gate log, thresholds and early warnings, ICA notices, the attendance % feed to Assessment. Conduct follows later.
 - **Decision.** See the table above and [attendance dictionary § Decisions](../03-domain/attendance-data-dictionary.md#decisions-proposed-awaiting-henry).
 - **Why.** Attendance is the Phase 1 daily loop (Arch § Roadmap). GIIS SG rules (HB p.23, p.166–167, p.174) become campus settings; one denominator (school days per offering, DL-96) for every %; Tier 3 stays with named roles (DL-30).
-- **Status.** DL-99, DL-100, DL-103 and DL-105 Confirmed by Henry, 21 Nov 2026 ("All yes": one mark per day, registers lock at end of day, approved leave doesn't count as attended, ICA cases never sent automatically). DL-103 answers OQ-108 for leave. DL-97, DL-98, DL-101, DL-102, DL-104, DL-106 and DL-107 Confirmed by Henry ("Yes"), 21 Nov 2026. All DL-97…DL-107 Confirmed.
+- **Status.** DL-99, DL-100, DL-103 and DL-105 Confirmed by Henry, 21 Nov 2026 ("All yes": one mark per day, registers lock at end of day, approved leave doesn't count as attended, ICA cases never sent automatically). DL-103 answers OQ-108 for leave. DL-97, DL-98, DL-101, DL-102, DL-104, DL-106 and DL-107 Confirmed by Henry ("Yes"), 21 Nov 2026. All DL-97…DL-107 Confirmed. DL-108 (Henry, 21 Nov 2026: "Attendance minimum apply by student group") closes the rest of OQ-108.
 
 ## How design direction becomes architecture
 

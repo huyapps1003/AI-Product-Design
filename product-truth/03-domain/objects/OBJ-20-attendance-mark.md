@@ -60,7 +60,7 @@ actions:
   - attendance.ica.manage
 events: [CalendarPublished, RegisterSubmitted, RegisterLocked, AttendanceMarked, MarkCorrected, LeaveRequested, LeaveDecided, CertificateReceived, GateEventRecorded, AttendanceSummaryUpdated, AttendanceAlertRaised, IcaReviewOpened]
 variation: [MC-06, MC-07]
-open: [OQ-41, OQ-108 (handbook figure only), OQ-109, OQ-110, OQ-111, OQ-112, OQ-113, OQ-114, OQ-115, OQ-116, OQ-117, OQ-118, OQ-119, OQ-120, OQ-121]
+open: [OQ-41, OQ-109, OQ-110, OQ-111, OQ-112, OQ-113, OQ-114, OQ-115, OQ-116, OQ-117, OQ-118, OQ-119, OQ-120, OQ-121]
 sample: product-truth/03-domain/samples/attendance-sample.json
 # Reasons, notes and certificates never leave Attendance; other modules read AT09 only (DL-106). Fee status never blocks (DL-83).
 patterns: [AP-01, AP-02, AP-04, AP-05, AP-13, AP-14]
@@ -68,7 +68,7 @@ patterns: [AP-01, AP-02, AP-04, AP-05, AP-13, AP-14]
 
 # OBJ-20 · Attendance mark
 
-**Status:** Proposed with the attendance dictionary v0.1, 19 Nov 2026 (DL-97…DL-107 all Confirmed 21 Nov 2026) · **Owner:** Henry
+**Status:** Proposed with the attendance dictionary v0.1, 19 Nov 2026 (DL-97…DL-108 all Confirmed 21 Nov 2026) · **Owner:** Henry
 **Cites:** [attendance dictionary](../attendance-data-dictionary.md) · Arch § Key workflows (Absence and leave) · HB p.23, p.166–167, p.174 · DL-30, DL-73, DL-83, DL-96
 
 One mark per student per school day is the record (DL-99). School days come from the curriculum's year at the campus minus holidays and breaks (DL-98), so every % has the same denominator. The class teacher takes the register; it locks at end of day and later changes need a reason (DL-100). Leave and gate events change marks on their own (DL-101, DL-102). Thresholds, warning margins, cut-off times and leave routing limits are campus settings: show the value or "Not set", never a hard-coded number (DL-59 pattern). Teachers see a threshold, never the Student Pass behind it (DL-30); the ICA review is a Tier 3 Case (DL-105).

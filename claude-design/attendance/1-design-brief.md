@@ -6,7 +6,7 @@
 ## 1. Context
 
 - Global Campus OS is the school platform GSG runs for all its brands. GIIS SMART Campus Punggol (SG-PGL) is the example campus.
-- Scope (approved by Henry, 19 Nov 2026; DL-97…DL-107 Confirmed 21 Nov): **whether each student was in school each school day, why not, and what happens when attendance falls too low.** Conduct (incidents, sanctions, house points), the full calendar engine, staff attendance, bus boarding and gate hardware are other modules.
+- Scope (approved by Henry, 19 Nov 2026; DL-97…DL-108 Confirmed 21 Nov): **whether each student was in school each school day, why not, and what happens when attendance falls too low.** Conduct (incidents, sanctions, house points), the full calendar engine, staff attendance, bus boarding and gate hardware are other modules.
 - Main viewer: **Farah Ismail, class teacher of 7B, SG-PGL, on her phone.** Today is **Thursday 19 Nov 2026, 10:20**, Semester 2 of the CBSE year (6 Apr 2026 – 19 Mar 2027). Deepavali (9–10 Nov) was a holiday; December vacation starts 5 Dec. Other viewers: Meera Joshi (Academic Coordinator, Grades 6–8), Dr Anita Rao (Principal), Siti Rahman (reception), Lina Goh (Admissions, owns Student Pass matters, Tier 3), Neha Sharma (parent of Aarav, 7B).
 - Class teacher and parent screens are phone first. Coordinator, Principal, reception and Admissions screens are desktop.
 
@@ -43,7 +43,7 @@ Alert: Open · warning, Acknowledged · info, Resolved · success, Dismissed · 
 4. **Unexplained absence** (DL-107). Absent at the cut-off with no approved leave sends the parent a same-day notice. Show "Parent notified 09:30" on the student row.
 5. **Leave routing** (DL-101, HB p.23, p.166). 1–2 school days: the class teacher approves. More than 2: the Principal decides, the class teacher and coordinator see it read-only, and a Case is opened. Count school days, not calendar days (Manav: 30 Nov – 4 Dec = 5). Declining needs a note the parent sees. Medical leave shows "Certificate due" until a certificate is uploaded on return; the teacher sees "Certificate received", never the file.
 6. **Gate log** (DL-102, HB p.23, p.174). Reception records late sign-ins (time, stated reason, exemption: school bus, doctor's note, prior permission) and out passes (approved by the class teacher or level coordinator before the student leaves, who collected them). Exempt lates don't count toward the late steps. A fourth late in a term (Classes 1–5) shows the next step.
-7. **Attendance % and threshold** (DL-103, DL-104). Each student shows their % for the rule that applies, the threshold, best-case projection and standing. Teachers and coordinators see **"Threshold 90%"** only, never "Student Pass" or anything about ICA (DL-30). Warning margin is a campus setting (sample 3 points).
+7. **Attendance % and threshold** (DL-103, DL-104, DL-108: minimum by student group). Each student shows their % for the rule that applies, the threshold, best-case projection and standing. Teachers and coordinators see **"Threshold 90%"** only, never "Student Pass" or anything about ICA (DL-30). Warning margin is a campus setting (sample 3 points).
 8. **ICA review** (DL-105). Only Lina Goh (Tier 3) sees ICA review Cases. The Case lists the trigger (8 consecutive school days; or month under 90% without a valid reason), the steps, and fields to record the filing date and reference. The system never files on its own.
 9. **Other modules get the % only** (DL-106). Report cards show days attended of school days; no reasons. Never show fee status in Attendance (DL-83).
 10. **Parent view** (DL-107). Parent sees today's mark and times, this month and semester % against the threshold, their leave requests, and "Apply for leave". Never other children.
@@ -56,7 +56,7 @@ Class teacher: own class register, marks, leave for own class (approves 1–2 da
 
 ## 6. Pending decisions (show "Pending decision")
 
-OQ-108 which handbook figure applies (p.23 vs p.166) · OQ-109 leave approver when away · OQ-110 cut-off, lock, who corrects, cover registers · OQ-111 partial days, late steps for Classes 6–12 · OQ-112 ICA filing steps · OQ-113 thresholds for other brands · OQ-114 school activities · OQ-115 mid-year joiners · OQ-116 authorised pickup list · OQ-117 student access · OQ-118 retention and MyGIIS history · OQ-119 Saturday and grade-only days · OQ-120 who maintains holidays · OQ-121 gate devices.
+OQ-109 leave approver when away · OQ-110 cut-off, lock, who corrects, cover registers · OQ-111 partial days, late steps for Classes 6–12 · OQ-112 ICA filing steps · OQ-113 thresholds for other brands · OQ-114 school activities · OQ-115 mid-year joiners · OQ-116 authorised pickup list · OQ-117 student access · OQ-118 retention and MyGIIS history · OQ-119 Saturday and grade-only days · OQ-120 who maintains holidays · OQ-121 gate devices.
 
 ## 7. Suggested screens
 
