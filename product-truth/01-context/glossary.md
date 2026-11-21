@@ -31,6 +31,11 @@ Use these terms exactly in screens and specs. Where a term's definition is still
 | **Appeal** | A parent's request to re-check a released mark; one round only | Confirmed (DL-91) |
 | **Academic year** | The dates of one school year for one curriculum at one campus; a campus running several curricula has several (GIIS SG CBSE April–March, IB DP July–May) | Confirmed (DL-96) |
 | **Rollover** | The year-end run, per campus and curriculum, that moves students into next year's grades and classes (promotion, retention, stage-campus promotion) | Confirmed (DL-75); promotion vs transfer Confirmed (DL-54) |
+| **School day** | A weekday inside a curriculum's term dates at a campus that isn't a holiday, break or closure; the base of every attendance % | Assumed (DL-98) |
+| **Register** | One class's attendance for one school day, taken by the class teacher; locks at end of day | Assumed (DL-99, DL-100) |
+| **Leave request** | A parent's request for days off school; 1–2 days the class teacher approves, more the Principal | Assumed (DL-101) |
+| **Out pass** | Permission for a student to leave school early, recorded at reception | Known (HB p.23) |
+| **Attendance threshold** | The minimum attendance % a student must keep; teachers see the number, not why it applies | Confirmed (DL-30) |
 | **House** | A student team that runs across years, such as House B | Known (HB p.169); list per campus Open (OQ-20) |
 | **Student ID** | The number people use for a student; unique across Campus OS and kept on campus transfer | Confirmed (DL-31) |
 | **Programme offering** | A curriculum taught on a campus for a grade band, for example CBSE 6–8 at Punggol | Known (Architecture) |

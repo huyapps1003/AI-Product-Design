@@ -24,7 +24,7 @@ Use these names exactly in navigation and copy. Don't invent new module names or
 | `careers` | Careers and Universities | Learner lifecycle | AEPP placement, LOR, predicted grades | — |
 | `teaching_learning` | Teaching and Learning (includes Academic Allocation and Timetable) | Teaching and assessment | Syllabus, worksheets, timetables | Toddle, ManageBac for IB |
 | `assessment` | Assessment and Reporting | Teaching and assessment | CBSE eighths, IB 1–7, IGCSE and CLSP scales; re-evaluation in 2 days | IB/Cambridge in international suites; CBSE in Indian ERPs |
-| `attendance_conduct` | Attendance and Conduct | Daily operations | 90% and 85% attendance rules, ICA notice after 7 days, gate log | Common |
+| `attendance_conduct` | Attendance and Conduct | Daily operations | 90% and 85% attendance rules, ICA notice after 7 days, gate log. Attendance designed first ([attendance dictionary](./attendance-data-dictionary.md), DL-97); Conduct later | Common |
 | `campus_services` | Campus Services | Daily operations | Bus requests, bookshop, canteen | Common |
 | `activities_awards` | Activities and Awards | Daily operations | Clubs, house points, awards | Common |
 | `wellbeing` | Wellbeing and Inclusion | Care | Counselling, SEN, child protection restricted to named roles | Veracross, iSAMS |

@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Attendance Prototype</title>
+<!--
+  Screens: SCR-AT-01 Class register (phone) · SCR-AT-02 Class teacher inbox (leave, alerts) · SCR-AT-03 Class attendance · SCR-AT-04 Register board · SCR-AT-05 Corrections · SCR-AT-06 Gate log · SCR-AT-07 Leave decision (Principal) · SCR-AT-08 School days and rules · SCR-AT-09 ICA review (Tier 3) · SCR-AT-10 Parent view
+  Viewers: Farah Ismail (Class teacher 7B) · Meera Joshi (Coordinator CBSE 6-8) · Dr Anita Rao (Principal) · Siti Rahman (Reception) · Lina Goh (Admissions, Tier 3) · Neha Sharma (parent)
+  Objects: OBJ-20 Attendance mark (primary), OBJ-15 Class, OBJ-03 Enrolment, OBJ-10 Case
+  Sample: product-truth/03-domain/samples/attendance-sample.json · today Thu 19 Nov 2026 10:20 SGT · synthetic
+  DL: DL-97…DL-107 Confirmed 21 Nov 2026 · DL-30 DL-73 DL-83 DL-96 · OQ shown as pending: OQ-110 OQ-111 OQ-112 OQ-113 OQ-117 OQ-120
+  Spec: Attendance Data Dictionary v0.1
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#00A76F;--primary-dark:#007867;--primary-soft:rgba(0,167,111,.08);--primary-soft2:rgba(0,167,111,.16);
+  --secondary:#8E33FF;--secondary-soft:rgba(142,51,255,.08);
+  --error:#B71D18;--error-soft:rgba(255,86,48,.12);
+  --warning:#B76E00;--warning-soft:rgba(255,171,0,.14);--warning-line:#FFAB00;
+  --info:#006C9C;--info-soft:rgba(0,184,217,.12);
+  --success:#118D57;--success-soft:rgba(34,197,94,.14);
+  --text:#212B36;--text2:#637381;--text3:#919EAB;
+  --bg:#FFFFFF;--paper:#FFFFFF;--neutral:#F4F6F8;--canvas:#EDEFF2;
+  --divider:rgba(145,158,171,.2);--line:rgba(145,158,171,.32);
+  --z1:0 1px 2px rgba(145,158,171,.16);
+  --card:0 0 2px 0 rgba(145,158,171,.2),0 12px 24px -4px rgba(145,158,171,.12);
+  --scrim:rgba(22,28,36,.48);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --primary:#5BE49B;--primary-dark:#5BE49B;--primary-soft:rgba(91,228,155,.10);--primary-soft2:rgba(91,228,155,.18);
+  --secondary:#C684FF;--secondary-soft:rgba(198,132,255,.12);
+  --error:#FFAC82;--error-soft:rgba(255,86,48,.18);
+  --warning:#FFD666;--warning-soft:rgba(255,171,0,.16);
+  --info:#61F3F3;--info-soft:rgba(0,184,217,.16);
+  --success:#77ED8B;--success-soft:rgba(34,197,94,.16);
+  --text:#FFFFFF;--text2:#919EAB;--text3:#637381;
+  --bg:#161C24;--paper:#212B36;--neutral:#28323D;--canvas:#10141A;
+  --card:0 0 2px 0 rgba(0,0,0,.2),0 12px 24px -4px rgba(0,0,0,.16);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --primary:#5BE49B;--primary-dark:#5BE49B;--primary-soft:rgba(91,228,155,.10);--primary-soft2:rgba(91,228,155,.18);
+  --secondary:#C684FF;--secondary-soft:rgba(198,132,255,.12);
+  --error:#FFAC82;--error-soft:rgba(255,86,48,.18);
+  --warning:#FFD666;--warning-soft:rgba(255,171,0,.16);
+  --info:#61F3F3;--info-soft:rgba(0,184,217,.16);
+  --success:#77ED8B;--success-soft:rgba(34,197,94,.16);
+  --text:#FFFFFF;--text2:#919EAB;--text3:#637381;
+  --bg:#161C24;--paper:#212B36;--neutral:#28323D;--canvas:#10141A;
+  --card:0 0 2px 0 rgba(0,0,0,.2),0 12px 24px -4px rgba(0,0,0,.16);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--canvas);color:var(--text);font:400 14px/1.57 "Public Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.mono{font-variant-numeric:tabular-nums}
+
+/* ---------- Prototype toolbar (not part of the product) ---------- */
+.proto{position:sticky;top:0;z-index:30;background:var(--paper);border-bottom:1px solid var(--divider);
+  padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));
+  display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+.proto-title{font-weight:700;font-size:13px;margin-right:auto;display:flex;gap:8px;align-items:center}
+.proto-title small{font-weight:500;color:var(--text2)}
+.ctl{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2)}
+.seg{display:inline-flex;background:var(--neutral);border-radius:8px;padding:3px}
+.seg button{border:0;background:transparent;padding:5px 10px;border-radius:6px;font-size:12px;font-weight:600;color:var(--text2);white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--paper);color:var(--text);box-shadow:var(--z1)}
+
+.stage{padding:24px max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
+.device{margin:0 auto;background:var(--bg);border-radius:16px;overflow:hidden;box-shadow:var(--card);max-width:1440px}
+.stage.mobile .device{max-width:390px;height:800px;border-radius:36px;border:10px solid #161C24;display:flex;flex-direction:column}
+.stage.mobile .app{flex:1;overflow:auto}
+
+/* ---------- App shell ---------- */
+.app{container-type:inline-size;background:var(--bg);min-height:640px}
+.shell{display:grid;grid-template-columns:280px 1fr;min-height:100%}
+.side{border-right:1px dashed var(--line);padding:20px 16px;display:flex;flex-direction:column;gap:4px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;padding:4px 8px 20px}
+.logo i{width:32px;height:32px;border-radius:10px;background:var(--primary);display:grid;place-items:center;color:#fff;font-style:normal;font-size:14px}
+:root[data-theme="dark"] .logo i{color:#161C24}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo i{color:#161C24}}
+.nav-h{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);padding:12px 12px 6px}
+.nav a{display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:8px;color:var(--text2);text-decoration:none;font-weight:500;min-height:44px}
+.nav a.on{background:var(--primary-soft);color:var(--primary);font-weight:600}
+.nav svg{width:22px;height:22px;flex:none}
+
+.main{min-width:0;display:flex;flex-direction:column}
+.top{height:64px;display:flex;align-items:center;gap:12px;padding:0 24px;border-bottom:1px solid var(--divider);position:sticky;top:0;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(6px);z-index:5}
+.scope{display:flex;align-items:center;gap:6px;min-width:0;border:1px solid var(--line);border-radius:8px;padding:6px 10px;background:transparent;font-size:13px;font-weight:500}
+.scope span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.scope .sep{color:var(--text3)}
+.scope b{font-weight:700}
+.top .grow{flex:1}
+.iconbtn{width:40px;height:40px;border-radius:50%;border:0;background:transparent;display:grid;place-items:center;color:var(--text2)}
+.iconbtn svg{width:22px;height:22px}
+.me{display:flex;align-items:center;gap:10px}
+.me .who{line-height:1.25;text-align:right}
+.me .who b{display:block;font-size:13px}
+.me .who small{color:var(--text2);font-size:12px;white-space:nowrap}
+.seg{flex-wrap:wrap}
+.proto .ctl{flex-wrap:wrap}
+
+.avatar{border-radius:50%;display:grid;place-items:center;font-weight:700;flex:none}
+.av-sm{width:36px;height:36px;font-size:13px;background:var(--secondary-soft);color:var(--secondary)}
+
+.content{padding:24px 40px 48px;max-width:1200px;width:100%;margin:0 auto}
+.crumbs{font-size:13px;color:var(--text2);display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.crumbs .dot{width:4px;height:4px;border-radius:50%;background:var(--text3);align-self:center}
+.crumbs b{color:var(--text);font-weight:500}
+
+/* Person header AP-03 */
+.hero{background:var(--paper);border-radius:16px;box-shadow:var(--card);overflow:hidden;margin-bottom:24px}
+.hero-band{height:72px;background:linear-gradient(120deg,var(--primary-soft2),var(--secondary-soft))}
+.hero-body{display:flex;gap:20px;padding:0 24px 20px;align-items:flex-end;flex-wrap:wrap;margin-top:-36px}
+.av-xl{width:96px;height:96px;font-size:32px;background:var(--primary);color:#fff;border:4px solid var(--paper)}
+:root[data-theme="dark"] .av-xl{color:#161C24}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .av-xl{color:#161C24}}
+.hero-id{flex:1;min-width:220px;padding-top:40px}
+.hero-id h1{margin:0;font-size:24px;line-height:1.3;font-weight:700}
+.hero-meta{color:var(--text2);font-size:14px;margin-top:2px;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.hero-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+.chip{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 8px;border-radius:6px;font-size:12px;font-weight:700;line-height:1;white-space:nowrap}
+.c-success{background:var(--success-soft);color:var(--success)}
+.c-warning{background:var(--warning-soft);color:var(--warning)}
+.c-error{background:var(--error-soft);color:var(--error)}
+.c-info{background:var(--info-soft);color:var(--info)}
+.c-default{background:var(--neutral);color:var(--text2)}
+.c-role{background:var(--secondary-soft);color:var(--secondary)}
+.c-pending{background:transparent;border:1px solid var(--warning-line);color:var(--warning);font-weight:600}
+.c-source{background:var(--info-soft);color:var(--info);font-weight:600}
+.chip svg{width:13px;height:13px}
+
+.btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--line);background:transparent;font-weight:700;font-size:14px;white-space:nowrap}
+.btn-primary{background:var(--text);color:var(--bg);border-color:var(--text)}
+.btn-sm{height:30px;padding:0 10px;font-size:13px}
+.btn-ghost{border-color:transparent;color:var(--primary)}
+.btn svg{width:18px;height:18px}
+
+/* Tabs */
+.tabs{display:flex;gap:28px;border-bottom:1px solid var(--divider);padding:0 24px;overflow-x:auto;scrollbar-width:none}
+.tabs a{padding:12px 0;color:var(--text2);text-decoration:none;font-weight:600;white-space:nowrap;border-bottom:2px solid transparent}
+.tabs a.on{color:var(--text);border-color:var(--text)}
+
+/* Cards */
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+.span2{grid-column:1/-1}
+.card{background:var(--paper);border-radius:16px;box-shadow:var(--card);scroll-margin-top:80px}
+.card-h{display:flex;align-items:center;gap:8px;padding:20px 24px 0;flex-wrap:wrap}
+.card-h h2{margin:0;font-size:17px;font-weight:700;margin-right:auto}
+.card-b{padding:16px 24px 24px}
+.why{border:0;background:transparent;color:var(--text2);font-size:12px;font-weight:600;display:inline-flex;gap:4px;align-items:center;padding:4px 6px;border-radius:6px;min-height:32px}
+.why:hover{background:var(--neutral)}
+.why svg{width:16px;height:16px}
+.explain{margin:12px 24px 0;padding:12px 14px;border-radius:10px;background:var(--neutral);font-size:13px}
+.explain dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0}
+.explain dt{color:var(--text2)}
+.explain dd{margin:0;font-weight:500;overflow-wrap:anywhere}
+.explain code{font-size:12px;background:var(--paper);padding:1px 5px;border-radius:4px}
+
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 24px}
+.f{min-width:0}
+.f .l{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.f .v{font-weight:500;margin-top:2px;overflow-wrap:anywhere;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tier{font-size:10px;font-weight:700;color:var(--text3);border:1px solid var(--line);border-radius:4px;padding:0 4px;line-height:16px}
+
+.masked{display:inline-flex;align-items:center;gap:6px;color:var(--text2);font-family:ui-monospace,Menlo,monospace;letter-spacing:.04em}
+.masked svg{width:15px;height:15px}
+
+.noaccess{display:flex;gap:14px;align-items:flex-start;padding:16px;border:1px dashed var(--line);border-radius:12px}
+.noaccess .ico{width:40px;height:40px;border-radius:12px;background:var(--neutral);display:grid;place-items:center;color:var(--text2);flex:none}
+.noaccess .ico svg{width:22px;height:22px}
+.noaccess b{display:block}
+.noaccess p{margin:2px 0 0;color:var(--text2);font-size:13px}
+
+.addr{display:flex;flex-direction:column;gap:12px}
+.addr-row{padding:12px 14px;border-radius:10px;border:1px solid var(--divider)}
+.addr-row .l{font-size:12px;color:var(--text2);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.addr-row .v{font-weight:500;margin-top:2px}
+
+.doc{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:14px;border-radius:12px;border:1px solid var(--divider);margin-bottom:12px}
+.doc .t{font-weight:700;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.doc .s{grid-column:1/-1;color:var(--text2);font-size:13px;display:flex;flex-wrap:wrap;gap:4px 14px}
+.logline{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--text2);padding:10px 12px;border-radius:8px;background:var(--info-soft);margin-top:4px}
+.logline svg{width:16px;height:16px;color:var(--info);flex:none;margin-top:1px}
+
+/* Timeline AP-05 */
+.tl{list-style:none;margin:0;padding:0}
+.tl li{position:relative;padding:0 0 20px 28px}
+.tl li::before{content:"";position:absolute;left:6px;top:20px;bottom:0;width:2px;background:var(--divider)}
+.tl li:last-child::before{display:none}
+.tl .dotm{position:absolute;left:0;top:5px;width:14px;height:14px;border-radius:50%;border:3px solid var(--paper);box-shadow:0 0 0 2px var(--line);background:var(--text3)}
+.tl .dotm.cur{background:var(--success);box-shadow:0 0 0 2px var(--success-soft)}
+.tl .h{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-weight:700}
+.tl .m{color:var(--text2);font-size:13px}
+
+.guard{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.g{border:1px solid var(--divider);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.g-top{display:flex;gap:12px;align-items:center}
+.av-md{width:44px;height:44px;font-size:15px;background:var(--info-soft);color:var(--info)}
+.g-top b{display:block}
+.g-top small{color:var(--text2)}
+.flags{display:flex;gap:6px;flex-wrap:wrap}
+.contact{display:flex;flex-direction:column;gap:4px;font-size:13px}
+.contact div{display:flex;gap:8px;align-items:center}
+.contact svg{width:16px;height:16px;color:var(--text3);flex:none}
+
+.pendcard{border:1px dashed var(--warning-line);border-radius:12px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;background:transparent}
+.pendcard p{margin:2px 0 0;color:var(--text2);font-size:13px}
+
+.foot{margin-top:24px;font-size:12px;color:var(--text3)}
+
+/* Bottom nav for compact widths */
+.bnav{display:none}
+
+/* ---------- Compact layout, driven by frame width ---------- */
+@container (max-width: 1080px){
+  .shell{grid-template-columns:88px 1fr}
+  .side .logo span,.nav-h,.nav a span{display:none}
+  .nav a{justify-content:center;padding:10px}
+  .content{padding:24px 24px 48px}
+}
+@container (max-width: 860px){
+  .grid,.guard{grid-template-columns:minmax(0,1fr)}
+  .me .who{display:none}
+}
+@container (max-width: 640px){
+  .shell{grid-template-columns:1fr}
+  .side{display:none}
+  .top{padding:0 12px;height:56px}
+  .scope .hide-sm{display:none}
+  .content{padding:16px 16px 96px}
+  .hero-body{padding:0 16px 16px;gap:12px}
+  .av-xl{width:72px;height:72px;font-size:24px}
+  .hero-id{padding-top:0;min-width:100%}
+  .hero-id h1{font-size:20px}
+  .hero-actions{width:100%}
+  .hero-actions .btn{flex:1;justify-content:center}
+  .tabs{padding:0 16px;gap:20px}
+  .card-h{padding:16px 16px 0}
+  .card-b{padding:12px 16px 16px}
+  .explain{margin:12px 16px 0}
+  .fields{grid-template-columns:minmax(0,1fr)}
+  .crumbs{display:none}
+  .bnav{display:flex;position:sticky;bottom:0;background:var(--paper);border-top:1px solid var(--divider);justify-content:space-around;padding:6px 0 calc(6px + env(safe-area-inset-bottom,0px))}
+  .bnav a{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;font-weight:600;color:var(--text2);text-decoration:none;min-width:64px;min-height:44px;justify-content:center}
+  .bnav a.on{color:var(--primary)}
+  .bnav svg{width:22px;height:22px}
+}
+
+/* Dialog */
+.scrim{position:fixed;inset:0;background:var(--scrim);display:grid;place-items:center;padding:16px;z-index:50}
+.dlg{background:var(--paper);border-radius:16px;box-shadow:0 24px 48px rgba(0,0,0,.24);width:100%;max-width:480px;padding:24px}
+.dlg h3{margin:0 0 4px;font-size:18px}
+.dlg p{margin:0 0 16px;color:var(--text2);font-size:13px}
+.dlg label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin:12px 0 6px}
+.dlg select,.dlg textarea{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.dlg textarea{min-height:72px;resize:vertical}
+.dlg .row{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+.dlg .btn-primary:disabled{opacity:.4;cursor:not-allowed}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:600;font-size:13px;z-index:60;max-width:calc(100% - 32px)}
+
+.content a:not(.btn):not(.tabs a){color:var(--primary-dark);font-weight:600;text-decoration:none}
+.content a:not(.btn):not(.tabs a):hover{text-decoration:underline}
+.page-h{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.page-h h1{margin:0;font-size:24px;font-weight:700;line-height:1.3}
+.page-h p{margin:2px 0 0;color:var(--text2)}
+.page-h .grow{flex:1}
+.listcard{background:var(--paper);border-radius:16px;box-shadow:var(--card);overflow:hidden}
+.qtabs{display:flex;gap:24px;padding:0 20px;border-bottom:1px solid var(--divider);overflow-x:auto;scrollbar-width:none}
+.qtabs button{border:0;background:transparent;padding:12px 0;font-weight:600;color:var(--text2);white-space:nowrap;border-bottom:2px solid transparent;display:flex;gap:6px;align-items:center;min-height:44px}
+.qtabs button[aria-pressed="true"]{color:var(--text);border-color:var(--text)}
+.cnt{font-size:11px;font-weight:700;border-radius:6px;padding:1px 6px;background:var(--neutral);color:var(--text2)}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:13px;font-weight:600;color:var(--text2);background:var(--neutral);padding:12px 16px;white-space:nowrap}
+td{padding:14px 16px;border-bottom:1px dashed var(--divider);vertical-align:middle}
+tbody tr.click{cursor:pointer}
+tbody tr.click:hover td{background:var(--primary-soft)}
+.sub{color:var(--text2);font-size:12px}
+.whoc{display:flex;gap:12px;align-items:center;min-width:0}
+.whoc b{display:block;font-weight:600;white-space:nowrap}
+.av-row{width:40px;height:40px;font-size:13px;background:var(--primary-soft2);color:var(--primary-dark)}
+.scopebar{display:flex;gap:10px;align-items:flex-start;padding:10px 14px;border-radius:10px;background:var(--neutral);font-size:13px;margin:16px 20px}
+.scopebar svg{width:16px;height:16px;color:var(--text2);flex:none;margin-top:2px}
+
+/* Board */
+.board{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(220px,1fr);gap:16px;overflow-x:auto;padding-bottom:8px}
+.col{background:var(--neutral);border-radius:16px;padding:12px;min-height:200px;display:flex;flex-direction:column;gap:10px}
+.col-h{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13px;padding:2px 4px}
+.kcard{background:var(--paper);border-radius:12px;box-shadow:var(--z1);padding:12px;border:1px solid var(--divider);text-align:left;display:flex;flex-direction:column;gap:6px;width:100%}
+.kcard:hover{border-color:var(--primary)}
+.kcard b{font-size:14px}
+.kcard .blk{font-size:12px;color:var(--warning);display:flex;gap:4px;align-items:flex-start}
+.kcard .blk svg{width:14px;height:14px;flex:none;margin-top:2px}
+.kempty{font-size:12px;color:var(--text3);padding:8px 4px}
+
+/* Stepper */
+.steps{display:flex;gap:0;padding:16px 24px 20px;overflow-x:auto;scrollbar-width:none}
+.step{flex:1;min-width:96px;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;font-size:12px;color:var(--text2);text-align:center}
+.step::before{content:"";position:absolute;top:11px;left:-50%;right:50%;height:2px;background:var(--divider)}
+.step:first-child::before{display:none}
+.step .d{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--neutral);color:var(--text2);font-weight:700;font-size:11px;position:relative;z-index:1}
+.step.done .d{background:var(--success);color:#fff}
+.step.done::before,.step.cur::before{background:var(--success)}
+.step.cur .d{background:var(--text);color:var(--bg)}
+.step.cur{color:var(--text);font-weight:700}
+.step.bad .d{background:var(--error);color:#fff}
+
+/* Capacity bar */
+.bar{height:8px;border-radius:4px;background:var(--neutral);overflow:hidden;display:flex;min-width:120px}
+.bar i{display:block;height:100%}
+.bar .e{background:var(--primary)}
+.bar .h{background:var(--warning-line)}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--text2);flex-wrap:wrap}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+.kv{display:grid;grid-template-columns:200px 1fr;gap:10px 16px;font-size:14px}
+.kv dt{color:var(--text2)}
+.kv dd{margin:0;font-weight:500;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.notset{color:var(--warning);font-weight:700;display:inline-flex;gap:4px;align-items:center}
+.notset svg{width:15px;height:15px}
+.settings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.count{display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:12px;background:var(--warning-soft);color:var(--warning);font-weight:600;font-size:13px}
+.count svg{width:20px;height:20px;flex:none}
+.blocked{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:12px;border:1px solid var(--warning-line);font-size:13px}
+.blocked svg{width:20px;height:20px;color:var(--warning);flex:none}
+.blocked b{display:block}
+.list-row{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px dashed var(--divider);flex-wrap:wrap}
+.list-row:last-child{border-bottom:0}
+.list-row .grow{flex:1;min-width:160px}
+.pos{width:28px;height:28px;border-radius:8px;background:var(--neutral);display:grid;place-items:center;font-weight:700;font-size:13px;flex:none}
+.dlg input[type=text]{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.drawer-kids{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.drawer-kids div{padding:10px 12px;border:1px solid var(--divider);border-radius:10px}
+@container (max-width: 860px){.settings{grid-template-columns:minmax(0,1fr)}.kv{grid-template-columns:minmax(0,1fr);gap:2px 0}.kv dd{margin-bottom:10px}}
+@container (max-width: 640px){.page-h h1{font-size:20px}.steps{padding:12px 16px 16px}.board{grid-auto-columns:minmax(240px,80%)}}
+/* ---------- Classes additions ---------- */
+.ccards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.ccard{background:var(--paper);border-radius:14px;box-shadow:var(--card);padding:16px;text-align:left;border:1px solid transparent;display:flex;flex-direction:column;gap:8px;width:100%}
+.ccard:hover{border-color:var(--primary)}
+.ccard .t{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ccard .t b{font-size:16px;margin-right:auto}
+.ccard .m{font-size:13px;color:var(--text2);display:flex;gap:4px 12px;flex-wrap:wrap}
+.gh{display:flex;align-items:baseline;gap:10px;margin:28px 0 12px;flex-wrap:wrap}
+.gh h2{margin:0;font-size:16px}
+.gh .sub{font-size:13px}
+.fill{display:flex;align-items:center;gap:10px;font-size:13px}
+.fill .bar{flex:1;min-width:80px}
+.bar .o{background:var(--error)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.filters select,.dlg input[type=date],.dlg input[type=number]{font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 10px}
+.dlg input[type=date]{width:100%;padding:10px 12px}
+.hdot{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none}
+.stepper{display:inline-flex;align-items:center;gap:6px}
+.stepper button{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:transparent;font-weight:700}
+.stepper button:disabled{opacity:.35;cursor:not-allowed}
+.dlg .opt,.opt{display:flex;font-size:14px;font-weight:400;color:var(--text);margin:0 0 8px;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--divider);border-radius:10px;margin-bottom:8px;cursor:pointer}
+.opt input{accent-color:var(--primary)}
+.opt.dis{opacity:.55}
+.opt .grow{flex:1}
+.houses{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.house{background:var(--paper);border-radius:14px;box-shadow:var(--card);padding:16px;display:flex;flex-direction:column;gap:6px}
+.house b{font-size:22px}
+.note{font-size:12px;color:var(--text2);margin-top:6px}
+.proto-note{border:1px dashed var(--line);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--text2);margin-top:24px}
+.sumrow{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 16px}
+.stat{background:var(--paper);border-radius:12px;box-shadow:var(--card);padding:12px 16px;min-width:120px}
+.stat b{display:block;font-size:20px}
+.stat span{font-size:12px;color:var(--text2)}
+@container (max-width: 860px){.houses{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@container (max-width: 640px){.roster td,.roster th{padding:10px 8px}.roster .hname{display:none}.roster .whoc{gap:8px}.roster .av-row{display:none}.ccards{grid-template-columns:minmax(0,1fr)}.hide-phone{display:none}}
+
+/* ---------- Attendance additions ---------- */
+.reg{display:flex;flex-direction:column}
+.rrow{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--divider)}
+.rrow:last-child{border-bottom:0}
+.rrow .nm{flex:1;min-width:0}
+.rrow .nm b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rrow select{font:inherit;font-size:13px;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 8px;max-width:140px}
+.tag{font-size:11px;font-weight:600;color:var(--info)}
+.pct{font-weight:700;font-variant-numeric:tabular-nums}
+.meter{position:relative;height:8px;border-radius:4px;background:var(--neutral);min-width:90px}
+.meter i{position:absolute;left:0;top:0;bottom:0;border-radius:4px}
+.meter u{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--text)}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;font-size:12px;text-align:center}
+.cal .h{color:var(--text3);font-weight:700}
+.cal .d{padding:6px 0;border-radius:6px;background:var(--success-soft);color:var(--success);font-weight:600}
+.cal .d.off{background:var(--neutral);color:var(--text3);font-weight:400}
+.cal .d.hol{background:var(--warning-soft);color:var(--warning)}
+.cal .d.today{outline:2px solid var(--text)}
+.cal .d.blank{background:transparent}
+.t3{border:1px solid var(--secondary);border-radius:12px;padding:10px 14px;font-size:13px;color:var(--secondary);background:var(--secondary-soft);display:flex;gap:8px;align-items:center}
+.dlg input[type=time]{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.route{padding:10px 12px;border-radius:10px;background:var(--neutral);font-size:13px;margin-top:12px}
+@container (max-width: 640px){.roster .meter{display:none}.hide-ph{display:none}}
+</style></head><body>
+<div class="proto" role="region" aria-label="Prototype controls">
+  <div class="proto-title">Attendance prototype <small>Campus OS · synthetic data · Thu 19 Nov 2026, 10:20</small></div>
+  <div class="ctl">Viewer
+    <div class="seg" id="viewers">
+      <button data-v="farah" aria-pressed="true">Farah · Class teacher 7B</button>
+      <button data-v="meera" aria-pressed="false">Meera · Coordinator</button>
+      <button data-v="anita" aria-pressed="false">Dr Rao · Principal</button>
+      <button data-v="siti" aria-pressed="false">Siti · Reception</button>
+      <button data-v="lina" aria-pressed="false">Lina · Admissions (Tier 3)</button>
+      <button data-v="neha" aria-pressed="false">Neha · Parent</button>
+    </div>
+  </div>
+  <div class="ctl">Frame
+    <div class="seg" id="frame"><button data-f="desk" aria-pressed="false">Desktop</button><button data-f="phone" aria-pressed="true">Phone</button></div>
+  </div>
+  <div class="ctl">Theme
+    <div class="seg" id="theme"><button data-t="light" aria-pressed="false">Light</button><button data-t="dark" aria-pressed="false">Dark</button><button data-t="auto" aria-pressed="true">Auto</button></div>
+  </div>
+</div>
+<div class="stage mobile" id="stage"><div class="device"><div class="app">
+  <div class="shell">
+    <aside class="side" aria-label="Main navigation">
+      <div class="logo"><i>C</i><span>Campus OS</span></div>
+      <div class="nav-h">Attendance</div>
+      <nav class="nav" id="nav"></nav>
+    </aside>
+    <div class="main">
+      <header class="top">
+        <button class="scope" title="Current scope"><span id="scopeTxt"></span></button>
+        <div class="grow"></div>
+        <div class="me"><div class="who"><b id="meName"></b><small id="meRole"></small></div><div class="avatar av-sm" id="meAv"></div></div>
+      </header>
+      <main class="content" id="view" tabindex="-1"></main>
+      <nav class="bnav" id="bnav"></nav>
+    </div>
+  </div>
+</div></div></div>
+<div id="layer"></div>
+<script>
+const S = {"_about": "Synthetic sample data for Attendance screens (OBJ-20 with OBJ-15 class, OBJ-03 enrolment, OBJ-10 case). All people and numbers are invented. School days and holidays follow the GIIS SG Holiday Schedule 2026-27 (196 study days; CBSE year 6 Apr 2026 - 19 Mar 2027, DL-96). Thresholds are GIIS SG campus settings from HB p.166 (DL-104, DL-59 pattern), not group defaults. Cut-off, lock time and warning margin are sample settings only (OQ-110). Viewer Farah Ismail, class teacher 7B; 'today' Thursday 19 Nov 2026, 10:20 SGT. Reuses the 7B roster from classes-sample.json.", "today": "2026-11-19", "now_local": "10:20 SGT", "viewer": {"name": "Farah Ismail", "role": "Class Teacher, 7B", "campus": "SG-PGL", "device": "phone"}, "other_viewers": [{"name": "Meera Joshi", "role": "Academic Coordinator, CBSE Middle (Grades 6-8)", "campus": "SG-PGL", "sees": "Register status board, corrections to approve, at-risk list"}, {"name": "Dr Anita Rao", "role": "Principal", "campus": "SG-PGL", "sees": "Leave over 2 days, campus attendance, rules"}, {"name": "Siti Rahman", "role": "Reception", "campus": "SG-PGL", "sees": "Gate log: late sign-in and out pass"}, {"name": "Lina Goh", "role": "Admissions Officer (Student Pass owner, Tier 3)", "campus": "SG-PGL", "sees": "ICA review Cases", "_note": "Who files ICA notices is OQ-112"}, {"name": "Neha Sharma", "role": "Parent of Aarav Sharma (7B)", "sees": "Own child only (DL-107)"}], "campus_settings": {"SG-PGL": {"register_kind": "DAY (period registers off)", "register_cut_off": "09:15 (sample; OQ-110)", "register_lock": "18:00 same day (sample; OQ-110)", "late_after": "09:00 (HB p.174)", "late_exemptions": ["School bus", "Doctor's note", "Court documents", "Prior permission (Level Coordinator / Vice Principal)"], "leave_routing": {"class_teacher_up_to_school_days": 2, "principal_above": 2, "source": "HB p.23, p.166"}, "medical_certificate": "Required for medical leave, due on return (HB p.23)", "warn_margin_points": 3, "late_steps": {"Nursery-KG": "First three excused; then note to parent; then meeting with Vice Principal (HB p.174)", "Classes 1-5": "First three excused; fourth: note to parents from Level Coordinator / VP (HB p.174)", "Classes 6-12": "Not set (OQ-111)"}}, "SG-OWD": {"_brand": "OWIS", "thresholds": "Not set (OQ-113)"}}, "attendance_rules": [{"id": "R-PGL-SP", "applies_to": "Student Pass holders (all classes)", "minimum": "90%", "measured_over": "MONTH", "consequence": ["WARN_ONLY", "ICA_CASE"], "source": "HB p.166-167"}, {"id": "R-PGL-6UP", "applies_to": "Others, Class 6 and above", "minimum": "85%", "measured_over": "SEMESTER", "consequence": ["WARN_ONLY", "PROMOTION_INPUT"], "source": "HB p.166; promotion HB p.128-131"}, {"id": "R-PGL-K5", "applies_to": "Others, KG to Class 5", "minimum": "75%", "measured_over": "TERM", "principal_may_relax": true, "consequence": ["WARN_ONLY"], "source": "HB p.166"}, {"id": "R-PGL-ICA-7", "applies_to": "Student Pass holders", "rule": "More than 7 consecutive school days absent", "consequence": ["ICA_CASE"], "source": "HB p.166"}], "school_day_calendar": {"campus": "SG-PGL", "offering": "CBSE 1-12", "academic_year": "AY 2026-27", "term_dates": [{"term": "Semester 1", "from": "2026-04-06", "to": "2026-09-18"}, {"term": "Semester 2", "from": "2026-09-28", "to": "2027-03-19"}], "school_week": "MON-FRI", "school_day_count": 196, "_check": "Matches 'Total no of study days: 196' on the Holiday Schedule 2026-27", "status": "PUBLISHED", "published_by": "Campus office (who: OQ-120)", "public_holidays": [{"date": "2026-05-01", "name": "Labour Day"}, {"date": "2026-05-27", "name": "Hari Raya Haji"}, {"date": "2026-06-01", "name": "Vesak Day (observed)"}, {"date": "2026-08-10", "name": "National Day (observed)"}, {"date": "2026-11-09", "name": "Deepavali (observed)"}, {"date": "2026-11-10", "name": "Deepavali"}, {"date": "2026-12-25", "name": "Christmas Day"}, {"date": "2027-01-01", "name": "New Year's Day"}, {"date": "2027-01-26", "name": "Indian Republic Day"}, {"date": "2027-02-08", "name": "Chinese New Year (observed)"}, {"date": "2027-03-10", "name": "Hari Raya Puasa"}, {"date": "2027-03-26", "name": "Good Friday"}], "breaks": [{"from": "2026-06-13", "to": "2026-07-12", "type": "VACATION", "name": "June vacation"}, {"from": "2026-09-19", "to": "2026-09-27", "type": "TERM_BREAK", "name": "Sem 1 break"}, {"from": "2026-12-05", "to": "2027-01-03", "type": "VACATION", "name": "December vacation"}, {"from": "2027-03-20", "to": "2027-04-04", "type": "TERM_BREAK", "name": "Sem 2 break"}], "other_offering": {"campus": "SG-ECS", "offering": "IB DP", "academic_year": "AY 2026-27", "starts": "2026-07-13", "_note": "Same holidays, own term dates (DL-96)"}, "november_2026": {"school_days": 19, "to_date": 12, "non_school_days": ["2026-11-09 Deepavali (observed)", "2026-11-10 Deepavali"]}}, "register_7B_today": {"class": "7B", "date": "2026-11-19", "kind": "DAY", "taken_by": "Farah Ismail", "status": "SUBMITTED", "submitted_at": "09:12", "locks_at": "18:00", "counts": {"LATE": 1, "PRESENT": 28, "ABSENT": 2, "ON_LEAVE": 1}, "students": [{"name": "Aarav Sharma", "mark": "LATE", "arrival_time": "09:18", "source": "GATE", "late_exemption": "SCHOOL_BUS", "teacher_note": "Bus 12 delayed (reception)"}, {"name": "Aditya Rao", "mark": "PRESENT"}, {"name": "Ananya Iyer", "mark": "PRESENT"}, {"name": "Ayaan Khan", "mark": "ABSENT", "absence_category": "UNEXPLAINED", "note": "8th school day absent in a row", "alert": "Consecutive absence (class teacher sees this, not the ICA review)"}, {"name": "Diya Menon", "mark": "ON_LEAVE", "absence_category": "MEDICAL", "medical_alert": true, "source": "LEAVE", "leave_request": "LV-PGL-26-0412", "certificate": "Due on return"}, {"name": "Ethan Lim", "mark": "PRESENT"}, {"name": "Fatima Noor", "mark": "PRESENT"}, {"name": "Gauri Patel", "mark": "PRESENT"}, {"name": "Hiroshi Tanaka", "mark": "PRESENT"}, {"name": "Ira Kapoor", "mark": "PRESENT"}, {"name": "Ishaan Gupta", "mark": "ABSENT", "absence_category": "UNEXPLAINED", "parent_notice": "Sent 09:30 to Priya Gupta (no leave on file)"}, {"name": "Jia Hui Tan", "mark": "PRESENT"}, {"name": "Kabir Malhotra", "mark": "PRESENT"}, {"name": "Kiara D'Souza", "mark": "PRESENT"}, {"name": "Leah Thomas", "mark": "PRESENT"}, {"name": "Manav Joshi", "mark": "PRESENT"}, {"name": "Mei Chen", "mark": "PRESENT"}, {"name": "Nikhil Reddy", "mark": "PRESENT"}, {"name": "Nisha Pillai", "mark": "PRESENT"}, {"name": "Omar Siddiqui", "mark": "PRESENT"}, {"name": "Pari Bansal", "mark": "PRESENT"}, {"name": "Rehan Ali", "mark": "PRESENT", "medical_alert": true, "out_pass": "Approved for 11:30 (dentist), collected by mother; mark becomes LEFT_EARLY when signed out"}, {"name": "Riya Nair", "mark": "PRESENT"}, {"name": "Sahil Verma", "mark": "PRESENT"}, {"name": "Sana Qureshi", "mark": "PRESENT"}, {"name": "Shreya Das", "mark": "PRESENT"}, {"name": "Tanvi Kulkarni", "mark": "PRESENT"}, {"name": "Vedant Singh", "mark": "PRESENT"}, {"name": "Vivaan Mehta", "mark": "PRESENT"}, {"name": "Yash Agarwal", "mark": "PRESENT"}, {"name": "Zoe Fernandes", "mark": "PRESENT"}, {"name": "Arnav Chopra", "mark": "PRESENT"}]}, "gate_log_today": [{"time": "09:18", "student": "Aarav Sharma (7B)", "type": "LATE_SIGN_IN", "stated_reason": "Bus 12 delayed", "late_exemption": "SCHOOL_BUS", "recorded_by": "Siti Rahman", "counts_toward_late_steps": false}, {"time": "09:26", "student": "Tara Menon (5A)", "type": "LATE_SIGN_IN", "stated_reason": "Overslept (parent dropped off)", "recorded_by": "Siti Rahman", "counts_toward_late_steps": true, "late_number_this_term": 4, "next_step": "Note to parents from Level Coordinator (HB p.174)"}, {"time": "09:41", "student": "Kunal Shah (8A)", "type": "LATE_SIGN_IN", "stated_reason": "Doctor's appointment", "late_exemption": "DOCTOR_NOTE", "recorded_by": "Siti Rahman", "counts_toward_late_steps": false}, {"time": "10:05", "student": "Ava Lim (6B)", "type": "OUT_PASS", "stated_reason": "Fever", "approved_by": "Joel Tan (class teacher)", "collected_by": "Mother (Grace Lim)", "recorded_by": "Siti Rahman"}, {"time": "11:30 (planned)", "student": "Rehan Ali (7B)", "type": "OUT_PASS", "stated_reason": "Dentist", "approved_by": "Farah Ismail", "collected_by": "Mother (expected)", "status": "Approved, not yet signed out"}], "leave_requests": [{"id": "LV-PGL-26-0412", "student": "Diya Menon (7B)", "from": "2026-11-18", "to": "2026-11-19", "school_days": 2, "type": "MEDICAL", "planned": false, "reason": "Fever, seeing the GP", "requested_by": "Arjun Menon (father), in app", "route": "CLASS_TEACHER", "approver": "Farah Ismail", "status": "CERTIFICATE_DUE", "decided_at": "2026-11-18T08:20", "certificate": "Due when Diya returns (HB p.23)"}, {"id": "LV-PGL-26-0419", "student": "Kiara D'Souza (7B)", "from": "2026-11-23", "to": "2026-11-24", "school_days": 2, "type": "FAMILY", "planned": true, "reason": "Cousin's wedding in Goa", "requested_by": "Maria D'Souza (mother), in app", "route": "CLASS_TEACHER", "approver": "Farah Ismail", "status": "SUBMITTED", "submitted_at": "2026-11-18T21:04"}, {"id": "LV-PGL-26-0421", "student": "Manav Joshi (7B)", "from": "2026-11-30", "to": "2026-12-04", "school_days": 5, "type": "TRAVEL", "planned": true, "reason": "Grandfather's 80th birthday in Chennai", "requested_by": "Ritu Joshi (mother), in app", "route": "PRINCIPAL", "approver": "Dr Anita Rao", "case": "CASE-SG-2026-1288", "status": "SUBMITTED", "submitted_at": "2026-11-17T19:40", "_note": "More than 2 school days: Principal decides; class teacher and coordinator informed (HB p.166). Student Pass holder: approved leave is a valid reason for ICA (whether it counts against % is OQ-108)"}, {"id": "LV-PGL-26-0398", "student": "Kabir Malhotra (7B)", "from": "2026-11-11", "to": "2026-11-12", "school_days": 2, "type": "FAMILY", "planned": true, "reason": "Family event", "requested_by": "Vikram Malhotra (father), in app", "route": "CLASS_TEACHER", "approver": "Farah Ismail", "status": "APPROVED", "decided_at": "2026-11-05T12:10"}, {"id": "LV-PGL-26-0405", "student": "Sahil Verma (7B)", "from": "2026-11-17", "to": "2026-11-17", "school_days": 1, "type": "OTHER", "planned": false, "reason": "Recorded by office after a phone call: family emergency", "requested_by": "Recorded by Siti Rahman for Anil Verma", "route": "CLASS_TEACHER", "approver": "Farah Ismail", "status": "DECLINED", "decision_note": "Please apply in the app with the reason; phone calls aren't accepted (HB p.166)", "_note": "Shows a staff-entered request (DL-101)"}], "corrections": [{"student": "Sahil Verma (7B)", "date": "2026-11-17", "from": "ABSENT", "to": "LATE", "reason": "Signed in at reception 10:05 but the gate log entry was missed", "requested_by": "Farah Ismail", "approver": "Meera Joshi", "status": "REQUESTED"}, {"student": "Omar Siddiqui (7B)", "date": "2026-10-30", "from": "ABSENT", "to": "SCHOOL_ACTIVITY", "reason": "Inter-school debate (marked absent by mistake)", "requested_by": "Farah Ismail", "approver": "Meera Joshi", "status": "APPLIED", "applied_at": "2026-11-02"}], "summary_7B": {"class": "7B", "as_of": "2026-11-19", "students": [{"name": "Aarav Sharma", "threshold": "90%", "measured_over": "November (monthly, Student Pass rule)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 2}, "semester_2_to_date": {"school_days": 37, "attended": 37, "percent": 100.0}, "current_percent_for_rule": 100.0, "projected_best_case": 100.0, "standing": "ON_TRACK", "_teacher_sees": "Threshold 90% only, never 'Student Pass' (DL-30)"}, {"name": "Aditya Rao", "threshold": "85%", "measured_over": "Semester 2 to date (85% rule, Class 6+)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 37, "percent": 100.0}, "current_percent_for_rule": 100.0, "projected_best_case": 100.0, "standing": "ON_TRACK"}, {"name": "Ananya Iyer", "threshold": "85%", "measured_over": "Semester 2 to date (85% rule, Class 6+)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 37, "percent": 100.0}, "current_percent_for_rule": 100.0, "projected_best_case": 100.0, "standing": "ON_TRACK"}, {"name": "Ayaan Khan", "threshold": "90%", "measured_over": "November (monthly, Student Pass rule)", "november": {"school_days_to_date": 12, "attended": 4, "percent": 33.3, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 28, "percent": 75.7}, "current_percent_for_rule": 33.3, "projected_best_case": 57.9, "standing": "CANNOT_RECOVER", "_teacher_sees": "Threshold 90% only, never 'Student Pass' (DL-30)"}, {"name": "Diya Menon", "threshold": "85%", "measured_over": "Semester 2 to date (85% rule, Class 6+)", "november": {"school_days_to_date": 12, "attended": 10, "percent": 83.3, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 34, "percent": 91.9}, "current_percent_for_rule": 91.9, "projected_best_case": 97.0, "standing": "ON_TRACK"}, {"name": "Ethan Lim", "threshold": "85%", "measured_over": "Semester 2 to date (85% rule, Class 6+)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 37, "percent": 100.0}, "current_percent_for_rule": 100.0, "projected_best_case": 100.0, "standing": "ON_TRACK"}, {"name": "Fatima Noor", "threshold": "90%", "measured_over": "November (monthly, Student Pass rule)", "november": {"school_days_to_date": 12, "attended": 10, "percent": 83.3, "late": 1}, "semester_2_to_date": {"school_days": 37, "attended": 32, "percent": 86.5}, "current_percent_for_rule": 83.3, "projected_best_case": 89.5, "standing": "CANNOT_RECOVER", "_teacher_sees": "Threshold 90% only, never 'Student Pass' (DL-30)"}, {"name": "Gauri Patel", "threshold": "85%", "measured_over": "Semester 2 to date (85% rule, Class 6+)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 37, "percent": 100.0}, "current_percent_for_rule": 100.0, "projected_best_case": 100.0, "standing": "ON_TRACK"}, {"name": "Hiroshi Tanaka", "threshold": "85%", "measured_over": "Semester 2 to date (85% rule, Class 6+)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 37, "percent": 100.0}, "current_percent_for_rule": 100.0, "projected_best_case": 100.0, "standing": "ON_TRACK"}, {"name": "Ira Kapoor", "threshold": "90%", "measured_over": "November (monthly, Student Pass rule)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 37, "percent": 100.0}, "current_percent_for_rule": 100.0, "projected_best_case": 100.0, "standing": "ON_TRACK", "_teacher_sees": "Threshold 90% only, never 'Student Pass' (DL-30)"}, {"name": "Ishaan Gupta", "threshold": "85%", "measured_over": "Semester 2 to date (85% rule, Class 6+)", "november": {"school_days_to_date": 12, "attended": 11, "percent": 91.7, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 34, "percent": 91.9}, "current_percent_for_rule": 91.9, "projected_best_case": 97.0, "standing": "ON_TRACK"}, {"name": "Jia Hui Tan", "threshold": "85%", "measured_over": "Semester 2 to date (85% rule, Class 6+)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 37, "percent": 100.0}, "current_percent_for_rule": 100.0, "projected_best_case": 100.0, "standing": "ON_TRACK"}, {"name": "Kabir Malhotra", "threshold": "90%", "measured_over": "November (monthly, Student Pass rule)", "november": {"school_days_to_date": 12, "attended": 10, "percent": 83.3, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 35, "percent": 94.6}, "current_percent_for_rule": 83.3, "projected_best_case": 89.5, "standing": "CANNOT_RECOVER", "_teacher_sees": "Threshold 90% only, never 'Student Pass' (DL-30)", "_note": "Both absences are approved family leave (a valid reason), so no ICA review. Whether approved leave counts against the % is OQ-108; the sample counts it (DL-103)."}, {"name": "Kiara D'Souza", "threshold": "85%", "measured_over": "Semester 2 to date (85% rule, Class 6+)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 37, "percent": 100.0}, "current_percent_for_rule": 100.0, "projected_best_case": 100.0, "standing": "ON_TRACK"}, {"name": "Leah Thomas", "threshold": "85%", "measured_over": "Semester 2 to date (85% rule, Class 6+)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 37, "percent": 100.0}, "current_percent_for_rule": 100.0, "projected_best_case": 100.0, "standing": "ON_TRACK"}, {"name": "Manav Joshi", "threshold": "90%", "measured_over": "November (monthly, Student Pass rule)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 37, "percent": 100.0}, "current_percent_for_rule": 100.0, "projected_best_case": 100.0, "standing": "ON_TRACK", "_teacher_sees": "Threshold 90% only, never 'Student Pass' (DL-30)"}, {"name": "Mei Chen", "threshold": "85%", "measured_over": "Semester 2 to date (85% rule, Class 6+)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 37, "percent": 100.0}, "current_percent_for_rule": 100.0, "projected_best_case": 100.0, "standing": "ON_TRACK"}, {"name": "Nikhil Reddy", "threshold": "85%", "measured_over": "Semester 2 to date (85% rule, Class 6+)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 33, "percent": 89.2}, "current_percent_for_rule": 89.2, "projected_best_case": 96.0, "standing": "ON_TRACK"}, {"name": "Nisha Pillai", "threshold": "90%", "measured_over": "November (monthly, Student Pass rule)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 37, "percent": 100.0}, "current_percent_for_rule": 100.0, "projected_best_case": 100.0, "standing": "ON_TRACK", "_teacher_sees": "Threshold 90% only, never 'Student Pass' (DL-30)"}, {"name": "Omar Siddiqui", "threshold": "85%", "measured_over": "Semester 2 to date (85% rule, Class 6+)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 35, "percent": 94.6}, "current_percent_for_rule": 94.6, "projected_best_case": 98.0, "standing": "ON_TRACK"}, {"name": "Pari Bansal", "threshold": "85%", "measured_over": "Semester 2 to date (85% rule, Class 6+)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 37, "percent": 100.0}, "current_percent_for_rule": 100.0, "projected_best_case": 100.0, "standing": "ON_TRACK"}, {"name": "Rehan Ali", "threshold": "90%", "measured_over": "November (monthly, Student Pass rule)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 37, "percent": 100.0}, "current_percent_for_rule": 100.0, "projected_best_case": 100.0, "standing": "ON_TRACK", "_teacher_sees": "Threshold 90% only, never 'Student Pass' (DL-30)"}, {"name": "Riya Nair", "threshold": "85%", "measured_over": "Semester 2 to date (85% rule, Class 6+)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 36, "percent": 97.3}, "current_percent_for_rule": 97.3, "projected_best_case": 99.0, "standing": "ON_TRACK"}, {"name": "Sahil Verma", "threshold": "85%", "measured_over": "Semester 2 to date (85% rule, Class 6+)", "november": {"school_days_to_date": 12, "attended": 10, "percent": 83.3, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 32, "percent": 86.5}, "current_percent_for_rule": 86.5, "projected_best_case": 95.0, "standing": "AT_RISK"}, {"name": "Sana Qureshi", "threshold": "90%", "measured_over": "November (monthly, Student Pass rule)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 37, "percent": 100.0}, "current_percent_for_rule": 100.0, "projected_best_case": 100.0, "standing": "ON_TRACK", "_teacher_sees": "Threshold 90% only, never 'Student Pass' (DL-30)"}, {"name": "Shreya Das", "threshold": "85%", "measured_over": "Semester 2 to date (85% rule, Class 6+)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 37, "percent": 100.0}, "current_percent_for_rule": 100.0, "projected_best_case": 100.0, "standing": "ON_TRACK"}, {"name": "Tanvi Kulkarni", "threshold": "85%", "measured_over": "Semester 2 to date (85% rule, Class 6+)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 37, "percent": 100.0}, "current_percent_for_rule": 100.0, "projected_best_case": 100.0, "standing": "ON_TRACK"}, {"name": "Vedant Singh", "threshold": "90%", "measured_over": "November (monthly, Student Pass rule)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 37, "percent": 100.0}, "current_percent_for_rule": 100.0, "projected_best_case": 100.0, "standing": "ON_TRACK", "_teacher_sees": "Threshold 90% only, never 'Student Pass' (DL-30)"}, {"name": "Vivaan Mehta", "threshold": "85%", "measured_over": "Semester 2 to date (85% rule, Class 6+)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 37, "percent": 100.0}, "current_percent_for_rule": 100.0, "projected_best_case": 100.0, "standing": "ON_TRACK"}, {"name": "Yash Agarwal", "threshold": "85%", "measured_over": "Semester 2 to date (85% rule, Class 6+)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 37, "percent": 100.0}, "current_percent_for_rule": 100.0, "projected_best_case": 100.0, "standing": "ON_TRACK"}, {"name": "Zoe Fernandes", "threshold": "90%", "measured_over": "November (monthly, Student Pass rule)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 37, "percent": 100.0}, "current_percent_for_rule": 100.0, "projected_best_case": 100.0, "standing": "ON_TRACK", "_teacher_sees": "Threshold 90% only, never 'Student Pass' (DL-30)"}, {"name": "Arnav Chopra", "threshold": "85%", "measured_over": "Semester 2 to date (85% rule, Class 6+)", "november": {"school_days_to_date": 12, "attended": 12, "percent": 100.0, "late": 0}, "semester_2_to_date": {"school_days": 37, "attended": 37, "percent": 100.0}, "current_percent_for_rule": 100.0, "projected_best_case": 100.0, "standing": "ON_TRACK"}]}, "alerts": [{"student": "Ayaan Khan (7B)", "type": "CONSECUTIVE_ABSENCE", "raised": "2026-11-13", "audience": "Class teacher, coordinator, parent", "status": "ACKNOWLEDGED", "note": "No leave request; parent not reachable by phone on 13 and 17 Nov"}, {"student": "Ayaan Khan (7B)", "type": "ICA_REVIEW", "raised": "2026-11-19T07:00", "audience": "Lina Goh only (Tier 3)", "case": "CASE-SG-2026-1291", "status": "OPEN", "detail": "8 consecutive school days absent (6, 11-13, 16-19 Nov) with no valid reason on file", "steps": ["Check for a valid reason with the family", "File with ICA if none (how: OQ-112)", "Record the filing date and reference"], "_teacher_sees": "Nothing about ICA (DL-30, DL-105)"}, {"student": "Fatima Noor (7B)", "type": "BELOW_THRESHOLD", "raised": "2026-11-17", "audience": "Class teacher, coordinator, parent", "status": "OPEN", "detail": "November 83.3%; best case 89.5% by 30 Nov, so the 90% monthly threshold can't be met", "_note": "If the month ends under 90% without a valid reason, an ICA review opens for Lina Goh on 1 Dec (SR-AT-11)"}, {"student": "Ishaan Gupta (7B)", "type": "UNEXPLAINED_ABSENCE", "raised": "2026-11-19T09:30", "audience": "Parent", "status": "OPEN"}, {"student": "Sahil Verma (7B)", "type": "AT_RISK", "raised": "2026-11-17", "audience": "Class teacher, coordinator, parent", "status": "OPEN", "detail": "Semester 2 86.5% against 85%, within the 3-point warning margin"}], "register_board_grades_6_8": {"viewer": "Meera Joshi", "date": "2026-11-19", "cut_off": "09:15", "rows": [{"class": "6A", "teacher": "Kavitha Raman", "status": "SUBMITTED", "at": "08:59", "absent": 1, "late": 0}, {"class": "6B", "teacher": "Joel Tan", "status": "SUBMITTED", "at": "09:04", "absent": 2, "late": 1}, {"class": "6C", "teacher": "Sunita Bhat", "status": "SUBMITTED", "at": "09:10", "absent": 0, "late": 0}, {"class": "7A", "teacher": "Arvind Menon", "status": "SUBMITTED", "at": "08:58", "absent": 1, "late": 0}, {"class": "7B", "teacher": "Farah Ismail", "status": "SUBMITTED", "at": "09:12", "absent": 2, "late": 1, "on_leave": 1}, {"class": "7C", "teacher": "Grace Wong", "status": "NOT_TAKEN", "overdue_by": "65 min", "_note": "Grace is on a field trip; who covers is OQ-110"}, {"class": "8A", "teacher": "Deepak Rao", "status": "SUBMITTED", "at": "09:01", "absent": 0, "late": 1}, {"class": "8B", "teacher": "Nur Aisyah", "status": "SUBMITTED", "at": "09:14", "absent": 3, "late": 0}, {"class": "8C", "teacher": null, "status": "NOT_TAKEN", "_note": "No class teacher (classes-sample SR-CL-05); register has no owner"}]}, "parent_view_neha": {"parent": "Neha Sharma", "child": "Aarav Sharma (7B)", "today": "Late, signed in 09:18 (school bus delayed, excused)", "november": {"attended": "12 of 12 school days so far", "percent": "100%", "threshold": "90% per month"}, "semester_2": {"percent": 100.0}, "leave": [], "action": "Apply for leave"}};
+(function(){
+const $=s=>document.querySelector(s);
+const esc=t=>String(t??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ic={
+ reg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',
+ inbox:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 13h5l1.5 3h5L16 13h5M5 5h14l2 8v6H3v-6z"/></svg>',
+ chart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
+ cal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',
+ gate:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 21V5l8-2 8 2v16M9 21v-6h6v6"/></svg>',
+ shield:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg>',
+ edit:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/></svg>',
+ home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-7 9 7v9H3z"/></svg>',
+ info:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>'
+};
+const MARK={PRESENT:['Present','c-success'],LATE:['Late','c-warning'],LEFT_EARLY:['Left early','c-warning'],ABSENT:['Absent','c-error'],ON_LEAVE:['On leave','c-info'],SCHOOL_ACTIVITY:['School activity','c-info']};
+const STAND={ON_TRACK:['On track','c-success'],AT_RISK:['At risk','c-warning'],BELOW:['Below threshold','c-error'],CANNOT_RECOVER:["Can't reach threshold",'c-error']};
+const LV={SUBMITTED:['Submitted','c-info'],APPROVED:['Approved','c-success'],DECLINED:['Declined','c-error'],CANCELLED:['Cancelled','c-default'],CERTIFICATE_DUE:['Certificate due','c-warning'],CLOSED:['Closed','c-default']};
+const chip=(a)=>`<span class="chip ${a[1]}">${esc(a[0])}</span>`;
+const pend=(oq,t='Pending decision')=>`<span class="chip c-pending" title="${oq}">${t} · ${oq}</span>`;
+const initials=n=>n.split(' ').filter(w=>/^[A-Z]/.test(w)).slice(0,2).map(w=>w[0]).join('');
+const st={viewer:'farah',view:null,reg:JSON.parse(JSON.stringify(S.register_7B_today)),leave:JSON.parse(JSON.stringify(S.leave_requests)),corr:JSON.parse(JSON.stringify(S.corrections)),gate:JSON.parse(JSON.stringify(S.gate_log_today)),ica:{filed:null}};
+const V={
+ farah:{name:'Farah Ismail',role:'Class teacher · 7B',scope:'SG-PGL › CBSE 1-12 › <b>7B</b>',phone:true,nav:[['register','Register',ic.reg],['inbox','Inbox',ic.inbox],['class','7B attendance',ic.chart]]},
+ meera:{name:'Meera Joshi',role:'Coordinator · CBSE Grades 6-8',scope:'SG-PGL › <b>Grades 6-8</b>',nav:[['board','Registers today',ic.reg],['corrections','Corrections',ic.edit],['class','7B attendance',ic.chart]]},
+ anita:{name:'Dr Anita Rao',role:'Principal · SG-PGL',scope:'GIIS Singapore › <b>SMART Campus Punggol</b>',nav:[['leave','Leave to decide',ic.inbox],['calendar','School days and rules',ic.cal],['board','Registers today',ic.reg]]},
+ siti:{name:'Siti Rahman',role:'Reception · SG-PGL',scope:'SG-PGL › <b>Front desk</b>',nav:[['gate','Gate log',ic.gate]]},
+ lina:{name:'Lina Goh',role:'Admissions · Student Pass (Tier 3)',scope:'SG-PGL › <b>Admissions</b>',nav:[['ica','ICA reviews',ic.shield]]},
+ neha:{name:'Neha Sharma',role:'Parent · Aarav (7B)',scope:'<b>Aarav Sharma</b> · 7B',phone:true,nav:[['parent','Attendance',ic.home],['apply','Apply for leave',ic.cal]]}
+};
+function toast(t){const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2600)}
+function dlg(html,onok){const L=$('#layer');L.innerHTML=`<div class="scrim"><div class="dlg" role="dialog" aria-modal="true">${html}</div></div>`;L.querySelectorAll('[data-x]').forEach(b=>b.onclick=()=>L.innerHTML='');const ok=L.querySelector('[data-ok]');if(ok)ok.onclick=()=>{if(onok(L)!==false)L.innerHTML=''};const r=L.querySelector('textarea[required]');if(r&&ok){ok.disabled=true;r.oninput=()=>ok.disabled=!r.value.trim()}}
+function head(t,sub,extra=''){return `<div class="page-h"><div class="grow"><h1>${t}</h1><p>${sub}</p></div>${extra}</div>`}
+function meter(pct,thr){const c=pct>=thr+3?'var(--success)':pct>=thr?'var(--warning-line)':'var(--error)';return `<div class="meter" title="${pct}% vs ${thr}%"><i style="width:${Math.min(100,pct)}%;background:${c}"></i><u style="left:${thr}%"></u></div>`}
+
+/* ---------- Farah: register ---------- */
+function vRegister(){
+ const r=st.reg,locked=false;
+ const counts={};r.students.forEach(s=>counts[s.mark]=(counts[s.mark]||0)+1);
+ const opts=Object.keys(MARK).map(k=>`<option value="${k}">${MARK[k][0]}</option>`).join('');
+ return head('7B register','Thursday 19 Nov 2026 · school day 12 of 19 in November',`<span class="chip c-info">Submitted 09:12</span>`)+
+ `<div class="sumrow">${Object.keys(MARK).filter(k=>counts[k]).map(k=>`<div class="stat"><b class="mono">${counts[k]}</b><span>${MARK[k][0]}</span></div>`).join('')}</div>
+ <div class="card"><div class="card-h"><h2>Students</h2><span class="sub">Locks at 18:00 ${pend('OQ-110','Time')}</span></div><div class="card-b reg">
+ ${r.students.map((s,i)=>`<div class="rrow"><div class="avatar av-row">${initials(s.name)}</div><div class="nm"><b>${esc(s.name)} ${s.medical_alert?'<span class="chip c-error" title="Medical alert flag only (DL-66)">Medical alert</span>':''}</b>
+ <span class="sub">${[s.source==='GATE'?`<span class="tag">From reception</span> ${s.arrival_time} · ${esc(s.teacher_note)} · excused`:'',s.source==='LEAVE'?`<span class="tag">From leave</span> medical · certificate due on return`:'',s.parent_notice?esc(s.parent_notice):'',s.note?esc(s.note):'',s.out_pass?esc(s.out_pass):''].filter(Boolean).join(' ')}</span></div>
+ <select id="m${i}" data-i="${i}" aria-label="Mark for ${esc(s.name)}" ${s.source==='GATE'||s.source==='LEAVE'?'disabled':''}>${opts}</select></div>`).join('')}
+ </div></div><p class="proto-note">Everyone starts as Present; tap the exceptions. Marks from reception and approved leave fill in on their own (DL-101, DL-102). After 18:00 a change needs a reason and Meera's approval (DL-100).</p>`;
+}
+function bindRegister(){document.querySelectorAll('.rrow select').forEach(sel=>{const s=st.reg.students[sel.dataset.i];sel.value=s.mark;sel.onchange=()=>{s.mark=sel.value;if(s.mark==='ABSENT')s.parent_notice='Parent will be notified (no leave on file)';toast(`${s.name}: ${MARK[s.mark][0]}`);render()}})}
+
+/* ---------- Farah: inbox ---------- */
+function vInbox(){
+ const mine=st.leave.filter(l=>l.student.includes('(7B)'));
+ const alerts=S.alerts.filter(a=>a.type!=='ICA_REVIEW');
+ return head('Inbox','Leave requests and attendance alerts for 7B')+
+ `<div class="card"><div class="card-h"><h2>Leave requests</h2></div><div class="card-b">${mine.map(l=>{const idx=st.leave.indexOf(l);const act=l.status==='SUBMITTED'&&l.route==='CLASS_TEACHER';return `<div class="list-row"><div class="grow"><b>${esc(l.student)}</b> ${chip(LV[l.status])} ${l.route==='PRINCIPAL'?'<span class="chip c-role">Principal decides</span>':''}<div class="sub">${l.from}${l.to!==l.from?' – '+l.to:''} · ${l.school_days} school day${l.school_days>1?'s':''} · ${l.type.toLowerCase()} · ${esc(l.reason)}</div><div class="sub">${esc(l.requested_by)}${l.certificate?' · '+esc(l.certificate):''}${l.decision_note?' · "'+esc(l.decision_note)+'"':''}</div></div>${act?`<button class="btn btn-sm" data-dec="${idx}">Decline</button><button class="btn btn-sm btn-primary" data-app="${idx}">Approve</button>`:''}${l.status==='CERTIFICATE_DUE'?'<span class="sub">Certificate: not received</span>':''}</div>`}).join('')}</div></div>
+ <div class="card" style="margin-top:24px"><div class="card-h"><h2>Alerts</h2></div><div class="card-b">${alerts.map(a=>`<div class="list-row"><div class="grow"><b>${esc(a.student)}</b> <span class="chip ${a.type==='BELOW_THRESHOLD'?'c-error':'c-warning'}">${{CONSECUTIVE_ABSENCE:'Absent in a row',BELOW_THRESHOLD:'Below threshold',UNEXPLAINED_ABSENCE:'Unexplained absence',AT_RISK:'At risk'}[a.type]}</span><div class="sub">${esc((a.detail||a.note||'').replace(/, so the 90% monthly threshold can't be met/,'; threshold 90% this month can’t be met'))}</div></div><span class="chip ${a.status==='OPEN'?'c-warning':'c-info'}">${a.status==='OPEN'?'Open':'Acknowledged'}</span></div>`).join('')}
+ <p class="note">You see thresholds only, never why they apply (DL-30).</p></div></div>`;
+}
+function bindInbox(){document.querySelectorAll('[data-app]').forEach(b=>b.onclick=()=>{const l=st.leave[b.dataset.app];l.status='APPROVED';toast(`Approved. ${l.student.split(' (')[0]}'s ${l.from} and ${l.to} will show On leave.`);render()});
+ document.querySelectorAll('[data-dec]').forEach(b=>b.onclick=()=>{const l=st.leave[b.dataset.dec];dlg(`<h3>Decline leave for ${esc(l.student)}</h3><p>The parent sees your note.</p><label for="dn">Note to parent</label><textarea id="dn" required></textarea><div class="row"><button class="btn" data-x>Cancel</button><button class="btn btn-primary" data-ok>Decline</button></div>`,L=>{l.status='DECLINED';l.decision_note=L.querySelector('#dn').value;toast('Declined. Parent notified.');render()})})}
+
+/* ---------- Class attendance ---------- */
+function vClass(){
+ const rows=S.summary_7B.students.slice().sort((a,b)=>a.current_percent_for_rule-b.current_percent_for_rule);
+ const n=k=>rows.filter(r=>r.standing===k).length;
+ return head('7B attendance','As of 19 Nov 2026 · each student measured against the rule that applies to them')+
+ `<div class="sumrow"><div class="stat"><b>${n('ON_TRACK')}</b><span>On track</span></div><div class="stat"><b>${n('AT_RISK')}</b><span>At risk</span></div><div class="stat"><b>${n('BELOW')+n('CANNOT_RECOVER')}</b><span>Below threshold</span></div></div>
+ <div class="listcard"><div class="tablewrap"><table class="roster"><thead><tr><th>Student</th><th>Threshold</th><th>Now</th><th class="hide-ph">Best case</th><th>Standing</th></tr></thead><tbody>
+ ${rows.map(r=>{const thr=parseInt(r.threshold);return `<tr><td><div class="whoc"><div class="avatar av-row">${initials(r.name)}</div><div><b>${esc(r.name)}</b><span class="sub">${r.threshold==='90%'?'November':'Semester 2 to date'}${r.november.late?` · ${r.november.late} late`:''}</span></div></div></td><td class="mono">${r.threshold}</td><td><div style="display:flex;gap:8px;align-items:center"><span class="pct">${r.current_percent_for_rule}%</span>${meter(r.current_percent_for_rule,thr)}</div></td><td class="mono hide-ph">${r.projected_best_case}%</td><td>${chip(STAND[r.standing])}${r._note?`<div class="sub">Approved leave counts as not attended (DL-103)</div>`:''}</td></tr>`}).join('')}
+ </tbody></table></div></div><p class="proto-note">"Now" divides days attended by school days (DL-103). The threshold shows without its reason: 90% means a monthly rule applies, never "Student Pass" (DL-30). Warning margin 3 points is a campus setting.</p>`;
+}
+
+/* ---------- Meera: board ---------- */
+function vBoard(){
+ const rows=S.register_board_grades_6_8.rows;
+ return head('Registers today','Grades 6-8 · Thu 19 Nov 2026 · cut-off 09:15 '+pend('OQ-110','Time'))+
+ `<div class="listcard"><div class="tablewrap"><table><thead><tr><th>Class</th><th>Class teacher</th><th>Status</th><th>Absent</th><th>Late</th><th></th></tr></thead><tbody>
+ ${rows.map(r=>`<tr><td><b>${r.class}</b></td><td>${r.teacher?esc(r.teacher):'<span class="chip c-error">No class teacher</span>'}</td><td>${r.status==='SUBMITTED'?`<span class="chip c-info">Submitted ${r.at}</span>`:`<span class="chip c-warning">Not taken${r.overdue_by?' · overdue '+r.overdue_by:''}</span>`}</td><td class="mono">${r.absent??'—'}</td><td class="mono">${r.late??'—'}</td><td>${r.status!=='SUBMITTED'?`<button class="btn btn-sm" data-cover="${r.class}">Assign cover</button>`:''}</td></tr>`).join('')}
+ </tbody></table></div></div><p class="proto-note">7C: Grace Wong is on a field trip. Who may take a cover register is ${pend('OQ-110')}. 8C has no class teacher, so its register has no owner (SR-CL-05).</p>`;
+}
+function bindBoard(){document.querySelectorAll('[data-cover]').forEach(b=>b.onclick=()=>toast(`Cover for ${b.dataset.cover}: pending decision (OQ-110)`))}
+function vCorr(){
+ return head('Corrections','Changes to locked registers need a reason and your approval (DL-100)')+
+ `<div class="card"><div class="card-b">${st.corr.map((c,i)=>`<div class="list-row"><div class="grow"><b>${esc(c.student)}</b> · ${c.date} ${chip(MARK[c.from])} → ${chip(MARK[c.to])}<div class="sub">"${esc(c.reason)}" · ${esc(c.requested_by)}</div></div>${c.status==='REQUESTED'?`<button class="btn btn-sm" data-rej="${i}">Reject</button><button class="btn btn-sm btn-primary" data-ok2="${i}">Approve</button>`:`<span class="chip ${c.status==='APPLIED'?'c-success':'c-default'}">${c.status==='APPLIED'?'Applied':'Rejected'}</span>`}</div>`).join('')}</div></div>`;
+}
+function bindCorr(){document.querySelectorAll('[data-ok2]').forEach(b=>b.onclick=()=>{st.corr[b.dataset.ok2].status='APPLIED';toast('Applied. Sahil Verma: 17 Nov now Late; % recalculated.');render()});
+ document.querySelectorAll('[data-rej]').forEach(b=>b.onclick=()=>dlg(`<h3>Reject correction</h3><label for="rr">Reason</label><textarea id="rr" required></textarea><div class="row"><button class="btn" data-x>Cancel</button><button class="btn btn-primary" data-ok>Reject</button></div>`,()=>{st.corr[b.dataset.rej].status='REJECTED';render()}))}
+
+/* ---------- Siti: gate ---------- */
+function vGate(){
+ return head('Gate log','SMART Campus Punggol · Thu 19 Nov 2026 · late after 09:00',`<button class="btn btn-primary" id="addLate">Late sign-in</button><button class="btn" id="addOut">Out pass</button>`)+
+ `<div class="listcard"><div class="tablewrap"><table><thead><tr><th>Time</th><th>Student</th><th>Type</th><th>Reason</th><th>Notes</th></tr></thead><tbody>
+ ${st.gate.map(g=>`<tr><td class="mono">${esc(g.time)}</td><td><b>${esc(g.student)}</b></td><td>${g.type==='LATE_SIGN_IN'?'<span class="chip c-warning">Late sign-in</span>':'<span class="chip c-info">Out pass</span>'}</td><td>${esc(g.stated_reason||'')} ${g.late_exemption?`<span class="chip c-default">Excused · ${g.late_exemption==='SCHOOL_BUS'?'school bus':g.late_exemption==='DOCTOR_NOTE'?"doctor's note":'prior permission'}</span>`:''}</td><td class="sub">${[g.late_number_this_term?`Late ${g.late_number_this_term} this term. Next: ${esc(g.next_step)}`:'',g.approved_by?'Approved by '+esc(g.approved_by):'',g.collected_by?'Collected by '+esc(g.collected_by):'',g.status?esc(g.status):''].filter(Boolean).join(' · ')}</td></tr>`).join('')}
+ </tbody></table></div></div><p class="proto-note">A late sign-in sets the student's mark to Late; an out pass sets Left early. Out passes need the class teacher's or level coordinator's approval first (HB p.23). Late steps for Classes 6-12 ${pend('OQ-111')}</p>`;
+}
+function bindGate(){
+ $('#addLate').onclick=()=>dlg(`<h3>Late sign-in</h3><label for="gs">Student</label><select id="gs"><option>Ishaan Gupta (7B)</option><option>Riya Nair (7B)</option><option>Joel Lim (6A)</option></select><label for="gt">Time</label><input type="time" id="gt" value="10:20"><label for="gr">Reason as stated</label><textarea id="gr" required></textarea><label for="ge">Excused because</label><select id="ge"><option value="">Not excused</option><option>School bus</option><option>Doctor's note</option><option>Prior permission</option></select><div class="row"><button class="btn" data-x>Cancel</button><button class="btn btn-primary" data-ok>Sign in</button></div>`,L=>{const e=L.querySelector('#ge').value;st.gate.push({time:L.querySelector('#gt').value,student:L.querySelector('#gs').value,type:'LATE_SIGN_IN',stated_reason:L.querySelector('#gr').value,late_exemption:e?{"School bus":'SCHOOL_BUS',"Doctor's note":'DOCTOR_NOTE','Prior permission':'PRIOR'}[e]:null,recorded_by:'Siti Rahman'});const sn=L.querySelector('#gs').value;if(sn.startsWith('Ishaan')){const s=st.reg.students.find(x=>x.name==='Ishaan Gupta');s.mark='LATE';s.source='GATE';s.arrival_time=L.querySelector('#gt').value;s.teacher_note=L.querySelector('#gr').value;delete s.parent_notice}toast('Signed in. Class teacher sees Late.');render()});
+ $('#addOut').onclick=()=>dlg(`<h3>Out pass</h3><p>Only for students whose class teacher or level coordinator has approved.</p><label for="os">Student</label><select id="os"><option>Rehan Ali (7B) · approved by Farah Ismail</option></select><label for="oc">Collected by</label><input type="text" id="oc" value="Mother (Sara Ali)"><div class="row"><button class="btn" data-x>Cancel</button><button class="btn btn-primary" data-ok>Sign out</button></div>`,L=>{const g=st.gate.find(x=>x.student.startsWith('Rehan'));g.time='10:20';g.status='Signed out';g.collected_by=L.querySelector('#oc').value;const s=st.reg.students.find(x=>x.name==='Rehan Ali');s.mark='LEFT_EARLY';s.out_pass='Signed out 10:20';toast('Signed out. Mark is now Left early.');render()});
+}
+
+/* ---------- Dr Rao: leave & calendar ---------- */
+function vLeave(){
+ const l=st.leave.find(x=>x.route==='PRINCIPAL');const sm=S.summary_7B.students.find(s=>s.name==='Manav Joshi');
+ return head('Leave to decide','More than 2 school days needs the Principal (HB p.23, p.166)')+
+ `<div class="card"><div class="card-h"><h2>${esc(l.student)}</h2>${chip(LV[l.status])}<span class="chip c-default">${esc(l.case)}</span></div><div class="card-b"><dl class="kv">
+ <dt>Dates</dt><dd>${l.from} – ${l.to} · <b>${l.school_days} school days</b></dd><dt>Type</dt><dd>Travel · planned</dd><dt>Reason</dt><dd>${esc(l.reason)}</dd><dt>Requested by</dt><dd>${esc(l.requested_by)} · ${l.submitted_at.replace('T',' ')}</dd>
+ <dt>Attendance now</dt><dd>${sm.current_percent_for_rule}% · threshold ${sm.threshold} per month ${chip(STAND[sm.standing])}</dd><dt>Informed</dt><dd>Farah Ismail (class teacher), Meera Joshi (coordinator)</dd><dt>Counts against %</dt><dd>Yes, approved leave isn't attended (DL-103)</dd></dl>
+ ${l.status==='SUBMITTED'?`<div class="row" style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px"><button class="btn" id="pdec">Decline</button><button class="btn btn-primary" id="papp">Approve</button></div>`:''}</div></div>`;
+}
+function bindLeave(){const l=st.leave.find(x=>x.route==='PRINCIPAL');const a=$('#papp');if(!a)return;a.onclick=()=>{l.status='APPROVED';toast('Approved. Manav will show On leave 30 Nov – 4 Dec.');render()};$('#pdec').onclick=()=>dlg(`<h3>Decline leave</h3><label for="pn">Note to parent</label><textarea id="pn" required></textarea><div class="row"><button class="btn" data-x>Cancel</button><button class="btn btn-primary" data-ok>Decline</button></div>`,()=>{l.status='DECLINED';render()})}
+function vCalendar(){
+ const c=S.school_day_calendar;const hol=new Set(c.public_holidays.map(h=>h.date));
+ const days=[];for(let d=1;d<=30;d++){const dt=new Date(Date.UTC(2026,10,d));const iso=dt.toISOString().slice(0,10);const wd=dt.getUTCDay();days.push({d,iso,cls:wd===0||wd===6?'off':hol.has(iso)?'hol':'',today:d===19})}
+ const lead=(new Date(Date.UTC(2026,10,1)).getUTCDay()+6)%7;
+ return head('School days and rules','CBSE 1-12 · AY 2026-27 · 6 Apr 2026 – 19 Mar 2027 (DL-96)',`<span class="chip c-success">Published</span>`)+
+ `<div class="grid"><div class="card"><div class="card-h"><h2>November 2026</h2><span class="sub">${c.november_2026.school_days} school days</span></div><div class="card-b"><div class="cal">${['M','T','W','T','F','S','S'].map(x=>`<div class="h">${x}</div>`).join('')}${'<div class="d blank"></div>'.repeat(lead)}${days.map(x=>`<div class="d ${x.cls} ${x.today?'today':''}" title="${x.iso}">${x.d}</div>`).join('')}</div><div class="legend" style="margin-top:12px"><span><i style="background:var(--success-soft)"></i>School day</span><span><i style="background:var(--warning-soft)"></i>Holiday (Deepavali)</span><span><i style="background:var(--neutral)"></i>Weekend</span></div></div></div>
+ <div class="card"><div class="card-h"><h2>This year</h2></div><div class="card-b"><div class="sumrow"><div class="stat"><b>${c.school_day_count}</b><span>School days (matches published schedule)</span></div></div>
+ ${c.breaks.map(b=>`<div class="list-row"><div class="grow"><b>${esc(b.name)}</b><div class="sub">${b.from} – ${b.to}</div></div><span class="chip c-default">${b.type==='VACATION'?'Vacation':'Term break'}</span></div>`).join('')}<p class="note">${c.public_holidays.length} public holidays · who maintains the list ${pend('OQ-120')}</p></div></div>
+ <div class="card span2"><div class="card-h"><h2>Attendance rules · SMART Campus Punggol</h2></div><div class="card-b">${S.attendance_rules.map(r=>`<div class="list-row"><div class="grow"><b>${esc(r.applies_to)}</b><div class="sub">${r.minimum?`${r.minimum} per ${r.measured_over.toLowerCase()}`:esc(r.rule)}${r.principal_may_relax?' · Principal may relax':''} · ${esc(r.source)}</div></div>${r.consequence.map(x=>`<span class="chip ${x==='ICA_CASE'?'c-role':'c-default'}">${{WARN_ONLY:'Warn',ICA_CASE:'ICA review (Tier 3)',PROMOTION_INPUT:'Promotion input'}[x]}</span>`).join('')}</div>`).join('')}
+ <div class="list-row"><div class="grow"><b>OWIS Digital Campus (SG-OWD)</b><div class="sub">Thresholds</div></div><span class="notset">Not set</span> ${pend('OQ-113')}</div></div></div></div>`;
+}
+
+/* ---------- Lina: ICA ---------- */
+function vIca(){
+ const a=S.alerts.find(x=>x.type==='ICA_REVIEW');
+ return head('ICA reviews','Student Pass attendance cases · visible only to named Tier 3 roles (DL-105)')+
+ `<div class="t3">${ic.shield.replace('<svg','<svg width="18" height="18"')} Tier 3. Teachers and coordinators never see these cases.</div>
+ <div class="card" style="margin-top:16px"><div class="card-h"><h2>${esc(a.student)}</h2><span class="chip c-default">${a.case}</span>${st.ica.filed?'<span class="chip c-success">Filed</span>':'<span class="chip c-warning">Open</span>'}</div><div class="card-b"><dl class="kv"><dt>Trigger</dt><dd>${esc(a.detail)}</dd><dt>Rule</dt><dd>More than 7 consecutive school days absent (HB p.166)</dd><dt>Opened</dt><dd>19 Nov 2026, 07:00</dd><dt>Class teacher notes</dt><dd>No leave request; parent not reachable 13 and 17 Nov</dd></dl>
+ <ul class="tl" style="margin-top:16px">${a.steps.map((s,i)=>`<li><span class="dotm ${st.ica.filed&&i<3?'cur':''}"></span><div class="h">${esc(s)}</div>${i===1?`<div class="m">How and by when to file ${pend('OQ-112')}</div>`:''}</li>`).join('')}</ul>
+ ${st.ica.filed?`<p class="logline">${ic.info} Filed ${st.ica.filed.date} · ref ${esc(st.ica.filed.ref)} · audited</p>`:`<div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn" id="valid">Valid reason found</button><button class="btn btn-primary" id="file">Record filing</button></div>`}</div></div>
+ <div class="card" style="margin-top:24px"><div class="card-h"><h2>Watch</h2></div><div class="card-b"><div class="list-row"><div class="grow"><b>Fatima Noor (7B)</b><div class="sub">November 83.3%, best case 89.5%. If the month ends under 90% without a valid reason, a review opens on 1 Dec.</div></div><span class="chip c-warning">Watch</span></div></div></div>`;
+}
+function bindIca(){const f=$('#file');if(!f)return;f.onclick=()=>dlg(`<h3>Record ICA filing</h3><p>Campus OS doesn't send anything to ICA. Record what you filed.</p><label for="fd">Filed on</label><input type="date" id="fd" value="2026-11-19"><label for="fr">ICA reference</label><input type="text" id="fr" value="ICA-SP-2026-118734"><div class="row"><button class="btn" data-x>Cancel</button><button class="btn btn-primary" data-ok>Record</button></div>`,L=>{st.ica.filed={date:L.querySelector('#fd').value,ref:L.querySelector('#fr').value};toast('Filing recorded.');render()});$('#valid').onclick=()=>dlg(`<h3>Close with a valid reason</h3><label for="vr">Reason and evidence</label><textarea id="vr" required></textarea><div class="row"><button class="btn" data-x>Cancel</button><button class="btn btn-primary" data-ok>Close case</button></div>`,()=>{toast('Closed: valid reason recorded.')})}
+
+/* ---------- Neha: parent ---------- */
+function vParent(){
+ const p=S.parent_view_neha;const a=st.reg.students.find(s=>s.name==='Aarav Sharma');
+ return head('Aarav Sharma','7B · SMART Campus Punggol')+
+ `<div class="card"><div class="card-h"><h2>Today</h2>${chip(MARK[a.mark])}</div><div class="card-b">${esc(p.today)}</div></div>
+ <div class="card" style="margin-top:16px"><div class="card-h"><h2>Attendance</h2></div><div class="card-b"><dl class="kv"><dt>November</dt><dd>${esc(p.november.attended)} · ${p.november.percent}</dd><dt>Threshold</dt><dd>${esc(p.november.threshold)}</dd><dt>Semester 2</dt><dd>${p.semester_2.percent}%</dd></dl>${meter(100,90)}</div></div>
+ <div class="card" style="margin-top:16px"><div class="card-h"><h2>Leave requests</h2></div><div class="card-b"><p class="sub">No leave requests this term.</p><button class="btn btn-primary" data-go="apply">Apply for leave</button></div></div>`;
+}
+function vApply(){
+ return head('Apply for leave','Aarav Sharma · 7B')+
+ `<div class="card"><div class="card-b"><div class="dlg" style="box-shadow:none;padding:0;max-width:none"><label for="lf">From</label><input type="date" id="lf" value="2026-11-26"><label for="lt">To</label><input type="date" id="lt" value="2026-11-27"><label for="ly">Type</label><select id="ly"><option>Family</option><option>Medical</option><option>Travel</option><option>Religious</option><option>Competition</option><option>Other</option></select><label for="lr">Reason</label><textarea id="lr" required></textarea><div class="route" id="route"></div><div class="row"><button class="btn btn-primary" id="lsend">Send request</button></div></div></div></div>
+ <p class="proto-note">School days are counted from the published calendar, so holidays and weekends don't count (DL-98). Phone calls and diary notes aren't accepted (HB p.166).</p>`;
+}
+const HOL=new Set(S.school_day_calendar.public_holidays.map(h=>h.date));
+function schoolDays(a,b){let n=0;let d=new Date(a+'T00:00:00Z');const e=new Date(b+'T00:00:00Z');while(d<=e){const w=d.getUTCDay();const iso=d.toISOString().slice(0,10);const br=S.school_day_calendar.breaks.some(x=>x.from<=iso&&iso<=x.to);if(w&&w!==6&&!HOL.has(iso)&&!br)n++;d=new Date(d.getTime()+864e5)}return n}
+function bindApply(){const up=()=>{const a=$('#lf').value,b=$('#lt').value;if(!a||!b||b<a){$('#route').textContent='Check the dates.';return}const n=schoolDays(a,b);const med=$('#ly').value==='Medical';$('#route').innerHTML=`<b>${n} school day${n===1?'':'s'}</b> · ${n<=2?'Farah Ismail (class teacher) decides':'Dr Anita Rao (Principal) decides; class teacher and coordinator are informed'}${med?'<br>Upload a medical certificate when Aarav returns.':''}`};['#lf','#lt','#ly'].forEach(s=>$(s).onchange=up);up();$('#lsend').onclick=()=>{if(!$('#lr').value.trim()){toast('Add a reason');return}toast('Sent. You will be notified of the decision.');st.view='parent';render()}}
+
+const VIEWS={register:[vRegister,bindRegister],inbox:[vInbox,bindInbox],class:[vClass],board:[vBoard,bindBoard],corrections:[vCorr,bindCorr],gate:[vGate,bindGate],leave:[vLeave,bindLeave],calendar:[vCalendar],ica:[vIca,bindIca],parent:[vParent],apply:[vApply,bindApply]};
+function render(){
+ const v=V[st.viewer];if(!st.view||!v.nav.some(n=>n[0]===st.view))st.view=v.nav[0][0];
+ $('#meName').textContent=v.name;$('#meRole').textContent=v.role;$('#meAv').textContent=initials(v.name);$('#scopeTxt').innerHTML=v.scope;
+ const nav=v.nav.map(n=>`<a href="#" data-go="${n[0]}" class="${n[0]===st.view?'on':''}">${n[2]}<span>${n[1]}</span></a>`).join('');
+ $('#nav').innerHTML=nav;$('#bnav').innerHTML=nav;
+ const [fn,bind]=VIEWS[st.view];$('#view').innerHTML=fn()+`<p class="foot">Synthetic data · Attendance dictionary v0.1 · DL-97…DL-107 Confirmed</p>`;bind&&bind();
+ document.querySelectorAll('[data-go]').forEach(a=>a.onclick=e=>{e.preventDefault();st.view=a.dataset.go;render();$('#view').focus()});
+}
+function setFrame(f){$('#stage').classList.toggle('mobile',f==='phone');document.querySelectorAll('#frame button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f))}
+document.querySelectorAll('#viewers button').forEach(b=>b.onclick=()=>{st.viewer=b.dataset.v;st.view=null;document.querySelectorAll('#viewers button').forEach(x=>x.setAttribute('aria-pressed',x===b));setFrame(V[st.viewer].phone?'phone':'desk');render()});
+document.querySelectorAll('#frame button').forEach(b=>b.onclick=()=>setFrame(b.dataset.f));
+document.querySelectorAll('#theme button').forEach(b=>b.onclick=()=>{const t=b.dataset.t;if(t==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',t);document.querySelectorAll('#theme button').forEach(x=>x.setAttribute('aria-pressed',x===b))});
+render();
+})();
+</script>
+</body></html>

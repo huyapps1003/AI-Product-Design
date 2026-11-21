@@ -67,6 +67,14 @@ Codes follow `module.object.action` (DL-53; new capabilities reviewed by the reg
 | `assessment.appeal.raise`, `assessment.appeal.review`, `assessment.appeal.endorse` | CREATE, UPDATE, APPROVE | OBJ-19 | New (DL-91; raise = parent path) |
 | `assessment.promotion.review`, `assessment.promotion.decide` | MANAGE, APPROVE | OBJ-19, OBJ-15 | New (DL-92; Principal decides) |
 | `assessment.predicted.enter`, `assessment.predicted.release` | UPDATE, APPROVE | OBJ-19 | New (DL-94) |
+| `attendance.calendar.manage` | MANAGE | OBJ-20 | New (attendance dictionary, DL-98; who: OQ-120) |
+| `attendance.register.take`, `attendance.register.view` | UPDATE, VIEW | OBJ-20 | New (DL-99; take scoped to own classes, DL-73) |
+| `attendance.mark.edit_after_lock`, `attendance.correction.approve` | UPDATE, APPROVE | OBJ-20 | Named in S4; New approval (DL-100; coordinator, OQ-110) |
+| `attendance.leave.request`, `attendance.leave.approve` | CREATE, APPROVE | OBJ-20, OBJ-10 | New (DL-101; parent path; class teacher 1–2 days, Principal above) |
+| `attendance.certificate.view` | VIEW (Tier 3) | OBJ-20, OBJ-02 | New (DL-101; medical certificate file) |
+| `attendance.gate.record`, `attendance.out_pass.approve` | CREATE, APPROVE | OBJ-20 | New (DL-102; reception/security; class teacher or level coordinator approves) |
+| `attendance.rule.manage`, `attendance.summary.view` | MANAGE, VIEW | OBJ-20 | New (DL-103, DL-104) |
+| `attendance.ica.manage` | MANAGE (Tier 3) | OBJ-20, OBJ-10 | New (DL-105; Admissions/registrar) |
 | `fees.catalogue.manage` | MANAGE | OBJ-23 | New (fees & billing dictionary, DL-78) |
 | `fees.plan.edit`, `fees.plan.approve` | UPDATE, APPROVE | OBJ-23 | New (DL-78; Finance Controller approves) |
 | `fees.account.view`, `fees.account.manage` | VIEW, MANAGE | OBJ-23, OBJ-04 | New (DL-79) |
