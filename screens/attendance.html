@@ -6,7 +6,7 @@
   Viewers: Farah Ismail (Class teacher 7B) · Meera Joshi (Coordinator CBSE 6-8) · Dr Anita Rao (Principal) · Siti Rahman (Reception) · Lina Goh (Admissions, Tier 3) · Neha Sharma (parent)
   Objects: OBJ-20 Attendance mark (primary), OBJ-15 Class, OBJ-03 Enrolment, OBJ-10 Case
   Sample: product-truth/03-domain/samples/attendance-sample.json · today Thu 19 Nov 2026 10:20 SGT · synthetic
-  DL: DL-97…DL-107 (Assumed, 19 Nov 2026) · DL-30 DL-73 DL-83 DL-96 · OQ shown as pending: OQ-108 OQ-110 OQ-111 OQ-112 OQ-113 OQ-117 OQ-120
+  DL: DL-99 DL-100 DL-103 DL-105 Confirmed 21 Nov 2026; DL-97 98 101 102 104 106 107 Assumed · DL-30 DL-73 DL-83 DL-96 · OQ shown as pending: OQ-110 OQ-111 OQ-112 OQ-113 OQ-117 OQ-120
   Spec: Attendance Data Dictionary v0.1
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -508,7 +508,7 @@ function vClass(){
  return head('7B attendance','As of 19 Nov 2026 · each student measured against the rule that applies to them')+
  `<div class="sumrow"><div class="stat"><b>${n('ON_TRACK')}</b><span>On track</span></div><div class="stat"><b>${n('AT_RISK')}</b><span>At risk</span></div><div class="stat"><b>${n('BELOW')+n('CANNOT_RECOVER')}</b><span>Below threshold</span></div></div>
  <div class="listcard"><div class="tablewrap"><table class="roster"><thead><tr><th>Student</th><th>Threshold</th><th>Now</th><th class="hide-ph">Best case</th><th>Standing</th></tr></thead><tbody>
- ${rows.map(r=>{const thr=parseInt(r.threshold);return `<tr><td><div class="whoc"><div class="avatar av-row">${initials(r.name)}</div><div><b>${esc(r.name)}</b><span class="sub">${r.threshold==='90%'?'November':'Semester 2 to date'}${r.november.late?` · ${r.november.late} late`:''}</span></div></div></td><td class="mono">${r.threshold}</td><td><div style="display:flex;gap:8px;align-items:center"><span class="pct">${r.current_percent_for_rule}%</span>${meter(r.current_percent_for_rule,thr)}</div></td><td class="mono hide-ph">${r.projected_best_case}%</td><td>${chip(STAND[r.standing])}${r._note?`<div class="sub">Approved leave counts ${pend('OQ-108')}</div>`:''}</td></tr>`}).join('')}
+ ${rows.map(r=>{const thr=parseInt(r.threshold);return `<tr><td><div class="whoc"><div class="avatar av-row">${initials(r.name)}</div><div><b>${esc(r.name)}</b><span class="sub">${r.threshold==='90%'?'November':'Semester 2 to date'}${r.november.late?` · ${r.november.late} late`:''}</span></div></div></td><td class="mono">${r.threshold}</td><td><div style="display:flex;gap:8px;align-items:center"><span class="pct">${r.current_percent_for_rule}%</span>${meter(r.current_percent_for_rule,thr)}</div></td><td class="mono hide-ph">${r.projected_best_case}%</td><td>${chip(STAND[r.standing])}${r._note?`<div class="sub">Approved leave counts as not attended (DL-103)</div>`:''}</td></tr>`}).join('')}
  </tbody></table></div></div><p class="proto-note">"Now" divides days attended by school days (DL-103). The threshold shows without its reason: 90% means a monthly rule applies, never "Student Pass" (DL-30). Warning margin 3 points is a campus setting.</p>`;
 }
 
@@ -546,7 +546,7 @@ function vLeave(){
  return head('Leave to decide','More than 2 school days needs the Principal (HB p.23, p.166)')+
  `<div class="card"><div class="card-h"><h2>${esc(l.student)}</h2>${chip(LV[l.status])}<span class="chip c-default">${esc(l.case)}</span></div><div class="card-b"><dl class="kv">
  <dt>Dates</dt><dd>${l.from} – ${l.to} · <b>${l.school_days} school days</b></dd><dt>Type</dt><dd>Travel · planned</dd><dt>Reason</dt><dd>${esc(l.reason)}</dd><dt>Requested by</dt><dd>${esc(l.requested_by)} · ${l.submitted_at.replace('T',' ')}</dd>
- <dt>Attendance now</dt><dd>${sm.current_percent_for_rule}% · threshold ${sm.threshold} per month ${chip(STAND[sm.standing])}</dd><dt>Informed</dt><dd>Farah Ismail (class teacher), Meera Joshi (coordinator)</dd><dt>Counts against %</dt><dd>${pend('OQ-108')}</dd></dl>
+ <dt>Attendance now</dt><dd>${sm.current_percent_for_rule}% · threshold ${sm.threshold} per month ${chip(STAND[sm.standing])}</dd><dt>Informed</dt><dd>Farah Ismail (class teacher), Meera Joshi (coordinator)</dd><dt>Counts against %</dt><dd>Yes, approved leave isn't attended (DL-103)</dd></dl>
  ${l.status==='SUBMITTED'?`<div class="row" style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px"><button class="btn" id="pdec">Decline</button><button class="btn btn-primary" id="papp">Approve</button></div>`:''}</div></div>`;
 }
 function bindLeave(){const l=st.leave.find(x=>x.route==='PRINCIPAL');const a=$('#papp');if(!a)return;a.onclick=()=>{l.status='APPROVED';toast('Approved. Manav will show On leave 30 Nov – 4 Dec.');render()};$('#pdec').onclick=()=>dlg(`<h3>Decline leave</h3><label for="pn">Note to parent</label><textarea id="pn" required></textarea><div class="row"><button class="btn" data-x>Cancel</button><button class="btn btn-primary" data-ok>Decline</button></div>`,()=>{l.status='DECLINED';render()})}
@@ -597,7 +597,7 @@ function render(){
  $('#meName').textContent=v.name;$('#meRole').textContent=v.role;$('#meAv').textContent=initials(v.name);$('#scopeTxt').innerHTML=v.scope;
  const nav=v.nav.map(n=>`<a href="#" data-go="${n[0]}" class="${n[0]===st.view?'on':''}">${n[2]}<span>${n[1]}</span></a>`).join('');
  $('#nav').innerHTML=nav;$('#bnav').innerHTML=nav;
- const [fn,bind]=VIEWS[st.view];$('#view').innerHTML=fn()+`<p class="foot">Synthetic data · Attendance dictionary v0.1 · DL-97…DL-107 Assumed</p>`;bind&&bind();
+ const [fn,bind]=VIEWS[st.view];$('#view').innerHTML=fn()+`<p class="foot">Synthetic data · Attendance dictionary v0.1 · DL-99, 100, 103, 105 Confirmed · others Assumed</p>`;bind&&bind();
  document.querySelectorAll('[data-go]').forEach(a=>a.onclick=e=>{e.preventDefault();st.view=a.dataset.go;render();$('#view').focus()});
 }
 function setFrame(f){$('#stage').classList.toggle('mobile',f==='phone');document.querySelectorAll('#frame button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f))}

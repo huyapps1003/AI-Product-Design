@@ -483,7 +483,7 @@
       "case": "CASE-SG-2026-1288",
       "status": "SUBMITTED",
       "submitted_at": "2026-11-17T19:40",
-      "_note": "More than 2 school days: Principal decides; class teacher and coordinator informed (HB p.166). Student Pass holder: approved leave is a valid reason for ICA (whether it counts against % is OQ-108)"
+      "_note": "More than 2 school days: Principal decides; class teacher and coordinator informed (HB p.166). Student Pass holder: approved leave is a valid reason for ICA but counts as not attended (DL-103)"
     },
     {
       "id": "LV-PGL-26-0398",
@@ -795,7 +795,7 @@
         "projected_best_case": 89.5,
         "standing": "CANNOT_RECOVER",
         "_teacher_sees": "Threshold 90% only, never 'Student Pass' (DL-30)",
-        "_note": "Both absences are approved family leave (a valid reason), so no ICA review. Whether approved leave counts against the % is OQ-108; the sample counts it (DL-103)."
+        "_note": "Both absences are approved family leave (a valid reason), so no ICA review. Approved leave counts as not attended (DL-103, Confirmed 21 Nov 2026)."
       },
       {
         "name": "Kiara D'Souza",

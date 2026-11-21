@@ -6,7 +6,7 @@
 ## 1. Context
 
 - Global Campus OS is the school platform GSG runs for all its brands. GIIS SMART Campus Punggol (SG-PGL) is the example campus.
-- Scope (approved by Henry, 19 Nov 2026): **whether each student was in school each school day, why not, and what happens when attendance falls too low.** Conduct (incidents, sanctions, house points), the full calendar engine, staff attendance, bus boarding and gate hardware are other modules.
+- Scope (approved by Henry, 19 Nov 2026; DL-99, DL-100, DL-103, DL-105 Confirmed 21 Nov): **whether each student was in school each school day, why not, and what happens when attendance falls too low.** Conduct (incidents, sanctions, house points), the full calendar engine, staff attendance, bus boarding and gate hardware are other modules.
 - Main viewer: **Farah Ismail, class teacher of 7B, SG-PGL, on her phone.** Today is **Thursday 19 Nov 2026, 10:20**, Semester 2 of the CBSE year (6 Apr 2026 – 19 Mar 2027). Deepavali (9–10 Nov) was a holiday; December vacation starts 5 Dec. Other viewers: Meera Joshi (Academic Coordinator, Grades 6–8), Dr Anita Rao (Principal), Siti Rahman (reception), Lina Goh (Admissions, owns Student Pass matters, Tier 3), Neha Sharma (parent of Aarav, 7B).
 - Class teacher and parent screens are phone first. Coordinator, Principal, reception and Admissions screens are desktop.
 
@@ -56,7 +56,7 @@ Class teacher: own class register, marks, leave for own class (approves 1–2 da
 
 ## 6. Pending decisions (show "Pending decision")
 
-OQ-108 does approved leave count against the % · OQ-109 leave approver when away · OQ-110 cut-off, lock, who corrects, cover registers · OQ-111 partial days, late steps for Classes 6–12 · OQ-112 ICA filing steps · OQ-113 thresholds for other brands · OQ-114 school activities · OQ-115 mid-year joiners · OQ-116 authorised pickup list · OQ-117 student access · OQ-118 retention and MyGIIS history · OQ-119 Saturday and grade-only days · OQ-120 who maintains holidays · OQ-121 gate devices.
+OQ-108 which handbook figure applies (p.23 vs p.166) · OQ-109 leave approver when away · OQ-110 cut-off, lock, who corrects, cover registers · OQ-111 partial days, late steps for Classes 6–12 · OQ-112 ICA filing steps · OQ-113 thresholds for other brands · OQ-114 school activities · OQ-115 mid-year joiners · OQ-116 authorised pickup list · OQ-117 student access · OQ-118 retention and MyGIIS history · OQ-119 Saturday and grade-only days · OQ-120 who maintains holidays · OQ-121 gate devices.
 
 ## 7. Suggested screens
 

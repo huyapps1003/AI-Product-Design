@@ -20,4 +20,4 @@ All people and numbers are invented. Holidays and study days come from the GIIS 
 
 - Section 6 of the brief lists what is still open. Show those as "Pending decision".
 - Thresholds, cut-off and lock times, warning margin and leave routing limits are campus settings, not group defaults.
-- DL-97…DL-107 are Assumed until Henry confirms them.
+- DL-99, DL-100, DL-103 and DL-105 are Confirmed (21 Nov 2026); the rest of DL-97…DL-107 are Assumed until Henry confirms them.

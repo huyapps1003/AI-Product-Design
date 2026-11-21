@@ -1,6 +1,6 @@
 # Global Campus OS — Attendance Data Dictionary v0.1 (draft)
 
-**Status:** Proposed draft, 19 Nov 2026. DL-97…DL-107 Assumed (awaiting Henry); OQ-108…OQ-121 Open · **Owner:** Henry
+**Status:** Proposed draft, 19 Nov 2026. DL-99, DL-100, DL-103, DL-105 Confirmed (Henry, 21 Nov 2026); other DL-97…DL-107 Assumed; OQ-108 answered by DL-103 (handbook 90% wording still open); OQ-109…OQ-121 Open · **Owner:** Henry
 **Cites:** [Architecture v1](../00-sources/Global_Campus_OS_Product_Architecture_v1.md) § Principles (policy as rules; campus calendar engine), § Context (attendance thresholds, ICA notice), § Users and roles (Class teacher "daily attendance, leave intake"; Principal "approvals (leave over 2 days)"; Programme or level coordinator "early leave approval"; Security / reception "late sign-in, out pass"; Parent "leave requests"), § Domains and modules (module 5 Attendance and Conduct), § Key workflows (Absence and leave, steps 1–4), § Data model (Attendance and conduct row: Attendance mark, Leave request, Gate log; Case object for leave over 2 days and Student Pass issues; event log), § Integrations (access control and gate devices; ICA case exports), § Security (immutable audit of attendance edits and ICA notifications), § Roadmap (Phase 1 daily loop pilot: attendance and leave) · [Student Directory Spec](./student-directory-data-dictionary.md) ST02, ST08 (medical certificate), ST09, SR-09, DL-30, OQ-41 · [Classes dictionary](./classes-data-dictionary.md) CL01, CL03, CL04, DL-73 · [Assessment dictionary](./assessment-data-dictionary.md) AS05 `min_attendance_percent`, AS10 `attendance_snapshot`, DL-92, DL-95 · [Fees dictionary](./fees-billing-data-dictionary.md) DL-83 · [architecture.md](./architecture.md) DL-43 domains · GIIS Student Handbook 2025-26 (HB) p.23 (attendance, late sign-in, out pass, leave over two days), p.128–131 (promotion attendance), p.166–167 (Student Attendance Policy, ICA), p.174–175 (late arrival) · GIIS SG Holiday Schedule 2026-27 · DL-11, DL-16, DL-22, DL-26, DL-27, DL-30, DL-32, DL-47, DL-53, DL-59, DL-66, DL-68, DL-73, DL-83, DL-92, DL-95, DL-96
 **Tóm tắt (VI):** Từ điển dữ liệu cho module Điểm danh: ngày học (từ lịch năm học theo chương trình, trừ ngày lễ và kỳ nghỉ), sổ điểm danh hằng ngày của giáo viên chủ nhiệm (có giờ khoá sổ và sửa sau khoá phải có lý do), đơn xin nghỉ của phụ huynh (1–2 ngày giáo viên chủ nhiệm duyệt, trên 2 ngày Hiệu trưởng duyệt, nghỉ ốm cần giấy bác sĩ), sổ ra vào cổng (đến muộn, xin về sớm), ngưỡng chuyên cần và cảnh báo sớm, báo cáo ICA cho học sinh giữ Student Pass ở Singapore, và tỷ lệ chuyên cần gửi sang Đánh giá. Mỗi trường có trạng thái Known / Assumed / Open.
 
@@ -33,7 +33,7 @@ Approved by Henry, 19 Nov 2026: **whether each student was in school each school
 - **Registers lock; changes after lock need a reason (DL-100).** A register is due by a campus cut-off time (GIIS SG: students arrive before 9:00, HB p.174) and locks at the end of the school day. After lock, a mark changes only through a correction with a reason, approved by the coordinator (`attendance.mark.edit_after_lock`, S4 flow). Every change is audited (Arch § Security: "attendance edits").
 - **Parents ask for leave in the app; length decides who approves (DL-101).** A parent submits leave with dates, type and reason. One or two school days go to the class teacher; more than two go to the Principal, with the class teacher and coordinator informed (HB p.23, p.166; Arch step 2). Medical leave needs a medical certificate, uploaded on the student's return (HB p.23). Approved leave turns those days' marks into ON_LEAVE. Email, letters, diary notes and phone calls are replaced by the app; a staff member can record a request on a parent's behalf.
 - **The gate log feeds the register (DL-102).** Reception or security records a late sign-in (time and the reason the student or parent gives) and an out pass (time out, who collected the student, who approved). Early exit needs the class teacher's or level coordinator's approval before the student leaves (HB p.23). A late sign-in sets the day mark to LATE and an out pass sets LEFT_EARLY; the class teacher can see both on the register. Gate devices can send the same events later (Arch § Integrations).
-- **Attendance % is calculated, never typed (DL-103).** For each enrolment and measurement period: days attended ÷ school days in that period from the enrolment start date. PRESENT, LATE, LEFT_EARLY and SCHOOL_ACTIVITY count as attended. ABSENT and ON_LEAVE do not; whether approved medical leave should count is open (OQ-108). The figure is recalculated when a mark changes.
+- **Attendance % is calculated, never typed (DL-103).** For each enrolment and measurement period: days attended ÷ school days in that period from the enrolment start date. PRESENT, LATE, LEFT_EARLY and SCHOOL_ACTIVITY count as attended. ABSENT and ON_LEAVE do not, including approved medical leave (Confirmed DL-103, answers OQ-108). Approved leave still counts as a valid reason for the ICA rule (DL-105). The figure is recalculated when a mark changes.
 - **Thresholds are campus rules per student group, with early warning (DL-104).** A threshold rule says who it applies to (Student Pass holders; a grade band), the minimum %, and the period it's measured over (month, term or semester). GIIS SG: Student Pass holders 90% per month; others from Class 6 85% per semester; others KG to Class 5 75% per term, which the Principal may relax (HB p.166). Each student gets one threshold per rule; class teachers see the threshold, never why it applies (DL-30). The system projects each student's % to the period end and warns the class teacher, coordinator and parent when it is at risk (Arch step 4). Thresholds are settings with no group default (DL-59 pattern).
 - **ICA notices are a Case for the Tier 3 team, never automatic (DL-105).** In Singapore, a Student Pass holder absent for more than 7 consecutive school days, or under 90% for a month without a valid reason, must be reported to ICA (HB p.166–167). The rule opens a Student Pass Case (OBJ-10) for the named Tier 3 owner (Admissions/registrar, who handles Student Pass matters, HB p.235). That person checks the reason and files the notice; the system records the filing but never sends it on its own. Teachers see only "Attendance below threshold", never the ICA link (DL-30).
 - **Other modules read a summary, never reasons (DL-106).** Attendance publishes, per enrolment and reporting period, school days, days attended and the % (AS10 `attendance_snapshot`, AS05 promotion threshold, DL-92). Absence reasons, leave notes and medical certificates never leave Attendance (DL-95, DL-66 pattern). Fee status never blocks marking, leave or anything else here (DL-83, Confirmed).
@@ -93,7 +93,7 @@ ST02, ST08, ST09, CL01, CL03, CL04, AS05, AS10 and the Case object (OBJ-10) are 
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| register_id | UUID | PK | Y | T1 | Assumed (DL-99) | |
+| register_id | UUID | PK | Y | T1 | Confirmed (DL-99) | |
 | class_id | UUID | FK:CL01 | Y | T1 | Known (Arch § Users and roles: class teacher scope is the class) | Students listed are the class's placements valid that day (CL04). |
 | school_date | DATE | UK with class + period | Y | T1 | Assumed | Must be a school day in AT01. |
 | register_kind | ENUM | — | Y | T1 | Known both exist (Arch step 3 "by period or by day"); campus setting Assumed (DL-99) | DAY or PERIOD. |
@@ -114,7 +114,7 @@ ST02, ST08, ST09, CL01, CL03, CL04, AS05, AS10 and the Case object (OBJ-10) are 
 | enrolment_id | UUID | FK:ST02 | Y | T2 | Known (attendance belongs to the enrolment, ST02 events) | |
 | school_date | DATE | — | Y | T2 | Assumed | Denormalised for summaries. |
 | mark_code | ENUM | — | Y | T2 | Known kinds (HB p.23: late, early exit, leave, medical leave); codes Assumed (DL-99) | PRESENT, LATE, LEFT_EARLY, ABSENT, ON_LEAVE, SCHOOL_ACTIVITY. See enums. |
-| counts_as_attended | BOOLEAN | — | Y | T2 | Assumed (DL-103); derived | True for PRESENT, LATE, LEFT_EARLY, SCHOOL_ACTIVITY. ON_LEAVE: OQ-108. |
+| counts_as_attended | BOOLEAN | — | Y | T2 | Assumed (DL-103); derived | True for PRESENT, LATE, LEFT_EARLY, SCHOOL_ACTIVITY. ON_LEAVE is not attended (DL-103). |
 | absence_category | ENUM | — | C | T2 | Assumed (DL-27) | For ABSENT and ON_LEAVE: MEDICAL, FAMILY, TRAVEL, RELIGIOUS, OTHER, UNEXPLAINED. Never a diagnosis. |
 | valid_reason | BOOLEAN | — | C | T2 | Known need (HB p.166: ICA "without a valid reason"); who decides Open (OQ-112) | True when covered by approved leave or a medical certificate. Drives the ICA rule (DL-105). |
 | arrival_time / departure_time | TIME | — | C | T2 | Known (HB p.23, p.174 sign-in and out pass) | From AT07 for LATE and LEFT_EARLY. |
@@ -130,7 +130,7 @@ ST02, ST08, ST09, CL01, CL03, CL04, AS05, AS10 and the Case object (OBJ-10) are 
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| correction_id | UUID | PK | Y | T2 | Assumed (DL-100) | |
+| correction_id | UUID | PK | Y | T2 | Confirmed (DL-100) | |
 | mark_id | UUID | FK:AT04 | Y | T2 | Assumed | |
 | from_code / to_code | ENUM | — | Y | T2 | Assumed | |
 | reason | TEXT | — | Y | T2 | Known need (Arch § Security "attendance edits" in the immutable audit log) | Required. |
@@ -205,7 +205,7 @@ ST02, ST08, ST09, CL01, CL03, CL04, AS05, AS10 and the Case object (OBJ-10) are 
 | period_kind / period_start / period_end | — | UK with enrolment | Y | T2 | Assumed | MONTH, TERM, SEMESTER, YEAR, REPORTING_PERIOD (AS02 periods). |
 | school_days | INT | — | Y | T2 | Assumed; derived | From AT01, counted from the enrolment start (OQ-115). |
 | days_attended / days_absent / days_on_leave / late_count | INT | — | Y | T2 | Assumed; derived | |
-| attendance_percent | DECIMAL(5,2) | — | Y | T2 | Assumed (DL-103) | Shown to one decimal. Blank before the first school day. |
+| attendance_percent | DECIMAL(5,2) | — | Y | T2 | Confirmed (DL-103) | Shown to one decimal. Blank before the first school day. |
 | projected_percent | DECIMAL(5,2) | — | C | T2 | Known need (Arch step 4 "projects") | Best case if present every remaining day; method Assumed. |
 | threshold_percent | DECIMAL(5,2) | — | C | T1 | Confirmed display (DL-30) | The applicable AT08 minimum; never its reason. |
 | standing | ENUM | — | C | T2 | Assumed (DL-104) | ON_TRACK, AT_RISK, BELOW, CANNOT_RECOVER. |
@@ -283,15 +283,15 @@ ST02, ST08, ST09, CL01, CL03, CL04, AS05, AS10 and the Case object (OBJ-10) are 
 
 - **SR-AT-01 (Assumed, DL-98; Confirmed key DL-96):** School days are the weekdays inside the term dates of a campus × offering × year, minus AT02 days. Registers can only be taken on a school day of a PUBLISHED calendar.
 - **SR-AT-02 (Assumed, DL-98):** A closure added after publish voids marks already taken that day (audited) and removes the day from every %.
-- **SR-AT-03 (Assumed, DL-99):** One day mark per enrolment per school day. With period registers on, the day mark is derived (PRESENT if present in the first period, LATE if first seen later, LEFT_EARLY if absent from the last period; rule OQ-110) and the class teacher confirms it.
-- **SR-AT-04 (Assumed, DL-100):** A register locks at the campus end-of-day time. After lock, a mark changes only by an AT05 correction with a reason, approved by the coordinator, except when an approved leave request or a gate event changes it.
+- **SR-AT-03 (Confirmed, DL-99):** One day mark per enrolment per school day. With period registers on, the day mark is derived (PRESENT if present in the first period, LATE if first seen later, LEFT_EARLY if absent from the last period; rule OQ-110) and the class teacher confirms it.
+- **SR-AT-04 (Confirmed, DL-100):** A register locks at the campus end-of-day time. After lock, a mark changes only by an AT05 correction with a reason, approved by the coordinator, except when an approved leave request or a gate event changes it.
 - **SR-AT-05 (Known, Arch § Security):** Every mark change, correction, leave decision and ICA filing is in the immutable audit log.
 - **SR-AT-06 (Known for GIIS SG, HB p.23, p.166; Arch step 2):** Leave of 1–2 school days goes to the class teacher; more than 2 goes to the Principal with the class teacher and coordinator informed and a Case created. The day counts are campus settings (DL-59 pattern).
 - **SR-AT-07 (Known for GIIS SG, HB p.23, p.166):** Medical leave needs a medical certificate, due when the student returns. Until it's uploaded the request shows CERTIFICATE_DUE and the days have `valid_reason` false.
 - **SR-AT-08 (Assumed, DL-101):** Approved leave sets the days' marks to ON_LEAVE (source LEAVE). Leave approved after the days have passed corrects ABSENT marks automatically, without coordinator approval.
 - **SR-AT-09 (Known for GIIS SG, HB p.23, p.174):** A late sign-in sets the day mark to LATE with the arrival time. An out pass needs the class teacher's or level coordinator's approval before the student leaves, and sets LEFT_EARLY.
 - **SR-AT-10 (Known for GIIS SG, HB p.166; Assumed mechanism DL-104):** Each student is measured against every AT08 rule that applies to them. GIIS SG: Student Pass 90% per month; others from Class 6 85% per semester; others KG–Class 5 75% per term, which the Principal may relax. Class teachers see the threshold only (DL-30).
-- **SR-AT-11 (Known for GIIS SG, HB p.166–167; Assumed mechanism DL-105):** For a Student Pass holder, more than 7 consecutive school days absent, or a month under 90% without a valid reason, opens an ICA review Case for the Tier 3 owner. The system never notifies ICA itself; the owner records the filing.
+- **SR-AT-11 (Known for GIIS SG, HB p.166–167; Confirmed mechanism DL-105):** For a Student Pass holder, more than 7 consecutive school days absent, or a month under 90% without a valid reason, opens an ICA review Case for the Tier 3 owner. The system never notifies ICA itself; the owner records the filing.
 - **SR-AT-12 (Assumed, DL-107):** A student ABSENT at the register cut-off with no approved leave triggers a same-day parent notice (UNEXPLAINED_ABSENCE).
 - **SR-AT-13 (Assumed, DL-106; Confirmed consumers DL-92, DL-95):** Assessment reads AT09 for report cards and promotion; never reasons or certificates.
 - **SR-AT-14 (Known, HB p.234):** No marks after the enrolment's last attendance date (ST02 `end_date`). A mid-year joiner is measured from their start date (OQ-115).
@@ -306,19 +306,19 @@ CalendarPublished, RegisterSubmitted, RegisterLocked, AttendanceMarked, MarkCorr
 
 `attendance.calendar.manage` · `attendance.register.take` (scoped to own classes; DL-73) · `attendance.register.view` · `attendance.mark.edit_after_lock` (exists in S4) · `attendance.correction.approve` · `attendance.leave.request` (parent path) · `attendance.leave.approve` (class teacher up to the campus limit; Principal above) · `attendance.certificate.view` (Tier 3) · `attendance.gate.record` · `attendance.out_pass.approve` · `attendance.rule.manage` · `attendance.summary.view` · `attendance.ica.manage` (Tier 3).
 
-## Decisions (proposed, awaiting Henry)
+## Decisions (DL-99, DL-100, DL-103, DL-105 Confirmed 21 Nov 2026; others awaiting Henry)
 
 | ID | Decision | Why |
 |---|---|---|
 | DL-97 (Assumed) | Attendance is designed as its own module (capability prefix `attendance`); Conduct gets a separate dictionary. The `attendance_conduct` module team key stays until then. Feature areas of the Student Records domain (DL-43) | Attendance is the Phase 1 daily loop (Arch § Roadmap); Conduct has different roles, tiers and rules |
 | DL-98 (Assumed) | School days = weekdays in the term dates of a campus × offering × year (DL-96) minus a non-school-day list that Attendance keeps until a calendar engine exists. The % denominator is school days | One denominator for every %, already per offering |
-| DL-99 (Assumed) | One day mark per student per school day with six codes (PRESENT, LATE, LEFT_EARLY, ABSENT, ON_LEAVE, SCHOOL_ACTIVITY). Period registers are a campus setting; when on, they derive the day mark | Arch step 3 allows both; thresholds are measured in days (HB p.166) |
-| DL-100 (Assumed) | Registers lock at end of day; later changes are corrections with a reason, approved by the coordinator, except changes from approved leave or the gate log | Arch § Security audits attendance edits; S4 already names `attendance.mark.edit_after_lock` |
+| DL-99 (**Confirmed**, Henry 21 Nov 2026) | One day mark per student per school day with six codes (PRESENT, LATE, LEFT_EARLY, ABSENT, ON_LEAVE, SCHOOL_ACTIVITY). Period registers are a campus setting; when on, they derive the day mark | Arch step 3 allows both; thresholds are measured in days (HB p.166) |
+| DL-100 (**Confirmed**, Henry 21 Nov 2026) | Registers lock at end of day; later changes are corrections with a reason, approved by the coordinator, except changes from approved leave or the gate log | Arch § Security audits attendance edits; S4 already names `attendance.mark.edit_after_lock` |
 | DL-101 (Assumed) | Parents request leave in the app; 1–2 school days → class teacher, more than 2 → Principal (with a Case); medical leave needs a certificate on return; approved leave sets ON_LEAVE | HB p.23, p.166; Arch step 2 |
 | DL-102 (Assumed) | Reception/security keep the gate log; late sign-in sets LATE, an approved out pass sets LEFT_EARLY; devices can feed the same events later | HB p.23, p.174; Arch § Integrations |
-| DL-103 (Assumed) | Attendance % = days attended ÷ school days from the enrolment start; LATE, LEFT_EARLY and SCHOOL_ACTIVITY count as attended; ON_LEAVE doesn't (pending OQ-108). Calculated, never typed | Matches how thresholds are stated (HB p.166) |
+| DL-103 (**Confirmed**, Henry 21 Nov 2026) | Attendance % = days attended ÷ school days from the enrolment start; LATE, LEFT_EARLY and SCHOOL_ACTIVITY count as attended; ON_LEAVE doesn't (answers OQ-108). Calculated, never typed | Matches how thresholds are stated (HB p.166) |
 | DL-104 (Assumed) | Thresholds are campus rules per student group and measurement period, no group default; the system projects each student's % and warns teacher, coordinator and parent when at risk | Arch § Principles 3 and step 4; DL-59 pattern |
-| DL-105 (Assumed) | The ICA trigger opens a Tier 3 Case for the Admissions/registrar owner; a person files the notice and records it; teachers never see the link | HB p.166–167; DL-30; Arch § Integrations "Case exports" |
+| DL-105 (**Confirmed**, Henry 21 Nov 2026) | The ICA trigger opens a Tier 3 Case for the Admissions/registrar owner; a person files the notice and records it; teachers never see the link | HB p.166–167; DL-30; Arch § Integrations "Case exports" |
 | DL-106 (Assumed) | Other modules read only the attendance summary (days, %), never reasons or certificates; fee status never blocks attendance | DL-95, DL-66 pattern; DL-83 |
 | DL-107 (Assumed) | Parents see their own child's marks, times, leave and % the same day, and get a same-day notice for an unexplained absence | MyGIIS parity; Arch § Users and roles (parent) |
 
@@ -326,7 +326,7 @@ CalendarPublished, RegisterSubmitted, RegisterLocked, AttendanceMarked, MarkCorr
 
 | ID | Question | Why it matters for design |
 |---|---|---|
-| OQ-108 | Does approved leave (especially medical leave with a certificate) count against a student's attendance %, or only against the ICA rule's "without a valid reason"? The handbook also says "a minimum of 90% attendance is mandatory for all students" (p.23) but gives 90/85/75% by group on p.166. | The % shown to parents; promotion and ICA |
+| OQ-108 | Does approved leave (especially medical leave with a certificate) count against a student's attendance %, or only against the ICA rule's "without a valid reason"? The handbook also says "a minimum of 90% attendance is mandatory for all students" (p.23) but gives 90/85/75% by group on p.166. | The % shown to parents; promotion and ICA. **Answered for leave → DL-103** (approved leave is not attended, 21 Nov 2026); which handbook figure applies (p.23 90% for all vs p.166 by group) is still open |
 | OQ-109 | Who approves leave when the class teacher or Principal is away (co-teacher, Vice Principal), and do other brands route by days the same way? | Approval routing and delegation |
 | OQ-110 | What are the register cut-off and lock times per campus, who may correct a locked mark (coordinator or Principal), and who takes the register when the class teacher is absent? With period registers, which period decides LATE and LEFT_EARLY? | Overdue registers, correction approvals, cover |
 | OQ-111 | How are partial days (half-day leave, medical appointments) recorded, and what are the late-arrival steps for Middle and Senior students (HB p.174–175)? | Mark codes and repeated-late alerts |
@@ -344,4 +344,4 @@ CalendarPublished, RegisterSubmitted, RegisterLocked, AttendanceMarked, MarkCorr
 ## Readiness
 
 - **Can be designed now:** class teacher's daily register (phone first), the coordinator's register status board, parent leave request and the approvals inbox, reception gate log (late sign-in, out pass), student attendance view with % against threshold, at-risk list, ICA review Case shell, school-day calendar with GIIS SG 2026-27 holidays.
-- **Keep generic, label Pending:** whether leave counts against % (OQ-108), cut-off and lock times (OQ-110), partial days (OQ-111), ICA filing steps (OQ-112), non-GIIS thresholds (OQ-113), student app access (OQ-117).
+- **Keep generic, label Pending:** which handbook figure applies (OQ-108 remainder), cut-off and lock times (OQ-110), partial days (OQ-111), ICA filing steps (OQ-112), non-GIIS thresholds (OQ-113), student app access (OQ-117).
