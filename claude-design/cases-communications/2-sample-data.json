@@ -1,0 +1,1574 @@
+{
+  "_about": "Synthetic sample data for Cases & Communications screens (OBJ-10 Case, OBJ-26 Message and announcement). All people are invented except the published policy roles. GIIS SG deadlines come from the GIIS Student Handbook 2025-26 (complaints p.249-250; withdrawal p.233-234; transfer p.235-236; refund p.245) and are GIIS SG case policy settings, not group rules (DL-121, DL-59 pattern). Working days = Mon-Fri minus Singapore public holidays (Deepavali 9-10 Nov 2026), vacations counted (DL-122, OQ-130). Day 0 = receipt. Viewer Priya Menon, Customer Relations Officer, SG-PGL; 'today' Monday 23 Nov 2026, 09:30 SGT. Reuses people and case numbers from the attendance, fees, assessment and classes samples.",
+  "today": "2026-11-23",
+  "now_local": "2026-11-23T09:30+08:00",
+  "viewer": {
+    "name": "Priya Menon",
+    "role": "Customer Relations Officer",
+    "campus": "SG-PGL",
+    "sees": "SG-PGL Customer Relations and Helpdesk queues, cases she receives"
+  },
+  "other_viewers": [
+    {
+      "name": "Dr Anita Rao",
+      "role": "Principal",
+      "campus": "SG-PGL",
+      "sees": "Escalated complaints, approvals, deadline performance, restricted cases she is named on"
+    },
+    {
+      "name": "Farah Ismail",
+      "role": "Class Teacher, 7B",
+      "campus": "SG-PGL",
+      "device": "phone",
+      "sees": "Conversations with 7B guardians, 7B announcements, cases she raised"
+    },
+    {
+      "name": "Meera Joshi",
+      "role": "Academic Coordinator, CBSE Middle (Grades 6-8)",
+      "campus": "SG-PGL",
+      "sees": "Academic complaints for Grades 6-8, grade announcements to send for approval"
+    },
+    {
+      "name": "Lina Goh",
+      "role": "Admissions Officer (Tier 3)",
+      "campus": "SG-PGL",
+      "sees": "Withdrawals, transfers, Student Pass and ICA review cases (restricted)"
+    },
+    {
+      "name": "Vivek Menon",
+      "role": "Country Director, GIIS Singapore",
+      "campus": "GIIS SG brand-country",
+      "sees": "Dispute Resolution Committee cases, refund approvals, case policies"
+    },
+    {
+      "name": "Claire Tan",
+      "role": "Principal, OWIS Digital Campus",
+      "campus": "SG-OWD",
+      "sees": "OWIS cases with 'Not set' deadlines"
+    },
+    {
+      "name": "Neha Sharma",
+      "role": "Parent of Aarav Sharma (7B)",
+      "sees": "Own requests and replies, messages, announcements (Parent app, later)"
+    }
+  ],
+  "working_day_calendar": {
+    "campus": "SG-PGL",
+    "year": 2026,
+    "working_week": "MON-FRI",
+    "office_day_end": "18:00 (sample; OQ-130)",
+    "public_holidays_nov_dec": [
+      "2026-11-09 Deepavali (observed)",
+      "2026-11-10 Deepavali",
+      "2026-12-25 Christmas Day"
+    ],
+    "vacations_count_as_working_days": true,
+    "_note": "December vacation 5 Dec - 3 Jan is a school break, not an office closure (Assumed, OQ-130)"
+  },
+  "case_types": [
+    {
+      "code": "COMPLAINT",
+      "family": "FEEDBACK",
+      "owning_module": "communication_cases",
+      "tier": "T2",
+      "visibility": "NORMAL",
+      "family_visible": true
+    },
+    {
+      "code": "LEAVE_OVER_LIMIT",
+      "family": "ATTENDANCE",
+      "owning_module": "attendance",
+      "source": "AT06",
+      "tier": "T2",
+      "visibility": "NORMAL",
+      "family_visible": true
+    },
+    {
+      "code": "ICA_REVIEW",
+      "family": "IMMIGRATION",
+      "owning_module": "attendance",
+      "source": "AT10",
+      "tier": "T3",
+      "visibility": "RESTRICTED",
+      "family_visible": false
+    },
+    {
+      "code": "STUDENT_PASS",
+      "family": "IMMIGRATION",
+      "owning_module": "admissions",
+      "source": "AD10",
+      "tier": "T3",
+      "visibility": "RESTRICTED",
+      "family_visible": false
+    },
+    {
+      "code": "REFUND",
+      "family": "FINANCE",
+      "owning_module": "fees",
+      "source": "FB14",
+      "tier": "T2",
+      "visibility": "NORMAL",
+      "family_visible": true
+    },
+    {
+      "code": "LONG_LEAVE",
+      "family": "FINANCE",
+      "owning_module": "fees",
+      "source": "FB16",
+      "tier": "T2",
+      "visibility": "NORMAL",
+      "family_visible": true
+    },
+    {
+      "code": "WITHDRAWAL",
+      "family": "ENROLMENT",
+      "owning_module": "admissions",
+      "source": "ST02",
+      "tier": "T2",
+      "visibility": "NORMAL",
+      "family_visible": true
+    },
+    {
+      "code": "CAMPUS_TRANSFER",
+      "family": "ENROLMENT",
+      "owning_module": "admissions",
+      "source": "ST02",
+      "tier": "T2",
+      "visibility": "NORMAL",
+      "family_visible": true
+    },
+    {
+      "code": "PREDICTED_GRADE_APPEAL",
+      "family": "ACADEMIC",
+      "owning_module": "assessment",
+      "source": "AS13",
+      "tier": "T2",
+      "visibility": "NORMAL",
+      "family_visible": true
+    },
+    {
+      "code": "RETENTION_REQUEST",
+      "family": "ACADEMIC",
+      "owning_module": "assessment",
+      "source": "AS12",
+      "tier": "T2",
+      "visibility": "NORMAL",
+      "family_visible": true
+    },
+    {
+      "code": "YEAR_END_CAMPUS_CHANGE",
+      "family": "ENROLMENT",
+      "owning_module": "classes",
+      "source": "CL06",
+      "tier": "T2",
+      "visibility": "NORMAL",
+      "family_visible": true
+    },
+    {
+      "code": "ACCESS_REQUEST",
+      "family": "ACCESS",
+      "owning_module": "access",
+      "tier": "T1",
+      "visibility": "NORMAL",
+      "family_visible": false
+    },
+    {
+      "code": "CAMPUS_OPERATOR_HANDOVER",
+      "family": "GOVERNANCE",
+      "owning_module": "org",
+      "source": "OR05",
+      "tier": "T1",
+      "visibility": "NORMAL",
+      "family_visible": false
+    }
+  ],
+  "case_policies": [
+    {
+      "brand_country": "GIIS Singapore",
+      "type": "COMPLAINT",
+      "version": 1,
+      "valid_from": "2026-04-01",
+      "status": "PUBLISHED",
+      "steps": [
+        {
+          "step": "ACKNOWLEDGE",
+          "working_days": 2,
+          "owner": "Recipient"
+        },
+        {
+          "step": "RESOLVE",
+          "working_days": 7,
+          "owner": "Recipient or process owner"
+        },
+        {
+          "step": "SUPERVISOR",
+          "working_days": 14,
+          "owner": "Process owner with supervisor"
+        },
+        {
+          "step": "DISPUTE_COMMITTEE",
+          "working_days": 21,
+          "owner": "Dispute Resolution Committee (chair: Country Director; Academic and Examination Board)"
+        },
+        {
+          "step": "EXTERNAL_REFERRAL",
+          "working_days": null,
+          "owner": "Country Director proposes the CPE Dispute Resolution Scheme (recorded only)"
+        }
+      ],
+      "counted_from": "Receipt (14 and 21 assumed from receipt, OQ-131)",
+      "pause_when_waiting": true,
+      "source": "HB p.249-250",
+      "intake": [
+        {
+          "topic": "ACADEMIC",
+          "owner": "Class teacher, then level coordinator (HB p.8)"
+        },
+        {
+          "topic": "FEES",
+          "owner": "Finance"
+        },
+        {
+          "topic": "TRANSPORT",
+          "owner": "Transport Executive"
+        },
+        {
+          "topic": "FACILITIES",
+          "owner": "Facilities Manager (synthetic)"
+        },
+        {
+          "topic": "STAFF_CONDUCT",
+          "owner": "Principal"
+        },
+        {
+          "topic": "OTHER",
+          "owner": "Customer Relations"
+        }
+      ],
+      "_note": "Topic list and owners are sample settings (OQ-133)"
+    },
+    {
+      "brand_country": "GIIS Singapore",
+      "type": "WITHDRAWAL",
+      "version": 1,
+      "status": "PUBLISHED",
+      "steps": [
+        {
+          "step": "ACKNOWLEDGE",
+          "working_days": 2
+        },
+        {
+          "step": "EXIT_INTERVIEW",
+          "working_days": null,
+          "rule": "Before the effective date"
+        },
+        {
+          "step": "DOCUMENTS_READY",
+          "working_days": 7,
+          "rule": "After the effective date"
+        }
+      ],
+      "approvers": [
+        "Principal"
+      ],
+      "family_escalation": "Finance Controller, then Director Business and Strategy after 4 working days",
+      "source": "HB p.233-237"
+    },
+    {
+      "brand_country": "GIIS Singapore",
+      "type": "CAMPUS_TRANSFER",
+      "version": 1,
+      "status": "PUBLISHED",
+      "steps": [
+        {
+          "step": "ACKNOWLEDGE",
+          "working_days": 2
+        },
+        {
+          "step": "DECIDE",
+          "calendar_days": 21
+        },
+        {
+          "step": "PROFILE_UPDATED",
+          "working_days": 3
+        }
+      ],
+      "approvers": [
+        "Principal, originating campus",
+        "Principal, receiving campus"
+      ],
+      "source": "HB p.235-236, DL-62"
+    },
+    {
+      "brand_country": "GIIS Singapore",
+      "type": "REFUND",
+      "version": 1,
+      "status": "PUBLISHED",
+      "steps": [
+        {
+          "step": "MISSING_DOCUMENTS_NOTICE",
+          "working_days": 3
+        },
+        {
+          "step": "DOCUMENTS_DUE",
+          "working_days": 7,
+          "owner": "Family"
+        }
+      ],
+      "approvers": [
+        "Finance Controller",
+        "Country Director"
+      ],
+      "family_escalation": "Finance Controller, then Country Director after 4 working days",
+      "source": "HB p.244-245, DL-84"
+    },
+    {
+      "brand_country": "GIIS Singapore",
+      "type": "LEAVE_OVER_LIMIT",
+      "version": 1,
+      "status": "PUBLISHED",
+      "steps": [
+        {
+          "step": "DECIDE",
+          "working_days": null,
+          "rule": "Before the leave starts (OQ-109)"
+        }
+      ],
+      "approvers": [
+        "Principal"
+      ],
+      "informed": [
+        "Class teacher",
+        "Coordinator"
+      ],
+      "source": "HB p.23, DL-101"
+    },
+    {
+      "brand_country": "OWIS Singapore",
+      "type": "COMPLAINT",
+      "version": null,
+      "status": "Not set",
+      "_note": "No OWIS complaint process documented (OQ-143)"
+    },
+    {
+      "brand_country": "GIIS India",
+      "type": "COMPLAINT",
+      "version": null,
+      "status": "Not set",
+      "_note": "CPE is a Singapore scheme; India process Open (OQ-143)"
+    }
+  ],
+  "cases": [
+    {
+      "case": "CASE-SG-2026-1296",
+      "type": "COMPLAINT",
+      "campus": "SG-PGL",
+      "topic": "TRANSPORT",
+      "title": "School bus route 14 late three times in November",
+      "raised_by": "Neha Sharma (mother of Aarav Sharma, 7B)",
+      "received_via": "MESSAGE",
+      "received_at": "2026-11-19T16:10",
+      "converted_from": "CONV-PGL-0881",
+      "status": "IN_PROGRESS",
+      "current_step": "RESOLVE",
+      "escalation": "With process owner",
+      "recipient": "Farah Ismail (class teacher)",
+      "assignee": "Ravi Kumar (Transport Executive)",
+      "queue": "SG-PGL Transport",
+      "visibility": "NORMAL",
+      "family_visible": true,
+      "deadlines": [
+        {
+          "step": "ACKNOWLEDGE",
+          "working_days": 2,
+          "due": "2026-11-23",
+          "status": "MET",
+          "met": "2026-11-20T10:05"
+        },
+        {
+          "step": "RESOLVE",
+          "working_days": 7,
+          "due": "2026-11-30",
+          "status": "PENDING"
+        },
+        {
+          "step": "SUPERVISOR",
+          "working_days": 14,
+          "due": "2026-12-09",
+          "status": "PENDING"
+        },
+        {
+          "step": "DISPUTE_COMMITTEE",
+          "working_days": 21,
+          "due": "2026-12-18",
+          "status": "PENDING"
+        }
+      ],
+      "timeline": [
+        {
+          "at": "2026-11-19T16:10",
+          "kind": "LINKED",
+          "by": "Farah Ismail",
+          "text": "Turned message into a complaint. Deadline counts from when Mrs Sharma wrote (SR-CC-12)."
+        },
+        {
+          "at": "2026-11-20T10:05",
+          "kind": "REPLY_TO_FAMILY",
+          "by": "Farah Ismail",
+          "channel": "EMAIL",
+          "text": "Thank you, Mrs Sharma. We have logged your complaint as CASE-SG-2026-1296 and passed it to our Transport Executive. You will hear from us by Mon 30 Nov."
+        },
+        {
+          "at": "2026-11-20T10:06",
+          "kind": "ASSIGNED",
+          "by": "Farah Ismail",
+          "text": "Forwarded to process owner Ravi Kumar (HB p.249 C)."
+        },
+        {
+          "at": "2026-11-20T14:30",
+          "kind": "INTERNAL_NOTE",
+          "by": "Ravi Kumar",
+          "text": "Operator confirms driver change on route 14 since 16 Nov. Asking for GPS logs."
+        }
+      ],
+      "next_due": "2026-11-30",
+      "overdue": false
+    },
+    {
+      "case": "CASE-SG-2026-1274",
+      "type": "COMPLAINT",
+      "campus": "SG-PGL",
+      "topic": "ACADEMIC",
+      "title": "Homework load in Grade 8 during exam weeks",
+      "raised_by": "Vikram Iyer (father of Rohan Iyer, 8A)",
+      "received_via": "EMAIL",
+      "received_at": "2026-11-04T11:20",
+      "status": "IN_PROGRESS",
+      "current_step": "SUPERVISOR",
+      "escalation": "With supervisor",
+      "recipient": "Meera Joshi (Academic Coordinator, CBSE 6-8)",
+      "assignee": "Meera Joshi",
+      "supervisor": "Rajesh Pillai (Deputy Principal, CBSE 6-12)",
+      "queue": "SG-PGL Academic",
+      "visibility": "NORMAL",
+      "family_visible": true,
+      "deadlines": [
+        {
+          "step": "ACKNOWLEDGE",
+          "working_days": 2,
+          "due": "2026-11-06",
+          "status": "MET",
+          "met": "2026-11-05T09:00"
+        },
+        {
+          "step": "RESOLVE",
+          "working_days": 7,
+          "due": "2026-11-17",
+          "status": "BREACHED"
+        },
+        {
+          "step": "SUPERVISOR",
+          "working_days": 14,
+          "due": "2026-11-26",
+          "status": "PENDING"
+        },
+        {
+          "step": "DISPUTE_COMMITTEE",
+          "working_days": 21,
+          "due": "2026-12-07",
+          "status": "PENDING"
+        }
+      ],
+      "timeline": [
+        {
+          "at": "2026-11-05T09:00",
+          "kind": "REPLY_TO_FAMILY",
+          "by": "Meera Joshi",
+          "channel": "EMAIL",
+          "text": "Acknowledged; reviewing Grade 8 homework calendar with subject teachers."
+        },
+        {
+          "at": "2026-11-17T18:00",
+          "kind": "DEADLINE_BREACHED",
+          "by": "System",
+          "text": "Not closed within 7 working days. Moved to supervisor step; Rajesh Pillai and Mr Iyer told (SR-CC-03)."
+        },
+        {
+          "at": "2026-11-18T12:15",
+          "kind": "INTERNAL_NOTE",
+          "by": "Rajesh Pillai",
+          "text": "Meeting with Mr Iyer booked for Wed 25 Nov."
+        }
+      ],
+      "next_due": "2026-11-26",
+      "overdue": false
+    },
+    {
+      "case": "CASE-SG-2026-1259",
+      "type": "COMPLAINT",
+      "campus": "SG-PGL",
+      "topic": "FEES",
+      "title": "Late payment charge disputed on Term 2 invoice",
+      "raised_by": "Sunita Reddy (mother of Kiran Reddy, 5C)",
+      "received_via": "LETTER",
+      "received_at": "2026-10-22T09:45",
+      "status": "IN_PROGRESS",
+      "current_step": "DISPUTE_COMMITTEE",
+      "escalation": "With committee",
+      "recipient": "Priya Menon (Customer Relations Officer)",
+      "assignee": "Vivek Menon (Country Director, chair)",
+      "committee": [
+        "Vivek Menon (Country Director, chair)",
+        "Academic and Examination Board members",
+        "Dr Anita Rao (Principal)"
+      ],
+      "queue": "GIIS SG Dispute Resolution Committee",
+      "visibility": "NORMAL",
+      "family_visible": true,
+      "deadlines": [
+        {
+          "step": "ACKNOWLEDGE",
+          "working_days": 2,
+          "due": "2026-10-26",
+          "status": "MET",
+          "met": "2026-10-22T15:00"
+        },
+        {
+          "step": "RESOLVE",
+          "working_days": 7,
+          "due": "2026-11-02",
+          "status": "BREACHED"
+        },
+        {
+          "step": "SUPERVISOR",
+          "working_days": 14,
+          "due": "2026-11-13",
+          "status": "BREACHED"
+        },
+        {
+          "step": "DISPUTE_COMMITTEE",
+          "working_days": 21,
+          "due": "2026-11-24",
+          "status": "PENDING"
+        }
+      ],
+      "family_escalation": "If no agreed solution by the committee date, the Country Director proposes the CPE Dispute Resolution Scheme (HB p.250 I)",
+      "timeline": [
+        {
+          "at": "2026-11-02T18:00",
+          "kind": "DEADLINE_BREACHED",
+          "by": "System",
+          "text": "Not closed in 7 working days; with Finance Controller's supervisor."
+        },
+        {
+          "at": "2026-11-13T18:00",
+          "kind": "ESCALATED",
+          "by": "System",
+          "text": "Still open at 14 working days; sent to the Dispute Resolution Committee (HB p.250 F-G)."
+        }
+      ],
+      "next_due": "2026-11-24",
+      "overdue": false
+    },
+    {
+      "case": "CASE-SG-2026-1299",
+      "type": "COMPLAINT",
+      "campus": "SG-PGL",
+      "topic": "CANTEEN",
+      "title": "Child found hair in canteen lunch",
+      "raised_by": "Grace Lim (mother of Ethan Lim, 7B)",
+      "received_via": "PHONE",
+      "received_at": "2026-11-20T15:05",
+      "status": "NEW",
+      "current_step": "ACKNOWLEDGE",
+      "escalation": "With recipient",
+      "recipient": null,
+      "assignee": null,
+      "queue": "SG-PGL Customer Relations",
+      "logged_by": "Siti Rahman (Reception)",
+      "visibility": "NORMAL",
+      "family_visible": true,
+      "deadlines": [
+        {
+          "step": "ACKNOWLEDGE",
+          "working_days": 2,
+          "due": "2026-11-24",
+          "status": "PENDING"
+        },
+        {
+          "step": "RESOLVE",
+          "working_days": 7,
+          "due": "2026-12-01",
+          "status": "PENDING"
+        },
+        {
+          "step": "SUPERVISOR",
+          "working_days": 14,
+          "due": "2026-12-10",
+          "status": "PENDING"
+        },
+        {
+          "step": "DISPUTE_COMMITTEE",
+          "working_days": 21,
+          "due": "2026-12-21",
+          "status": "PENDING"
+        }
+      ],
+      "timeline": [],
+      "next_due": "2026-11-24",
+      "overdue": false
+    },
+    {
+      "case": "CASE-SG-2026-1297",
+      "type": "COMPLAINT",
+      "campus": "SG-PGL",
+      "topic": "COMMUNICATION",
+      "title": "Did not receive PTM slot booking link",
+      "raised_by": "Mohammed Noor (father of Fatima Noor, 7B)",
+      "received_via": "HELPDESK",
+      "received_at": "2026-11-18T08:40",
+      "status": "NEW",
+      "current_step": "ACKNOWLEDGE",
+      "escalation": "With recipient",
+      "recipient": null,
+      "assignee": null,
+      "queue": "SG-PGL Helpdesk",
+      "visibility": "NORMAL",
+      "family_visible": true,
+      "deadlines": [
+        {
+          "step": "ACKNOWLEDGE",
+          "working_days": 2,
+          "due": "2026-11-20",
+          "status": "BREACHED"
+        },
+        {
+          "step": "RESOLVE",
+          "working_days": 7,
+          "due": "2026-11-27",
+          "status": "PENDING"
+        },
+        {
+          "step": "SUPERVISOR",
+          "working_days": 14,
+          "due": "2026-12-08",
+          "status": "PENDING"
+        },
+        {
+          "step": "DISPUTE_COMMITTEE",
+          "working_days": 21,
+          "due": "2026-12-17",
+          "status": "PENDING"
+        }
+      ],
+      "_note": "Arrived at the general helpdesk mailbox; nobody triaged it (OQ-144). Acknowledgement was due Fri 20 Nov.",
+      "timeline": [],
+      "next_due": "2026-11-20",
+      "overdue": true
+    },
+    {
+      "case": "CASE-SG-2026-1281",
+      "type": "COMPLAINT",
+      "campus": "SG-PGL",
+      "topic": "FACILITIES",
+      "title": "Air-conditioning not working in Grade 5C classroom",
+      "raised_by": "Sunita Reddy (mother of Kiran Reddy, 5C)",
+      "received_via": "EMAIL",
+      "received_at": "2026-11-12T13:30",
+      "status": "IN_PROGRESS",
+      "current_step": "RESOLVE",
+      "escalation": "With process owner",
+      "recipient": "Priya Menon (Customer Relations Officer)",
+      "assignee": "Daniel Ong (Facilities Manager)",
+      "queue": "SG-PGL Facilities",
+      "visibility": "NORMAL",
+      "family_visible": true,
+      "deadlines": [
+        {
+          "step": "ACKNOWLEDGE",
+          "working_days": 2,
+          "due": "2026-11-16",
+          "status": "MET",
+          "met": "2026-11-12T16:00"
+        },
+        {
+          "step": "RESOLVE",
+          "working_days": 7,
+          "due": "2026-11-23",
+          "status": "PENDING"
+        },
+        {
+          "step": "SUPERVISOR",
+          "working_days": 14,
+          "due": "2026-12-02",
+          "status": "PENDING"
+        },
+        {
+          "step": "DISPUTE_COMMITTEE",
+          "working_days": 21,
+          "due": "2026-12-11",
+          "status": "PENDING"
+        }
+      ],
+      "timeline": [
+        {
+          "at": "2026-11-20T11:00",
+          "kind": "INTERNAL_NOTE",
+          "by": "Daniel Ong",
+          "text": "Compressor replaced 19 Nov. Reply to parent drafted."
+        }
+      ],
+      "next_due": "2026-11-23",
+      "overdue": false
+    },
+    {
+      "case": "CASE-SG-2026-1270",
+      "type": "COMPLAINT",
+      "campus": "SG-PGL",
+      "topic": "STAFF_CONDUCT",
+      "title": "Concern about comments made in a Grade 6 class",
+      "raised_by": "Anjali Desai (mother of Kabir Desai, 6A)",
+      "received_via": "IN_PERSON",
+      "received_at": "2026-11-02T10:00",
+      "status": "WAITING",
+      "current_step": "RESOLVE",
+      "escalation": "With process owner",
+      "waiting_for": "Parent to confirm the dates and the subject lesson",
+      "paused": {
+        "since": "2026-11-11",
+        "working_days": 8
+      },
+      "recipient": "Dr Anita Rao (Principal)",
+      "assignee": "Dr Anita Rao",
+      "queue": "SG-PGL Principal",
+      "visibility": "RESTRICTED",
+      "family_visible": true,
+      "deadlines": [
+        {
+          "step": "ACKNOWLEDGE",
+          "working_days": 2,
+          "due": "2026-11-04",
+          "status": "MET",
+          "met": "2026-11-03T09:30"
+        },
+        {
+          "step": "RESOLVE",
+          "working_days": 7,
+          "due": "2026-11-25",
+          "status": "PENDING"
+        },
+        {
+          "step": "SUPERVISOR",
+          "working_days": 14,
+          "due": "2026-12-04",
+          "status": "PENDING"
+        },
+        {
+          "step": "DISPUTE_COMMITTEE",
+          "working_days": 21,
+          "due": "2026-12-15",
+          "status": "PENDING"
+        }
+      ],
+      "_note": "Complaint names a teacher, so the Principal made it RESTRICTED: the teacher and coordinator don't see it (OQ-134). Clock paused while waiting (DL-122, OQ-131); deadlines moved by 8 working days so far.",
+      "timeline": [
+        {
+          "at": "2026-11-11T14:00",
+          "kind": "STATUS_CHANGE",
+          "by": "Dr Anita Rao",
+          "text": "Waiting for family: asked Mrs Desai for the dates."
+        }
+      ],
+      "next_due": "2026-11-25",
+      "overdue": false
+    },
+    {
+      "case": "CASE-SG-2026-1288",
+      "type": "LEAVE_OVER_LIMIT",
+      "campus": "SG-PGL",
+      "source": "Attendance AT06 LV-PGL-26-0421",
+      "title": "Leave 30 Nov - 4 Dec (5 school days), Manav Joshi 7B",
+      "raised_by": "Ritu Joshi (mother)",
+      "received_via": "APP",
+      "received_at": "2026-11-17T19:40",
+      "status": "NEW",
+      "current_step": "DECIDE",
+      "assignee": "Dr Anita Rao (Principal)",
+      "queue": "SG-PGL Principal",
+      "informed": [
+        "Farah Ismail (class teacher)",
+        "Meera Joshi (coordinator)"
+      ],
+      "visibility": "NORMAL",
+      "family_visible": true,
+      "deadlines": [
+        {
+          "step": "DECIDE",
+          "due": "2026-11-27",
+          "status": "PENDING",
+          "_note": "Before the leave starts; deadline Not set in policy (OQ-109), sample uses the last working day before"
+        }
+      ],
+      "decisions": [
+        {
+          "role": "Principal",
+          "by": null,
+          "decision": null
+        }
+      ],
+      "next_due": "2026-11-27",
+      "overdue": false
+    },
+    {
+      "case": "CASE-SG-2026-1291",
+      "type": "ICA_REVIEW",
+      "campus": "SG-PGL",
+      "source": "Attendance AT10",
+      "title": "ICA review: 8 consecutive school days absent",
+      "raised_by": "System (attendance rule)",
+      "received_via": "SYSTEM",
+      "received_at": "2026-11-19T07:00",
+      "status": "IN_PROGRESS",
+      "current_step": "REVIEW",
+      "assignee": "Lina Goh (Admissions Officer, Tier 3)",
+      "queue": "SG-PGL Admissions (Tier 3)",
+      "visibility": "RESTRICTED",
+      "family_visible": false,
+      "deadlines": [
+        {
+          "step": "REVIEW",
+          "due": "Not set (OQ-112)",
+          "status": "PENDING"
+        }
+      ],
+      "_note": "Only Lina Goh and A17 holders see this row. Everyone else's inbox doesn't show it at all; the campus dashboard counts it as 1 restricted case (DL-125).",
+      "next_due": "Not set (OQ-112)",
+      "overdue": false
+    },
+    {
+      "case": "CASE-SG-2026-1187",
+      "type": "REFUND",
+      "campus": "SG-PGL",
+      "source": "Fees FB14 RF-SG-2026-0041",
+      "title": "Registration fee refund, Hana Kim (Student Pass rejected)",
+      "raised_by": "Admissions",
+      "received_via": "SYSTEM",
+      "received_at": "2026-11-02T10:00",
+      "status": "DECIDED",
+      "outcome": "APPROVED",
+      "current_step": "APPLY",
+      "assignee": "Finance, SG",
+      "queue": "SG Finance",
+      "visibility": "NORMAL",
+      "family_visible": true,
+      "decisions": [
+        {
+          "role": "Finance Controller",
+          "by": "Wendy Koh",
+          "decision": "APPROVE",
+          "at": "2026-11-05"
+        },
+        {
+          "role": "Country Director",
+          "by": "Vivek Menon",
+          "decision": "APPROVE",
+          "at": "2026-11-06"
+        }
+      ],
+      "deadlines": [
+        {
+          "step": "APPLY",
+          "due": "Not set",
+          "status": "PENDING"
+        }
+      ],
+      "family_escalation": "If the refund isn't paid in time: Finance Controller, then after 4 working days the Country Director (HB p.245)",
+      "next_due": "Not set",
+      "overdue": false
+    },
+    {
+      "case": "CASE-SG-2026-1203",
+      "type": "REFUND",
+      "campus": "SG-PGL",
+      "source": "Fees FB14 RF-SG-2026-0047",
+      "title": "Term refund, Chloe Tan Wei Ling (withdrawal)",
+      "raised_by": "Finance",
+      "received_via": "SYSTEM",
+      "received_at": "2026-11-10T09:00",
+      "status": "WAITING",
+      "current_step": "DOCUMENTS_DUE",
+      "waiting_for": "Bank details and signed withdrawal form",
+      "assignee": "Wendy Koh (Finance Controller)",
+      "queue": "SG Finance",
+      "visibility": "NORMAL",
+      "family_visible": true,
+      "deadlines": [
+        {
+          "step": "MISSING_DOCUMENTS_NOTICE",
+          "working_days": 3,
+          "due": "2026-11-13",
+          "status": "MET",
+          "met": "2026-11-11"
+        },
+        {
+          "step": "DOCUMENTS_DUE",
+          "working_days": 7,
+          "due": "2026-11-20",
+          "status": "BREACHED",
+          "_note": "Family had 7 working days to send documents (HB p.245). Missed: refund is forfeited unless the Finance Controller and Country Director approve an extension"
+        }
+      ],
+      "overdue": true,
+      "next_due": "2026-11-20",
+      "overdue_label": "Family deadline passed"
+    },
+    {
+      "case": "CASE-SG-2026-1294",
+      "type": "WITHDRAWAL",
+      "campus": "SG-PGL",
+      "source": "Student Records ST02 (approval_case_id)",
+      "title": "Withdrawal, Gauri Patel 7B (relocating to Dubai)",
+      "raised_by": "Kunal Patel (father)",
+      "received_via": "EMAIL",
+      "received_at": "2026-11-17T09:15",
+      "status": "IN_PROGRESS",
+      "current_step": "EXIT_INTERVIEW",
+      "assignee": "Lina Goh (Admissions)",
+      "queue": "SG-PGL Admissions",
+      "visibility": "NORMAL",
+      "family_visible": true,
+      "deadlines": [
+        {
+          "step": "ACKNOWLEDGE",
+          "working_days": 2,
+          "due": "2026-11-19",
+          "status": "MET",
+          "met": "2026-11-18"
+        },
+        {
+          "step": "EXIT_INTERVIEW",
+          "due": "2026-11-25",
+          "status": "PENDING",
+          "_note": "Booked with Dr Anita Rao; must be before the effective date (HB p.234)"
+        },
+        {
+          "step": "DOCUMENTS_READY",
+          "working_days": 7,
+          "due": "7 working days after the effective date (31 Dec 2026)",
+          "status": "PENDING"
+        }
+      ],
+      "decisions": [
+        {
+          "role": "Principal",
+          "by": null,
+          "decision": null
+        }
+      ],
+      "family_escalation": "If not completed in time: Finance Controller, then after 4 working days the Director Business and Strategy (HB p.237)",
+      "next_due": "2026-11-25",
+      "overdue": false
+    },
+    {
+      "case": "CASE-SG-2026-1285",
+      "type": "CAMPUS_TRANSFER",
+      "campus": "SG-PGL",
+      "second_campus": "SG-ECS",
+      "title": "Course change CBSE to IGCSE Grade 9 at East Coast, Ishaan Gupta 8A",
+      "raised_by": "Pooja Gupta (mother)",
+      "received_via": "APP",
+      "received_at": "2026-11-09T20:00",
+      "status": "IN_PROGRESS",
+      "current_step": "DECIDE",
+      "assignee": "Dr Anita Rao (Principal, SG-PGL)",
+      "queue": "SG-PGL Principal",
+      "visibility": "NORMAL",
+      "family_visible": true,
+      "participants": [
+        {
+          "name": "Principal, SG-ECS (synthetic: Mr Harish Nair)",
+          "role": "APPROVER",
+          "access": "A15 on this case only (DL-130)"
+        }
+      ],
+      "decisions": [
+        {
+          "role": "Principal, originating campus",
+          "by": "Dr Anita Rao",
+          "decision": "APPROVE",
+          "at": "2026-11-19"
+        },
+        {
+          "role": "Principal, receiving campus",
+          "by": null,
+          "decision": null
+        }
+      ],
+      "deadlines": [
+        {
+          "step": "ACKNOWLEDGE",
+          "working_days": 2,
+          "due": "2026-11-12",
+          "status": "MET",
+          "met": "2026-11-11",
+          "_note": "Received on a public holiday (Deepavali, 9 Nov); counting starts the next working day"
+        },
+        {
+          "step": "DECIDE",
+          "due": "2026-11-30",
+          "status": "PENDING",
+          "_note": "Within 3 weeks of the request (HB p.236)"
+        },
+        {
+          "step": "PROFILE_UPDATED",
+          "working_days": 3,
+          "due": "3 working days after the decision",
+          "status": "PENDING"
+        }
+      ],
+      "next_due": "2026-11-30",
+      "overdue": false
+    },
+    {
+      "case": "CASE-SG-2026-1201",
+      "type": "PREDICTED_GRADE_APPEAL",
+      "campus": "SG-ECS",
+      "source": "Assessment AS13",
+      "title": "Predicted grade appeal, IB DP Physics HL",
+      "raised_by": "Guardian",
+      "received_via": "APP",
+      "received_at": "2026-11-12T10:00",
+      "status": "IN_PROGRESS",
+      "current_step": "COMMITTEE",
+      "assignee": "Principal, SG-ECS (committee chair)",
+      "queue": "SG-ECS Principal",
+      "committee": [
+        "Principal",
+        "Academic Supervisor",
+        "IB Coordinator",
+        "Career Counsellor"
+      ],
+      "visibility": "NORMAL",
+      "family_visible": true,
+      "deadlines": [
+        {
+          "step": "COMMITTEE",
+          "due": "Not set (committee met 20 Nov)",
+          "status": "PENDING"
+        }
+      ],
+      "next_due": "Not set (committee met 20 Nov)",
+      "overdue": false
+    },
+    {
+      "case": "CASE-SG-2026-1150",
+      "type": "LONG_LEAVE",
+      "campus": "SG-ECS",
+      "source": "Fees FB16",
+      "title": "Long leave Dec 2026 - Feb 2027, Kavya Nair",
+      "status": "APPLIED",
+      "outcome": "APPROVED",
+      "current_step": "-",
+      "received_at": "2026-10-14T09:00",
+      "received_via": "APP",
+      "raised_by": "Guardian",
+      "assignee": "Associate Director Academic Quality Assurance",
+      "visibility": "NORMAL",
+      "family_visible": true,
+      "deadlines": [],
+      "decisions": [
+        {
+          "role": "Associate Director Academic QA",
+          "by": "synthetic",
+          "decision": "APPROVE",
+          "at": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "case": "CASE-SG-2026-1290",
+      "type": "ACCESS_REQUEST",
+      "campus": "SG-PGL",
+      "source": "Access Registry (DL-08)",
+      "title": "Tier 3 type grant: counsellor access to SEN records",
+      "raised_by": "Staff",
+      "received_via": "APP",
+      "received_at": "2026-11-18T11:00",
+      "status": "IN_PROGRESS",
+      "current_step": "DECIDE",
+      "assignee": "Dr Anita Rao (Campus Leader, DL-69)",
+      "queue": "SG-PGL Principal",
+      "visibility": "NORMAL",
+      "family_visible": false,
+      "decisions": [
+        {
+          "role": "Campus Leader",
+          "line": "A17: SEN records, SG-PGL, until 31 Mar 2027",
+          "by": null,
+          "decision": null
+        }
+      ],
+      "deadlines": [
+        {
+          "step": "DECIDE",
+          "due": "Not set (DL-08 names timers, no values)",
+          "status": "PENDING"
+        }
+      ],
+      "next_due": "Not set (DL-08 names timers, no values)",
+      "overdue": false
+    },
+    {
+      "case": "CASE-SG-2026-1293",
+      "type": "COMPLAINT",
+      "campus": "SG-OWD",
+      "brand": "OWIS Singapore",
+      "topic": "COMMUNICATION",
+      "title": "Late notice of the Grade 4 field trip date change",
+      "raised_by": "Guardian (OWIS Digital Campus)",
+      "received_via": "EMAIL",
+      "received_at": "2026-11-19T09:00",
+      "status": "IN_PROGRESS",
+      "current_step": "-",
+      "assignee": "Claire Tan (Principal)",
+      "queue": "SG-OWD Principal",
+      "visibility": "NORMAL",
+      "family_visible": true,
+      "deadlines": [
+        {
+          "step": "ACKNOWLEDGE",
+          "due": "Not set",
+          "status": "PENDING"
+        },
+        {
+          "step": "RESOLVE",
+          "due": "Not set",
+          "status": "PENDING"
+        }
+      ],
+      "_note": "No OWIS complaint policy is documented (OQ-143): deadlines show 'Not set', never GIIS numbers (DL-59 pattern).",
+      "next_due": "Not set",
+      "overdue": false
+    },
+    {
+      "case": "CASE-IN-2026-0312",
+      "type": "REFUND",
+      "campus": "IN-NOI",
+      "source": "Fees FB14 RF-IN-2026-0006",
+      "title": "Refund, Meher Kapoor",
+      "status": "IN_PROGRESS",
+      "current_step": "CALCULATE",
+      "received_via": "SYSTEM",
+      "received_at": "2026-07-30T10:00",
+      "raised_by": "Finance",
+      "assignee": "Finance, IN",
+      "visibility": "NORMAL",
+      "family_visible": true,
+      "deadlines": [
+        {
+          "step": "DECIDE",
+          "due": "Not set (no GIIS India policy, OQ-86)",
+          "status": "PENDING"
+        }
+      ],
+      "next_due": "Not set (no GIIS India policy, OQ-86)",
+      "overdue": false
+    }
+  ],
+  "inbox_counts_priya": {
+    "new_in_my_queues": 2,
+    "overdue": 1,
+    "due_today": 1,
+    "waiting": 0,
+    "_note": "CASE-SG-2026-1297 is overdue (acknowledgement due Fri 20 Nov); CASE-SG-2026-1299 acknowledgement due Tue 24 Nov"
+  },
+  "feedback": [
+    {
+      "id": "FB-PGL-26-0310",
+      "category": "COMPLAINT",
+      "topic": "CANTEEN",
+      "from": "Grace Lim (guardian)",
+      "received_via": "PHONE",
+      "received_at": "2026-11-20T15:05",
+      "case": "CASE-SG-2026-1299",
+      "acknowledged_at": null
+    },
+    {
+      "id": "FB-PGL-26-0306",
+      "category": "COMPLIMENT",
+      "topic": "TRANSPORT",
+      "from": "Ritu Joshi (guardian)",
+      "received_via": "EMAIL",
+      "received_at": "2026-11-16T08:12",
+      "body": "Thank you to Uncle Tan, route 9 driver, for waiting when Manav was running late in the rain.",
+      "acknowledged_at": "2026-11-17T10:00",
+      "review_cycle": "Term review (OQ-135)"
+    },
+    {
+      "id": "FB-PGL-26-0307",
+      "category": "SUGGESTION",
+      "topic": "CANTEEN",
+      "from": "Student Council (Grade 8)",
+      "received_via": "LETTER",
+      "received_at": "2026-11-17T13:00",
+      "body": "Add a second vegetarian hot meal option on Fridays.",
+      "acknowledged_at": "2026-11-18T09:20",
+      "review_cycle": "Term review (OQ-135)"
+    },
+    {
+      "id": "FB-PGL-26-0309",
+      "category": "SUGGESTION",
+      "topic": "COMMUNICATION",
+      "from": "Member of the public",
+      "received_via": "EMAIL",
+      "received_at": "2026-11-19T19:40",
+      "body": "Publish the school's holiday list on the website in iCal format.",
+      "acknowledged_at": null,
+      "_note": "Acknowledgement due Mon 23 Nov (today)"
+    },
+    {
+      "id": "FB-PGL-26-0298",
+      "category": "COMPLIMENT",
+      "topic": "ACADEMIC",
+      "from": "Arjun Menon (guardian)",
+      "received_via": "MESSAGE",
+      "received_at": "2026-11-06T17:30",
+      "body": "Ms Farah's Science fair guidance was excellent.",
+      "acknowledged_at": "2026-11-06T18:00",
+      "review_cycle": "Term review (OQ-135)"
+    }
+  ],
+  "conversations_farah": [
+    {
+      "id": "CONV-PGL-0881",
+      "student": "Aarav Sharma (7B)",
+      "with": [
+        "Neha Sharma (mother)"
+      ],
+      "subject": "Bus late again",
+      "status": "CONVERTED",
+      "case": "CASE-SG-2026-1296",
+      "messages": [
+        {
+          "from": "Neha Sharma",
+          "at": "2026-11-19T16:10",
+          "text": "Ms Farah, the route 14 bus was late again today, third time this month. Aarav was marked late at 09:18. Who can I speak to?"
+        },
+        {
+          "from": "Farah Ismail",
+          "at": "2026-11-19T16:40",
+          "text": "Sorry to hear this, Mrs Sharma. I have logged it as a complaint so Transport must reply in writing. Aarav's late today is excused."
+        }
+      ]
+    },
+    {
+      "id": "CONV-PGL-0874",
+      "student": "Diya Menon (7B)",
+      "with": [
+        "Arjun Menon (father)"
+      ],
+      "subject": "Medical certificate",
+      "status": "OPEN",
+      "unread": 1,
+      "messages": [
+        {
+          "from": "Farah Ismail",
+          "at": "2026-11-20T08:05",
+          "text": "Welcome back to Diya. Please upload the GP's certificate on the leave request (not here, so it stays private)."
+        },
+        {
+          "from": "Arjun Menon",
+          "at": "2026-11-23T07:52",
+          "text": "Done, uploaded it last night. Thanks!"
+        }
+      ]
+    },
+    {
+      "id": "CONV-PGL-0869",
+      "student": "Kiara D'Souza (7B)",
+      "with": [
+        "Maria D'Souza (mother)",
+        "Joel D'Souza (father)"
+      ],
+      "subject": "Homework during leave",
+      "status": "OPEN",
+      "messages": [
+        {
+          "from": "Maria D'Souza",
+          "at": "2026-11-18T21:10",
+          "text": "Kiara will be away 23-24 Nov for a wedding. Could she get the homework in advance?"
+        },
+        {
+          "from": "Farah Ismail",
+          "at": "2026-11-19T07:45",
+          "text": "Of course. Leave approved; I'll share Monday and Tuesday's worksheets on Friday."
+        }
+      ]
+    },
+    {
+      "id": "CONV-PGL-0850",
+      "student": "Hiroshi Tanaka (7B)",
+      "with": [
+        "Yuki Tanaka (mother)"
+      ],
+      "subject": "Settling in",
+      "status": "CLOSED",
+      "messages": [
+        {
+          "from": "Farah Ismail",
+          "at": "2026-10-23T15:00",
+          "text": "Hiroshi has settled in well with House A."
+        }
+      ]
+    }
+  ],
+  "announcements": [
+    {
+      "id": "ANN-PGL-26-0412",
+      "title": "Haze advisory: outdoor PE moved indoors",
+      "audience": "SG-PGL, all grades, guardians and staff",
+      "author": "Dr Anita Rao",
+      "category": "SAFETY",
+      "status": "SENT",
+      "sent_at": "2026-11-20T07:30",
+      "channels": [
+        "PUSH",
+        "EMAIL",
+        "SMS"
+      ],
+      "ack_required": false,
+      "receipts": {
+        "sent": 2140,
+        "delivered": 2131,
+        "read": 1688
+      }
+    },
+    {
+      "id": "ANN-PGL-26-0409",
+      "title": "7B Science fair projects due Fri 4 Dec",
+      "audience": "Class 7B guardians and students",
+      "author": "Farah Ismail",
+      "category": "REQUIRED",
+      "status": "SENT",
+      "sent_at": "2026-11-18T15:00",
+      "channels": [
+        "PUSH",
+        "EMAIL"
+      ],
+      "approval_required": false,
+      "ack_required": true,
+      "ack_due": "2026-11-25",
+      "receipts": {
+        "sent": 52,
+        "delivered": 52,
+        "read": 41,
+        "acknowledged": 33
+      },
+      "_note": "Guardians of 26 students; one receipt per guardian"
+    },
+    {
+      "id": "ANN-PGL-26-0414",
+      "title": "Semester 2 mid-term timetable, Grades 6-8",
+      "audience": "SG-PGL CBSE Grades 6-8, guardians and students",
+      "author": "Meera Joshi",
+      "category": "REQUIRED",
+      "status": "AWAITING_APPROVAL",
+      "approval_required": true,
+      "approver": "Dr Anita Rao (sample; approver Open, OQ-138)",
+      "publish_at": "2026-11-24T08:00",
+      "channels": [
+        "PUSH",
+        "EMAIL"
+      ]
+    },
+    {
+      "id": "ANN-PGL-26-0415",
+      "title": "December vacation: office hours and reopening on 4 Jan",
+      "audience": "SG-PGL, all guardians",
+      "author": "Priya Menon",
+      "category": "OPTIONAL",
+      "status": "SCHEDULED",
+      "approved_by": "Dr Anita Rao",
+      "publish_at": "2026-12-03T16:00",
+      "channels": [
+        "EMAIL"
+      ]
+    }
+  ],
+  "notification_templates": [
+    {
+      "event": "AttendanceAbsentUnexplained",
+      "brand_country": "GIIS Singapore",
+      "category": "REQUIRED",
+      "language": "en",
+      "channel": "WHATSAPP",
+      "version": 2,
+      "status": "ACTIVE",
+      "body": "{student_first_name} is marked absent today ({date}) and we have no leave request. Please reply or apply for leave in the app.",
+      "source": "DL-107"
+    },
+    {
+      "event": "CaseAcknowledged",
+      "brand_country": "GIIS Singapore",
+      "category": "REQUIRED",
+      "language": "en",
+      "channel": "EMAIL",
+      "version": 1,
+      "status": "ACTIVE",
+      "body": "We have received your {case_type_label} ({case_number}). We will reply by {next_due_date}. If you are not satisfied you may escalate to {escalation_contact}."
+    },
+    {
+      "event": "CaseOverdue",
+      "brand_country": "GIIS Singapore",
+      "category": "REQUIRED",
+      "language": "en",
+      "channel": "IN_APP",
+      "version": 1,
+      "status": "ACTIVE",
+      "body": "{case_number} missed its {step_label} deadline ({due_date}) and is now with you."
+    },
+    {
+      "event": "CaseRestrictedAssigned",
+      "brand_country": "GIIS Singapore",
+      "category": "REQUIRED",
+      "language": "en",
+      "channel": "EMAIL",
+      "version": 1,
+      "status": "ACTIVE",
+      "body": "You have a case to review. Open Campus OS to see it.",
+      "_note": "No title or student name for restricted cases (SR-CC-15)"
+    },
+    {
+      "event": "LeaveDecided",
+      "brand_country": "GIIS Singapore",
+      "category": "REQUIRED",
+      "language": "hi",
+      "channel": "EMAIL",
+      "version": 1,
+      "status": "DRAFT",
+      "body": "(Hindi version pending; languages OQ-25)"
+    },
+    {
+      "event": "InvoiceIssued",
+      "brand_country": "OWIS Singapore",
+      "category": "REQUIRED",
+      "language": "en",
+      "channel": "EMAIL",
+      "version": null,
+      "status": "Not set"
+    }
+  ],
+  "notification_log": [
+    {
+      "id": "NT-0099812",
+      "event": "AttendanceAbsentUnexplained",
+      "recipient": "Mohammed Noor (guardian, Fatima Noor 7B)",
+      "sent_at": "2026-11-23T09:05",
+      "channels": [
+        {
+          "channel": "WHATSAPP",
+          "result": "DELIVERED"
+        }
+      ],
+      "category": "REQUIRED"
+    },
+    {
+      "id": "NT-0099807",
+      "event": "AnnouncementSent ANN-PGL-26-0412",
+      "recipient": "Grace Lim (guardian)",
+      "sent_at": "2026-11-20T07:30",
+      "channels": [
+        {
+          "channel": "SMS",
+          "result": "FAILED",
+          "reason": "Number not reachable"
+        },
+        {
+          "channel": "EMAIL",
+          "result": "DELIVERED"
+        }
+      ],
+      "fallback_used": true,
+      "category": "SAFETY"
+    },
+    {
+      "id": "NT-0099790",
+      "event": "CaseAcknowledged CASE-SG-2026-1296",
+      "recipient": "Neha Sharma (guardian)",
+      "sent_at": "2026-11-20T10:05",
+      "channels": [
+        {
+          "channel": "EMAIL",
+          "result": "DELIVERED"
+        }
+      ],
+      "category": "REQUIRED"
+    },
+    {
+      "id": "NT-0099775",
+      "event": "SchoolNewsletter",
+      "recipient": "Joel D'Souza (guardian)",
+      "sent_at": "2026-11-19T18:00",
+      "channels": [
+        {
+          "channel": "EMAIL",
+          "result": "SKIPPED_BY_PREFERENCE"
+        }
+      ],
+      "category": "OPTIONAL"
+    }
+  ],
+  "preferences_neha": {
+    "account": "Neha Sharma",
+    "language": "en",
+    "rows": [
+      {
+        "category": "SAFETY",
+        "channels": [
+          "PUSH",
+          "SMS",
+          "EMAIL"
+        ],
+        "can_mute": false
+      },
+      {
+        "category": "REQUIRED",
+        "channels": [
+          "WHATSAPP",
+          "EMAIL"
+        ],
+        "can_mute": false
+      },
+      {
+        "category": "OPTIONAL",
+        "channels": [
+          "EMAIL"
+        ],
+        "can_mute": true,
+        "quiet_hours": "21:00-07:00 (OQ-140)"
+      }
+    ]
+  },
+  "deadline_performance_pgl_nov": {
+    "complaints_received": 9,
+    "acknowledged_within_2": "7 of 8 due",
+    "closed_within_7": "4 of 6 due",
+    "with_supervisor": 1,
+    "with_committee": 1,
+    "external_referrals": 0,
+    "restricted_cases": 2,
+    "_note": "Counts only; no content (DL-130). Sample figures."
+  },
+  "parent_view_neha": {
+    "requests": [
+      {
+        "case": "CASE-SG-2026-1296",
+        "label": "Complaint: school bus route 14",
+        "status": "In progress",
+        "next": "Reply by Mon 30 Nov",
+        "replies": 1
+      }
+    ],
+    "_note": "Parent app later (DL-118); internal notes never shown (DL-126)"
+  }
+}

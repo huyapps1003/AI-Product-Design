@@ -1,0 +1,790 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cases and Communications</title>
+<!--
+  Screens: SCR-CC-01 Case inbox · SCR-CC-02 Case detail (deadline ladder, timeline, approvals) · SCR-CC-03 Log feedback · SCR-CC-04 Compliments and suggestions · SCR-CC-05 Messages (teacher, phone) · SCR-CC-06 Announcements · SCR-CC-07 Case policies · SCR-CC-08 Notifications (templates, delivery log) · SCR-CC-09 Deadline performance · SCR-CC-10 Parent view (later)
+  Viewers: Priya Menon (Customer Relations) · Dr Anita Rao (Principal) · Farah Ismail (Class teacher 7B) · Meera Joshi (Coordinator) · Lina Goh (Admissions, Tier 3) · Vivek Menon (Country Director) · Claire Tan (OWIS Principal) · Neha Sharma (parent, later)
+  Objects: OBJ-10 Case (primary), OBJ-26 Message and announcement
+  Sample: product-truth/03-domain/samples/cases-communications-sample.json · today Mon 23 Nov 2026 09:30 SGT · synthetic
+  DL: DL-119 Confirmed; DL-120…DL-130 Assumed · DL-19 DL-30 DL-41 DL-84 · OQ shown as pending: OQ-25 OQ-130 OQ-131 OQ-133 OQ-135 OQ-136 OQ-138 OQ-139 OQ-143
+  Spec: Cases & Communications Data Dictionary v0.1
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#00A76F;--primary-dark:#007867;--primary-soft:rgba(0,167,111,.08);--primary-soft2:rgba(0,167,111,.16);
+  --secondary:#8E33FF;--secondary-soft:rgba(142,51,255,.08);
+  --error:#B71D18;--error-soft:rgba(255,86,48,.12);
+  --warning:#B76E00;--warning-soft:rgba(255,171,0,.14);--warning-line:#FFAB00;
+  --info:#006C9C;--info-soft:rgba(0,184,217,.12);
+  --success:#118D57;--success-soft:rgba(34,197,94,.14);
+  --text:#212B36;--text2:#637381;--text3:#919EAB;
+  --bg:#FFFFFF;--paper:#FFFFFF;--neutral:#F4F6F8;--canvas:#EDEFF2;
+  --divider:rgba(145,158,171,.2);--line:rgba(145,158,171,.32);
+  --z1:0 1px 2px rgba(145,158,171,.16);
+  --card:0 0 2px 0 rgba(145,158,171,.2),0 12px 24px -4px rgba(145,158,171,.12);
+  --scrim:rgba(22,28,36,.48);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --primary:#5BE49B;--primary-dark:#5BE49B;--primary-soft:rgba(91,228,155,.10);--primary-soft2:rgba(91,228,155,.18);
+  --secondary:#C684FF;--secondary-soft:rgba(198,132,255,.12);
+  --error:#FFAC82;--error-soft:rgba(255,86,48,.18);
+  --warning:#FFD666;--warning-soft:rgba(255,171,0,.16);
+  --info:#61F3F3;--info-soft:rgba(0,184,217,.16);
+  --success:#77ED8B;--success-soft:rgba(34,197,94,.16);
+  --text:#FFFFFF;--text2:#919EAB;--text3:#637381;
+  --bg:#161C24;--paper:#212B36;--neutral:#28323D;--canvas:#10141A;
+  --card:0 0 2px 0 rgba(0,0,0,.2),0 12px 24px -4px rgba(0,0,0,.16);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --primary:#5BE49B;--primary-dark:#5BE49B;--primary-soft:rgba(91,228,155,.10);--primary-soft2:rgba(91,228,155,.18);
+  --secondary:#C684FF;--secondary-soft:rgba(198,132,255,.12);
+  --error:#FFAC82;--error-soft:rgba(255,86,48,.18);
+  --warning:#FFD666;--warning-soft:rgba(255,171,0,.16);
+  --info:#61F3F3;--info-soft:rgba(0,184,217,.16);
+  --success:#77ED8B;--success-soft:rgba(34,197,94,.16);
+  --text:#FFFFFF;--text2:#919EAB;--text3:#637381;
+  --bg:#161C24;--paper:#212B36;--neutral:#28323D;--canvas:#10141A;
+  --card:0 0 2px 0 rgba(0,0,0,.2),0 12px 24px -4px rgba(0,0,0,.16);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--canvas);color:var(--text);font:400 14px/1.57 "Public Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.mono{font-variant-numeric:tabular-nums}
+
+/* ---------- Prototype toolbar (not part of the product) ---------- */
+.proto{position:sticky;top:0;z-index:30;background:var(--paper);border-bottom:1px solid var(--divider);
+  padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));
+  display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+.proto-title{font-weight:700;font-size:13px;margin-right:auto;display:flex;gap:8px;align-items:center}
+.proto-title small{font-weight:500;color:var(--text2)}
+.ctl{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2)}
+.seg{display:inline-flex;background:var(--neutral);border-radius:8px;padding:3px}
+.seg button{border:0;background:transparent;padding:5px 10px;border-radius:6px;font-size:12px;font-weight:600;color:var(--text2);white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--paper);color:var(--text);box-shadow:var(--z1)}
+
+.stage{padding:24px max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
+.device{margin:0 auto;background:var(--bg);border-radius:16px;overflow:hidden;box-shadow:var(--card);max-width:1440px}
+.stage.mobile .device{max-width:390px;height:800px;border-radius:36px;border:10px solid #161C24;display:flex;flex-direction:column}
+.stage.mobile .app{flex:1;overflow:auto}
+
+/* ---------- App shell ---------- */
+.app{container-type:inline-size;background:var(--bg);min-height:640px}
+.shell{display:grid;grid-template-columns:280px 1fr;min-height:100%}
+.side{border-right:1px dashed var(--line);padding:20px 16px;display:flex;flex-direction:column;gap:4px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;padding:4px 8px 20px}
+.logo i{width:32px;height:32px;border-radius:10px;background:var(--primary);display:grid;place-items:center;color:#fff;font-style:normal;font-size:14px}
+:root[data-theme="dark"] .logo i{color:#161C24}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo i{color:#161C24}}
+.nav-h{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);padding:12px 12px 6px}
+.nav a{display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:8px;color:var(--text2);text-decoration:none;font-weight:500;min-height:44px}
+.nav a.on{background:var(--primary-soft);color:var(--primary);font-weight:600}
+.nav svg{width:22px;height:22px;flex:none}
+
+.main{min-width:0;display:flex;flex-direction:column}
+.top{height:64px;display:flex;align-items:center;gap:12px;padding:0 24px;border-bottom:1px solid var(--divider);position:sticky;top:0;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(6px);z-index:5}
+.scope{display:flex;align-items:center;gap:6px;min-width:0;border:1px solid var(--line);border-radius:8px;padding:6px 10px;background:transparent;font-size:13px;font-weight:500}
+.scope span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.scope .sep{color:var(--text3)}
+.scope b{font-weight:700}
+.top .grow{flex:1}
+.iconbtn{width:40px;height:40px;border-radius:50%;border:0;background:transparent;display:grid;place-items:center;color:var(--text2)}
+.iconbtn svg{width:22px;height:22px}
+.me{display:flex;align-items:center;gap:10px}
+.me .who{line-height:1.25;text-align:right}
+.me .who b{display:block;font-size:13px}
+.me .who small{color:var(--text2);font-size:12px;white-space:nowrap}
+.seg{flex-wrap:wrap}
+.proto .ctl{flex-wrap:wrap}
+
+.avatar{border-radius:50%;display:grid;place-items:center;font-weight:700;flex:none}
+.av-sm{width:36px;height:36px;font-size:13px;background:var(--secondary-soft);color:var(--secondary)}
+
+.content{padding:24px 40px 48px;max-width:1200px;width:100%;margin:0 auto}
+.crumbs{font-size:13px;color:var(--text2);display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.crumbs .dot{width:4px;height:4px;border-radius:50%;background:var(--text3);align-self:center}
+.crumbs b{color:var(--text);font-weight:500}
+
+/* Person header AP-03 */
+.hero{background:var(--paper);border-radius:16px;box-shadow:var(--card);overflow:hidden;margin-bottom:24px}
+.hero-band{height:72px;background:linear-gradient(120deg,var(--primary-soft2),var(--secondary-soft))}
+.hero-body{display:flex;gap:20px;padding:0 24px 20px;align-items:flex-end;flex-wrap:wrap;margin-top:-36px}
+.av-xl{width:96px;height:96px;font-size:32px;background:var(--primary);color:#fff;border:4px solid var(--paper)}
+:root[data-theme="dark"] .av-xl{color:#161C24}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .av-xl{color:#161C24}}
+.hero-id{flex:1;min-width:220px;padding-top:40px}
+.hero-id h1{margin:0;font-size:24px;line-height:1.3;font-weight:700}
+.hero-meta{color:var(--text2);font-size:14px;margin-top:2px;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.hero-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+.chip{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 8px;border-radius:6px;font-size:12px;font-weight:700;line-height:1;white-space:nowrap}
+.c-success{background:var(--success-soft);color:var(--success)}
+.c-warning{background:var(--warning-soft);color:var(--warning)}
+.c-error{background:var(--error-soft);color:var(--error)}
+.c-info{background:var(--info-soft);color:var(--info)}
+.c-default{background:var(--neutral);color:var(--text2)}
+.c-role{background:var(--secondary-soft);color:var(--secondary)}
+.c-pending{background:transparent;border:1px solid var(--warning-line);color:var(--warning);font-weight:600}
+.c-source{background:var(--info-soft);color:var(--info);font-weight:600}
+.chip svg{width:13px;height:13px}
+
+.btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--line);background:transparent;font-weight:700;font-size:14px;white-space:nowrap}
+.btn-primary{background:var(--text);color:var(--bg);border-color:var(--text)}
+.btn-sm{height:30px;padding:0 10px;font-size:13px}
+.btn-ghost{border-color:transparent;color:var(--primary)}
+.btn svg{width:18px;height:18px}
+
+/* Tabs */
+.tabs{display:flex;gap:28px;border-bottom:1px solid var(--divider);padding:0 24px;overflow-x:auto;scrollbar-width:none}
+.tabs a{padding:12px 0;color:var(--text2);text-decoration:none;font-weight:600;white-space:nowrap;border-bottom:2px solid transparent}
+.tabs a.on{color:var(--text);border-color:var(--text)}
+
+/* Cards */
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+.span2{grid-column:1/-1}
+.card{background:var(--paper);border-radius:16px;box-shadow:var(--card);scroll-margin-top:80px}
+.card-h{display:flex;align-items:center;gap:8px;padding:20px 24px 0;flex-wrap:wrap}
+.card-h h2{margin:0;font-size:17px;font-weight:700;margin-right:auto}
+.card-b{padding:16px 24px 24px}
+.why{border:0;background:transparent;color:var(--text2);font-size:12px;font-weight:600;display:inline-flex;gap:4px;align-items:center;padding:4px 6px;border-radius:6px;min-height:32px}
+.why:hover{background:var(--neutral)}
+.why svg{width:16px;height:16px}
+.explain{margin:12px 24px 0;padding:12px 14px;border-radius:10px;background:var(--neutral);font-size:13px}
+.explain dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0}
+.explain dt{color:var(--text2)}
+.explain dd{margin:0;font-weight:500;overflow-wrap:anywhere}
+.explain code{font-size:12px;background:var(--paper);padding:1px 5px;border-radius:4px}
+
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 24px}
+.f{min-width:0}
+.f .l{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.f .v{font-weight:500;margin-top:2px;overflow-wrap:anywhere;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tier{font-size:10px;font-weight:700;color:var(--text3);border:1px solid var(--line);border-radius:4px;padding:0 4px;line-height:16px}
+
+.masked{display:inline-flex;align-items:center;gap:6px;color:var(--text2);font-family:ui-monospace,Menlo,monospace;letter-spacing:.04em}
+.masked svg{width:15px;height:15px}
+
+.noaccess{display:flex;gap:14px;align-items:flex-start;padding:16px;border:1px dashed var(--line);border-radius:12px}
+.noaccess .ico{width:40px;height:40px;border-radius:12px;background:var(--neutral);display:grid;place-items:center;color:var(--text2);flex:none}
+.noaccess .ico svg{width:22px;height:22px}
+.noaccess b{display:block}
+.noaccess p{margin:2px 0 0;color:var(--text2);font-size:13px}
+
+.addr{display:flex;flex-direction:column;gap:12px}
+.addr-row{padding:12px 14px;border-radius:10px;border:1px solid var(--divider)}
+.addr-row .l{font-size:12px;color:var(--text2);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.addr-row .v{font-weight:500;margin-top:2px}
+
+.doc{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:14px;border-radius:12px;border:1px solid var(--divider);margin-bottom:12px}
+.doc .t{font-weight:700;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.doc .s{grid-column:1/-1;color:var(--text2);font-size:13px;display:flex;flex-wrap:wrap;gap:4px 14px}
+.logline{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--text2);padding:10px 12px;border-radius:8px;background:var(--info-soft);margin-top:4px}
+.logline svg{width:16px;height:16px;color:var(--info);flex:none;margin-top:1px}
+
+/* Timeline AP-05 */
+.tl{list-style:none;margin:0;padding:0}
+.tl li{position:relative;padding:0 0 20px 28px}
+.tl li::before{content:"";position:absolute;left:6px;top:20px;bottom:0;width:2px;background:var(--divider)}
+.tl li:last-child::before{display:none}
+.tl .dotm{position:absolute;left:0;top:5px;width:14px;height:14px;border-radius:50%;border:3px solid var(--paper);box-shadow:0 0 0 2px var(--line);background:var(--text3)}
+.tl .dotm.cur{background:var(--success);box-shadow:0 0 0 2px var(--success-soft)}
+.tl .h{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-weight:700}
+.tl .m{color:var(--text2);font-size:13px}
+
+.guard{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.g{border:1px solid var(--divider);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.g-top{display:flex;gap:12px;align-items:center}
+.av-md{width:44px;height:44px;font-size:15px;background:var(--info-soft);color:var(--info)}
+.g-top b{display:block}
+.g-top small{color:var(--text2)}
+.flags{display:flex;gap:6px;flex-wrap:wrap}
+.contact{display:flex;flex-direction:column;gap:4px;font-size:13px}
+.contact div{display:flex;gap:8px;align-items:center}
+.contact svg{width:16px;height:16px;color:var(--text3);flex:none}
+
+.pendcard{border:1px dashed var(--warning-line);border-radius:12px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;background:transparent}
+.pendcard p{margin:2px 0 0;color:var(--text2);font-size:13px}
+
+.foot{margin-top:24px;font-size:12px;color:var(--text3)}
+
+/* Bottom nav for compact widths */
+.bnav{display:none}
+
+/* ---------- Compact layout, driven by frame width ---------- */
+@container (max-width: 1080px){
+  .shell{grid-template-columns:88px 1fr}
+  .side .logo span,.nav-h,.nav a span{display:none}
+  .nav a{justify-content:center;padding:10px}
+  .content{padding:24px 24px 48px}
+}
+@container (max-width: 860px){
+  .grid,.guard{grid-template-columns:minmax(0,1fr)}
+  .me .who{display:none}
+}
+@container (max-width: 640px){
+  .shell{grid-template-columns:1fr}
+  .side{display:none}
+  .top{padding:0 12px;height:56px}
+  .scope .hide-sm{display:none}
+  .content{padding:16px 16px 96px}
+  .hero-body{padding:0 16px 16px;gap:12px}
+  .av-xl{width:72px;height:72px;font-size:24px}
+  .hero-id{padding-top:0;min-width:100%}
+  .hero-id h1{font-size:20px}
+  .hero-actions{width:100%}
+  .hero-actions .btn{flex:1;justify-content:center}
+  .tabs{padding:0 16px;gap:20px}
+  .card-h{padding:16px 16px 0}
+  .card-b{padding:12px 16px 16px}
+  .explain{margin:12px 16px 0}
+  .fields{grid-template-columns:minmax(0,1fr)}
+  .crumbs{display:none}
+  .bnav{display:flex;position:sticky;bottom:0;background:var(--paper);border-top:1px solid var(--divider);justify-content:space-around;padding:6px 0 calc(6px + env(safe-area-inset-bottom,0px))}
+  .bnav a{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;font-weight:600;color:var(--text2);text-decoration:none;min-width:64px;min-height:44px;justify-content:center}
+  .bnav a.on{color:var(--primary)}
+  .bnav svg{width:22px;height:22px}
+}
+
+/* Dialog */
+.scrim{position:fixed;inset:0;background:var(--scrim);display:grid;place-items:center;padding:16px;z-index:50}
+.dlg{background:var(--paper);border-radius:16px;box-shadow:0 24px 48px rgba(0,0,0,.24);width:100%;max-width:480px;padding:24px}
+.dlg h3{margin:0 0 4px;font-size:18px}
+.dlg p{margin:0 0 16px;color:var(--text2);font-size:13px}
+.dlg label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin:12px 0 6px}
+.dlg select,.dlg textarea{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.dlg textarea{min-height:72px;resize:vertical}
+.dlg .row{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+.dlg .btn-primary:disabled{opacity:.4;cursor:not-allowed}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:600;font-size:13px;z-index:60;max-width:calc(100% - 32px)}
+
+.content a:not(.btn):not(.tabs a){color:var(--primary-dark);font-weight:600;text-decoration:none}
+.content a:not(.btn):not(.tabs a):hover{text-decoration:underline}
+.page-h{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.page-h h1{margin:0;font-size:24px;font-weight:700;line-height:1.3}
+.page-h p{margin:2px 0 0;color:var(--text2)}
+.page-h .grow{flex:1}
+.listcard{background:var(--paper);border-radius:16px;box-shadow:var(--card);overflow:hidden}
+.qtabs{display:flex;gap:24px;padding:0 20px;border-bottom:1px solid var(--divider);overflow-x:auto;scrollbar-width:none}
+.qtabs button{border:0;background:transparent;padding:12px 0;font-weight:600;color:var(--text2);white-space:nowrap;border-bottom:2px solid transparent;display:flex;gap:6px;align-items:center;min-height:44px}
+.qtabs button[aria-pressed="true"]{color:var(--text);border-color:var(--text)}
+.cnt{font-size:11px;font-weight:700;border-radius:6px;padding:1px 6px;background:var(--neutral);color:var(--text2)}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:13px;font-weight:600;color:var(--text2);background:var(--neutral);padding:12px 16px;white-space:nowrap}
+td{padding:14px 16px;border-bottom:1px dashed var(--divider);vertical-align:middle}
+tbody tr.click{cursor:pointer}
+tbody tr.click:hover td{background:var(--primary-soft)}
+.sub{color:var(--text2);font-size:12px}
+.whoc{display:flex;gap:12px;align-items:center;min-width:0}
+.whoc b{display:block;font-weight:600;white-space:nowrap}
+.av-row{width:40px;height:40px;font-size:13px;background:var(--primary-soft2);color:var(--primary-dark)}
+.scopebar{display:flex;gap:10px;align-items:flex-start;padding:10px 14px;border-radius:10px;background:var(--neutral);font-size:13px;margin:16px 20px}
+.scopebar svg{width:16px;height:16px;color:var(--text2);flex:none;margin-top:2px}
+
+/* Board */
+.board{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(220px,1fr);gap:16px;overflow-x:auto;padding-bottom:8px}
+.col{background:var(--neutral);border-radius:16px;padding:12px;min-height:200px;display:flex;flex-direction:column;gap:10px}
+.col-h{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13px;padding:2px 4px}
+.kcard{background:var(--paper);border-radius:12px;box-shadow:var(--z1);padding:12px;border:1px solid var(--divider);text-align:left;display:flex;flex-direction:column;gap:6px;width:100%}
+.kcard:hover{border-color:var(--primary)}
+.kcard b{font-size:14px}
+.kcard .blk{font-size:12px;color:var(--warning);display:flex;gap:4px;align-items:flex-start}
+.kcard .blk svg{width:14px;height:14px;flex:none;margin-top:2px}
+.kempty{font-size:12px;color:var(--text3);padding:8px 4px}
+
+/* Stepper */
+.steps{display:flex;gap:0;padding:16px 24px 20px;overflow-x:auto;scrollbar-width:none}
+.step{flex:1;min-width:96px;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;font-size:12px;color:var(--text2);text-align:center}
+.step::before{content:"";position:absolute;top:11px;left:-50%;right:50%;height:2px;background:var(--divider)}
+.step:first-child::before{display:none}
+.step .d{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--neutral);color:var(--text2);font-weight:700;font-size:11px;position:relative;z-index:1}
+.step.done .d{background:var(--success);color:#fff}
+.step.done::before,.step.cur::before{background:var(--success)}
+.step.cur .d{background:var(--text);color:var(--bg)}
+.step.cur{color:var(--text);font-weight:700}
+.step.bad .d{background:var(--error);color:#fff}
+
+/* Capacity bar */
+.bar{height:8px;border-radius:4px;background:var(--neutral);overflow:hidden;display:flex;min-width:120px}
+.bar i{display:block;height:100%}
+.bar .e{background:var(--primary)}
+.bar .h{background:var(--warning-line)}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--text2);flex-wrap:wrap}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+.kv{display:grid;grid-template-columns:200px 1fr;gap:10px 16px;font-size:14px}
+.kv dt{color:var(--text2)}
+.kv dd{margin:0;font-weight:500;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.notset{color:var(--warning);font-weight:700;display:inline-flex;gap:4px;align-items:center}
+.notset svg{width:15px;height:15px}
+.settings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.count{display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:12px;background:var(--warning-soft);color:var(--warning);font-weight:600;font-size:13px}
+.count svg{width:20px;height:20px;flex:none}
+.blocked{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:12px;border:1px solid var(--warning-line);font-size:13px}
+.blocked svg{width:20px;height:20px;color:var(--warning);flex:none}
+.blocked b{display:block}
+.list-row{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px dashed var(--divider);flex-wrap:wrap}
+.list-row:last-child{border-bottom:0}
+.list-row .grow{flex:1;min-width:160px}
+.pos{width:28px;height:28px;border-radius:8px;background:var(--neutral);display:grid;place-items:center;font-weight:700;font-size:13px;flex:none}
+.dlg input[type=text]{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.drawer-kids{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.drawer-kids div{padding:10px 12px;border:1px solid var(--divider);border-radius:10px}
+@container (max-width: 860px){.settings{grid-template-columns:minmax(0,1fr)}.kv{grid-template-columns:minmax(0,1fr);gap:2px 0}.kv dd{margin-bottom:10px}}
+@container (max-width: 640px){.page-h h1{font-size:20px}.steps{padding:12px 16px 16px}.board{grid-auto-columns:minmax(240px,80%)}}
+/* ---------- Classes additions ---------- */
+.ccards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.ccard{background:var(--paper);border-radius:14px;box-shadow:var(--card);padding:16px;text-align:left;border:1px solid transparent;display:flex;flex-direction:column;gap:8px;width:100%}
+.ccard:hover{border-color:var(--primary)}
+.ccard .t{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ccard .t b{font-size:16px;margin-right:auto}
+.ccard .m{font-size:13px;color:var(--text2);display:flex;gap:4px 12px;flex-wrap:wrap}
+.gh{display:flex;align-items:baseline;gap:10px;margin:28px 0 12px;flex-wrap:wrap}
+.gh h2{margin:0;font-size:16px}
+.gh .sub{font-size:13px}
+.fill{display:flex;align-items:center;gap:10px;font-size:13px}
+.fill .bar{flex:1;min-width:80px}
+.bar .o{background:var(--error)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.filters select,.dlg input[type=date],.dlg input[type=number]{font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 10px}
+.dlg input[type=date]{width:100%;padding:10px 12px}
+.hdot{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none}
+.stepper{display:inline-flex;align-items:center;gap:6px}
+.stepper button{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:transparent;font-weight:700}
+.stepper button:disabled{opacity:.35;cursor:not-allowed}
+.dlg .opt,.opt{display:flex;font-size:14px;font-weight:400;color:var(--text);margin:0 0 8px;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--divider);border-radius:10px;margin-bottom:8px;cursor:pointer}
+.opt input{accent-color:var(--primary)}
+.opt.dis{opacity:.55}
+.opt .grow{flex:1}
+.houses{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.house{background:var(--paper);border-radius:14px;box-shadow:var(--card);padding:16px;display:flex;flex-direction:column;gap:6px}
+.house b{font-size:22px}
+.note{font-size:12px;color:var(--text2);margin-top:6px}
+.proto-note{border:1px dashed var(--line);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--text2);margin-top:24px}
+.sumrow{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 16px}
+.stat{background:var(--paper);border-radius:12px;box-shadow:var(--card);padding:12px 16px;min-width:120px}
+.stat b{display:block;font-size:20px}
+.stat span{font-size:12px;color:var(--text2)}
+@container (max-width: 860px){.houses{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@container (max-width: 640px){.roster td,.roster th{padding:10px 8px}.roster .hname{display:none}.roster .whoc{gap:8px}.roster .av-row{display:none}.ccards{grid-template-columns:minmax(0,1fr)}.hide-phone{display:none}}
+
+/* ---------- Attendance additions ---------- */
+.reg{display:flex;flex-direction:column}
+.rrow{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--divider)}
+.rrow:last-child{border-bottom:0}
+.rrow .nm{flex:1;min-width:0}
+.rrow .nm b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rrow select{font:inherit;font-size:13px;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 8px;max-width:140px}
+.tag{font-size:11px;font-weight:600;color:var(--info)}
+.pct{font-weight:700;font-variant-numeric:tabular-nums}
+.meter{position:relative;height:8px;border-radius:4px;background:var(--neutral);min-width:90px}
+.meter i{position:absolute;left:0;top:0;bottom:0;border-radius:4px}
+.meter u{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--text)}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;font-size:12px;text-align:center}
+.cal .h{color:var(--text3);font-weight:700}
+.cal .d{padding:6px 0;border-radius:6px;background:var(--success-soft);color:var(--success);font-weight:600}
+.cal .d.off{background:var(--neutral);color:var(--text3);font-weight:400}
+.cal .d.hol{background:var(--warning-soft);color:var(--warning)}
+.cal .d.today{outline:2px solid var(--text)}
+.cal .d.blank{background:transparent}
+.t3{border:1px solid var(--secondary);border-radius:12px;padding:10px 14px;font-size:13px;color:var(--secondary);background:var(--secondary-soft);display:flex;gap:8px;align-items:center}
+.dlg input[type=time]{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.route{padding:10px 12px;border-radius:10px;background:var(--neutral);font-size:13px;margin-top:12px}
+@container (max-width: 640px){.roster .meter{display:none}.hide-ph{display:none}}
+/* Cases & Communications additions */
+.ladder{display:flex;gap:0;padding:8px 0 4px;overflow-x:auto;scrollbar-width:none}
+.ladder .step{min-width:110px}
+.step.paused .d{background:var(--warning-line);color:#161C24}
+.step .due{font-size:11px;color:var(--text2);font-weight:500}
+.step.bad .due{color:var(--error);font-weight:700}
+.flag{display:inline-flex;gap:6px;flex-wrap:wrap;align-items:center}
+.composer{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:12px}
+.composer .modes{display:flex;border-bottom:1px solid var(--divider)}
+.composer .modes button{flex:1;border:0;background:transparent;padding:10px;font-weight:600;color:var(--text2);min-height:44px}
+.composer .modes button[aria-pressed="true"]{color:var(--text);background:var(--neutral)}
+.composer .modes button.note[aria-pressed="true"]{background:var(--warning-soft);color:var(--warning)}
+.composer textarea{width:100%;border:0;min-height:76px;padding:12px;font:inherit;color:var(--text);background:var(--bg);resize:vertical}
+.composer .bar2{display:flex;gap:8px;align-items:center;padding:8px 12px;border-top:1px solid var(--divider);flex-wrap:wrap}
+.composer .bar2 small{color:var(--text2);margin-right:auto}
+.tl li.note .dotm{background:var(--warning-line)}
+.tl li.reply .dotm{background:var(--info)}
+.tl li.sys .dotm{background:var(--error)}
+.tl .bodyt{margin-top:4px;padding:10px 12px;border-radius:10px;background:var(--neutral);font-size:13px}
+.tl li.note .bodyt{background:var(--warning-soft)}
+.tl li.reply .bodyt{background:var(--info-soft)}
+.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 20px}
+.form label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px}
+.form select,.form input,.form textarea{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;min-height:44px}
+.form textarea{min-height:90px}
+.form .full{grid-column:1/-1}
+.preview{border:1px dashed var(--line);border-radius:12px;padding:14px 16px;font-size:13px}
+.preview ol{margin:6px 0 0;padding-left:18px}
+.msgs{display:flex;flex-direction:column;gap:10px}
+.bubble{max-width:82%;padding:10px 12px;border-radius:14px;font-size:14px;background:var(--neutral)}
+.bubble.mine{align-self:flex-end;background:var(--primary-soft2)}
+.bubble small{display:block;color:var(--text2);font-size:11px;margin-top:4px}
+.convrow{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px dashed var(--divider);width:100%;border-left:0;border-right:0;border-top:0;background:transparent;text-align:left}
+.convrow .grow{flex:1;min-width:0}
+.convrow .grow div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text2);font-size:13px}
+.dotu{width:8px;height:8px;border-radius:50%;background:var(--primary);flex:none}
+.stat{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:24px}
+.stat .card{padding:16px 20px}
+.stat b{font-size:24px;display:block}
+.stat span{color:var(--text2);font-size:13px}
+.hidden-note{display:flex;gap:10px;align-items:flex-start;padding:10px 14px;border-radius:10px;background:var(--neutral);font-size:13px;color:var(--text2);margin:16px 20px}
+.hidden-note svg{width:16px;height:16px;flex:none;margin-top:2px}
+@container (max-width: 860px){.form,.stat{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+@container (max-width: 640px){.form{grid-template-columns:minmax(0,1fr)}.ladder .step{min-width:84px}}
+</style></head><body>
+<div class="proto" role="region" aria-label="Prototype controls">
+  <div class="proto-title">Cases &amp; Communications prototype <small>Campus OS · synthetic data · Mon 23 Nov 2026, 09:30</small></div>
+  <div class="ctl">Viewer
+    <div class="seg" id="viewers">
+      <button data-v="priya" aria-pressed="true">Priya · Customer Relations</button>
+      <button data-v="anita" aria-pressed="false">Dr Rao · Principal</button>
+      <button data-v="farah" aria-pressed="false">Farah · Class teacher 7B</button>
+      <button data-v="meera" aria-pressed="false">Meera · Coordinator</button>
+      <button data-v="lina" aria-pressed="false">Lina · Admissions (Tier 3)</button>
+      <button data-v="vikram" aria-pressed="false">Vivek · Country Director</button>
+      <button data-v="claire" aria-pressed="false">Claire · OWIS Principal</button>
+      <button data-v="neha" aria-pressed="false">Neha · Parent (later)</button>
+    </div>
+  </div>
+  <div class="ctl">Frame
+    <div class="seg" id="frame"><button data-f="desk" aria-pressed="true">Desktop</button><button data-f="phone" aria-pressed="false">Phone</button></div>
+  </div>
+  <div class="ctl">Theme
+    <div class="seg" id="theme"><button data-t="light" aria-pressed="false">Light</button><button data-t="dark" aria-pressed="false">Dark</button><button data-t="auto" aria-pressed="true">Auto</button></div>
+  </div>
+</div>
+<div class="stage" id="stage"><div class="device"><div class="app">
+  <div class="shell">
+    <aside class="side" aria-label="Main navigation">
+      <div class="logo"><i>C</i><span>Campus OS</span></div>
+      <div class="nav-h">Cases &amp; Communications</div>
+      <nav class="nav" id="nav"></nav>
+    </aside>
+    <div class="main">
+      <header class="top">
+        <button class="scope" title="Current scope"><span id="scopeTxt"></span></button>
+        <div class="grow"></div>
+        <div class="me"><div class="who"><b id="meName"></b><small id="meRole"></small></div><div class="avatar av-sm" id="meAv"></div></div>
+      </header>
+      <main class="content" id="view" tabindex="-1"></main>
+      <nav class="bnav" id="bnav"></nav>
+    </div>
+  </div>
+</div></div></div>
+<div id="layer"></div>
+<script>
+const S = {"_about": "Synthetic sample data for Cases & Communications screens (OBJ-10 Case, OBJ-26 Message and announcement). All people are invented except the published policy roles. GIIS SG deadlines come from the GIIS Student Handbook 2025-26 (complaints p.249-250; withdrawal p.233-234; transfer p.235-236; refund p.245) and are GIIS SG case policy settings, not group rules (DL-121, DL-59 pattern). Working days = Mon-Fri minus Singapore public holidays (Deepavali 9-10 Nov 2026), vacations counted (DL-122, OQ-130). Day 0 = receipt. Viewer Priya Menon, Customer Relations Officer, SG-PGL; 'today' Monday 23 Nov 2026, 09:30 SGT. Reuses people and case numbers from the attendance, fees, assessment and classes samples.", "today": "2026-11-23", "now_local": "2026-11-23T09:30+08:00", "viewer": {"name": "Priya Menon", "role": "Customer Relations Officer", "campus": "SG-PGL", "sees": "SG-PGL Customer Relations and Helpdesk queues, cases she receives"}, "other_viewers": [{"name": "Dr Anita Rao", "role": "Principal", "campus": "SG-PGL", "sees": "Escalated complaints, approvals, deadline performance, restricted cases she is named on"}, {"name": "Farah Ismail", "role": "Class Teacher, 7B", "campus": "SG-PGL", "device": "phone", "sees": "Conversations with 7B guardians, 7B announcements, cases she raised"}, {"name": "Meera Joshi", "role": "Academic Coordinator, CBSE Middle (Grades 6-8)", "campus": "SG-PGL", "sees": "Academic complaints for Grades 6-8, grade announcements to send for approval"}, {"name": "Lina Goh", "role": "Admissions Officer (Tier 3)", "campus": "SG-PGL", "sees": "Withdrawals, transfers, Student Pass and ICA review cases (restricted)"}, {"name": "Vivek Menon", "role": "Country Director, GIIS Singapore", "campus": "GIIS SG brand-country", "sees": "Dispute Resolution Committee cases, refund approvals, case policies"}, {"name": "Claire Tan", "role": "Principal, OWIS Digital Campus", "campus": "SG-OWD", "sees": "OWIS cases with 'Not set' deadlines"}, {"name": "Neha Sharma", "role": "Parent of Aarav Sharma (7B)", "sees": "Own requests and replies, messages, announcements (Parent app, later)"}], "working_day_calendar": {"campus": "SG-PGL", "year": 2026, "working_week": "MON-FRI", "office_day_end": "18:00 (sample; OQ-130)", "public_holidays_nov_dec": ["2026-11-09 Deepavali (observed)", "2026-11-10 Deepavali", "2026-12-25 Christmas Day"], "vacations_count_as_working_days": true, "_note": "December vacation 5 Dec - 3 Jan is a school break, not an office closure (Assumed, OQ-130)"}, "case_types": [{"code": "COMPLAINT", "family": "FEEDBACK", "owning_module": "communication_cases", "tier": "T2", "visibility": "NORMAL", "family_visible": true}, {"code": "LEAVE_OVER_LIMIT", "family": "ATTENDANCE", "owning_module": "attendance", "source": "AT06", "tier": "T2", "visibility": "NORMAL", "family_visible": true}, {"code": "ICA_REVIEW", "family": "IMMIGRATION", "owning_module": "attendance", "source": "AT10", "tier": "T3", "visibility": "RESTRICTED", "family_visible": false}, {"code": "STUDENT_PASS", "family": "IMMIGRATION", "owning_module": "admissions", "source": "AD10", "tier": "T3", "visibility": "RESTRICTED", "family_visible": false}, {"code": "REFUND", "family": "FINANCE", "owning_module": "fees", "source": "FB14", "tier": "T2", "visibility": "NORMAL", "family_visible": true}, {"code": "LONG_LEAVE", "family": "FINANCE", "owning_module": "fees", "source": "FB16", "tier": "T2", "visibility": "NORMAL", "family_visible": true}, {"code": "WITHDRAWAL", "family": "ENROLMENT", "owning_module": "admissions", "source": "ST02", "tier": "T2", "visibility": "NORMAL", "family_visible": true}, {"code": "CAMPUS_TRANSFER", "family": "ENROLMENT", "owning_module": "admissions", "source": "ST02", "tier": "T2", "visibility": "NORMAL", "family_visible": true}, {"code": "PREDICTED_GRADE_APPEAL", "family": "ACADEMIC", "owning_module": "assessment", "source": "AS13", "tier": "T2", "visibility": "NORMAL", "family_visible": true}, {"code": "RETENTION_REQUEST", "family": "ACADEMIC", "owning_module": "assessment", "source": "AS12", "tier": "T2", "visibility": "NORMAL", "family_visible": true}, {"code": "YEAR_END_CAMPUS_CHANGE", "family": "ENROLMENT", "owning_module": "classes", "source": "CL06", "tier": "T2", "visibility": "NORMAL", "family_visible": true}, {"code": "ACCESS_REQUEST", "family": "ACCESS", "owning_module": "access", "tier": "T1", "visibility": "NORMAL", "family_visible": false}, {"code": "CAMPUS_OPERATOR_HANDOVER", "family": "GOVERNANCE", "owning_module": "org", "source": "OR05", "tier": "T1", "visibility": "NORMAL", "family_visible": false}], "case_policies": [{"brand_country": "GIIS Singapore", "type": "COMPLAINT", "version": 1, "valid_from": "2026-04-01", "status": "PUBLISHED", "steps": [{"step": "ACKNOWLEDGE", "working_days": 2, "owner": "Recipient"}, {"step": "RESOLVE", "working_days": 7, "owner": "Recipient or process owner"}, {"step": "SUPERVISOR", "working_days": 14, "owner": "Process owner with supervisor"}, {"step": "DISPUTE_COMMITTEE", "working_days": 21, "owner": "Dispute Resolution Committee (chair: Country Director; Academic and Examination Board)"}, {"step": "EXTERNAL_REFERRAL", "working_days": null, "owner": "Country Director proposes the CPE Dispute Resolution Scheme (recorded only)"}], "counted_from": "Receipt (14 and 21 assumed from receipt, OQ-131)", "pause_when_waiting": true, "source": "HB p.249-250", "intake": [{"topic": "ACADEMIC", "owner": "Class teacher, then level coordinator (HB p.8)"}, {"topic": "FEES", "owner": "Finance"}, {"topic": "TRANSPORT", "owner": "Transport Executive"}, {"topic": "FACILITIES", "owner": "Facilities Manager (synthetic)"}, {"topic": "STAFF_CONDUCT", "owner": "Principal"}, {"topic": "OTHER", "owner": "Customer Relations"}], "_note": "Topic list and owners are sample settings (OQ-133)"}, {"brand_country": "GIIS Singapore", "type": "WITHDRAWAL", "version": 1, "status": "PUBLISHED", "steps": [{"step": "ACKNOWLEDGE", "working_days": 2}, {"step": "EXIT_INTERVIEW", "working_days": null, "rule": "Before the effective date"}, {"step": "DOCUMENTS_READY", "working_days": 7, "rule": "After the effective date"}], "approvers": ["Principal"], "family_escalation": "Finance Controller, then Director Business and Strategy after 4 working days", "source": "HB p.233-237"}, {"brand_country": "GIIS Singapore", "type": "CAMPUS_TRANSFER", "version": 1, "status": "PUBLISHED", "steps": [{"step": "ACKNOWLEDGE", "working_days": 2}, {"step": "DECIDE", "calendar_days": 21}, {"step": "PROFILE_UPDATED", "working_days": 3}], "approvers": ["Principal, originating campus", "Principal, receiving campus"], "source": "HB p.235-236, DL-62"}, {"brand_country": "GIIS Singapore", "type": "REFUND", "version": 1, "status": "PUBLISHED", "steps": [{"step": "MISSING_DOCUMENTS_NOTICE", "working_days": 3}, {"step": "DOCUMENTS_DUE", "working_days": 7, "owner": "Family"}], "approvers": ["Finance Controller", "Country Director"], "family_escalation": "Finance Controller, then Country Director after 4 working days", "source": "HB p.244-245, DL-84"}, {"brand_country": "GIIS Singapore", "type": "LEAVE_OVER_LIMIT", "version": 1, "status": "PUBLISHED", "steps": [{"step": "DECIDE", "working_days": null, "rule": "Before the leave starts (OQ-109)"}], "approvers": ["Principal"], "informed": ["Class teacher", "Coordinator"], "source": "HB p.23, DL-101"}, {"brand_country": "OWIS Singapore", "type": "COMPLAINT", "version": null, "status": "Not set", "_note": "No OWIS complaint process documented (OQ-143)"}, {"brand_country": "GIIS India", "type": "COMPLAINT", "version": null, "status": "Not set", "_note": "CPE is a Singapore scheme; India process Open (OQ-143)"}], "cases": [{"case": "CASE-SG-2026-1296", "type": "COMPLAINT", "campus": "SG-PGL", "topic": "TRANSPORT", "title": "School bus route 14 late three times in November", "raised_by": "Neha Sharma (mother of Aarav Sharma, 7B)", "received_via": "MESSAGE", "received_at": "2026-11-19T16:10", "converted_from": "CONV-PGL-0881", "status": "IN_PROGRESS", "current_step": "RESOLVE", "escalation": "With process owner", "recipient": "Farah Ismail (class teacher)", "assignee": "Ravi Kumar (Transport Executive)", "queue": "SG-PGL Transport", "visibility": "NORMAL", "family_visible": true, "deadlines": [{"step": "ACKNOWLEDGE", "working_days": 2, "due": "2026-11-23", "status": "MET", "met": "2026-11-20T10:05"}, {"step": "RESOLVE", "working_days": 7, "due": "2026-11-30", "status": "PENDING"}, {"step": "SUPERVISOR", "working_days": 14, "due": "2026-12-09", "status": "PENDING"}, {"step": "DISPUTE_COMMITTEE", "working_days": 21, "due": "2026-12-18", "status": "PENDING"}], "timeline": [{"at": "2026-11-19T16:10", "kind": "LINKED", "by": "Farah Ismail", "text": "Turned message into a complaint. Deadline counts from when Mrs Sharma wrote (SR-CC-12)."}, {"at": "2026-11-20T10:05", "kind": "REPLY_TO_FAMILY", "by": "Farah Ismail", "channel": "EMAIL", "text": "Thank you, Mrs Sharma. We have logged your complaint as CASE-SG-2026-1296 and passed it to our Transport Executive. You will hear from us by Mon 30 Nov."}, {"at": "2026-11-20T10:06", "kind": "ASSIGNED", "by": "Farah Ismail", "text": "Forwarded to process owner Ravi Kumar (HB p.249 C)."}, {"at": "2026-11-20T14:30", "kind": "INTERNAL_NOTE", "by": "Ravi Kumar", "text": "Operator confirms driver change on route 14 since 16 Nov. Asking for GPS logs."}], "next_due": "2026-11-30", "overdue": false}, {"case": "CASE-SG-2026-1274", "type": "COMPLAINT", "campus": "SG-PGL", "topic": "ACADEMIC", "title": "Homework load in Grade 8 during exam weeks", "raised_by": "Vikram Iyer (father of Rohan Iyer, 8A)", "received_via": "EMAIL", "received_at": "2026-11-04T11:20", "status": "IN_PROGRESS", "current_step": "SUPERVISOR", "escalation": "With supervisor", "recipient": "Meera Joshi (Academic Coordinator, CBSE 6-8)", "assignee": "Meera Joshi", "supervisor": "Rajesh Pillai (Deputy Principal, CBSE 6-12)", "queue": "SG-PGL Academic", "visibility": "NORMAL", "family_visible": true, "deadlines": [{"step": "ACKNOWLEDGE", "working_days": 2, "due": "2026-11-06", "status": "MET", "met": "2026-11-05T09:00"}, {"step": "RESOLVE", "working_days": 7, "due": "2026-11-17", "status": "BREACHED"}, {"step": "SUPERVISOR", "working_days": 14, "due": "2026-11-26", "status": "PENDING"}, {"step": "DISPUTE_COMMITTEE", "working_days": 21, "due": "2026-12-07", "status": "PENDING"}], "timeline": [{"at": "2026-11-05T09:00", "kind": "REPLY_TO_FAMILY", "by": "Meera Joshi", "channel": "EMAIL", "text": "Acknowledged; reviewing Grade 8 homework calendar with subject teachers."}, {"at": "2026-11-17T18:00", "kind": "DEADLINE_BREACHED", "by": "System", "text": "Not closed within 7 working days. Moved to supervisor step; Rajesh Pillai and Mr Iyer told (SR-CC-03)."}, {"at": "2026-11-18T12:15", "kind": "INTERNAL_NOTE", "by": "Rajesh Pillai", "text": "Meeting with Mr Iyer booked for Wed 25 Nov."}], "next_due": "2026-11-26", "overdue": false}, {"case": "CASE-SG-2026-1259", "type": "COMPLAINT", "campus": "SG-PGL", "topic": "FEES", "title": "Late payment charge disputed on Term 2 invoice", "raised_by": "Sunita Reddy (mother of Kiran Reddy, 5C)", "received_via": "LETTER", "received_at": "2026-10-22T09:45", "status": "IN_PROGRESS", "current_step": "DISPUTE_COMMITTEE", "escalation": "With committee", "recipient": "Priya Menon (Customer Relations Officer)", "assignee": "Vivek Menon (Country Director, chair)", "committee": ["Vivek Menon (Country Director, chair)", "Academic and Examination Board members", "Dr Anita Rao (Principal)"], "queue": "GIIS SG Dispute Resolution Committee", "visibility": "NORMAL", "family_visible": true, "deadlines": [{"step": "ACKNOWLEDGE", "working_days": 2, "due": "2026-10-26", "status": "MET", "met": "2026-10-22T15:00"}, {"step": "RESOLVE", "working_days": 7, "due": "2026-11-02", "status": "BREACHED"}, {"step": "SUPERVISOR", "working_days": 14, "due": "2026-11-13", "status": "BREACHED"}, {"step": "DISPUTE_COMMITTEE", "working_days": 21, "due": "2026-11-24", "status": "PENDING"}], "family_escalation": "If no agreed solution by the committee date, the Country Director proposes the CPE Dispute Resolution Scheme (HB p.250 I)", "timeline": [{"at": "2026-11-02T18:00", "kind": "DEADLINE_BREACHED", "by": "System", "text": "Not closed in 7 working days; with Finance Controller's supervisor."}, {"at": "2026-11-13T18:00", "kind": "ESCALATED", "by": "System", "text": "Still open at 14 working days; sent to the Dispute Resolution Committee (HB p.250 F-G)."}], "next_due": "2026-11-24", "overdue": false}, {"case": "CASE-SG-2026-1299", "type": "COMPLAINT", "campus": "SG-PGL", "topic": "CANTEEN", "title": "Child found hair in canteen lunch", "raised_by": "Grace Lim (mother of Ethan Lim, 7B)", "received_via": "PHONE", "received_at": "2026-11-20T15:05", "status": "NEW", "current_step": "ACKNOWLEDGE", "escalation": "With recipient", "recipient": null, "assignee": null, "queue": "SG-PGL Customer Relations", "logged_by": "Siti Rahman (Reception)", "visibility": "NORMAL", "family_visible": true, "deadlines": [{"step": "ACKNOWLEDGE", "working_days": 2, "due": "2026-11-24", "status": "PENDING"}, {"step": "RESOLVE", "working_days": 7, "due": "2026-12-01", "status": "PENDING"}, {"step": "SUPERVISOR", "working_days": 14, "due": "2026-12-10", "status": "PENDING"}, {"step": "DISPUTE_COMMITTEE", "working_days": 21, "due": "2026-12-21", "status": "PENDING"}], "timeline": [], "next_due": "2026-11-24", "overdue": false}, {"case": "CASE-SG-2026-1297", "type": "COMPLAINT", "campus": "SG-PGL", "topic": "COMMUNICATION", "title": "Did not receive PTM slot booking link", "raised_by": "Mohammed Noor (father of Fatima Noor, 7B)", "received_via": "HELPDESK", "received_at": "2026-11-18T08:40", "status": "NEW", "current_step": "ACKNOWLEDGE", "escalation": "With recipient", "recipient": null, "assignee": null, "queue": "SG-PGL Helpdesk", "visibility": "NORMAL", "family_visible": true, "deadlines": [{"step": "ACKNOWLEDGE", "working_days": 2, "due": "2026-11-20", "status": "BREACHED"}, {"step": "RESOLVE", "working_days": 7, "due": "2026-11-27", "status": "PENDING"}, {"step": "SUPERVISOR", "working_days": 14, "due": "2026-12-08", "status": "PENDING"}, {"step": "DISPUTE_COMMITTEE", "working_days": 21, "due": "2026-12-17", "status": "PENDING"}], "_note": "Arrived at the general helpdesk mailbox; nobody triaged it (OQ-144). Acknowledgement was due Fri 20 Nov.", "timeline": [], "next_due": "2026-11-20", "overdue": true}, {"case": "CASE-SG-2026-1281", "type": "COMPLAINT", "campus": "SG-PGL", "topic": "FACILITIES", "title": "Air-conditioning not working in Grade 5C classroom", "raised_by": "Sunita Reddy (mother of Kiran Reddy, 5C)", "received_via": "EMAIL", "received_at": "2026-11-12T13:30", "status": "IN_PROGRESS", "current_step": "RESOLVE", "escalation": "With process owner", "recipient": "Priya Menon (Customer Relations Officer)", "assignee": "Daniel Ong (Facilities Manager)", "queue": "SG-PGL Facilities", "visibility": "NORMAL", "family_visible": true, "deadlines": [{"step": "ACKNOWLEDGE", "working_days": 2, "due": "2026-11-16", "status": "MET", "met": "2026-11-12T16:00"}, {"step": "RESOLVE", "working_days": 7, "due": "2026-11-23", "status": "PENDING"}, {"step": "SUPERVISOR", "working_days": 14, "due": "2026-12-02", "status": "PENDING"}, {"step": "DISPUTE_COMMITTEE", "working_days": 21, "due": "2026-12-11", "status": "PENDING"}], "timeline": [{"at": "2026-11-20T11:00", "kind": "INTERNAL_NOTE", "by": "Daniel Ong", "text": "Compressor replaced 19 Nov. Reply to parent drafted."}], "next_due": "2026-11-23", "overdue": false}, {"case": "CASE-SG-2026-1270", "type": "COMPLAINT", "campus": "SG-PGL", "topic": "STAFF_CONDUCT", "title": "Concern about comments made in a Grade 6 class", "raised_by": "Anjali Desai (mother of Kabir Desai, 6A)", "received_via": "IN_PERSON", "received_at": "2026-11-02T10:00", "status": "WAITING", "current_step": "RESOLVE", "escalation": "With process owner", "waiting_for": "Parent to confirm the dates and the subject lesson", "paused": {"since": "2026-11-11", "working_days": 8}, "recipient": "Dr Anita Rao (Principal)", "assignee": "Dr Anita Rao", "queue": "SG-PGL Principal", "visibility": "RESTRICTED", "family_visible": true, "deadlines": [{"step": "ACKNOWLEDGE", "working_days": 2, "due": "2026-11-04", "status": "MET", "met": "2026-11-03T09:30"}, {"step": "RESOLVE", "working_days": 7, "due": "2026-11-25", "status": "PENDING"}, {"step": "SUPERVISOR", "working_days": 14, "due": "2026-12-04", "status": "PENDING"}, {"step": "DISPUTE_COMMITTEE", "working_days": 21, "due": "2026-12-15", "status": "PENDING"}], "_note": "Complaint names a teacher, so the Principal made it RESTRICTED: the teacher and coordinator don't see it (OQ-134). Clock paused while waiting (DL-122, OQ-131); deadlines moved by 8 working days so far.", "timeline": [{"at": "2026-11-11T14:00", "kind": "STATUS_CHANGE", "by": "Dr Anita Rao", "text": "Waiting for family: asked Mrs Desai for the dates."}], "next_due": "2026-11-25", "overdue": false}, {"case": "CASE-SG-2026-1288", "type": "LEAVE_OVER_LIMIT", "campus": "SG-PGL", "source": "Attendance AT06 LV-PGL-26-0421", "title": "Leave 30 Nov - 4 Dec (5 school days), Manav Joshi 7B", "raised_by": "Ritu Joshi (mother)", "received_via": "APP", "received_at": "2026-11-17T19:40", "status": "NEW", "current_step": "DECIDE", "assignee": "Dr Anita Rao (Principal)", "queue": "SG-PGL Principal", "informed": ["Farah Ismail (class teacher)", "Meera Joshi (coordinator)"], "visibility": "NORMAL", "family_visible": true, "deadlines": [{"step": "DECIDE", "due": "2026-11-27", "status": "PENDING", "_note": "Before the leave starts; deadline Not set in policy (OQ-109), sample uses the last working day before"}], "decisions": [{"role": "Principal", "by": null, "decision": null}], "next_due": "2026-11-27", "overdue": false}, {"case": "CASE-SG-2026-1291", "type": "ICA_REVIEW", "campus": "SG-PGL", "source": "Attendance AT10", "title": "ICA review: 8 consecutive school days absent", "raised_by": "System (attendance rule)", "received_via": "SYSTEM", "received_at": "2026-11-19T07:00", "status": "IN_PROGRESS", "current_step": "REVIEW", "assignee": "Lina Goh (Admissions Officer, Tier 3)", "queue": "SG-PGL Admissions (Tier 3)", "visibility": "RESTRICTED", "family_visible": false, "deadlines": [{"step": "REVIEW", "due": "Not set (OQ-112)", "status": "PENDING"}], "_note": "Only Lina Goh and A17 holders see this row. Everyone else's inbox doesn't show it at all; the campus dashboard counts it as 1 restricted case (DL-125).", "next_due": "Not set (OQ-112)", "overdue": false}, {"case": "CASE-SG-2026-1187", "type": "REFUND", "campus": "SG-PGL", "source": "Fees FB14 RF-SG-2026-0041", "title": "Registration fee refund, Hana Kim (Student Pass rejected)", "raised_by": "Admissions", "received_via": "SYSTEM", "received_at": "2026-11-02T10:00", "status": "DECIDED", "outcome": "APPROVED", "current_step": "APPLY", "assignee": "Finance, SG", "queue": "SG Finance", "visibility": "NORMAL", "family_visible": true, "decisions": [{"role": "Finance Controller", "by": "Wendy Koh", "decision": "APPROVE", "at": "2026-11-05"}, {"role": "Country Director", "by": "Vivek Menon", "decision": "APPROVE", "at": "2026-11-06"}], "deadlines": [{"step": "APPLY", "due": "Not set", "status": "PENDING"}], "family_escalation": "If the refund isn't paid in time: Finance Controller, then after 4 working days the Country Director (HB p.245)", "next_due": "Not set", "overdue": false}, {"case": "CASE-SG-2026-1203", "type": "REFUND", "campus": "SG-PGL", "source": "Fees FB14 RF-SG-2026-0047", "title": "Term refund, Chloe Tan Wei Ling (withdrawal)", "raised_by": "Finance", "received_via": "SYSTEM", "received_at": "2026-11-10T09:00", "status": "WAITING", "current_step": "DOCUMENTS_DUE", "waiting_for": "Bank details and signed withdrawal form", "assignee": "Wendy Koh (Finance Controller)", "queue": "SG Finance", "visibility": "NORMAL", "family_visible": true, "deadlines": [{"step": "MISSING_DOCUMENTS_NOTICE", "working_days": 3, "due": "2026-11-13", "status": "MET", "met": "2026-11-11"}, {"step": "DOCUMENTS_DUE", "working_days": 7, "due": "2026-11-20", "status": "BREACHED", "_note": "Family had 7 working days to send documents (HB p.245). Missed: refund is forfeited unless the Finance Controller and Country Director approve an extension"}], "overdue": true, "next_due": "2026-11-20", "overdue_label": "Family deadline passed"}, {"case": "CASE-SG-2026-1294", "type": "WITHDRAWAL", "campus": "SG-PGL", "source": "Student Records ST02 (approval_case_id)", "title": "Withdrawal, Gauri Patel 7B (relocating to Dubai)", "raised_by": "Kunal Patel (father)", "received_via": "EMAIL", "received_at": "2026-11-17T09:15", "status": "IN_PROGRESS", "current_step": "EXIT_INTERVIEW", "assignee": "Lina Goh (Admissions)", "queue": "SG-PGL Admissions", "visibility": "NORMAL", "family_visible": true, "deadlines": [{"step": "ACKNOWLEDGE", "working_days": 2, "due": "2026-11-19", "status": "MET", "met": "2026-11-18"}, {"step": "EXIT_INTERVIEW", "due": "2026-11-25", "status": "PENDING", "_note": "Booked with Dr Anita Rao; must be before the effective date (HB p.234)"}, {"step": "DOCUMENTS_READY", "working_days": 7, "due": "7 working days after the effective date (31 Dec 2026)", "status": "PENDING"}], "decisions": [{"role": "Principal", "by": null, "decision": null}], "family_escalation": "If not completed in time: Finance Controller, then after 4 working days the Director Business and Strategy (HB p.237)", "next_due": "2026-11-25", "overdue": false}, {"case": "CASE-SG-2026-1285", "type": "CAMPUS_TRANSFER", "campus": "SG-PGL", "second_campus": "SG-ECS", "title": "Course change CBSE to IGCSE Grade 9 at East Coast, Ishaan Gupta 8A", "raised_by": "Pooja Gupta (mother)", "received_via": "APP", "received_at": "2026-11-09T20:00", "status": "IN_PROGRESS", "current_step": "DECIDE", "assignee": "Dr Anita Rao (Principal, SG-PGL)", "queue": "SG-PGL Principal", "visibility": "NORMAL", "family_visible": true, "participants": [{"name": "Principal, SG-ECS (synthetic: Mr Harish Nair)", "role": "APPROVER", "access": "A15 on this case only (DL-130)"}], "decisions": [{"role": "Principal, originating campus", "by": "Dr Anita Rao", "decision": "APPROVE", "at": "2026-11-19"}, {"role": "Principal, receiving campus", "by": null, "decision": null}], "deadlines": [{"step": "ACKNOWLEDGE", "working_days": 2, "due": "2026-11-12", "status": "MET", "met": "2026-11-11", "_note": "Received on a public holiday (Deepavali, 9 Nov); counting starts the next working day"}, {"step": "DECIDE", "due": "2026-11-30", "status": "PENDING", "_note": "Within 3 weeks of the request (HB p.236)"}, {"step": "PROFILE_UPDATED", "working_days": 3, "due": "3 working days after the decision", "status": "PENDING"}], "next_due": "2026-11-30", "overdue": false}, {"case": "CASE-SG-2026-1201", "type": "PREDICTED_GRADE_APPEAL", "campus": "SG-ECS", "source": "Assessment AS13", "title": "Predicted grade appeal, IB DP Physics HL", "raised_by": "Guardian", "received_via": "APP", "received_at": "2026-11-12T10:00", "status": "IN_PROGRESS", "current_step": "COMMITTEE", "assignee": "Principal, SG-ECS (committee chair)", "queue": "SG-ECS Principal", "committee": ["Principal", "Academic Supervisor", "IB Coordinator", "Career Counsellor"], "visibility": "NORMAL", "family_visible": true, "deadlines": [{"step": "COMMITTEE", "due": "Not set (committee met 20 Nov)", "status": "PENDING"}], "next_due": "Not set (committee met 20 Nov)", "overdue": false}, {"case": "CASE-SG-2026-1150", "type": "LONG_LEAVE", "campus": "SG-ECS", "source": "Fees FB16", "title": "Long leave Dec 2026 - Feb 2027, Kavya Nair", "status": "APPLIED", "outcome": "APPROVED", "current_step": "-", "received_at": "2026-10-14T09:00", "received_via": "APP", "raised_by": "Guardian", "assignee": "Associate Director Academic Quality Assurance", "visibility": "NORMAL", "family_visible": true, "deadlines": [], "decisions": [{"role": "Associate Director Academic QA", "by": "synthetic", "decision": "APPROVE", "at": "2026-10-21"}]}, {"case": "CASE-SG-2026-1290", "type": "ACCESS_REQUEST", "campus": "SG-PGL", "source": "Access Registry (DL-08)", "title": "Tier 3 type grant: counsellor access to SEN records", "raised_by": "Staff", "received_via": "APP", "received_at": "2026-11-18T11:00", "status": "IN_PROGRESS", "current_step": "DECIDE", "assignee": "Dr Anita Rao (Campus Leader, DL-69)", "queue": "SG-PGL Principal", "visibility": "NORMAL", "family_visible": false, "decisions": [{"role": "Campus Leader", "line": "A17: SEN records, SG-PGL, until 31 Mar 2027", "by": null, "decision": null}], "deadlines": [{"step": "DECIDE", "due": "Not set (DL-08 names timers, no values)", "status": "PENDING"}], "next_due": "Not set (DL-08 names timers, no values)", "overdue": false}, {"case": "CASE-SG-2026-1293", "type": "COMPLAINT", "campus": "SG-OWD", "brand": "OWIS Singapore", "topic": "COMMUNICATION", "title": "Late notice of the Grade 4 field trip date change", "raised_by": "Guardian (OWIS Digital Campus)", "received_via": "EMAIL", "received_at": "2026-11-19T09:00", "status": "IN_PROGRESS", "current_step": "-", "assignee": "Claire Tan (Principal)", "queue": "SG-OWD Principal", "visibility": "NORMAL", "family_visible": true, "deadlines": [{"step": "ACKNOWLEDGE", "due": "Not set", "status": "PENDING"}, {"step": "RESOLVE", "due": "Not set", "status": "PENDING"}], "_note": "No OWIS complaint policy is documented (OQ-143): deadlines show 'Not set', never GIIS numbers (DL-59 pattern).", "next_due": "Not set", "overdue": false}, {"case": "CASE-IN-2026-0312", "type": "REFUND", "campus": "IN-NOI", "source": "Fees FB14 RF-IN-2026-0006", "title": "Refund, Meher Kapoor", "status": "IN_PROGRESS", "current_step": "CALCULATE", "received_via": "SYSTEM", "received_at": "2026-07-30T10:00", "raised_by": "Finance", "assignee": "Finance, IN", "visibility": "NORMAL", "family_visible": true, "deadlines": [{"step": "DECIDE", "due": "Not set (no GIIS India policy, OQ-86)", "status": "PENDING"}], "next_due": "Not set (no GIIS India policy, OQ-86)", "overdue": false}], "inbox_counts_priya": {"new_in_my_queues": 2, "overdue": 1, "due_today": 1, "waiting": 0, "_note": "CASE-SG-2026-1297 is overdue (acknowledgement due Fri 20 Nov); CASE-SG-2026-1299 acknowledgement due Tue 24 Nov"}, "feedback": [{"id": "FB-PGL-26-0310", "category": "COMPLAINT", "topic": "CANTEEN", "from": "Grace Lim (guardian)", "received_via": "PHONE", "received_at": "2026-11-20T15:05", "case": "CASE-SG-2026-1299", "acknowledged_at": null}, {"id": "FB-PGL-26-0306", "category": "COMPLIMENT", "topic": "TRANSPORT", "from": "Ritu Joshi (guardian)", "received_via": "EMAIL", "received_at": "2026-11-16T08:12", "body": "Thank you to Uncle Tan, route 9 driver, for waiting when Manav was running late in the rain.", "acknowledged_at": "2026-11-17T10:00", "review_cycle": "Term review (OQ-135)"}, {"id": "FB-PGL-26-0307", "category": "SUGGESTION", "topic": "CANTEEN", "from": "Student Council (Grade 8)", "received_via": "LETTER", "received_at": "2026-11-17T13:00", "body": "Add a second vegetarian hot meal option on Fridays.", "acknowledged_at": "2026-11-18T09:20", "review_cycle": "Term review (OQ-135)"}, {"id": "FB-PGL-26-0309", "category": "SUGGESTION", "topic": "COMMUNICATION", "from": "Member of the public", "received_via": "EMAIL", "received_at": "2026-11-19T19:40", "body": "Publish the school's holiday list on the website in iCal format.", "acknowledged_at": null, "_note": "Acknowledgement due Mon 23 Nov (today)"}, {"id": "FB-PGL-26-0298", "category": "COMPLIMENT", "topic": "ACADEMIC", "from": "Arjun Menon (guardian)", "received_via": "MESSAGE", "received_at": "2026-11-06T17:30", "body": "Ms Farah's Science fair guidance was excellent.", "acknowledged_at": "2026-11-06T18:00", "review_cycle": "Term review (OQ-135)"}], "conversations_farah": [{"id": "CONV-PGL-0881", "student": "Aarav Sharma (7B)", "with": ["Neha Sharma (mother)"], "subject": "Bus late again", "status": "CONVERTED", "case": "CASE-SG-2026-1296", "messages": [{"from": "Neha Sharma", "at": "2026-11-19T16:10", "text": "Ms Farah, the route 14 bus was late again today, third time this month. Aarav was marked late at 09:18. Who can I speak to?"}, {"from": "Farah Ismail", "at": "2026-11-19T16:40", "text": "Sorry to hear this, Mrs Sharma. I have logged it as a complaint so Transport must reply in writing. Aarav's late today is excused."}]}, {"id": "CONV-PGL-0874", "student": "Diya Menon (7B)", "with": ["Arjun Menon (father)"], "subject": "Medical certificate", "status": "OPEN", "unread": 1, "messages": [{"from": "Farah Ismail", "at": "2026-11-20T08:05", "text": "Welcome back to Diya. Please upload the GP's certificate on the leave request (not here, so it stays private)."}, {"from": "Arjun Menon", "at": "2026-11-23T07:52", "text": "Done, uploaded it last night. Thanks!"}]}, {"id": "CONV-PGL-0869", "student": "Kiara D'Souza (7B)", "with": ["Maria D'Souza (mother)", "Joel D'Souza (father)"], "subject": "Homework during leave", "status": "OPEN", "messages": [{"from": "Maria D'Souza", "at": "2026-11-18T21:10", "text": "Kiara will be away 23-24 Nov for a wedding. Could she get the homework in advance?"}, {"from": "Farah Ismail", "at": "2026-11-19T07:45", "text": "Of course. Leave approved; I'll share Monday and Tuesday's worksheets on Friday."}]}, {"id": "CONV-PGL-0850", "student": "Hiroshi Tanaka (7B)", "with": ["Yuki Tanaka (mother)"], "subject": "Settling in", "status": "CLOSED", "messages": [{"from": "Farah Ismail", "at": "2026-10-23T15:00", "text": "Hiroshi has settled in well with House A."}]}], "announcements": [{"id": "ANN-PGL-26-0412", "title": "Haze advisory: outdoor PE moved indoors", "audience": "SG-PGL, all grades, guardians and staff", "author": "Dr Anita Rao", "category": "SAFETY", "status": "SENT", "sent_at": "2026-11-20T07:30", "channels": ["PUSH", "EMAIL", "SMS"], "ack_required": false, "receipts": {"sent": 2140, "delivered": 2131, "read": 1688}}, {"id": "ANN-PGL-26-0409", "title": "7B Science fair projects due Fri 4 Dec", "audience": "Class 7B guardians and students", "author": "Farah Ismail", "category": "REQUIRED", "status": "SENT", "sent_at": "2026-11-18T15:00", "channels": ["PUSH", "EMAIL"], "approval_required": false, "ack_required": true, "ack_due": "2026-11-25", "receipts": {"sent": 52, "delivered": 52, "read": 41, "acknowledged": 33}, "_note": "Guardians of 26 students; one receipt per guardian"}, {"id": "ANN-PGL-26-0414", "title": "Semester 2 mid-term timetable, Grades 6-8", "audience": "SG-PGL CBSE Grades 6-8, guardians and students", "author": "Meera Joshi", "category": "REQUIRED", "status": "AWAITING_APPROVAL", "approval_required": true, "approver": "Dr Anita Rao (sample; approver Open, OQ-138)", "publish_at": "2026-11-24T08:00", "channels": ["PUSH", "EMAIL"]}, {"id": "ANN-PGL-26-0415", "title": "December vacation: office hours and reopening on 4 Jan", "audience": "SG-PGL, all guardians", "author": "Priya Menon", "category": "OPTIONAL", "status": "SCHEDULED", "approved_by": "Dr Anita Rao", "publish_at": "2026-12-03T16:00", "channels": ["EMAIL"]}], "notification_templates": [{"event": "AttendanceAbsentUnexplained", "brand_country": "GIIS Singapore", "category": "REQUIRED", "language": "en", "channel": "WHATSAPP", "version": 2, "status": "ACTIVE", "body": "{student_first_name} is marked absent today ({date}) and we have no leave request. Please reply or apply for leave in the app.", "source": "DL-107"}, {"event": "CaseAcknowledged", "brand_country": "GIIS Singapore", "category": "REQUIRED", "language": "en", "channel": "EMAIL", "version": 1, "status": "ACTIVE", "body": "We have received your {case_type_label} ({case_number}). We will reply by {next_due_date}. If you are not satisfied you may escalate to {escalation_contact}."}, {"event": "CaseOverdue", "brand_country": "GIIS Singapore", "category": "REQUIRED", "language": "en", "channel": "IN_APP", "version": 1, "status": "ACTIVE", "body": "{case_number} missed its {step_label} deadline ({due_date}) and is now with you."}, {"event": "CaseRestrictedAssigned", "brand_country": "GIIS Singapore", "category": "REQUIRED", "language": "en", "channel": "EMAIL", "version": 1, "status": "ACTIVE", "body": "You have a case to review. Open Campus OS to see it.", "_note": "No title or student name for restricted cases (SR-CC-15)"}, {"event": "LeaveDecided", "brand_country": "GIIS Singapore", "category": "REQUIRED", "language": "hi", "channel": "EMAIL", "version": 1, "status": "DRAFT", "body": "(Hindi version pending; languages OQ-25)"}, {"event": "InvoiceIssued", "brand_country": "OWIS Singapore", "category": "REQUIRED", "language": "en", "channel": "EMAIL", "version": null, "status": "Not set"}], "notification_log": [{"id": "NT-0099812", "event": "AttendanceAbsentUnexplained", "recipient": "Mohammed Noor (guardian, Fatima Noor 7B)", "sent_at": "2026-11-23T09:05", "channels": [{"channel": "WHATSAPP", "result": "DELIVERED"}], "category": "REQUIRED"}, {"id": "NT-0099807", "event": "AnnouncementSent ANN-PGL-26-0412", "recipient": "Grace Lim (guardian)", "sent_at": "2026-11-20T07:30", "channels": [{"channel": "SMS", "result": "FAILED", "reason": "Number not reachable"}, {"channel": "EMAIL", "result": "DELIVERED"}], "fallback_used": true, "category": "SAFETY"}, {"id": "NT-0099790", "event": "CaseAcknowledged CASE-SG-2026-1296", "recipient": "Neha Sharma (guardian)", "sent_at": "2026-11-20T10:05", "channels": [{"channel": "EMAIL", "result": "DELIVERED"}], "category": "REQUIRED"}, {"id": "NT-0099775", "event": "SchoolNewsletter", "recipient": "Joel D'Souza (guardian)", "sent_at": "2026-11-19T18:00", "channels": [{"channel": "EMAIL", "result": "SKIPPED_BY_PREFERENCE"}], "category": "OPTIONAL"}], "preferences_neha": {"account": "Neha Sharma", "language": "en", "rows": [{"category": "SAFETY", "channels": ["PUSH", "SMS", "EMAIL"], "can_mute": false}, {"category": "REQUIRED", "channels": ["WHATSAPP", "EMAIL"], "can_mute": false}, {"category": "OPTIONAL", "channels": ["EMAIL"], "can_mute": true, "quiet_hours": "21:00-07:00 (OQ-140)"}]}, "deadline_performance_pgl_nov": {"complaints_received": 9, "acknowledged_within_2": "7 of 8 due", "closed_within_7": "4 of 6 due", "with_supervisor": 1, "with_committee": 1, "external_referrals": 0, "restricted_cases": 2, "_note": "Counts only; no content (DL-130). Sample figures."}, "parent_view_neha": {"requests": [{"case": "CASE-SG-2026-1296", "label": "Complaint: school bus route 14", "status": "In progress", "next": "Reply by Mon 30 Nov", "replies": 1}], "_note": "Parent app later (DL-118); internal notes never shown (DL-126)"}};
+(function(){
+const $=s=>document.querySelector(s);
+const esc=t=>String(t??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ic={
+ inbox:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 13h5l1.5 3h5L16 13h5M5 5h14l2 8v6H3v-6z"/></svg>',
+ plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>',
+ heart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>',
+ chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v11H9l-5 4z"/></svg>',
+ mega:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10v4h4l8 5V5L7 10zM18 9a4 4 0 0 1 0 6"/></svg>',
+ rule:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h14v16H5zM9 8h6M9 12h6M9 16h3"/></svg>',
+ bell:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 21h4"/></svg>',
+ chart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
+ home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-7 9 7v9H3z"/></svg>',
+ lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>',
+ info:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>',
+ warn:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 4l9 16H3zM12 10v4M12 17v.5"/></svg>',
+ pause:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 6v12M15 6v12"/></svg>'
+};
+const TODAY='2026-11-23';
+const HOL=['2026-11-09','2026-11-10','2026-12-25','2027-01-01'];
+const isWd=d=>{const w=d.getDay();return w>0&&w<6&&!HOL.includes(d.toISOString().slice(0,10))};
+const addWd=(iso,n)=>{const d=new Date(iso.slice(0,10)+'T12:00:00Z');while(n>0){d.setUTCDate(d.getUTCDate()+1);if(isWd(d))n--}return d.toISOString().slice(0,10)};
+const fmt=iso=>{if(!iso||!/^\d{4}-\d\d-\d\d/.test(iso))return esc(iso||'—');const d=new Date(iso.slice(0,10)+'T12:00:00Z');return d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',timeZone:'UTC'})};
+const fmtT=iso=>iso&&iso.length>10?fmt(iso)+', '+iso.slice(11,16):fmt(iso);
+const STATUS={NEW:['New','c-info'],IN_PROGRESS:['In progress','c-role'],WAITING:['Waiting for family','c-warning'],DECIDED:['Decided','c-success'],APPLIED:['Done','c-success'],CLOSED:['Closed','c-default'],WITHDRAWN:['Withdrawn','c-default']};
+const OUT={APPROVED:['Approved','c-success'],REJECTED:['Rejected','c-error'],RESOLVED:['Resolved','c-success'],NO_ACTION:['No action','c-default']};
+const TYPE={COMPLAINT:'Complaint',LEAVE_OVER_LIMIT:'Leave over 2 days',ICA_REVIEW:'ICA review',REFUND:'Refund',WITHDRAWAL:'Withdrawal',CAMPUS_TRANSFER:'Campus transfer',PREDICTED_GRADE_APPEAL:'Predicted grade appeal',LONG_LEAVE:'Long leave',ACCESS_REQUEST:'Access request'};
+const STEP={ACKNOWLEDGE:'Acknowledge',RESOLVE:'Reply and close',SUPERVISOR:'Supervisor',DISPUTE_COMMITTEE:'Dispute committee',DECIDE:'Decision',REVIEW:'Review',APPLY:'Apply',DOCUMENTS_DUE:'Documents from family',MISSING_DOCUMENTS_NOTICE:'Missing documents notice',EXIT_INTERVIEW:'Exit interview',DOCUMENTS_READY:'Documents ready',PROFILE_UPDATED:'Profile updated',COMMITTEE:'Committee',CALCULATE:'Calculate',EXTERNAL_REFERRAL:'CPE referral'};
+const chip=a=>`<span class="chip ${a[1]}">${esc(a[0])}</span>`;
+const pend=(oq,t='Pending decision')=>`<span class="chip c-pending" title="${oq}">${t} · ${oq}</span>`;
+const initials=n=>n.replace(/^Dr /,'').split(' ').filter(w=>/^[A-Z]/.test(w)).slice(0,2).map(w=>w[0]).join('');
+const st={viewer:'priya',view:null,cases:JSON.parse(JSON.stringify(S.cases)),conv:JSON.parse(JSON.stringify(S.conversations_farah)),ann:JSON.parse(JSON.stringify(S.announcements)),fb:JSON.parse(JSON.stringify(S.feedback)),q:'mine',caseId:null,convId:null,mode:'reply'};
+const V={
+ priya:{name:'Priya Menon',role:'Customer Relations · SG-PGL',scope:'GIIS Singapore › <b>SMART Campus Punggol</b>',queues:['SG-PGL Customer Relations','SG-PGL Helpdesk'],me:'Priya Menon',tier3:false,campus:'SG-PGL',nav:[['inbox','Cases',ic.inbox],['log','Log feedback',ic.plus],['feedback','Compliments & suggestions',ic.heart],['notify','Notifications',ic.bell]]},
+ anita:{name:'Dr Anita Rao',role:'Principal · SG-PGL',scope:'GIIS Singapore › <b>SMART Campus Punggol</b>',queues:['SG-PGL Principal'],me:'Dr Anita Rao',tier3:false,campus:'SG-PGL',all:true,named:['CASE-SG-2026-1270'],nav:[['inbox','Cases',ic.inbox],['ann','Announcements',ic.mega],['perf','Deadline performance',ic.chart]]},
+ farah:{name:'Farah Ismail',role:'Class teacher · 7B',scope:'SG-PGL › <b>7B</b>',phone:true,me:'Farah Ismail',campus:'SG-PGL',nav:[['msgs','Messages',ic.chat],['ann','Announcements',ic.mega],['inbox','Cases I raised',ic.inbox]]},
+ meera:{name:'Meera Joshi',role:'Coordinator · CBSE Grades 6-8',scope:'SG-PGL › <b>Grades 6-8</b>',queues:['SG-PGL Academic'],me:'Meera Joshi',campus:'SG-PGL',nav:[['inbox','Cases',ic.inbox],['ann','Announcements',ic.mega]]},
+ lina:{name:'Lina Goh',role:'Admissions · Student Pass (Tier 3)',scope:'SG-PGL › <b>Admissions</b>',queues:['SG-PGL Admissions','SG-PGL Admissions (Tier 3)'],me:'Lina Goh',tier3:true,campus:'SG-PGL',nav:[['inbox','Cases',ic.inbox]]},
+ vikram:{name:'Vivek Menon',role:'Country Director · GIIS Singapore',scope:'<b>GIIS Singapore</b>',queues:['GIIS SG Dispute Resolution Committee','SG Finance'],me:'Vivek Menon',campus:'*SG',nav:[['inbox','Cases',ic.inbox],['policy','Case policies',ic.rule],['perf','Deadline performance',ic.chart]]},
+ claire:{name:'Claire Tan',role:'Principal · OWIS Digital Campus',scope:'OWIS Singapore › <b>Digital Campus Punggol</b>',queues:['SG-OWD Principal'],me:'Claire Tan',campus:'SG-OWD',all:true,nav:[['inbox','Cases',ic.inbox],['policy','Case policies',ic.rule]]},
+ neha:{name:'Neha Sharma',role:'Parent · Aarav (7B)',scope:'<b>Aarav Sharma</b> · 7B',phone:true,me:'Neha Sharma',nav:[['parent','My requests',ic.home],['pmsgs','Messages',ic.chat],['prefs','Notifications',ic.bell]]}
+};
+function toast(t){const e=document.createElement('div');e.className='toast';e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),2600)}
+const who=n=>n?esc(n):'<span class="sub">Unassigned · in queue</span>';
+
+/* ---------- visibility (DL-125) ---------- */
+function visible(c,v){
+ const x=V[v];
+ if(c.visibility==='RESTRICTED'){
+   const named=(x.named||[]).includes(c.case)||(c.assignee||'').startsWith(x.me);
+   const tier3=x.tier3&&/Tier 3/.test(c.queue||'');
+   return named||tier3;
+ }
+ if(v==='farah') return /Farah/.test(c.recipient||'')||/Farah/.test(JSON.stringify(c.informed||''));
+ if(x.campus==='*SG') return (x.queues||[]).includes(c.queue)||/Vivek|Country Director/.test(JSON.stringify(c));
+ if(c.campus!==x.campus&&!(c.second_campus===x.campus)) return false;
+ if(x.all) return true;
+ return (x.queues||[]).includes(c.queue)||(c.recipient||'').startsWith(x.me)||(c.assignee||'').startsWith(x.me);
+}
+function hiddenCount(v){return st.cases.filter(c=>c.visibility==='RESTRICTED'&&c.campus===V[v].campus&&!visible(c,v)).length}
+function stepDue(c){const d=(c.deadlines||[]).find(s=>s.step===c.current_step);return d||null}
+function flags(c){
+ let h=chip(STATUS[c.status]||[c.status,'c-default']);
+ if(c.outcome) h+=' '+chip(OUT[c.outcome]);
+ if(c.overdue) h+=' '+chip([c.overdue_label||'Overdue','c-error']);
+ if(c.escalation&&/supervisor|committee/i.test(c.escalation)) h+=' '+chip([c.escalation,'c-warning']);
+ if(c.visibility==='RESTRICTED') h+=` <span class="chip c-default">${ic.lock}Restricted</span>`;
+ return `<span class="flag">${h}</span>`;
+}
+function dueCell(c){
+ const d=c.next_due;
+ if(!d) return '<span class="sub">—</span>';
+ if(!/^\d{4}/.test(d)) return `<span class="notset">${ic.warn}${esc(d)}</span>`;
+ const lab=d===TODAY?'<b>Due today</b>':fmt(d);
+ const s=stepDue(c);
+ return `${c.overdue?`<b style="color:var(--error)">${fmt(d)}</b>`:lab}<div class="sub">${esc(STEP[c.current_step]||c.current_step||'')}${c.status==='WAITING'?' · clock paused':''}</div>`;
+}
+
+/* ---------- SCR-CC-01 Case inbox ---------- */
+function vInbox(){
+ const v=st.viewer, x=V[v];
+ let list=st.cases.filter(c=>visible(c,v));
+ const mine=list.filter(c=>(c.assignee||'').startsWith(x.me)||(c.recipient||'').startsWith(x.me));
+ const queue=list.filter(c=>(x.queues||[]).includes(c.queue));
+ const over=list.filter(c=>c.overdue);
+ const wait=list.filter(c=>c.status==='WAITING');
+ const tabs=[['mine','Mine',mine],['queue','My queues',queue],['overdue','Overdue',over],['waiting','Waiting for family',wait],['all',v==='farah'?'All I raised':'All I can see',list]];
+ if(!tabs.find(t=>t[0]===st.q)) st.q='mine';
+ let rows=(tabs.find(t=>t[0]===st.q)||tabs[4])[2].slice();
+ if(v==='farah') rows=list;
+ rows.sort((a,b)=>(b.overdue-a.overdue)||String(a.next_due||'9').localeCompare(String(b.next_due||'9')));
+ const hid=hiddenCount(v);
+ return `<div class="page-h"><div><h1>${v==='farah'?'Cases I raised':'Cases'}</h1><p>Overdue first, then by next due date. Deadlines count working days (Mon–Fri, minus public holidays).</p></div><div class="grow"></div>${['priya','anita','meera'].includes(v)?`<button class="btn btn-primary" data-go="log">${ic.plus}Log feedback</button>`:''}</div>
+ <div class="listcard">${v==='farah'?'':`<div class="qtabs" role="tablist">${tabs.map(t=>`<button data-q="${t[0]}" aria-pressed="${st.q===t[0]}">${t[1]} <span class="cnt">${t[2].length}</span></button>`).join('')}</div>`}
+ ${hid?`<div class="hidden-note">${ic.lock}<span>${hid} restricted case${hid>1?'s':''} at this campus ${hid>1?'are':'is'} not shown to you. Only the people named on ${hid>1?'them':'it'} can see ${hid>1?'them':'it'} (DL-125).</span></div>`:''}
+ <div class="tablewrap"><table><thead><tr><th>Case</th><th>Type</th><th>Status</th><th>Next deadline</th><th>Handled by</th></tr></thead><tbody>
+ ${rows.map(c=>`<tr class="click" data-case="${c.case}"><td><b>${esc(c.title)}</b><div class="sub mono">${c.case} · ${esc(c.raised_by||'')}</div></td><td>${esc(TYPE[c.type]||c.type)}${c.source?`<div class="sub">${esc(c.source.split(' ')[0])}</div>`:''}</td><td>${flags(c)}</td><td>${dueCell(c)}</td><td>${who(c.assignee)}<div class="sub">${esc(c.queue||'')}</div></td></tr>`).join('')||'<tr><td colspan="5" class="sub">Nothing here.</td></tr>'}
+ </tbody></table></div></div>
+ <p class="foot">SCR-CC-01 · OBJ-10 · DL-120 DL-122 DL-124 DL-125 · ${v==='claire'?'OWIS has no complaint policy: deadlines show “Not set” (OQ-143)':'GIIS SG settings from HB p.233–250'}</p>`;
+}
+function bindInbox(){document.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>{st.q=b.dataset.q;render()});document.querySelectorAll('[data-case]').forEach(r=>r.onclick=()=>{st.caseId=r.dataset.case;st.view='case';render()})}
+
+/* ---------- SCR-CC-02 Case detail ---------- */
+function ladder(c){
+ const d=(c.deadlines||[]);
+ if(!d.length) return '<p class="sub">No deadlines in this policy.</p>';
+ return `<div class="ladder">${d.map(s=>{const cls=s.status==='MET'?'done':s.status==='BREACHED'?'bad':(s.step===c.current_step?(c.status==='WAITING'?'paused':'cur'):'');const ico=s.status==='MET'?'✓':s.status==='BREACHED'?'!':(c.status==='WAITING'&&s.step===c.current_step?'❚❚':'');return `<div class="step ${cls}"><span class="d">${ico}</span><span>${esc(STEP[s.step]||s.step)}</span><span class="due">${s.working_days?s.working_days+' wd · ':''}${/^\d{4}/.test(s.due)?fmt(s.due):esc(s.due)}</span></div>`}).join('')}</div>`;
+}
+function vCase(){
+ const c=st.cases.find(x=>x.case===st.caseId);const v=st.viewer;
+ if(!c||!visible(c,v)) return `<div class="noaccess"><span class="ico">${ic.lock}</span><div><b>Not available</b><p>This case doesn't exist or isn't shared with you.</p></div></div>`;
+ const tl=(c.timeline||[]);
+ const canWork=v!=='farah';
+ const decs=c.decisions||[];
+ return `<div class="crumbs"><a href="#" data-go="inbox">Cases</a><span class="dot"></span><b class="mono">${c.case}</b></div>
+ <div class="page-h"><div><h1>${esc(c.title)}</h1><p>${esc(TYPE[c.type]||c.type)} · ${esc(c.raised_by||'')} · received ${fmtT(c.received_at)} by ${esc((c.received_via||'').toLowerCase().replace('_',' '))}</p><div class="chips">${flags(c)}${c.family_visible?'<span class="chip c-info">Family can see replies</span>':'<span class="chip c-default">Not shown to family</span>'}</div></div><div class="grow"></div>
+ ${canWork?`<div class="hero-actions">${c.status==='NEW'?'<button class="btn btn-primary" data-act="ack">Acknowledge and take it</button>':''}${['NEW','IN_PROGRESS'].includes(c.status)?'<button class="btn" data-act="wait">Waiting for family</button>':''}${c.status==='WAITING'?'<button class="btn" data-act="resume">Family replied, resume</button>':''}${c.type==='COMPLAINT'&&c.status==='IN_PROGRESS'?'<button class="btn" data-act="resolve">Reply and close</button>':''}</div>`:''}</div>
+ <div class="grid">
+  <section class="card span2"><div class="card-h"><h2>Deadlines</h2><span class="sub">Policy: ${esc(c.campus==='SG-OWD'?'OWIS Singapore · Not set':c.campus==='IN-NOI'?'GIIS India · Not set':'GIIS Singapore v1')}</span></div><div class="card-b">${ladder(c)}
+  ${c.status==='WAITING'?`<div class="blocked">${ic.pause}<div><b>Clock paused since ${fmt((c.paused||{}).since)}${(c.paused||{}).working_days?' · '+c.paused.working_days+' working days so far':''}</b>Waiting for: ${esc(c.waiting_for||'the family')}. Later deadlines move by the paused days ${pend('OQ-131','Pause rule')}</div></div>`:''}
+  ${c.overdue&&c.status==='NEW'?`<div class="blocked" style="border-color:var(--error)">${ic.warn}<div><b>Acknowledgement was due ${fmt(c.next_due)}</b>${esc(c._note||'')}</div></div>`:''}
+  ${c.family_escalation?`<p class="sub" style="margin-top:12px">${ic.info?'':''}Family escalation: ${esc(c.family_escalation)}</p>`:''}</div></section>
+  <section class="card"><div class="card-h"><h2>Timeline</h2></div><div class="card-b">
+   <ul class="tl">${tl.slice().reverse().map(t=>{const k=t.kind==='INTERNAL_NOTE'?'note':t.kind==='REPLY_TO_FAMILY'?'reply':/BREACH|ESCAL/.test(t.kind)?'sys':'';const lab={INTERNAL_NOTE:'Internal note · staff only',REPLY_TO_FAMILY:'Reply to family'+(t.channel?' · '+t.channel.toLowerCase():''),DEADLINE_BREACHED:'Deadline missed',ESCALATED:'Escalated',ASSIGNED:'Assigned',LINKED:'Linked',STATUS_CHANGE:'Status'}[t.kind]||t.kind;return `<li class="${k}"><span class="dotm"></span><div class="h">${esc(lab)}</div><div class="m">${esc(t.by)} · ${fmtT(t.at)}</div><div class="bodyt">${esc(t.text)}</div></li>`}).join('')||'<li><span class="dotm"></span><div class="m">No activity yet.</div></li>'}</ul>
+   ${canWork?`<div class="composer"><div class="modes"><button data-mode="reply" aria-pressed="${st.mode==='reply'}">Reply to family</button><button class="note" data-mode="note" aria-pressed="${st.mode==='note'}">Internal note</button></div><textarea id="cbody" placeholder="${st.mode==='reply'?'Sent by email in v1, shown in the Parent app later':'Only staff on this case can see this'}"></textarea><div class="bar2"><small>${st.mode==='reply'?(c.family_visible?'The family will see this.':'This case type is not shown to families.'):'Never shown to the family (DL-126).'}</small><button class="btn btn-primary btn-sm" data-act="post">${st.mode==='reply'?'Send reply':'Add note'}</button></div></div>`:''}
+  </div></section>
+  <section class="card"><div class="card-h"><h2>People and approvals</h2></div><div class="card-b">
+   <dl class="kv"><dt>Handled by</dt><dd>${who(c.assignee)}</dd><dt>Queue</dt><dd>${esc(c.queue||'—')}</dd>${c.recipient?`<dt>Received by</dt><dd>${esc(c.recipient)}</dd>`:''}${c.supervisor?`<dt>Supervisor</dt><dd>${esc(c.supervisor)}</dd>`:''}${c.committee?`<dt>Committee</dt><dd>${c.committee.map(esc).join('<br>')}</dd>`:''}${c.informed?`<dt>Informed</dt><dd>${c.informed.map(esc).join('<br>')}</dd>`:''}${(c.participants||[]).map(p=>`<dt>${esc(p.role.toLowerCase())}</dt><dd>${esc(p.name)}<span class="sub">${esc(p.access)}</span></dd>`).join('')}</dl>
+   ${decs.length?`<h3 style="font-size:14px;margin:18px 0 6px">Approvals</h3>${decs.map((d,i)=>`<div class="list-row"><div class="grow"><b>${esc(d.role)}</b><div class="sub">${esc(d.line||'')}${d.by?esc(d.by)+' · '+fmt(d.at):'Waiting'}</div></div>${d.decision?chip(d.decision==='APPROVE'?['Approved','c-success']:['Rejected','c-error']):(['anita','vikram'].includes(st.viewer)?`<button class="btn btn-sm" data-dec="${i}">Decide</button>`:chip(['Waiting','c-default']))}</div>`).join('')}`:''}
+   ${c.source?`<div class="logline">${ic.info}<span>Detail lives in <b>${esc(c.source)}</b>. That module applies the decision (DL-120).</span></div>`:''}
+   ${c._note&&!(c.overdue&&c.status==='NEW')?`<p class="sub" style="margin-top:12px">${esc(c._note)}</p>`:''}
+  </div></section>
+ </div><p class="foot">SCR-CC-02 · OBJ-10 · CC03–CC07 · DL-120…DL-126</p>`;
+}
+function bindCase(){
+ const c=st.cases.find(x=>x.case===st.caseId);if(!c)return;
+ document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{st.mode=b.dataset.mode;render()});
+ document.querySelectorAll('[data-act]').forEach(b=>b.onclick=()=>{
+  const a=b.dataset.act;c.timeline=c.timeline||[];const me=V[st.viewer].name;const now='2026-11-23T09:3'+c.timeline.length;
+  if(a==='ack'){c.status='IN_PROGRESS';c.assignee=me;c.overdue=false;const s=c.deadlines.find(s=>s.step==='ACKNOWLEDGE');if(s){s.status=s.status==='BREACHED'?'BREACHED':'MET'};c.current_step='RESOLVE';c.next_due=(c.deadlines.find(s=>s.step==='RESOLVE')||{}).due;c.timeline.push({at:now,kind:'REPLY_TO_FAMILY',by:me,channel:'EMAIL',text:`We have received your complaint (${c.case}). We will reply by ${fmt(c.next_due)}.`});toast('Acknowledged. The family is told the reply date.')}
+  if(a==='wait'){c.status='WAITING';c.paused={since:TODAY,working_days:0};c.waiting_for='Information from the family';c.timeline.push({at:now,kind:'STATUS_CHANGE',by:me,text:'Waiting for family. Clock paused.'});toast('Clock paused while you wait.')}
+  if(a==='resume'){c.status='IN_PROGRESS';c.timeline.push({at:now,kind:'STATUS_CHANGE',by:me,text:'Family replied. Clock resumed; deadlines moved by the paused days.'});toast('Resumed.')}
+  if(a==='resolve'){c.status='DECIDED';c.outcome='RESOLVED';c.overdue=false;c.next_due=null;c.timeline.push({at:now,kind:'REPLY_TO_FAMILY',by:me,channel:'EMAIL',text:'Written reply sent and complaint closed.'});toast('Reply sent; complaint resolved.')}
+  if(a==='post'){const t=$('#cbody').value.trim();if(!t){toast('Write something first');return}c.timeline.push({at:now,kind:st.mode==='reply'?'REPLY_TO_FAMILY':'INTERNAL_NOTE',by:me,channel:st.mode==='reply'?'EMAIL':undefined,text:t});toast(st.mode==='reply'?'Reply sent by email':'Note added')}
+  render()});
+ document.querySelectorAll('[data-dec]').forEach(b=>b.onclick=()=>{const d=c.decisions[+b.dataset.dec];d.by=V[st.viewer].name;d.at=TODAY;d.decision='APPROVE';if(c.decisions.every(x=>x.decision)){c.status='DECIDED';c.outcome='APPROVED'}toast('Approved. The owning module applies it.');render()});
+}
+
+/* ---------- SCR-CC-03 Log feedback ---------- */
+function vLog(){
+ return `<div class="crumbs"><a href="#" data-go="inbox">Cases</a><span class="dot"></span><b>Log feedback</b></div>
+ <div class="page-h"><div><h1>Log feedback</h1><p>For feedback that arrives by email, phone, letter, helpdesk or in person (HB p.249). A complaint opens a case; compliments and suggestions go to the term review.</p></div></div>
+ <div class="grid"><section class="card"><div class="card-b"><div class="form">
+  <div><label for="fc">Type</label><select id="fc"><option value="COMPLAINT">Complaint</option><option value="COMPLIMENT">Compliment</option><option value="SUGGESTION">Suggestion</option></select></div>
+  <div><label for="ft">Topic ${''}</label><select id="ft"><option>TRANSPORT</option><option>ACADEMIC</option><option>FEES</option><option>CANTEEN</option><option>FACILITIES</option><option>STAFF_CONDUCT</option><option>COMMUNICATION</option><option>OTHER</option></select></div>
+  <div><label for="ff">From</label><select id="ff"><option>Guardian: Neha Sharma (Aarav Sharma, 7B)</option><option>Guardian: Grace Lim (Ethan Lim, 7B)</option><option>Student</option><option>Staff</option><option>Member of the public</option></select></div>
+  <div><label for="fv">Received by</label><select id="fv"><option>EMAIL</option><option>PHONE</option><option>LETTER</option><option>HELPDESK</option><option>IN_PERSON</option></select></div>
+  <div class="full"><label for="fd">Received on (day 0)</label><input id="fd" type="date" value="2026-11-20"></div>
+  <div class="full"><label for="fb">What they said</label><textarea id="fb" placeholder="As received. This text is never edited later."></textarea></div>
+ </div></div></section>
+ <section class="card"><div class="card-h"><h2>What happens next</h2></div><div class="card-b"><div class="preview" id="prev"></div></div></section></div>
+ <p class="foot">SCR-CC-03 · CC08, CC03, CC04 · DL-122 DL-123 · topic list and owners ${pend('OQ-133','Sample')}</p>`;
+}
+function bindLog(){
+ const own={TRANSPORT:'Transport Executive',ACADEMIC:'Class teacher, then level coordinator',FEES:'Finance',CANTEEN:'Customer Relations',FACILITIES:'Facilities Manager',STAFF_CONDUCT:'Principal (case restricted)',COMMUNICATION:'Customer Relations',OTHER:'Customer Relations'};
+ const up=()=>{const c=$('#fc').value,d=$('#fd').value||TODAY,t=$('#ft').value;
+  if(c!=='COMPLAINT'){$('#prev').innerHTML=`<b>${c==='COMPLIMENT'?'Compliment':'Suggestion'}</b>: acknowledge by <b>${fmt(addWd(d,2))}</b> (2 working days). No case is opened; it goes to the term review ${pend('OQ-135','Review cycle')}.`;return}
+  $('#prev').innerHTML=`<b>Opens a complaint case</b> for <b>${esc(own[t])}</b>.<ol><li>Acknowledge by <b>${fmt(addWd(d,2))}</b></li><li>Reply in writing and close by <b>${fmt(addWd(d,7))}</b></li><li>If still open: supervisor by <b>${fmt(addWd(d,14))}</b></li><li>If still open: Dispute Resolution Committee (Country Director) by <b>${fmt(addWd(d,21))}</b></li><li>No agreement: CPE Dispute Resolution Scheme (recorded only)</li></ol><p class="sub">GIIS Singapore complaint policy v1 (HB p.249–250). Weekends and public holidays skipped${d<'2026-11-11'?' (Deepavali 9–10 Nov)':''}.</p><div class="row" style="display:flex;justify-content:flex-end;margin-top:12px"><button class="btn btn-primary" id="fsave">Open case</button></div>`;
+  $('#fsave').onclick=()=>{if(!$('#fb').value.trim()){toast('Add what they said');return}const n='CASE-SG-2026-1300';st.cases.unshift({case:n,type:'COMPLAINT',campus:'SG-PGL',topic:t,title:$('#fb').value.trim().slice(0,70),raised_by:$('#ff').value.replace(/^Guardian: /,''),received_via:$('#fv').value,received_at:d+'T09:00',status:'NEW',current_step:'ACKNOWLEDGE',queue:'SG-PGL Customer Relations',recipient:null,assignee:null,visibility:t==='STAFF_CONDUCT'?'RESTRICTED':'NORMAL',family_visible:true,deadlines:[['ACKNOWLEDGE',2],['RESOLVE',7],['SUPERVISOR',14],['DISPUTE_COMMITTEE',21]].map(([s,k])=>({step:s,working_days:k,due:addWd(d,k),status:addWd(d,k)<TODAY?'BREACHED':'PENDING'})),timeline:[]});const nc=st.cases[0];nc.next_due=nc.deadlines[0].due;nc.overdue=nc.next_due<TODAY;if(t==='STAFF_CONDUCT'){nc.assignee='Dr Anita Rao';nc.queue='SG-PGL Principal'}st.caseId=n;st.view='case';toast(n+' opened');render()}};
+ ['#fc','#fd','#ft'].forEach(s=>$(s).onchange=up);up();
+}
+
+/* ---------- SCR-CC-04 Feedback ---------- */
+function vFeedback(){
+ const rows=st.fb.filter(f=>f.category!=='COMPLAINT');
+ return `<div class="page-h"><div><h1>Compliments &amp; suggestions</h1><p>Acknowledged within 2 working days, then compiled for the term review (HB p.249 C). Complaints are in Cases.</p></div></div>
+ <div class="listcard"><div class="tablewrap"><table><thead><tr><th>Feedback</th><th>Type</th><th>From</th><th>Acknowledged</th></tr></thead><tbody>
+ ${rows.map(f=>`<tr><td><b>${esc(f.body)}</b><div class="sub">${f.id} · ${esc(f.topic.toLowerCase())} · ${fmtT(f.received_at)}</div></td><td>${chip(f.category==='COMPLIMENT'?['Compliment','c-success']:['Suggestion','c-info'])}</td><td>${esc(f.from)}<div class="sub">${esc(f.received_via.toLowerCase())}</div></td><td>${f.acknowledged_at?fmt(f.acknowledged_at):`<button class="btn btn-sm" data-ackf="${f.id}">Acknowledge · due ${fmt(addWd(f.received_at,2))}</button>`}</td></tr>`).join('')}
+ </tbody></table></div></div><p class="foot">SCR-CC-04 · CC08 · DL-123 · review cycle ${pend('OQ-135','Pending')}</p>`;
+}
+function bindFeedback(){document.querySelectorAll('[data-ackf]').forEach(b=>b.onclick=()=>{st.fb.find(f=>f.id===b.dataset.ackf).acknowledged_at=TODAY;toast('Acknowledgement sent');render()})}
+
+/* ---------- SCR-CC-05 Messages (teacher) ---------- */
+function vMsgs(){
+ if(st.convId) return vThread();
+ return `<div class="page-h"><div><h1>Messages</h1><p>Conversations with guardians of 7B. One thread per student.</p></div><div class="grow"></div><button class="btn btn-primary btn-sm" data-act2="new">${ic.plus}New</button></div>
+ <div class="card"><div class="card-b">${st.conv.map(c=>{const l=c.messages[c.messages.length-1];return `<button class="convrow" data-conv="${c.id}"><span class="avatar av-row">${initials(c.student)}</span><span class="grow"><b>${esc(c.student)}</b> <span class="sub">· ${esc(c.with.join(', '))}</span><div>${esc(l.from.split(' ')[0])}: ${esc(l.text)}</div></span>${c.status==='CONVERTED'?chip(['Case','c-role']):c.unread?'<span class="dotu" aria-label="Unread"></span>':''}</button>`}).join('')}</div></div>
+ <p class="foot">SCR-CC-05 · OBJ-26 CC10 CC11 · DL-127 · staff reach only students in their data scope (DL-73)</p>`;
+}
+function vThread(){
+ const c=st.conv.find(x=>x.id===st.convId);
+ return `<div class="crumbs" style="display:flex"><a href="#" data-back="1">Messages</a></div>
+ <div class="page-h"><div><h1 style="font-size:20px">${esc(c.subject)}</h1><p>${esc(c.student)} · ${esc(c.with.join(', '))}</p></div></div>
+ ${c.status==='CONVERTED'?`<div class="logline">${ic.info}<span>Turned into complaint <a href="#" data-opencase="${c.case}">${c.case}</a>. Deadlines count from the parent's message (SR-CC-12).</span></div>`:''}
+ <div class="card" style="margin-top:12px"><div class="card-b"><div class="msgs">${c.messages.map(m=>`<div class="bubble ${m.from==='Farah Ismail'?'mine':''}">${esc(m.text)}<small>${esc(m.from)} · ${fmtT(m.at)}</small></div>`).join('')}</div>
+ ${c.status!=='CONVERTED'?`<div class="composer"><textarea id="mbody" placeholder="Write to ${esc(c.with[0].split(' ')[0])}. Don't include health or immigration details."></textarea><div class="bar2"><button class="btn btn-sm" data-act2="convert">Turn into complaint</button><small></small><button class="btn btn-primary btn-sm" data-act2="send">Send</button></div></div>`:''}</div></div>
+ <p class="foot">SCR-CC-05b · CC11 · DL-127 · Tier 3 check ${pend('OQ-136','Warn only')}</p>`;
+}
+function bindMsgs(){
+ document.querySelectorAll('[data-conv]').forEach(b=>b.onclick=()=>{st.convId=b.dataset.conv;const c=st.conv.find(x=>x.id===st.convId);c.unread=0;render()});
+ document.querySelectorAll('[data-back]').forEach(b=>b.onclick=e=>{e.preventDefault();st.convId=null;render()});
+ document.querySelectorAll('[data-opencase]').forEach(b=>b.onclick=e=>{e.preventDefault();st.caseId=b.dataset.opencase;st.view='case';render()});
+ document.querySelectorAll('[data-act2]').forEach(b=>b.onclick=()=>{const a=b.dataset.act2;const c=st.conv.find(x=>x.id===st.convId);
+  if(a==='new'){toast('Pick a student in 7B, then their guardians');return}
+  if(a==='send'){const t=$('#mbody').value.trim();if(!t){toast('Write a message');return}c.messages.push({from:'Farah Ismail',at:'2026-11-23T09:35',text:t});render()}
+  if(a==='convert'){const first=c.messages.find(m=>m.from!=='Farah Ismail')||c.messages[0];const n='CASE-SG-2026-1301';c.status='CONVERTED';c.case=n;st.cases.unshift({case:n,type:'COMPLAINT',campus:'SG-PGL',title:c.subject+' ('+c.student+')',raised_by:first.from,received_via:'MESSAGE',received_at:first.at,status:'NEW',current_step:'ACKNOWLEDGE',recipient:'Farah Ismail (class teacher)',queue:'SG-PGL Customer Relations',visibility:'NORMAL',family_visible:true,deadlines:[['ACKNOWLEDGE',2],['RESOLVE',7]].map(([s,k])=>({step:s,working_days:k,due:addWd(first.at,k),status:addWd(first.at,k)<TODAY?'BREACHED':'PENDING'})),timeline:[{at:'2026-11-23T09:35',kind:'LINKED',by:'Farah Ismail',text:'Turned message into a complaint.'}]});const nc=st.cases[0];nc.next_due=nc.deadlines[0].due;nc.overdue=nc.next_due<TODAY;toast(n+' opened; deadline counts from '+fmt(first.at));render()}
+ });
+}
+
+/* ---------- SCR-CC-06 Announcements ---------- */
+const ANNS={DRAFT:['Draft','c-default'],AWAITING_APPROVAL:['Awaiting approval','c-warning'],SCHEDULED:['Scheduled','c-info'],SENT:['Sent','c-success'],WITHDRAWN:['Withdrawn','c-default']};
+const CAT={SAFETY:['Safety','c-error'],REQUIRED:['Required','c-warning'],OPTIONAL:['Optional','c-default']};
+function vAnn(){
+ const v=st.viewer;
+ return `<div class="page-h"><div><h1>Announcements</h1><p>Sent to an audience, never a typed list. Anything wider than your own class needs approval (DL-128).</p></div></div>
+ <div class="grid">
+ <section class="card"><div class="card-h"><h2>New announcement</h2></div><div class="card-b"><div class="form" style="grid-template-columns:minmax(0,1fr)">
+  <div><label for="at">Title</label><input id="at" value="${v==='farah'?'7B class photo on Thu 26 Nov':v==='meera'?'Grade 6-8 Maths Olympiad registration':'Campus open day on Sat 5 Dec'}"></div>
+  <div><label for="aa">Audience</label><select id="aa">${v==='farah'?'<option value="class">Class 7B · guardians</option><option value="grade">Grade 7 · guardians</option>':v==='meera'?'<option value="grade">Grades 6-8 · guardians and students</option><option value="class">Class 7B · guardians</option>':'<option value="campus">SG-PGL · all guardians</option><option value="grade">Grades 6-8 · guardians</option>'}</select></div>
+  <div><label for="ac">Category</label><select id="ac"><option value="OPTIONAL">Optional (families can mute)</option><option value="REQUIRED">Required</option><option value="SAFETY">Safety (all channels)</option></select></div>
+  <div><label><input type="checkbox" id="ak" style="width:auto;min-height:0"> Ask families to confirm they've read it (not consent)</label></div>
+  <div class="preview" id="aprev"></div>
+  <div style="display:flex;justify-content:flex-end"><button class="btn btn-primary" id="asend">Send</button></div>
+ </div></div></section>
+ <section class="card"><div class="card-h"><h2>Recent</h2></div><div class="card-b">${st.ann.map(a=>`<div class="list-row"><div class="grow"><b>${esc(a.title)}</b><div class="sub">${esc(a.audience)} · ${esc(a.author)}${a.sent_at?' · '+fmtT(a.sent_at):a.publish_at?' · for '+fmtT(a.publish_at):''}</div>${a.receipts?`<div class="sub">${a.receipts.read} of ${a.receipts.sent} read${a.receipts.acknowledged!=null?' · '+a.receipts.acknowledged+' confirmed':''}</div>`:''}</div>${chip(CAT[a.category])} ${chip(ANNS[a.status])}${a.status==='AWAITING_APPROVAL'&&v==='anita'?` <button class="btn btn-sm" data-appr="${a.id}">Approve</button>`:''}</div>`).join('')}</div></section>
+ </div><p class="foot">SCR-CC-06 · OBJ-26 CC12 CC13 · DL-128 DL-129 · approver ${pend('OQ-138','Sample: Principal')}</p>`;
+}
+function bindAnn(){
+ const v=st.viewer;
+ const up=()=>{const a=$('#aa').value;const own=a==='class'&&v==='farah';const need=!own&&v!=='anita';$('#aprev').innerHTML=need?`${ic.info} Needs approval from <b>Dr Anita Rao</b> before it is sent. Audience is worked out when it is sent.`:`Sends now to ${a==='class'?'52 guardians (26 students)':a==='grade'?'about 330 guardians':'about 2,100 guardians'}. ${$('#ac').value==='SAFETY'?'Safety: push, email and SMS, ignores quiet hours.':''}`;$('#asend').textContent=need?'Send for approval':'Send'};
+ ['#aa','#ac'].forEach(s=>$(s).onchange=up);up();
+ $('#asend').onclick=()=>{const a=$('#aa').value;const need=!(a==='class'&&v==='farah')&&v!=='anita';st.ann.unshift({id:'ANN-new',title:$('#at').value,audience:$('#aa').selectedOptions[0].text,author:V[v].name,category:$('#ac').value,status:need?'AWAITING_APPROVAL':'SENT',sent_at:need?null:'2026-11-23T09:36',receipts:need?null:{sent:52,delivered:0,read:0,acknowledged:$('#ak').checked?0:null}});toast(need?'Sent for approval':'Sent');render()};
+ document.querySelectorAll('[data-appr]').forEach(b=>b.onclick=()=>{const a=st.ann.find(x=>x.id===b.dataset.appr);a.status='SCHEDULED';toast('Approved; sends '+fmtT(a.publish_at));render()});
+}
+
+/* ---------- SCR-CC-07 Case policies ---------- */
+function vPolicy(){
+ const mine=st.viewer==='claire'?S.case_policies.filter(p=>p.brand_country==='OWIS Singapore'):S.case_policies.filter(p=>p.brand_country==='GIIS Singapore');
+ return `<div class="page-h"><div><h1>Case policies</h1><p>${st.viewer==='claire'?'OWIS Singapore':'GIIS Singapore'}. Case types come from GSG; deadlines, routing and approvers are set here. A running case keeps the version it started with (DL-121).</p></div></div>
+ ${mine.map(p=>`<section class="card" style="margin-bottom:16px"><div class="card-h"><h2>${esc(TYPE[p.type]||p.type)}</h2>${p.version?chip(['Published v'+p.version,'c-success']):chip(['Not set','c-warning'])}</div><div class="card-b">
+ ${p.steps?`<div class="ladder">${p.steps.map(s=>`<div class="step"><span class="d">${s.working_days??s.calendar_days??'·'}</span><span>${esc(STEP[s.step]||s.step)}</span><span class="due">${s.working_days?'working days':s.calendar_days?'calendar days':esc(s.rule||'no deadline')}</span></div>`).join('')}</div>
+ <dl class="kv" style="margin-top:12px">${p.approvers?`<dt>Approvers</dt><dd>${p.approvers.map(esc).join(', ')}</dd>`:''}${p.steps[3]&&p.type==='COMPLAINT'?`<dt>Committee</dt><dd>${esc(p.steps[3].owner)}</dd><dt>Counted from</dt><dd>${esc(p.counted_from)} ${pend('OQ-131','Check')}</dd>`:''}${p.family_escalation?`<dt>Family can escalate to</dt><dd>${esc(p.family_escalation)}</dd>`:''}<dt>Source</dt><dd>${esc(p.source)}</dd></dl>`:`<div class="blocked">${ic.warn}<div><b>No policy documented</b>${esc(p._note)}. Cases of this type show “Not set” deadlines until a policy is published. ${pend('OQ-143','Ask OWIS')}</div></div>`}
+ </div></section>`).join('')}
+ <p class="foot">SCR-CC-07 · CC01 CC02 · DL-121 · working days ${pend('OQ-130','Vacations count?')}</p>`;
+}
+
+/* ---------- SCR-CC-08 Notifications ---------- */
+function vNotify(){
+ const R={DELIVERED:'c-success',SENT:'c-info',FAILED:'c-error',SKIPPED_BY_PREFERENCE:'c-default'};
+ return `<div class="page-h"><div><h1>Notifications</h1><p>Every module sends through one service. Templates per brand-country, language and channel; no Tier 3 details in any message (DL-129).</p></div></div>
+ <div class="grid"><section class="card span2"><div class="card-h"><h2>Delivery log</h2></div><div class="card-b"><div class="tablewrap"><table><thead><tr><th>Event</th><th>To</th><th>Category</th><th>Channels</th><th>Sent</th></tr></thead><tbody>
+ ${S.notification_log.map(n=>`<tr><td><b>${esc(n.event)}</b><div class="sub mono">${n.id}</div></td><td>${esc(n.recipient)}</td><td>${chip(CAT[n.category])}</td><td>${n.channels.map(c=>`<span class="chip ${R[c.result]}">${c.channel.toLowerCase()} · ${c.result.toLowerCase().replace(/_/g,' ')}</span>`).join(' ')}${n.fallback_used?'<div class="sub">Fell back to another channel</div>':''}</td><td>${fmtT(n.sent_at)}</td></tr>`).join('')}
+ </tbody></table></div></div></section>
+ <section class="card span2"><div class="card-h"><h2>Templates</h2></div><div class="card-b">${S.notification_templates.map(t=>`<div class="list-row"><div class="grow"><b>${esc(t.event)}</b> <span class="sub">· ${esc(t.brand_country)} · ${esc(t.language)} · ${esc(t.channel.toLowerCase())}</span><div class="sub">${esc(t.body||'')}</div></div>${chip(CAT[t.category])} ${t.status==='ACTIVE'?chip(['v'+t.version,'c-success']):t.status==='DRAFT'?chip(['Draft','c-default']):'<span class="notset">'+ic.warn+'Not set</span>'}</div>`).join('')}<p class="sub">Languages beyond English ${pend('OQ-25','Pending')} · channels and providers ${pend('OQ-139','Pending')}</p></div></section></div>
+ <p class="foot">SCR-CC-08 · CC14 CC15 · DL-129</p>`;
+}
+
+/* ---------- SCR-CC-09 Deadline performance ---------- */
+function vPerf(){
+ const p=S.deadline_performance_pgl_nov;
+ return `<div class="page-h"><div><h1>Deadline performance</h1><p>SMART Campus Punggol · November 2026 · counts only, no case content (DL-130).</p></div></div>
+ <div class="stat"><div class="card"><b>${p.complaints_received}</b><span>Complaints received</span></div><div class="card"><b>${esc(p.acknowledged_within_2)}</b><span>Acknowledged in 2 working days</span></div><div class="card"><b>${esc(p.closed_within_7)}</b><span>Closed in 7 working days</span></div><div class="card"><b>${p.with_supervisor} · ${p.with_committee}</b><span>With supervisor · with committee</span></div></div>
+ <section class="card"><div class="card-b"><dl class="kv"><dt>External referrals (CPE)</dt><dd>${p.external_referrals}</dd><dt>Restricted cases</dt><dd>${p.restricted_cases} <span class="sub">total only</span></dd><dt>Overdue now</dt><dd>${st.cases.filter(c=>c.campus==='SG-PGL'&&c.overdue).length}</dd></dl></div></section>
+ <p class="foot">SCR-CC-09 · cases.report.view · sample figures</p>`;
+}
+
+/* ---------- SCR-CC-10 Parent (later) ---------- */
+function vParent(){
+ const c=st.cases.find(x=>x.case==='CASE-SG-2026-1296');const rep=(c.timeline||[]).filter(t=>t.kind==='REPLY_TO_FAMILY');
+ return `<div class="logline">${ic.info}<span>Parent app is later (DL-118). This shows what the same records would show Neha.</span></div>
+ <h1 style="font-size:20px;margin:16px 0 8px">My requests</h1>
+ <section class="card"><div class="card-b"><b>Complaint: school bus route 14</b><div class="sub mono">${c.case}</div><div class="chips">${chip(STATUS[c.status])}</div><p style="margin:10px 0 4px">Next: reply by <b>${fmt(c.next_due)}</b></p>
+ ${rep.map(r=>`<div class="bubble" style="max-width:100%;margin-top:8px">${esc(r.text)}<small>${esc(r.by)} · ${fmtT(r.at)}</small></div>`).join('')}
+ <p class="sub" style="margin-top:10px">Staff notes are never shown here (DL-126).</p></div></section>
+ <h2 style="font-size:16px;margin:20px 0 8px">Announcements</h2>
+ <section class="card"><div class="card-b">${st.ann.filter(a=>a.status==='SENT').slice(0,2).map(a=>`<div class="list-row"><div class="grow"><b>${esc(a.title)}</b><div class="sub">${fmtT(a.sent_at)}</div></div>${a.ack_required?'<button class="btn btn-sm" data-pack="1">I have read this</button>':''}</div>`).join('')}</div></section>
+ <p class="foot">SCR-CC-10 · DL-126 DL-128</p>`;
+}
+function bindParent(){document.querySelectorAll('[data-pack]').forEach(b=>b.onclick=()=>{b.outerHTML=chip(['Confirmed','c-success']);toast('Thanks, confirmed')})}
+function vPmsgs(){const c=S.conversations_farah[0];return `<div class="logline">${ic.info}<span>Parent app (later).</span></div><h1 style="font-size:20px;margin:16px 0 8px">Messages</h1><section class="card"><div class="card-b"><b>Ms Farah Ismail · 7B</b><div class="msgs" style="margin-top:10px">${c.messages.map(m=>`<div class="bubble ${m.from==='Neha Sharma'?'mine':''}">${esc(m.text)}<small>${esc(m.from)} · ${fmtT(m.at)}</small></div>`).join('')}</div><div class="logline">${ic.info}<span>Your message is now complaint ${c.case}. See My requests.</span></div></div></section><p class="foot">SCR-CC-10b · DL-127</p>`}
+function vPrefs(){const p=S.preferences_neha;return `<div class="logline">${ic.info}<span>Parent app (later).</span></div><h1 style="font-size:20px;margin:16px 0 8px">Notifications</h1><section class="card"><div class="card-b">${p.rows.map(r=>`<div class="list-row"><div class="grow"><b>${esc(CAT[r.category][0])}</b><div class="sub">${r.category==='SAFETY'?'School closures, emergencies':r.category==='REQUIRED'?'Absence notices, replies to your requests, fees due':'Newsletters, event reminders'}</div><div class="sub">${r.channels.map(c=>c.toLowerCase()).join(', ')}${r.quiet_hours?' · quiet '+esc(r.quiet_hours):''}</div></div>${r.can_mute?'<button class="btn btn-sm" data-mute="1">Turn off</button>':'<span class="sub">Always on</span>'}</div>`).join('')}<p class="sub">Language: English · more languages ${pend('OQ-25','Pending')}</p></div></section><p class="foot">SCR-CC-10c · CC16 · DL-129</p>`}
+function bindPrefs(){document.querySelectorAll('[data-mute]').forEach(b=>b.onclick=()=>{b.outerHTML='<span class="sub">Off</span>';toast('Optional notices turned off')})}
+
+const VIEWS={inbox:[vInbox,bindInbox],case:[vCase,bindCase],log:[vLog,bindLog],feedback:[vFeedback,bindFeedback],msgs:[vMsgs,bindMsgs],ann:[vAnn,bindAnn],policy:[vPolicy],notify:[vNotify],perf:[vPerf],parent:[vParent,bindParent],pmsgs:[vPmsgs],prefs:[vPrefs,bindPrefs]};
+function render(){
+ const x=V[st.viewer];if(!st.view)st.view=x.nav[0][0];
+ const navOn=st.view==='case'?'inbox':st.view;
+ $('#nav').innerHTML=x.nav.map(n=>`<a href="#" data-nav="${n[0]}" class="${navOn===n[0]?'on':''}">${n[2]}<span>${n[1]}</span></a>`).join('');
+ $('#bnav').innerHTML=x.nav.map(n=>`<a href="#" data-nav="${n[0]}" class="${navOn===n[0]?'on':''}">${n[2]}<span>${n[1].split(' ')[0]}</span></a>`).join('');
+ $('#scopeTxt').innerHTML=x.scope;$('#meName').textContent=x.name;$('#meRole').textContent=x.role;$('#meAv').textContent=initials(x.name);
+ const [fv,fb]=VIEWS[st.view];$('#view').innerHTML=fv();fb&&fb();
+ document.querySelectorAll('[data-nav]').forEach(a=>a.onclick=e=>{e.preventDefault();st.view=a.dataset.nav;st.convId=null;render()});
+ document.querySelectorAll('[data-go]').forEach(a=>a.onclick=e=>{e.preventDefault();st.view=a.dataset.go;render()});
+}
+function setFrame(f){$('#stage').classList.toggle('mobile',f==='phone');document.querySelectorAll('#frame button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f))}
+document.querySelectorAll('#viewers button').forEach(b=>b.onclick=()=>{st.viewer=b.dataset.v;st.view=null;st.q='mine';st.convId=null;document.querySelectorAll('#viewers button').forEach(x=>x.setAttribute('aria-pressed',x===b));setFrame(V[st.viewer].phone?'phone':'desk');render()});
+document.querySelectorAll('#frame button').forEach(b=>b.onclick=()=>setFrame(b.dataset.f));
+document.querySelectorAll('#theme button').forEach(b=>b.onclick=()=>{const t=b.dataset.t;if(t==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',t);document.querySelectorAll('#theme button').forEach(x=>x.setAttribute('aria-pressed',x===b))});
+render();
+})();
+</script>
+</body></html>

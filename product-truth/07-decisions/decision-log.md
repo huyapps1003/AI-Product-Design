@@ -130,6 +130,18 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-116 | Offered subjects per offering × grade × year with choice groups and min/max; ST03 choices must match; teaching groups and streams stay with Teaching | **Confirmed** (Henry, 22 Nov 2026) | AC09, ST03, OQ-77 |
 | DL-117 | Screen terms: a programme pack is shown as **Curriculum** ("CBSE, GIIS Singapore version 2026.1"), a programme offering as **Programme** ("CBSE 1–12 at Punggol"); offering statuses read Opening soon, Open, No new students, Closed. Data names (`pack`, `programme_offering`) unchanged, like Data location vs cell (DL-47) | **Confirmed** (Henry, 22 Nov 2026) | DL-112, AC01, AC06, DL-47 |
 | DL-118 | v1 design scope is the staff web app: Admin Platform plus campus modules, one dictionary at a time. Parent app, Student app and Leadership views come later | **Confirmed** (Henry, 22 Nov 2026) | supersedes DL-01; modules-and-services, 06-experience |
+| DL-119 | Cases & Communications is one module (`communication_cases`, Engagement domain): Case engine, complaints and feedback, messages, announcements, notifications; capability prefixes `cases` and `comms`; PTM booking, surveys and consent later | **Confirmed** (Henry, 22 Nov 2026, decision card) | CC01–CC16, DL-43, DL-53 |
+| DL-120 | One Case engine holds status, owner, deadlines, escalation, approvals and timeline; the owning module keeps the detail and applies the decision; links both ways | Assumed | OBJ-10, DL-08, DL-84 |
+| DL-121 | GSG defines case types; each brand-country publishes versioned case policies (deadline steps, routing, approvers, escalation); a case keeps the version it started with | Assumed | CC01, CC02, DL-84, DL-110 |
+| DL-122 | Case deadlines count office working days (Mon–Fri minus the campus country's public holidays; school vacations count); day 0 = receipt; the clock pauses while waiting for the family | Assumed | CC04, CC09, OQ-130, OQ-131 |
+| DL-123 | Complaints follow the brand-country ladder (GIIS SG 2 / 7 / 14 / 21 working days, then CPE, recorded only); a missed deadline moves the case up automatically; compliments and suggestions are feedback items, not cases | Assumed | CC08, HB p.249–250 |
+| DL-124 | One case status list (NEW, IN_PROGRESS, WAITING, DECIDED + outcome, APPLIED, CLOSED, WITHDRAWN); Overdue and escalation step are flags beside it; replaces the Case row in rules-to-ui when confirmed | Assumed | OBJ-10, rules-to-ui |
+| DL-125 | RESTRICTED case types (ICA review, Student Pass; later child protection, SEN) are invisible to anyone not named (A15) or holding a type grant (A17); dashboards show totals only | Assumed | DL-19, DL-30, DL-69 |
+| DL-126 | Case timelines separate replies to the family from internal notes; families see their own and their child's family-visible cases; v1 staff log cases and reply by email | Assumed | CC07, DL-118 |
+| DL-127 | Messages are staff ↔ guardian conversations about one student, within the staff member's data scope; no parent-to-parent; a message can become a case | Assumed | CC10, CC11, DL-73 |
+| DL-128 | Announcements target an audience rule (campus, offering, grade, class, house, staff team); wider than own class needs approval; a read acknowledgement is not consent | Assumed | CC12, CC13, OBJ-17 |
+| DL-129 | One notification service: modules publish events; templates per brand-country × language × channel; SAFETY / REQUIRED / OPTIONAL, only OPTIONAL can be muted; no Tier 3 in notification text; every send logged | Assumed | CC14–CC16, DL-30 |
+| DL-130 | Cases, messages, announcements and the delivery log live in the campus data location; operating entity copied onto the case; group views see counts only; two-campus cases live at the originating campus | Assumed | DL-41, DL-47 |
 
 ---
 
@@ -496,6 +508,13 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Decision.** Henry, 22 Nov 2026 ("parent app later"): v1 design covers the staff web app: the Admin Platform plus campus modules, one dictionary at a time. Parent app, Student app and Leadership views are designed later; module dictionaries still record what parents will see so the Parent app can reuse them.
 - **Supersedes.** DL-01.
 - **Status.** Confirmed by Henry, 22 Nov 2026.
+
+### DL-119…DL-130 — Cases & Communications
+- **Context.** The 22 Nov 2026 repo review found 11 fields in six dictionaries pointing at a Case with only the OBJ-10 summary card behind them: ICA review, leave over 2 days, refunds, long leave, withdrawals, campus transfers, predicted grade appeals, retention requests, year-end campus changes, operator handovers and access requests (DL-08). Case types, the 2 / 7 / 14 / 21 working-day complaint deadlines and notifications were undefined. Henry asked to start on Cases & Communications the same day and chose the combined scope on a decision card.
+- **Decision.** See the table above and [cases & communications dictionary § Decisions](../03-domain/cases-communications-data-dictionary.md#decisions-dl-119-confirmed-dl-120dl-130-proposed-awaiting-henry).
+- **Why.** One inbox, one deadline engine and one audit trail for every request (Arch § Data model "one shared object with SLA timers"); GIIS SG deadlines from the handbook (p.233–237, p.245, p.249–250) become versioned brand-country policies, the refund rule pattern (DL-84); one notification service so every module reaches families the same way.
+- **Open.** OQ-130…OQ-146 (section R), plus OQ-25, OQ-109, OQ-112.
+- **Status.** DL-119 Confirmed by Henry, 22 Nov 2026 (decision card "Cases + complaints + messaging"). DL-120…DL-130 Assumed, awaiting Henry.
 
 ### Review of DL-01…DL-21 (22 Nov 2026; policy items held)
 - **Context.** DL-01…DL-21 were set on 25 Oct 2026 so Admin Platform design could start and are all still Assumed (DL-12 Proposed), although later Confirmed decisions build on most of them. The 22 Nov 2026 repo review flagged this.

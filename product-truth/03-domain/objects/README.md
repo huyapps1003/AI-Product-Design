@@ -19,7 +19,7 @@ A design object is something a user sees, finds and acts on. Each maps to dictio
 | OBJ-07 | Access grant | A03, A04 | Access Registry (Global Admin) | Global | T1 | [card](./OBJ-07-access-grant.md) |
 | OBJ-08 | Team membership | A05, A07, A10, A12, A13 | Access Registry (Module Admin) | Cell | T1 | [card](./OBJ-08-team-membership.md) |
 | OBJ-09 | Family access | F01, R03 | Access Registry (system) | Cell | T1 | [card](./OBJ-09-family-access.md) |
-| OBJ-10 | Case | Case, A15 | Engagement | Cell | T3 when restricted | [card](./OBJ-10-case.md) |
+| OBJ-10 | Case | CC01–CC09 (case type, case policy, case, deadline, participant, decision, activity, feedback item, working-day calendar), A15 | Engagement (Cases & Communications, DL-119) | Cell | T3 when restricted | [card](./OBJ-10-case.md) |
 | OBJ-11 | Audit event | A14 | Platform services | Cell, redacted global index | T3 snapshots | [card](./OBJ-11-audit-event.md) |
 | OBJ-12 | Teaching allocation | D01–D03 | Teaching | Cell | T1 | [card](./OBJ-12-teaching-allocation.md) |
 | OBJ-13 | Scope node and campus | OR01–OR06, OR09 | Tenancy and config | Global | T1 | [card](./OBJ-13-scope-node.md) |
@@ -33,6 +33,7 @@ A design object is something a user sees, finds and acts on. Each maps to dictio
 | OBJ-21…22, OBJ-24 | Incident, wellbeing record, route | Architecture § High-level data model | Their modules | Cell | T2 or T3 | Needs a dictionary per module |
 | OBJ-23 | Billing account and invoice | FB01–FB17 (fee type, fee plan, billing period, billing account, responsibility, adjustment, billing run, invoice, payment, credit note, refund, reminder, billing pause, fee protection) | Fees and finance (DL-77) | Cell | T2 | [card](./OBJ-23-invoice.md) |
 | OBJ-25 | Academic year and programme offering | AC01–AC09 (programme pack, grade level, pack subject, grade band, year template, programme offering, academic year, term, offered subject) | Academic structure (DL-109; packs DL-110) | Global (packs) and cell (offerings, years) | T1 | [card](./OBJ-25-academic-year.md) |
+| OBJ-26 | Message and announcement | CC10–CC16 (conversation, message, announcement, receipt, notification template, notification, preference) | Engagement (Cases & Communications, DL-119) | Cell | T2 (messages) | [card](./OBJ-26-message-and-announcement.md) |
 
 ## Card format
 

@@ -12,7 +12,7 @@ Use these names exactly in navigation and copy. Don't invent new module names or
 |---|---|---|
 | Parent app | Parents and guardians | Not started (later, DL-118) |
 | Student app | Students | Not started |
-| Staff app and web | All staff; the Admin Platform lives inside it (DL-05) | Admin Platform slice designed; module prototypes for Student Directory, Admissions, Classes, Fees, Assessment and Attendance (`screens/`) |
+| Staff app and web | All staff; the Admin Platform lives inside it (DL-05) | Admin Platform slice designed; module prototypes for Student Directory, Admissions, Classes, Fees, Assessment, Attendance and Cases & Communications (`screens/`) |
 | Leadership views | Principals, Country Directors, group leadership | Not started |
 
 ## Campus modules
@@ -29,7 +29,7 @@ Use these names exactly in navigation and copy. Don't invent new module names or
 | `activities_awards` | Activities and Awards | Daily operations | Clubs, house points, awards | Common |
 | `wellbeing` | Wellbeing and Inclusion | Care | Counselling, SEN, child protection restricted to named roles | Veracross, iSAMS |
 | `fees_finance` | Fees and Finance | Money | Term billing in 4-month blocks, refund tables 3A and 3B, FPS | Most suites; strong in Indian ERPs |
-| `communication_cases` | Communication and Cases | Engagement | Complaint SLAs of 2, 7, 14 and 21 working days | Messaging common; SLA-tracked cases not found |
+| `communication_cases` | Communication and Cases | Engagement | Complaint SLAs of 2, 7, 14 and 21 working days. Designed in the [cases & communications dictionary](./cases-communications-data-dictionary.md) (DL-119): Case engine, complaints, messages, announcements, notifications; PTM booking and surveys later | Messaging common; SLA-tracked cases not found |
 | `staff_hr` | Staff and HR | People | Staff across campuses and programmes | Central HR in Arbor (UK trusts) |
 
 Platform modules (DL-04): `global_admin` (Global Admin) and `governance` (access review, audit, reports).
