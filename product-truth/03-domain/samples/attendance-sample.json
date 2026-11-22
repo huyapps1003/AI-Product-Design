@@ -1,0 +1,1310 @@
+{
+  "_about": "Synthetic sample data for Attendance screens (OBJ-20 with OBJ-15 class, OBJ-03 enrolment, OBJ-10 case). All people and numbers are invented. School days and holidays follow the GIIS SG Holiday Schedule 2026-27 (196 study days; CBSE year 6 Apr 2026 - 19 Mar 2027, DL-96). Thresholds are GIIS SG campus settings from HB p.166 (DL-104, DL-59 pattern), not group defaults. Cut-off, lock time and warning margin are sample settings only (OQ-110). Viewer Farah Ismail, class teacher 7B; 'today' Thursday 19 Nov 2026, 10:20 SGT. Reuses the 7B roster from classes-sample.json.",
+  "today": "2026-11-19",
+  "now_local": "10:20 SGT",
+  "viewer": {
+    "name": "Farah Ismail",
+    "role": "Class Teacher, 7B",
+    "campus": "SG-PGL",
+    "device": "phone"
+  },
+  "other_viewers": [
+    {
+      "name": "Meera Joshi",
+      "role": "Academic Coordinator, CBSE Middle (Grades 6-8)",
+      "campus": "SG-PGL",
+      "sees": "Register status board, corrections to approve, at-risk list"
+    },
+    {
+      "name": "Dr Anita Rao",
+      "role": "Principal",
+      "campus": "SG-PGL",
+      "sees": "Leave over 2 days, campus attendance, rules"
+    },
+    {
+      "name": "Siti Rahman",
+      "role": "Reception",
+      "campus": "SG-PGL",
+      "sees": "Gate log: late sign-in and out pass"
+    },
+    {
+      "name": "Lina Goh",
+      "role": "Admissions Officer (Student Pass owner, Tier 3)",
+      "campus": "SG-PGL",
+      "sees": "ICA review Cases",
+      "_note": "Who files ICA notices is OQ-112"
+    },
+    {
+      "name": "Neha Sharma",
+      "role": "Parent of Aarav Sharma (7B)",
+      "sees": "Own child only (DL-107)"
+    }
+  ],
+  "campus_settings": {
+    "SG-PGL": {
+      "register_kind": "DAY (period registers off)",
+      "register_cut_off": "09:15 (sample; OQ-110)",
+      "register_lock": "18:00 same day (sample; OQ-110)",
+      "late_after": "09:00 (HB p.174)",
+      "late_exemptions": [
+        "School bus",
+        "Doctor's note",
+        "Court documents",
+        "Prior permission (Level Coordinator / Vice Principal)"
+      ],
+      "leave_routing": {
+        "class_teacher_up_to_school_days": 2,
+        "principal_above": 2,
+        "source": "HB p.23, p.166"
+      },
+      "medical_certificate": "Required for medical leave, due on return (HB p.23)",
+      "warn_margin_points": 3,
+      "late_steps": {
+        "Nursery-KG": "First three excused; then note to parent; then meeting with Vice Principal (HB p.174)",
+        "Classes 1-5": "First three excused; fourth: note to parents from Level Coordinator / VP (HB p.174)",
+        "Classes 6-12": "Not set (OQ-111)"
+      }
+    },
+    "SG-OWD": {
+      "_brand": "OWIS",
+      "thresholds": "Not set (OQ-113)"
+    }
+  },
+  "attendance_rules": [
+    {
+      "id": "R-PGL-SP",
+      "applies_to": "Student Pass holders (all classes)",
+      "minimum": "90%",
+      "measured_over": "MONTH",
+      "consequence": [
+        "WARN_ONLY",
+        "ICA_CASE"
+      ],
+      "source": "HB p.166-167"
+    },
+    {
+      "id": "R-PGL-6UP",
+      "applies_to": "Others, Class 6 and above",
+      "minimum": "85%",
+      "measured_over": "SEMESTER",
+      "consequence": [
+        "WARN_ONLY",
+        "PROMOTION_INPUT"
+      ],
+      "source": "HB p.166; promotion HB p.128-131"
+    },
+    {
+      "id": "R-PGL-K5",
+      "applies_to": "Others, KG to Class 5",
+      "minimum": "75%",
+      "measured_over": "TERM",
+      "principal_may_relax": true,
+      "consequence": [
+        "WARN_ONLY"
+      ],
+      "source": "HB p.166"
+    },
+    {
+      "id": "R-PGL-ICA-7",
+      "applies_to": "Student Pass holders",
+      "rule": "More than 7 consecutive school days absent",
+      "consequence": [
+        "ICA_CASE"
+      ],
+      "source": "HB p.166"
+    }
+  ],
+  "school_day_calendar": {
+    "campus": "SG-PGL",
+    "offering": "CBSE 1-12",
+    "academic_year": "AY 2026-27",
+    "term_dates": [
+      {
+        "term": "Semester 1",
+        "from": "2026-04-06",
+        "to": "2026-09-18"
+      },
+      {
+        "term": "Semester 2",
+        "from": "2026-09-28",
+        "to": "2027-03-19"
+      }
+    ],
+    "school_week": "MON-FRI",
+    "school_day_count": 196,
+    "_check": "Matches 'Total no of study days: 196' on the Holiday Schedule 2026-27",
+    "status": "PUBLISHED",
+    "published_by": "Campus office (who: OQ-120)",
+    "public_holidays": [
+      {
+        "date": "2026-05-01",
+        "name": "Labour Day"
+      },
+      {
+        "date": "2026-05-27",
+        "name": "Hari Raya Haji"
+      },
+      {
+        "date": "2026-06-01",
+        "name": "Vesak Day (observed)"
+      },
+      {
+        "date": "2026-08-10",
+        "name": "National Day (observed)"
+      },
+      {
+        "date": "2026-11-09",
+        "name": "Deepavali (observed)"
+      },
+      {
+        "date": "2026-11-10",
+        "name": "Deepavali"
+      },
+      {
+        "date": "2026-12-25",
+        "name": "Christmas Day"
+      },
+      {
+        "date": "2027-01-01",
+        "name": "New Year's Day"
+      },
+      {
+        "date": "2027-01-26",
+        "name": "Indian Republic Day"
+      },
+      {
+        "date": "2027-02-08",
+        "name": "Chinese New Year (observed)"
+      },
+      {
+        "date": "2027-03-10",
+        "name": "Hari Raya Puasa"
+      },
+      {
+        "date": "2027-03-26",
+        "name": "Good Friday"
+      }
+    ],
+    "breaks": [
+      {
+        "from": "2026-06-13",
+        "to": "2026-07-12",
+        "type": "VACATION",
+        "name": "June vacation"
+      },
+      {
+        "from": "2026-09-19",
+        "to": "2026-09-27",
+        "type": "TERM_BREAK",
+        "name": "Sem 1 break"
+      },
+      {
+        "from": "2026-12-05",
+        "to": "2027-01-03",
+        "type": "VACATION",
+        "name": "December vacation"
+      },
+      {
+        "from": "2027-03-20",
+        "to": "2027-04-04",
+        "type": "TERM_BREAK",
+        "name": "Sem 2 break"
+      }
+    ],
+    "other_offering": {
+      "campus": "SG-ECS",
+      "offering": "IB DP",
+      "academic_year": "AY 2026-27",
+      "starts": "2026-07-13",
+      "_note": "Same holidays, own term dates (DL-96)"
+    },
+    "november_2026": {
+      "school_days": 19,
+      "to_date": 12,
+      "non_school_days": [
+        "2026-11-09 Deepavali (observed)",
+        "2026-11-10 Deepavali"
+      ]
+    }
+  },
+  "register_7B_today": {
+    "class": "7B",
+    "date": "2026-11-19",
+    "kind": "DAY",
+    "taken_by": "Farah Ismail",
+    "status": "SUBMITTED",
+    "submitted_at": "09:12",
+    "locks_at": "18:00",
+    "counts": {
+      "LATE": 1,
+      "PRESENT": 28,
+      "ABSENT": 2,
+      "ON_LEAVE": 1
+    },
+    "students": [
+      {
+        "name": "Aarav Sharma",
+        "mark": "LATE",
+        "arrival_time": "09:18",
+        "source": "GATE",
+        "late_exemption": "SCHOOL_BUS",
+        "teacher_note": "Bus 12 delayed (reception)"
+      },
+      {
+        "name": "Aditya Rao",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Ananya Iyer",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Ayaan Khan",
+        "mark": "ABSENT",
+        "absence_category": "UNEXPLAINED",
+        "note": "8th school day absent in a row",
+        "alert": "Consecutive absence (class teacher sees this, not the ICA review)"
+      },
+      {
+        "name": "Diya Menon",
+        "mark": "ON_LEAVE",
+        "absence_category": "MEDICAL",
+        "medical_alert": true,
+        "source": "LEAVE",
+        "leave_request": "LV-PGL-26-0412",
+        "certificate": "Due on return"
+      },
+      {
+        "name": "Ethan Lim",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Fatima Noor",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Gauri Patel",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Hiroshi Tanaka",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Ira Kapoor",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Ishaan Gupta",
+        "mark": "ABSENT",
+        "absence_category": "UNEXPLAINED",
+        "parent_notice": "Sent 09:30 to Priya Gupta (no leave on file)"
+      },
+      {
+        "name": "Jia Hui Tan",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Kabir Malhotra",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Kiara D'Souza",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Leah Thomas",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Manav Joshi",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Mei Chen",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Nikhil Reddy",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Nisha Pillai",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Omar Siddiqui",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Pari Bansal",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Rehan Ali",
+        "mark": "PRESENT",
+        "medical_alert": true,
+        "out_pass": "Approved for 11:30 (dentist), collected by mother; mark becomes LEFT_EARLY when signed out"
+      },
+      {
+        "name": "Riya Nair",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Sahil Verma",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Sana Qureshi",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Shreya Das",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Tanvi Kulkarni",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Vedant Singh",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Vivaan Mehta",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Yash Agarwal",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Zoe Fernandes",
+        "mark": "PRESENT"
+      },
+      {
+        "name": "Arnav Chopra",
+        "mark": "PRESENT"
+      }
+    ]
+  },
+  "gate_log_today": [
+    {
+      "time": "09:18",
+      "student": "Aarav Sharma (7B)",
+      "type": "LATE_SIGN_IN",
+      "stated_reason": "Bus 12 delayed",
+      "late_exemption": "SCHOOL_BUS",
+      "recorded_by": "Siti Rahman",
+      "counts_toward_late_steps": false
+    },
+    {
+      "time": "09:26",
+      "student": "Tara Menon (5A)",
+      "type": "LATE_SIGN_IN",
+      "stated_reason": "Overslept (parent dropped off)",
+      "recorded_by": "Siti Rahman",
+      "counts_toward_late_steps": true,
+      "late_number_this_term": 4,
+      "next_step": "Note to parents from Level Coordinator (HB p.174)"
+    },
+    {
+      "time": "09:41",
+      "student": "Kunal Shah (8A)",
+      "type": "LATE_SIGN_IN",
+      "stated_reason": "Doctor's appointment",
+      "late_exemption": "DOCTOR_NOTE",
+      "recorded_by": "Siti Rahman",
+      "counts_toward_late_steps": false
+    },
+    {
+      "time": "10:05",
+      "student": "Ava Lim (6B)",
+      "type": "OUT_PASS",
+      "stated_reason": "Fever",
+      "approved_by": "Joel Tan (class teacher)",
+      "collected_by": "Mother (Grace Lim)",
+      "recorded_by": "Siti Rahman"
+    },
+    {
+      "time": "11:30 (planned)",
+      "student": "Rehan Ali (7B)",
+      "type": "OUT_PASS",
+      "stated_reason": "Dentist",
+      "approved_by": "Farah Ismail",
+      "collected_by": "Mother (expected)",
+      "status": "Approved, not yet signed out"
+    }
+  ],
+  "leave_requests": [
+    {
+      "id": "LV-PGL-26-0412",
+      "student": "Diya Menon (7B)",
+      "from": "2026-11-18",
+      "to": "2026-11-19",
+      "school_days": 2,
+      "type": "MEDICAL",
+      "planned": false,
+      "reason": "Fever, seeing the GP",
+      "requested_by": "Arjun Menon (father), in app",
+      "route": "CLASS_TEACHER",
+      "approver": "Farah Ismail",
+      "status": "CERTIFICATE_DUE",
+      "decided_at": "2026-11-18T08:20",
+      "certificate": "Due when Diya returns (HB p.23)"
+    },
+    {
+      "id": "LV-PGL-26-0419",
+      "student": "Kiara D'Souza (7B)",
+      "from": "2026-11-23",
+      "to": "2026-11-24",
+      "school_days": 2,
+      "type": "FAMILY",
+      "planned": true,
+      "reason": "Cousin's wedding in Goa",
+      "requested_by": "Maria D'Souza (mother), in app",
+      "route": "CLASS_TEACHER",
+      "approver": "Farah Ismail",
+      "status": "SUBMITTED",
+      "submitted_at": "2026-11-18T21:04"
+    },
+    {
+      "id": "LV-PGL-26-0421",
+      "student": "Manav Joshi (7B)",
+      "from": "2026-11-30",
+      "to": "2026-12-04",
+      "school_days": 5,
+      "type": "TRAVEL",
+      "planned": true,
+      "reason": "Grandfather's 80th birthday in Chennai",
+      "requested_by": "Ritu Joshi (mother), in app",
+      "route": "PRINCIPAL",
+      "approver": "Dr Anita Rao",
+      "case": "CASE-SG-2026-1288",
+      "status": "SUBMITTED",
+      "submitted_at": "2026-11-17T19:40",
+      "_note": "More than 2 school days: Principal decides; class teacher and coordinator informed (HB p.166). Student Pass holder: approved leave is a valid reason for ICA but counts as not attended (DL-103)"
+    },
+    {
+      "id": "LV-PGL-26-0398",
+      "student": "Kabir Malhotra (7B)",
+      "from": "2026-11-11",
+      "to": "2026-11-12",
+      "school_days": 2,
+      "type": "FAMILY",
+      "planned": true,
+      "reason": "Family event",
+      "requested_by": "Vikram Malhotra (father), in app",
+      "route": "CLASS_TEACHER",
+      "approver": "Farah Ismail",
+      "status": "APPROVED",
+      "decided_at": "2026-11-05T12:10"
+    },
+    {
+      "id": "LV-PGL-26-0405",
+      "student": "Sahil Verma (7B)",
+      "from": "2026-11-17",
+      "to": "2026-11-17",
+      "school_days": 1,
+      "type": "OTHER",
+      "planned": false,
+      "reason": "Recorded by office after a phone call: family emergency",
+      "requested_by": "Recorded by Siti Rahman for Anil Verma",
+      "route": "CLASS_TEACHER",
+      "approver": "Farah Ismail",
+      "status": "DECLINED",
+      "decision_note": "Please apply in the app with the reason; phone calls aren't accepted (HB p.166)",
+      "_note": "Shows a staff-entered request (DL-101)"
+    }
+  ],
+  "corrections": [
+    {
+      "student": "Sahil Verma (7B)",
+      "date": "2026-11-17",
+      "from": "ABSENT",
+      "to": "LATE",
+      "reason": "Signed in at reception 10:05 but the gate log entry was missed",
+      "requested_by": "Farah Ismail",
+      "approver": "Meera Joshi",
+      "status": "REQUESTED"
+    },
+    {
+      "student": "Omar Siddiqui (7B)",
+      "date": "2026-10-30",
+      "from": "ABSENT",
+      "to": "SCHOOL_ACTIVITY",
+      "reason": "Inter-school debate (marked absent by mistake)",
+      "requested_by": "Farah Ismail",
+      "approver": "Meera Joshi",
+      "status": "APPLIED",
+      "applied_at": "2026-11-02"
+    }
+  ],
+  "summary_7B": {
+    "class": "7B",
+    "as_of": "2026-11-19",
+    "students": [
+      {
+        "name": "Aarav Sharma",
+        "threshold": "90%",
+        "measured_over": "November (monthly, Student Pass rule)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 2
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 37,
+          "percent": 100.0
+        },
+        "current_percent_for_rule": 100.0,
+        "projected_best_case": 100.0,
+        "standing": "ON_TRACK",
+        "_teacher_sees": "Threshold 90% only, never 'Student Pass' (DL-30)"
+      },
+      {
+        "name": "Aditya Rao",
+        "threshold": "85%",
+        "measured_over": "Semester 2 to date (85% rule, Class 6+)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 37,
+          "percent": 100.0
+        },
+        "current_percent_for_rule": 100.0,
+        "projected_best_case": 100.0,
+        "standing": "ON_TRACK"
+      },
+      {
+        "name": "Ananya Iyer",
+        "threshold": "85%",
+        "measured_over": "Semester 2 to date (85% rule, Class 6+)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 37,
+          "percent": 100.0
+        },
+        "current_percent_for_rule": 100.0,
+        "projected_best_case": 100.0,
+        "standing": "ON_TRACK"
+      },
+      {
+        "name": "Ayaan Khan",
+        "threshold": "90%",
+        "measured_over": "November (monthly, Student Pass rule)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 4,
+          "percent": 33.3,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 28,
+          "percent": 75.7
+        },
+        "current_percent_for_rule": 33.3,
+        "projected_best_case": 57.9,
+        "standing": "CANNOT_RECOVER",
+        "_teacher_sees": "Threshold 90% only, never 'Student Pass' (DL-30)"
+      },
+      {
+        "name": "Diya Menon",
+        "threshold": "85%",
+        "measured_over": "Semester 2 to date (85% rule, Class 6+)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 10,
+          "percent": 83.3,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 34,
+          "percent": 91.9
+        },
+        "current_percent_for_rule": 91.9,
+        "projected_best_case": 97.0,
+        "standing": "ON_TRACK"
+      },
+      {
+        "name": "Ethan Lim",
+        "threshold": "85%",
+        "measured_over": "Semester 2 to date (85% rule, Class 6+)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 37,
+          "percent": 100.0
+        },
+        "current_percent_for_rule": 100.0,
+        "projected_best_case": 100.0,
+        "standing": "ON_TRACK"
+      },
+      {
+        "name": "Fatima Noor",
+        "threshold": "90%",
+        "measured_over": "November (monthly, Student Pass rule)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 10,
+          "percent": 83.3,
+          "late": 1
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 32,
+          "percent": 86.5
+        },
+        "current_percent_for_rule": 83.3,
+        "projected_best_case": 89.5,
+        "standing": "CANNOT_RECOVER",
+        "_teacher_sees": "Threshold 90% only, never 'Student Pass' (DL-30)"
+      },
+      {
+        "name": "Gauri Patel",
+        "threshold": "85%",
+        "measured_over": "Semester 2 to date (85% rule, Class 6+)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 37,
+          "percent": 100.0
+        },
+        "current_percent_for_rule": 100.0,
+        "projected_best_case": 100.0,
+        "standing": "ON_TRACK"
+      },
+      {
+        "name": "Hiroshi Tanaka",
+        "threshold": "85%",
+        "measured_over": "Semester 2 to date (85% rule, Class 6+)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 37,
+          "percent": 100.0
+        },
+        "current_percent_for_rule": 100.0,
+        "projected_best_case": 100.0,
+        "standing": "ON_TRACK"
+      },
+      {
+        "name": "Ira Kapoor",
+        "threshold": "90%",
+        "measured_over": "November (monthly, Student Pass rule)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 37,
+          "percent": 100.0
+        },
+        "current_percent_for_rule": 100.0,
+        "projected_best_case": 100.0,
+        "standing": "ON_TRACK",
+        "_teacher_sees": "Threshold 90% only, never 'Student Pass' (DL-30)"
+      },
+      {
+        "name": "Ishaan Gupta",
+        "threshold": "85%",
+        "measured_over": "Semester 2 to date (85% rule, Class 6+)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 11,
+          "percent": 91.7,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 34,
+          "percent": 91.9
+        },
+        "current_percent_for_rule": 91.9,
+        "projected_best_case": 97.0,
+        "standing": "ON_TRACK"
+      },
+      {
+        "name": "Jia Hui Tan",
+        "threshold": "85%",
+        "measured_over": "Semester 2 to date (85% rule, Class 6+)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 37,
+          "percent": 100.0
+        },
+        "current_percent_for_rule": 100.0,
+        "projected_best_case": 100.0,
+        "standing": "ON_TRACK"
+      },
+      {
+        "name": "Kabir Malhotra",
+        "threshold": "90%",
+        "measured_over": "November (monthly, Student Pass rule)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 10,
+          "percent": 83.3,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 35,
+          "percent": 94.6
+        },
+        "current_percent_for_rule": 83.3,
+        "projected_best_case": 89.5,
+        "standing": "CANNOT_RECOVER",
+        "_teacher_sees": "Threshold 90% only, never 'Student Pass' (DL-30)",
+        "_note": "Both absences are approved family leave (a valid reason), so no ICA review. Approved leave counts as not attended (DL-103, Confirmed 21 Nov 2026)."
+      },
+      {
+        "name": "Kiara D'Souza",
+        "threshold": "85%",
+        "measured_over": "Semester 2 to date (85% rule, Class 6+)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 37,
+          "percent": 100.0
+        },
+        "current_percent_for_rule": 100.0,
+        "projected_best_case": 100.0,
+        "standing": "ON_TRACK"
+      },
+      {
+        "name": "Leah Thomas",
+        "threshold": "85%",
+        "measured_over": "Semester 2 to date (85% rule, Class 6+)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 37,
+          "percent": 100.0
+        },
+        "current_percent_for_rule": 100.0,
+        "projected_best_case": 100.0,
+        "standing": "ON_TRACK"
+      },
+      {
+        "name": "Manav Joshi",
+        "threshold": "90%",
+        "measured_over": "November (monthly, Student Pass rule)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 37,
+          "percent": 100.0
+        },
+        "current_percent_for_rule": 100.0,
+        "projected_best_case": 100.0,
+        "standing": "ON_TRACK",
+        "_teacher_sees": "Threshold 90% only, never 'Student Pass' (DL-30)"
+      },
+      {
+        "name": "Mei Chen",
+        "threshold": "85%",
+        "measured_over": "Semester 2 to date (85% rule, Class 6+)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 37,
+          "percent": 100.0
+        },
+        "current_percent_for_rule": 100.0,
+        "projected_best_case": 100.0,
+        "standing": "ON_TRACK"
+      },
+      {
+        "name": "Nikhil Reddy",
+        "threshold": "85%",
+        "measured_over": "Semester 2 to date (85% rule, Class 6+)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 33,
+          "percent": 89.2
+        },
+        "current_percent_for_rule": 89.2,
+        "projected_best_case": 96.0,
+        "standing": "ON_TRACK"
+      },
+      {
+        "name": "Nisha Pillai",
+        "threshold": "90%",
+        "measured_over": "November (monthly, Student Pass rule)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 37,
+          "percent": 100.0
+        },
+        "current_percent_for_rule": 100.0,
+        "projected_best_case": 100.0,
+        "standing": "ON_TRACK",
+        "_teacher_sees": "Threshold 90% only, never 'Student Pass' (DL-30)"
+      },
+      {
+        "name": "Omar Siddiqui",
+        "threshold": "85%",
+        "measured_over": "Semester 2 to date (85% rule, Class 6+)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 35,
+          "percent": 94.6
+        },
+        "current_percent_for_rule": 94.6,
+        "projected_best_case": 98.0,
+        "standing": "ON_TRACK"
+      },
+      {
+        "name": "Pari Bansal",
+        "threshold": "85%",
+        "measured_over": "Semester 2 to date (85% rule, Class 6+)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 37,
+          "percent": 100.0
+        },
+        "current_percent_for_rule": 100.0,
+        "projected_best_case": 100.0,
+        "standing": "ON_TRACK"
+      },
+      {
+        "name": "Rehan Ali",
+        "threshold": "90%",
+        "measured_over": "November (monthly, Student Pass rule)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 37,
+          "percent": 100.0
+        },
+        "current_percent_for_rule": 100.0,
+        "projected_best_case": 100.0,
+        "standing": "ON_TRACK",
+        "_teacher_sees": "Threshold 90% only, never 'Student Pass' (DL-30)"
+      },
+      {
+        "name": "Riya Nair",
+        "threshold": "85%",
+        "measured_over": "Semester 2 to date (85% rule, Class 6+)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 36,
+          "percent": 97.3
+        },
+        "current_percent_for_rule": 97.3,
+        "projected_best_case": 99.0,
+        "standing": "ON_TRACK"
+      },
+      {
+        "name": "Sahil Verma",
+        "threshold": "85%",
+        "measured_over": "Semester 2 to date (85% rule, Class 6+)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 10,
+          "percent": 83.3,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 32,
+          "percent": 86.5
+        },
+        "current_percent_for_rule": 86.5,
+        "projected_best_case": 95.0,
+        "standing": "AT_RISK"
+      },
+      {
+        "name": "Sana Qureshi",
+        "threshold": "90%",
+        "measured_over": "November (monthly, Student Pass rule)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 37,
+          "percent": 100.0
+        },
+        "current_percent_for_rule": 100.0,
+        "projected_best_case": 100.0,
+        "standing": "ON_TRACK",
+        "_teacher_sees": "Threshold 90% only, never 'Student Pass' (DL-30)"
+      },
+      {
+        "name": "Shreya Das",
+        "threshold": "85%",
+        "measured_over": "Semester 2 to date (85% rule, Class 6+)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 37,
+          "percent": 100.0
+        },
+        "current_percent_for_rule": 100.0,
+        "projected_best_case": 100.0,
+        "standing": "ON_TRACK"
+      },
+      {
+        "name": "Tanvi Kulkarni",
+        "threshold": "85%",
+        "measured_over": "Semester 2 to date (85% rule, Class 6+)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 37,
+          "percent": 100.0
+        },
+        "current_percent_for_rule": 100.0,
+        "projected_best_case": 100.0,
+        "standing": "ON_TRACK"
+      },
+      {
+        "name": "Vedant Singh",
+        "threshold": "90%",
+        "measured_over": "November (monthly, Student Pass rule)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 37,
+          "percent": 100.0
+        },
+        "current_percent_for_rule": 100.0,
+        "projected_best_case": 100.0,
+        "standing": "ON_TRACK",
+        "_teacher_sees": "Threshold 90% only, never 'Student Pass' (DL-30)"
+      },
+      {
+        "name": "Vivaan Mehta",
+        "threshold": "85%",
+        "measured_over": "Semester 2 to date (85% rule, Class 6+)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 37,
+          "percent": 100.0
+        },
+        "current_percent_for_rule": 100.0,
+        "projected_best_case": 100.0,
+        "standing": "ON_TRACK"
+      },
+      {
+        "name": "Yash Agarwal",
+        "threshold": "85%",
+        "measured_over": "Semester 2 to date (85% rule, Class 6+)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 37,
+          "percent": 100.0
+        },
+        "current_percent_for_rule": 100.0,
+        "projected_best_case": 100.0,
+        "standing": "ON_TRACK"
+      },
+      {
+        "name": "Zoe Fernandes",
+        "threshold": "90%",
+        "measured_over": "November (monthly, Student Pass rule)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 37,
+          "percent": 100.0
+        },
+        "current_percent_for_rule": 100.0,
+        "projected_best_case": 100.0,
+        "standing": "ON_TRACK",
+        "_teacher_sees": "Threshold 90% only, never 'Student Pass' (DL-30)"
+      },
+      {
+        "name": "Arnav Chopra",
+        "threshold": "85%",
+        "measured_over": "Semester 2 to date (85% rule, Class 6+)",
+        "november": {
+          "school_days_to_date": 12,
+          "attended": 12,
+          "percent": 100.0,
+          "late": 0
+        },
+        "semester_2_to_date": {
+          "school_days": 37,
+          "attended": 37,
+          "percent": 100.0
+        },
+        "current_percent_for_rule": 100.0,
+        "projected_best_case": 100.0,
+        "standing": "ON_TRACK"
+      }
+    ]
+  },
+  "alerts": [
+    {
+      "student": "Ayaan Khan (7B)",
+      "type": "CONSECUTIVE_ABSENCE",
+      "raised": "2026-11-13",
+      "audience": "Class teacher, coordinator, parent",
+      "status": "ACKNOWLEDGED",
+      "note": "No leave request; parent not reachable by phone on 13 and 17 Nov"
+    },
+    {
+      "student": "Ayaan Khan (7B)",
+      "type": "ICA_REVIEW",
+      "raised": "2026-11-19T07:00",
+      "audience": "Lina Goh only (Tier 3)",
+      "case": "CASE-SG-2026-1291",
+      "status": "OPEN",
+      "detail": "8 consecutive school days absent (6, 11-13, 16-19 Nov) with no valid reason on file",
+      "steps": [
+        "Check for a valid reason with the family",
+        "File with ICA if none (how: OQ-112)",
+        "Record the filing date and reference"
+      ],
+      "_teacher_sees": "Nothing about ICA (DL-30, DL-105)"
+    },
+    {
+      "student": "Fatima Noor (7B)",
+      "type": "BELOW_THRESHOLD",
+      "raised": "2026-11-17",
+      "audience": "Class teacher, coordinator, parent",
+      "status": "OPEN",
+      "detail": "November 83.3%; best case 89.5% by 30 Nov, so the 90% monthly threshold can't be met",
+      "_note": "If the month ends under 90% without a valid reason, an ICA review opens for Lina Goh on 1 Dec (SR-AT-11)"
+    },
+    {
+      "student": "Ishaan Gupta (7B)",
+      "type": "UNEXPLAINED_ABSENCE",
+      "raised": "2026-11-19T09:30",
+      "audience": "Parent",
+      "status": "OPEN"
+    },
+    {
+      "student": "Sahil Verma (7B)",
+      "type": "AT_RISK",
+      "raised": "2026-11-17",
+      "audience": "Class teacher, coordinator, parent",
+      "status": "OPEN",
+      "detail": "Semester 2 86.5% against 85%, within the 3-point warning margin"
+    }
+  ],
+  "register_board_grades_6_8": {
+    "viewer": "Meera Joshi",
+    "date": "2026-11-19",
+    "cut_off": "09:15",
+    "rows": [
+      {
+        "class": "6A",
+        "teacher": "Kavitha Raman",
+        "status": "SUBMITTED",
+        "at": "08:59",
+        "absent": 1,
+        "late": 0
+      },
+      {
+        "class": "6B",
+        "teacher": "Joel Tan",
+        "status": "SUBMITTED",
+        "at": "09:04",
+        "absent": 2,
+        "late": 1
+      },
+      {
+        "class": "6C",
+        "teacher": "Sunita Bhat",
+        "status": "SUBMITTED",
+        "at": "09:10",
+        "absent": 0,
+        "late": 0
+      },
+      {
+        "class": "7A",
+        "teacher": "Arvind Menon",
+        "status": "SUBMITTED",
+        "at": "08:58",
+        "absent": 1,
+        "late": 0
+      },
+      {
+        "class": "7B",
+        "teacher": "Farah Ismail",
+        "status": "SUBMITTED",
+        "at": "09:12",
+        "absent": 2,
+        "late": 1,
+        "on_leave": 1
+      },
+      {
+        "class": "7C",
+        "teacher": "Grace Wong",
+        "status": "NOT_TAKEN",
+        "overdue_by": "65 min",
+        "_note": "Grace is on a field trip; who covers is OQ-110"
+      },
+      {
+        "class": "8A",
+        "teacher": "Deepak Rao",
+        "status": "SUBMITTED",
+        "at": "09:01",
+        "absent": 0,
+        "late": 1
+      },
+      {
+        "class": "8B",
+        "teacher": "Nur Aisyah",
+        "status": "SUBMITTED",
+        "at": "09:14",
+        "absent": 3,
+        "late": 0
+      },
+      {
+        "class": "8C",
+        "teacher": null,
+        "status": "NOT_TAKEN",
+        "_note": "No class teacher (classes-sample SR-CL-05); register has no owner"
+      }
+    ]
+  },
+  "parent_view_neha": {
+    "parent": "Neha Sharma",
+    "child": "Aarav Sharma (7B)",
+    "today": "Late, signed in 09:18 (school bus delayed, excused)",
+    "november": {
+      "attended": "12 of 12 school days so far",
+      "percent": "100%",
+      "threshold": "90% per month"
+    },
+    "semester_2": {
+      "percent": 100.0
+    },
+    "leave": [],
+    "action": "Apply for leave"
+  }
+}
