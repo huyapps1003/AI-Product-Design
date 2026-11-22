@@ -238,14 +238,14 @@ ST02, ST03, AD02, CL01, FB02, FB04, AS02, AS06, AT01 and AT08 are referenced, no
 ## Business rules
 
 - **SR-AC-01 (Confirmed, DL-110):** A brand-country pack version adapts exactly one GSG template version of the same board. Subjects it adds are flagged `added_by_brand_country`; subjects it drops are simply absent.
-- **SR-AC-02 (Assumed, DL-111):** A PUBLISHED pack version is read-only. Changes create a new version valid from a named year; a year keeps the pack version it started with.
+- **SR-AC-02 (Confirmed, DL-111):** A PUBLISHED pack version is read-only. Changes create a new version valid from a named year; a year keeps the pack version it started with.
 - **SR-AC-03 (Confirmed, DL-96):** An academic year belongs to one campus × offering. Its dates are copied from the brand-country year template and may be changed by the campus; the change is flagged to the brand-country.
-- **SR-AC-04 (Assumed, DL-112):** Admissions can only open applications for an ACTIVE offering, for grades inside its range, into a year that is PLANNING, PUBLISHED or CURRENT. A PHASING_OUT offering takes no new applications.
-- **SR-AC-05 (Assumed, DL-113):** One CURRENT year per offering. A year becomes CLOSED only after its rollover run is applied (CL06 APPLIED), and is then read-only.
-- **SR-AC-06 (Assumed, DL-114):** Terms lie inside the year, don't overlap, and are numbered in order. Fee billing periods (FB04) must lie inside the year's dates but are not terms.
-- **SR-AC-07 (Assumed, DL-116):** A student's subject choice (ST03) must be an OFFERED subject for their grade and year, and each choice group's min and max must be met before the enrolment can be ENROLLED (blocking or warning: OQ-125).
-- **SR-AC-08 (Assumed, DL-113):** Changing a PUBLISHED year's or term's dates needs a reason, is audited, and raises AcademicYearDatesChanged so Attendance recalculates school days, Fees flags affected billing periods and Assessment flags assessments outside the new dates.
-- **SR-AC-09 (Assumed, DL-115):** Rollover proposes each student's next grade from `next_grade_level_id`. If the campus has no ACTIVE offering for that grade, the line becomes a stage-campus promotion candidate (DL-62) or LEAVING.
+- **SR-AC-04 (Confirmed, DL-112):** Admissions can only open applications for an ACTIVE offering, for grades inside its range, into a year that is PLANNING, PUBLISHED or CURRENT. A PHASING_OUT offering takes no new applications.
+- **SR-AC-05 (Confirmed, DL-113):** One CURRENT year per offering. A year becomes CLOSED only after its rollover run is applied (CL06 APPLIED), and is then read-only.
+- **SR-AC-06 (Confirmed, DL-114):** Terms lie inside the year, don't overlap, and are numbered in order. Fee billing periods (FB04) must lie inside the year's dates but are not terms.
+- **SR-AC-07 (Confirmed, DL-116):** A student's subject choice (ST03) must be an OFFERED subject for their grade and year, and each choice group's min and max must be met before the enrolment can be ENROLLED (blocking or warning: OQ-125).
+- **SR-AC-08 (Confirmed, DL-113):** Changing a PUBLISHED year's or term's dates needs a reason and the brand-country academic head's approval, shows its impact before approval, is audited, and raises AcademicYearDatesChanged so Attendance recalculates school days, Fees flags affected billing periods and Assessment flags assessments outside the new dates.
+- **SR-AC-09 (Confirmed, DL-115):** Rollover proposes each student's next grade from `next_grade_level_id`. If the campus has no ACTIVE offering for that grade, the line becomes a stage-campus promotion candidate (DL-62) or LEAVING.
 - **SR-AC-10 (Known, Arch § Principles 1):** No module hard-codes a year, term, grade label or subject. Screens show the campus's values or "Not set" (DL-59 pattern).
 
 ## Events
