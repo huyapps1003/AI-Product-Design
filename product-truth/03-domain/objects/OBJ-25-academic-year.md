@@ -39,7 +39,7 @@ field_groups:
     tier: T1
     capability: academic.pack.view               # parents see own child's year and term dates
     edit: [academic.year.manage]
-    approve: [academic.year.publish, academic.year.change_dates]   # date changes after publish, OQ-126
+    approve: [academic.year.publish, academic.year.change_dates]   # Principal publishes; brand-country academic head approves date changes (DL-113)
   - name: Offered subjects and choice groups
     tier: T1
     capability: academic.pack.view
@@ -67,7 +67,7 @@ patterns: [AP-01, AP-02, AP-04, AP-05]
 
 # OBJ-25 · Academic year and programme offering
 
-**Status:** Proposed with the academic structure dictionary v0.1, 22 Nov 2026 (DL-109…DL-112, DL-114…DL-117 Confirmed 22 Nov 2026; DL-113 Assumed) · **Owner:** Henry
+**Status:** Proposed with the academic structure dictionary v0.1, 22 Nov 2026 (DL-109…DL-117 all Confirmed 22 Nov 2026) · **Owner:** Henry
 **Cites:** [academic structure dictionary](../academic-structure-data-dictionary.md) · Arch § Principles 2 and 4, § Multi-campus and tenancy model, § Data model (Academic structure) · HB p.47–62, p.68, p.109 · DL-87, DL-96, DL-110
 
 The GSG platform team keeps one pack per board; each brand-country adapts it into a versioned pack (DL-110), and each campus runs offerings from that version. Years and terms belong to the campus × offering (DL-96): GIIS SG CBSE runs April–March while IB DP at East Coast runs July–May. A year is PLANNING, PUBLISHED, CURRENT or CLOSED; next year is set up while this one is current (DL-113). Screens show the campus's own labels and dates or "Not set", never a hard-coded value. Pending values: PYP and KG start dates (OQ-107), grade labels (OQ-127), choice rules (OQ-125).

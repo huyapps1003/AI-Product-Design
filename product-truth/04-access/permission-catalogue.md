@@ -62,7 +62,7 @@ Codes follow `module.object.action` (DL-53; new capabilities reviewed by the reg
 | `academic.pack.manage`, `academic.pack.approve` | MANAGE, APPROVE | OBJ-25 | New (DL-110, DL-111; brand-country; approver OQ-122) |
 | `academic.year_template.manage` | MANAGE | OBJ-25 | New (DL-96; brand-country) |
 | `academic.offering.manage`, `academic.offering.approve` | MANAGE, APPROVE | OBJ-25 | New (DL-112; approver OQ-122) |
-| `academic.year.manage`, `academic.year.publish`, `academic.year.change_dates` | MANAGE, APPROVE, APPROVE | OBJ-25 | New (DL-113; coordinator prepares, Principal publishes; date changes OQ-126) |
+| `academic.year.manage`, `academic.year.publish`, `academic.year.change_dates` | MANAGE, APPROVE, APPROVE | OBJ-25 | New (DL-113; coordinator prepares, Principal publishes, brand-country academic head approves date changes) |
 | `academic.subjects.manage`, `academic.subjects.approve` | MANAGE, APPROVE | OBJ-25 | New (DL-116) |
 | `assessment.scheme.edit`, `assessment.scheme.approve` | UPDATE, APPROVE | OBJ-19 | New (DL-87; Academic Supervisor approves, OQ-93) |
 | `assessment.calendar.manage` | MANAGE | OBJ-19 | New (Arch § Key workflows: coordinator) |
