@@ -1,6 +1,6 @@
 # Data classification
 
-**Status:** Tiers Known (Architecture v1); tier names Assumed (DL-11); children's data tier Open, 25 Oct 2026 · **Owner:** Henry
+**Status:** Tiers Known (Architecture v1); tier names Confirmed (DL-11); children's data tier Open, 25 Oct 2026 · **Owner:** Henry
 **Cites:** [Architecture v1 § Security, privacy and compliance](../00-sources/Global_Campus_OS_Product_Architecture_v1.md#security-privacy-and-compliance) · DL-11, DL-19 · Data Dictionary Decision D13 · [rules-to-ui § Field visibility](../06-experience/admin-platform/rules-to-ui.md#field-visibility-decision-d13) · research §07, §10
 **Tóm tắt (VI):** Ba mức nhạy cảm dữ liệu và cách hiển thị trong thiết kế. Mức của dữ liệu học tập của trẻ em còn là câu hỏi mở (OQ-13).
 

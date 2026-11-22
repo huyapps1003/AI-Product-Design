@@ -1,6 +1,6 @@
 # Modules and core services
 
-**Status:** Proposed (Architecture v1); module codes Assumed (DL-04), 25 Oct 2026 · **Owner:** Henry
+**Status:** Proposed (Architecture v1); module codes Confirmed (DL-04, Henry 22 Nov 2026) · **Owner:** Henry
 **Cites:** [Architecture v1 § Domains and modules](../00-sources/Global_Campus_OS_Product_Architecture_v1.md#domains-and-modules) · research §05 · DL-04
 **Tóm tắt (VI):** 4 bề mặt trải nghiệm, 12 module campus và 8 dịch vụ lõi theo Architecture v1, kèm mã module (DL-04), bằng chứng từ tài liệu GIIS và mức thị trường đã có.
 

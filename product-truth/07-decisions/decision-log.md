@@ -13,25 +13,25 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | ID | Decision | Status | Linked |
 |---|---|---|---|
 | DL-01 | v1 design scope is the Admin Platform | **Superseded by DL-118** (Henry, 22 Nov 2026) | G1, 00 |
-| DL-02 | Personas map to GA/TM constructs, not to new tables | Assumed | G2, 01, Arch Q9 |
+| DL-02 | Personas map to GA/TM constructs, not to new tables | **Confirmed** (Henry, 22 Nov 2026) | G2, 01, Arch Q9 |
 | DL-03 | One canonical sample data set based on GIIS campuses; OWIS Singapore is the second sample brand | **Confirmed** (Henry, 22 Nov 2026; OWIS added, answers OQ-33) | G8 |
-| DL-04 | R01 module catalog = 12 campus modules + 2 platform modules | Assumed | G3 |
-| DL-05 | Admin Platform lives inside the staff web app | Assumed | G12 |
-| DL-06 | Desktop-first for admins, mobile-first for self-service | Assumed | G16 |
-| DL-07 | Permission evaluation: deny wins, fail closed | Assumed | Decision D08 |
-| DL-08 | Access requests and reviews reuse the shared Case object | Assumed | G11, Decision D07, D10 |
+| DL-04 | R01 module catalog = 12 campus modules + 2 platform modules (a module is what access is granted to; a domain is who owns the data, DL-43) | **Confirmed** (Henry, 22 Nov 2026) | G3 |
+| DL-05 | Admin Platform lives inside the staff web app | **Confirmed** (Henry, 22 Nov 2026) | G12 |
+| DL-06 | Desktop-first for admins, mobile-first for self-service, approvals and daily teacher tasks | **Confirmed** (Henry, 22 Nov 2026) | G16 |
+| DL-07 | Permission evaluation: deny wins, fail closed | **Confirmed** (Henry, 22 Nov 2026) | Decision D08 |
+| DL-08 | Access requests and reviews reuse the shared Case object | **Confirmed** (Henry, 22 Nov 2026) | G11, Decision D07, D10 |
 | DL-09 | Separation of duties between HR, Global Admin and Module Admin | Assumed | 01 |
-| DL-10 | Adopt candidate status enums with fixed colours | Assumed | Decision D15 |
-| DL-11 | Tier 1/2/3 = Internal/Confidential/Restricted | Assumed | G10, Decision D13 |
-| DL-12 | Rename entity D01–D03 to X01–X03 | Proposed | G13 |
+| DL-10 | Adopt candidate status enums with fixed colours | **Confirmed** (Henry, 22 Nov 2026) | Decision D15 |
+| DL-11 | Tier 1/2/3 = Internal/Confidential/Restricted | **Confirmed** (Henry, 22 Nov 2026) | G10, Decision D13 |
+| DL-12 | Rename entity D01–D03 to X01–X03 | **Withdrawn** (Henry, 22 Nov 2026: CONVENTIONS § 3 already separates "Decision D01" from "entity D01") | G13 |
 | DL-13 | Account invite timing and suspension cascade | Assumed | Decision D10 |
 | DL-14 | Per-member overrides off by default | Assumed | Decision D09 |
 | DL-15 | UI language English, per-user locale for dates and numbers | Assumed | E01 `preferred_locale` |
-| DL-16 | Derived scope is suggestion by default; auto-apply opt-in per module | Assumed | 07, Decision D11 |
-| DL-17 | Grants use scope-node hierarchy (Group > Country > Campus) | Assumed; refined by DL-35, DL-40 | 07, A03/A04 |
-| DL-18 | Relationship-based access for parents via family links, not grants | Assumed; refined by DL-28, DL-37 | 07 |
-| DL-19 | Record-level ACL for restricted cases and Tier 3 fields | Assumed | 07, Decision D13 |
-| DL-20 | Templates have BASE and MODULE categories | Assumed | 07, A08 |
+| DL-16 | Derived scope is suggestion by default; auto-apply opt-in per module | **Confirmed** (Henry, 22 Nov 2026) | 07, Decision D11 |
+| DL-17 | Grants use scope-node hierarchy (Group > Country > Campus) | **Confirmed** (Henry, 22 Nov 2026); refined by DL-35, DL-40 | 07, A03/A04 |
+| DL-18 | Relationship-based access for parents via family links, not grants | **Confirmed** (Henry, 22 Nov 2026); refined by DL-28, DL-37 | 07 |
+| DL-19 | Record-level ACL for restricted cases and Tier 3 fields | **Confirmed** (Henry, 22 Nov 2026) | 07, Decision D13 |
+| DL-20 | Templates have BASE and MODULE categories | **Confirmed** (Henry, 22 Nov 2026) | 07, A08 |
 | DL-21 | Time-boxed delegation with reason, max duration, and audit | Assumed | 07 |
 | DL-22 | Scope is every GSG brand; GSG operates Campus OS; SmartLearn excluded | **Confirmed** (Henry, 25 Oct 2026) | RES-F01, RES-F02 |
 | DL-23 | `student_id` is an immutable UUID, separate from Student ID, board IDs and legacy IDs | **Confirmed** (Henry, 13 Nov 2026) | Student dictionary ST01, ST10 |
@@ -497,7 +497,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Supersedes.** DL-01.
 - **Status.** Confirmed by Henry, 22 Nov 2026.
 
-### Review of DL-01…DL-21 (proposed 22 Nov 2026, awaiting Henry)
+### Review of DL-01…DL-21 (22 Nov 2026; policy items held)
 - **Context.** DL-01…DL-21 were set on 25 Oct 2026 so Admin Platform design could start and are all still Assumed (DL-12 Proposed), although later Confirmed decisions build on most of them. The 22 Nov 2026 repo review flagged this.
 - **Proposal.** Confirm 19 as written; supersede DL-01; withdraw DL-12. Statuses change only when Henry agrees.
 
@@ -517,6 +517,8 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-16 | Confirm | DL-73 turned auto-derive on for Classes under it |
 | DL-17, DL-18 | Confirm | Already refined by Confirmed DL-35, DL-40 and DL-28, DL-37 |
 | DL-19, DL-20, DL-21 | Confirm | Used by RBAC model and permission catalogue |
+
+- **Outcome (Henry, 22 Nov 2026, decision card "Hold the policy items").** Confirmed: DL-02, DL-04 (with the note that a module is what access is granted to and a domain is who owns the data; Classes and Academic structure are feature areas, not modules, until access is designed per module), DL-05, DL-06 (widened: daily teacher tasks such as registers and mark entry are mobile-first too), DL-07, DL-08, DL-10, DL-11, DL-16, DL-17, DL-18, DL-19, DL-20. Withdrawn: DL-12. Held as Assumed for a later discussion: DL-09 (second Global Admin), DL-13 (7-day invite; proposed as a brand-country setting), DL-14 (overrides off), DL-15 (English UI; proposed for the staff app), DL-21 (90-day cap; proposed one renewal). DL-01 superseded by DL-118, DL-03 Confirmed earlier the same day.
 
 ## How design direction becomes architecture
 
