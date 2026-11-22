@@ -98,7 +98,7 @@ product-truth/
 | 05-data-governance | [data-classification.md](./05-data-governance/data-classification.md) | Sensitivity tiers and design rules | Known / Assumed |
 | 05-data-governance | [regulatory-context.md](./05-data-governance/regulatory-context.md) | SG and IN rules, timeline, regulators | Known (secondary legal) |
 | 06-experience | [README.md](./06-experience/README.md) | Slice structure, slice index, how a screen is designed | Living |
-| 06-experience | [admin-platform/](./06-experience/admin-platform/README.md) | v1 design slice: brief, scenarios, screen map (SCR-…), flows S1–S5, rules to UI | Proposed / Assumed (DL-01) |
+| 06-experience | [admin-platform/](./06-experience/admin-platform/README.md) | v1 design slice: brief, scenarios, screen map (SCR-…), flows S1–S5, rules to UI | Proposed (v1 scope DL-118) |
 | 07-decisions | [decision-log.md](./07-decisions/decision-log.md) | Every decision, its status and evidence | Living |
 | 08-open-questions | [open-questions.md](./08-open-questions/open-questions.md) | Everything not yet known | Living |
 

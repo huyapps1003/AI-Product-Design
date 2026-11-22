@@ -80,7 +80,7 @@ The Data Dictionary's own unresolved decisions (Decision D01–D15) are tracked 
 
 | ID | Question | Why it matters for design | Evidence | Affects | Who can answer | Status |
 |---|---|---|---|---|---|---|
-| OQ-33 | Which non-GIIS brand and campuses should the canonical sample data include? | All sample campuses are GIIS, so designs can't show multi-brand cases (DL-03) | Research §10 (DL-03 verdict); RES-F01 | admin-platform README (sample data) | Henry | Open |
+| OQ-33 | Which non-GIIS brand and campuses should the canonical sample data include? | All sample campuses are GIIS, so designs can't show multi-brand cases (DL-03) | Research §10 (DL-03 verdict); RES-F01 | admin-platform README (sample data) | Henry | Answered → DL-03 (OWIS Singapore, Henry 22 Nov 2026) |
 | OQ-34 | Which personas does the platform need beyond the Admin Platform five (brand leadership, platform operator, DPO, families who move)? | Personas exist only for the admin slice | Research §03 | stakeholders, roles-personas | Henry, after user research | Open |
 
 ## G · Student directory

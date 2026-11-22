@@ -10,7 +10,7 @@ Use these names exactly in navigation and copy. Don't invent new module names or
 
 | Surface | Who | Design status |
 |---|---|---|
-| Parent app | Parents and guardians | Not started (out of v1, DL-01) |
+| Parent app | Parents and guardians | Not started (later, DL-118) |
 | Student app | Students | Not started |
 | Staff app and web | All staff; the Admin Platform lives inside it (DL-05) | Admin Platform slice designed; module prototypes for Student Directory, Admissions, Classes, Fees, Assessment and Attendance (`screens/`) |
 | Leadership views | Principals, Country Directors, group leadership | Not started |

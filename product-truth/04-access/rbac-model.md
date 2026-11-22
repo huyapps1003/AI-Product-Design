@@ -242,7 +242,7 @@ If a user is both parent and staff, the system evaluates both paths; either ALLO
 
 ## v1 case study scope
 
-For the Admin Platform design (DL-01), we design with **Layers 1–3 and Layer 5 (cases only)**:
+For the Admin Platform design (DL-01, now DL-118), we design with **Layers 1–3 and Layer 5 (cases only)**:
 
 | Layer | In v1 scope? | Why |
 |---|---|---|

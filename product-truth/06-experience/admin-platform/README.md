@@ -71,7 +71,7 @@ Use these in every design so screens agree with each other and with the architec
 | Kind | Values |
 |---|---|
 | Group (platform operator) | Global Schools Group (GSG) |
-| Brand | GIIS (Global Indian International School). Only brand in the sample set; other brands open (OQ-33) |
+| Brand | GIIS (Global Indian International School), canonical; OWIS Singapore is the second sample brand (DL-03, `SG-OWD` OWIS Digital Campus, synthetic values) |
 | Countries | Singapore (SG, SGD, Asia/Singapore) · India (IN, INR, Asia/Kolkata) |
 | Campuses (E06) | `SG-PGL` SMART Campus Punggol · `SG-ECS` East Coast Campus · `IN-NOI` Noida Campus · `GRP-HQ` Group Office (no students; for group-level staff; assumed) |
 | Employers (synthetic) | "GIIS Singapore (employer)" · "GIIS India (employer)" |

@@ -18,7 +18,7 @@ A design slice is a part of the product with enough product truth to wireframe f
 
 | Slice | Surface | Status | Folder |
 |---|---|---|---|
-| **Admin Platform** (Staff and HR, Global Admin, Team Management, Governance, self-service) | Staff app and web | Designed against Assumed decisions (DL-01) | [`admin-platform/`](./admin-platform/README.md) |
+| **Admin Platform** (Staff and HR, Global Admin, Team Management, Governance, self-service) | Staff app and web | Designed; v1 scope is the staff web app (DL-118) | [`admin-platform/`](./admin-platform/README.md) |
 | Parent app | Parent app | Not started; no data dictionary | — |
 | Student app | Student app | Not started | — |
 | Leadership views | Leadership views | Not started | — |
