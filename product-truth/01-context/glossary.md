@@ -38,8 +38,13 @@ Use these terms exactly in screens and specs. Where a term's definition is still
 | **Attendance threshold** | The minimum attendance % a student must keep; teachers see the number, not why it applies | Confirmed (DL-30) |
 | **House** | A student team that runs across years, such as House B | Known (HB p.169); list per campus Open (OQ-20) |
 | **Student ID** | The number people use for a student; unique across Campus OS and kept on campus transfer | Confirmed (DL-31) |
-| **Programme offering** | A curriculum taught on a campus for a grade band, for example CBSE 6–8 at Punggol | Known (Architecture) |
-| **Programme pack** | A curriculum loaded as data: levels, subjects, grade scale, rules, templates | Known (Architecture) |
+| **Programme offering** | A curriculum taught on a campus for a grade range, for example CBSE 1–12 at Punggol or IB DP at East Coast; spelled the same everywhere ("IB DP") | Known (Architecture); model Assumed (DL-112) |
+| **Programme pack** | A curriculum loaded as data: grade levels, grade bands, subjects. GSG keeps a template per board; each brand-country adapts it into its own version. Grade scales and rules are in Assessment | Known (Architecture); ownership Confirmed (DL-110) |
+| **Grade level** | One level in a pack (Class 6, IB PYP 2, Kindergarten 1), with the level that normally comes next | Known (HB p.47–62); model Assumed (DL-115); labels Open (OQ-127) |
+| **Grade band** | A named group of grade levels, such as CBSE 6–8, shared by assessment schemes, coordinators and calendars | Assumed (DL-115) |
+| **Year template** | A brand-country's default year and term dates for one curriculum, which campuses copy | Confirmed (DL-96) |
+| **Term** | An academic slice of a year (Semester 1, Term 1). Not a fee billing period, even where both are called "Term" | Assumed (DL-114) |
+| **Offered subject** | A subject a grade takes at an offering in one year, alone or as a choice (Language 2: Hindi, Tamil or French) | Assumed (DL-116) |
 | **Country cell** | A deployment of the platform that holds one country's data in that country's region | Known (Architecture) |
 | **Data location** | Product term for a country cell in staff and parent UI ("Data location: Singapore"); "cell" only in engineering docs (OR06) | Confirmed (DL-47) |
 | **School operating entity** | The legal entity behind a school that enrols students and employs staff. Linked to each campus by date; copied onto enrolments, employments and cases (DL-41) | Structure Confirmed (DL-41); which ones is open (OQ-02) |

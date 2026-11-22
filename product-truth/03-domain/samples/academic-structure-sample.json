@@ -1,0 +1,865 @@
+{
+  "_about": "Synthetic sample for Academic structure screens (OBJ-25 Academic year and programme offering). Pack names, grade levels, subjects and GIIS SG 2026-27 dates come from the GIIS Student Handbook 2025-26 (HB p.47-62, p.68, p.109) and the GIIS SG Holiday Schedule and Exam Schedule 2026-27; they are GIIS's own values, not group defaults (DL-22). OWIS values are synthetic. Version labels, IDs, approvers and the date-change example are invented. Viewer Dr Anita Rao, Principal SG-PGL; also Meera Joshi (Academic Coordinator CBSE Grades 6-8, SG-PGL) and Kavitha Iyer (GIIS SG brand-country academic head, synthetic). 'Today' 22 Nov 2026.",
+  "today": "2026-11-22",
+  "viewers": [
+    {
+      "name": "Dr Anita Rao",
+      "role": "Principal",
+      "scope": "SG-PGL",
+      "can": [
+        "academic.year.publish",
+        "academic.subjects.approve",
+        "academic.offering.manage"
+      ]
+    },
+    {
+      "name": "Meera Joshi",
+      "role": "Academic Coordinator",
+      "scope": "SG-PGL CBSE Grades 6-8",
+      "can": [
+        "academic.year.manage",
+        "academic.subjects.manage"
+      ]
+    },
+    {
+      "name": "Kavitha Iyer",
+      "role": "Brand-country academic head (synthetic title, approver PENDING:OQ-122)",
+      "scope": "GIIS Singapore",
+      "can": [
+        "academic.pack.manage",
+        "academic.year_template.manage"
+      ]
+    },
+    {
+      "name": "GSG platform team",
+      "role": "Pack template owner",
+      "scope": "GSG",
+      "can": [
+        "academic.pack.manage_template"
+      ]
+    }
+  ],
+  "packs": [
+    {
+      "pack_code": "CBSE",
+      "pack_name": "Central Board of Secondary Education (CBSE)",
+      "awarding_body": "Global Indian International School (Affiliated to CBSE)",
+      "levels": {
+        "GSG_TEMPLATE": {
+          "version": "2026.1",
+          "status": "PUBLISHED",
+          "valid_from": "2026-27"
+        },
+        "GIIS Singapore": {
+          "version": "2026.1-SG",
+          "status": "PUBLISHED",
+          "valid_from": "2026-27",
+          "template": "2026.1",
+          "grade_label_style": "Class 6 (HB p.47-62; classes-sample shows \"Grade 7\"; PENDING:OQ-127)",
+          "added_subjects": [
+            "Language 2 - Tamil",
+            "Language 3 - Tamil"
+          ]
+        },
+        "GIIS India": {
+          "version": "2026.1-IN",
+          "status": "PUBLISHED",
+          "valid_from": "2026-27",
+          "template": "2026.1",
+          "dropped_subjects": [
+            "Language 2 - French"
+          ],
+          "_note": "Synthetic adaptation"
+        }
+      },
+      "grade_levels": [
+        {
+          "grade_code": "CBSE-01",
+          "display_label": "Class 1",
+          "sequence": 1,
+          "next": "CBSE-02",
+          "is_final": false
+        },
+        {
+          "grade_code": "CBSE-02",
+          "display_label": "Class 2",
+          "sequence": 2,
+          "next": "CBSE-03",
+          "is_final": false
+        },
+        {
+          "grade_code": "CBSE-03",
+          "display_label": "Class 3",
+          "sequence": 3,
+          "next": "CBSE-04",
+          "is_final": false
+        },
+        {
+          "grade_code": "CBSE-04",
+          "display_label": "Class 4",
+          "sequence": 4,
+          "next": "CBSE-05",
+          "is_final": false
+        },
+        {
+          "grade_code": "CBSE-05",
+          "display_label": "Class 5",
+          "sequence": 5,
+          "next": "CBSE-06",
+          "is_final": false
+        },
+        {
+          "grade_code": "CBSE-06",
+          "display_label": "Class 6",
+          "sequence": 6,
+          "next": "CBSE-07",
+          "is_final": false
+        },
+        {
+          "grade_code": "CBSE-07",
+          "display_label": "Class 7",
+          "sequence": 7,
+          "next": "CBSE-08",
+          "is_final": false
+        },
+        {
+          "grade_code": "CBSE-08",
+          "display_label": "Class 8",
+          "sequence": 8,
+          "next": "CBSE-09",
+          "is_final": false
+        },
+        {
+          "grade_code": "CBSE-09",
+          "display_label": "Class 9",
+          "sequence": 9,
+          "next": "CBSE-10",
+          "is_final": false
+        },
+        {
+          "grade_code": "CBSE-10",
+          "display_label": "Class 10",
+          "sequence": 10,
+          "next": "CBSE-11",
+          "is_final": false,
+          "_note": "Also IGCSE-10 → CBSE-11 or IBDP-1 routes elsewhere (OQ-125)"
+        },
+        {
+          "grade_code": "CBSE-11",
+          "display_label": "Class 11",
+          "sequence": 11,
+          "next": "CBSE-12",
+          "is_final": false
+        },
+        {
+          "grade_code": "CBSE-12",
+          "display_label": "Class 12",
+          "sequence": 12,
+          "next": null,
+          "is_final": true
+        }
+      ],
+      "grade_bands": [
+        {
+          "band_label": "CBSE Grades 1-2",
+          "grades": [
+            "CBSE-01",
+            "CBSE-02"
+          ]
+        },
+        {
+          "band_label": "CBSE Grades 3-5",
+          "grades": [
+            "CBSE-03",
+            "CBSE-04",
+            "CBSE-05"
+          ]
+        },
+        {
+          "band_label": "CBSE Grades 6-8",
+          "grades": [
+            "CBSE-06",
+            "CBSE-07",
+            "CBSE-08"
+          ]
+        },
+        {
+          "band_label": "CBSE Grades 9-10",
+          "grades": [
+            "CBSE-09",
+            "CBSE-10"
+          ]
+        },
+        {
+          "band_label": "CBSE Grades 11-12",
+          "grades": [
+            "CBSE-11",
+            "CBSE-12"
+          ]
+        }
+      ],
+      "subjects_class_6": [
+        [
+          "Language 1 - English",
+          "CORE",
+          null
+        ],
+        [
+          "Language 2 - Hindi",
+          "SECOND_LANGUAGE",
+          "Language 2"
+        ],
+        [
+          "Language 2 - Tamil",
+          "SECOND_LANGUAGE",
+          "Language 2"
+        ],
+        [
+          "Language 2 - French",
+          "SECOND_LANGUAGE",
+          "Language 2"
+        ],
+        [
+          "Language 3 - Sanskrit",
+          "THIRD_LANGUAGE",
+          "Language 3"
+        ],
+        [
+          "Language 3 - Hindi",
+          "THIRD_LANGUAGE",
+          "Language 3"
+        ],
+        [
+          "Language 3 - Tamil",
+          "THIRD_LANGUAGE",
+          "Language 3"
+        ],
+        [
+          "Mathematics",
+          "CORE",
+          null
+        ],
+        [
+          "Science",
+          "CORE",
+          null
+        ],
+        [
+          "Social Science",
+          "CORE",
+          null
+        ],
+        [
+          "Information and Communication Technology (ICT)",
+          "CORE",
+          null
+        ],
+        [
+          "Performing Arts",
+          "CORE",
+          null
+        ],
+        [
+          "Visual Arts",
+          "CORE",
+          null
+        ],
+        [
+          "Physical and Health Education",
+          "CORE",
+          null
+        ]
+      ],
+      "subjects_class_11_note": "HB p.54-55: English Core, Mathematics, Informatics Practices, Physics, Chemistry, Biology, Computer Science, Business Studies, Accountancy, Economics, History, Physical and Health Education, Psychology, Applied Mathematics (requires regulator approval), Political Science. No streams in the course list; streams are OQ-77."
+    },
+    {
+      "pack_code": "CLSP",
+      "pack_name": "Cambridge Lower Secondary Programme",
+      "awarding_body": "Cambridge Assessment International Education",
+      "levels": {
+        "GIIS Singapore": {
+          "version": "2026.1-SG",
+          "status": "PUBLISHED"
+        }
+      },
+      "grade_levels": [
+        {
+          "grade_code": "CLSP-06",
+          "display_label": "Class 6",
+          "sequence": 1,
+          "next": "CLSP-07",
+          "is_final": false
+        },
+        {
+          "grade_code": "CLSP-07",
+          "display_label": "Class 7",
+          "sequence": 2,
+          "next": "CLSP-08",
+          "is_final": false
+        },
+        {
+          "grade_code": "CLSP-08",
+          "display_label": "Class 8",
+          "sequence": 3,
+          "next": "IGCSE-09",
+          "is_final": false,
+          "_note": "Next level is in another pack (DL-115); CBSE-09 also possible (OQ-125)"
+        }
+      ]
+    },
+    {
+      "pack_code": "IGCSE",
+      "pack_name": "Cambridge IGCSE",
+      "awarding_body": "Cambridge Assessment International Education",
+      "levels": {
+        "GIIS Singapore": {
+          "version": "2026.1-SG",
+          "status": "PUBLISHED"
+        }
+      },
+      "grade_levels": [
+        {
+          "grade_code": "IGCSE-09",
+          "display_label": "Class 9 - IGCSE",
+          "sequence": 1,
+          "next": "IGCSE-10",
+          "is_final": false
+        },
+        {
+          "grade_code": "IGCSE-10",
+          "display_label": "Class 10 - IGCSE",
+          "sequence": 2,
+          "next": "IBDP-1",
+          "is_final": false,
+          "_note": "Or CBSE-11 (OQ-125)"
+        }
+      ]
+    },
+    {
+      "pack_code": "IBPYP",
+      "pack_name": "International Baccalaureate Primary Years Programme",
+      "awarding_body": "International Baccalaureate",
+      "levels": {
+        "GIIS Singapore": {
+          "version": "2026.1-SG",
+          "status": "PUBLISHED"
+        },
+        "OWIS Singapore": {
+          "version": "2026.1-OWIS",
+          "status": "DRAFT",
+          "_note": "Synthetic"
+        }
+      },
+      "grade_levels": [
+        {
+          "grade_code": "IBPYP-1",
+          "display_label": "IB PYP – 1",
+          "sequence": 1,
+          "next": "IBPYP-2",
+          "is_final": false
+        },
+        {
+          "grade_code": "IBPYP-2",
+          "display_label": "IB PYP – 2",
+          "sequence": 2,
+          "next": "IBPYP-3",
+          "is_final": false
+        },
+        {
+          "grade_code": "IBPYP-3",
+          "display_label": "IB PYP – 3",
+          "sequence": 3,
+          "next": "IBPYP-4",
+          "is_final": false
+        },
+        {
+          "grade_code": "IBPYP-4",
+          "display_label": "IB PYP – 4",
+          "sequence": 4,
+          "next": "IBPYP-5",
+          "is_final": false
+        },
+        {
+          "grade_code": "IBPYP-5",
+          "display_label": "IB PYP – 5",
+          "sequence": 5,
+          "next": "CLSP-06",
+          "is_final": false,
+          "_note": "Or CBSE-06 (OQ-125)"
+        }
+      ]
+    },
+    {
+      "pack_code": "IBDP",
+      "pack_name": "International Baccalaureate Diploma Programme",
+      "awarding_body": "International Baccalaureate",
+      "levels": {
+        "GIIS Singapore": {
+          "version": "2026.1-SG",
+          "status": "PUBLISHED"
+        }
+      },
+      "grade_levels": [
+        {
+          "grade_code": "IBDP-1",
+          "display_label": "IB Diploma Programme Year 1",
+          "sequence": 1,
+          "next": "IBDP-2",
+          "is_final": false
+        },
+        {
+          "grade_code": "IBDP-2",
+          "display_label": "IB Diploma Programme Year 2",
+          "sequence": 2,
+          "next": null,
+          "is_final": true
+        }
+      ],
+      "subjects_sample": [
+        [
+          "Biology",
+          "ELECTIVE",
+          "HL",
+          "IB Group 4 Sciences"
+        ],
+        [
+          "Biology",
+          "ELECTIVE",
+          "SL",
+          "IB Group 4 Sciences"
+        ],
+        [
+          "Mathematics Analysis and Approaches",
+          "CORE",
+          "HL",
+          "IB Group 5 Mathematics"
+        ],
+        [
+          "Mathematics Applications and Interpretation",
+          "CORE",
+          "SL",
+          "IB Group 5 Mathematics"
+        ],
+        [
+          "Hindi B",
+          "SECOND_LANGUAGE",
+          "SL",
+          "IB Group 2 Language acquisition"
+        ],
+        [
+          "Theory of Knowledge",
+          "CORE",
+          "CORE_COMPONENT",
+          null
+        ],
+        [
+          "Extended Essay",
+          "CORE",
+          "CORE_COMPONENT",
+          null
+        ],
+        [
+          "Creativity, Activity, Service",
+          "CORE",
+          "CORE_COMPONENT",
+          null
+        ]
+      ]
+    },
+    {
+      "pack_code": "GMP",
+      "pack_name": "Global Montessori Plus Programme",
+      "awarding_body": "Global Indian International School",
+      "levels": {
+        "GIIS Singapore": {
+          "version": "2026.1-SG",
+          "status": "PUBLISHED"
+        }
+      },
+      "grade_levels": [
+        {
+          "grade_code": "GMP-N",
+          "display_label": "Nursery",
+          "sequence": 1,
+          "next": "GMP-K1",
+          "is_final": false
+        },
+        {
+          "grade_code": "GMP-K1",
+          "display_label": "Kindergarten 1",
+          "sequence": 2,
+          "next": "GMP-K2",
+          "is_final": false
+        },
+        {
+          "grade_code": "GMP-K2",
+          "display_label": "Kindergarten 2",
+          "sequence": 3,
+          "next": "CBSE-01",
+          "is_final": false,
+          "_note": "Or IBPYP-1; Extended variants pending OQ-123 (HB p.48-49)"
+        }
+      ]
+    }
+  ],
+  "year_templates": [
+    {
+      "brand_country": "GIIS Singapore",
+      "pack": "CBSE",
+      "year_label": "AY 2026-27",
+      "start": "2026-04-06",
+      "end": "2027-03-19",
+      "terms": [
+        {
+          "label": "Semester 1",
+          "kind": "SEMESTER",
+          "from": "2026-04-06",
+          "to": "2026-09-18"
+        },
+        {
+          "label": "Semester 2",
+          "kind": "SEMESTER",
+          "from": "2026-09-28",
+          "to": "2027-03-19"
+        }
+      ],
+      "status": "PUBLISHED",
+      "source": "Holiday Schedule 2026-27 (196 study days)"
+    },
+    {
+      "brand_country": "GIIS Singapore",
+      "pack": "CLSP",
+      "year_label": "AY 2026-27",
+      "same_as": "CBSE"
+    },
+    {
+      "brand_country": "GIIS Singapore",
+      "pack": "IGCSE",
+      "year_label": "AY 2026-27",
+      "same_as": "CBSE"
+    },
+    {
+      "brand_country": "GIIS Singapore",
+      "pack": "IBDP",
+      "year_label": "AY 2026-27",
+      "start": "2026-07-13",
+      "end": "2027-05-21",
+      "terms": [
+        {
+          "label": "Semester 1",
+          "kind": "SEMESTER",
+          "from": "2026-07-13",
+          "to": "2026-11-27"
+        },
+        {
+          "label": "Semester 2",
+          "kind": "SEMESTER",
+          "from": "2027-01-04",
+          "to": "2027-05-21"
+        }
+      ],
+      "status": "PUBLISHED",
+      "_note": "Start Known (HB p.109, earlier samples); end and semester dates synthetic"
+    },
+    {
+      "brand_country": "GIIS Singapore",
+      "pack": "IBPYP",
+      "year_label": "AY 2026-27",
+      "status": "DRAFT",
+      "start": "PENDING:OQ-107"
+    },
+    {
+      "brand_country": "GIIS Singapore",
+      "pack": "GMP",
+      "year_label": "AY 2026-27",
+      "status": "DRAFT",
+      "start": "PENDING:OQ-107"
+    },
+    {
+      "brand_country": "GIIS India",
+      "pack": "CBSE",
+      "year_label": "AY 2026-27",
+      "start": "2026-04-06",
+      "end": "2027-03-19",
+      "status": "PUBLISHED",
+      "_note": "Noida staggered starts by grade band pending OQ-107"
+    },
+    {
+      "brand_country": "OWIS Singapore",
+      "pack": "IBPYP",
+      "year_label": "AY 2026",
+      "start": "2026-01-05",
+      "end": "2026-11-27",
+      "status": "PUBLISHED",
+      "_note": "Calendar year (MC-06); synthetic"
+    }
+  ],
+  "offerings": [
+    {
+      "campus": "SG-PGL",
+      "label": "CBSE 1-12",
+      "pack": "CBSE",
+      "grades": "CBSE-01..CBSE-12",
+      "status": "ACTIVE"
+    },
+    {
+      "campus": "SG-PGL",
+      "label": "Cambridge CLSP 6-8",
+      "pack": "CLSP",
+      "grades": "CLSP-06..CLSP-08",
+      "status": "ACTIVE"
+    },
+    {
+      "campus": "SG-PGL",
+      "label": "IB PYP",
+      "pack": "IBPYP",
+      "grades": "IBPYP-1..IBPYP-5",
+      "status": "ACTIVE"
+    },
+    {
+      "campus": "SG-PGL",
+      "label": "GMP (KG)",
+      "pack": "GMP",
+      "grades": "GMP-N..GMP-K2",
+      "status": "ACTIVE"
+    },
+    {
+      "campus": "SG-ECS",
+      "label": "CBSE 1-12",
+      "pack": "CBSE",
+      "grades": "CBSE-01..CBSE-12",
+      "status": "ACTIVE"
+    },
+    {
+      "campus": "SG-ECS",
+      "label": "IGCSE 9-10",
+      "pack": "IGCSE",
+      "grades": "IGCSE-09..IGCSE-10",
+      "status": "ACTIVE"
+    },
+    {
+      "campus": "SG-ECS",
+      "label": "IB DP",
+      "pack": "IBDP",
+      "grades": "IBDP-1..IBDP-2",
+      "status": "ACTIVE"
+    },
+    {
+      "campus": "IN-NOI",
+      "label": "CBSE 1-12",
+      "pack": "CBSE",
+      "grades": "CBSE-01..CBSE-12",
+      "status": "ACTIVE"
+    },
+    {
+      "campus": "SG-OWD",
+      "label": "IB PYP",
+      "pack": "IBPYP",
+      "grades": "IBPYP-1..IBPYP-5",
+      "status": "ACTIVE",
+      "_note": "Synthetic"
+    }
+  ],
+  "academic_years": [
+    {
+      "campus": "SG-PGL",
+      "offering": "CBSE 1-12",
+      "year": "AY 2025-26",
+      "status": "CLOSED",
+      "start": "2025-04-07",
+      "end": "2026-03-20",
+      "_note": "Synthetic dates; closed after rollover"
+    },
+    {
+      "campus": "SG-PGL",
+      "offering": "CBSE 1-12",
+      "year": "AY 2026-27",
+      "status": "CURRENT",
+      "start": "2026-04-06",
+      "end": "2027-03-19",
+      "pack_version": "CBSE 2026.1-SG",
+      "differs_from_template": false
+    },
+    {
+      "campus": "SG-PGL",
+      "offering": "CBSE 1-12",
+      "year": "AY 2027-28",
+      "status": "PLANNING",
+      "start": "2027-04-05",
+      "end": "PENDING",
+      "_note": "Next year being set up while this one is current (class plans, fee plans, schemes)"
+    },
+    {
+      "campus": "SG-PGL",
+      "offering": "Cambridge CLSP 6-8",
+      "year": "AY 2026-27",
+      "status": "CURRENT",
+      "start": "2026-04-06",
+      "end": "2027-03-19"
+    },
+    {
+      "campus": "SG-PGL",
+      "offering": "IB PYP",
+      "year": "AY 2026-27",
+      "status": "CURRENT",
+      "start": "2026-04-06 (pending OQ-107)",
+      "end": "2027-03-19"
+    },
+    {
+      "campus": "SG-PGL",
+      "offering": "GMP (KG)",
+      "year": "AY 2026-27",
+      "status": "PLANNING",
+      "start": "Not set (OQ-107)"
+    },
+    {
+      "campus": "SG-ECS",
+      "offering": "IB DP",
+      "year": "AY 2026-27",
+      "status": "CURRENT",
+      "start": "2026-07-13",
+      "end": "2027-05-21",
+      "differs_from_template": false
+    },
+    {
+      "campus": "SG-ECS",
+      "offering": "IGCSE 9-10",
+      "year": "AY 2026-27",
+      "status": "CURRENT",
+      "start": "2026-04-06",
+      "end": "2027-03-19"
+    },
+    {
+      "campus": "IN-NOI",
+      "offering": "CBSE 1-12",
+      "year": "AY 2026-27",
+      "status": "CURRENT",
+      "start": "2026-04-06",
+      "end": "2027-03-19",
+      "differs_from_template": true,
+      "date_change": {
+        "field": "Semester 2 start",
+        "from": "2026-09-28",
+        "to": "2026-10-05",
+        "reason": "Campus exam week moved (synthetic)",
+        "approved": "PENDING:OQ-126",
+        "impact": {
+          "attendance_school_days": "-5 (AT01 recalculated)",
+          "fees_billing_periods_flagged": 0,
+          "assessments_outside_dates": 2
+        }
+      }
+    },
+    {
+      "campus": "SG-OWD",
+      "offering": "IB PYP",
+      "year": "AY 2026",
+      "status": "CURRENT",
+      "start": "2026-01-05",
+      "end": "2026-11-27",
+      "_note": "Calendar year; synthetic"
+    }
+  ],
+  "offered_subjects": {
+    "SG-PGL CBSE 1-12, AY 2026-27, Class 6": {
+      "everyone": [
+        "Language 1 - English",
+        "Mathematics",
+        "Science",
+        "Social Science",
+        "Information and Communication Technology (ICT)",
+        "Performing Arts",
+        "Visual Arts",
+        "Physical and Health Education"
+      ],
+      "choice_groups": [
+        {
+          "group": "Language 2",
+          "choose_min": 1,
+          "choose_max": 1,
+          "options": [
+            "Hindi",
+            "Tamil",
+            "French"
+          ]
+        },
+        {
+          "group": "Language 3",
+          "choose_min": 1,
+          "choose_max": 1,
+          "options": [
+            "Sanskrit",
+            "Hindi",
+            "Tamil"
+          ],
+          "_note": "Cannot match the Language 2 choice (PENDING:OQ-125)"
+        }
+      ]
+    },
+    "SG-ECS CBSE 1-12, AY 2026-27, Class 11": {
+      "subjects": [
+        "English Core",
+        "Mathematics",
+        "Physics",
+        "Chemistry",
+        "Biology",
+        "Computer Science",
+        "Business Studies",
+        "Accountancy",
+        "Economics",
+        "Psychology",
+        "Physical and Health Education"
+      ],
+      "pending_approval": [
+        {
+          "subject": "Applied Mathematics",
+          "status": "PENDING_APPROVAL",
+          "approval_ref": "PENDING:OQ-126",
+          "source": "HB p.54"
+        }
+      ],
+      "_note": "Combination rules and streams pending OQ-125, OQ-77"
+    },
+    "SG-ECS IB DP, AY 2026-27, Year 1": {
+      "choice_groups": [
+        {
+          "group": "IB Group 4 Sciences",
+          "options": [
+            "Biology HL",
+            "Biology SL",
+            "Chemistry HL",
+            "Physics SL"
+          ]
+        },
+        {
+          "group": "IB Group 5 Mathematics",
+          "choose_min": 1,
+          "choose_max": 1,
+          "options": [
+            "Mathematics Analysis and Approaches HL",
+            "Mathematics Applications and Interpretation SL"
+          ]
+        }
+      ],
+      "core_components": [
+        "Theory of Knowledge",
+        "Extended Essay",
+        "Creativity, Activity, Service"
+      ],
+      "_note": "3 HL + 3 SL rule PENDING:OQ-125"
+    }
+  },
+  "students_reading_this": [
+    {
+      "student": "Aarav Sharma (7B, from classes-sample)",
+      "enrolment": "SG-PGL CBSE 1-12 AY 2026-27 Class 7",
+      "subjects_ok": true
+    },
+    {
+      "student": "Ishaan Reddy (6A, synthetic)",
+      "enrolment": "SG-PGL CBSE 1-12 AY 2026-27 Class 6",
+      "subjects_ok": false,
+      "issue": "Language 3 not chosen (choice group min 1); blocking or warning PENDING:OQ-125"
+    }
+  ]
+}

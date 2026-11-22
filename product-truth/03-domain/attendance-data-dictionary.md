@@ -192,7 +192,7 @@ ST02, ST08, ST09, CL01, CL03, CL04, AS05, AS10 and the Case object (OBJ-10) are 
 | warn_margin_points | DECIMAL(4,1) | — | Y | T1 | Confirmed (DL-104) | Projection within this many points of the minimum → AT_RISK. Campus setting, no default. |
 | consequence | ENUM | — | Y | T1 | Known for GIIS SG (HB p.128–131 promotion; p.166–167 ICA) | WARN_ONLY, PROMOTION_INPUT, ICA_CASE. A rule can have several. |
 | principal_may_relax | BOOLEAN | — | Y | T1 | Known for GIIS SG KG–5 (HB p.166 "can be relaxed at the discretion of the Principal") | |
-| valid_from_year_id | UUID | FK:Academic year | Y | T1 | Assumed | Versioned per year like other rules. |
+| valid_from_year_id | UUID | FK:AC07 | Y | T1 | Assumed | Versioned per year like other rules. |
 
 ### AT09 — Attendance Summary
 

@@ -43,7 +43,8 @@ product-truth/
 │   ├── classes-data-dictionary.md  classes, class plan, placement, houses, year-end rollover (CL01–CL07)
 │   ├── fees-billing-data-dictionary.md  fee plans, billing accounts, invoices, payments, refunds (FB01–FB17)
 │   ├── assessment-data-dictionary.md  schemes, assessments, marks, report cards, appeals, promotion, predicted grades (AS01–AS13)
-│   └── attendance-data-dictionary.md  school days, registers, marks, leave, gate log, thresholds, ICA (AT01–AT10)
+│   ├── attendance-data-dictionary.md  school days, registers, marks, leave, gate log, thresholds, ICA (AT01–AT10)
+│   └── academic-structure-data-dictionary.md  packs, grade levels, subjects, offerings, years, terms (AC01–AC09)
 ├── 04-access/                 RBAC models
 │   ├── README.md              access paths by actor, constraints, gaps
 │   ├── role-catalogue.md      school roles, access roles, undefined families
@@ -88,6 +89,7 @@ product-truth/
 | 03-domain | [fees-billing-data-dictionary.md](./03-domain/fees-billing-data-dictionary.md) | Fees & Billing: fee types and plans, billing periods, payers and family accounts, billing runs, invoices, discounts, payments, reminders, refunds, long-leave pause, FPS, parent view | Proposed / Confirmed (DL-77…DL-86) |
 | 03-domain | [assessment-data-dictionary.md](./03-domain/assessment-data-dictionary.md) | Assessment & Report Cards: scheme templates and brand-country schemes, assessments, mark sheets, marks, grades, report cards, appeals, promotion decisions, predicted grades | Proposed (DL-87…DL-95 Confirmed) |
 | 03-domain | [attendance-data-dictionary.md](./03-domain/attendance-data-dictionary.md) | Attendance: school days per offering, registers and day marks, corrections, leave requests, gate log, thresholds and early warnings, ICA review Cases, attendance % for Assessment | Proposed (DL-97…DL-107 Confirmed) |
+| 03-domain | [academic-structure-data-dictionary.md](./03-domain/academic-structure-data-dictionary.md) | Academic structure: programme packs (GSG template, brand-country version), grade levels and bands, pack subjects, offerings per campus, year templates, academic years and terms per campus × offering, offered subjects with choice groups; read by every module | Proposed (DL-110 Confirmed; DL-109, DL-111…DL-116 Assumed) |
 | 04-access | [README.md](./04-access/README.md) | Access paths by actor, constraints, research gaps | Mixed |
 | 04-access | [role-catalogue.md](./04-access/role-catalogue.md) | All role names and the families with none | Known / Assumed / Open |
 | 04-access | [rbac-model.md](./04-access/rbac-model.md) | Six layers, evaluation algorithm, v1 scope, screen impact | Assumed; changes Confirmed (DL-32…DL-38) |

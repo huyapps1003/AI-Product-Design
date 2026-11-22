@@ -63,10 +63,10 @@ ST02, ST03, AD06 and Employee DD D01/D02 are referenced, not redefined. Employee
 | class_name | VARCHAR(40) | UK with campus + year | Y | T1 | Known that names vary (HB p.9–14: "Standard 7 B", "IB PYP 2A", "K1 A Extnd"; sample: "4 Orchid", "Year 2 Oak") | Free text; naming convention per campus. Unique within a campus and year. |
 | short_name | VARCHAR(12) | — | N | T1 | Assumed | For chips and tight lists, e.g. "7B". |
 | campus_id | UUID | FK:OR04 | Y | T1 | Known | |
-| academic_year_id | UUID | FK:Academic year | Y | T1 | Confirmed (DL-70) | Years start at different times (MC-06). |
-| programme_offering_id | UUID | FK:Offering | Y | T1 | Known (MC-07) | e.g. CBSE 1-12, IB PYP, Cambridge CLSP 6-8. |
+| academic_year_id | UUID | FK:AC07 | Y | T1 | Confirmed (DL-70) | Years start at different times (MC-06). |
+| programme_offering_id | UUID | FK:AC06 | Y | T1 | Known (MC-07) | e.g. CBSE 1-12, IB PYP, Cambridge CLSP 6-8. |
 | class_type | ENUM | — | Y | T1 | Assumed (DL-27) | REGULAR only for now. AEPP is not a class (DL-74). Composite or mixed-age: OQ-78. |
-| grade_id | UUID | FK:Grade | Y | T1 | Known (Arch: grade level from the programme pack) | |
+| grade_id | UUID | FK:AC02 | Y | T1 | Known (Arch: grade level from the programme pack) | |
 | segment_code | VARCHAR(32) | — | N | T1 | Known values per campus (organisation dictionary); derived | Pre-Primary, Primary, Middle, Higher at GIIS (DL-29). |
 | size_limit | INT | — | Y | T1 | Confirmed (DL-71) | From the class plan; may differ per class (e.g. one smaller class). |
 | home_room | VARCHAR(40) | — | N | T1 | Known (HB p.9–14 room per class, e.g. "S4 - 04") | Becomes FK:Room when the Organisation building/room list exists (Arch § Data model "Room"). |
@@ -141,7 +141,7 @@ ST02, ST03, AD06 and Employee DD D01/D02 are referenced, not redefined. Employee
 |---|---|---|:---:|---|---|---|
 | rollover_run_id | UUID | PK | Y | T1 | Confirmed (DL-75) | |
 | campus_id | UUID | FK:OR04 | Y | T1 | Assumed | The campus students leave. Stage-campus targets are per line. |
-| programme_offering_id | UUID | FK:Offering | Y | T1 | Confirmed (DL-96) | One run per campus × offering × year: GIIS SG CBSE rolls over in March, IB DP in May. |
+| programme_offering_id | UUID | FK:AC06 | Y | T1 | Confirmed (DL-96) | One run per campus × offering × year: GIIS SG CBSE rolls over in March, IB DP in May. |
 | from_academic_year_id / to_academic_year_id | UUID | FK | Y | T1 | Confirmed rule (DL-54: the year decides promotion) | |
 | run_status | ENUM | — | Y | T1 | Assumed (DL-27) | See enums. |
 | prepared_by_user_id | UUID | FK:User | Y | T1 | Open (OQ-73) | |

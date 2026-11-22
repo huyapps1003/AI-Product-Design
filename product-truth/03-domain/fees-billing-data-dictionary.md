@@ -95,9 +95,9 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 |---|---|---|:---:|---|---|---|
 | fee_plan_id | UUID | PK | Y | T1 | Known entity (Arch § Data model) | |
 | campus_id | UUID | FK:OR04 | Y | T1 | Known (Arch § Tenancy "Campus: fee plans") | |
-| programme_offering_id | UUID | FK:Offering | Y | T1 | Known (Arch "per campus and programme") | |
+| programme_offering_id | UUID | FK:AC06 | Y | T1 | Known (Arch "per campus and programme") | |
 | grade_ids | UUID[] | — | Y | T1 | Assumed | One plan may cover a band of grades (Grades 6–8). A grade appears in one plan per offering and year. |
-| academic_year_id | UUID | FK:Academic year | Y | T1 | Assumed | |
+| academic_year_id | UUID | FK:AC07 | Y | T1 | Assumed | |
 | version | INT | UK with the four keys | Y | T1 | Known need (Arch § Tenancy "Every fee plan has a valid-from date") | |
 | valid_from | DATE | — | Y | T1 | Known (Arch § Tenancy) | Invoices use the version valid on the period start. |
 | currency | CHAR(3) | — | Y | T1 | Known (Arch § Tenancy currency per country; MC-12) | Other currencies: OQ-92. |
@@ -130,7 +130,7 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 | billing_period_id | UUID | PK | Y | T1 | Assumed | |
 | campus_id | UUID | FK:OR04 | Y | T1 | Assumed | |
 | academic_year_id | UUID | FK | Y | T1 | Assumed | |
-| programme_offering_id | UUID | FK:Offering | C | T1 | Confirmed (DL-96) | Set when the offering's year differs from the campus default (e.g. IB DP July start). |
+| programme_offering_id | UUID | FK:AC06 | Y | T1 | Confirmed (DL-96, DL-114) | Always set: years are per campus × offering, so billing periods are too (IB DP July start differs from CBSE April). Billing periods lie inside the AC07 year but are not academic terms (AC08). |
 | period_label | VARCHAR(40) | — | Y | T1 | Known for GIIS SG ("term period of four (4) months", HB p.244) | e.g. "Term 2 (Aug–Nov)" for GIIS SG CBSE (April year; HB p.244 example "Term 2 … starts in August"). |
 | period_start / period_end | DATE | — | Y | T1 | Assumed | Must sit inside the academic year (MC-06). |
 | invoice_date | DATE | — | Y | T1 | Assumed | When the run issues invoices. |

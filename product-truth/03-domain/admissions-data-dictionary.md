@@ -91,9 +91,9 @@ ST01, ST02, ST04, ST05, ST08, ST09 and ST11 are referenced, not redefined.
 | child_person_id | UUID | FK:Person | N | T1 | Confirmed rule (DL-42) | Set when matched or when an application starts. |
 | first_name / last_name | VARCHAR(80) | — | Y | T1 | Assumed | |
 | date_of_birth | DATE | — | N | T2* | Assumed | Drives grade suggestion; age-to-grade rules Open (OQ-64). |
-| interested_grade_id | UUID | FK:Grade | N | T1 | Assumed | OBJ-15 (Academic structure, pending). |
-| interested_offering_id | UUID | FK:Programme offering | N | T1 | Assumed | MC-07. |
-| interested_academic_year_id | UUID | FK:Academic year | N | T1 | Assumed | MC-06: years start at different times. |
+| interested_grade_id | UUID | FK:AC02 | N | T1 | Assumed | Academic structure grade level. |
+| interested_offering_id | UUID | FK:AC06 | N | T1 | Assumed | MC-07. |
+| interested_academic_year_id | UUID | FK:AC07 | N | T1 | Assumed | MC-06: years start at different times. |
 | application_id | UUID | FK:AD03 | N | T1 | Assumed | Set on conversion. |
 
 ### AD03 — Application
@@ -110,9 +110,9 @@ ST01, ST02, ST04, ST05, ST08, ST09 and ST11 are referenced, not redefined.
 | student_id | UUID | FK:ST01 | C | T1 | Assumed (DL-57) | Set when the offer is issued; Student ID format per DL-67. A returning student or a year-end move into another brand or country (a new admission, DL-63) keeps the existing student (DL-31). |
 | campus_id | UUID | FK:OR04 | Y | T1 | Known (Arch step 1) | |
 | operating_entity_id | UUID | FK:OR07 | Y | T1 | Confirmed rule (DL-41) | Copied from OR08 at creation. |
-| programme_offering_id | UUID | FK:Offering | Y | T1 | Known (MC-07) | AEPP is a placement inside a regular enrolment, never an offering (DL-65). |
-| grade_id | UUID | FK:Grade | Y | T1 | Known | Applied-for grade. |
-| academic_year_id | UUID | FK:Academic year | Y | T1 | Known need (DL-54) | |
+| programme_offering_id | UUID | FK:AC06 | Y | T1 | Known (MC-07) | AEPP is a placement inside a regular enrolment, never an offering (DL-65). |
+| grade_id | UUID | FK:AC02 | Y | T1 | Known | Applied-for grade. |
+| academic_year_id | UUID | FK:AC07 | Y | T1 | Known need (DL-54) | |
 | requested_start_date | DATE | — | Y | T1 | Assumed | Mid-year joiners are common in international schools (assumption, not sourced). |
 | applicant_legal_first_name / last_name | VARCHAR(80) | — | Y | T1 | Assumed | Copied to ST01 at offer (DL-57). |
 | applicant_date_of_birth | DATE | — | Y | T2* | Assumed | |

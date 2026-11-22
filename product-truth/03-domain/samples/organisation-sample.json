@@ -625,7 +625,7 @@
     {
       "setting_key": "calendar.academic_year_start",
       "scope_node": "gsg/giis/giis-sg/sg-ecs",
-      "programme_offering": "IBDP",
+      "programme_offering": "IB DP",
       "value": "2026-07-13",
       "override_policy": "PENDING:OQ-20",
       "_shows": "Same country, different curriculum start: IB DP runs July-May (HB p.109, DL-96)"

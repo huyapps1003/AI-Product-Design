@@ -18,7 +18,7 @@
 
 | In this dictionary | Not in this dictionary (owner) |
 |---|---|
-| Scope tree: Group, Brand, Brand-country, Campus, Segment | Programme offering, academic year, term, grade, class, subject (Academic structure; OBJ-15) |
+| Scope tree: Group, Brand, Brand-country, Campus, Segment | Programme offering, academic year, term, grade, subject ([academic structure dictionary](./academic-structure-data-dictionary.md), OBJ-25); class (Classes, OBJ-15) |
 | Data location (cell) per country | Regulator pack contents, reports and identifiers (Country packs; OQ-22) |
 | Legal entity and the effective-dated campus operator link | Which entity is controller or processor (OQ-06; Governance dictionary) |
 | Inherited setting values and who may override them | Individual settings per module (each module's dictionary) |
@@ -117,7 +117,7 @@ Group has no profile entity: there is one GROUP node, GSG (Known, DL-22). Region
 | scope_node_id | UUID | PK, FK:OR01 | Y | T1 | Confirmed (DL-48) | node_type = SEGMENT. Not a grant level (DL-40 grants stop at Campus); used for settings and data scope. |
 | segment_code | VARCHAR(32) | UK with campus | Y | T1 | Known values for GIIS Noida (Pre-Primary, Primary, Middle, Higher; Noida Almanac) | Other campuses' lists: OQ-20. Never "Section" (DL-29). |
 | display_name | VARCHAR(80) | — | Y | T1 | Known (Noida Almanac) | |
-| grade_range | VARCHAR(64) | — | N | T1 | Open (OQ-51) | Grade levels come from the programme pack (OBJ-15). |
+| grade_range | VARCHAR(64) | — | N | T1 | Open (OQ-51) | Grade levels come from the programme pack (AC02, OBJ-25). |
 
 ### OR06 — Data location
 

@@ -229,7 +229,7 @@
     "SG-ECS": {
       "CBSE 1-12": "Same as SG-PGL CBSE 1-12",
       "IGCSE 9-10": "Same as SG-PGL CBSE 1-12",
-      "IBDP": [
+      "IB DP": [
         {
           "label": "IB DP Term 1 (Jul-Oct 2026)",
           "start": "2026-07-13",
@@ -522,8 +522,8 @@
     {
       "id": "FP-ECS-IBDP",
       "campus": "SG-ECS",
-      "programme": "IBDP",
-      "grades": "IBDP Years 1-2",
+      "programme": "IB DP",
+      "grades": "IB DP Years 1-2",
       "ay": "AY 2026-27",
       "version": 1,
       "valid_from": "2026-07-13",
@@ -648,7 +648,7 @@
     {
       "id": "RUN-ECS-IBDP-2026-T2S",
       "campus": "SG-ECS",
-      "programmes": "IBDP",
+      "programmes": "IB DP",
       "period": "IB DP Term 2 (Nov 2026-Feb 2027)",
       "run_type": "SUPPLEMENTARY",
       "status": "NEEDS_REVIEW",
@@ -665,7 +665,7 @@
       "exceptions": [
         {
           "student": "Daniel Lee",
-          "grade": "IBDP Year 1",
+          "grade": "IB DP Year 1",
           "issue": "Welfare and Technology fees have no payer (shares 0%, SR-FB-04)",
           "resolution": null
         }
@@ -789,7 +789,7 @@
         {
           "student": "Daniel Lee",
           "campus": "SG-ECS",
-          "grade": "IBDP Year 1",
+          "grade": "IB DP Year 1",
           "class_name": null,
           "share": 100,
           "fee_types": [
@@ -812,7 +812,7 @@
         {
           "student": "Daniel Lee",
           "campus": "SG-ECS",
-          "grade": "IBDP Year 1",
+          "grade": "IB DP Year 1",
           "class_name": null,
           "share": 100,
           "fee_types": [

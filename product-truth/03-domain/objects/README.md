@@ -24,7 +24,7 @@ A design object is something a user sees, finds and acts on. Each maps to dictio
 | OBJ-12 | Teaching allocation | D01–D03 | Teaching | Cell | T1 | [card](./OBJ-12-teaching-allocation.md) |
 | OBJ-13 | Scope node and campus | OR01–OR06, OR09 | Tenancy and config | Global | T1 | [card](./OBJ-13-scope-node.md) |
 | OBJ-14 | Legal entity | OR07, OR08 | Tenancy and config | Global | T1 | [card](./OBJ-14-legal-entity.md) |
-| OBJ-15 | Class | CL01–CL07 (class, class plan, class staff, placement, house, rollover); year, term, pack, offering, grade, subject still need the Academic structure dictionary | Academic structure (Classes, DL-70) | Cell | T2 (rollover outcomes, move notes) | [card](./OBJ-15-class.md) |
+| OBJ-15 | Class | CL01–CL07 (class, class plan, class staff, placement, house, rollover); year, term, pack, offering, grade and subject are OBJ-25 | Academic structure (Classes, DL-70) | Cell | T2 (rollover outcomes, move notes) | [card](./OBJ-15-class.md) |
 | OBJ-16 | Application | AD01–AD10 | Admissions | Cell | T3 (documents, SEN outcome) | [card](./OBJ-16-application.md) |
 | OBJ-17 | Consent | Consent, purpose | Engagement | Cell | T2 | Needs the Governance dictionary |
 | OBJ-18 | Transfer | Sharing record, two enrolments | Admissions with Engagement | Cell | T2 | Needs the Governance dictionary |
@@ -32,6 +32,7 @@ A design object is something a user sees, finds and acts on. Each maps to dictio
 | OBJ-20 | Attendance mark | AT01–AT10 (school day calendar, non-school day, register, mark, correction, leave request, gate event, rule, summary, alert) | Attendance (DL-97) | Cell | T2 (T3 certificates, ICA Case) | [card](./OBJ-20-attendance-mark.md) |
 | OBJ-21…22, OBJ-24 | Incident, wellbeing record, route | Architecture § High-level data model | Their modules | Cell | T2 or T3 | Needs a dictionary per module |
 | OBJ-23 | Billing account and invoice | FB01–FB17 (fee type, fee plan, billing period, billing account, responsibility, adjustment, billing run, invoice, payment, credit note, refund, reminder, billing pause, fee protection) | Fees and finance (DL-77) | Cell | T2 | [card](./OBJ-23-invoice.md) |
+| OBJ-25 | Academic year and programme offering | AC01–AC09 (programme pack, grade level, pack subject, grade band, year template, programme offering, academic year, term, offered subject) | Academic structure (DL-109; packs DL-110) | Global (packs) and cell (offerings, years) | T1 | [card](./OBJ-25-academic-year.md) |
 
 ## Card format
 

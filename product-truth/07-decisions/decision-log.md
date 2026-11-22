@@ -120,6 +120,14 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-106 | Other modules read only the attendance summary, never reasons or certificates; fee status never blocks attendance | **Confirmed** (Henry, 21 Nov 2026) | AT09, DL-83, DL-95 |
 | DL-107 | Parents see own child's marks, times, leave and % the same day; same-day notice for an unexplained absence | **Confirmed** (Henry, 21 Nov 2026) | AT04, AT10 |
 | DL-108 | The attendance minimum applies by student group, not one figure for all: GIIS SG Student Pass 90% per month, others Class 6+ 85% per semester, KG–5 75% per term (HB p.166, which wins over the p.23 "90% for all" wording); values stay campus settings (DL-104) | **Confirmed** (Henry, 21 Nov 2026) | OQ-108, AT08, DL-104 |
+| DL-109 | Academic structure is its own dictionary (Academic structure domain, capability prefix `academic`): packs, grade levels, pack subjects, grade bands, year templates, offerings, years, terms, offered subjects; other modules reference it | Assumed | AC01–AC09, DL-43, DL-53 |
+| DL-110 | GSG platform team keeps one programme pack template per board (grade levels, grade bands, subjects); each brand-country adapts it into its own versioned pack; campuses run offerings from that version | **Confirmed** (Henry, 22 Nov 2026) | OQ-20 (packs), AC01, DL-87 |
+| DL-111 | Pack versions are read-only once published and valid from a named year; a year keeps its pack version | Assumed | AC01, Arch § Programme pack as data |
+| DL-112 | Programme offering = campus × brand-country pack × grade range; PLANNED, ACTIVE, PHASING_OUT, CLOSED; one label spelling ("IB DP") | Assumed | AC06, MC-07, DL-65 |
+| DL-113 | Academic year PLANNING → PUBLISHED → CURRENT → CLOSED; one CURRENT per offering; closes after rollover; date changes after publishing need a reason and notify Attendance, Fees and Assessment | Assumed | AC07, DL-96, DL-75 |
+| DL-114 | Terms are academic slices inside a year (in order, no overlap); fee billing periods are a Fees concept, not terms | Assumed | AC08, FB04, DL-108 |
+| DL-115 | Grade levels are ordered per pack with a next level (possibly in another pack); grade bands are named groups of levels; display labels are a brand-country choice | Assumed | AC02, AC04, DL-75, DL-62 |
+| DL-116 | Offered subjects per offering × grade × year with choice groups and min/max; ST03 choices must match; teaching groups and streams stay with Teaching | Assumed | AC09, ST03, OQ-77 |
 
 ---
 
@@ -140,7 +148,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Context.** Existing screens use Singapore/Hong Kong/Kuala Lumpur/Jakarta/Global HQ and Azure AD; the architecture uses Punggol, East Coast, Noida and Google Workspace.
 - **Decision.** Use the set in [00 § Canonical sample data](../06-experience/admin-platform/README.md#canonical-sample-data); add a synthetic "Group Office" campus for group staff.
 - **Why.** Matches the GIIS knowledge files and the architecture; avoids a designer or generator mixing two worlds.
-- **Follow-up.** Update `screens/*.html` to this data set.
+- **Follow-up.** Update `screens/*.html` to this data set. Done 22 Nov 2026 for app, employee-add, employee-directory, employee-profile and hr-dashboard (Punggol, East Coast, Noida, Group Office, plus the real GIIS Kuala Lumpur campus; Google Workspace; canonical employers).
 - **Evidence (25 Oct 2026).** Doesn't match scope: every sample campus is GIIS, and the scope is now all 12 brands (research §10; RES-F01; DL-22). Which other brand to add is open (OQ-33).
 
 ### DL-04 — Module catalog
@@ -471,6 +479,34 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Decision.** See the table above and [attendance dictionary § Decisions](../03-domain/attendance-data-dictionary.md#decisions-proposed-awaiting-henry).
 - **Why.** Attendance is the Phase 1 daily loop (Arch § Roadmap). GIIS SG rules (HB p.23, p.166–167, p.174) become campus settings; one denominator (school days per offering, DL-96) for every %; Tier 3 stays with named roles (DL-30).
 - **Status.** DL-99, DL-100, DL-103 and DL-105 Confirmed by Henry, 21 Nov 2026 ("All yes": one mark per day, registers lock at end of day, approved leave doesn't count as attended, ICA cases never sent automatically). DL-103 answers OQ-108 for leave. DL-97, DL-98, DL-101, DL-102, DL-104, DL-106 and DL-107 Confirmed by Henry ("Yes"), 21 Nov 2026. All DL-97…DL-107 Confirmed. DL-108 (Henry, 21 Nov 2026: "Attendance minimum apply by student group") closes the rest of OQ-108.
+
+### DL-109…DL-116 — Academic structure
+- **Context.** The 22 Nov 2026 repo review found 22 fields in seven dictionaries pointing at "Academic year", "Offering", "Grade", "Subject" or "Calendar" with no definition anywhere; DL-96 lived only inside module files. Henry asked to start on the Academic structure dictionary the same day.
+- **Decision.** See the table above and [academic structure dictionary § Decisions](../03-domain/academic-structure-data-dictionary.md#decisions). DL-110 (pack ownership) was chosen by Henry on a decision card: GSG template per board, brand-country adapts, the same pattern as DL-87.
+- **Why.** One definition for every year, term, offering, grade and subject reference; packs and assessment schemes follow the same template-and-adapt model; term vs billing period separated (GIIS SG: two semesters, three 4-month billing blocks).
+- **Open.** OQ-122…OQ-129 (section Q), plus OQ-24, OQ-51, OQ-77, OQ-107.
+- **Status.** DL-110 Confirmed by Henry, 22 Nov 2026 (answers OQ-20 for packs). DL-109 and DL-111…DL-116 Assumed, awaiting Henry.
+
+### Review of DL-01…DL-21 (proposed 22 Nov 2026, awaiting Henry)
+- **Context.** DL-01…DL-21 were set on 25 Oct 2026 so Admin Platform design could start and are all still Assumed (DL-12 Proposed), although later Confirmed decisions build on most of them. The 22 Nov 2026 repo review flagged this.
+- **Proposal.** Confirm 19 as written; supersede DL-01; withdraw DL-12. Statuses change only when Henry agrees.
+
+| DL | Proposal | Why |
+|---|---|---|
+| DL-01 | **Supersede** (with a new entry recording the current plan: Admin Platform plus campus modules, one dictionary at a time) | Work since 30 Oct covers Student Directory, Admissions, Classes, Fees, Assessment, Attendance and Academic structure, not only the Admin Platform |
+| DL-02 | Confirm | RBAC decisions DL-32…DL-38 (Confirmed) build on it |
+| DL-03 | Confirm | GIIS canonical set used by every sample; old screens re-sampled 22 Nov 2026 (follow-up done); OQ-33 stays open for another brand |
+| DL-04 | Confirm | Module list used by RBAC and every dictionary; `attendance_conduct` split noted in DL-97; Academic structure is a domain, not a module (DL-109) |
+| DL-05, DL-06 | Confirm | Every prototype follows them |
+| DL-07 | Confirm | Evaluation chain used by DL-32…DL-38 |
+| DL-08 | Confirm | Case reused by access requests, ICA review, appeals, refunds (DL-69, DL-84, DL-91, DL-105) |
+| DL-09 | Confirm | Platform operator and vendor support stay open (OQ-15) |
+| DL-10, DL-11 | Confirm | Every dictionary uses the status colours and tiers; OQ-13 stays open |
+| DL-12 | **Withdraw** | CONVENTIONS § 3 already separates "Decision D01" from "entity D01"; no Employee Data Dictionary v1.1 is planned |
+| DL-13, DL-14, DL-15 | Confirm | Used by the Admin Platform screens; OQ-25 stays open for UI languages |
+| DL-16 | Confirm | DL-73 turned auto-derive on for Classes under it |
+| DL-17, DL-18 | Confirm | Already refined by Confirmed DL-35, DL-40 and DL-28, DL-37 |
+| DL-19, DL-20, DL-21 | Confirm | Used by RBAC model and permission catalogue |
 
 ## How design direction becomes architecture
 

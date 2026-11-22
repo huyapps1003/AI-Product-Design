@@ -126,7 +126,7 @@
         "Semester 1",
         "Semester 2"
       ],
-      "grade_scale": "IBDP 1-7 by subject category",
+      "grade_scale": "IB DP 1-7 by subject category",
       "owner": "GSG platform team"
     },
     {
@@ -277,7 +277,7 @@
     {
       "id": "SCH-SG-IBDP-v1",
       "brand_country": "GIIS Singapore",
-      "programme": "IBDP",
+      "programme": "IB DP",
       "grade_band": "Year 1-2",
       "version": 1,
       "valid_from": "AY 2026-27",
@@ -414,7 +414,7 @@
       "source": "HB p.85"
     },
     {
-      "name": "IBDP Category 1",
+      "name": "IB DP Category 1",
       "type": "PERCENT_BANDS",
       "bands": [
         [
@@ -3017,7 +3017,7 @@
   },
   "predicted_grades": {
     "campus": "SG-ECS",
-    "programme": "IBDP",
+    "programme": "IB DP",
     "grade": "IB Year 2",
     "released_at": "2026-10-02",
     "released_by": "Rahul Bose",
