@@ -120,14 +120,14 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-106 | Other modules read only the attendance summary, never reasons or certificates; fee status never blocks attendance | **Confirmed** (Henry, 21 Nov 2026) | AT09, DL-83, DL-95 |
 | DL-107 | Parents see own child's marks, times, leave and % the same day; same-day notice for an unexplained absence | **Confirmed** (Henry, 21 Nov 2026) | AT04, AT10 |
 | DL-108 | The attendance minimum applies by student group, not one figure for all: GIIS SG Student Pass 90% per month, others Class 6+ 85% per semester, KG–5 75% per term (HB p.166, which wins over the p.23 "90% for all" wording); values stay campus settings (DL-104) | **Confirmed** (Henry, 21 Nov 2026) | OQ-108, AT08, DL-104 |
-| DL-109 | Academic structure is its own dictionary (Academic structure domain, capability prefix `academic`): packs, grade levels, pack subjects, grade bands, year templates, offerings, years, terms, offered subjects; other modules reference it | Assumed | AC01–AC09, DL-43, DL-53 |
+| DL-109 | Academic structure is its own dictionary (Academic structure domain, capability prefix `academic`): packs, grade levels, pack subjects, grade bands, year templates, offerings, years, terms, offered subjects; other modules reference it | **Confirmed** (Henry, 22 Nov 2026) | AC01–AC09, DL-43, DL-53 |
 | DL-110 | GSG platform team keeps one programme pack template per board (grade levels, grade bands, subjects); each brand-country adapts it into its own versioned pack; campuses run offerings from that version | **Confirmed** (Henry, 22 Nov 2026) | OQ-20 (packs), AC01, DL-87 |
-| DL-111 | Pack versions are read-only once published and valid from a named year; a year keeps its pack version | Assumed | AC01, Arch § Programme pack as data |
-| DL-112 | Programme offering = campus × brand-country pack × grade range; PLANNED, ACTIVE, PHASING_OUT, CLOSED; one label spelling ("IB DP") | Assumed | AC06, MC-07, DL-65 |
+| DL-111 | Pack versions are read-only once published and valid from a named year; a year keeps its pack version | **Confirmed** (Henry, 22 Nov 2026) | AC01, Arch § Programme pack as data |
+| DL-112 | Programme offering = campus × brand-country pack × grade range; PLANNED, ACTIVE, PHASING_OUT, CLOSED; one label spelling ("IB DP") | **Confirmed** (Henry, 22 Nov 2026) | AC06, MC-07, DL-65 |
 | DL-113 | Academic year PLANNING → PUBLISHED → CURRENT → CLOSED; one CURRENT per offering; closes after rollover; date changes after publishing need a reason and notify Attendance, Fees and Assessment | Assumed | AC07, DL-96, DL-75 |
-| DL-114 | Terms are academic slices inside a year (in order, no overlap); fee billing periods are a Fees concept, not terms | Assumed | AC08, FB04, DL-108 |
-| DL-115 | Grade levels are ordered per pack with a next level (possibly in another pack); grade bands are named groups of levels; display labels are a brand-country choice | Assumed | AC02, AC04, DL-75, DL-62 |
-| DL-116 | Offered subjects per offering × grade × year with choice groups and min/max; ST03 choices must match; teaching groups and streams stay with Teaching | Assumed | AC09, ST03, OQ-77 |
+| DL-114 | Terms are academic slices inside a year (in order, no overlap); fee billing periods are a Fees concept, not terms | **Confirmed** (Henry, 22 Nov 2026) | AC08, FB04, DL-108 |
+| DL-115 | Grade levels are ordered per pack with a next level (possibly in another pack); grade bands are named groups of levels; display labels are a brand-country choice | **Confirmed** (Henry, 22 Nov 2026) | AC02, AC04, DL-75, DL-62 |
+| DL-116 | Offered subjects per offering × grade × year with choice groups and min/max; ST03 choices must match; teaching groups and streams stay with Teaching | **Confirmed** (Henry, 22 Nov 2026) | AC09, ST03, OQ-77 |
 
 ---
 
@@ -485,7 +485,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Decision.** See the table above and [academic structure dictionary § Decisions](../03-domain/academic-structure-data-dictionary.md#decisions). DL-110 (pack ownership) was chosen by Henry on a decision card: GSG template per board, brand-country adapts, the same pattern as DL-87.
 - **Why.** One definition for every year, term, offering, grade and subject reference; packs and assessment schemes follow the same template-and-adapt model; term vs billing period separated (GIIS SG: two semesters, three 4-month billing blocks).
 - **Open.** OQ-122…OQ-129 (section Q), plus OQ-24, OQ-51, OQ-77, OQ-107.
-- **Status.** DL-110 Confirmed by Henry, 22 Nov 2026 (answers OQ-20 for packs). DL-109 and DL-111…DL-116 Assumed, awaiting Henry.
+- **Status.** DL-110 Confirmed by Henry, 22 Nov 2026 (answers OQ-20 for packs). DL-109, DL-111, DL-112, DL-114, DL-115 and DL-116 Confirmed by Henry, 22 Nov 2026; for DL-112 Henry asked for friendlier UI wording than "programme offering" (pending). DL-113 Assumed: Henry suggested the Principal could approve date changes but wants it clarified (OQ-126).
 
 ### Review of DL-01…DL-21 (proposed 22 Nov 2026, awaiting Henry)
 - **Context.** DL-01…DL-21 were set on 25 Oct 2026 so Admin Platform design could start and are all still Assumed (DL-12 Proposed), although later Confirmed decisions build on most of them. The 22 Nov 2026 repo review flagged this.

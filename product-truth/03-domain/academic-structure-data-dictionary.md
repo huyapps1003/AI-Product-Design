@@ -1,6 +1,6 @@
 # Global Campus OS — Academic Structure Data Dictionary v0.1 (draft)
 
-**Status:** Proposed draft, 22 Nov 2026. DL-110 Confirmed (Henry, 22 Nov 2026); DL-109, DL-111…DL-116 Assumed; OQ-122…OQ-129 Open · **Owner:** Henry
+**Status:** Proposed draft, 22 Nov 2026. DL-109…DL-112 and DL-114…DL-116 Confirmed (Henry, 22 Nov 2026); DL-113 Assumed; OQ-122…OQ-129 Open · **Owner:** Henry
 **Cites:** [Architecture v1](../00-sources/Global_Campus_OS_Product_Architecture_v1.md) § Principles 2 (programme packs) and 4 (campus calendar engine), § Context (GIIS calendars), § Multi-campus and tenancy model ("Programme offering … subjects, assessment calendar, grading scale version, promotion rule version"), § Data model (Academic structure: Academic year, Term, Programme pack, Grade level, Subject, Section (class), Enrolment), § Programme pack as data, § Open questions Q7 · [Organisation dictionary](./organisation-data-dictionary.md) OR03, OR04, OR05, OR09 · [Student Directory Spec](./student-directory-data-dictionary.md) ST02, ST03 · [Admissions](./admissions-data-dictionary.md) AD02, AD03 · [Classes](./classes-data-dictionary.md) CL01, CL02, CL06 · [Fees & Billing](./fees-billing-data-dictionary.md) FB02, FB04 · [Assessment](./assessment-data-dictionary.md) AS01, AS02, AS06 · [Attendance](./attendance-data-dictionary.md) AT01, AT08 · GIIS Student Handbook 2025-26 (HB) p.47–62 (Master Course/Module List), p.68, p.87, p.109 · GIIS SG Holiday Schedule 2026-27 · GIIS SG Exam Schedule 2026-27 · DL-22, DL-27, DL-29, DL-43, DL-53, DL-54, DL-59, DL-62, DL-65, DL-74, DL-75, DL-87, DL-96 · MC-06, MC-07, MC-14 · OQ-20, OQ-24, OQ-51, OQ-77, OQ-78, OQ-107
 **Tóm tắt (VI):** Từ điển dữ liệu cho cấu trúc học thuật dùng chung: gói chương trình (CBSE, IB, Cambridge, GMP) do GSG giữ mẫu và từng brand-country điều chỉnh, các khối lớp và thứ tự lên lớp, nhóm khối, môn học của gói, chương trình mở tại từng cơ sở, mẫu năm học của brand-country, năm học và học kỳ theo cơ sở × chương trình, và danh sách môn được dạy theo khối trong một năm. Mọi module khác tham chiếu tới đây thay vì tự định nghĩa.
 
@@ -45,12 +45,12 @@ Scope proposed 22 Nov 2026; pack ownership chosen by Henry the same day (DL-110)
 | AC01 | Programme Pack | Academic structure (GSG template, brand-country version) | Known (Arch § Principles 2, § Programme pack as data); ownership Confirmed (DL-110) |
 | AC02 | Grade Level | Academic structure | Known (Arch: "grade levels" in a pack; HB p.47–62 course list) |
 | AC03 | Pack Subject | Academic structure | Known (Arch: "subjects" in a pack; HB p.47–62) |
-| AC04 | Grade Band | Academic structure | Known use (Arch § Key workflows "assessment calendar for a programme and grade band"; AS02 grade band; HB p.68 grade bands) ; model Assumed (DL-115) |
+| AC04 | Grade Band | Academic structure | Known use (Arch § Key workflows "assessment calendar for a programme and grade band"; AS02 grade band; HB p.68 grade bands) ; model Confirmed (DL-115) |
 | AC05 | Year Template | Academic structure (brand-country) | Confirmed (DL-96: "the brand-country keeps a default per curriculum") |
-| AC06 | Programme Offering | Academic structure (campus) | Known (Arch § Multi-campus and tenancy model, MC-07); model Assumed (DL-112) |
+| AC06 | Programme Offering | Academic structure (campus) | Known (Arch § Multi-campus and tenancy model, MC-07); model Confirmed (DL-112) |
 | AC07 | Academic Year | Academic structure (campus × offering) | Confirmed key (DL-96); lifecycle Assumed (DL-113) |
-| AC08 | Term | Academic structure | Known (Arch § Data model "Term"; HB p.45, p.68, p.109); model Assumed (DL-114) |
-| AC09 | Offered Subject | Academic structure (campus × offering × grade × year) | Known need (Arch: offering holds "subjects"; ST03 "subject choices for a year"); model Assumed (DL-116) |
+| AC08 | Term | Academic structure | Known (Arch § Data model "Term"; HB p.45, p.68, p.109); model Confirmed (DL-114) |
+| AC09 | Offered Subject | Academic structure (campus × offering × grade × year) | Known need (Arch: offering holds "subjects"; ST03 "subject choices for a year"); model Confirmed (DL-116) |
 
 ST02, ST03, AD02, CL01, FB02, FB04, AS02, AS06, AT01 and AT08 are referenced, not redefined. Their `FK:Academic year`, `FK:Offering`, `FK:Programme offering`, `FK:Grade` and `FK:Subject` columns now point at AC07, AC06, AC02 and AC03 (see [Field references fixed](#field-references-fixed-in-other-dictionaries)).
 
@@ -69,11 +69,11 @@ ST02, ST03, AD02, CL01, FB02, FB04, AS02, AS06, AT01 and AT08 are referenced, no
 | owner_scope_node_id | UUID | FK:OR01 | Y | T1 | Confirmed (DL-110) | GROUP for templates, OR03 brand-country for adaptations. |
 | template_pack_id | UUID | FK:AC01 | C | T1 | Confirmed (DL-110) | Required for BRAND_COUNTRY: the template version it adapts. |
 | awarding_body | VARCHAR(120) | — | Y | T1 | Known (HB p.47–62 "Awarded by") | e.g. "Cambridge Assessment International Education"; "Global Indian International School (Affiliated to CBSE)". |
-| version_label | VARCHAR(24) | — | Y | T1 | Assumed (DL-111) | e.g. "2026.1". |
-| valid_from_year_label | VARCHAR(16) | — | Y | T1 | Assumed (DL-111) | First academic year it applies to, e.g. "2026-27". |
-| pack_status | ENUM | — | Y | T1 | Assumed (DL-111) | DRAFT, PUBLISHED, RETIRED. Published versions are read-only. |
+| version_label | VARCHAR(24) | — | Y | T1 | Confirmed (DL-111) | e.g. "2026.1". |
+| valid_from_year_label | VARCHAR(16) | — | Y | T1 | Confirmed (DL-111) | First academic year it applies to, e.g. "2026-27". |
+| pack_status | ENUM | — | Y | T1 | Confirmed (DL-111) | DRAFT, PUBLISHED, RETIRED. Published versions are read-only. |
 | approved_by | UUID | FK:User | C | T1 | Open (OQ-122) | Who approves a brand-country version. |
-| grade_label_style | VARCHAR(24) | — | N | T1 | Assumed (DL-115); values Open (OQ-127) | How grades are shown for this brand-country: "Class 6", "Grade 6", "Year 7". |
+| grade_label_style | VARCHAR(24) | — | N | T1 | Confirmed (DL-115); values Open (OQ-127) | How grades are shown for this brand-country: "Class 6", "Grade 6", "Year 7". |
 
 ### AC02 — Grade Level
 
@@ -85,9 +85,9 @@ ST02, ST03, AD02, CL01, FB02, FB04, AS02, AS06, AT01 and AT08 are referenced, no
 | pack_id | UUID | FK:AC01 | Y | T1 | Known | |
 | grade_code | VARCHAR(16) | UK with pack | Y | T1 | Assumed | e.g. CBSE-06, IBDP-1, GMP-K1. |
 | display_label | VARCHAR(40) | — | Y | T1 | Known values (HB p.47–62: "Nursery", "Kindergarten 1", "Class 6", "IB PYP – 2", "IB Diploma Programme Year 1") | Brand-country version may rename (OQ-127). |
-| sequence | INT | UK with pack | Y | T1 | Assumed (DL-115) | Order inside the pack. |
+| sequence | INT | UK with pack | Y | T1 | Confirmed (DL-115) | Order inside the pack. |
 | typical_age | INT | — | N | T1 | Open (OQ-128) | Entry age per country; Admissions age check reads it. |
-| next_grade_level_id | UUID | FK:AC02 | N | T1 | Assumed (DL-115) | Same or another pack (CLSP 8 → IGCSE 9). Empty for a final level (CBSE 12, IB DP 2). Several routes: OQ-125. |
+| next_grade_level_id | UUID | FK:AC02 | N | T1 | Confirmed (DL-115) | Same or another pack (CLSP 8 → IGCSE 9). Empty for a final level (CBSE 12, IB DP 2). Several routes: OQ-125. |
 | is_final | BOOLEAN | — | Y | T1 | Assumed | Final level: rollover proposes GRADUATING (CL07). |
 | variant_of_grade_level_id | UUID | FK:AC02 | N | T1 | Open (OQ-123) | GMP "Extended" courses (HB p.48–49): a variant of the same level, or a separate level. |
 
@@ -114,7 +114,7 @@ ST02, ST03, AD02, CL01, FB02, FB04, AS02, AS06, AT01 and AT08 are referenced, no
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| grade_band_id | UUID | PK | Y | T1 | Assumed (DL-115) | Referenced by AS02 schemes (replaces the free-text `grade_band`), coordinator data scope (A13) and exam windows (Calendar, later). |
+| grade_band_id | UUID | PK | Y | T1 | Confirmed (DL-115) | Referenced by AS02 schemes (replaces the free-text `grade_band`), coordinator data scope (A13) and exam windows (Calendar, later). |
 | pack_id | UUID | FK:AC01 | Y | T1 | Known | Brand-country version. |
 | band_label | VARCHAR(40) | — | Y | T1 | Known (HB p.68 "Grades 6-8"; Exam Schedule 2026-27 per band; sample "CBSE Grades 6-8") | |
 | grade_level_ids | UUID[] | FK:AC02 | Y | T1 | Assumed | Contiguous levels of the same pack. A level can sit in more than one band set (assessment bands vs coordinator bands: OQ-129). |
@@ -143,12 +143,12 @@ ST02, ST03, AD02, CL01, FB02, FB04, AS02, AS06, AT01 and AT08 are referenced, no
 | campus_id | UUID | FK:OR04 | Y | T1 | Known | |
 | pack_code | VARCHAR(24) | — | Y | T1 | Confirmed (DL-110) | The brand-country pack this offering follows; the version comes from each academic year (AC07 `pack_id`). |
 | offering_label | VARCHAR(60) | UK with campus | Y | T1 | Known values (samples: "CBSE 1-12", "Cambridge CLSP 6-8", "IGCSE 9-10", "IB DP", "IB PYP", "GMP (KG)") | One spelling everywhere: "IB DP", not "IBDP". |
-| first_grade_level_id / last_grade_level_id | UUID | FK:AC02 | Y | T1 | Assumed (DL-112) | The grade range taught here. |
+| first_grade_level_id / last_grade_level_id | UUID | FK:AC02 | Y | T1 | Confirmed (DL-112) | The grade range taught here. |
 | segment_codes | VARCHAR(32)[] | — | N | T1 | Known values per campus (OR05, DL-29) | Pre-Primary, Primary, Middle, Higher at GIIS. Derived from grades where the campus maps them. |
-| offering_status | ENUM | — | Y | T1 | Assumed (DL-112) | PLANNED, ACTIVE, PHASING_OUT (no new admissions; current students continue), CLOSED. |
+| offering_status | ENUM | — | Y | T1 | Confirmed (DL-112) | PLANNED, ACTIVE, PHASING_OUT (no new admissions; current students continue), CLOSED. |
 | accreditation_ref | VARCHAR(80) | — | N | T1 | Known need (CBSE affiliation, IB authorisation, Cambridge centre); Assumed | Shown on report cards and transfer certificates. Number formats: OQ-124. |
 | opened_on / closed_on | DATE | — | C | T1 | Assumed | |
-| settings_level | — | — | — | T1 | Confirmed level (DL-40: "Segment / Programme offering"); Assumed (DL-112) | The offering is the settings level under the campus where subjects, scheme and rule versions are chosen. It is not an OR01 scope node (OR01 `node_type` has no OFFERING); staff scope by offering goes through membership data scope (A13). |
+| settings_level | — | — | — | T1 | Confirmed level (DL-40: "Segment / Programme offering"); Confirmed (DL-112) | The offering is the settings level under the campus where subjects, scheme and rule versions are chosen. It is not an OR01 scope node (OR01 `node_type` has no OFFERING); staff scope by offering goes through membership data scope (A13). |
 
 ### AC07 — Academic Year
 
@@ -159,7 +159,7 @@ ST02, ST03, AD02, CL01, FB02, FB04, AS02, AS06, AT01 and AT08 are referenced, no
 | academic_year_id | UUID | PK | Y | T1 | Confirmed key (DL-96) | Referenced by ST02, AD02, AD03, CL01, CL02, CL06, FB02, FB04, AS02, AS06, AT01, AT08. |
 | programme_offering_id | UUID | FK:AC06 | Y | T1 | Confirmed (DL-96) | Campus comes from the offering. |
 | year_label | VARCHAR(16) | UK with offering | Y | T1 | Known style ("AY 2026-27") | |
-| pack_id | UUID | FK:AC01 | Y | T1 | Assumed (DL-111) | The pack version used all year. |
+| pack_id | UUID | FK:AC01 | Y | T1 | Confirmed (DL-111) | The pack version used all year. |
 | year_template_id | UUID | FK:AC05 | N | T1 | Confirmed (DL-96) | Where the dates were copied from. |
 | start_date / end_date | DATE | — | Y | T1 | Confirmed (DL-96); GIIS SG values Known | CBSE SG-PGL 2026-04-06 → 2027-03-19; IB DP SG-ECS 2026-07-13 → May 2027. PYP and KG: OQ-107. |
 | differs_from_template | BOOLEAN | — | Y | T1 | Assumed; derived | Flags campus changes for the brand-country. |
@@ -176,7 +176,7 @@ ST02, ST03, AD02, CL01, FB02, FB04, AS02, AS06, AT01 and AT08 are referenced, no
 | term_id | UUID | PK | Y | T1 | Known entity (Arch "Term") | Referenced by AS assessments and report cards, AT08 thresholds measured per term or semester (DL-108). |
 | academic_year_id | UUID | FK:AC07 | Y | T1 | Confirmed (DL-96) | |
 | term_label | VARCHAR(40) | — | Y | T1 | Known (HB p.45 "two semesters"; p.68 "Term 1 April – September") | "Semester 1", "Term 1". |
-| term_kind | ENUM | — | Y | T1 | Assumed (DL-114) | SEMESTER, TERM, TRIMESTER. A year uses one kind. |
+| term_kind | ENUM | — | Y | T1 | Confirmed (DL-114) | SEMESTER, TERM, TRIMESTER. A year uses one kind. |
 | sequence | INT | UK with year | Y | T1 | Assumed | |
 | start_date / end_date | DATE | — | Y | T1 | Known for GIIS SG 2026-27 (Holiday Schedule) | Inside the year; terms don't overlap; gaps between them are breaks. |
 
@@ -186,13 +186,13 @@ ST02, ST03, AD02, CL01, FB02, FB04, AS02, AS06, AT01 and AT08 are referenced, no
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| offered_subject_id | UUID | PK | Y | T1 | Assumed (DL-116) | |
+| offered_subject_id | UUID | PK | Y | T1 | Confirmed (DL-116) | |
 | academic_year_id | UUID | FK:AC07 | Y | T1 | Confirmed (DL-96) | Offering comes from the year. |
 | grade_level_id | UUID | FK:AC02 | Y | T1 | Known (HB lists subjects per class) | |
 | pack_subject_id | UUID | FK:AC03 | Y | T1 | Known | Must belong to the year's pack version. |
 | choice_group | VARCHAR(40) | — | C | T1 | Known need (HB p.52: Class 6 Language 2 Hindi, Tamil or French; Language 3 Sanskrit, Hindi or Tamil) | Empty for subjects every student in the grade takes. |
 | choose_min / choose_max | INT | — | C | T1 | Known need; GIIS rules Open (OQ-125) | Per choice group, e.g. Language 2: 1 / 1. IB DP 3 HL + 3 SL rules: OQ-125. |
-| offered_status | ENUM | — | Y | T1 | Assumed (DL-116) | OFFERED, PENDING_APPROVAL (regulator approval, HB p.54), WITHDRAWN. |
+| offered_status | ENUM | — | Y | T1 | Confirmed (DL-116) | OFFERED, PENDING_APPROVAL (regulator approval, HB p.54), WITHDRAWN. |
 | approval_ref | VARCHAR(80) | — | C | T1 | Open (OQ-126) | Required when the pack subject needs regulator approval. |
 
 ## How other modules use this
@@ -279,14 +279,14 @@ Still pointing outside this file, on purpose: Assessment `exam_window_id` and Or
 
 | ID | Decision | Why |
 |---|---|---|
-| DL-109 (Assumed) | Academic structure is its own dictionary in the Academic structure domain (DL-43) with capability prefix `academic`. It owns packs, grade levels, pack subjects, grade bands, year templates, offerings, years, terms and offered subjects; other modules reference it | 22 fields in seven dictionaries pointed at undefined records; Arch § Data model lists these as one group |
+| DL-109 (**Confirmed**, Henry, 22 Nov 2026) | Academic structure is its own dictionary in the Academic structure domain (DL-43) with capability prefix `academic`. It owns packs, grade levels, pack subjects, grade bands, year templates, offerings, years, terms and offered subjects; other modules reference it | 22 fields in seven dictionaries pointed at undefined records; Arch § Data model lists these as one group |
 | DL-110 (**Confirmed**, Henry, 22 Nov 2026) | The GSG platform team keeps one programme pack template per board (grade levels, grade bands, subject catalogue). Each brand-country adapts it into its own versioned pack; campuses choose offerings from that version. Answers OQ-20 for packs | Same pattern as assessment scheme templates (DL-87); keeps group reporting comparable while GIIS SG can add Tamil and GIIS India can drop French |
-| DL-111 (Assumed) | Pack versions are immutable once published and valid from a named year; a year keeps its pack version | Arch § Programme pack as data ("2025-26 report cards keep using 2025-26 rules") |
-| DL-112 (Assumed) | A programme offering is campus × brand-country pack × grade range, with status PLANNED, ACTIVE, PHASING_OUT, CLOSED; one label spelling everywhere | Arch § Multi-campus; GIIS SG campuses run several curricula; PHASING_OUT lets a campus stop admitting without ending current students |
+| DL-111 (**Confirmed**, Henry, 22 Nov 2026) | Pack versions are immutable once published and valid from a named year; a year keeps its pack version | Arch § Programme pack as data ("2025-26 report cards keep using 2025-26 rules") |
+| DL-112 (**Confirmed**, Henry, 22 Nov 2026) | A programme offering is campus × brand-country pack × grade range, with status PLANNED, ACTIVE, PHASING_OUT, CLOSED; one label spelling everywhere | Arch § Multi-campus; GIIS SG campuses run several curricula; PHASING_OUT lets a campus stop admitting without ending current students |
 | DL-113 (Assumed) | Academic year lifecycle PLANNING → PUBLISHED → CURRENT → CLOSED; one CURRENT per offering; closes after rollover; date changes after publishing need a reason and notify dependent modules | Next year's class plans, fee plans and schemes must be built before it starts; school days and billing depend on the dates |
-| DL-114 (Assumed) | Terms are academic slices inside a year, in order, without overlap; fee billing periods are a Fees concept and not terms | GIIS SG has two semesters (HB p.45) but bills in three 4-month blocks (Arch § Context "term billing in 4-month blocks"); one word was used for both |
-| DL-115 (Assumed) | Grade levels are ordered per pack with a next level (possibly in another pack); grade bands are named groups of levels per pack; display labels are a brand-country choice | Rollover needs the next grade (DL-75); schemes and coordinators work by band (HB p.68, AS02) |
-| DL-116 (Assumed) | Offered subjects are set per offering × grade × year from the pack's subjects, with choice groups and min/max; ST03 choices must match them; teaching groups and streams stay with Teaching | HB p.47–62 lists subjects per class with language options; OQ-77 keeps streams open |
+| DL-114 (**Confirmed**, Henry, 22 Nov 2026) | Terms are academic slices inside a year, in order, without overlap; fee billing periods are a Fees concept and not terms | GIIS SG has two semesters (HB p.45) but bills in three 4-month blocks (Arch § Context "term billing in 4-month blocks"); one word was used for both |
+| DL-115 (**Confirmed**, Henry, 22 Nov 2026) | Grade levels are ordered per pack with a next level (possibly in another pack); grade bands are named groups of levels per pack; display labels are a brand-country choice | Rollover needs the next grade (DL-75); schemes and coordinators work by band (HB p.68, AS02) |
+| DL-116 (**Confirmed**, Henry, 22 Nov 2026) | Offered subjects are set per offering × grade × year from the pack's subjects, with choice groups and min/max; ST03 choices must match them; teaching groups and streams stay with Teaching | HB p.47–62 lists subjects per class with language options; OQ-77 keeps streams open |
 
 ## Open questions (new)
 
