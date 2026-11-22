@@ -71,12 +71,12 @@ Use these in every design so screens agree with each other and with the architec
 | Kind | Values |
 |---|---|
 | Group (platform operator) | Global Schools Group (GSG) |
-| Brand | GIIS (Global Indian International School). Only brand in the sample set; other brands open (OQ-33) |
+| Brand | GIIS (Global Indian International School), canonical; OWIS Singapore is the second sample brand (DL-03, `SG-OWD` OWIS Digital Campus, synthetic values) |
 | Countries | Singapore (SG, SGD, Asia/Singapore) · India (IN, INR, Asia/Kolkata) |
 | Campuses (E06) | `SG-PGL` SMART Campus Punggol · `SG-ECS` East Coast Campus · `IN-NOI` Noida Campus · `GRP-HQ` Group Office (no students; for group-level staff; assumed) |
 | Employers (synthetic) | "GIIS Singapore (employer)" · "GIIS India (employer)" |
 | Sections | Pre-Primary (KG), Primary (1–5), Middle (6–8), Higher (9–12) |
-| Programmes | GMP (KG), CBSE 1–12, IB PYP, Cambridge CLSP 6–8, IGCSE 9–10, IBDP |
+| Programmes | GMP (KG), CBSE 1–12, IB PYP, Cambridge CLSP 6–8, IGCSE 9–10, IB DP |
 | Org units | Mathematics Dept, Science Dept, Languages Dept, IB PYP Team, Admissions, Finance, Transport, Human Resources, IT |
 | Positions (E05) | Class Teacher, Subject Teacher, Programme Coordinator, Academic Supervisor, Vice Principal, Principal, HR Executive, Finance Controller, Transport Executive, Nurse, Counsellor |
 | IdP | Google Workspace (staff SSO, MFA) |

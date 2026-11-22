@@ -26,9 +26,9 @@
    "programmes": [
     "CBSE 1-12",
     "IGCSE 9-10",
-    "IBDP"
+    "IB DP"
    ],
-   "ay_start": {"CBSE 1-12": "2026-04-06", "IGCSE 9-10": "2026-04-06", "IBDP": "2026-07-13", "_note": "Per programme offering (DL-96): IB DP runs July-May (HB p.109)"},
+   "ay_start": {"CBSE 1-12": "2026-04-06", "IGCSE 9-10": "2026-04-06", "IB DP": "2026-07-13", "_note": "Per programme offering (DL-96): IB DP runs July-May (HB p.109)"},
    "brand": "GIIS",
    "note": "Not on GSG's public campus list (9 Nov 2026); kept until GSG confirms it operates"
   },
@@ -1098,8 +1098,8 @@
     {
      "campus": "SG-ECS",
      "academic_year": "AY 2026-27",
-     "programme": "IBDP",
-     "grade": "IBDP Year 1",
+     "programme": "IB DP",
+     "grade": "IB DP Year 1",
      "segment": "Higher",
      "class": null,
      "house": null,

@@ -90,11 +90,11 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 |---|---|---|:---:|---|---|---|
 | scheme_id | UUID | PK | Y | T1 | Confirmed (DL-87) | |
 | scope_node_id | UUID | FK:OR01 | Y | T1 | Confirmed: brand-country (DL-87); campus-only schemes Open (OQ-93) | |
-| programme_offering_id | UUID | FK:Offering | Y | T1 | Known (Arch § Tenancy) | |
+| programme_offering_id | UUID | FK:AC06 | Y | T1 | Known (Arch § Tenancy) | |
 | grade_band | VARCHAR(40) | — | Y | T1 | Known | e.g. "Grades 6-8". |
 | template_id / template_version | UUID / VARCHAR | FK:AS01 | Y | T1 | Confirmed (DL-87) | Which template it was copied from. Shows "Differs from template" where changed. |
 | scheme_version | INT | UK with scope + offering + band | Y | T1 | Known need (Arch § Tenancy effective dating) | |
-| valid_from_academic_year_id | UUID | FK:Academic year | Y | T1 | Known (Arch: "2025-26 report cards keep using 2025-26 rules") | |
+| valid_from_academic_year_id | UUID | FK:AC07 | Y | T1 | Known (Arch: "2025-26 report cards keep using 2025-26 rules") | |
 | scheme_status | ENUM | — | Y | T1 | Assumed (DL-27) | DRAFT, SUBMITTED, APPROVED, SUPERSEDED. |
 | prepared_by_user_id | UUID | FK:User | Y | T1 | Assumed (coordinator) | |
 | approved_by_user_id / approved_at | — | — | C | T1 | Confirmed: Academic Supervisor (DL-87); for brand-country scope OQ-93 | Required before any assessment uses the version. |
@@ -158,8 +158,8 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 | campus_id | UUID | FK:OR04 | Y | T1 | Known | |
 | academic_year_id | UUID | FK | Y | T1 | Known; per offering (DL-96) | The offering's year: GIIS SG CBSE April–March, IB DP July–May. |
 | scheme_id / component_id | UUID | FK:AS02 / AS03 | Y | T1 | Confirmed (DL-88) | Must be an APPROVED scheme version. |
-| grade_id | UUID | FK:Grade | Y | T1 | Known (Exam Schedule: per grade) | |
-| subject_id | UUID | FK:Subject | Y | T1 | Known | Language groups (L2 Hindi/Tamil/French) are one assessment with several mark sheets. |
+| grade_id | UUID | FK:AC02 | Y | T1 | Known (Exam Schedule: per grade) | |
+| subject_id | UUID | FK:AC03 | Y | T1 | Known | Language groups (L2 Hindi/Tamil/French) are one assessment with several mark sheets. |
 | assessment_kind | ENUM | — | Y | T1 | Assumed (DL-27) | REGULAR, RETEST, IMPROVEMENT, PRE_BOARD. |
 | exam_window_id | UUID | FK:Calendar | N | T1 | Known (Arch § Data model Calendar "Exam window") | |
 | scheduled_date / start_time / duration_minutes | DATE / TIME / INT | — | Y / N / N | T1 | Known (Exam Schedule; HB "Duration of PT1 45 Minutes") | |

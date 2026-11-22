@@ -10,9 +10,9 @@ Use these names exactly in navigation and copy. Don't invent new module names or
 
 | Surface | Who | Design status |
 |---|---|---|
-| Parent app | Parents and guardians | Not started (out of v1, DL-01) |
+| Parent app | Parents and guardians | Not started (later, DL-118) |
 | Student app | Students | Not started |
-| Staff app and web | All staff; the Admin Platform lives inside it (DL-05) | Admin Platform slice designed |
+| Staff app and web | All staff; the Admin Platform lives inside it (DL-05) | Admin Platform slice designed; module prototypes for Student Directory, Admissions, Classes, Fees, Assessment and Attendance (`screens/`) |
 | Leadership views | Principals, Country Directors, group leadership | Not started |
 
 ## Campus modules
@@ -44,7 +44,7 @@ The evidence column is GIIS only. Whether other brands' rules fit the same modul
 | Tenancy and config | The hierarchy and inherited settings ([tenancy and scope](./tenancy-and-scope.md)) |
 | Calendar engine | Academic years, terms, events, working week per campus |
 | Rules engine | Versioned policies and thresholds |
-| Programme packs | Curricula as data |
+| Programme packs | Curricula as data: GSG template per board, brand-country version (DL-110; [academic structure](./academic-structure-data-dictionary.md)) |
 | Cases and SLAs | One Case object for complaints, appeals, withdrawals, leave over 2 days, Student Pass issues; reused for access requests and reviews (DL-08) |
 | Notifications | Email, SMS, WhatsApp Business, push |
 | Events and audit | Event log behind every change; immutable audit |

@@ -57,6 +57,13 @@ Codes follow `module.object.action` (DL-53; new capabilities reviewed by the reg
 | `classes.house.assign` | UPDATE | OBJ-15, OBJ-03 | New (DL-76) |
 | `classes.rollover.prepare`, `classes.rollover.approve` | MANAGE, APPROVE | OBJ-15, OBJ-03 | New (DL-75) |
 | `assessment.template.manage` | MANAGE | OBJ-19 | New (DL-87; GSG platform team) |
+| `academic.pack.view` | VIEW | OBJ-25 | New (academic structure dictionary, DL-109; every membership, Tier 1) |
+| `academic.pack.manage_template` | MANAGE | OBJ-25 | New (DL-110; GSG platform team) |
+| `academic.pack.manage`, `academic.pack.approve` | MANAGE, APPROVE | OBJ-25 | New (DL-110, DL-111; brand-country; approver OQ-122) |
+| `academic.year_template.manage` | MANAGE | OBJ-25 | New (DL-96; brand-country) |
+| `academic.offering.manage`, `academic.offering.approve` | MANAGE, APPROVE | OBJ-25 | New (DL-112; approver OQ-122) |
+| `academic.year.manage`, `academic.year.publish`, `academic.year.change_dates` | MANAGE, APPROVE, APPROVE | OBJ-25 | New (DL-113; coordinator prepares, Principal publishes, brand-country academic head approves date changes) |
+| `academic.subjects.manage`, `academic.subjects.approve` | MANAGE, APPROVE | OBJ-25 | New (DL-116) |
 | `assessment.scheme.edit`, `assessment.scheme.approve` | UPDATE, APPROVE | OBJ-19 | New (DL-87; Academic Supervisor approves, OQ-93) |
 | `assessment.calendar.manage` | MANAGE | OBJ-19 | New (Arch § Key workflows: coordinator) |
 | `assessment.mark.enter`, `assessment.mark.moderate`, `assessment.mark.lock`, `assessment.mark.correct` | UPDATE, APPROVE, APPROVE, UPDATE | OBJ-19 | New (DL-88; enter scoped to own teaching, OBJ-12) |

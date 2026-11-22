@@ -57,7 +57,7 @@ The Data Dictionary's own unresolved decisions (Decision D01–D15) are tracked 
 
 | ID | Question | Why it matters for design | Evidence | Affects | Who can answer | Status |
 |---|---|---|---|---|---|---|
-| OQ-20 | Who owns programme pack masters and policy templates across brands, and which settings may a school change? | Settings screens need to show what is fixed by the group and what a school may override | MC-14; Architecture Q7; research §11 | tenancy-and-scope, variation-catalogue | GSG academic leads, brand heads | Open |
+| OQ-20 | Who owns programme pack masters and policy templates across brands, and which settings may a school change? | Settings screens need to show what is fixed by the group and what a school may override | MC-14; Architecture Q7; research §11 | tenancy-and-scope, variation-catalogue | GSG academic leads, brand heads | Partly answered → DL-110 (programme packs: GSG template per board, brand-country adapts); policy templates and other settings still Open |
 | OQ-21 | Which of GSG's other 9 countries have data residency or cross-border transfer rules? | Decides whether more country cells exist | MC-04; Architecture Q6 | regulatory-context, tenancy-and-scope | Counsel per country | Open |
 | OQ-22 | Which regulator reports, identifiers and inspections apply outside Singapore and India? | Regulator packs exist only for SG and IN | MC-05 | regulatory-context | Country directors, counsel | Open |
 | OQ-23 | Which board and national identifiers must student records carry per curriculum and country, including recorded refusals? | APAAR and board registrations are only partly covered | MC-08; RES-F05 | variation-catalogue, regulatory-context | Programme coordinators | Open |
@@ -80,7 +80,7 @@ The Data Dictionary's own unresolved decisions (Decision D01–D15) are tracked 
 
 | ID | Question | Why it matters for design | Evidence | Affects | Who can answer | Status |
 |---|---|---|---|---|---|---|
-| OQ-33 | Which non-GIIS brand and campuses should the canonical sample data include? | All sample campuses are GIIS, so designs can't show multi-brand cases (DL-03) | Research §10 (DL-03 verdict); RES-F01 | admin-platform README (sample data) | Henry | Open |
+| OQ-33 | Which non-GIIS brand and campuses should the canonical sample data include? | All sample campuses are GIIS, so designs can't show multi-brand cases (DL-03) | Research §10 (DL-03 verdict); RES-F01 | admin-platform README (sample data) | Henry | Answered → DL-03 (OWIS Singapore, Henry 22 Nov 2026) |
 | OQ-34 | Which personas does the platform need beyond the Admin Platform five (brand leadership, platform operator, DPO, families who move)? | Personas exist only for the admin slice | Research §03 | stakeholders, roles-personas | Henry, after user research | Open |
 
 ## G · Student directory
@@ -240,6 +240,21 @@ Added 19 Nov 2026 with the [attendance dictionary](../03-domain/attendance-data-
 | OQ-119 | Are there Saturday school days, exam study-leave days or grade-only days off? | School-day calendar by grade | Attendance dictionary; HB p.23, p.128–131, p.166–167, p.174; Holiday Schedule 2026-27 | attendance dictionary, OBJ-20 | Henry, GIIS SG school leadership | Open |
 | OQ-120 | Who maintains holidays and closures (campus office or brand-country), and who adds unplanned closures? | Calendar edit rights | Attendance dictionary; HB p.23, p.128–131, p.166–167, p.174; Holiday Schedule 2026-27 | attendance dictionary, OBJ-20 | Henry, GIIS SG school leadership | Open |
 | OQ-121 | Do gate devices exist at GIIS SG campuses today, and what do they send? | Device feed vs desk entry (Phase 2) | Attendance dictionary; HB p.23, p.128–131, p.166–167, p.174; Holiday Schedule 2026-27 | attendance dictionary, OBJ-20 | Henry, GIIS SG school leadership | Open |
+
+## Q · Academic structure
+
+Added 22 Nov 2026 with the [academic structure dictionary](../03-domain/academic-structure-data-dictionary.md).
+
+| ID | Question | Why it matters for design | Evidence | Affects | Who can answer | Status |
+|---|---|---|---|---|---|---|
+| OQ-122 | Who approves a brand-country pack version, and a new or closing programme offering at a campus (brand-country academic head, Academic Supervisor, Country Director)? | Approver on pack and offering screens | Academic structure dictionary; HB p.47–62, p.68, p.109; Holiday Schedule 2026-27 | academic structure dictionary, OBJ-25 | Henry, GSG academic leads | Open |
+| OQ-123 | Are the GMP "Extended" courses (Nursery, K1, K2 Extended, HB p.48–49) longer-day variants of the same grade, separate grades, or a different offering? | Grade list, class names ("K1 A Extnd"), fee plans | Academic structure dictionary; HB p.47–62, p.68, p.109; Holiday Schedule 2026-27 | academic structure dictionary, OBJ-25 | Henry, GIIS SG school leadership | Open |
+| OQ-124 | Which board codes and accreditation numbers (CBSE affiliation and subject codes, IB school code, Cambridge centre number) must Campus OS hold, and where are they printed? | Report cards, transfer certificates, board registrations | Academic structure dictionary; HB p.47–62, p.68, p.109; Holiday Schedule 2026-27 | academic structure dictionary, OBJ-25 | Henry, principals and academic heads per brand | Open |
+| OQ-125 | What subject-choice rules apply per grade (Language 2 and 3 combinations, CBSE 11 combinations, IB DP 3 HL + 3 SL plus core), are they blocking or a warning, and which next-grade routes exist after CLSP 8, IGCSE 10 and IB PYP 5? | Subject choice screens; rollover next grade | Academic structure dictionary; HB p.47–62, p.68, p.109; Holiday Schedule 2026-27 | academic structure dictionary, OBJ-25 | Henry, principals and academic heads per brand | Open |
+| OQ-126 | Who records regulator approval for a subject (HB p.54 Applied Mathematics), and who may change a published year's or term's dates? | Pending-approval subjects; date-change approval | Academic structure dictionary; HB p.47–62, p.68, p.109; Holiday Schedule 2026-27 | academic structure dictionary, OBJ-25 | Henry, principals | Partly answered → DL-113 (brand-country academic head approves date changes); regulator approval for subjects still Open |
+| OQ-127 | What grade labels does each brand-country use (Class, Grade, Year, Standard; Nursery vs Pre-K)? The handbook says "Class 7"; the classes sample says "Grade 7". | Every screen that shows a grade | Academic structure dictionary; HB p.47–62, p.68, p.109; Holiday Schedule 2026-27 | academic structure dictionary, OBJ-25 | Henry, academic heads per brand | Open |
+| OQ-128 | What entry ages per grade apply per country (cut-off dates), and should Admissions check them? | Admissions age check (AD02) | Academic structure dictionary; HB p.47–62, p.68, p.109; Holiday Schedule 2026-27 | academic structure dictionary, OBJ-25 | Henry, Admissions owners per brand | Open |
+| OQ-129 | Are coordinator bands the same as assessment bands (e.g. CBSE 6–8 for both), or do campuses group grades differently for people and for exams? | One band list or two | Academic structure dictionary; HB p.47–62, p.68, p.109; Holiday Schedule 2026-27 | academic structure dictionary, OBJ-25 | Henry, GIIS SG academic team | Open |
 
 ## Research not yet done
 

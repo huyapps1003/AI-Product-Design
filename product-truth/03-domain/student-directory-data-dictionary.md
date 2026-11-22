@@ -97,8 +97,8 @@ The student directory is the record of **who a student is, where they are enroll
 | student_id | UUID | FK:ST01 | Y | T1 | Known | |
 | campus_id | UUID | FK:OR04 | Y | T1 | Known (Arch § Tenancy); tree Confirmed (DL-40) | Campus node in the [Organisation dictionary](./organisation-data-dictionary.md) (extends ED E06). Brand and brand-country derive from it. |
 | operating_entity_id | UUID | FK:OR07 | Y | T1 | Confirmed structure (DL-41); values Open (OQ-02) | Copied at creation from the campus operator (OR08) valid on `start_date`; never re-pointed. Not the data controller (AR-04, OQ-06). Show "[operating entity — OQ-02]". |
-| academic_year_id | UUID | FK:Calendar | Y | T1 | Known (Arch § Data model "Enrolment … for a year") | From the calendar engine; years start in April (Noida) or mid-year (Singapore) (MC-06). |
-| programme_offering_id | UUID | FK:Programme offering | Y | T1 | Known (Arch § Tenancy) | e.g. CBSE 6–8 at Punggol, IGCSE 9–10 at East Coast. AEPP is a placement, not a programme offering (DL-65). |
+| academic_year_id | UUID | FK:AC07 | Y | T1 | Known (Arch § Data model "Enrolment … for a year") | From the calendar engine; years start in April (Noida) or mid-year (Singapore) (MC-06). |
+| programme_offering_id | UUID | FK:AC06 | Y | T1 | Known (Arch § Tenancy) | e.g. CBSE 6–8 at Punggol, IGCSE 9–10 at East Coast. AEPP is a placement, not a programme offering (DL-65). |
 | grade_level_code | VARCHAR(32) | — | Y | T1 | Known (Arch § Data model; levels from programme pack) | e.g. KG1, Grade 7, IBDP Year 1. Never hard-coded; read from the pack. |
 | segment_code | VARCHAR(32) | — | N | T1 | Known values (Noida Almanac: Pre-Primary, Primary, Middle, Higher); term Confirmed (DL-29) | Derived from grade level and campus settings. |
 | class_id | UUID | FK:Class | C | T1 | Known (Arch § Data model "Section (class)"); term Confirmed (DL-29) | Required once ENROLLED; assigned on enrolment (Arch § Admission to enrolment step 4). |
@@ -119,7 +119,7 @@ The student directory is the record of **who a student is, where they are enroll
 |---|---|---|:---:|---|---|---|
 | subject_choice_id | UUID | PK | Y | T1 | Known entity need (Arch § Data model) | |
 | enrolment_id | UUID | FK:ST02 | Y | T1 | Known | |
-| subject_id | UUID | FK:Programme pack subject | Y | T1 | Known (Arch: subjects come from the programme pack) | e.g. second language Hindi, Tamil, French, Mandarin; third language Sanskrit (GIIS, HB § Language policy). |
+| subject_id | UUID | FK:AC03 | Y | T1 | Known (Arch: subjects come from the programme pack) | e.g. second language Hindi, Tamil, French, Mandarin; third language Sanskrit (GIIS, HB § Language policy). |
 | choice_type | ENUM | — | Y | T1 | Confirmed (DL-27) | CORE, SECOND_LANGUAGE, THIRD_LANGUAGE, ELECTIVE, SUPPORT (e.g. English as a Second Language). |
 | valid_from | DATE | — | Y | T1 | Confirmed (DL-24) | Subject changes mid-year keep history. |
 | valid_to | DATE | — | N | T1 | Confirmed (DL-24) | |

@@ -51,7 +51,7 @@ The research compared each bet with the evidence: bets 1–4 are consistent with
 | Access model | Six layers, all Assumed (DL-16…DL-21), written for one brand | [`../04-access/`](../04-access/README.md) |
 | Data ownership | Employer per employment only; no data controller | [`../05-data-governance/data-controller-model.md`](../05-data-governance/data-controller-model.md) |
 | Regulation | Singapore and India only | [`../05-data-governance/regulatory-context.md`](../05-data-governance/regulatory-context.md) |
-| Design-ready slices | Admin Platform (DL-01, Assumed) | [`../06-experience/admin-platform/`](../06-experience/admin-platform/README.md) |
+| Design-ready slices | Staff web app: Admin Platform and campus modules (DL-118, Confirmed) | [`../06-experience/admin-platform/`](../06-experience/admin-platform/README.md) |
 
 ## Open questions that shape the whole platform
 

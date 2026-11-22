@@ -1,6 +1,6 @@
 {
   "$description": "Machine-readable map of product-truth/ for the AI design workflow. Paths are relative to the repository root. 'routes' lists the files to load for each task, in order. Statuses follow product-truth/CONVENTIONS.md: Known (cited), Assumed (DL-xx), Open (OQ-xx), Proposed (source documents).",
-  "updated": "2026-11-14",
+  "updated": "2026-11-22",
   "scope": {
     "product": "Global Campus OS",
     "operator": "Global Schools Group (GSG)",
@@ -36,6 +36,7 @@
     { "path": "product-truth/03-domain/variation-catalogue.md", "covers": "MC-01..MC-15 mapped to product truth coverage", "status": "Known", "cites": ["MC-01..MC-15"] },
     { "path": "product-truth/03-domain/student-directory-data-dictionary.md", "covers": "The one student dictionary (v0.2, merged with Student Data Dictionary v1.0 on 9 Nov 2026): entities ST01-ST11, field tiers, role visibility, data controller notes (Admissions and Enrolment, Student Records)", "status": "Proposed/Assumed/Confirmed", "cites": ["DL-23..DL-31", "DL-41", "DL-42", "DL-45", "OQ-35..OQ-45"] },
     { "path": "product-truth/03-domain/organisation-data-dictionary.md", "covers": "Organisation tree: scope node, brand, brand-country, campus, segment (OR01-OR05), data location (OR06), legal entity and campus operator (OR07-OR08), inherited settings (OR09)", "status": "Proposed/Assumed/Confirmed", "cites": ["DL-39..DL-41", "DL-47..DL-50", "OQ-02", "OQ-20", "OQ-21", "OQ-55", "OQ-57..OQ-59"] },
+    { "path": "product-truth/03-domain/academic-structure-data-dictionary.md", "covers": "Academic structure (v0.1, 22 Nov 2026): programme pack (GSG template, brand-country version), grade level, pack subject, grade band, year template, programme offering, academic year, term, offered subject (AC01-AC09); the definition every module's year, offering, grade and subject fields point at", "status": "Proposed/Assumed/Confirmed", "cites": ["DL-96", "DL-109..DL-116", "OQ-20", "OQ-107", "OQ-122..OQ-129"] },
     { "path": "product-truth/04-access/README.md", "covers": "Access paths by actor, constraints, gaps", "status": "Mixed", "cites": ["RES-F06", "DL-07", "DL-09", "DL-16..DL-21"] },
     { "path": "product-truth/04-access/role-catalogue.md", "covers": "School roles, access roles, role families with no definition", "status": "Known/Assumed/Open" },
     { "path": "product-truth/04-access/rbac-model.md", "covers": "Six-layer RBAC model and evaluation algorithm", "status": "Assumed; changes Confirmed", "cites": ["DL-16..DL-21", "DL-32..DL-38"] },
@@ -49,14 +50,14 @@
     { "path": "product-truth/06-experience/admin-platform/ia-screen-map.md", "covers": "Shell, navigation, screen list SCR-*", "status": "Proposed" },
     { "path": "product-truth/06-experience/admin-platform/flows/", "covers": "Flow, state machine and screen states per scenario", "status": "Proposed" },
     { "path": "product-truth/06-experience/admin-platform/rules-to-ui.md", "covers": "BR and Decision D -> UI behaviour, status vocabulary, field visibility", "status": "Proposed" },
-    { "path": "product-truth/07-decisions/decision-log.md", "covers": "DL-01..DL-50 with status and evidence", "status": "Living" },
+    { "path": "product-truth/07-decisions/decision-log.md", "covers": "DL-01..DL-118 with status and evidence", "status": "Living" },
     { "path": "product-truth/08-open-questions/open-questions.md", "covers": "OQ-01..OQ-59", "status": "Living" },
     { "path": "design-tokens/patterns/architecture-patterns.json", "covers": "AP-01..AP-14 architecture UI patterns with MinV parts and states", "status": "Confirmed", "cites": ["DL-46"] },
     { "path": "research/2026-10-25-campus-os-foundation-research.md", "covers": "Evidence: RES-F01..F07, MC-01..MC-15 (findings only)", "status": "Research v3" }
   ],
   "slices": {
     "admin-platform": {
-      "status": "Proposed (DL-01 Assumed)",
+      "status": "Proposed (v1 scope DL-118 Confirmed)",
       "folder": "product-truth/06-experience/admin-platform/",
       "screen_ids": "SCR-HR-*, SCR-GA-*, SCR-TM-*, SCR-GOV-*, SCR-CL-01, SCR-ME-*, SCR-HOME-01, SCR-AUTH-01, SCR-SYS-*",
       "scenarios": ["S1", "S2", "S3", "S4", "S5"]
@@ -92,7 +93,8 @@
       "product-truth/03-domain/samples/classes-sample.json",
       "product-truth/03-domain/samples/student-sample.json",
       "product-truth/04-access/permission-catalogue.md",
-      "product-truth/08-open-questions/open-questions.md"
+      "product-truth/08-open-questions/open-questions.md",
+      "product-truth/03-domain/academic-structure-data-dictionary.md"
     ],
     "assessment-data": [
       "product-truth/03-domain/objects/OBJ-19-report-card.md",
@@ -102,6 +104,15 @@
       "product-truth/03-domain/classes-data-dictionary.md",
       "product-truth/03-domain/samples/assessment-sample.json",
       "product-truth/03-domain/samples/classes-sample.json",
+      "product-truth/04-access/permission-catalogue.md",
+      "product-truth/08-open-questions/open-questions.md",
+      "product-truth/03-domain/academic-structure-data-dictionary.md"
+    ],
+    "academic-structure-data": [
+      "product-truth/03-domain/objects/OBJ-25-academic-year.md",
+      "product-truth/03-domain/academic-structure-data-dictionary.md",
+      "product-truth/03-domain/samples/academic-structure-sample.json",
+      "product-truth/03-domain/variation-catalogue.md",
       "product-truth/04-access/permission-catalogue.md",
       "product-truth/08-open-questions/open-questions.md"
     ],
@@ -114,7 +125,8 @@
       "product-truth/03-domain/samples/attendance-sample.json",
       "product-truth/03-domain/samples/classes-sample.json",
       "product-truth/04-access/permission-catalogue.md",
-      "product-truth/08-open-questions/open-questions.md"
+      "product-truth/08-open-questions/open-questions.md",
+      "product-truth/03-domain/academic-structure-data-dictionary.md"
     ],
     "fees-billing-data": [
       "product-truth/03-domain/objects/OBJ-23-invoice.md",
@@ -125,7 +137,8 @@
       "product-truth/03-domain/samples/fees-billing-sample.json",
       "product-truth/03-domain/samples/student-sample.json",
       "product-truth/04-access/permission-catalogue.md",
-      "product-truth/08-open-questions/open-questions.md"
+      "product-truth/08-open-questions/open-questions.md",
+      "product-truth/03-domain/academic-structure-data-dictionary.md"
     ],
     "admissions-data": [
       "product-truth/03-domain/objects/OBJ-16-application.md",
@@ -136,7 +149,8 @@
       "product-truth/03-domain/samples/student-sample.json",
       "product-truth/04-access/permission-catalogue.md",
       "product-truth/05-data-governance/regulatory-context.md",
-      "product-truth/08-open-questions/open-questions.md"
+      "product-truth/08-open-questions/open-questions.md",
+      "product-truth/03-domain/academic-structure-data-dictionary.md"
     ],
     "student-data": [
       "product-truth/03-domain/objects/OBJ-02-student.md",
@@ -147,7 +161,8 @@
       "product-truth/04-access/rbac-model.md",
       "product-truth/05-data-governance/data-classification.md",
       "product-truth/05-data-governance/data-controller-model.md",
-      "product-truth/08-open-questions/open-questions.md"
+      "product-truth/08-open-questions/open-questions.md",
+      "product-truth/03-domain/academic-structure-data-dictionary.md"
     ],
     "organisation-or-scope": [
       "product-truth/03-domain/architecture.md",
