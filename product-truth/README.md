@@ -76,8 +76,8 @@ product-truth/
 | 03-domain | [samples/](./03-domain/samples/README.md) | Synthetic record sets the object cards point to (`sample:`): students across GIIS and five other brands, and the organisation tree | Synthetic |
 | 01-context | [glossary.md](./01-context/glossary.md) | Terms for organisation, access and data protection | Living |
 | 02-users | [stakeholders.md](./02-users/stakeholders.md) | Seven user segments, decision-makers, observations | Known (desk research) |
-| 02-users | [roles-personas.md](./02-users/roles-personas.md) | Admin Platform personas P1–P5, access role catalog A06, capability matrix | Assumed (DL-02) |
-| 03-domain | [modules-and-services.md](./03-domain/modules-and-services.md) | Surfaces, modules with codes, core services, market coverage | Proposed / Assumed (DL-04) |
+| 02-users | [roles-personas.md](./02-users/roles-personas.md) | Admin Platform personas P1–P5, access role catalog A06, capability matrix | Confirmed (DL-02) |
+| 03-domain | [modules-and-services.md](./03-domain/modules-and-services.md) | Surfaces, modules with codes, core services, market coverage | Proposed / Confirmed (DL-04) |
 | 03-domain | [architecture.md](./03-domain/architecture.md) | **Layer 0 for design:** global vs cell, scope tree, Person, ownership, governance records, rules AR-01…AR-14, patterns AP-01…AP-14, screen request contract | Confirmed (DL-39…DL-46) |
 | 03-domain | [objects/](./03-domain/objects/README.md) | **Layer 1 for design:** object registry OBJ-01…OBJ-24 and 14 object cards | Confirmed structure (DL-43, DL-46) |
 | 03-domain | [tenancy-and-scope.md](./03-domain/tenancy-and-scope.md) | Scope tree with Brand and Brand-country, legal entity beside it, what each level owns | Confirmed (DL-40, DL-41) / Open |

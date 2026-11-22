@@ -62,10 +62,10 @@ Use these terms exactly in screens and specs. Where a term's definition is still
 | **Permission template** | A versioned list of allowed and denied capabilities (A08, A09) | Known (Data Dictionary) |
 | **Capability** | One action code, such as `hr.employee.view` (R02) | Known (Data Dictionary) |
 | **Data scope** | Which records a membership covers (grade, section, subject…) (A12, A13). No scope means no data (BR-17) | Known |
-| **Family link** | The link between a parent account and a student enrolment that authorises parent access | Assumed (DL-18) |
-| **Record ACL** | A per-record access list for restricted cases and Tier 3 fields | Assumed (DL-19) |
+| **Family link** | The link between a parent account and a student enrolment that authorises parent access | Confirmed (DL-18) |
+| **Record ACL** | A per-record access list for restricted cases and Tier 3 fields | Confirmed (DL-19) |
 | **Delegation / acting grant** | Time-boxed transfer of capabilities from one user to another | Assumed (DL-21) |
-| **Persona** | A design concept: a typical bundle of grants, memberships and scope. Never stored | Assumed (DL-02) |
+| **Persona** | A design concept: a typical bundle of grants, memberships and scope. Never stored | Confirmed (DL-02) |
 | **HR position**, **campus affiliation**, **academic role** | Facts about employment and teaching. None of them grants access (BR-06) | Known |
 
 ## Data protection

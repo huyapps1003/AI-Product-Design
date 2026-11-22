@@ -21,7 +21,7 @@
 | Employee Data Dictionary v1 | Two layers: Global Admin (GA) grants set a ceiling of modules × campuses; Team Management (TM) membership carries a role, a permission template and a data scope | Confirmed input |
 | [rbac-model.md](./rbac-model.md) | Six layers: hierarchical grants, operational membership, static and derived scope, relationship-based access, record-level ACL, evaluation per country cell | Assumed |
 
-DL-02 (Assumed) records how the first two relate: architecture "role + scope" = GA grant (ceiling) + TM membership with role and data scope.
+DL-02 (Confirmed, 22 Nov 2026) records how the first two relate: architecture "role + scope" = GA grant (ceiling) + TM membership with role and data scope.
 
 ## Access paths by actor
 
@@ -32,7 +32,7 @@ Which way each kind of actor gets access, as far as product truth defines it. Th
 | School staff (teachers, operations, leaders) | GA grant → TM membership → role + template → data scope (Layers 1–3), record ACL for restricted cases (Layer 5) | Known (GA/TM); Assumed (layers) | — |
 | Central functions (Group HR, Global Admin, auditor) | Same path with group-level grants; system roles `GLOBAL_ADMIN`, `PLATFORM_AUDITOR` | Assumed (DL-17, A06 values) | DPO has no role (OQ-34) |
 | Acting staff (cover, leave) | Time-boxed delegation | Assumed (DL-21) | — |
-| Parents and guardians | Family link to a student enrolment; fixed read-only capability set (Layer 4) | Assumed (DL-18) | How custody is recorded (OQ-11); consent (OQ-10) |
+| Parents and guardians | Family link to a student enrolment; fixed read-only capability set (Layer 4) | Confirmed (DL-18) | How custody is recorded (OQ-11); consent (OQ-10) |
 | Students | "Self" scope in Architecture v1 | Known (scope only) | No access path defined (OQ-19) |
 | Brand leadership | Grants and memberships at a Brand node (DL-40) | Structure Confirmed | What they need to see and do (OQ-16) |
 | GSG platform team (admins, support, security) | None | Open | No platform-operator or support roles (OQ-15) |
