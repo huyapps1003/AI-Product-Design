@@ -38,8 +38,8 @@ Use these terms exactly in screens and specs. Where a term's definition is still
 | **Attendance threshold** | The minimum attendance % a student must keep; teachers see the number, not why it applies | Confirmed (DL-30) |
 | **House** | A student team that runs across years, such as House B | Known (HB p.169); list per campus Open (OQ-20) |
 | **Student ID** | The number people use for a student; unique across Campus OS and kept on campus transfer | Confirmed (DL-31) |
-| **Programme offering** | A curriculum taught on a campus for a grade range, for example CBSE 1–12 at Punggol or IB DP at East Coast; spelled the same everywhere ("IB DP") | Known (Architecture); model Assumed (DL-112) |
-| **Programme pack** | A curriculum loaded as data: grade levels, grade bands, subjects. GSG keeps a template per board; each brand-country adapts it into its own version. Grade scales and rules are in Assessment | Known (Architecture); ownership Confirmed (DL-110) |
+| **Programme** (data: programme offering) | What a campus runs: a curriculum for a grade range, for example CBSE 1–12 at Punggol or IB Diploma at East Coast. Statuses: Opening soon, Open, No new students, Closed. Use "Programme" on screens; "programme offering" only in data and specs | Confirmed (DL-112, DL-117) |
+| **Curriculum** (data: programme pack) | A curriculum held as data: grade levels, grade bands, subjects. GSG keeps a template per board; each brand-country adapts it into its own version ("CBSE, GIIS Singapore version 2026.1"). Grade scales and rules are in Assessment. Use "Curriculum" on screens | Confirmed (DL-110, DL-117) |
 | **Grade level** | One level in a pack (Class 6, IB PYP 2, Kindergarten 1), with the level that normally comes next | Known (HB p.47–62); model Assumed (DL-115); labels Open (OQ-127) |
 | **Grade band** | A named group of grade levels, such as CBSE 6–8, shared by assessment schemes, coordinators and calendars | Assumed (DL-115) |
 | **Year template** | A brand-country's default year and term dates for one curriculum, which campuses copy | Confirmed (DL-96) |

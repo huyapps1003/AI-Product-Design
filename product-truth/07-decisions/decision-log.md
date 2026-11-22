@@ -128,6 +128,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-114 | Terms are academic slices inside a year (in order, no overlap); fee billing periods are a Fees concept, not terms | **Confirmed** (Henry, 22 Nov 2026) | AC08, FB04, DL-108 |
 | DL-115 | Grade levels are ordered per pack with a next level (possibly in another pack); grade bands are named groups of levels; display labels are a brand-country choice | **Confirmed** (Henry, 22 Nov 2026) | AC02, AC04, DL-75, DL-62 |
 | DL-116 | Offered subjects per offering × grade × year with choice groups and min/max; ST03 choices must match; teaching groups and streams stay with Teaching | **Confirmed** (Henry, 22 Nov 2026) | AC09, ST03, OQ-77 |
+| DL-117 | Screen terms: a programme pack is shown as **Curriculum** ("CBSE, GIIS Singapore version 2026.1"), a programme offering as **Programme** ("CBSE 1–12 at Punggol"); offering statuses read Opening soon, Open, No new students, Closed. Data names (`pack`, `programme_offering`) unchanged, like Data location vs cell (DL-47) | **Confirmed** (Henry, 22 Nov 2026) | DL-112, AC01, AC06, DL-47 |
 
 ---
 
@@ -485,7 +486,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Decision.** See the table above and [academic structure dictionary § Decisions](../03-domain/academic-structure-data-dictionary.md#decisions). DL-110 (pack ownership) was chosen by Henry on a decision card: GSG template per board, brand-country adapts, the same pattern as DL-87.
 - **Why.** One definition for every year, term, offering, grade and subject reference; packs and assessment schemes follow the same template-and-adapt model; term vs billing period separated (GIIS SG: two semesters, three 4-month billing blocks).
 - **Open.** OQ-122…OQ-129 (section Q), plus OQ-24, OQ-51, OQ-77, OQ-107.
-- **Status.** DL-110 Confirmed by Henry, 22 Nov 2026 (answers OQ-20 for packs). DL-109, DL-111, DL-112, DL-114, DL-115 and DL-116 Confirmed by Henry, 22 Nov 2026; for DL-112 Henry asked for friendlier UI wording than "programme offering" (pending). DL-113 Assumed: Henry suggested the Principal could approve date changes but wants it clarified (OQ-126).
+- **Status.** DL-110 Confirmed by Henry, 22 Nov 2026 (answers OQ-20 for packs). DL-109, DL-111, DL-112, DL-114, DL-115 and DL-116 Confirmed by Henry, 22 Nov 2026; for DL-112 Henry asked for friendlier wording, chosen on a card as DL-117 (Curriculum and Programme). DL-113 Assumed: Henry suggested the Principal could approve date changes but wants it clarified (OQ-126).
 
 ### Review of DL-01…DL-21 (proposed 22 Nov 2026, awaiting Henry)
 - **Context.** DL-01…DL-21 were set on 25 Oct 2026 so Admin Platform design could start and are all still Assumed (DL-12 Proposed), although later Confirmed decisions build on most of them. The 22 Nov 2026 repo review flagged this.
