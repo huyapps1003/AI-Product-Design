@@ -18,7 +18,7 @@
 | **Complaint**, **Compliment**, **Suggestion** | The three kinds of feedback (HB p.249) | Grievance, kudos |
 | **Working day** | Mon–Fri minus public holidays; deadlines count these (DL-122) | Business day, school day |
 | **Acknowledge** | First reply saying we've received it (2 working days at GIIS SG) | Confirm receipt |
-| **Reply to family** / **Internal note** | Sent to the family vs staff only (DL-126) | Comment, public/private |
+| **Case timeline** | Every message and change on a case; the family reads all of it (DL-126) | Internal note, comment |
 | **Waiting for family** | Clock paused until they reply (DL-122) | On hold, pending |
 | **With supervisor** / **With committee** | Escalation steps 14 and 21 (DL-123) | Level 2, tier 2 |
 | **Dispute Resolution Committee** | Chaired by the Country Director (HB p.250) | Board, panel |
@@ -44,7 +44,7 @@ Delivery: Delivered · success, Sent · info, Failed · error, Skipped by prefer
 4. **Overdue is a flag, not a status** (DL-124). A case can be In progress and Overdue. Sort overdue first, then by next due date.
 5. **Waiting for family pauses the clock** (DL-122). Show "Clock paused since …" and that later deadlines move.
 6. **Restricted cases are locked rows** (DL-125). If you're not named but can see the queue, the case shows as a locked row: "Restricted case", type, received and due dates; no student name, title or content, and it can't be opened. Never in search, and never on teacher or class screens (DL-30). ICA review is always restricted; a complaint about a named teacher can be made restricted.
-7. **Reply vs internal note** (DL-126). The composer has two modes. Internal notes are amber and never shown to the family. In v1 replies go by email.
+7. **One shared timeline** (DL-126). There are no staff-only notes: on complaints, appeals, leave, withdrawals, transfers and refunds the family can read everything. The composer says "The family will see this". ICA review, Student Pass and access cases are staff-only as a whole. In v1 messages go by email.
 8. **Approvals** (DL-08, DL-84, DL-62). Some cases need several approvers (refund: Finance Controller + Country Director; campus transfer: both principals). Each approver's decision is shown separately.
 9. **Settings, not hard-coded numbers.** OWIS and GIIS India have no documented complaint or refund policy: show "Not set".
 10. **Messages are about one student** (DL-127). Teachers reach guardians of their own class; no parent-to-parent. "Turn into complaint" creates a case dated from the parent's message. Warn: don't put health or immigration details in messages.

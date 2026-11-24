@@ -413,7 +413,7 @@
         },
         {
           "at": "2026-11-20T10:05",
-          "kind": "REPLY_TO_FAMILY",
+          "kind": "MESSAGE",
           "by": "Farah Ismail",
           "channel": "EMAIL",
           "text": "Thank you, Mrs Sharma. We have logged your complaint as CASE-SG-2026-1296 and passed it to our Transport Executive. You will hear from us by Mon 30 Nov."
@@ -426,7 +426,7 @@
         },
         {
           "at": "2026-11-20T14:30",
-          "kind": "INTERNAL_NOTE",
+          "kind": "MESSAGE",
           "by": "Ravi Kumar",
           "text": "Operator confirms driver change on route 14 since 16 Nov. Asking for GPS logs."
         }
@@ -482,7 +482,7 @@
       "timeline": [
         {
           "at": "2026-11-05T09:00",
-          "kind": "REPLY_TO_FAMILY",
+          "kind": "MESSAGE",
           "by": "Meera Joshi",
           "channel": "EMAIL",
           "text": "Acknowledged; reviewing Grade 8 homework calendar with subject teachers."
@@ -495,7 +495,7 @@
         },
         {
           "at": "2026-11-18T12:15",
-          "kind": "INTERNAL_NOTE",
+          "kind": "MESSAGE",
           "by": "Rajesh Pillai",
           "text": "Meeting with Mr Iyer booked for Wed 25 Nov."
         }
@@ -713,7 +713,7 @@
       "timeline": [
         {
           "at": "2026-11-20T11:00",
-          "kind": "INTERNAL_NOTE",
+          "kind": "MESSAGE",
           "by": "Daniel Ong",
           "text": "Compressor replaced 19 Nov. Reply to parent drafted."
         }
@@ -1566,9 +1566,9 @@
         "label": "Complaint: school bus route 14",
         "status": "In progress",
         "next": "Reply by Mon 30 Nov",
-        "replies": 1
+        "messages": 3
       }
     ],
-    "_note": "Parent app later (DL-118); internal notes never shown (DL-126)"
+    "_note": "Parent app later (DL-118); the family sees the whole timeline (DL-126)"
   }
 }

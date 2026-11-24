@@ -33,7 +33,7 @@ Approved by Henry, 22 Nov 2026 (decision card "Cases + complaints + messaging"):
 - **Compliments and suggestions are feedback, not cases (DL-123).** A compliment or suggestion is acknowledged within 2 working days (HB p.249 B) and compiled for internal review (HB p.249 C); it has no resolution deadline. A complaint always opens a Case. Staff can reclassify an item in either direction with a reason.
 - **One status list for every case; "Overdue" is a flag, not a status (DL-124).** Statuses: NEW, IN_PROGRESS, WAITING (for the family or a third party), DECIDED (with an outcome: APPROVED, REJECTED, RESOLVED, NO_ACTION), APPLIED (the owning module has acted), CLOSED, WITHDRAWN. Overdue and the escalation level are shown beside the status, because a case can be overdue while still in progress. This replaces the OBJ-10 list in rules-to-ui (`IN_REVIEW`, `ESCALATED`, `APPROVED` become `IN_PROGRESS`, the overdue flag and the DECIDED outcome).
 - **Restricted cases show as a locked row; only named people open them (DL-125, Confirmed by Henry 24 Nov 2026; builds on DL-19).** A case type can be RESTRICTED by default (ICA review, Student Pass, later child protection and SEN). Only its assignee, named participants (A15) and holders of a Tier 3 type grant for that type (A17, approved by the Campus Leader, DL-69) can open it and see its content. Other staff who can see the same queue or module case list see a locked row: "Restricted case", the case type, the received date and the next due date, with no student name, title or content, and they cannot open it. The locked row never appears on teacher, class or student screens, so teachers still see only the effect ("Attendance below threshold"), never the case (DL-30). Restricted cases never appear in search or in notifications to people who are not named; dashboards show totals.
-- **Families see their own cases, with replies kept apart from staff notes (DL-126).** Every timeline entry is either an internal note (staff only) or a reply to the family. Parents see cases they raised or that are about their own child, when the type allows it (complaint, appeal, leave, withdrawal, transfer, refund), with status, the next due date and replies. They never see internal notes, restricted cases or other families' cases. In v1 (staff web app, DL-118) staff log cases received by email, phone, helpdesk or in person and send replies by email; the Parent app comes later and reads the same records.
+- **One shared timeline that the family can read (DL-126, Confirmed by Henry 24 Nov 2026).** There are no staff-only notes. Everything written on a family-visible case (complaint, appeal, leave, withdrawal, transfer, refund) is visible to the family who raised it or whose child it is about: status, next due date, every message and every status change. Staff write every entry knowing the parent can read it. Case types that are not family-visible (ICA review, Student Pass, access requests) stay staff-only as a whole, and restricted cases follow DL-125. Parents never see other families' cases. In v1 (staff web app, DL-118) staff log cases received by email, phone, helpdesk or in person and send each message by email; the Parent app comes later and shows the same timeline.
 - **Messages are conversations about one student (DL-127).** A conversation is between staff and the guardians of one student (or one guardian), started by either side. Staff can start a conversation only with guardians of students in their data scope (class teacher: own class, DL-73); guardians can write to the staff who teach their child and to campus offices listed in the directory (HB p.8–9 contacts). No parent-to-parent or student-to-student messaging. A message can be turned into a complaint Case or a leave request; the link is kept both ways. Messages are Tier 2; staff must not put Tier 3 content (health, immigration, SEN) in messages.
 - **Announcements go to an audience, never a typed list (DL-128).** An announcement targets an audience rule: a campus, programme offering, grade, class, house or group of staff, for guardians, students, staff or a mix. The class teacher posts to their own class; a grade or campus announcement needs the coordinator's or Principal's approval (campus setting). Announcements can be scheduled, can ask for an acknowledgement ("I have read this"), and keep who received and read them. An acknowledgement is not consent (OBJ-17).
 - **One notification service for every module (DL-129).** Modules publish events (LeaveDecided, AttendanceAlertRaised, InvoiceIssued, ReportCardReleased, CaseUpdated); this module decides who receives them, in which channel and language, from a template. Each template belongs to a brand-country, has a version per language and channel, and carries IDs and approved wording only, never Tier 3 content. Notifications have three categories: SAFETY (cannot be turned off, all channels), REQUIRED (cannot be turned off; the guardian chooses the channel: absence notices, case replies, fees due) and OPTIONAL (newsletters, event reminders; can be turned off). Guardians choose channel and language per category (Arch § Tech stack "parent preferences per channel and language"); every send is logged with its delivery result.
@@ -49,7 +49,7 @@ Approved by Henry, 22 Nov 2026 (decision card "Cases + complaints + messaging"):
 | CC04 | Case Deadline | Cases (SLA clock) | Known need (Arch § Tech stack "reliable SLA timers"; HB p.249–250); model Assumed (DL-122, DL-123) |
 | CC05 | Case Participant | Cases | Known need (HB p.249 recipient and process owner; p.250 committee; DL-19 A15); model Assumed |
 | CC06 | Case Decision | Cases | Known need (DL-08 "line-level decisions"; DL-84 two approvers; DL-62 both principals); model Assumed |
-| CC07 | Case Activity | Cases (timeline) | Known need (Arch "audit trail"; HB p.249 "replies… in writing"); model Assumed (DL-126) |
+| CC07 | Case Activity | Cases (timeline) | Known need (Arch "audit trail"; HB p.249 "replies… in writing"); model Confirmed (DL-126) |
 | CC08 | Feedback Item | Cases (complaints and feedback) | Known (HB p.249 A: complaint, compliment, others; channels "letter, email, MyGIIS"); model Assumed (DL-123) |
 | CC09 | Working Day Calendar | Cases (until the calendar engine exists) | Known need (HB "working days" throughout); definition Open (OQ-130) |
 | CC10 | Conversation | Communications | Known need (HB p.34 MyGIIS Messaging; Arch § Users and roles "parent messages"); model Assumed (DL-127) |
@@ -76,7 +76,7 @@ ST02, ST04, ST05, ST07, ST08 (documents), ST09, E01, A15, A17, OR03, OR04, OR07 
 | source_entity | VARCHAR(10) | — | C | T1 | Known (AT06, AT10, FB14, FB16, AD10, AS13, CL06, OR05) | The entity whose record holds the detail. Empty for complaints. |
 | tier | ENUM | — | Y | T1 | Known (DL-11) | T2 or T3. ICA_REVIEW, STUDENT_PASS are T3. |
 | default_visibility | ENUM | — | Y | T1 | Confirmed mechanism (DL-19); per type Confirmed (DL-125) | NORMAL, RESTRICTED. T3 types are always RESTRICTED. |
-| family_visible | BOOLEAN | — | Y | T1 | Assumed (DL-126) | Whether guardians see the case when the Parent app exists. False for ICA_REVIEW and access types. |
+| family_visible | BOOLEAN | — | Y | T1 | Confirmed (DL-126) | Whether guardians see the case and its whole timeline. False for ICA_REVIEW and access types. |
 | raised_by_allowed | ENUM[] | — | Y | T1 | Known (HB p.249: "public, staff, students or parents") | GUARDIAN, STUDENT, STAFF, PUBLIC, SYSTEM (rule-raised, e.g. ICA_REVIEW). |
 | status | ENUM | — | Y | T1 | Assumed | ACTIVE, RETIRED. Owned by the GSG platform team (`cases.type.manage`). |
 
@@ -128,7 +128,7 @@ GIIS SG values recorded in the sample (all from the handbook): complaint 2/7/14/
 | is_overdue | BOOLEAN | — | Y | T1 | Assumed (DL-124) | Derived. Shown as "Overdue" (error chip) beside the status. |
 | escalation_level | INT | — | Y | T1 | Assumed (DL-123) | 0 = with recipient/process owner, 1 = supervisor, 2 = committee, 3 = external referral. |
 | visibility | ENUM | — | Y | T1 | Confirmed (DL-19) | NORMAL, RESTRICTED. Defaults from CC01; can be raised to RESTRICTED, never lowered for T3 types. |
-| family_visible | BOOLEAN | — | Y | T1 | Assumed (DL-126) | From CC01; staff may turn off for one case with a reason. |
+| family_visible | BOOLEAN | — | Y | T1 | Confirmed (DL-126) | From CC01; staff may turn off for one case with a reason (logged). |
 | external_reference | VARCHAR(64) | — | N | T2 | Known (CPE referral HB p.250 I; ICA filing reference AT10; board appeal reference AS11) | |
 | closed_at, closed_by | TIMESTAMP, UUID | — | C | T1 | Assumed | |
 
@@ -178,14 +178,14 @@ GIIS SG values recorded in the sample (all from the handbook): complaint 2/7/14/
 
 ### CC07 — Case Activity
 
-**Purpose:** The case timeline: replies to the family, internal notes, status changes, documents and system events. Append-only.
+**Purpose:** The case timeline: messages, status changes, documents and system events. Append-only. On a family-visible case the whole timeline is visible to the family (DL-126).
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
 | activity_id | UUID | PK | Y | T1 | Assumed | |
 | case_id | UUID | FK:CC03 | Y | T1 | Assumed | |
-| kind | ENUM | — | Y | T1 | Assumed (DL-126) | REPLY_TO_FAMILY, INTERNAL_NOTE, STATUS_CHANGE, ASSIGNED, DOCUMENT_ADDED, DECISION, DEADLINE_BREACHED, ESCALATED, EXTERNAL_REFERRAL, LINKED. |
-| visible_to_family | BOOLEAN | — | Y | T1 | Assumed (DL-126) | True only for REPLY_TO_FAMILY and selected status changes; INTERNAL_NOTE is always false. |
+| kind | ENUM | — | Y | T1 | Confirmed (DL-126) | MESSAGE, STATUS_CHANGE, ASSIGNED, DOCUMENT_ADDED, DECISION, DEADLINE_BREACHED, ESCALATED, EXTERNAL_REFERRAL, LINKED. |
+| visible_to_family | BOOLEAN | — | Y | T1 | Confirmed (DL-126) | Derived: equals the case's `family_visible`. No per-entry hiding; there are no staff-only notes. |
 | body | TEXT | — | C | per type | Assumed | |
 | document_ids | UUID[] | FK:ST08 or attachment | N | per type | Assumed | |
 | channel_sent | ENUM | — | C | T1 | Assumed | For replies: EMAIL in v1, APP later, LETTER. |
@@ -357,8 +357,7 @@ AS11 result appeals keep their own status and deadline in Assessment (DL-91) and
 | Field group | Tier | Case assignee | Participants (A15) | Campus office queue | Principal | Brand-country / Country Director | Class teacher | Guardian (Parent app, later) | Group dashboards |
 |---|---|---|---|---|---|---|---|---|---|
 | Case header (number, type, status, due date) | T1 | M | V | V (own queue) | V (campus) | V (escalated, own types) | V own class, NORMAL family-visible types only | V own child, family-visible types | counts |
-| Case content and timeline | per type | M | V/E | V | V | V when on the case | — | replies only | — |
-| Internal notes | T2 | M | V/E | V | V | V when on the case | — | — | — |
+| Case content and timeline | per type | M | V/E | V | V | V when on the case | — | whole timeline (family-visible types) | — |
 | RESTRICTED case (any part) | T3 | M | V/E | — | only via A15 or A17 | only via A15 or A17 | — | — | totals only |
 | Case policy, types | T1 | V | V | V | V | M (policy) | — | — | V |
 | Feedback items (compliments, suggestions) | T2 | — | — | M | V | V | — | own | counts by topic |
@@ -380,7 +379,7 @@ AS11 result appeals keep their own status and deadline in Assessment (DL-91) and
 | CC04 | status | PENDING, MET, BREACHED, SKIPPED, PAUSED | Assumed |
 | CC05 | role_on_case | RECIPIENT, PROCESS_OWNER, SUPERVISOR, APPROVER, COMMITTEE_MEMBER, WATCHER, INFORMED | HB p.249–250, DL-101 |
 | CC06 | decision | APPROVE, REJECT, RETURN_FOR_INFO | Assumed |
-| CC07 | kind | REPLY_TO_FAMILY, INTERNAL_NOTE, STATUS_CHANGE, ASSIGNED, DOCUMENT_ADDED, DECISION, DEADLINE_BREACHED, ESCALATED, EXTERNAL_REFERRAL, LINKED | DL-126 |
+| CC07 | kind | MESSAGE, STATUS_CHANGE, ASSIGNED, DOCUMENT_ADDED, DECISION, DEADLINE_BREACHED, ESCALATED, EXTERNAL_REFERRAL, LINKED | DL-126 |
 | CC08 | category | COMPLAINT, COMPLIMENT, SUGGESTION | HB p.249 A ("Others: suggestions or comment") |
 | CC08 | topic | ACADEMIC, TRANSPORT, FEES, CANTEEN, FACILITIES, SAFETY, STAFF_CONDUCT, COMMUNICATION, ADMISSIONS, OTHER | OQ-133 |
 | CC10 | status | OPEN, CLOSED, CONVERTED | Assumed |
@@ -401,7 +400,7 @@ AS11 result appeals keep their own status and deadline in Assessment (DL-91) and
 - **SR-CC-07 (Confirmed DL-08, DL-84, DL-62; Assumed DL-120):** A case with several approvers is DECIDED only when every required approver has decided; one REJECT rejects the case unless the policy says otherwise.
 - **SR-CC-08 (Assumed, DL-120):** DECIDED cases with a source record are APPLIED by the owning module (leave days marked ON_LEAVE, refund paid, enrolment ended); the case shows when and by whom.
 - **SR-CC-09 (Confirmed DL-19, DL-125):** For people who are not named, a RESTRICTED case appears only as a locked row (type, received date, next due date; no student, title or content) in queue and module case lists they can already see; never in search, on teacher, class or student screens, in counts per student or in notifications. Opening it is refused. Every read of the content is logged (Tier 3).
-- **SR-CC-10 (Assumed, DL-126):** Internal notes are never shown to families. A reply to the family is sent by email in v1 and is stored on the case.
+- **SR-CC-10 (Confirmed, DL-126):** On a family-visible case every timeline entry is visible to the family; there are no staff-only notes. Each message is sent by email in v1 and stored on the case.
 - **SR-CC-11 (Assumed, DL-127):** Staff start conversations only with guardians of students in their data scope; guardians write to their child's teachers and listed campus offices. No parent-to-parent or student-to-student messaging.
 - **SR-CC-12 (Assumed, DL-127):** Converting a message to a complaint creates the case with `received_via = MESSAGE` and `received_at` = the message's send time, so the deadline counts from when the parent wrote.
 - **SR-CC-13 (Assumed, DL-128; OQ-138):** An announcement wider than the author's own class needs approval before it is sent. The audience is resolved at send time.
@@ -428,7 +427,7 @@ CaseOpened, CaseAssigned, CaseAcknowledged, CaseWaiting, CaseResumed, CaseDeadli
 | DL-123 (**Confirmed**, Henry 24 Nov 2026) | Complaints follow the brand-country ladder (GIIS SG 2 / 7 / 14 / 21 working days, then CPE, recorded only); a missed deadline moves the case up automatically; compliments and suggestions are feedback items, acknowledged in 2 days, not cases | HB p.249–250; Arch § Key workflows |
 | DL-124 (**Confirmed**, Henry 24 Nov 2026) | One case status list (NEW, IN_PROGRESS, WAITING, DECIDED + outcome, APPLIED, CLOSED, WITHDRAWN); Overdue and escalation step are flags beside it; replaces the OBJ-10 list in rules-to-ui | rules-to-ui Case row; a case can be overdue while in progress |
 | DL-125 (**Confirmed**, Henry 24 Nov 2026) | RESTRICTED case types (ICA review, Student Pass; later child protection, SEN) open only for people named (A15) or holding a type grant (A17); others who see the same queue or module list see a locked row (type, dates, no student or content); never on teacher, class or student screens (DL-30); dashboards show totals | DL-19, DL-30, DL-69; Arch § Security |
-| DL-126 (Assumed) | Case timelines separate replies to the family from internal notes; families see their own and their child's family-visible cases (status, next due date, replies); v1 staff log cases and reply by email | DL-118; HB p.249 "in writing" |
+| DL-126 (**Confirmed**, Henry 24 Nov 2026) | One shared case timeline, no staff-only notes: families see the whole timeline of their own and their child's family-visible cases; non-family-visible types (ICA, Student Pass, access) stay staff-only; v1 staff log cases and send messages by email | DL-118; HB p.249 "in writing" |
 | DL-127 (Assumed) | Messages are staff ↔ guardian conversations about one student, within the staff member's data scope; no parent-to-parent; a message can become a case or leave request | HB p.34 MyGIIS Messaging; DL-73 |
 | DL-128 (Assumed) | Announcements target an audience rule (campus, offering, grade, class, house, staff team); wider than own class needs approval; optional read acknowledgement, which is not consent | Arch § Data model "Announcement"; OBJ-17 |
 | DL-129 (Assumed) | One notification service: modules publish events, templates per brand-country × language × channel, categories SAFETY / REQUIRED / OPTIONAL, guardians choose channel and language, only OPTIONAL can be muted; no Tier 3 in notification text; every send logged | Arch § Tech stack; ST04, ST07; DL-30 |
@@ -458,6 +457,6 @@ CaseOpened, CaseAssigned, CaseAcknowledged, CaseWaiting, CaseResumed, CaseDeadli
 
 ## Readiness
 
-- **Can be designed now:** the case inbox (my cases, team queue, overdue first, restricted cases hidden), case detail with the deadline ladder, timeline (reply vs internal note), approvals and a link to the source record; logging a complaint received by email or phone; feedback list (compliments and suggestions); case policy screen with GIIS SG values; staff ↔ parent conversations from the teacher's side; announcement composer with audience rule and approval; notification templates and the delivery log; deadline performance for the Principal. All with GIIS SG sample values labelled as settings.
+- **Can be designed now:** the case inbox (my cases, team queue, overdue first, restricted cases hidden), case detail with the deadline ladder, timeline (shared with the family), approvals and a link to the source record; logging a complaint received by email or phone; feedback list (compliments and suggestions); case policy screen with GIIS SG values; staff ↔ parent conversations from the teacher's side; announcement composer with audience rule and approval; notification templates and the delivery log; deadline performance for the Principal. All with GIIS SG sample values labelled as settings.
 - **Needs answers first:** working-day definition and pause rule (OQ-130, OQ-131), complaint topics and owners (OQ-133), anonymous complaints (OQ-134), announcement approver (OQ-138), channels and providers (OQ-139), message oversight (OQ-142), other brands' processes (OQ-143).
 - **Parent app (later, DL-118):** "My requests" (status, next due date, replies), raise a complaint or compliment, messages with teachers, announcements with acknowledgement, notification settings per category. This file defines what parents see so the Parent app can reuse it.

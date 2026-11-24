@@ -23,13 +23,9 @@ field_groups:
     tier: T1
     capability: cases.case.view
     edit: [cases.case.work]
-  - name: Case content, replies and documents
+  - name: Case content, timeline and documents   # whole timeline visible to the family on family-visible types (DL-126)
     tier: T2                 # tier of the case type (CC01)
     capability: cases.case.view
-    edit: [cases.case.work]
-  - name: Internal notes
-    tier: T2
-    capability: cases.case.view   # never shown to families (DL-126)
     edit: [cases.case.work]
   - name: Approvals
     tier: T1
