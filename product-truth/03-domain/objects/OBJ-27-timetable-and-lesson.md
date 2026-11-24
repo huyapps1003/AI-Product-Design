@@ -60,7 +60,7 @@ patterns: [AP-01, AP-04, AP-05, AP-13, AP-14]
 
 # OBJ-27 · Timetable and lesson
 
-**Status:** Proposed with the teaching & timetable dictionary v0.1, 24 Nov 2026 (DL-131…DL-138 Confirmed; DL-139…DL-145 Assumed) · **Owner:** Henry
+**Status:** Proposed with the teaching & timetable dictionary v0.1, 24 Nov 2026 (DL-131…DL-139 Confirmed; DL-140…DL-145 Assumed) · **Owner:** Henry
 **Cites:** [teaching & timetable dictionary](../teaching-timetable-data-dictionary.md) · Employee DD D03 · Arch § Data model (Teaching, Organisation "Room") · HB p.9–14, p.22, p.34–35 · DL-96, DL-98, DL-99
 
 When each group is taught, by whom, where. A bell schedule shapes the school day per campus and segment (DL-137). A timetable is a versioned weekly pattern built with live clash checks and published by the Principal (DL-138, DL-139). Each school day gets dated lessons from it; one-off changes happen on the dated lesson, never on the timetable (DL-140). When a teacher is away, their lessons need cover: the arranger picks a cover teacher from fair suggestions, or supervision, merge or cancel; the cover teacher sees the group's students for that day only (DL-143…DL-145). Period times, cycle, load and cover limits are campus settings: show the value or "Not set" (OQ-147, OQ-148, OQ-149, OQ-164).
