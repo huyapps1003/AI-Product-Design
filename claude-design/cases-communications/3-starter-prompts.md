@@ -14,7 +14,7 @@ Read the attached files first:
 The viewer is Priya Menon, Customer Relations Officer at SMART Campus Punggol (SG-PGL), on desktop. Today is Monday 23 November 2026, 09:30.
 
 Build these linked screens:
-1. Case inbox with tabs Mine, My queues, Overdue, Waiting for family, All I can see. Overdue first, then next due date. CASE-SG-2026-1297 (PTM link, from the helpdesk) is New and Overdue: acknowledgement was due Fri 20 Nov. CASE-SG-2026-1281 (air-conditioning 5C) is due today. CASE-SG-2026-1259 (late payment charge) is With committee. Restricted cases she is not named on show as locked rows (type and dates only).
+1. Complaints case list (the same pattern repeats on each module's screens, DL-120) with tabs Mine, My queues, Overdue, Waiting for family, All in this list. Overdue first, then next due date. CASE-SG-2026-1297 (PTM link, from the helpdesk) is New and Overdue: acknowledgement was due Fri 20 Nov. CASE-SG-2026-1281 (air-conditioning 5C) is due today. CASE-SG-2026-1259 (late payment charge) is With committee. Restricted cases she is not named on show as locked rows (type and dates only).
 2. Case detail for CASE-SG-2026-1297: deadline ladder Acknowledge (Fri 20 Nov, missed) → Reply and close (Fri 27 Nov) → Supervisor (Tue 8 Dec) → Dispute committee (Thu 17 Dec). Timeline, one composer that says "The family will see this" (no staff-only notes), people and approvals. "Acknowledge and take it" sends the reply date to the family.
 
 Rules:

@@ -1,6 +1,6 @@
 # Global Campus OS — Cases & Communications Data Dictionary v0.1 (draft)
 
-**Status:** Proposed draft, 22 Nov 2026. DL-119 (scope) Confirmed by Henry, 22 Nov 2026; DL-120 Confirmed by Henry, 24 Nov 2026 (own lists per module, shared engine); DL-121…DL-130 Assumed, awaiting Henry; OQ-130…OQ-146 Open · **Owner:** Henry
+**Status:** Proposed draft, 22 Nov 2026. DL-119 (scope) Confirmed by Henry, 22 Nov 2026; DL-120…DL-130 Confirmed by Henry, 24 Nov 2026 (reviewed one by one; DL-120, DL-125 and DL-126 changed from the proposal); OQ-130…OQ-146 Open · **Owner:** Henry
 **Cites:** [Architecture v1](../00-sources/Global_Campus_OS_Product_Architecture_v1.md) § Principles 3 ("refund tables and complaint deadlines… become versioned rules with alerts"), § How GIIS operates today ("Complaints. Acknowledge in 2 working days, close in 7, escalate at 14 and 21, then the CPE dispute scheme"; "Appeals"; "Refunds"), § Users and roles (Principal "complaint escalation"; Class teacher "parent messages, PTM slots"; Admissions and customer relations "Student Pass cases"; Discipline committee "incident cases"), § Domains and modules (module 9 "Communication and Cases: messages, PTMs, announcements; feedback and complaint cases"; shared services "Cases and SLAs", "Notifications"), § Key workflows (Feedback and complaints, steps 1–3; Fees, withdrawal and refund step 2; Absence and leave step 5), § Data model (Engagement: "Message, Announcement, Case (complaint, appeal, withdrawal), Survey, Consent"; "Case is one shared object with SLA timers"; "One Case object for complaints, appeals, withdrawals, leave over 2 days and Student Pass issues, each with type-specific fields and SLA timers"), § Tech stack (durable workflow engine for "SLA timers for complaints, refunds, appeals and ICA cases"; "Push, email, SMS and WhatsApp through one notification service"; "Parent preferences per channel and language"), § Integrations (Messaging providers), § Security (Tier 3 child protection cases restricted to designated officers) · [OBJ-10 Case](./objects/OBJ-10-case.md) · [modules-and-services](./modules-and-services.md) `communication_cases`, "Cases and SLAs" · [Student Directory Spec](./student-directory-data-dictionary.md) ST04, ST05, ST07 (contact channels), `preferred_language`, `approval_case_id` (ST02, ST09) · [Admissions](./admissions-data-dictionary.md) AD10 · [Classes](./classes-data-dictionary.md) CL06 `approval_case_id`, DL-62 · [Fees](./fees-billing-data-dictionary.md) FB14, FB16, DL-84, DL-86 · [Assessment](./assessment-data-dictionary.md) AS11, AS12, AS13 `appeal_case_id`, DL-91, DL-94 · [Attendance](./attendance-data-dictionary.md) AT06, AT10, DL-101, DL-105, DL-107 · [Organisation](./organisation-data-dictionary.md) OR05 `change_case_id`, DL-50 · [rbac-model](../04-access/rbac-model.md) A15, A17, DL-08, DL-19, DL-69 · [rules-to-ui](../06-experience/admin-platform/rules-to-ui.md) § Status vocabulary (Case) · GIIS Student Handbook 2025-26 (HB) p.8–9 (contacts and escalation by level), p.24 (PTM, feedback, enrolment clarifications 24/48 hours), p.34 (MyGIIS Messaging "main communication channel"), p.233–237 (withdrawal and transfer timelines), p.245 (refund document and escalation timelines), p.249–250 (Feedback and Complaint Management System) · DL-08, DL-11, DL-19, DL-22, DL-27, DL-30, DL-41, DL-43, DL-47, DL-53, DL-59, DL-84, DL-96, DL-110, DL-118
 **Tóm tắt (VI):** Từ điển dữ liệu cho module Hồ sơ xử lý (Case) và Liên lạc. Một "Case" dùng chung cho mọi việc cần người xử lý và có hạn chót: khiếu nại, phúc khảo, hoàn phí, xin nghỉ trên 2 ngày, rút hồ sơ, chuyển trường, báo cáo ICA, yêu cầu cấp quyền. Case giữ trạng thái, người xử lý, đồng hồ hạn chót tính theo ngày làm việc, các bậc leo thang và nhật ký; chi tiết riêng (số tiền hoàn, ngày nghỉ) vẫn nằm ở module gốc. Loại case do GSG định nghĩa, thời hạn và người duyệt do từng brand-country đặt. Phần Liên lạc gồm tin nhắn giáo viên–phụ huynh về một học sinh, thông báo cho trường/khối/lớp, và một dịch vụ gửi thông báo chung với kênh và ngôn ngữ phụ huynh chọn. Mỗi trường có trạng thái Known / Assumed / Open.
 
@@ -43,22 +43,22 @@ Approved by Henry, 22 Nov 2026 (decision card "Cases + complaints + messaging"):
 
 | ID | Entity | Part | Status |
 |---|---|---|---|
-| CC01 | Case Type | Cases (GSG catalogue) | Known need (Arch § Data model "each with type-specific fields and SLA timers"; DL-08 types); catalogue Assumed (DL-121) |
-| CC02 | Case Policy | Cases (brand-country, versioned) | Known values for GIIS SG (HB p.233–237, p.245, p.249–250); model Assumed (DL-121, DL-84 pattern) |
-| CC03 | Case | Cases (OBJ-10) | Known entity (Arch § Data model; OBJ-10); fields Assumed (DL-120) |
-| CC04 | Case Deadline | Cases (SLA clock) | Known need (Arch § Tech stack "reliable SLA timers"; HB p.249–250); model Assumed (DL-122, DL-123) |
+| CC01 | Case Type | Cases (GSG catalogue) | Known need (Arch § Data model "each with type-specific fields and SLA timers"; DL-08 types); catalogue Confirmed (DL-121) |
+| CC02 | Case Policy | Cases (brand-country, versioned) | Known values for GIIS SG (HB p.233–237, p.245, p.249–250); model Confirmed (DL-121, DL-84 pattern) |
+| CC03 | Case | Cases (OBJ-10) | Known entity (Arch § Data model; OBJ-10); fields Confirmed (DL-120) |
+| CC04 | Case Deadline | Cases (SLA clock) | Known need (Arch § Tech stack "reliable SLA timers"; HB p.249–250); model Confirmed (DL-122, DL-123) |
 | CC05 | Case Participant | Cases | Known need (HB p.249 recipient and process owner; p.250 committee; DL-19 A15); model Assumed |
 | CC06 | Case Decision | Cases | Known need (DL-08 "line-level decisions"; DL-84 two approvers; DL-62 both principals); model Assumed |
 | CC07 | Case Activity | Cases (timeline) | Known need (Arch "audit trail"; HB p.249 "replies… in writing"); model Confirmed (DL-126) |
-| CC08 | Feedback Item | Cases (complaints and feedback) | Known (HB p.249 A: complaint, compliment, others; channels "letter, email, MyGIIS"); model Assumed (DL-123) |
+| CC08 | Feedback Item | Cases (complaints and feedback) | Known (HB p.249 A: complaint, compliment, others; channels "letter, email, MyGIIS"); model Confirmed (DL-123) |
 | CC09 | Working Day Calendar | Cases (until the calendar engine exists) | Known need (HB "working days" throughout); definition Open (OQ-130) |
-| CC10 | Conversation | Communications | Known need (HB p.34 MyGIIS Messaging; Arch § Users and roles "parent messages"); model Assumed (DL-127) |
-| CC11 | Message | Communications | Known entity (Arch § Data model "Message"); model Assumed (DL-127) |
-| CC12 | Announcement | Communications (OBJ-26) | Known entity (Arch § Data model "Announcement"); model Assumed (DL-128) |
-| CC13 | Announcement Receipt | Communications | Known need (Arch § Roadmap "notifications"; read tracking); model Assumed (DL-128) |
-| CC14 | Notification Template | Communications (Notifications service) | Known need (Arch § Tech stack "one notification service"); model Assumed (DL-129) |
-| CC15 | Notification | Communications (delivery log) | Known need (Arch § Tech stack; § Security audit); model Assumed (DL-129) |
-| CC16 | Notification Preference | Communications | Known need (Arch § Tech stack "parent preferences per channel and language"; ST04 `preferred_language`, ST07 channels); model Assumed (DL-129) |
+| CC10 | Conversation | Communications | Known need (HB p.34 MyGIIS Messaging; Arch § Users and roles "parent messages"); model Confirmed (DL-127) |
+| CC11 | Message | Communications | Known entity (Arch § Data model "Message"); model Confirmed (DL-127) |
+| CC12 | Announcement | Communications (OBJ-26) | Known entity (Arch § Data model "Announcement"); model Confirmed (DL-128) |
+| CC13 | Announcement Receipt | Communications | Known need (Arch § Roadmap "notifications"; read tracking); model Confirmed (DL-128) |
+| CC14 | Notification Template | Communications (Notifications service) | Known need (Arch § Tech stack "one notification service"); model Confirmed (DL-129) |
+| CC15 | Notification | Communications (delivery log) | Known need (Arch § Tech stack; § Security audit); model Confirmed (DL-129) |
+| CC16 | Notification Preference | Communications | Known need (Arch § Tech stack "parent preferences per channel and language"; ST04 `preferred_language`, ST07 channels); model Confirmed (DL-129) |
 
 ST02, ST04, ST05, ST07, ST08 (documents), ST09, E01, A15, A17, OR03, OR04, OR07 and each module's case-linked record are referenced, not redefined. Case documents are stored as ST08 documents (student cases) or case attachments (other cases), never inside messages.
 
@@ -70,7 +70,7 @@ ST02, ST04, ST05, ST07, ST08 (documents), ST09, E01, A15, A17, OR03, OR04, OR07 
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| case_type_code | VARCHAR(40) | PK | Y | T1 | Assumed (DL-121) | e.g. `COMPLAINT`, `RESULT_APPEAL`, `PREDICTED_GRADE_APPEAL`, `REFUND`, `WITHDRAWAL`, `CAMPUS_TRANSFER`, `LONG_LEAVE`, `LEAVE_OVER_LIMIT`, `ICA_REVIEW`, `STUDENT_PASS`, `RETENTION_REQUEST`, `YEAR_END_CAMPUS_CHANGE`, `ACCESS_REQUEST` (DL-08 types), `CAMPUS_OPERATOR_HANDOVER` (DL-50). |
+| case_type_code | VARCHAR(40) | PK | Y | T1 | Confirmed (DL-121) | e.g. `COMPLAINT`, `RESULT_APPEAL`, `PREDICTED_GRADE_APPEAL`, `REFUND`, `WITHDRAWAL`, `CAMPUS_TRANSFER`, `LONG_LEAVE`, `LEAVE_OVER_LIMIT`, `ICA_REVIEW`, `STUDENT_PASS`, `RETENTION_REQUEST`, `YEAR_END_CAMPUS_CHANGE`, `ACCESS_REQUEST` (DL-08 types), `CAMPUS_OPERATOR_HANDOVER` (DL-50). |
 | family | ENUM | — | Y | T1 | Assumed (DL-27) | FEEDBACK, ACADEMIC, ENROLMENT, FINANCE, ATTENDANCE, IMMIGRATION, ACCESS, GOVERNANCE. Used for filters and dashboards. |
 | owning_module | VARCHAR(40) | — | Y | T1 | Known (each module's dictionary) | `communication_cases` for complaints; `fees` for refunds; `attendance` for leave and ICA; `admissions` for withdrawal, transfer, Student Pass; `assessment` for appeals; `access` for DL-08 types. |
 | source_entity | VARCHAR(10) | — | C | T1 | Known (AT06, AT10, FB14, FB16, AD10, AS13, CL06, OR05) | The entity whose record holds the detail. Empty for complaints. |
@@ -86,16 +86,16 @@ ST02, ST04, ST05, ST07, ST08 (documents), ST09, E01, A15, A17, OR03, OR04, OR07 
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| policy_id | UUID | PK | Y | T1 | Assumed (DL-121) | |
+| policy_id | UUID | PK | Y | T1 | Confirmed (DL-121) | |
 | brand_country_id | UUID | FK:OR03 | Y | T1 | Known (DL-84 pattern) | |
 | case_type_code | VARCHAR(40) | FK:CC01 | Y | T1 | Assumed | |
 | version, valid_from, valid_to | INT, DATE | UK | Y | T1 | Assumed (DL-84 pattern) | A running case keeps the version it started with. |
-| steps | JSON | — | Y | T1 | Known values for GIIS SG (HB p.249–250); format Assumed (DL-123) | Ordered steps: `step_code`, `days` (working days from receipt), `owner_rule`, `on_breach`. GIIS SG complaint: ACKNOWLEDGE 2 → RESOLVE 7 → SUPERVISOR 14 → DISPUTE_COMMITTEE 21 → EXTERNAL_REFERRAL (no deadline). |
+| steps | JSON | — | Y | T1 | Known values for GIIS SG (HB p.249–250); format Confirmed (DL-123) | Ordered steps: `step_code`, `days` (working days from receipt), `owner_rule`, `on_breach`. GIIS SG complaint: ACKNOWLEDGE 2 → RESOLVE 7 → SUPERVISOR 14 → DISPUTE_COMMITTEE 21 → EXTERNAL_REFERRAL (no deadline). |
 | intake_owner_rule | JSON | — | Y | T1 | Known for GIIS SG (HB p.8–9 escalation by level; p.249 "recipient… may forward… to that process owner") | Who gets a new case: by topic and campus level (class teacher, coordinator, Vice Principal Primary, Principal Secondary, Finance, Admissions). |
 | approvers | JSON | — | C | T1 | Known for some (DL-84 GIIS SG refund: Country Director + Finance Controller; DL-62 both principals; DL-94 committee headed by the Principal; HB p.239 deferment: Associate Director Academic Quality Assurance) | Roles that must each record a decision (CC06). |
 | committee | JSON | — | C | T1 | Known for GIIS SG complaints (HB p.250 G: Dispute Resolution Committee chaired by the Country Director with the Academic and Examination Board) | |
 | family_escalation | JSON | — | N | T1 | Known for GIIS SG (HB p.237: withdrawal or transfer not completed in time → Finance Controller, then after 4 working days the Director Business and Strategy; HB p.245: refund not paid → Finance Controller, then after 4 working days the Country Director) | Who the family can escalate to when a deadline passes. |
-| pause_when_waiting | BOOLEAN | — | Y | T1 | Assumed (DL-122); Open (OQ-131) | |
+| pause_when_waiting | BOOLEAN | — | Y | T1 | Confirmed (DL-122); Open (OQ-131) | |
 | status | ENUM | — | Y | T1 | Assumed | DRAFT, PUBLISHED, RETIRED. Brand-country publishes (`cases.policy.manage`). |
 
 GIIS SG values recorded in the sample (all from the handbook): complaint 2/7/14/21 (p.249–250); withdrawal acknowledge 2, documents ready 7 after the effective date (p.233–234); campus transfer acknowledge 2, decision within 3 weeks, profile updated within 3 working days (p.235–236); refund missing-documents notice 3, family has 7 to send them (p.245); result appeal response 6 working days for CBSE 1–8 (p.88, AS11); enrolment clarifications answered within 24 hours (Finance Controller, Customer Relations) or 48 hours (Admissions Manager) (p.24; hours, not working days: OQ-132).
@@ -108,25 +108,25 @@ GIIS SG values recorded in the sample (all from the handbook): complaint 2/7/14/
 |---|---|---|:---:|---|---|---|
 | case_id | UUID | PK | Y | T1 | Known (OBJ-10) | |
 | case_number | VARCHAR(24) | UK | Y | T1 | Assumed | `CASE-{country}-{year}-{seq}`, e.g. CASE-SG-2026-1291 (samples). Shown to families. |
-| case_type_code | VARCHAR(40) | FK:CC01 | Y | T1 | Assumed (DL-121) | |
-| policy_id | UUID | FK:CC02 | Y | T1 | Assumed (DL-121) | The version this case runs under. |
+| case_type_code | VARCHAR(40) | FK:CC01 | Y | T1 | Confirmed (DL-121) | |
+| policy_id | UUID | FK:CC02 | Y | T1 | Confirmed (DL-121) | The version this case runs under. |
 | campus_id | UUID | FK:OR04 | Y | T1 | Known (home: cell, OBJ-10) | Originating campus for two-campus cases (DL-130). |
 | operating_entity_id | UUID | FK:OR07 | Y | T1 | Confirmed (DL-41) | Copied at creation, never re-pointed. |
 | subject_type, subject_id | ENUM, UUID | — | C | T1 | Assumed | STUDENT (ST01), ENROLMENT (ST02), GUARDIAN (ST04), EMPLOYEE (E01), ACCOUNT (A01), NONE (general complaint about a service). |
-| source_module, source_record_id | VARCHAR, UUID | — | C | T1 | Assumed (DL-120) | Back-link to AT06, FB14, AD10… Empty for complaints. |
+| source_module, source_record_id | VARCHAR, UUID | — | C | T1 | Confirmed (DL-120) | Back-link to AT06, FB14, AD10… Empty for complaints. |
 | title | VARCHAR(160) | — | Y | per type | Assumed | Short, written by staff. Tier follows the type; restricted titles never appear in notifications. |
 | raised_by_type, raised_by_id | ENUM, UUID | — | Y | T1 | Known (HB p.249 who may complain) | GUARDIAN, STUDENT, STAFF, PUBLIC (name and contact held on CC08), SYSTEM. |
 | received_via | ENUM | — | Y | T1 | Known (HB p.24, p.249: MyGIIS, helpdesk, email, letter, telephone, meetings) | APP, EMAIL, PHONE, LETTER, IN_PERSON, HELPDESK, MESSAGE (converted from CC11), SYSTEM. |
 | received_at | TIMESTAMP | — | Y | T1 | Known (HB p.249 "within 7 working days of receipt") | Day 0 of every deadline. Staff logging a late email enter the real receipt time. |
-| status | ENUM | — | Y | T1 | Assumed (DL-124) | NEW, IN_PROGRESS, WAITING, DECIDED, APPLIED, CLOSED, WITHDRAWN. |
-| outcome | ENUM | — | C | T1 | Assumed (DL-124) | APPROVED, REJECTED, RESOLVED, NO_ACTION. Set with DECIDED. |
+| status | ENUM | — | Y | T1 | Confirmed (DL-124) | NEW, IN_PROGRESS, WAITING, DECIDED, APPLIED, CLOSED, WITHDRAWN. |
+| outcome | ENUM | — | C | T1 | Confirmed (DL-124) | APPROVED, REJECTED, RESOLVED, NO_ACTION. Set with DECIDED. |
 | outcome_summary | TEXT | — | C | per type | Assumed | The written reply or reasons (HB p.249 "in writing"). |
 | assignee_employee_id | UUID | FK:E01 | C | T1 | Known (HB p.249 recipient, process owner) | Current owner. Empty only while NEW in a team queue. |
 | queue | VARCHAR(40) | — | Y | T1 | Assumed | Team queue from the policy's intake rule (e.g. "SG-PGL Admissions", "SG-PGL Finance"). |
-| current_step | VARCHAR(40) | — | Y | T1 | Assumed (DL-123) | From CC02 steps. |
-| next_due_at | TIMESTAMP | — | C | T1 | Assumed (DL-122) | Earliest open CC04 deadline. Drives sort order and the overdue flag. |
-| is_overdue | BOOLEAN | — | Y | T1 | Assumed (DL-124) | Derived. Shown as "Overdue" (error chip) beside the status. |
-| escalation_level | INT | — | Y | T1 | Assumed (DL-123) | 0 = with recipient/process owner, 1 = supervisor, 2 = committee, 3 = external referral. |
+| current_step | VARCHAR(40) | — | Y | T1 | Confirmed (DL-123) | From CC02 steps. |
+| next_due_at | TIMESTAMP | — | C | T1 | Confirmed (DL-122) | Earliest open CC04 deadline. Drives sort order and the overdue flag. |
+| is_overdue | BOOLEAN | — | Y | T1 | Confirmed (DL-124) | Derived. Shown as "Overdue" (error chip) beside the status. |
+| escalation_level | INT | — | Y | T1 | Confirmed (DL-123) | 0 = with recipient/process owner, 1 = supervisor, 2 = committee, 3 = external referral. |
 | visibility | ENUM | — | Y | T1 | Confirmed (DL-19) | NORMAL, RESTRICTED. Defaults from CC01; can be raised to RESTRICTED, never lowered for T3 types. |
 | family_visible | BOOLEAN | — | Y | T1 | Confirmed (DL-126) | From CC01; staff may turn off for one case with a reason (logged). |
 | external_reference | VARCHAR(64) | — | N | T2 | Known (CPE referral HB p.250 I; ICA filing reference AT10; board appeal reference AS11) | |
@@ -138,14 +138,14 @@ GIIS SG values recorded in the sample (all from the handbook): complaint 2/7/14/
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| deadline_id | UUID | PK | Y | T1 | Assumed (DL-122) | |
+| deadline_id | UUID | PK | Y | T1 | Confirmed (DL-122) | |
 | case_id | UUID | FK:CC03 | Y | T1 | Assumed | |
 | step_code | VARCHAR(40) | — | Y | T1 | Known for GIIS SG complaints (HB p.249–250) | ACKNOWLEDGE, RESOLVE, SUPERVISOR, DISPUTE_COMMITTEE; other types define their own (DECIDE, DOCUMENTS_DUE, APPLY). |
 | working_days | INT | — | C | T1 | Known for GIIS SG (CC02) | From the policy version. |
-| due_at | TIMESTAMP | — | Y | T1 | Assumed (DL-122) | Calculated from `received_at` on CC09 working days; end of the office day (time: OQ-130). |
-| paused_working_days | INT | — | Y | T1 | Assumed (DL-122) | Added while the case is WAITING. |
+| due_at | TIMESTAMP | — | Y | T1 | Confirmed (DL-122) | Calculated from `received_at` on CC09 working days; end of the office day (time: OQ-130). |
+| paused_working_days | INT | — | Y | T1 | Confirmed (DL-122) | Added while the case is WAITING. |
 | met_at | TIMESTAMP | — | C | T1 | Assumed | When the step's action happened (acknowledgement sent, reply sent, decision recorded). |
-| breached_at | TIMESTAMP | — | C | T1 | Assumed (DL-123) | Set by the timer; moves the case to the next step and notifies the next owner. |
+| breached_at | TIMESTAMP | — | C | T1 | Confirmed (DL-123) | Set by the timer; moves the case to the next step and notifies the next owner. |
 | status | ENUM | — | Y | T1 | Assumed (DL-27) | PENDING, MET, BREACHED, SKIPPED (case closed earlier), PAUSED. |
 
 ### CC05 — Case Participant
@@ -197,7 +197,7 @@ GIIS SG values recorded in the sample (all from the handbook): complaint 2/7/14/
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| feedback_id | UUID | PK | Y | T1 | Assumed (DL-123) | |
+| feedback_id | UUID | PK | Y | T1 | Confirmed (DL-123) | |
 | campus_id | UUID | FK:OR04 | Y | T1 | Known | |
 | category | ENUM | — | Y | T1 | Known (HB p.249 A) | COMPLAINT, COMPLIMENT, SUGGESTION. |
 | topic | ENUM | — | Y | T1 | Assumed; list Open (OQ-133) | ACADEMIC, TRANSPORT, FEES, CANTEEN, FACILITIES, SAFETY, STAFF_CONDUCT, COMMUNICATION, ADMISSIONS, OTHER. Routes the case (CC02 intake rule). |
@@ -208,7 +208,7 @@ GIIS SG values recorded in the sample (all from the handbook): complaint 2/7/14/
 | received_via, received_at | ENUM, TIMESTAMP | — | Y | T1 | Known (HB p.249) | Same values as CC03. |
 | body | TEXT | — | Y | T2 | Known | As received; never edited. |
 | acknowledged_at | TIMESTAMP | — | C | T1 | Known (HB p.249 B "within 2 working days") | For all three categories. |
-| case_id | UUID | FK:CC03 | C | T1 | Assumed (DL-123) | Set for COMPLAINT. |
+| case_id | UUID | FK:CC03 | C | T1 | Confirmed (DL-123) | Set for COMPLAINT. |
 | review_cycle | VARCHAR(20) | — | C | T1 | Known (HB p.249 C "during internal review"); cycle Open (OQ-135) | For compliments and suggestions. |
 | reclassified_from, reclass_reason | ENUM, TEXT | — | N | T1 | Assumed | |
 
@@ -218,7 +218,7 @@ GIIS SG values recorded in the sample (all from the handbook): complaint 2/7/14/
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| calendar_id | UUID | PK | Y | T1 | Assumed (DL-122) | |
+| calendar_id | UUID | PK | Y | T1 | Confirmed (DL-122) | |
 | campus_id, calendar_year | UUID, INT | UK | Y | T1 | Assumed | |
 | working_week | VARCHAR(20) | — | Y | T1 | Assumed (Arch § How GIIS operates: SG Mon–Fri; India "Saturdays marked NWD") | MON-FRI; IN-NOI may differ (OQ-130). |
 | public_holidays | JSON | — | Y | T1 | Known for GIIS SG (Holiday Schedule 2026-27, the same list as AT02 public holidays) | Shared with AT02, never retyped. |
@@ -231,15 +231,15 @@ GIIS SG values recorded in the sample (all from the handbook): complaint 2/7/14/
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| conversation_id | UUID | PK | Y | T1 | Assumed (DL-127) | |
+| conversation_id | UUID | PK | Y | T1 | Confirmed (DL-127) | |
 | campus_id | UUID | FK:OR04 | Y | T1 | Known | |
-| student_id | UUID | FK:ST01 | Y | T1 | Assumed (DL-127) | Every conversation is about one student. Siblings get separate threads. |
+| student_id | UUID | FK:ST01 | Y | T1 | Confirmed (DL-127) | Every conversation is about one student. Siblings get separate threads. |
 | subject | VARCHAR(160) | — | Y | T1 | Assumed | |
 | staff_participants | UUID[] | FK:E01 | Y | T1 | Assumed | Staff must have the student in data scope, or be a campus office listed in the directory. |
 | guardian_participants | UUID[] | FK:ST04 | Y | T1 | Known need (HB p.34 parents mail teachers and staff) | Guardians with a verified relationship (ST05) and family access (F01). |
 | started_by_type | ENUM | — | Y | T1 | Assumed | STAFF, GUARDIAN. |
 | status | ENUM | — | Y | T1 | Assumed (DL-27) | OPEN, CLOSED, CONVERTED (to a case; read-only, link kept). |
-| converted_case_id | UUID | FK:CC03 | C | T1 | Assumed (DL-127) | |
+| converted_case_id | UUID | FK:CC03 | C | T1 | Confirmed (DL-127) | |
 | last_message_at | TIMESTAMP | — | Y | T1 | Assumed | |
 
 ### CC11 — Message
@@ -251,7 +251,7 @@ GIIS SG values recorded in the sample (all from the handbook): complaint 2/7/14/
 | message_id | UUID | PK | Y | T1 | Known entity (Arch § Data model) | |
 | conversation_id | UUID | FK:CC10 | Y | T1 | Assumed | |
 | sender_type, sender_id | ENUM, UUID | — | Y | T1 | Assumed | STAFF, GUARDIAN, SYSTEM. |
-| body | TEXT | — | Y | T2 | Assumed (DL-127) | No Tier 3 content (screen warns; detection Open, OQ-136). |
+| body | TEXT | — | Y | T2 | Confirmed (DL-127) | No Tier 3 content (screen warns; detection Open, OQ-136). |
 | attachment_ids | UUID[] | — | N | T2 | Assumed | Documents that belong to a record (medical certificate) go to that record, not the message. |
 | sent_at | TIMESTAMP | — | Y | T1 | Assumed | |
 | read_by | JSON | — | N | T1 | Assumed | Per participant read time. |
@@ -266,11 +266,11 @@ GIIS SG values recorded in the sample (all from the handbook): complaint 2/7/14/
 | announcement_id | UUID | PK | Y | T1 | Known entity (Arch § Data model) | |
 | campus_id | UUID | FK:OR04 | C | T1 | Assumed | Empty for brand-country announcements (all campuses of a brand-country). |
 | title, body | VARCHAR(160), TEXT | — | Y | T1 | Assumed | Announcements are Tier 1 by rule; no student names. |
-| audience_rule | JSON | — | Y | T1 | Assumed (DL-128) | Scope (campus, offering, grade, class, house, staff team) × audience (GUARDIANS, STUDENTS, STAFF). e.g. `{campus: SG-PGL, grades: [6,7,8], audience: [GUARDIANS]}`. Resolved at send time. |
+| audience_rule | JSON | — | Y | T1 | Confirmed (DL-128) | Scope (campus, offering, grade, class, house, staff team) × audience (GUARDIANS, STUDENTS, STAFF). e.g. `{campus: SG-PGL, grades: [6,7,8], audience: [GUARDIANS]}`. Resolved at send time. |
 | author_id | UUID | FK:E01 | Y | T1 | Assumed | |
-| approval_required, approved_by, approved_at | BOOLEAN, UUID, TIMESTAMP | — | C | T1 | Assumed (DL-128); approver Open (OQ-138) | Required when the audience is wider than the author's own class. |
-| category | ENUM | — | Y | T1 | Assumed (DL-129) | SAFETY, REQUIRED, OPTIONAL (decides whether guardians can mute it). |
-| ack_required, ack_due | BOOLEAN, DATE | — | N | T1 | Assumed (DL-128) | "I have read this." Not consent (OBJ-17). |
+| approval_required, approved_by, approved_at | BOOLEAN, UUID, TIMESTAMP | — | C | T1 | Confirmed (DL-128); approver Open (OQ-138) | Required when the audience is wider than the author's own class. |
+| category | ENUM | — | Y | T1 | Confirmed (DL-129) | SAFETY, REQUIRED, OPTIONAL (decides whether guardians can mute it). |
+| ack_required, ack_due | BOOLEAN, DATE | — | N | T1 | Confirmed (DL-128) | "I have read this." Not consent (OBJ-17). |
 | publish_at, expires_at | TIMESTAMP | — | Y | T1 | Assumed | Scheduled sending. |
 | channels | ENUM[] | — | Y | T1 | Known (Arch: push, email, SMS, WhatsApp) | Defaults from category; guardian preference applies (CC16). |
 | status | ENUM | — | Y | T1 | Assumed (DL-27) | DRAFT, AWAITING_APPROVAL, SCHEDULED, SENT, WITHDRAWN. |
@@ -282,7 +282,7 @@ GIIS SG values recorded in the sample (all from the handbook): complaint 2/7/14/
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| receipt_id | UUID | PK | Y | T1 | Assumed (DL-128) | |
+| receipt_id | UUID | PK | Y | T1 | Confirmed (DL-128) | |
 | announcement_id | UUID | FK:CC12 | Y | T1 | Assumed | |
 | recipient_account_id | UUID | FK:A01 | Y | T1 | Assumed | Resolved from the audience rule at send time; a family added later does not receive past announcements. |
 | for_student_id | UUID | FK:ST01 | C | T1 | Assumed | Which child put the guardian in the audience (one receipt per guardian per announcement even with two children in it). |
@@ -294,13 +294,13 @@ GIIS SG values recorded in the sample (all from the handbook): complaint 2/7/14/
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| template_id | UUID | PK | Y | T1 | Assumed (DL-129) | |
+| template_id | UUID | PK | Y | T1 | Confirmed (DL-129) | |
 | brand_country_id | UUID | FK:OR03 | Y | T1 | Assumed (DL-110 pattern) | GSG provides a starter set. |
 | event_code | VARCHAR(60) | — | Y | T1 | Known (each module's Events section) | e.g. `AttendanceAbsentUnexplained` (DL-107), `LeaveDecided`, `InvoiceIssued`, `ReportCardReleased`, `CaseAcknowledged`, `CaseReplied`, `CaseOverdue`. |
-| category | ENUM | — | Y | T1 | Assumed (DL-129) | SAFETY, REQUIRED, OPTIONAL. |
+| category | ENUM | — | Y | T1 | Confirmed (DL-129) | SAFETY, REQUIRED, OPTIONAL. |
 | language, channel | VARCHAR(35), ENUM | UK | Y | T1 | Known need (Arch "per channel and language"); languages Open (OQ-25) | PUSH, EMAIL, SMS, WHATSAPP, IN_APP. |
 | version, status | INT, ENUM | — | Y | T1 | Assumed | DRAFT, ACTIVE, RETIRED. WhatsApp templates may also need provider approval (OQ-139). |
-| body | TEXT | — | Y | T1 | Assumed (DL-129) | Placeholders for names, dates and links only. Never Tier 3 values; never restricted case titles. |
+| body | TEXT | — | Y | T1 | Confirmed (DL-129) | Placeholders for names, dates and links only. Never Tier 3 values; never restricted case titles. |
 
 ### CC15 — Notification
 
@@ -308,14 +308,14 @@ GIIS SG values recorded in the sample (all from the handbook): complaint 2/7/14/
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| notification_id | UUID | PK | Y | T1 | Assumed (DL-129) | |
+| notification_id | UUID | PK | Y | T1 | Confirmed (DL-129) | |
 | event_code, event_id | VARCHAR, UUID | — | Y | T1 | Known (event log, Arch § Data model) | |
 | recipient_account_id | UUID | FK:A01 | Y | T1 | Assumed | |
 | about_student_id | UUID | FK:ST01 | C | T1 | Assumed | |
 | template_id | UUID | FK:CC14 | Y | T1 | Assumed | |
 | category | ENUM | — | Y | T1 | Assumed | |
 | channels_attempted | JSON | — | Y | T1 | Assumed | Per channel: SENT, DELIVERED, FAILED, SKIPPED_BY_PREFERENCE, with provider reference. |
-| fallback_used | BOOLEAN | — | Y | T1 | Assumed (DL-129) | REQUIRED and SAFETY fall back to another channel if the first fails. |
+| fallback_used | BOOLEAN | — | Y | T1 | Confirmed (DL-129) | REQUIRED and SAFETY fall back to another channel if the first fails. |
 | sent_at | TIMESTAMP | — | Y | T1 | Assumed | |
 
 ### CC16 — Notification Preference
@@ -324,13 +324,13 @@ GIIS SG values recorded in the sample (all from the handbook): complaint 2/7/14/
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| preference_id | UUID | PK | Y | T1 | Assumed (DL-129) | |
+| preference_id | UUID | PK | Y | T1 | Confirmed (DL-129) | |
 | account_id | UUID | FK:A01 | Y | T1 | Assumed | Guardians, students and staff. |
 | category | ENUM | UK | Y | T1 | Assumed | SAFETY, REQUIRED, OPTIONAL. |
 | channels | ENUM[] | — | Y | T1 | Known need (Arch; ST07 channels PHONE, EMAIL, WHATSAPP) | At least one for SAFETY and REQUIRED. Contact details stay in ST07, never copied. |
 | language | VARCHAR(35) | — | N | T1 | Known need (ST04 `preferred_language`); values Open (OQ-25) | Defaults from ST04. |
 | quiet_hours | JSON | — | N | T1 | Assumed; Open (OQ-140) | OPTIONAL only; SAFETY ignores quiet hours. |
-| opted_out | BOOLEAN | — | Y | T1 | Assumed (DL-129) | Allowed for OPTIONAL only. |
+| opted_out | BOOLEAN | — | Y | T1 | Confirmed (DL-129) | Allowed for OPTIONAL only. |
 
 ## How other modules use a Case
 
@@ -416,7 +416,7 @@ CaseOpened, CaseAssigned, CaseAcknowledged, CaseWaiting, CaseResumed, CaseDeadli
 
 `cases.type.manage` (GSG platform team) · `cases.policy.manage` (brand-country) · `cases.case.view`, `cases.case.create`, `cases.case.work` (assign, reply, note, change status) · `cases.case.decide` (approver steps; module-specific approvals such as `attendance.leave.approve` and `gov.access_review.decide` still apply) · `cases.case.restrict` · `cases.feedback.manage` · `cases.report.view` (deadline performance) · `comms.conversation.use` · `comms.conversation.oversee` (OQ-142) · `comms.announcement.post`, `comms.announcement.approve` · `comms.template.manage` · `comms.notification_log.view`. Existing: `gov.case.view_all`, `gov.access_review.decide`.
 
-## Decisions (DL-119 Confirmed; DL-120…DL-130 proposed, awaiting Henry)
+## Decisions (DL-119…DL-130 Confirmed)
 
 | ID | Decision | Basis |
 |---|---|---|
@@ -431,7 +431,7 @@ CaseOpened, CaseAssigned, CaseAcknowledged, CaseWaiting, CaseResumed, CaseDeadli
 | DL-127 (**Confirmed**, Henry 24 Nov 2026) | Messages are staff ↔ guardian conversations about one student, within the staff member's data scope; no parent-to-parent; a message can become a case or leave request | HB p.34 MyGIIS Messaging; DL-73 |
 | DL-128 (**Confirmed**, Henry 24 Nov 2026) | Announcements target an audience rule (campus, offering, grade, class, house, staff team); wider than own class needs approval; optional read acknowledgement, which is not consent | Arch § Data model "Announcement"; OBJ-17 |
 | DL-129 (**Confirmed**, Henry 24 Nov 2026) | One notification service: modules publish events, templates per brand-country × language × channel, categories SAFETY / REQUIRED / OPTIONAL, guardians choose channel and language, only OPTIONAL can be muted; no Tier 3 in notification text; every send logged | Arch § Tech stack; ST04, ST07; DL-30 |
-| DL-130 (Assumed) | Cases, messages, announcements and the delivery log live in the campus data location; the operating entity is copied onto the case; group views see counts only; two-campus cases live at the originating campus | DL-41, DL-47 |
+| DL-130 (**Confirmed**, Henry 24 Nov 2026) | Cases, messages, announcements and the delivery log live in the campus data location; the operating entity is copied onto the case; group views see counts only; two-campus cases live at the originating campus | DL-41, DL-47 |
 
 ## Open questions (new)
 
@@ -457,6 +457,6 @@ CaseOpened, CaseAssigned, CaseAcknowledged, CaseWaiting, CaseResumed, CaseDeadli
 
 ## Readiness
 
-- **Can be designed now:** the case inbox (my cases, team queue, overdue first, restricted cases hidden), case detail with the deadline ladder, timeline (shared with the family), approvals and a link to the source record; logging a complaint received by email or phone; feedback list (compliments and suggestions); case policy screen with GIIS SG values; staff ↔ parent conversations from the teacher's side; announcement composer with audience rule and approval; notification templates and the delivery log; deadline performance for the Principal. All with GIIS SG sample values labelled as settings.
+- **Can be designed now:** each module's case list (my cases, team queue, overdue first, restricted cases as locked rows), case detail with the deadline ladder, timeline (shared with the family), approvals and a link to the source record; logging a complaint received by email or phone; feedback list (compliments and suggestions); case policy screen with GIIS SG values; staff ↔ parent conversations from the teacher's side; announcement composer with audience rule and approval; notification templates and the delivery log; deadline performance for the Principal. All with GIIS SG sample values labelled as settings.
 - **Needs answers first:** working-day definition and pause rule (OQ-130, OQ-131), complaint topics and owners (OQ-133), anonymous complaints (OQ-134), announcement approver (OQ-138), channels and providers (OQ-139), message oversight (OQ-142), other brands' processes (OQ-143).
 - **Parent app (later, DL-118):** "My requests" (status, next due date, replies), raise a complaint or compliment, messages with teachers, announcements with acknowledgement, notification settings per category. This file defines what parents see so the Parent app can reuse it.

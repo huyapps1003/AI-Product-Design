@@ -60,7 +60,7 @@ patterns: [AP-06, AP-07, AP-14]
 
 # OBJ-10 · Case
 
-**Status:** Confirmed structure (DL-43, DL-46), 7 Nov 2026; detail proposed with the cases & communications dictionary v0.1, 22 Nov 2026 (DL-119, DL-120 Confirmed; DL-121…DL-130 Assumed) · **Owner:** Henry
+**Status:** Confirmed structure (DL-43, DL-46), 7 Nov 2026; detail proposed with the cases & communications dictionary v0.1, 22 Nov 2026 (DL-119…DL-130 Confirmed, 24 Nov 2026) · **Owner:** Henry
 **Cites:** [cases & communications dictionary](../cases-communications-data-dictionary.md) · Arch § Data model ("one shared object with SLA timers"), § Key workflows (Feedback and complaints) · HB p.233–237, p.245, p.249–250 · DL-08, DL-19, DL-41, DL-84
 
 One Case object for complaints, appeals, refunds, withdrawals, transfers, leave over 2 days, Student Pass and ICA reviews and access requests (DL-08, DL-120). The case holds status, owner, deadlines, escalation, approvals and the timeline; the module that owns the request keeps the detail and applies the decision. GSG defines case types; each brand-country sets deadlines, routing and approvers in a versioned policy (DL-121). Deadlines count office working days and always show a date (DL-122). For GIIS SG complaints: acknowledge 2, close 7, supervisor 14, Dispute Resolution Committee 21 working days, then the CPE scheme (HB p.249–250). Show settings as values or "Not set", never hard-coded numbers (DL-59 pattern). Restricted cases do not appear at all for people who aren't named (DL-125).

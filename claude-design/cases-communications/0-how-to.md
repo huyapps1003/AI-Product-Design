@@ -2,7 +2,7 @@
 
 | File | What it is | Upload? |
 |---|---|---|
-| `1-design-brief.md` | Design-ready digest of the Cases & Communications dictionary v0.1 (scope approved by Henry 22 Nov 2026, DL-119; DL-120…DL-130 Assumed) | Yes |
+| `1-design-brief.md` | Design-ready digest of the Cases & Communications dictionary v0.1 (scope approved by Henry 22 Nov 2026, DL-119; DL-120…DL-130 Confirmed 24 Nov 2026) | Yes |
 | `2-sample-data.json` | SMART Campus Punggol cases on Mon 23 Nov 2026: complaints at every step of the 2 / 7 / 14 / 21 working-day ladder, cases from Attendance, Fees, Admissions, Assessment and Access, an OWIS case with "Not set" deadlines, compliments and suggestions, Farah Ismail's conversations, announcements, notification templates and delivery log; viewer Priya Menon | Yes |
 | `3-starter-prompts.md` | First prompt, follow-ups per screen, review checklist | No, paste from it |
 
@@ -20,4 +20,4 @@ All people and numbers are invented. Deadlines come from the GIIS Student Handbo
 
 - Section 6 of the brief lists what is still open. Show those as "Pending decision".
 - Deadlines, approvers and routing are brand-country case policy settings. OWIS and GIIS India show "Not set".
-- DL-119 is Confirmed; DL-120…DL-130 are Assumed until Henry confirms them.
+- DL-119…DL-130 are Confirmed (24 Nov 2026). DL-120, DL-125 and DL-126 changed from the first proposal: own case lists per module, restricted cases as locked rows, one shared timeline with no staff-only notes.

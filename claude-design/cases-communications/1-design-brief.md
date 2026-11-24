@@ -38,7 +38,7 @@ Delivery: Delivered · success, Sent · info, Failed · error, Skipped by prefer
 
 ## 4. Rules that change the UI
 
-1. **One inbox for every case** (DL-120). Complaints, leave over 2 days, refunds, withdrawals, transfers, appeals, ICA reviews and access requests share one list. The owning module keeps the detail; the case links to it ("Detail lives in Fees FB14").
+1. **Each module shows its own case list; one engine behind them** (DL-120). Complaints sit with Customer Relations, refunds and withdrawals on Fees screens, leave and ICA reviews on Attendance, transfers on Student records, appeals on Assessment. Every list works the same way (deadlines, flags, escalation). A combined list across modules is not decided. The owning module keeps the detail; the case links to it ("Detail lives in Fees FB14").
 2. **Deadlines are dates, counted in working days** (DL-122). Show "Mon 30 Nov", never only "7 days". Weekends and public holidays are skipped (Deepavali 9–10 Nov). Day 0 is when it was received, even if it was logged later.
 3. **GIIS SG complaint ladder** (DL-123, HB p.249–250). Acknowledge by day 2, reply and close by day 7, supervisor by day 14, Dispute Resolution Committee (Country Director) by day 21, then CPE referral. A missed step moves the case up automatically and tells the next owner; the earlier owner keeps access.
 4. **Overdue is a flag, not a status** (DL-124). A case can be In progress and Overdue. Sort overdue first, then by next due date.
@@ -61,4 +61,4 @@ OQ-130 what counts as a working day (vacations, India Saturdays, end of day) · 
 
 ## 7. Suggested screens
 
-1. Case inbox (Priya) · 2. Case detail with deadline ladder, timeline, reply / note, approvals · 3. Log feedback (complaint with live deadline preview) · 4. Compliments and suggestions · 5. Teacher messages on a phone (Farah) · 6. Announcements (compose, approve) · 7. Case policies (Vivek; OWIS "Not set") · 8. Notifications: templates and delivery log · 9. Deadline performance (Dr Rao) · 10. Parent view: my requests, messages, notification settings (later).
+1. Complaints case list (Priya), and the same list pattern on each module · 2. Case detail with deadline ladder, shared timeline, one composer, approvals · 3. Log feedback (complaint with live deadline preview) · 4. Compliments and suggestions · 5. Teacher messages on a phone (Farah) · 6. Announcements (compose, approve) · 7. Case policies (Vivek; OWIS "Not set") · 8. Notifications: templates and delivery log · 9. Deadline performance (Dr Rao) · 10. Parent view: my requests, messages, notification settings (later).
