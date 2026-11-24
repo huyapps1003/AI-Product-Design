@@ -82,6 +82,15 @@ Codes follow `module.object.action` (DL-53; new capabilities reviewed by the reg
 | `attendance.gate.record`, `attendance.out_pass.approve` | CREATE, APPROVE | OBJ-20 | New (DL-102; reception/security; class teacher or level coordinator approves) |
 | `attendance.rule.manage`, `attendance.summary.view` | MANAGE, VIEW | OBJ-20 | New (DL-103, DL-104) |
 | `attendance.ica.manage` | MANAGE (Tier 3) | OBJ-20, OBJ-10 | New (DL-105; Admissions/registrar) |
+| `cases.type.manage` | MANAGE | OBJ-10 | New (cases & communications dictionary, DL-121; GSG platform team) |
+| `cases.policy.manage` | MANAGE | OBJ-10 | New (DL-121; brand-country) |
+| `cases.case.view`, `cases.case.create`, `cases.case.work` | VIEW, CREATE, UPDATE | OBJ-10 | New (DL-120; queue and data scope apply) |
+| `cases.case.decide` | APPROVE | OBJ-10 | New (DL-120; module approvals such as `attendance.leave.approve` still apply) |
+| `cases.case.restrict` | UPDATE | OBJ-10 (T3) | New (DL-125) |
+| `cases.feedback.manage`, `cases.report.view` | MANAGE, VIEW | OBJ-10 | New (DL-123; reports are counts only, DL-130) |
+| `comms.conversation.use`, `comms.conversation.oversee` | CREATE, VIEW | OBJ-26 | New (DL-127; oversight OQ-142) |
+| `comms.announcement.post`, `comms.announcement.approve` | CREATE, APPROVE | OBJ-26 | New (DL-128; approver OQ-138) |
+| `comms.template.manage`, `comms.notification_log.view` | MANAGE, VIEW | OBJ-26 | New (DL-129) |
 | `fees.catalogue.manage` | MANAGE | OBJ-23 | New (fees & billing dictionary, DL-78) |
 | `fees.plan.edit`, `fees.plan.approve` | UPDATE, APPROVE | OBJ-23 | New (DL-78; Finance Controller approves) |
 | `fees.account.view`, `fees.account.manage` | VIEW, MANAGE | OBJ-23, OBJ-04 | New (DL-79) |

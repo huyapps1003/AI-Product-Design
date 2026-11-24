@@ -36,6 +36,12 @@ Use these terms exactly in screens and specs. Where a term's definition is still
 | **Leave request** | A parent's request for days off school; 1–2 days the class teacher approves, more the Principal | Assumed (DL-101) |
 | **Out pass** | Permission for a student to leave school early, recorded at reception | Known (HB p.23) |
 | **Attendance threshold** | The minimum attendance % a student must keep; teachers see the number, not why it applies | Confirmed (DL-30) |
+| **Case** | Anything tracked with an owner and a deadline: complaint, refund, leave over 2 days, withdrawal, transfer, appeal, ICA review, access request. The owning module keeps the detail | Known (Arch § Data model); model Assumed (DL-120) |
+| **Working day** | A day that counts toward a case deadline: Monday to Friday minus public holidays; not the same as a school day | Assumed (DL-122); Open (OQ-130) |
+| **Complaint**, **Compliment**, **Suggestion** | The three kinds of feedback (HB p.249). Only a complaint opens a case | Known (HB p.249) |
+| **Restricted case** | A case only the people named on it can see; others don't see it in any list | Confirmed (DL-19); Assumed (DL-125) |
+| **Conversation** | Messages between staff and the guardians of one student | Assumed (DL-127) |
+| **Announcement** | A notice sent to an audience (campus, grade, class); may ask families to confirm they've read it, which is not consent | Assumed (DL-128) |
 | **House** | A student team that runs across years, such as House B | Known (HB p.169); list per campus Open (OQ-20) |
 | **Student ID** | The number people use for a student; unique across Campus OS and kept on campus transfer | Confirmed (DL-31) |
 | **Programme** (data: programme offering) | What a campus runs: a curriculum for a grade range, for example CBSE 1–12 at Punggol or IB Diploma at East Coast. Statuses: Opening soon, Open, No new students, Closed. Use "Programme" on screens; "programme offering" only in data and specs | Confirmed (DL-112, DL-117) |

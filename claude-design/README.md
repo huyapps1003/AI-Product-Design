@@ -10,5 +10,6 @@ Upload-ready packages for prototyping a module in Claude Design (claude.ai/desig
 | [fees-billing/](./fees-billing/0-how-to.md) | Fees & Billing dictionary v0.1 (PR #20), DL-77…DL-86 Confirmed 14–15 Nov 2026 | `fees-billing.html` | Current |
 | [assessment/](./assessment/0-how-to.md) | Assessment & Report Cards dictionary v0.1, DL-87…DL-95 Confirmed 15 Nov 2026 | `assessment.html` | Current |
 | [attendance/](./attendance/0-how-to.md) | Attendance dictionary v0.1, DL-97…DL-107 Confirmed 21 Nov 2026 | `attendance.html` | Current (draft) |
+| [cases-communications/](./cases-communications/0-how-to.md) | Cases & Communications dictionary v0.1, DL-119…DL-130 Confirmed (24 Nov 2026) | `cases-communications.html` | Current (draft) |
 
 `screens/organisation.html` is the organisation dictionary check screen (OR01–OR09). All people and numbers are synthetic.
