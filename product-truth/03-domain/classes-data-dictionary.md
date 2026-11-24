@@ -18,7 +18,7 @@ Approved by Henry, 14 Nov 2026: **how students are grouped into classes for a ye
 |---|---|
 | Class per campus × programme offering × grade × academic year | Timetable, periods, rooms ([Teaching & Timetable](./teaching-timetable-data-dictionary.md), OBJ-27) |
 | Class plan per grade: number of classes × class size, the source of the Admissions seat limit (DL-61) | Subject-teacher allocation ([Teaching & Timetable](./teaching-timetable-data-dictionary.md) TE06, OBJ-12; replaces Employee DD D02) |
-| Class teacher and co-teacher | Elective subject groups and sets ([Teaching & Timetable](./teaching-timetable-data-dictionary.md) TE04); streams are classes (proposed DL-132, answers OQ-77) |
+| Class teacher and co-teacher | Elective subject groups and sets ([Teaching & Timetable](./teaching-timetable-data-dictionary.md) TE04); streams are classes (Confirmed DL-132, answers OQ-77) |
 | Placing students: Admissions handoff, start-of-year allocation, in-year class moves | Attendance, leave, conduct (Attendance and Conduct) |
 | Year-end rollover: next year's classes, promotion, retention, stage-campus promotion (DL-54, DL-62) | Promotion rules and results (Assessment and Reporting; this file reads the outcome) |
 | House list and house allocation | House points and events (Activities and Awards) |
