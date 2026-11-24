@@ -388,7 +388,7 @@ AS11 result appeals keep their own status and deadline in Assessment (DL-91) and
 | CC12, CC14, CC16 | category | SAFETY, REQUIRED, OPTIONAL | DL-129 |
 | CC14, CC16 | channel | PUSH, EMAIL, SMS, WHATSAPP, IN_APP | Arch § Tech stack; ST07 |
 
-**Status chips (proposed for rules-to-ui, replaces the Case row):** NEW → New · info · IN_PROGRESS → In progress · secondary · WAITING → Waiting for family · warning · DECIDED → Approved / Rejected / Resolved / No action · success or error · APPLIED → Done · success · CLOSED → Closed · default · WITHDRAWN → Withdrawn · default. Beside the status: **Overdue** · error, and the escalation step ("With supervisor", "With committee") · warning.
+**Status chips (DL-124 Confirmed; now the Case row in rules-to-ui):** NEW → New · info · IN_PROGRESS → In progress · secondary · WAITING → Waiting for family · warning · DECIDED → Approved / Rejected / Resolved / No action · success or error · APPLIED → Done · success · CLOSED → Closed · default · WITHDRAWN → Withdrawn · default. Beside the status: **Overdue** · error, and the escalation step ("With supervisor", "With committee") · warning.
 
 ## Business rules
 
@@ -426,7 +426,7 @@ CaseOpened, CaseAssigned, CaseAcknowledged, CaseWaiting, CaseResumed, CaseDeadli
 | DL-121 (**Confirmed**, Henry 24 Nov 2026) | GSG defines case types; each brand-country publishes versioned case policies (deadline steps, routing, approvers, escalation); a case keeps the version it started with | DL-84, DL-110 patterns; Arch § Principles 3 |
 | DL-122 (**Confirmed**, Henry 24 Nov 2026) | Deadlines count office working days (Mon–Fri minus the campus country's public holidays; vacations count); day 0 = receipt; the clock pauses while waiting for the family | HB "working days" (p.233–250); OQ-130, OQ-131 |
 | DL-123 (**Confirmed**, Henry 24 Nov 2026) | Complaints follow the brand-country ladder (GIIS SG 2 / 7 / 14 / 21 working days, then CPE, recorded only); a missed deadline moves the case up automatically; compliments and suggestions are feedback items, acknowledged in 2 days, not cases | HB p.249–250; Arch § Key workflows |
-| DL-124 (Assumed) | One case status list (NEW, IN_PROGRESS, WAITING, DECIDED + outcome, APPLIED, CLOSED, WITHDRAWN); Overdue and escalation step are flags beside it; replaces the OBJ-10 list in rules-to-ui | rules-to-ui Case row; a case can be overdue while in progress |
+| DL-124 (**Confirmed**, Henry 24 Nov 2026) | One case status list (NEW, IN_PROGRESS, WAITING, DECIDED + outcome, APPLIED, CLOSED, WITHDRAWN); Overdue and escalation step are flags beside it; replaces the OBJ-10 list in rules-to-ui | rules-to-ui Case row; a case can be overdue while in progress |
 | DL-125 (Assumed) | RESTRICTED case types (ICA review, Student Pass; later child protection, SEN) are invisible to anyone not named (A15) or holding a type grant (A17); dashboards show totals only | DL-19, DL-30, DL-69; Arch § Security |
 | DL-126 (Assumed) | Case timelines separate replies to the family from internal notes; families see their own and their child's family-visible cases (status, next due date, replies); v1 staff log cases and reply by email | DL-118; HB p.249 "in writing" |
 | DL-127 (Assumed) | Messages are staff ↔ guardian conversations about one student, within the staff member's data scope; no parent-to-parent; a message can become a case or leave request | HB p.34 MyGIIS Messaging; DL-73 |

@@ -8,7 +8,7 @@ tenant_path: group/brand/brand-country/campus
 operating_entity: copied at creation   # DL-41
 effective_dated: true        # a case keeps the case policy version it started with (DL-121)
 visibility: [NORMAL, RESTRICTED]        # DL-19; RESTRICTED invisible to anyone not named (DL-125)
-states:                      # DL-124 (Assumed); replaces the earlier rules-to-ui Case row when confirmed
+states:                      # DL-124 (Confirmed, Henry 24 Nov 2026); replaces the earlier rules-to-ui Case row
   NEW: info                  # "New"
   IN_PROGRESS: secondary     # "In progress"
   WAITING: warning           # "Waiting for family"; deadline clock paused (DL-122)

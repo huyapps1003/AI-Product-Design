@@ -92,8 +92,7 @@ One label and colour per status, used in chips (MinV Label `soft`, size sm). Can
 | TM membership (A05) | INVITED → Invited · info · ACTIVE → Active · success · DEACTIVATED → Deactivated · warning · REMOVED → Removed · default |
 | Template (A08) | DRAFT → Draft · info · ACTIVE → Published v{n} · success · RETIRED → Retired · default |
 | Sync (E08) | PENDING → Syncing · info · SYNCED → Synced · success · FAILED → Sync failed · error · CONFLICT → Conflict · warning |
-| Case | OPEN → New · info · IN_REVIEW → In review · secondary · WAITING → Waiting for info · warning · ESCALATED → Overdue · error · APPROVED/APPLIED → Done · success · REJECTED → Rejected · error · CANCELLED → Withdrawn · default |
-| Case (proposed, DL-124 Assumed) | NEW → New · info · IN_PROGRESS → In progress · secondary · WAITING → Waiting for family · warning · DECIDED → Approved / Resolved · success, Rejected · error, No action · default · APPLIED → Done · success · CLOSED → Closed · default · WITHDRAWN → Withdrawn · default; beside it: Overdue · error, With supervisor / With committee · warning. Replaces the row above when DL-124 is confirmed |
+| Case (DL-124, Confirmed 24 Nov 2026) | NEW → New · info · IN_PROGRESS → In progress · secondary · WAITING → Waiting for family · warning · DECIDED → Approved / Resolved · success, Rejected · error, No action · default · APPLIED → Done · success · CLOSED → Closed · default · WITHDRAWN → Withdrawn · default; beside it: Overdue · error, With supervisor / With committee · warning |
 | Effective permission | ALLOWED · success · DENIED · error · NO SCOPE · warning |
 
 `default` = text secondary on background neutral. Never use colour alone: every chip has a text label.
