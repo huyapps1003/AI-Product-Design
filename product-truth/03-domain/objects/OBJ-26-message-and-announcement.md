@@ -54,7 +54,7 @@ patterns: [AP-01, AP-02, AP-14]
 
 # OBJ-26 · Message and announcement
 
-**Status:** Proposed with the cases & communications dictionary v0.1, 22 Nov 2026 (DL-119 Confirmed; DL-120…DL-130 Assumed) · **Owner:** Henry
+**Status:** Proposed with the cases & communications dictionary v0.1, 22 Nov 2026 (DL-119, DL-120 Confirmed; DL-121…DL-130 Assumed) · **Owner:** Henry
 **Cites:** [cases & communications dictionary](../cases-communications-data-dictionary.md) · Arch § Data model (Engagement: Message, Announcement), § Tech stack (one notification service; parent preferences per channel and language) · HB p.24, p.34 · ST04, ST07 · DL-30, DL-73
 
 Every conversation is between staff and the guardians of one student; staff reach only students in their data scope (DL-127). Announcements go to an audience rule, never a typed list, and anything wider than the author's own class needs approval (DL-128). All modules notify families through one service: templates per brand-country, language and channel; SAFETY and REQUIRED notices cannot be muted; no Tier 3 content in any notification (DL-129). A read acknowledgement is not consent (OBJ-17).
