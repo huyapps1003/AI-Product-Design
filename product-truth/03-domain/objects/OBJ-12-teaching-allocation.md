@@ -41,7 +41,7 @@ patterns: [AP-04, AP-05, AP-14]
 
 # OBJ-12 · Teaching allocation
 
-**Status:** Rewritten with the teaching & timetable dictionary v0.1, 24 Nov 2026 (DL-131…DL-133 Confirmed; DL-134…DL-136 Assumed) · **Owner:** Henry
+**Status:** Rewritten with the teaching & timetable dictionary v0.1, 24 Nov 2026 (DL-131…DL-134 Confirmed; DL-135, DL-136 Assumed) · **Owner:** Henry
 **Cites:** [teaching & timetable dictionary](../teaching-timetable-data-dictionary.md) · Employee DD D01, D02 · Arch § Users and roles · HB p.52, p.141–142 · DL-16, DL-73, DL-93, DL-116, DL-127
 
 Who teaches which students which subject. The teaching group is what gets taught: a whole class for subjects everyone takes ("7B Mathematics"), a group across classes for chosen subjects ("Grade 7 Hindi (L2)" from 7A–7C) (DL-132). Members follow class placement and subject choice (DL-133). Each group has one lead teacher; the assignment gives that teacher data scope over the group's students, which is what Assessment (DL-93) and messaging (DL-127) read (DL-134). Coordinators, heads of department and academic supervisors are academic responsibilities that route approvals; they never grant access by themselves (DL-135, DL-16). Load limits are campus settings: show the value or "Not set".
