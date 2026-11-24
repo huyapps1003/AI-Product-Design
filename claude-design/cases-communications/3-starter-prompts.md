@@ -14,7 +14,7 @@ Read the attached files first:
 The viewer is Priya Menon, Customer Relations Officer at SMART Campus Punggol (SG-PGL), on desktop. Today is Monday 23 November 2026, 09:30.
 
 Build these linked screens:
-1. Case inbox with tabs Mine, My queues, Overdue, Waiting for family, All I can see. Overdue first, then next due date. CASE-SG-2026-1297 (PTM link, from the helpdesk) is New and Overdue: acknowledgement was due Fri 20 Nov. CASE-SG-2026-1281 (air-conditioning 5C) is due today. CASE-SG-2026-1259 (late payment charge) is With committee. One quiet line says 2 restricted cases are not shown.
+1. Case inbox with tabs Mine, My queues, Overdue, Waiting for family, All I can see. Overdue first, then next due date. CASE-SG-2026-1297 (PTM link, from the helpdesk) is New and Overdue: acknowledgement was due Fri 20 Nov. CASE-SG-2026-1281 (air-conditioning 5C) is due today. CASE-SG-2026-1259 (late payment charge) is With committee. Restricted cases she is not named on show as locked rows (type and dates only).
 2. Case detail for CASE-SG-2026-1297: deadline ladder Acknowledge (Fri 20 Nov, missed) → Reply and close (Fri 27 Nov) → Supervisor (Tue 8 Dec) → Dispute committee (Thu 17 Dec). Timeline, a composer with "Reply to family" and "Internal note" modes, people and approvals. "Acknowledge and take it" sends the reply date to the family.
 
 Rules:
@@ -34,7 +34,7 @@ Add "Log feedback" for things that arrive by email, phone, letter, helpdesk or i
 
 **Restricted case and waiting**
 ```
-Switch to Dr Anita Rao. Open CASE-SG-2026-1270, a complaint about comments in a Grade 6 class, Restricted. It is Waiting for family: clock paused since Wed 11 Nov, 8 working days so far; Reply and close now due Wed 25 Nov. "Family replied, resume" restarts the clock. Priya does not see this case at all.
+Switch to Dr Anita Rao. Open CASE-SG-2026-1270, a complaint about comments in a Grade 6 class, Restricted. It is Waiting for family: clock paused since Wed 11 Nov, 8 working days so far; Reply and close now due Wed 25 Nov. "Family replied, resume" restarts the clock. Priya sees it only as a locked row and cannot open it.
 ```
 
 **Approvals**
@@ -66,7 +66,7 @@ As Priya: delivery log (one SMS failed and fell back to email; one newsletter sk
 
 - [ ] Every deadline is a date, counted in working days.
 - [ ] Overdue sits beside the status; overdue cases sort first.
-- [ ] Restricted cases are absent for people not named; only a count line.
+- [ ] Restricted cases show as locked rows (type, dates) to others in the queue; never on teacher screens.
 - [ ] Internal notes never appear in the family view.
 - [ ] OWIS and GIIS India show "Not set", never GIIS numbers.
 - [ ] Teachers message only their own class's guardians.

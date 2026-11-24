@@ -23,7 +23,7 @@
 | **With supervisor** / **With committee** | Escalation steps 14 and 21 (DL-123) | Level 2, tier 2 |
 | **Dispute Resolution Committee** | Chaired by the Country Director (HB p.250) | Board, panel |
 | **CPE referral** | External scheme proposed after day 21; recorded only | Appeal to regulator |
-| **Restricted case** | Seen only by people named on it (DL-125) | Private, confidential |
+| **Restricted case** | Opens only for people named on it; others in the same queue see a locked row (DL-125) | Private, confidential |
 | **Conversation** | Messages with the guardians of one student (DL-127) | Chat, thread |
 | **Announcement** | Notice to an audience (campus, grade, class) (DL-128) | Broadcast, circular |
 | **Safety / Required / Optional** | Notification categories; only Optional can be turned off (DL-129) | Priority levels |
@@ -43,7 +43,7 @@ Delivery: Delivered · success, Sent · info, Failed · error, Skipped by prefer
 3. **GIIS SG complaint ladder** (DL-123, HB p.249–250). Acknowledge by day 2, reply and close by day 7, supervisor by day 14, Dispute Resolution Committee (Country Director) by day 21, then CPE referral. A missed step moves the case up automatically and tells the next owner; the earlier owner keeps access.
 4. **Overdue is a flag, not a status** (DL-124). A case can be In progress and Overdue. Sort overdue first, then by next due date.
 5. **Waiting for family pauses the clock** (DL-122). Show "Clock paused since …" and that later deadlines move.
-6. **Restricted cases don't appear** (DL-125). If you're not named, the case is not in your list or search. Show one quiet line: "2 restricted cases at this campus are not shown to you." ICA review is always restricted; a complaint about a named teacher can be made restricted.
+6. **Restricted cases are locked rows** (DL-125). If you're not named but can see the queue, the case shows as a locked row: "Restricted case", type, received and due dates; no student name, title or content, and it can't be opened. Never in search, and never on teacher or class screens (DL-30). ICA review is always restricted; a complaint about a named teacher can be made restricted.
 7. **Reply vs internal note** (DL-126). The composer has two modes. Internal notes are amber and never shown to the family. In v1 replies go by email.
 8. **Approvals** (DL-08, DL-84, DL-62). Some cases need several approvers (refund: Finance Controller + Country Director; campus transfer: both principals). Each approver's decision is shown separately.
 9. **Settings, not hard-coded numbers.** OWIS and GIIS India have no documented complaint or refund policy: show "Not set".
