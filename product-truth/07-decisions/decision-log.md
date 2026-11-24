@@ -140,7 +140,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-126 | One shared case timeline, no staff-only notes: families see the whole timeline of family-visible cases; ICA, Student Pass and access types stay staff-only; v1 messages by email | **Confirmed** (Henry, 24 Nov 2026: "one shared timeline", chosen over separate internal notes) | CC07, DL-118 |
 | DL-127 | Messages are staff ↔ guardian conversations about one student, within the staff member's data scope; no parent-to-parent; a message can become a case | **Confirmed** (Henry, 24 Nov 2026) | CC10, CC11, DL-73 |
 | DL-128 | Announcements target an audience rule (campus, offering, grade, class, house, staff team); wider than own class needs approval; a read acknowledgement is not consent | **Confirmed** (Henry, 24 Nov 2026) | CC12, CC13, OBJ-17 |
-| DL-129 | One notification service: modules publish events; templates per brand-country × language × channel; SAFETY / REQUIRED / OPTIONAL, only OPTIONAL can be muted; no Tier 3 in notification text; every send logged | Assumed | CC14–CC16, DL-30 |
+| DL-129 | One notification service: modules publish events; templates per brand-country × language × channel; SAFETY / REQUIRED / OPTIONAL, only OPTIONAL can be muted; no Tier 3 in notification text; every send logged | **Confirmed** (Henry, 24 Nov 2026) | CC14–CC16, DL-30 |
 | DL-130 | Cases, messages, announcements and the delivery log live in the campus data location; operating entity copied onto the case; group views see counts only; two-campus cases live at the originating campus | Assumed | DL-41, DL-47 |
 
 ---
