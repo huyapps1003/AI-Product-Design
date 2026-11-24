@@ -17,7 +17,7 @@ Approved by Henry, 19 Nov 2026: **whether each student was in school each school
 | In this dictionary | Not in this dictionary (owner) |
 |---|---|
 | School days per campus × programme offering × year: term dates (DL-96) minus holidays, breaks and closures | The full campus calendar engine: events, PTMs, exam windows, segment calendars (Calendar, later) |
-| Daily registers per class, marked by the class teacher; period registers where a campus turns them on | Timetable and periods (Teaching and Learning: Timetable; this file reads periods) |
+| Daily registers per class, marked by the class teacher; period registers where a campus turns them on | Timetable and periods ([Teaching & Timetable](./teaching-timetable-data-dictionary.md) TE02, TE11; this file reads periods) |
 | Attendance marks per student per day (OBJ-20), corrections after lock | Conduct: incidents, sanctions, digital badges, house points (Conduct, later dictionary) |
 | Leave requests from parents, routing and approval, medical certificates | Staff attendance and staff leave (Staff and HR) |
 | Gate log: late sign-in and out pass at reception or security | Bus boarding and transport attendance (Transport) |
@@ -97,8 +97,8 @@ ST02, ST08, ST09, CL01, CL03, CL04, AS05, AS10 and the Case object (OBJ-10) are 
 | class_id | UUID | FK:CL01 | Y | T1 | Known (Arch § Users and roles: class teacher scope is the class) | Students listed are the class's placements valid that day (CL04). |
 | school_date | DATE | UK with class + period | Y | T1 | Assumed | Must be a school day in AT01. |
 | register_kind | ENUM | — | Y | T1 | Known both exist (Arch step 3 "by period or by day"); campus setting Confirmed (DL-99) | DAY or PERIOD. |
-| period_id | UUID | FK:Timetable period | C | T1 | Assumed | Required when PERIOD. Periods come from the timetable (out of scope). |
-| taken_by_employee_id | UUID | FK:E01 | Y | T1 | Known: class teacher (Arch § Users and roles); cover teacher Assumed | Class teacher, co-teacher or a cover teacher with that day's scope (OQ-110). |
+| period_id | UUID | FK:TE02 | C | T1 | Assumed | Required when PERIOD. The bell period of the dated lesson (TE11) in the [teaching & timetable dictionary](./teaching-timetable-data-dictionary.md). |
+| taken_by_employee_id | UUID | FK:E01 | Y | T1 | Known: class teacher (Arch § Users and roles); cover teacher Assumed | Class teacher, co-teacher or a cover teacher with that day's scope (TE13, DL-145; who takes the day register OQ-165). |
 | due_at | TIMESTAMPTZ | — | Y | T1 | Assumed; campus setting (OQ-110) | From the campus register cut-off. Late registers show "Overdue" to the coordinator. |
 | register_status | ENUM | — | Y | T1 | Assumed (DL-27) | NOT_TAKEN, SUBMITTED, LOCKED. See enums. |
 | submitted_at / locked_at | TIMESTAMPTZ | — | C | T1 | Confirmed (DL-100) | Lock is automatic at the campus end-of-day time. |

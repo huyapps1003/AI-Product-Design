@@ -104,7 +104,13 @@ Codes follow `module.object.action` (DL-53; new capabilities reviewed by the reg
 | `fees.fps.manage` | MANAGE | OBJ-23 | New (SG regulator pack) |
 | `student.guardian.view`, `student.guardian_contact.view` | VIEW | OBJ-04 | New |
 | `student.guardian.verify`, `student.guardian.edit` | APPROVE, UPDATE | OBJ-04 | New |
-| `teaching.allocation.view`, `teaching.allocation.manage` | VIEW, MANAGE | OBJ-12 | New |
+| `teaching.allocation.view`, `teaching.allocation.manage` | VIEW, MANAGE | OBJ-12 | New (teaching & timetable dictionary, DL-132…DL-134; groups, members, assignments; coordinator within band) |
+| `teaching.responsibility.manage`, `teaching.load.view` | MANAGE, VIEW | OBJ-12 | New (DL-135, DL-136; Principal manages responsibilities) |
+| `teaching.bell.manage`, `teaching.plan.manage` | MANAGE, MANAGE | OBJ-27 | New (DL-136, DL-137; who approves OQ-150) |
+| `teaching.room.manage` | MANAGE | OBJ-27 | New (DL-141; campus office until Campus Services) |
+| `teaching.timetable.view`, `teaching.timetable.build`, `teaching.timetable.publish` | VIEW, UPDATE, APPROVE | OBJ-27 | New (DL-138, DL-139; Principal publishes, OQ-150) |
+| `teaching.lesson.change` | UPDATE | OBJ-27 | New (DL-140; one-off changes with a reason, OQ-160) |
+| `teaching.absence.record`, `teaching.cover.arrange`, `teaching.cover.view` | CREATE, UPDATE, VIEW | OBJ-27 | New (DL-143…DL-145; arranger OQ-162; cover gives one-day scope, no capability) |
 
 ## Field policies
 

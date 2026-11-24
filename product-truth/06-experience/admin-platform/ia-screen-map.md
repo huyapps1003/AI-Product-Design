@@ -65,7 +65,7 @@ Proposed `module_code` values so GA grants, TM memberships and the switcher use 
 | `global_admin` | Global Admin | Platform | — | **full** |
 | `governance` | Governance (access review, audit, reports) | Platform | — | **full** |
 
-Mapping of names used in existing screens: "Employee Management" → `staff_hr`; "Academic Allocation" → `teaching_learning` (capabilities `allocation.*`); "Timetable" → `teaching_learning` (capabilities `timetable.*`).
+Mapping of names used in existing screens: "Employee Management" → `staff_hr`; "Academic Allocation" → `teaching_learning` (capabilities `teaching.allocation.*`); "Timetable" → `teaching_learning` (capabilities `teaching.timetable.*`, `teaching.cover.*`; DL-131).
 
 ## Navigation tree (Admin Platform)
 

@@ -19,11 +19,11 @@ Scope proposed 22 Nov 2026; pack ownership chosen by Henry the same day (DL-110)
 | Programme pack per board (CBSE, IB PYP, IB DP, Cambridge CLSP, IGCSE, Global Montessori Plus): GSG template, brand-country version (DL-110) | Grading scales, components, promotion rules, report card templates (Assessment AS01–AS05, DL-87) |
 | Grade levels of a pack, their order and the next level (feeds rollover) | Classes, class plans, rollover runs (Classes CL01–CL07) |
 | Grade bands (CBSE 6–8, IGCSE 9–10) used by schemes, coordinator scope and calendars | Coordinator and teacher scope itself (Access Registry, A12/A13) |
-| Pack subjects: catalogue per pack with type and level (HL/SL) | Subject-teacher allocation, teaching groups, streams (Teaching: OBJ-12; OQ-77) |
+| Pack subjects: catalogue per pack with type and level (HL/SL) | Subject-teacher allocation, teaching groups, streams ([Teaching & Timetable](./teaching-timetable-data-dictionary.md): OBJ-12; DL-132) |
 | Programme offering: campus × pack × grade range | Segments (Organisation OR05, DL-29) |
 | Year template per brand-country × pack (DL-96 default) | Holidays, closures, events, PTMs, exam windows (Calendar engine, later; holidays stay in Attendance AT02 until then) |
 | Academic year per campus × offering, its status and dates | Fee billing periods (Fees FB04; they sit inside the year but are not academic terms) |
-| Terms inside a year (semesters, terms) | Timetable periods (Timetable, later) |
+| Terms inside a year (semesters, terms) | Timetable periods ([Teaching & Timetable](./teaching-timetable-data-dictionary.md) TE02) |
 | Offered subjects per offering × grade × year, with choice groups (L2, L3, electives) | A student's own subject choices (Student Records ST03, which points here) |
 
 ## Modeling boundaries
@@ -275,7 +275,7 @@ Before this file, these columns pointed at records nothing defined. They now poi
 | Assessment AS06 | grade_id, subject_id | FK:Grade / Subject | FK:AC02 / AC03 |
 | Attendance AT08 | valid_from_year_id | FK:Academic year | FK:AC07 |
 
-Still pointing outside this file, on purpose: Assessment `exam_window_id` and Organisation `holiday_calendar_ref` (Calendar engine, later), Attendance `period_id` (Timetable, later).
+Still pointing outside this file, on purpose: Assessment `exam_window_id` and Organisation `holiday_calendar_ref` (Calendar engine, later), Attendance `period_id` now points at [Teaching & Timetable](./teaching-timetable-data-dictionary.md) TE02.
 
 ## Decisions
 

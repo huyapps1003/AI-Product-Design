@@ -12,7 +12,7 @@ Use these names exactly in navigation and copy. Don't invent new module names or
 |---|---|---|
 | Parent app | Parents and guardians | Not started (later, DL-118) |
 | Student app | Students | Not started |
-| Staff app and web | All staff; the Admin Platform lives inside it (DL-05) | Admin Platform slice designed; module prototypes for Student Directory, Admissions, Classes, Fees, Assessment, Attendance and Cases & Communications (`screens/`) |
+| Staff app and web | All staff; the Admin Platform lives inside it (DL-05) | Admin Platform slice designed; module prototypes for Student Directory, Admissions, Classes, Fees, Assessment, Attendance, Cases & Communications and Teaching & Timetable (`screens/`) |
 | Leadership views | Principals, Country Directors, group leadership | Not started |
 
 ## Campus modules
@@ -22,7 +22,7 @@ Use these names exactly in navigation and copy. Don't invent new module names or
 | `admissions` | Admissions and Enrolment | Learner lifecycle | Transfer policy, Student Pass cases | Most SIS suites, OpenApply. Transfers within a group not found as a feature |
 | `student_records` | Student Records | Learner lifecycle | Identity documents kept current | Most SIS suites |
 | `careers` | Careers and Universities | Learner lifecycle | AEPP placement, LOR, predicted grades | — |
-| `teaching_learning` | Teaching and Learning (includes Academic Allocation and Timetable) | Teaching and assessment | Syllabus, worksheets, timetables | Toddle, ManageBac for IB |
+| `teaching_learning` | Teaching and Learning (includes Academic Allocation and Timetable) | Teaching and assessment | Syllabus, worksheets, timetables. Allocation, timetable and cover designed in the [teaching & timetable dictionary](./teaching-timetable-data-dictionary.md) (DL-131); homework, lesson plans, syllabus and LMS later | Toddle, ManageBac for IB |
 | `assessment` | Assessment and Reporting | Teaching and assessment | CBSE eighths, IB 1–7, IGCSE and CLSP scales; re-evaluation in 2 days | IB/Cambridge in international suites; CBSE in Indian ERPs |
 | `attendance_conduct` | Attendance and Conduct | Daily operations | 90% and 85% attendance rules, ICA notice after 7 days, gate log. Attendance designed first ([attendance dictionary](./attendance-data-dictionary.md), DL-97); Conduct later | Common |
 | `campus_services` | Campus Services | Daily operations | Bus requests, bookshop, canteen | Common |
