@@ -633,7 +633,7 @@
       "start": "2019-07-15",
       "status": "ACTIVE",
       "line_manager": "Meera Joshi",
-      "source": "Employment dates From payroll system (sample HRIS, DL-147)"
+      "payroll": "Sent to payroll (sample feed, DL-147): last change 1 Aug 2026 OK"
     },
     "contract_terms": [
       {
@@ -1008,7 +1008,7 @@
       "open_vacancies": 4
     },
     "OWIS SG": {
-      "headcount": "from HRIS, not yet in Campus OS",
+      "headcount": "Not live yet: OWIS still edits staff in its current HR system until its go-live (DL-147, OQ-166)",
       "policies": "Not set"
     }
   }

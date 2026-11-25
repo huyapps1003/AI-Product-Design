@@ -1,6 +1,6 @@
 # Global Campus OS — Staff & HR Data Dictionary v0.1 (draft)
 
-**Status:** Proposed draft, 25 Nov 2026. DL-146 Confirmed (scope); DL-147…DL-164 Assumed; OQ-166…OQ-191 Open · **Owner:** Henry
+**Status:** Proposed draft, 25 Nov 2026. DL-146, DL-147 Confirmed; DL-148…DL-164 Assumed; OQ-166…OQ-191 Open · **Owner:** Henry
 **Cites:** [Architecture v1](../00-sources/Global_Campus_OS_Product_Architecture_v1.md) § Domains and modules (module 12 Staff and HR "Staff records, allocation; cover, training, appraisal"), § Users and roles (Principal approvals; staff across campuses and programmes), § Data model (People "Person… Staff… Role grant"; "One Person can be a parent on one campus and staff on another"), § Security (Tier 3 never leaves its cell; AI keeps a human approver) · [Employee Data Dictionary v1](../00-sources/Global_Campus_OS_Employee_Data_Dictionary_v1.md) E01–E08, BR-01…BR-20, Decisions D01–D15 (all Proposed, 14 Oct 2026) · [Organisation dictionary](./organisation-data-dictionary.md) OR03, OR04, OR07, OR08, OR09 · [Teaching & timetable dictionary](./teaching-timetable-data-dictionary.md) TE06, TE07, TE12, DL-143, OQ-159, OQ-163, OQ-164 · [Cases & communications dictionary](./cases-communications-data-dictionary.md) CC01, CC03, DL-120, DL-125, DL-129 · [Academic structure dictionary](./academic-structure-data-dictionary.md) AC07, DL-96 · [Attendance dictionary](./attendance-data-dictionary.md) AT01, AT02 · [architecture.md](./architecture.md) DL-39, DL-41, DL-42, DL-43, DL-45 · [permission catalogue](../04-access/permission-catalogue.md) `hr.*` seed capabilities · GIIS Student Handbook 2025-26 (HB) p.210–213 (Child Protection Policy: Principal is Designated Person; staff allegations, suspension pending investigation), p.138 (English teachers receive IB training at workshops) · DL-09, DL-11, DL-13, DL-16, DL-19, DL-22, DL-24, DL-27, DL-34, DL-36, DL-47, DL-53, DL-58, DL-59, DL-69, DL-73, DL-118
 **Tóm tắt (VI):** Từ điển dữ liệu cho module Nhân sự (phạm vi "Full HR", Henry chọn 25/11/2026): hồ sơ nhân viên và hợp đồng (kế thừa E01–E08 của Employee DD v1), phòng ban, chức danh, người quản lý trực tiếp; nghỉ phép của nhân viên (loại phép, chính sách theo brand-country, số dư, xin và duyệt phép, tự động báo "vắng" sang module Giảng dạy để xếp dạy thay, không bao giờ gửi lý do); hồ sơ tuân thủ (giấy phép lao động, kiểm tra lý lịch/an toàn trẻ em, bằng cấp, chứng chỉ IB/CBSE/Cambridge, sơ cứu) với cảnh báo hết hạn; tuyển dụng (yêu cầu tuyển, ứng viên, phỏng vấn, offer); tiếp nhận và nghỉ việc (checklist, bàn giao); đánh giá năng lực hằng năm và đào tạo. Lương bổng do hệ thống payroll bên ngoài giữ. Mỗi trường có trạng thái Known / Assumed / Open.
 
@@ -17,7 +17,7 @@ Approved by Henry, 25 Nov 2026 (decision card "Full HR", chosen over the smaller
 | In this dictionary | Not in this dictionary (owner) |
 |---|---|
 | Staff records: employee profile, employments, campus assignments, departments, positions, line managers (refines Employee DD E01–E08) | Login accounts, access grants, teams, templates (Identity and Access Registry, A01–A17, `04-access/`) |
-| Contracts: type, FTE, probation, notice, renewals; emergency contacts | Pay, salary, bank details, tax, CPF and payroll runs (payroll system per brand-country, DL-147) |
+| Contracts: type, FTE, probation, notice, renewals; emergency contacts | Pay, salary, bank details, tax, CPF and payroll runs (payroll system per brand-country; receives staff changes from Campus OS, DL-147) |
 | Staff leave: leave types, policies per brand-country, balances, requests and approvals | Why a teacher is away is never sent to Teaching; Teaching records only "away" and arranges cover (TE12, TE13, DL-143) |
 | Compliance: work passes, safeguarding and background checks, qualifications, board training, first aid; requirements per position; expiry alerts | Student identity documents and Student Pass (Student Records, Tier 3, DL-30) |
 | Recruitment: vacancy requests, candidates, stages, interviews, offers | Job advertising on external boards, careers website (later) |
@@ -28,7 +28,7 @@ Approved by Henry, 25 Nov 2026 (decision card "Full HR", chosen over the smaller
 ## Modeling boundaries
 
 - **Staff & HR is one module in the Staff and HR domain (DL-146).** Capability prefix `hr` (DL-53, seed codes already in the catalogue); module team key `staff_hr` (DL-04). It becomes the home of Employee DD E01–E05, E07 and E08: the IDs stay, the fields are refined here, and the source file stays as it is (`00-sources/`). E06 Campus is already OR04 (Organisation dictionary). Other modules read from it: Teaching (who can be assigned, who is away, DL-156, DL-158), Identity and Access Registry (joiners and leavers start access reviews, BR-06, BR-10), Cases (staff concerns, DL-163), Notifications (DL-129).
-- **Campus OS keeps the staff record; payroll stays outside (DL-147).** Campus OS is where a school sees and changes who works there. Where a brand-country runs an HRIS or payroll system, that system stays the writer for the field groups it owns (for example legal name, contract dates, pay) until a cutover date in the authority register (DL-45); E08 links each employee to the external ID; conflicts are quarantined, never overwritten (BR-20). Pay, bank and tax data never enter Campus OS. Which system each brand-country uses is Open (OQ-166).
+- **Campus OS owns the whole staff record (DL-147, Confirmed by Henry 25 Nov 2026).** From each brand-country's go-live, Campus OS is the only place staff data is created or changed: identity, employments, contracts, campus, department, line manager, leave, compliance, hiring, appraisal and training. Any HR system the brand uses today stops editing staff data at that date; its records are imported once at cutover (DL-45 authority register, one cutover date for the whole record). Payroll systems become receivers: Campus OS sends them the staff changes they need (new joiner, legal name, contract dates, FTE, end date, unpaid leave) through E08, or HR re-keys them where no feed exists. Pay, bank and tax data still never enter Campus OS. Which payroll system each brand-country uses and what it needs to receive is Open (OQ-166).
 - **One Person, one employee, employments per employer (DL-148).** An employee is the Employee profile of a global Person (DL-42): a teacher who is also a parent has one Person and one login. `employee_id` never changes (BR-01). Each contract with a legal employer is an employment (E02) with its own employee number (Employee DD D02) and its `operating_entity_id` (DL-41). Concurrent employments with two legal entities are allowed (Employee DD D03; OQ-167).
 - **Campuses: one primary, campus never means access (DL-149).** An active employment has exactly one primary campus; group, brand and country office staff may have none (Employee DD D04). A teacher can be assigned to more campuses (SG-PGL and SG-ECS, OQ-154). Adding or ending a campus assignment never grants or removes access; it opens an access review for the Module Admin (BR-06, Decision D07).
 - **Departments, positions and line managers are HR facts, not access (DL-150).** Departments (E03) are set per brand-country or campus: academic departments (Sciences, Languages) and functions (Admissions, Finance, Facilities). Positions (E05) come from a GSG job family list that each brand names its own way ("Teacher – Secondary", "HR Executive"). Each employment has one line manager (E04 `manager_assignment_id`), who approves leave and leads appraisal. An HR position is not an access role (A06) and not an academic responsibility (TE07); none grants another (Employee DD boundaries).
@@ -57,7 +57,7 @@ Approved by Henry, 25 Nov 2026 (decision card "Full HR", chosen over the smaller
 | E04 | Organizational Assignment | Staff & HR (OBJ-06) | Known entity (Employee DD E04); line manager Assumed (DL-150) |
 | E05 | Position | Staff & HR (OBJ-06) | Known entity (Employee DD E05); job families Assumed (DL-150) |
 | E07 | Employee Campus Assignment | Staff & HR (OBJ-05) | Known (Employee DD E07; multi-campus Confirmed input); primary rule Assumed (DL-149) |
-| E08 | External Employee Mapping | Staff & HR (OBJ-05) | Known entity (Employee DD E08); authority Assumed (DL-147) |
+| E08 | External Employee Mapping | Staff & HR (OBJ-05) | Known entity (Employee DD E08); outbound to payroll Confirmed (DL-147) |
 | HR01 | Contract Term | Staff & HR (OBJ-06) | Assumed (DL-152) |
 | HR02 | Emergency Contact | Staff & HR (OBJ-05) | Assumed (DL-151) |
 | HR03 | Leave Type | Staff & HR (OBJ-28) | Assumed (DL-153) |
@@ -90,7 +90,7 @@ OR03, OR04, OR07, OR08, OR09, AC07, TE06, TE07, TE12, CC01, CC03, A01, A15, A16 
 | employee_id | UUID | PK | Y | T1 | Known (Employee DD E01, BR-01) | Never reused. Referenced by TE06, TE12, TE13. |
 | person_id | UUID | FK:Person | Y | T1 | Confirmed (DL-42) | New. One Person, one employee profile per data location (DL-164). |
 | preferred_name | VARCHAR(160) | — | N | T1 | Known (E01) | Shown in the directory and on timetables. |
-| legal_first_name / legal_last_name | VARCHAR(120) | — | Y / C | T2 | Known (E01) | Writer may be the HRIS (DL-147). |
+| legal_first_name / legal_last_name | VARCHAR(120) | — | Y / C | T2 | Known (E01) | Written only in Campus OS; sent to payroll (DL-147). |
 | work_email / work_phone | VARCHAR | — | N | T1 | Known (E01) | |
 | profile_photo_ref | VARCHAR(512) | — | N | T1 | Known field (E01); tier Assumed (DL-151) | Employee DD had Confidential; the directory shows it (DL-151). |
 | date_of_birth | DATE | — | Y | T2 | Assumed | New. Needed for checks and work passes. |
@@ -168,7 +168,7 @@ Fields as Employee DD E07, with: `campus_id` FK:OR04 (E06 is OR04); `is_primary`
 
 ### E08 — External Employee Mapping
 
-Fields as Employee DD E08, with `authority_field_groups` JSON (new, Assumed, DL-147): which field groups the external system writes until its cutover date (DL-45). `sync_status` CONFLICT puts the change in HR's review list (BR-20).
+Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORTED_AT_CUTOVER (the one-time load from today's HR system) or PAYROLL_FEED (Campus OS sends changes out). Nothing flows back in after go-live. `sync_status` FAILED puts the change in HR's "Not sent to payroll" list.
 
 ### HR01 — Contract Term
 
@@ -511,7 +511,7 @@ Fields as Employee DD E08, with `authority_field_groups` JSON (new, Assumed, DL-
 
 ## Business rules
 
-- **SR-HR-01 (Assumed, DL-147; Known BR-20):** A field group written by an external HRIS (E08 `authority_field_groups`) is read-only in Campus OS with a "From {system}" chip (AP-04); a change in both places goes to HR's conflicts list, never overwrites.
+- **SR-HR-01 (Confirmed, DL-147):** After a brand-country's go-live every staff field is edited in Campus OS only; no field shows a "From {system}" lock. A change payroll needs (joiner, legal name, contract dates, FTE, unpaid leave, end date) is sent through E08 PAYROLL_FEED; a failed send appears in HR's "Not sent to payroll" list until resolved. Before go-live, the brand-country's old HR system stays the record and Campus OS shows no staff editing for it.
 - **SR-HR-02 (Assumed, DL-148; Known BR-01):** Creating an employee matches the Person by ID documents or work email through the review queue (DL-58); a Person who is already a guardian keeps one Person and one login.
 - **SR-HR-03 (Assumed, DL-149; Known BR-06, Decision D07):** An ACTIVE employment has exactly one primary campus unless its position's scope is above campus. Adding, ending or changing a campus assignment emits `CampusAssignmentChanged` and opens an access review; it never grants or removes access.
 - **SR-HR-04 (Assumed, DL-150):** Every ACTIVE employment has one primary E04 with a line manager, except the head of a brand-country. A manager chain may not loop. When a line manager leaves, their team appears in HR's "No manager" list.
@@ -543,7 +543,7 @@ Existing seeds: `hr.employee.view`, `hr.employee.create`, `hr.employee.update`, 
 | ID | Decision | Why |
 |---|---|---|
 | DL-146 (**Confirmed**, Henry 25 Nov 2026, decision card "Full HR") | Staff & HR is one module (`staff_hr`, Staff and HR domain, prefix `hr`): staff records and contracts, departments and positions, staff leave, compliance, recruitment, joining and leaving, appraisal and training. It is the home of Employee DD E01–E05, E07, E08 (IDs kept; E06 is OR04). Payroll stays outside | Arch module 12; Teaching's absence (DL-143) waits for leave; OBJ-05/06 still pointed at a Proposed source |
-| DL-147 | Campus OS keeps the staff record; a brand-country's HRIS or payroll stays writer for the field groups it owns until cutover (authority register, DL-45; E08); conflicts quarantined; pay, bank and tax never enter Campus OS | Employee DD D01 (P0) unresolved; DL-45 pattern |
+| DL-147 (**Confirmed**, Henry 25 Nov 2026, decision card "Campus OS owns everything") | Campus OS owns the whole staff record from each brand-country's go-live; existing HR systems stop editing staff data and are imported once at cutover; payroll receives the changes it needs from Campus OS (E08 feed, or HR re-keys); pay, bank and tax never enter Campus OS | One writer, simplest screens (answers Employee DD D01); chosen over keeping payroll-owned fields read-only |
 | DL-148 | An employee is the Employee profile of a global Person (DL-42); `employee_id` never changes; an employment per legal employer with its own employee number and `operating_entity_id`; concurrent employments allowed | Employee DD D02, D03; DL-41, DL-42 |
 | DL-149 | One primary campus per active employment (none for group, brand and country office staff); more campuses allowed; a campus change opens an access review and never grants access | Employee DD D04, D07, BR-06 |
 | DL-150 | Departments per brand-country or campus; positions from a GSG job-family list, named by each brand; one line manager per employment; HR position ≠ access role ≠ academic responsibility | Employee DD boundaries; TE07 (DL-135) |
@@ -566,7 +566,7 @@ Existing seeds: `hr.employee.view`, `hr.employee.create`, `hr.employee.update`, 
 
 | ID | Question | Why it matters for design |
 |---|---|---|
-| OQ-166 | Which HR and payroll systems does each brand-country use today, which fields do they own, and should Campus OS replace any of them? | Authority register; read-only chips (SR-HR-01) |
+| OQ-166 | Which HR and payroll systems does each brand-country use today, when can each stop editing staff data (go-live date), and can each payroll system accept a feed from Campus OS? | Cutover plan; payroll feed (SR-HR-01, DL-147) |
 | OQ-167 | Do staff hold contracts with two GSG legal entities at once (for example teaching at GIIS and OWIS), and does group or country office staff have a home campus? | Concurrent employments; primary campus |
 | OQ-168 | How and by when do GIIS staff report sick today, and who is told first (line manager, coordinator, HR)? | Same-day report cut-off; cover timing (with OQ-163) |
 | OQ-169 | What are the leave types and entitlements at GIIS SG, GIIS India and OWIS SG (by category and service), the leave year, and the carry-forward rule? | Leave policies; every balance |
@@ -596,4 +596,4 @@ Existing seeds: `hr.employee.view`, `hr.employee.create`, `hr.employee.update`, 
 ## Readiness
 
 - **Can be designed now:** staff directory with compliance chips; staff profile (overview, employment and contract, leave, compliance, training, appraisal, documents with Tier 3 locks); leave apply and balance (self, phone and web); leave approvals inbox with team calendar and "creates cover" note; compliance dashboard (expiring in 90 days, not cleared, to verify); recruitment board per vacancy (stages, feedback, offer); joining and leaving checklists with handover list; appraisal cycle overview and one appraisal; training log.
-- **Keep generic, label Pending:** HRIS ownership (OQ-166), entitlements (OQ-169, OQ-170), required checks (OQ-171, OQ-172), approval chains (OQ-174, OQ-182), rating scale (OQ-178), retention (OQ-176, OQ-185), India statutory registers (OQ-191).
+- **Keep generic, label Pending:** go-live and payroll feeds per brand-country (OQ-166), entitlements (OQ-169, OQ-170), required checks (OQ-171, OQ-172), approval chains (OQ-174, OQ-182), rating scale (OQ-178), retention (OQ-176, OQ-185), India statutory registers (OQ-191).

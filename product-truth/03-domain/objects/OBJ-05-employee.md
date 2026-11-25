@@ -33,7 +33,7 @@ field_groups:              # DL-151
   - name: Legal names
     tier: T2
     capability: hr.confidential.view
-    edit: [hr.employee.update]             # HR verifies a document; may be HRIS-owned (DL-147, AP-04)
+    edit: [hr.employee.update]             # HR verifies a document; edited only here, sent to payroll (DL-147)
   - name: Identity document numbers
     tier: T3
     capability: hr.restricted.view         # plus A17 (DL-69)
@@ -54,7 +54,7 @@ patterns: [AP-03, AP-04, AP-12, AP-14]
 
 # OBJ-05 · Employee
 
-**Status:** Confirmed structure (DL-43, DL-46), 7 Nov 2026; refined with the staff & HR dictionary v0.1, 25 Nov 2026 (DL-146 Confirmed, DL-147…DL-164 Assumed) · **Owner:** Henry
+**Status:** Confirmed structure (DL-43, DL-46), 7 Nov 2026; refined with the staff & HR dictionary v0.1, 25 Nov 2026 (DL-146, DL-147 Confirmed; DL-148…DL-164 Assumed) · **Owner:** Henry
 **Cites:** [staff & HR dictionary](../staff-hr-data-dictionary.md) · Employee DD E01, E07, E08 · DL-42, DL-148, DL-149, DL-151
 
-The staff profile of one Person (DL-42, DL-148). Colleagues see the directory; HR sees Tier 2; identity numbers need Tier 3 access. Campus affiliation never grants access; it opens a review (BR-06, DL-149). Fields an HRIS still owns show a "From {system}" chip (DL-147). Compliance status is one chip anyone who assigns or manages the person can see; the details stay with HR (DL-158).
+The staff profile of one Person (DL-42, DL-148). Colleagues see the directory; HR sees Tier 2; identity numbers need Tier 3 access. Campus affiliation never grants access; it opens a review (BR-06, DL-149). Campus OS is the only place staff data changes; payroll receives what it needs (DL-147). Compliance status is one chip anyone who assigns or manages the person can see; the details stay with HR (DL-158).
