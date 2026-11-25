@@ -154,7 +154,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-140 | Dated lessons generated from the published timetable for each school day (AT01); one-off changes on the dated lesson with a reason, never on the timetable; feed My day, period registers and cover | **Confirmed** (Henry 24 Nov 2026, decision card "Dated lessons, one-off changes") | TE11, DL-98, DL-99 |
 | DL-141 | Teaching keeps a simple room list per campus until Campus Services owns rooms; CL01 `home_room` points at it | **Confirmed** (Henry 24 Nov 2026, decision card "Simple list in Teaching for now") | TE03, CL01 |
 | DL-142 | Teachers see their own and any campus timetable; coordinators build within their band; parents and students see their own (apps later, DL-118); Tier 1, campus data location, group sees counts | **Confirmed** (Henry 25 Nov 2026, decision card "Campus-wide for teachers") | DL-47, DL-118 |
-| DL-143 | A teacher absence records only that and when a teacher is away (never why); their lessons need cover; the arranger chooses cover, supervision, merge or cancel per lesson | Assumed | TE12, TE13, OQ-162 |
+| DL-143 | A teacher absence records only that and when a teacher is away (never why); their lessons need cover; the arranger chooses cover, supervision, merge or cancel per lesson | **Confirmed** (Henry 25 Nov 2026, decision card "Never record why, four outcomes") | TE12, TE13, OQ-162 |
 | DL-144 | Cover suggestions: free teachers at the campus, group or subject teachers first, then fewest covers this term; nobody at the weekly cover limit (setting); covers counted apart from load | Assumed | TE13, OQ-164 |
 | DL-145 | A confirmed cover gives the cover teacher scope over the group's students for that school day only (to take the register); no capability, no Tier 3, no marks or cases; absent, cover and class teacher told, families only for cancellations | Assumed | TE13, DL-73, OQ-110, OQ-165 |
 
@@ -536,7 +536,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Decision.** See the table above and [teaching & timetable dictionary § Decisions](../03-domain/teaching-timetable-data-dictionary.md).
 - **Why.** Teaching groups give Assessment and Attendance one thing to point at; assignments give teachers their students the same way class teachers got theirs (DL-73); a versioned, clash-checked timetable and dated lessons give "My day", period registers and cover one source. GIIS SG timings (HB p.22) and language hours (HB p.141–142) are campus examples, not group rules.
 - **Open.** OQ-147…OQ-165 (section S), plus OQ-77, OQ-110, OQ-129.
-- **Status.** DL-131 Confirmed by Henry, 24 Nov 2026 (decision card "Allocation + timetable + cover"; he added cover to the recommended scope). Also Confirmed: DL-132, DL-133, DL-134, DL-135, DL-136, DL-137, DL-138, DL-139, DL-140, DL-141, DL-142 (Henry, 24 Nov 2026, one decision card each). DL-143…DL-145 Assumed.
+- **Status.** DL-131 Confirmed by Henry, 24 Nov 2026 (decision card "Allocation + timetable + cover"; he added cover to the recommended scope). Also Confirmed: DL-132, DL-133, DL-134, DL-135, DL-136, DL-137, DL-138, DL-139, DL-140, DL-141, DL-142, DL-143 (Henry, 24 Nov 2026, one decision card each). DL-144…DL-145 Assumed.
 
 ### Review of DL-01…DL-21 (22 Nov 2026; policy items held)
 - **Context.** DL-01…DL-21 were set on 25 Oct 2026 so Admin Platform design could start and are all still Assumed (DL-12 Proposed), although later Confirmed decisions build on most of them. The 22 Nov 2026 repo review flagged this.
