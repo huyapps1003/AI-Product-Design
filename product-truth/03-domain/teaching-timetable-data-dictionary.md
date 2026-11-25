@@ -1,6 +1,6 @@
 # Global Campus OS — Teaching & Timetable Data Dictionary v0.1 (draft)
 
-**Status:** Proposed draft, 24 Nov 2026. DL-131…DL-144 Confirmed; DL-145 Assumed, awaiting Henry; OQ-77 answered by DL-132; OQ-147…OQ-165 Open · **Owner:** Henry
+**Status:** Proposed draft, 24 Nov 2026. DL-131…DL-145 Confirmed; OQ-77 answered by DL-132; OQ-147…OQ-165 Open · **Owner:** Henry
 **Cites:** [Architecture v1](../00-sources/Global_Campus_OS_Product_Architecture_v1.md) § Principles 4 (calendar engine; "timetables… read from it"), § Context (MyGIIS baseline includes Timetable), § Users and roles (Programme or level coordinator "Timetables"; Subject teacher "Subject and sections"; Student "Timetable"), § Domains and modules (module 3 Teaching and Learning "Timetables, lessons, homework"; module 8 Campus Services "rooms"; module 12 Staff and HR "allocation; cover"), § Key workflows (Absence step 3 "by period or by day"; Admission step 4 "section, timetable"), § Data model (Organisation "Building, Room… feed timetabling"; Teaching "Timetable, Period"), § Tech (web for "timetables, marks entry"), § Security (AI "timetable optimisation… keeps a human approver"), § Roadmap (Phase 1 daily loop "timetable, homework") · [Employee Data Dictionary v1](../00-sources/Global_Campus_OS_Employee_Data_Dictionary_v1.md) D01 Academic Role Assignment, D02 Teacher Subject Allocation, D03 Timetable Teaching Session (all "External — do not own / Proposed") · [Academic structure dictionary](./academic-structure-data-dictionary.md) AC02, AC03, AC07, AC08, AC09, DL-116 · [Classes dictionary](./classes-data-dictionary.md) CL01 `home_room`, CL03, CL04, DL-73, OQ-77 · [Student Directory Spec](./student-directory-data-dictionary.md) ST02, ST03 · [Assessment dictionary](./assessment-data-dictionary.md) AS07 `teaching_group_id`, DL-93, SR-AS-04 · [Attendance dictionary](./attendance-data-dictionary.md) AT01, AT03 `period_id`, DL-99 · [Cases & communications dictionary](./cases-communications-data-dictionary.md) DL-127, DL-129 · [architecture.md](./architecture.md) DL-43 domains · GIIS Student Handbook 2025-26 (HB) p.22 (school timing), p.34–35 (MyGIIS Timetable, Syllabus, Worksheets), p.9–14 (room per class), p.47–62 (subjects per class), p.141–142 (additional languages, about 2½ hours a week) · DL-11, DL-16, DL-22, DL-26, DL-27, DL-30, DL-32, DL-43, DL-47, DL-53, DL-59, DL-73, DL-93, DL-96, DL-98, DL-110, DL-116, DL-118
 **Tóm tắt (VI):** Từ điển dữ liệu cho module Giảng dạy & Thời khoá biểu: nhóm học (cả lớp, hoặc nhóm ghép nhiều lớp cho ngoại ngữ 2, môn tự chọn, môn IB DP), ai dạy nhóm nào (phân công giảng dạy, thay cho Employee DD D02), vai trò học thuật (điều phối khối, trưởng bộ môn), số tiết mỗi tuần theo môn và khối, khung giờ tiết học theo cơ sở và cấp học, danh sách phòng, thời khoá biểu có phiên bản (nháp → công bố) với kiểm tra trùng lịch, các tiết học theo ngày sinh ra từ thời khoá biểu và lịch ngày học, và dạy thay khi giáo viên vắng (ghi nhận giáo viên vắng, gợi ý người dạy thay, quyền xem học sinh chỉ trong ngày dạy thay). Bài tập về nhà, giáo án để sau. Mỗi trường có trạng thái Known / Assumed / Open.
 
@@ -49,19 +49,19 @@ Approved by Henry, 24 Nov 2026 (decision card "Allocation + timetable + cover"):
 
 | ID | Entity | Module | Status |
 |---|---|---|---|
-| TE01 | Bell Schedule | Teaching | Known need (Arch § Data model "Period"; HB p.22 school timing); model Assumed (DL-137) |
+| TE01 | Bell Schedule | Teaching | Known need (Arch § Data model "Period"; HB p.22 school timing); model Confirmed (DL-137) |
 | TE02 | Bell Period | Teaching | Known need (Arch § Data model "Period"; Attendance AT03 `period_id`); times Open (OQ-147) |
-| TE03 | Room | Teaching (until Campus Services) | Known entity (Arch § Data model Organisation "Building, Room… feed timetabling"; HB p.9–14); model Assumed (DL-141) |
-| TE04 | Teaching Group | Teaching | Known need (Assessment AS07 `teaching_group_id`; HB p.52 Language 2 and 3 choices; OQ-77); model Assumed (DL-132) |
-| TE05 | Group Membership | Teaching | Assumed (DL-133) |
-| TE06 | Teaching Assignment | Teaching (OBJ-12) | Known entity (Employee DD D02 "Teacher Subject Allocation"; Arch § Users and roles "Subject teacher: subject and sections"); model Assumed (DL-134) |
-| TE07 | Academic Responsibility | Teaching (OBJ-12) | Known entity (Employee DD D01 "Academic Role Assignment"; Arch § Users and roles coordinator); model Assumed (DL-135) |
-| TE08 | Period Plan | Teaching | Known need (HB p.141–142 "approximately two and half hours per week"); model Assumed (DL-136) |
-| TE09 | Timetable | Teaching (OBJ-27) | Known entity (Arch § Data model "Timetable"; MyGIIS Timetable, HB p.34–35); model Assumed (DL-138) |
-| TE10 | Timetable Lesson | Teaching (OBJ-27) | Assumed (DL-138, DL-139) |
-| TE11 | Dated Lesson | Teaching (OBJ-27) | Known entity (Employee DD D03 "Timetable Teaching Session"); model Assumed (DL-140) |
-| TE12 | Teacher Absence | Teaching (OBJ-27) | Known need (Arch module 12 "cover"; AT03 "cover teacher"); model Assumed (DL-143) |
-| TE13 | Cover Arrangement | Teaching (OBJ-27) | Known need (Arch module 12 "cover"); model Assumed (DL-143, DL-144, DL-145) |
+| TE03 | Room | Teaching (until Campus Services) | Known entity (Arch § Data model Organisation "Building, Room… feed timetabling"; HB p.9–14); model Confirmed (DL-141) |
+| TE04 | Teaching Group | Teaching | Known need (Assessment AS07 `teaching_group_id`; HB p.52 Language 2 and 3 choices; OQ-77); model Confirmed (DL-132) |
+| TE05 | Group Membership | Teaching | Confirmed (DL-133) |
+| TE06 | Teaching Assignment | Teaching (OBJ-12) | Known entity (Employee DD D02 "Teacher Subject Allocation"; Arch § Users and roles "Subject teacher: subject and sections"); model Confirmed (DL-134) |
+| TE07 | Academic Responsibility | Teaching (OBJ-12) | Known entity (Employee DD D01 "Academic Role Assignment"; Arch § Users and roles coordinator); model Confirmed (DL-135) |
+| TE08 | Period Plan | Teaching | Known need (HB p.141–142 "approximately two and half hours per week"); model Confirmed (DL-136) |
+| TE09 | Timetable | Teaching (OBJ-27) | Known entity (Arch § Data model "Timetable"; MyGIIS Timetable, HB p.34–35); model Confirmed (DL-138) |
+| TE10 | Timetable Lesson | Teaching (OBJ-27) | Confirmed (DL-138, DL-139) |
+| TE11 | Dated Lesson | Teaching (OBJ-27) | Known entity (Employee DD D03 "Timetable Teaching Session"); model Confirmed (DL-140) |
+| TE12 | Teacher Absence | Teaching (OBJ-27) | Known need (Arch module 12 "cover"; AT03 "cover teacher"); model Confirmed (DL-143) |
+| TE13 | Cover Arrangement | Teaching (OBJ-27) | Known need (Arch module 12 "cover"); model Confirmed (DL-143, DL-144, DL-145) |
 
 ST02, ST03, CL01, CL03, CL04, AC02, AC03, AC07, AC08, AC09, AT01, AT02 and E01 are referenced, not redefined. Employee DD D01, D02 and D03 are replaced by TE07, TE06 and TE11; the source file stays as it is (`00-sources/`).
 
@@ -73,9 +73,9 @@ ST02, ST03, CL01, CL03, CL04, AC02, AC03, AC07, AC08, AC09, AT01, AT02 and E01 a
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| bell_schedule_id | UUID | PK | Y | T1 | Assumed (DL-137) | |
+| bell_schedule_id | UUID | PK | Y | T1 | Confirmed (DL-137) | |
 | campus_id | UUID | FK:OR04 | Y | T1 | Known (HB p.22 timings are per campus) | |
-| academic_year_id | UUID | FK:AC07 | Y | T1 | Assumed (DL-137) | A new version each year; offerings with different years get their own (DL-96). |
+| academic_year_id | UUID | FK:AC07 | Y | T1 | Confirmed (DL-137) | A new version each year; offerings with different years get their own (DL-96). |
 | name | VARCHAR(60) | UK with campus + year | Y | T1 | Assumed | "Grades 1–12 regular day", "Nursery and KG". |
 | applies_to | JSON | — | Y | T1 | Known that timings differ by segment (HB p.22) | Segments or programme offerings, optionally grades. GIIS SG: Nursery and KG; GMP Extended, IB PYP Early Years, Grades 1–12. |
 | day_variant | ENUM | — | Y | T1 | Known that assembly days differ (HB p.22 "assigned weekdays"); other variants Assumed | REGULAR, ASSEMBLY_DAY, SHORT_DAY, EXAM_DAY. One REGULAR per `applies_to`. |
@@ -123,7 +123,7 @@ ST02, ST03, CL01, CL03, CL04, AC02, AC03, AC07, AC08, AC09, AT01, AT02 and E01 a
 | campus_id | UUID | FK:OR04 | Y | T1 | Known | |
 | academic_year_id | UUID | FK:AC07 | Y | T1 | Known (DL-96) | Offering comes from the year. |
 | offered_subject_id | UUID | FK:AC09 | Y | T1 | Confirmed (DL-116: "teaching groups… stay with Teaching") | The grade and subject come from it. |
-| group_kind | ENUM | — | Y | T1 | Assumed (DL-132) | CLASS (one class, everyone in it), CHOICE (students who chose this subject, from source classes), SPLIT (one of several groups of the same class subject, e.g. ability sets; OQ-152). |
+| group_kind | ENUM | — | Y | T1 | Confirmed (DL-132) | CLASS (one class, everyone in it), CHOICE (students who chose this subject, from source classes), SPLIT (one of several groups of the same class subject, e.g. ability sets; OQ-152). |
 | class_id | UUID | FK:CL01 | C | T1 | Assumed | Required for CLASS. |
 | source_class_ids | UUID[] | FK:CL01 | C | T1 | Known need (Assessment sample "Grade 7 Hindi (L2)" across 7A–7C) | Required for CHOICE and SPLIT. Members come from these classes only. |
 | group_name | VARCHAR(60) | UK with campus + year | Y | T1 | Assumed | "7B Mathematics", "Grade 7 Hindi (L2)", "DP1 Biology HL". Generated for CLASS; editable. |
@@ -137,12 +137,12 @@ ST02, ST03, CL01, CL03, CL04, AC02, AC03, AC07, AC08, AC09, AT01, AT02 and E01 a
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| membership_id | UUID | PK | Y | T1 | Assumed (DL-133) | |
+| membership_id | UUID | PK | Y | T1 | Confirmed (DL-133) | |
 | teaching_group_id | UUID | FK:TE04 | Y | T1 | Assumed | |
 | enrolment_id | UUID | FK:ST02 | Y | T1 | Known (membership belongs to the enrolment, like CL04) | |
 | subject_choice_id | UUID | FK:ST03 | C | T1 | Known need (ST03) | Required for CHOICE and SPLIT; must match the group's subject. |
 | valid_from / valid_to | DATE | — | Y / N | T1 | Confirmed pattern (DL-24) | |
-| source | ENUM | — | Y | T1 | Assumed (DL-133) | FROM_CLASS (follows CL04), FROM_CHOICE (follows ST03), PLACED (coordinator, for SPLIT or a choice with several groups). |
+| source | ENUM | — | Y | T1 | Confirmed (DL-133) | FROM_CLASS (follows CL04), FROM_CHOICE (follows ST03), PLACED (coordinator, for SPLIT or a choice with several groups). |
 | placed_by_user_id | UUID | FK:User | C | T1 | Assumed | Required for PLACED. |
 
 ### TE06 — Teaching Assignment
@@ -155,7 +155,7 @@ ST02, ST03, CL01, CL03, CL04, AC02, AC03, AC07, AC08, AC09, AT01, AT02 and E01 a
 | teaching_group_id | UUID | FK:TE04 | Y | T1 | Known (D02 subject + grade + section) | The group carries subject, grade, class and year. |
 | employee_id | UUID | FK:E01 | Y | T1 | Known (D02) | Must have an active employment at the campus (E02, E07). |
 | assignment_role | ENUM | — | Y | T1 | Assumed (DL-27, DL-134) | LEAD, CO_TEACHER, ASSISTANT. One LEAD at a time per group. |
-| periods_per_week | DECIMAL(4,1) | — | Y | T1 | Assumed (DL-136) | Defaults from the period plan (TE08); counts toward load. Co-teaching share: OQ-158. |
+| periods_per_week | DECIMAL(4,1) | — | Y | T1 | Confirmed (DL-136) | Defaults from the period plan (TE08); counts toward load. Co-teaching share: OQ-158. |
 | valid_from / valid_to | DATE | — | Y / N | T1 | Known (D02 is effective-dated by year); Confirmed pattern (DL-24) | A mid-year change ends one row and starts another. |
 | assigned_by_user_id | UUID | FK:User | Y | T1 | Known role (Arch § Users and roles: coordinator "Timetables"); who exactly Open (OQ-150) | |
 | assignment_status | ENUM | — | Y | T1 | Assumed (DL-27) | PROPOSED, CONFIRMED, ENDED. Only CONFIRMED sets data scope (SR-TE-05). |
@@ -182,7 +182,7 @@ ST02, ST03, CL01, CL03, CL04, AC02, AC03, AC07, AC08, AC09, AT01, AT02 and E01 a
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| period_plan_id | UUID | PK | Y | T1 | Assumed (DL-136) | |
+| period_plan_id | UUID | PK | Y | T1 | Confirmed (DL-136) | |
 | offered_subject_id | UUID | FK:AC09 | Y | UK | Assumed | One plan per offered subject (grade, subject, year). |
 | periods_per_week | DECIMAL(4,1) | — | Y | T1 | Known for GIIS additional languages: about 2½ hours a week (HB p.141–142); other values Open | Per cycle when the campus uses an N-day cycle (OQ-148). |
 | double_periods | INT | — | N | T1 | Assumed | How many of the periods come as back-to-back pairs (labs, art). |
@@ -198,15 +198,15 @@ ST02, ST03, CL01, CL03, CL04, AC02, AC03, AC07, AC08, AC09, AT01, AT02 and E01 a
 |---|---|---|:---:|---|---|---|
 | timetable_id | UUID | PK | Y | T1 | Known entity (Arch § Data model "Timetable") | |
 | campus_id | UUID | FK:OR04 | Y | T1 | Known | |
-| programme_offering_ids | UUID[] | FK:AC06 | Y | T1 | Assumed (DL-138) | One or more offerings; their years must overlap the date range. |
+| programme_offering_ids | UUID[] | FK:AC06 | Y | T1 | Confirmed (DL-138) | One or more offerings; their years must overlap the date range. |
 | academic_year_ids | UUID[] | FK:AC07 | Y | T1 | Confirmed rule (DL-96) | One year per offering. |
 | name | VARCHAR(80) | — | Y | T1 | Assumed | "CBSE Middle, Semester 2". |
-| version | INT | — | Y | T1 | Assumed (DL-138) | Increments on every publish of the same name. |
+| version | INT | — | Y | T1 | Confirmed (DL-138) | Increments on every publish of the same name. |
 | cycle_days | INT | — | Y | T1 | Open (OQ-148) | 5 = a Monday–Friday week. A rotating cycle (Day 1–6) needs a day-number calendar. |
-| bell_schedule_ids | UUID[] | FK:TE01 | Y | T1 | Assumed (DL-137) | Which schedules its cells use. |
-| effective_from / effective_to | DATE | — | Y / N | T1 | Assumed (DL-138) | Starts on a school day. Publishing a new version closes the previous one the day before. |
+| bell_schedule_ids | UUID[] | FK:TE01 | Y | T1 | Confirmed (DL-137) | Which schedules its cells use. |
+| effective_from / effective_to | DATE | — | Y / N | T1 | Confirmed (DL-138) | Starts on a school day. Publishing a new version closes the previous one the day before. |
 | timetable_status | ENUM | — | Y | T1 | Assumed (DL-27) | DRAFT, PUBLISHED, SUPERSEDED, ARCHIVED. See enums. |
-| hard_clash_count / soft_clash_count | INT | — | Y | T1 | Assumed (DL-139); derived | Publish needs zero hard clashes. |
+| hard_clash_count / soft_clash_count | INT | — | Y | T1 | Confirmed (DL-139); derived | Publish needs zero hard clashes. |
 | built_by_user_id | UUID | FK:User | Y | T1 | Known role (Arch: coordinator "Timetables"); timetabler Open (OQ-150) | |
 | published_by_user_id / published_at | — | — | C | T1 | Assumed: Principal (OQ-150) | |
 | import_source | VARCHAR(40) | — | N | T1 | Open (OQ-151) | e.g. "aSc export 2026-11-20". Imported lessons still go through the clash check. |
@@ -218,7 +218,7 @@ ST02, ST03, CL01, CL03, CL04, AC02, AC03, AC07, AC08, AC09, AT01, AT02 and E01 a
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| lesson_id | UUID | PK | Y | T1 | Assumed (DL-138) | |
+| lesson_id | UUID | PK | Y | T1 | Confirmed (DL-138) | |
 | timetable_id | UUID | FK:TE09 | Y | T1 | Assumed | |
 | cycle_day | INT | — | Y | T1 | Assumed | 1–5 for Monday–Friday. |
 | bell_period_id | UUID | FK:TE02 | Y | T1 | Assumed | Must be a TEACHING or ACTIVITY period. |
@@ -227,7 +227,7 @@ ST02, ST03, CL01, CL03, CL04, AC02, AC03, AC07, AC08, AC09, AT01, AT02 and E01 a
 | employee_ids | UUID[] | FK:E01 | Y | T1 | Assumed | Defaults from the group's CONFIRMED assignments (TE06); the LEAD first. |
 | room_id | UUID | FK:TE03 | N | T1 | Assumed | Empty is a soft clash ("No room"). |
 | block_code | VARCHAR(16) | — | N | T1 | Assumed | Copied from the group; all groups of a block must sit in the same cells. |
-| clash_flags | JSON | — | N | T1 | Assumed (DL-139); derived | e.g. `[{"kind":"TEACHER_DOUBLE_BOOKED","severity":"HARD","with":"lesson_id"}]`. |
+| clash_flags | JSON | — | N | T1 | Confirmed (DL-139); derived | e.g. `[{"kind":"TEACHER_DOUBLE_BOOKED","severity":"HARD","with":"lesson_id"}]`. |
 
 ### TE11 — Dated Lesson
 
@@ -236,14 +236,14 @@ ST02, ST03, CL01, CL03, CL04, AC02, AC03, AC07, AC08, AC09, AT01, AT02 and E01 a
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
 | dated_lesson_id | UUID | PK | Y | T1 | Known entity (Employee DD D03 `teaching_session_id`) | Read by period registers (AT03) and, later, cover. |
-| lesson_id | UUID | FK:TE10 | Y | T1 | Assumed (DL-140) | |
+| lesson_id | UUID | FK:TE10 | Y | T1 | Confirmed (DL-140) | |
 | lesson_date | DATE | — | Y | T1 | Known (D03 `session_date`) | A school day in AT01 for the group's offering (DL-98). |
 | bell_period_id | UUID | FK:TE02 | Y | T1 | Known (D03 `period_id`) | Can differ from the pattern when moved. |
 | teaching_group_id | UUID | FK:TE04 | Y | T1 | Assumed | |
 | employee_ids | UUID[] | FK:E01 | Y | T1 | Known (D03 `employee_id`) | The planned teachers. Who actually teaches it is the cover teacher when COVERED (TE13). |
 | room_id | UUID | FK:TE03 | N | T1 | Assumed | |
 | lesson_status | ENUM | — | Y | T1 | Known that only some statuses are consumed (D03 `timetable_status`); values Assumed (DL-27) | SCHEDULED, CHANGED, NEEDS_COVER, COVERED, CANCELLED. See enums. |
-| change_kind | ENUM | — | C | T1 | Assumed (DL-140) | ROOM, PERIOD, CANCELLED_EVENT, CANCELLED_EXAM, CANCELLED_OTHER. |
+| change_kind | ENUM | — | C | T1 | Confirmed (DL-140) | ROOM, PERIOD, CANCELLED_EVENT, CANCELLED_EXAM, CANCELLED_OTHER. |
 | change_reason | VARCHAR(200) | — | C | T1 | Assumed | Required for any change. Shown to the teacher; to families only for cancellations (OQ-157). |
 | changed_by_user_id / changed_at | — | — | C | T1 | Assumed | |
 
@@ -253,7 +253,7 @@ ST02, ST03, CL01, CL03, CL04, AC02, AC03, AC07, AC08, AC09, AT01, AT02 and E01 a
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| absence_id | UUID | PK | Y | T1 | Assumed (DL-143) | |
+| absence_id | UUID | PK | Y | T1 | Confirmed (DL-143) | |
 | employee_id | UUID | FK:E01 | Y | T1 | Known (Employee DD keys by `employee_id`) | |
 | campus_id | UUID | FK:OR04 | Y | T1 | Known | One row per campus where the teacher has lessons. |
 | date_from / date_to | DATE | — | Y | T1 | Assumed | Inclusive. |
@@ -271,17 +271,17 @@ ST02, ST03, CL01, CL03, CL04, AC02, AC03, AC07, AC08, AC09, AT01, AT02 and E01 a
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| cover_id | UUID | PK | Y | T1 | Assumed (DL-143) | |
+| cover_id | UUID | PK | Y | T1 | Confirmed (DL-143) | |
 | dated_lesson_id | UUID | FK:TE11 | Y | T1 | Assumed | One arrangement per dated lesson (unique). |
 | absence_id | UUID | FK:TE12 | Y | T1 | Assumed | |
 | cover_kind | ENUM | — | Y | T1 | Assumed (DL-27, DL-143) | COVER (another teacher teaches), SUPERVISION (a teacher supervises set work), MERGE (joins another group's lesson), CANCELLED. |
 | cover_employee_id | UUID | FK:E01 | C | T1 | Assumed | Required for COVER and SUPERVISION. Must be free in that period (hard check, any campus). |
 | merged_into_dated_lesson_id | UUID | FK:TE11 | C | T1 | Assumed | Required for MERGE; room capacity is a soft check. |
 | room_id | UUID | FK:TE03 | N | T1 | Assumed | Defaults to the lesson's room. |
-| suggestion_rank | INT | — | N | T1 | Assumed (DL-144) | Where the chosen teacher was in the suggestion list; 0 = picked by hand. |
+| suggestion_rank | INT | — | N | T1 | Confirmed (DL-144) | Where the chosen teacher was in the suggestion list; 0 = picked by hand. |
 | arranged_by_user_id / arranged_at | — | — | C | T1 | Open who arranges (OQ-162) | |
 | cover_status | ENUM | — | Y | T1 | Assumed (DL-27) | NEEDED, ARRANGED, DONE, CANCELLED. NEEDED with under an hour to go is flagged "Urgent". |
-| scope_granted_until | TIMESTAMPTZ | — | C | T1 | Assumed (DL-145) | End of the lesson's school day; the derived scope ends then. |
+| scope_granted_until | TIMESTAMPTZ | — | C | T1 | Confirmed (DL-145) | End of the lesson's school day; the derived scope ends then. |
 
 ## A teaching year and how it maps to other modules
 
@@ -357,25 +357,25 @@ ST02, ST03, CL01, CL03, CL04, AC02, AC03, AC07, AC08, AC09, AT01, AT02 and E01 a
 
 ## Business rules
 
-- **SR-TE-01 (Assumed, DL-137; Known times for GIIS SG, HB p.22):** Every campus × segment has one ACTIVE REGULAR bell schedule per year; periods don't overlap and sit inside the day. GIIS SG Grades 1–12: 9:00–15:40; Nursery and KG: 9:00–12:30.
-- **SR-TE-02 (Assumed, DL-132):** When a class becomes ACTIVE, a CLASS group is created for each offered subject the whole grade takes (AC09 with no choice group). Removing one needs the coordinator.
-- **SR-TE-03 (Assumed, DL-132, DL-133; Confirmed DL-116):** A subject in a choice group gets CHOICE groups across its source classes; members are students whose ST03 choice matches. A student without a matching group appears in "Not in a group" for the coordinator.
-- **SR-TE-04 (Assumed, DL-133):** Class moves (CL04) move FROM_CLASS memberships on the move date and re-check choice groups against the new class; history is kept.
-- **SR-TE-05 (Assumed, DL-134; pattern Confirmed DL-73):** A CONFIRMED teaching assignment sets the teacher's data scope to the group's current members (Registry auto-derive). It never adds a capability; Tier 3 is excluded; ending the assignment removes the scope.
-- **SR-TE-06 (Assumed, DL-134):** Each ACTIVE group has exactly one LEAD at any date. A group without a LEAD shows as "No teacher" to the coordinator and blocks publishing a timetable that includes it.
-- **SR-TE-07 (Assumed, DL-136; Known for GIIS languages, HB p.141–142):** A teacher's load = the sum of `periods_per_week` of their CONFIRMED assignments at all campuses. Over the campus maximum is a soft clash. No group default (DL-59 pattern; OQ-149).
-- **SR-TE-08 (Assumed, DL-139):** Hard clashes: a teacher in two lessons in the same cell (any campus); a room in two lessons in the same cell; a student in two groups in the same cell; a lesson on a period that isn't TEACHING or ACTIVITY; an OUT_OF_USE room; groups of one block in different cells. Any hard clash blocks publish.
-- **SR-TE-09 (Assumed, DL-139):** Soft clashes: load over maximum; a group's lessons per week ≠ its period plan; more than `max_per_day`; wrong room type or room too small; no room; a teacher at two campuses in back-to-back periods (travel, OQ-154). Each needs a note to publish with it.
-- **SR-TE-10 (Assumed, DL-138):** Publishing creates a new version effective from a school day, closes the old one the day before and notifies affected teachers, and families when their child's timetable changes (DL-129, REQUIRED). The Principal publishes (OQ-150).
-- **SR-TE-11 (Assumed, DL-140; Confirmed DL-98):** Dated lessons exist only on school days of a PUBLISHED school-day calendar for the group's offering. Adding a closure (AT02) cancels that day's lessons; an exam window can cancel lessons for the grades sitting it.
-- **SR-TE-12 (Assumed, DL-140; Confirmed DL-99):** With period registers on, a period register is due for each dated lesson of a CLASS group; for CHOICE groups, who takes the period register is Open (OQ-110).
+- **SR-TE-01 (Confirmed, DL-137; Known times for GIIS SG, HB p.22):** Every campus × segment has one ACTIVE REGULAR bell schedule per year; periods don't overlap and sit inside the day. GIIS SG Grades 1–12: 9:00–15:40; Nursery and KG: 9:00–12:30.
+- **SR-TE-02 (Confirmed, DL-132):** When a class becomes ACTIVE, a CLASS group is created for each offered subject the whole grade takes (AC09 with no choice group). Removing one needs the coordinator.
+- **SR-TE-03 (Confirmed, DL-132, DL-133; Confirmed DL-116):** A subject in a choice group gets CHOICE groups across its source classes; members are students whose ST03 choice matches. A student without a matching group appears in "Not in a group" for the coordinator.
+- **SR-TE-04 (Confirmed, DL-133):** Class moves (CL04) move FROM_CLASS memberships on the move date and re-check choice groups against the new class; history is kept.
+- **SR-TE-05 (Confirmed, DL-134; pattern Confirmed DL-73):** A CONFIRMED teaching assignment sets the teacher's data scope to the group's current members (Registry auto-derive). It never adds a capability; Tier 3 is excluded; ending the assignment removes the scope.
+- **SR-TE-06 (Confirmed, DL-134):** Each ACTIVE group has exactly one LEAD at any date. A group without a LEAD shows as "No teacher" to the coordinator and blocks publishing a timetable that includes it.
+- **SR-TE-07 (Confirmed, DL-136; Known for GIIS languages, HB p.141–142):** A teacher's load = the sum of `periods_per_week` of their CONFIRMED assignments at all campuses. Over the campus maximum is a soft clash. No group default (DL-59 pattern; OQ-149).
+- **SR-TE-08 (Confirmed, DL-139):** Hard clashes: a teacher in two lessons in the same cell (any campus); a room in two lessons in the same cell; a student in two groups in the same cell; a lesson on a period that isn't TEACHING or ACTIVITY; an OUT_OF_USE room; groups of one block in different cells. Any hard clash blocks publish.
+- **SR-TE-09 (Confirmed, DL-139):** Soft clashes: load over maximum; a group's lessons per week ≠ its period plan; more than `max_per_day`; wrong room type or room too small; no room; a teacher at two campuses in back-to-back periods (travel, OQ-154). Each needs a note to publish with it.
+- **SR-TE-10 (Confirmed, DL-138):** Publishing creates a new version effective from a school day, closes the old one the day before and notifies affected teachers, and families when their child's timetable changes (DL-129, REQUIRED). The Principal publishes (OQ-150).
+- **SR-TE-11 (Confirmed, DL-140; Confirmed DL-98):** Dated lessons exist only on school days of a PUBLISHED school-day calendar for the group's offering. Adding a closure (AT02) cancels that day's lessons; an exam window can cancel lessons for the grades sitting it.
+- **SR-TE-12 (Confirmed, DL-140; Confirmed DL-99):** With period registers on, a period register is due for each dated lesson of a CLASS group; for CHOICE groups, who takes the period register is Open (OQ-110).
 - **SR-TE-13 (Confirmed DL-93; SR-AS-04):** A teacher can enter marks only for groups where they hold a CONFIRMED assignment; the mark sheet's default teacher is the LEAD.
-- **SR-TE-14 (Assumed, DL-140):** A one-off change on a dated lesson needs a reason and is audited; it never edits the timetable. Repeated changes to the same lesson suggest a new version.
+- **SR-TE-14 (Confirmed, DL-140):** A one-off change on a dated lesson needs a reason and is audited; it never edits the timetable. Repeated changes to the same lesson suggest a new version.
 - **SR-TE-15 (Confirmed DL-83 pattern):** Fee status never removes a student from a group or a timetable.
-- **SR-TE-16 (Assumed, DL-143):** A teacher absence marks every dated lesson the teacher leads in that time NEEDS_COVER and opens a TE13 row NEEDED. Teaching never stores why the teacher is away.
-- **SR-TE-17 (Assumed, DL-144):** Suggestions list teachers free in that period (no lesson, no other cover, not absent) at that campus, ordered: teaches this group → teaches this subject → fewest covers this term. Anyone at the campus weekly cover limit is left out (OQ-164). The arranger may pick anyone free.
-- **SR-TE-18 (Assumed, DL-145; pattern Confirmed DL-73):** An ARRANGED COVER or SUPERVISION gives the cover teacher data scope for the group's students for that school day only, so they can take that period's register (and the class register if the absent teacher is the class teacher, OQ-165). No capability, no Tier 3, no marks or cases.
-- **SR-TE-19 (Assumed, DL-145):** The absent teacher, the cover teacher and the class teacher are told when cover is arranged; families only when a lesson is cancelled (OQ-157). Every arrangement is audited.
+- **SR-TE-16 (Confirmed, DL-143):** A teacher absence marks every dated lesson the teacher leads in that time NEEDS_COVER and opens a TE13 row NEEDED. Teaching never stores why the teacher is away.
+- **SR-TE-17 (Confirmed, DL-144):** Suggestions list teachers free in that period (no lesson, no other cover, not absent) at that campus, ordered: teaches this group → teaches this subject → fewest covers this term. Anyone at the campus weekly cover limit is left out (OQ-164). The arranger may pick anyone free.
+- **SR-TE-18 (Confirmed, DL-145; pattern Confirmed DL-73):** An ARRANGED COVER or SUPERVISION gives the cover teacher data scope for the group's students for that school day only, so they can take that period's register (and the class register if the absent teacher is the class teacher, OQ-165). No capability, no Tier 3, no marks or cases.
+- **SR-TE-19 (Confirmed, DL-145):** The absent teacher, the cover teacher and the class teacher are told when cover is arranged; families only when a lesson is cancelled (OQ-157). Every arrangement is audited.
 
 ## Events
 
@@ -385,7 +385,7 @@ BellScheduleActivated, TeachingGroupCreated, GroupMembershipChanged (Assessment,
 
 `teaching.allocation.view`, `teaching.allocation.manage` (exist in the catalogue; groups, members and assignments) · `teaching.responsibility.manage` · `teaching.plan.manage` · `teaching.bell.manage` · `teaching.room.manage` (campus office) · `teaching.timetable.view` · `teaching.timetable.build` · `teaching.timetable.publish` · `teaching.lesson.change` · `teaching.load.view` · `teaching.absence.record` · `teaching.cover.arrange` · `teaching.cover.view` (own covers).
 
-## Decisions (DL-131…DL-144 Confirmed; DL-145 Assumed)
+## Decisions (DL-131…DL-145 Confirmed)
 
 | ID | Decision | Why |
 |---|---|---|
@@ -403,7 +403,7 @@ BellScheduleActivated, TeachingGroupCreated, GroupMembershipChanged (Assessment,
 | DL-142 (**Confirmed**, Henry 25 Nov 2026, decision card "Campus-wide for teachers") | Teachers see their own and any campus timetable; coordinators build within their band; parents and students see their own (data now, apps later, DL-118). All Tier 1, held in the campus data location; group views see counts and loads only | MyGIIS Timetable parity (HB p.34–35); DL-47 |
 | DL-143 (**Confirmed**, Henry 25 Nov 2026, decision card "Never record why, four outcomes") | A teacher absence records only that and when a teacher is away (days or periods, never why); every lesson they lead in that time needs cover; the arranger chooses cover, supervision, merge or cancel for each | Arch module 12 "cover"; the reason is Staff and HR data (Tier 2) |
 | DL-144 (**Confirmed**, Henry 25 Nov 2026, decision card "Fit first, then fairness, limit") | Cover suggestions: free teachers at the campus, those who teach the group or subject first, then fewest covers this term; nobody at the campus weekly cover limit (setting, no default); covers counted apart from load | Fair, explainable suggestions; DL-59 pattern |
-| DL-145 (Assumed) | A confirmed cover gives the cover teacher scope for that group's students for that school day only, so they can take the register; no capability, no Tier 3, no marks or cases. Absent, cover and class teacher are told; families only for cancellations | DL-73 pattern; answers the "cover teacher" part of OQ-110 |
+| DL-145 (**Confirmed**, Henry 25 Nov 2026, decision card "That day only, register access") | A confirmed cover gives the cover teacher scope for that group's students for that school day only, so they can take the register; no capability, no Tier 3, no marks or cases. Absent, cover and class teacher are told; families only for cancellations | DL-73 pattern; answers the "cover teacher" part of OQ-110 |
 
 ## Open questions (new)
 

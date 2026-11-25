@@ -2,7 +2,7 @@
 
 | File | What it is | Upload? |
 |---|---|---|
-| `1-design-brief.md` | Design-ready digest of the Teaching & Timetable dictionary v0.1 (scope "Allocation + timetable + cover" chosen by Henry, 24 Nov 2026; DL-131 Confirmed, DL-132…DL-145 Assumed) | Yes |
+| `1-design-brief.md` | Design-ready digest of the Teaching & Timetable dictionary v0.1 (scope "Allocation + timetable + cover" chosen by Henry, 24 Nov 2026; DL-131…DL-145 Confirmed) | Yes |
 | `2-sample-data.json` | SMART Campus Punggol, Tue 24 Nov 2026 08:20: bell schedules, rooms, Grade 7 period plan and teaching groups (class groups and Language 2/3 groups across 7A–7C), teacher loads, live timetable v2 for 7A–7C, draft v3 with clashes, Arvind Menon away today and the cover board, Farah Ismail's day; viewer Meera Joshi | Yes |
 | `3-starter-prompts.md` | First prompt, follow-ups per screen, review checklist | No, paste from it |
 
@@ -20,4 +20,4 @@ All people, period times, rooms, loads and covers are invented. School day start
 
 - Section 6 of the brief lists what is still open. Show those as "Pending decision".
 - Period times, the 5-day week, maximum load and the cover limit are sample campus settings, not group defaults.
-- DL-131 is Confirmed; DL-132…DL-145 are Assumed until Henry reviews them.
+- DL-131…DL-145 are all Confirmed (Henry, 24–25 Nov 2026).

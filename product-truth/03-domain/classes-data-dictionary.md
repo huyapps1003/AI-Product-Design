@@ -69,7 +69,7 @@ ST02, ST03, AD06 and Employee DD D01/D02 are referenced, not redefined. Employee
 | grade_id | UUID | FK:AC02 | Y | T1 | Known (Arch: grade level from the programme pack) | |
 | segment_code | VARCHAR(32) | — | N | T1 | Known values per campus (organisation dictionary); derived | Pre-Primary, Primary, Middle, Higher at GIIS (DL-29). |
 | size_limit | INT | — | Y | T1 | Confirmed (DL-71) | From the class plan; may differ per class (e.g. one smaller class). |
-| home_room | VARCHAR(40) | — | N | T1 | Known (HB p.9–14 room per class, e.g. "S4 - 04") | Becomes FK:TE03 (the room list [Teaching & Timetable](./teaching-timetable-data-dictionary.md) keeps until Campus Services owns rooms, DL-141, Assumed). |
+| home_room | VARCHAR(40) | — | N | T1 | Known (HB p.9–14 room per class, e.g. "S4 - 04") | Becomes FK:TE03 (the room list [Teaching & Timetable](./teaching-timetable-data-dictionary.md) keeps until Campus Services owns rooms, DL-141, Confirmed). |
 | class_status | ENUM | — | Y | T1 | Assumed (DL-27) | DRAFT, ACTIVE, CLOSED. See enums. |
 | previous_class_id | UUID | FK:CL01 | N | T1 | Confirmed (DL-70) | Suggested predecessor from rollover (7B → 8B). Display only. |
 | enrolled_count | INT | — | Y | T1 | Assumed; derived | Current CL04 placements. Never stored by hand. |

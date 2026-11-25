@@ -6,7 +6,7 @@
   Viewers: Meera Joshi (Level Coordinator CBSE 6-8) · Dr Anita Rao (Principal) · Farah Ismail (Class teacher 7B, Science)
   Objects: OBJ-27 Timetable and lesson (primary), OBJ-12 Teaching allocation, OBJ-15 Class
   Sample: product-truth/03-domain/samples/teaching-timetable-sample.json · today Tue 24 Nov 2026 08:20 SGT · synthetic
-  DL: DL-131 Confirmed; DL-132…DL-145 Assumed · DL-73 DL-93 DL-96 DL-98 DL-99 · OQ shown as pending: OQ-147 OQ-148 OQ-149 OQ-150 OQ-152 OQ-161 OQ-162 OQ-164 OQ-165
+  DL: DL-131…DL-145 Confirmed · DL-73 DL-93 DL-96 DL-98 DL-99 · OQ shown as pending: OQ-147 OQ-148 OQ-149 OQ-150 OQ-152 OQ-161 OQ-162 OQ-164 OQ-165
   Spec: Teaching & Timetable Data Dictionary v0.1
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -645,7 +645,7 @@ function render(){
  $('#meName').textContent=v.name;$('#meRole').textContent=v.role;$('#meAv').textContent=initials(v.name);$('#scopeTxt').innerHTML=v.scope;
  const nav=v.nav.map(n=>`<a href="#" data-go="${n[0]}" class="${n[0]===st.view?'on':''}">${n[2]}<span>${n[1]}</span></a>`).join('');
  $('#nav').innerHTML=nav;$('#bnav').innerHTML=nav;
- const [fn,bind]=VIEWS[st.view];$('#view').innerHTML=fn()+`<p class="foot">Synthetic data · Teaching &amp; Timetable dictionary v0.1 · DL-131 Confirmed · DL-132…DL-145 Assumed</p>`;bind&&bind();
+ const [fn,bind]=VIEWS[st.view];$('#view').innerHTML=fn()+`<p class="foot">Synthetic data · Teaching &amp; Timetable dictionary v0.1 · DL-131…DL-145 Confirmed</p>`;bind&&bind();
  document.querySelectorAll('[data-go]').forEach(a=>a.onclick=e=>{e.preventDefault();st.view=a.dataset.go;render();$('#view').focus()});
 }
 function setFrame(f){$('#stage').classList.toggle('mobile',f==='phone');document.querySelectorAll('#frame button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f))}

@@ -42,12 +42,12 @@ Use these terms exactly in screens and specs. Where a term's definition is still
 | **Restricted case** | A case only the people named on it can see; others don't see it in any list | Confirmed (DL-19); Assumed (DL-125) |
 | **Conversation** | Messages between staff and the guardians of one student | Assumed (DL-127) |
 | **Announcement** | A notice sent to an audience (campus, grade, class); may ask families to confirm they've read it, which is not consent | Assumed (DL-128) |
-| **Teaching group** | The students taught one subject together: a whole class ("7B Mathematics") or a group across classes ("Grade 7 Hindi (L2)") | Assumed (DL-132) |
-| **Teaching assignment** | Which teacher teaches a teaching group; one lead teacher per group. Gives the teacher their students | Assumed (DL-134) |
-| **Bell schedule** | The periods, breaks and assembly of a school day for part of a campus | Assumed (DL-137); times Open (OQ-147) |
-| **Timetable** | The weekly pattern of lessons. On screens a published version is "Live"; each change is a new version | Assumed (DL-138) |
-| **Clash** | A timetable problem. "Must fix" (teacher, room or student in two places) blocks publishing; "Check" (load, room type) needs a note | Assumed (DL-139) |
-| **Cover** | Another teacher taking or supervising a lesson when its teacher is away; the cover teacher sees the students for that day only | Assumed (DL-143, DL-145) |
+| **Teaching group** | The students taught one subject together: a whole class ("7B Mathematics") or a group across classes ("Grade 7 Hindi (L2)") | Confirmed (DL-132) |
+| **Teaching assignment** | Which teacher teaches a teaching group; one lead teacher per group. Gives the teacher their students | Confirmed (DL-134) |
+| **Bell schedule** | The periods, breaks and assembly of a school day for part of a campus | Confirmed (DL-137); times Open (OQ-147) |
+| **Timetable** | The weekly pattern of lessons. On screens a published version is "Live"; each change is a new version | Confirmed (DL-138) |
+| **Clash** | A timetable problem. "Must fix" (teacher, room or student in two places) blocks publishing; "Check" (load, room type) needs a note | Confirmed (DL-139) |
+| **Cover** | Another teacher taking or supervising a lesson when its teacher is away; the cover teacher sees the students for that day only | Confirmed (DL-143, DL-145) |
 | **House** | A student team that runs across years, such as House B | Known (HB p.169); list per campus Open (OQ-20) |
 | **Student ID** | The number people use for a student; unique across Campus OS and kept on campus transfer | Confirmed (DL-31) |
 | **Programme** (data: programme offering) | What a campus runs: a curriculum for a grade range, for example CBSE 1–12 at Punggol or IB Diploma at East Coast. Statuses: Opening soon, Open, No new students, Closed. Use "Programme" on screens; "programme offering" only in data and specs | Confirmed (DL-112, DL-117) |
