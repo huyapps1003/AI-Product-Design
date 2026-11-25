@@ -46,7 +46,8 @@ product-truth/
 │   ├── attendance-data-dictionary.md  school days, registers, marks, leave, gate log, thresholds, ICA (AT01–AT10)
 │   ├── academic-structure-data-dictionary.md  packs, grade levels, subjects, offerings, years, terms (AC01–AC09)
 │   ├── cases-communications-data-dictionary.md  case engine, complaints, messages, announcements, notifications (CC01–CC16)
-│   └── teaching-timetable-data-dictionary.md  teaching groups, assignments, bell schedules, rooms, timetables, dated lessons, cover (TE01–TE13)
+│   ├── teaching-timetable-data-dictionary.md  teaching groups, assignments, bell schedules, rooms, timetables, dated lessons, cover (TE01–TE13)
+│   └── staff-hr-data-dictionary.md  staff records, contracts, leave, compliance, recruitment, joining and leaving, appraisal, training (E01–E08 refined, HR01–HR18)
 ├── 04-access/                 RBAC models
 │   ├── README.md              access paths by actor, constraints, gaps
 │   ├── role-catalogue.md      school roles, access roles, undefined families
@@ -94,6 +95,7 @@ product-truth/
 | 03-domain | [academic-structure-data-dictionary.md](./03-domain/academic-structure-data-dictionary.md) | Academic structure: programme packs (GSG template, brand-country version), grade levels and bands, pack subjects, offerings per campus, year templates, academic years and terms per campus × offering, offered subjects with choice groups; read by every module | Proposed (DL-109…DL-117 Confirmed) |
 | 03-domain | [cases-communications-data-dictionary.md](./03-domain/cases-communications-data-dictionary.md) | Cases & Communications: case types and brand-country case policies, the shared Case with working-day deadlines, escalation, approvals and timeline; complaints and feedback; staff ↔ guardian messages; announcements; notification templates, delivery log and preferences | Proposed (DL-119…DL-130 Confirmed) |
 | 03-domain | [teaching-timetable-data-dictionary.md](./03-domain/teaching-timetable-data-dictionary.md) | Teaching & Timetable: teaching groups (class and cross-class), members, teaching assignments and load, academic responsibilities, period plans, bell schedules, rooms, versioned timetables with clash checks, dated lessons, teacher absences and cover | Proposed (DL-131…DL-145 Confirmed) |
+| 03-domain | [staff-hr-data-dictionary.md](./03-domain/staff-hr-data-dictionary.md) | Staff & HR: employee profile and employments (refines Employee DD E01–E08), departments, positions, line managers, contract terms, staff leave and balances (feeds Teaching's absence), compliance items and status, vacancies, candidates and offers, joining and leaving checklists, appraisal, training | Proposed (DL-146 Confirmed; DL-147…DL-164 Assumed) |
 | 04-access | [README.md](./04-access/README.md) | Access paths by actor, constraints, research gaps | Mixed |
 | 04-access | [role-catalogue.md](./04-access/role-catalogue.md) | All role names and the families with none | Known / Assumed / Open |
 | 04-access | [rbac-model.md](./04-access/rbac-model.md) | Six layers, evaluation algorithm, v1 scope, screen impact | Assumed; changes Confirmed (DL-32…DL-38) |

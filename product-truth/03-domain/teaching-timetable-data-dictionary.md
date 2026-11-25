@@ -259,7 +259,7 @@ ST02, ST03, CL01, CL03, CL04, AC02, AC03, AC07, AC08, AC09, AT01, AT02 and E01 a
 | date_from / date_to | DATE | — | Y | T1 | Assumed | Inclusive. |
 | periods | JSON | — | N | T1 | Assumed | Null = whole days; otherwise bell periods on each date (a teacher out for training P5–P8). |
 | absence_kind | ENUM | — | Y | T1 | Assumed (DL-27, DL-143) | LEAVE, DUTY (school trip, invigilation elsewhere, training), OTHER. Never a medical or personal reason (Tier 2, Staff and HR). |
-| source | ENUM | — | Y | T1 | Assumed | STAFF_LEAVE (from Staff and HR when it exists), ENTERED (coordinator or office), TIMETABLE_EVENT. How GIIS teachers report absence today: OQ-163. |
+| source | ENUM | — | Y | T1 | Assumed | STAFF_LEAVE (created by Staff & HR when leave is approved or sick leave reported, with dates and periods only: [staff & HR dictionary](./staff-hr-data-dictionary.md) DL-156, SR-HR-06), ENTERED (coordinator or office), TIMETABLE_EVENT. How GIIS teachers report absence today: OQ-163, OQ-168. |
 | reported_at | TIMESTAMPTZ | — | Y | T1 | Assumed | Same-morning reports show first on the cover board. |
 | cover_note | TEXT | — | N | T1 | Assumed | Work set by the absent teacher ("Worksheet 7 on the shared drive"). Shown to the cover teacher only. |
 | recorded_by_user_id | UUID | FK:User | Y | T1 | Assumed | |
@@ -298,7 +298,7 @@ ST02, ST03, CL01, CL03, CL04, AC02, AC03, AC07, AC08, AC09, AT01, AT02 and E01 a
 | Assessment held | Teacher from TE06 opens the mark sheet | AS07 per group | SR-TE-13 |
 | Student moves class | TE05 FROM_CLASS rows move; choice groups re-checked | CL04 | SR-TE-04 |
 | Teacher leaves mid-year | TE06 ENDED; groups without a LEAD flagged | Staff and HR (E02 end) | SR-TE-06 |
-| Teacher away tomorrow | TE12; their TE11 lessons NEEDS_COVER; TE13 arranged | Staff leave (later); notifications | SR-TE-16, SR-TE-17 |
+| Teacher away tomorrow | TE12; their TE11 lessons NEEDS_COVER; TE13 arranged | Staff leave HR06 (DL-156); notifications | SR-TE-16, SR-TE-17 |
 | Cover lesson starts | Cover teacher has scope for that day | AT03 register taken by the cover teacher | SR-TE-18 |
 
 ## Field visibility by role
