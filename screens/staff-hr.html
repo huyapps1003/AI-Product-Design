@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Staff &amp; HR Prototype</title>
+<!--
+  Screens: SCR-HR-01 Staff directory · SCR-HR-02 Staff profile (overview, employment, leave, compliance, training, appraisal) · SCR-HR-03 Leave approvals and team calendar · SCR-HR-04 Compliance dashboard · SCR-HR-05 Recruitment board · SCR-HR-06 Joining and leaving checklists · SCR-HR-07 Appraisal cycle · SCR-HR-08 My leave (phone) · SCR-HR-09 My checks and training (phone)
+  Viewers: Nadia Rahman (HR Business Partner) · Meera Joshi (line manager) · Dr Anita Rao (Principal) · Farah Ismail (staff, phone)
+  Objects: OBJ-05 Employee, OBJ-06 Employment, OBJ-28 Staff leave, OBJ-29 Compliance record, OBJ-30 Vacancy and candidate, OBJ-31 Appraisal and training
+  Sample: product-truth/03-domain/samples/staff-hr-sample.json · today Wed 25 Nov 2026 09:15 SGT · synthetic
+  DL: DL-146 Confirmed · DL-147…DL-164 Assumed · OQ shown as pending: OQ-166 OQ-168 OQ-169 OQ-171 OQ-174 OQ-175 OQ-177 OQ-178 OQ-189
+  Spec: Staff & HR Data Dictionary v0.1
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#00A76F;--primary-dark:#007867;--primary-soft:rgba(0,167,111,.08);--primary-soft2:rgba(0,167,111,.16);
+  --secondary:#8E33FF;--secondary-soft:rgba(142,51,255,.08);
+  --error:#B71D18;--error-soft:rgba(255,86,48,.12);
+  --warning:#B76E00;--warning-soft:rgba(255,171,0,.14);--warning-line:#FFAB00;
+  --info:#006C9C;--info-soft:rgba(0,184,217,.12);
+  --success:#118D57;--success-soft:rgba(34,197,94,.14);
+  --text:#212B36;--text2:#637381;--text3:#919EAB;
+  --bg:#FFFFFF;--paper:#FFFFFF;--neutral:#F4F6F8;--canvas:#EDEFF2;
+  --divider:rgba(145,158,171,.2);--line:rgba(145,158,171,.32);
+  --z1:0 1px 2px rgba(145,158,171,.16);
+  --card:0 0 2px 0 rgba(145,158,171,.2),0 12px 24px -4px rgba(145,158,171,.12);
+  --scrim:rgba(22,28,36,.48);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --primary:#5BE49B;--primary-dark:#5BE49B;--primary-soft:rgba(91,228,155,.10);--primary-soft2:rgba(91,228,155,.18);
+  --secondary:#C684FF;--secondary-soft:rgba(198,132,255,.12);
+  --error:#FFAC82;--error-soft:rgba(255,86,48,.18);
+  --warning:#FFD666;--warning-soft:rgba(255,171,0,.16);
+  --info:#61F3F3;--info-soft:rgba(0,184,217,.16);
+  --success:#77ED8B;--success-soft:rgba(34,197,94,.16);
+  --text:#FFFFFF;--text2:#919EAB;--text3:#637381;
+  --bg:#161C24;--paper:#212B36;--neutral:#28323D;--canvas:#10141A;
+  --card:0 0 2px 0 rgba(0,0,0,.2),0 12px 24px -4px rgba(0,0,0,.16);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --primary:#5BE49B;--primary-dark:#5BE49B;--primary-soft:rgba(91,228,155,.10);--primary-soft2:rgba(91,228,155,.18);
+  --secondary:#C684FF;--secondary-soft:rgba(198,132,255,.12);
+  --error:#FFAC82;--error-soft:rgba(255,86,48,.18);
+  --warning:#FFD666;--warning-soft:rgba(255,171,0,.16);
+  --info:#61F3F3;--info-soft:rgba(0,184,217,.16);
+  --success:#77ED8B;--success-soft:rgba(34,197,94,.16);
+  --text:#FFFFFF;--text2:#919EAB;--text3:#637381;
+  --bg:#161C24;--paper:#212B36;--neutral:#28323D;--canvas:#10141A;
+  --card:0 0 2px 0 rgba(0,0,0,.2),0 12px 24px -4px rgba(0,0,0,.16);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--canvas);color:var(--text);font:400 14px/1.57 "Public Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.mono{font-variant-numeric:tabular-nums}
+
+/* ---------- Prototype toolbar (not part of the product) ---------- */
+.proto{position:sticky;top:0;z-index:30;background:var(--paper);border-bottom:1px solid var(--divider);
+  padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));
+  display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+.proto-title{font-weight:700;font-size:13px;margin-right:auto;display:flex;gap:8px;align-items:center}
+.proto-title small{font-weight:500;color:var(--text2)}
+.ctl{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2)}
+.seg{display:inline-flex;background:var(--neutral);border-radius:8px;padding:3px}
+.seg button{border:0;background:transparent;padding:5px 10px;border-radius:6px;font-size:12px;font-weight:600;color:var(--text2);white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--paper);color:var(--text);box-shadow:var(--z1)}
+
+.stage{padding:24px max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
+.device{margin:0 auto;background:var(--bg);border-radius:16px;overflow:hidden;box-shadow:var(--card);max-width:1440px}
+.stage.mobile .device{max-width:390px;height:800px;border-radius:36px;border:10px solid #161C24;display:flex;flex-direction:column}
+.stage.mobile .app{flex:1;overflow:auto}
+
+/* ---------- App shell ---------- */
+.app{container-type:inline-size;background:var(--bg);min-height:640px}
+.shell{display:grid;grid-template-columns:280px 1fr;min-height:100%}
+.side{border-right:1px dashed var(--line);padding:20px 16px;display:flex;flex-direction:column;gap:4px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;padding:4px 8px 20px}
+.logo i{width:32px;height:32px;border-radius:10px;background:var(--primary);display:grid;place-items:center;color:#fff;font-style:normal;font-size:14px}
+:root[data-theme="dark"] .logo i{color:#161C24}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo i{color:#161C24}}
+.nav-h{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);padding:12px 12px 6px}
+.nav a{display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:8px;color:var(--text2);text-decoration:none;font-weight:500;min-height:44px}
+.nav a.on{background:var(--primary-soft);color:var(--primary);font-weight:600}
+.nav svg{width:22px;height:22px;flex:none}
+
+.main{min-width:0;display:flex;flex-direction:column}
+.top{height:64px;display:flex;align-items:center;gap:12px;padding:0 24px;border-bottom:1px solid var(--divider);position:sticky;top:0;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(6px);z-index:5}
+.scope{display:flex;align-items:center;gap:6px;min-width:0;border:1px solid var(--line);border-radius:8px;padding:6px 10px;background:transparent;font-size:13px;font-weight:500}
+.scope span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.scope .sep{color:var(--text3)}
+.scope b{font-weight:700}
+.top .grow{flex:1}
+.iconbtn{width:40px;height:40px;border-radius:50%;border:0;background:transparent;display:grid;place-items:center;color:var(--text2)}
+.iconbtn svg{width:22px;height:22px}
+.me{display:flex;align-items:center;gap:10px}
+.me .who{line-height:1.25;text-align:right}
+.me .who b{display:block;font-size:13px}
+.me .who small{color:var(--text2);font-size:12px;white-space:nowrap}
+.seg{flex-wrap:wrap}
+.proto .ctl{flex-wrap:wrap}
+
+.avatar{border-radius:50%;display:grid;place-items:center;font-weight:700;flex:none}
+.av-sm{width:36px;height:36px;font-size:13px;background:var(--secondary-soft);color:var(--secondary)}
+
+.content{padding:24px 40px 48px;max-width:1200px;width:100%;margin:0 auto}
+.crumbs{font-size:13px;color:var(--text2);display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.crumbs .dot{width:4px;height:4px;border-radius:50%;background:var(--text3);align-self:center}
+.crumbs b{color:var(--text);font-weight:500}
+
+/* Person header AP-03 */
+.hero{background:var(--paper);border-radius:16px;box-shadow:var(--card);overflow:hidden;margin-bottom:24px}
+.hero-band{height:72px;background:linear-gradient(120deg,var(--primary-soft2),var(--secondary-soft))}
+.hero-body{display:flex;gap:20px;padding:0 24px 20px;align-items:flex-end;flex-wrap:wrap;margin-top:-36px}
+.av-xl{width:96px;height:96px;font-size:32px;background:var(--primary);color:#fff;border:4px solid var(--paper)}
+:root[data-theme="dark"] .av-xl{color:#161C24}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .av-xl{color:#161C24}}
+.hero-id{flex:1;min-width:220px;padding-top:40px}
+.hero-id h1{margin:0;font-size:24px;line-height:1.3;font-weight:700}
+.hero-meta{color:var(--text2);font-size:14px;margin-top:2px;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.hero-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+.chip{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 8px;border-radius:6px;font-size:12px;font-weight:700;line-height:1;white-space:nowrap}
+.c-success{background:var(--success-soft);color:var(--success)}
+.c-warning{background:var(--warning-soft);color:var(--warning)}
+.c-error{background:var(--error-soft);color:var(--error)}
+.c-info{background:var(--info-soft);color:var(--info)}
+.c-default{background:var(--neutral);color:var(--text2)}
+.c-role{background:var(--secondary-soft);color:var(--secondary)}
+.c-pending{background:transparent;border:1px solid var(--warning-line);color:var(--warning);font-weight:600}
+.c-source{background:var(--info-soft);color:var(--info);font-weight:600}
+.chip svg{width:13px;height:13px}
+
+.btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--line);background:transparent;font-weight:700;font-size:14px;white-space:nowrap}
+.btn-primary{background:var(--text);color:var(--bg);border-color:var(--text)}
+.btn-sm{height:30px;padding:0 10px;font-size:13px}
+.btn-ghost{border-color:transparent;color:var(--primary)}
+.btn svg{width:18px;height:18px}
+
+/* Tabs */
+.tabs{display:flex;gap:28px;border-bottom:1px solid var(--divider);padding:0 24px;overflow-x:auto;scrollbar-width:none}
+.tabs a{padding:12px 0;color:var(--text2);text-decoration:none;font-weight:600;white-space:nowrap;border-bottom:2px solid transparent}
+.tabs a.on{color:var(--text);border-color:var(--text)}
+
+/* Cards */
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+.span2{grid-column:1/-1}
+.card{background:var(--paper);border-radius:16px;box-shadow:var(--card);scroll-margin-top:80px}
+.card-h{display:flex;align-items:center;gap:8px;padding:20px 24px 0;flex-wrap:wrap}
+.card-h h2{margin:0;font-size:17px;font-weight:700;margin-right:auto}
+.card-b{padding:16px 24px 24px}
+.why{border:0;background:transparent;color:var(--text2);font-size:12px;font-weight:600;display:inline-flex;gap:4px;align-items:center;padding:4px 6px;border-radius:6px;min-height:32px}
+.why:hover{background:var(--neutral)}
+.why svg{width:16px;height:16px}
+.explain{margin:12px 24px 0;padding:12px 14px;border-radius:10px;background:var(--neutral);font-size:13px}
+.explain dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0}
+.explain dt{color:var(--text2)}
+.explain dd{margin:0;font-weight:500;overflow-wrap:anywhere}
+.explain code{font-size:12px;background:var(--paper);padding:1px 5px;border-radius:4px}
+
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 24px}
+.f{min-width:0}
+.f .l{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.f .v{font-weight:500;margin-top:2px;overflow-wrap:anywhere;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tier{font-size:10px;font-weight:700;color:var(--text3);border:1px solid var(--line);border-radius:4px;padding:0 4px;line-height:16px}
+
+.masked{display:inline-flex;align-items:center;gap:6px;color:var(--text2);font-family:ui-monospace,Menlo,monospace;letter-spacing:.04em}
+.masked svg{width:15px;height:15px}
+
+.noaccess{display:flex;gap:14px;align-items:flex-start;padding:16px;border:1px dashed var(--line);border-radius:12px}
+.noaccess .ico{width:40px;height:40px;border-radius:12px;background:var(--neutral);display:grid;place-items:center;color:var(--text2);flex:none}
+.noaccess .ico svg{width:22px;height:22px}
+.noaccess b{display:block}
+.noaccess p{margin:2px 0 0;color:var(--text2);font-size:13px}
+
+.addr{display:flex;flex-direction:column;gap:12px}
+.addr-row{padding:12px 14px;border-radius:10px;border:1px solid var(--divider)}
+.addr-row .l{font-size:12px;color:var(--text2);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.addr-row .v{font-weight:500;margin-top:2px}
+
+.doc{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:14px;border-radius:12px;border:1px solid var(--divider);margin-bottom:12px}
+.doc .t{font-weight:700;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.doc .s{grid-column:1/-1;color:var(--text2);font-size:13px;display:flex;flex-wrap:wrap;gap:4px 14px}
+.logline{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--text2);padding:10px 12px;border-radius:8px;background:var(--info-soft);margin-top:4px}
+.logline svg{width:16px;height:16px;color:var(--info);flex:none;margin-top:1px}
+
+/* Timeline AP-05 */
+.tl{list-style:none;margin:0;padding:0}
+.tl li{position:relative;padding:0 0 20px 28px}
+.tl li::before{content:"";position:absolute;left:6px;top:20px;bottom:0;width:2px;background:var(--divider)}
+.tl li:last-child::before{display:none}
+.tl .dotm{position:absolute;left:0;top:5px;width:14px;height:14px;border-radius:50%;border:3px solid var(--paper);box-shadow:0 0 0 2px var(--line);background:var(--text3)}
+.tl .dotm.cur{background:var(--success);box-shadow:0 0 0 2px var(--success-soft)}
+.tl .h{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-weight:700}
+.tl .m{color:var(--text2);font-size:13px}
+
+.guard{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.g{border:1px solid var(--divider);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.g-top{display:flex;gap:12px;align-items:center}
+.av-md{width:44px;height:44px;font-size:15px;background:var(--info-soft);color:var(--info)}
+.g-top b{display:block}
+.g-top small{color:var(--text2)}
+.flags{display:flex;gap:6px;flex-wrap:wrap}
+.contact{display:flex;flex-direction:column;gap:4px;font-size:13px}
+.contact div{display:flex;gap:8px;align-items:center}
+.contact svg{width:16px;height:16px;color:var(--text3);flex:none}
+
+.pendcard{border:1px dashed var(--warning-line);border-radius:12px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;background:transparent}
+.pendcard p{margin:2px 0 0;color:var(--text2);font-size:13px}
+
+.foot{margin-top:24px;font-size:12px;color:var(--text3)}
+
+/* Bottom nav for compact widths */
+.bnav{display:none}
+
+/* ---------- Compact layout, driven by frame width ---------- */
+@container (max-width: 1080px){
+  .shell{grid-template-columns:88px 1fr}
+  .side .logo span,.nav-h,.nav a span{display:none}
+  .nav a{justify-content:center;padding:10px}
+  .content{padding:24px 24px 48px}
+}
+@container (max-width: 860px){
+  .grid,.guard{grid-template-columns:minmax(0,1fr)}
+  .me .who{display:none}
+}
+@container (max-width: 640px){
+  .shell{grid-template-columns:1fr}
+  .side{display:none}
+  .top{padding:0 12px;height:56px}
+  .scope .hide-sm{display:none}
+  .content{padding:16px 16px 96px}
+  .hero-body{padding:0 16px 16px;gap:12px}
+  .av-xl{width:72px;height:72px;font-size:24px}
+  .hero-id{padding-top:0;min-width:100%}
+  .hero-id h1{font-size:20px}
+  .hero-actions{width:100%}
+  .hero-actions .btn{flex:1;justify-content:center}
+  .tabs{padding:0 16px;gap:20px}
+  .card-h{padding:16px 16px 0}
+  .card-b{padding:12px 16px 16px}
+  .explain{margin:12px 16px 0}
+  .fields{grid-template-columns:minmax(0,1fr)}
+  .crumbs{display:none}
+  .bnav{display:flex;position:sticky;bottom:0;background:var(--paper);border-top:1px solid var(--divider);justify-content:space-around;padding:6px 0 calc(6px + env(safe-area-inset-bottom,0px))}
+  .bnav a{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;font-weight:600;color:var(--text2);text-decoration:none;min-width:64px;min-height:44px;justify-content:center}
+  .bnav a.on{color:var(--primary)}
+  .bnav svg{width:22px;height:22px}
+}
+
+/* Dialog */
+.scrim{position:fixed;inset:0;background:var(--scrim);display:grid;place-items:center;padding:16px;z-index:50}
+.dlg{background:var(--paper);border-radius:16px;box-shadow:0 24px 48px rgba(0,0,0,.24);width:100%;max-width:480px;padding:24px}
+.dlg h3{margin:0 0 4px;font-size:18px}
+.dlg p{margin:0 0 16px;color:var(--text2);font-size:13px}
+.dlg label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin:12px 0 6px}
+.dlg select,.dlg textarea{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.dlg textarea{min-height:72px;resize:vertical}
+.dlg .row{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+.dlg .btn-primary:disabled{opacity:.4;cursor:not-allowed}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:600;font-size:13px;z-index:60;max-width:calc(100% - 32px)}
+
+.content a:not(.btn):not(.tabs a){color:var(--primary-dark);font-weight:600;text-decoration:none}
+.content a:not(.btn):not(.tabs a):hover{text-decoration:underline}
+.page-h{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.page-h h1{margin:0;font-size:24px;font-weight:700;line-height:1.3}
+.page-h p{margin:2px 0 0;color:var(--text2)}
+.page-h .grow{flex:1}
+.listcard{background:var(--paper);border-radius:16px;box-shadow:var(--card);overflow:hidden}
+.qtabs{display:flex;gap:24px;padding:0 20px;border-bottom:1px solid var(--divider);overflow-x:auto;scrollbar-width:none}
+.qtabs button{border:0;background:transparent;padding:12px 0;font-weight:600;color:var(--text2);white-space:nowrap;border-bottom:2px solid transparent;display:flex;gap:6px;align-items:center;min-height:44px}
+.qtabs button[aria-pressed="true"]{color:var(--text);border-color:var(--text)}
+.cnt{font-size:11px;font-weight:700;border-radius:6px;padding:1px 6px;background:var(--neutral);color:var(--text2)}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:13px;font-weight:600;color:var(--text2);background:var(--neutral);padding:12px 16px;white-space:nowrap}
+td{padding:14px 16px;border-bottom:1px dashed var(--divider);vertical-align:middle}
+tbody tr.click{cursor:pointer}
+tbody tr.click:hover td{background:var(--primary-soft)}
+.sub{color:var(--text2);font-size:12px}
+.whoc{display:flex;gap:12px;align-items:center;min-width:0}
+.whoc b{display:block;font-weight:600;white-space:nowrap}
+.av-row{width:40px;height:40px;font-size:13px;background:var(--primary-soft2);color:var(--primary-dark)}
+.scopebar{display:flex;gap:10px;align-items:flex-start;padding:10px 14px;border-radius:10px;background:var(--neutral);font-size:13px;margin:16px 20px}
+.scopebar svg{width:16px;height:16px;color:var(--text2);flex:none;margin-top:2px}
+
+/* Board */
+.board{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(220px,1fr);gap:16px;overflow-x:auto;padding-bottom:8px}
+.col{background:var(--neutral);border-radius:16px;padding:12px;min-height:200px;display:flex;flex-direction:column;gap:10px}
+.col-h{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13px;padding:2px 4px}
+.kcard{background:var(--paper);border-radius:12px;box-shadow:var(--z1);padding:12px;border:1px solid var(--divider);text-align:left;display:flex;flex-direction:column;gap:6px;width:100%}
+.kcard:hover{border-color:var(--primary)}
+.kcard b{font-size:14px}
+.kcard .blk{font-size:12px;color:var(--warning);display:flex;gap:4px;align-items:flex-start}
+.kcard .blk svg{width:14px;height:14px;flex:none;margin-top:2px}
+.kempty{font-size:12px;color:var(--text3);padding:8px 4px}
+
+/* Stepper */
+.steps{display:flex;gap:0;padding:16px 24px 20px;overflow-x:auto;scrollbar-width:none}
+.step{flex:1;min-width:96px;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;font-size:12px;color:var(--text2);text-align:center}
+.step::before{content:"";position:absolute;top:11px;left:-50%;right:50%;height:2px;background:var(--divider)}
+.step:first-child::before{display:none}
+.step .d{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--neutral);color:var(--text2);font-weight:700;font-size:11px;position:relative;z-index:1}
+.step.done .d{background:var(--success);color:#fff}
+.step.done::before,.step.cur::before{background:var(--success)}
+.step.cur .d{background:var(--text);color:var(--bg)}
+.step.cur{color:var(--text);font-weight:700}
+.step.bad .d{background:var(--error);color:#fff}
+
+/* Capacity bar */
+.bar{height:8px;border-radius:4px;background:var(--neutral);overflow:hidden;display:flex;min-width:120px}
+.bar i{display:block;height:100%}
+.bar .e{background:var(--primary)}
+.bar .h{background:var(--warning-line)}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--text2);flex-wrap:wrap}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+.kv{display:grid;grid-template-columns:200px 1fr;gap:10px 16px;font-size:14px}
+.kv dt{color:var(--text2)}
+.kv dd{margin:0;font-weight:500;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.notset{color:var(--warning);font-weight:700;display:inline-flex;gap:4px;align-items:center}
+.notset svg{width:15px;height:15px}
+.settings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.count{display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:12px;background:var(--warning-soft);color:var(--warning);font-weight:600;font-size:13px}
+.count svg{width:20px;height:20px;flex:none}
+.blocked{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:12px;border:1px solid var(--warning-line);font-size:13px}
+.blocked svg{width:20px;height:20px;color:var(--warning);flex:none}
+.blocked b{display:block}
+.list-row{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px dashed var(--divider);flex-wrap:wrap}
+.list-row:last-child{border-bottom:0}
+.list-row .grow{flex:1;min-width:160px}
+.pos{width:28px;height:28px;border-radius:8px;background:var(--neutral);display:grid;place-items:center;font-weight:700;font-size:13px;flex:none}
+.dlg input[type=text]{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.drawer-kids{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.drawer-kids div{padding:10px 12px;border:1px solid var(--divider);border-radius:10px}
+@container (max-width: 860px){.settings{grid-template-columns:minmax(0,1fr)}.kv{grid-template-columns:minmax(0,1fr);gap:2px 0}.kv dd{margin-bottom:10px}}
+@container (max-width: 640px){.page-h h1{font-size:20px}.steps{padding:12px 16px 16px}.board{grid-auto-columns:minmax(240px,80%)}}
+/* ---------- Classes additions ---------- */
+.ccards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.ccard{background:var(--paper);border-radius:14px;box-shadow:var(--card);padding:16px;text-align:left;border:1px solid transparent;display:flex;flex-direction:column;gap:8px;width:100%}
+.ccard:hover{border-color:var(--primary)}
+.ccard .t{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ccard .t b{font-size:16px;margin-right:auto}
+.ccard .m{font-size:13px;color:var(--text2);display:flex;gap:4px 12px;flex-wrap:wrap}
+.gh{display:flex;align-items:baseline;gap:10px;margin:28px 0 12px;flex-wrap:wrap}
+.gh h2{margin:0;font-size:16px}
+.gh .sub{font-size:13px}
+.fill{display:flex;align-items:center;gap:10px;font-size:13px}
+.fill .bar{flex:1;min-width:80px}
+.bar .o{background:var(--error)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.filters select,.dlg input[type=date],.dlg input[type=number]{font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 10px}
+.dlg input[type=date]{width:100%;padding:10px 12px}
+.hdot{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none}
+.stepper{display:inline-flex;align-items:center;gap:6px}
+.stepper button{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:transparent;font-weight:700}
+.stepper button:disabled{opacity:.35;cursor:not-allowed}
+.dlg .opt,.opt{display:flex;font-size:14px;font-weight:400;color:var(--text);margin:0 0 8px;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--divider);border-radius:10px;margin-bottom:8px;cursor:pointer}
+.opt input{accent-color:var(--primary)}
+.opt.dis{opacity:.55}
+.opt .grow{flex:1}
+.houses{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.house{background:var(--paper);border-radius:14px;box-shadow:var(--card);padding:16px;display:flex;flex-direction:column;gap:6px}
+.house b{font-size:22px}
+.note{font-size:12px;color:var(--text2);margin-top:6px}
+.proto-note{border:1px dashed var(--line);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--text2);margin-top:24px}
+.sumrow{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 16px}
+.stat{background:var(--paper);border-radius:12px;box-shadow:var(--card);padding:12px 16px;min-width:120px}
+.stat b{display:block;font-size:20px}
+.stat span{font-size:12px;color:var(--text2)}
+@container (max-width: 860px){.houses{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@container (max-width: 640px){.roster td,.roster th{padding:10px 8px}.roster .hname{display:none}.roster .whoc{gap:8px}.roster .av-row{display:none}.ccards{grid-template-columns:minmax(0,1fr)}.hide-phone{display:none}}
+
+/* ---------- Attendance additions ---------- */
+.reg{display:flex;flex-direction:column}
+.rrow{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--divider)}
+.rrow:last-child{border-bottom:0}
+.rrow .nm{flex:1;min-width:0}
+.rrow .nm b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rrow select{font:inherit;font-size:13px;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 8px;max-width:140px}
+.tag{font-size:11px;font-weight:600;color:var(--info)}
+.pct{font-weight:700;font-variant-numeric:tabular-nums}
+.meter{position:relative;height:8px;border-radius:4px;background:var(--neutral);min-width:90px}
+.meter i{position:absolute;left:0;top:0;bottom:0;border-radius:4px}
+.meter u{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--text)}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;font-size:12px;text-align:center}
+.cal .h{color:var(--text3);font-weight:700}
+.cal .d{padding:6px 0;border-radius:6px;background:var(--success-soft);color:var(--success);font-weight:600}
+.cal .d.off{background:var(--neutral);color:var(--text3);font-weight:400}
+.cal .d.hol{background:var(--warning-soft);color:var(--warning)}
+.cal .d.today{outline:2px solid var(--text)}
+.cal .d.blank{background:transparent}
+.t3{border:1px solid var(--secondary);border-radius:12px;padding:10px 14px;font-size:13px;color:var(--secondary);background:var(--secondary-soft);display:flex;gap:8px;align-items:center}
+.dlg input[type=time]{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.route{padding:10px 12px;border-radius:10px;background:var(--neutral);font-size:13px;margin-top:12px}
+@container (max-width: 640px){.roster .meter{display:none}.hide-ph{display:none}}
+/* ---------- Teaching & Timetable additions ---------- */
+.covtab td{vertical-align:top}
+.sugs{display:flex;gap:6px;flex-wrap:wrap}
+.sug{display:flex;flex-direction:column;align-items:flex-start;gap:1px;border:1px solid var(--line);background:transparent;border-radius:10px;padding:6px 10px;text-align:left;min-height:44px}
+.sug b{font-size:13px}
+.sug span{font-size:11px;color:var(--text2)}
+.sug:hover:not(:disabled){border-color:var(--primary);background:var(--primary-soft)}
+.sug:disabled{cursor:default}
+.tt{table-layout:fixed;min-width:760px}
+.tt th{text-align:center;padding:10px 8px}
+.tt th.today,.tt td.today{background:var(--primary-soft)}
+.tt th.pt{width:76px;text-align:left;background:var(--neutral)}
+.tt th.pt b{display:block;color:var(--text)}
+.tt th.pt span{font-size:11px;color:var(--text3);font-weight:500}
+.tt td{padding:4px;border-bottom:1px solid var(--divider);vertical-align:top}
+.tt tr.nont td{font-size:12px;color:var(--text3);text-align:center;background:var(--neutral);padding:4px}
+.ttc{border-radius:8px;padding:6px 8px;background:var(--neutral);display:flex;flex-direction:column;gap:1px;font-size:12px;line-height:1.35;min-height:58px}
+.ttc b{font-size:12px}
+.ttc span{color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ttc em{font-style:normal;font-weight:700;font-size:11px;margin-top:2px}
+.ttc em.cv{color:var(--secondary)}.ttc em.nc{color:var(--error)}.ttc em.cn{color:var(--warning)}.ttc em.ch{color:var(--info)}
+.ttc.blk{background:var(--secondary-soft)}
+.ttc.blk b{color:var(--secondary)}
+.ttc.blk span{white-space:normal}
+.ttc.free{color:var(--text3);background:transparent;border:1px dashed var(--divider);justify-content:center;align-items:center}
+.ttc.s-Mathem{background:var(--info-soft)}
+.ttc.s-Scienc{background:var(--success-soft)}
+.bgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:24px;align-items:start}
+.chg{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.clash{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px dashed var(--divider)}
+.clash:last-child{border-bottom:0}
+.clash .grow{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.clash.done{opacity:.6}
+.mini{margin-top:12px}
+.mini td{padding:6px 8px;font-size:13px}
+.rooms{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.room{border:1px solid var(--divider);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;font-size:13px}
+.room.oou{border-color:var(--warning-line)}
+.lrow{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px dashed var(--divider)}
+.lrow .pp{width:48px;flex:none}
+.lrow .pp b{display:block}
+.lrow .pp span{font-size:12px;color:var(--text2)}
+.lrow .nm{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;align-items:flex-start}
+.lrow.isc{background:var(--secondary-soft);border-radius:12px;padding:12px;border-bottom:0;margin:4px 0}
+.lrow .btn{margin-top:6px}
+@container (max-width: 860px){.bgrid{grid-template-columns:minmax(0,1fr)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+/* ---------- Staff & HR additions ---------- */
+.dirtab td .nm{display:flex;gap:10px;align-items:center}
+.dirtab td .nm b{display:block}
+.away{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--text2);background:var(--neutral);border-radius:6px;padding:0 8px;height:24px}
+.away::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--warning-line)}
+.lock{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--secondary);font-weight:600}
+.lock svg{width:15px;height:15px}
+.req{border:1px solid var(--divider);border-radius:14px;padding:16px;margin-bottom:12px;background:var(--paper)}
+.req-h{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.req-h .grow{flex:1;min-width:180px}
+.req-h b{display:block;font-size:15px}
+.aroute{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;font-size:12px}
+.aroute span{display:inline-flex;gap:6px;align-items:center;border:1px solid var(--divider);border-radius:20px;padding:3px 10px;color:var(--text2)}
+.aroute span.cur{border-color:var(--info);color:var(--info);font-weight:700}
+.aroute span.done{border-color:var(--success);color:var(--success);font-weight:700}
+.effect{margin-top:10px;font-size:13px;color:var(--text2);display:flex;gap:8px;align-items:flex-start}
+.effect svg{width:16px;height:16px;flex:none;color:var(--info);margin-top:2px}
+.req .acts{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.calg{display:grid;grid-template-columns:150px repeat(10,minmax(44px,1fr));min-width:640px;font-size:12px}
+.calg div{padding:8px 4px;border-bottom:1px solid var(--divider);text-align:center;min-height:36px}
+.calg .nmc{text-align:left;font-weight:600;font-size:13px;padding-left:0}
+.calg .hd{font-weight:700;color:var(--text2);background:var(--neutral)}
+.calg .hd.today{color:var(--primary)}
+.calg .ev{background:var(--info-soft)}
+.cl-away{background:var(--warning-soft);color:var(--warning);font-weight:700;border-radius:6px}
+.cl-pend{border:1px dashed var(--warning-line);color:var(--warning);border-radius:6px}
+.bal{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.bal .stat b{font-size:24px}
+.task{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px dashed var(--divider);flex-wrap:wrap}
+.task .grow{flex:1;min-width:180px}
+.task .ow{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.04em}
+.tick{width:22px;height:22px;border-radius:6px;border:2px solid var(--line);display:grid;place-items:center;flex:none;background:transparent;padding:0}
+.tick.on{background:var(--success);border-color:var(--success);color:#fff}
+.tick svg{width:14px;height:14px}
+.goal{padding:12px 14px;border:1px solid var(--divider);border-radius:12px;margin-bottom:10px}
+.goal b{display:block}
+.prog{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.hiddenfb{border:1px dashed var(--line);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--text2);margin-top:8px}
+.dlg input[type=text],.dlg input[type=date]{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.calc{margin-top:12px;padding:10px 12px;border-radius:10px;background:var(--neutral);font-size:13px}
+@container (max-width: 640px){.req{padding:14px}.kv{grid-template-columns:minmax(0,1fr)}.dirtab .hide-ph{display:none}}
+</style>
+</head><body>
+<div class="proto" role="region" aria-label="Prototype controls">
+  <div class="proto-title">Staff &amp; HR prototype <small>Campus OS · synthetic data · Wed 25 Nov 2026, 09:15</small></div>
+  <div class="ctl">Viewer
+    <div class="seg" id="viewers">
+      <button data-v="nadia" aria-pressed="true">Nadia · HR</button>
+      <button data-v="meera" aria-pressed="false">Meera · Line manager</button>
+      <button data-v="anita" aria-pressed="false">Dr Rao · Principal</button>
+      <button data-v="farah" aria-pressed="false">Farah · Staff</button>
+    </div>
+  </div>
+  <div class="ctl">Frame
+    <div class="seg" id="frame"><button data-f="desk" aria-pressed="true">Desktop</button><button data-f="phone" aria-pressed="false">Phone</button></div>
+  </div>
+  <div class="ctl">Theme
+    <div class="seg" id="theme"><button data-t="light" aria-pressed="false">Light</button><button data-t="dark" aria-pressed="false">Dark</button><button data-t="auto" aria-pressed="true">Auto</button></div>
+  </div>
+</div>
+<div class="stage" id="stage"><div class="device"><div class="app">
+  <div class="shell">
+    <aside class="side" aria-label="Main navigation">
+      <div class="logo"><i>C</i><span>Campus OS</span></div>
+      <div class="nav-h">Staff &amp; HR</div>
+      <nav class="nav" id="nav"></nav>
+    </aside>
+    <div class="main">
+      <header class="top">
+        <button class="scope" title="Current scope"><span id="scopeTxt"></span></button>
+        <div class="grow"></div>
+        <div class="me"><div class="who"><b id="meName"></b><small id="meRole"></small></div><div class="avatar av-sm" id="meAv"></div></div>
+      </header>
+      <main class="content" id="view" tabindex="-1"></main>
+      <nav class="bnav" id="bnav"></nav>
+    </div>
+  </div>
+</div></div></div>
+<div id="layer"></div>
+<script>
+const S = {"_about": "Synthetic sample for Staff & HR screens (OBJ-05, OBJ-06, OBJ-28 to OBJ-31). All people, dates, entitlements, checks, vacancies and ratings are invented. GIIS Singapore leave entitlements, check types, renewal periods and approval thresholds are SAMPLE campus or brand-country settings, not known GIIS policy (OQ-169 to OQ-172, OQ-174). Child Protection: Principal is the Designated Person (HB p.210-213). IB training at workshops (HB p.138). Reuses teachers from teaching-timetable-sample.json; Arvind Menon's sick report yesterday is the absence on the Teaching cover board (DL-156). Viewer Nadia Rahman; today Wednesday 25 Nov 2026, 09:15 SGT.", "today": "2026-11-25", "now_local": "Wed 25 Nov 2026, 09:15 SGT", "viewer": {"name": "Nadia Rahman", "role": "HR Business Partner, GIIS Singapore", "scope": "SG-PGL and SG-ECS", "sees": "Everything Tier 1 and 2 for GIIS SG staff; Tier 3 only with a type grant (A17) - in this sample she holds one for work passes and checks (OQ-173)"}, "other_viewers": [{"name": "Dr Anita Rao", "role": "Principal, SG-PGL", "sees": "Approves leave over 3 days and teachers' term-time leave, vacancies, offers; moderates appraisals; Designated Person for Child Protection (HB p.210)"}, {"name": "Meera Joshi", "role": "Level Coordinator, CBSE Grades 6-8, SG-PGL", "sees": "Line manager of 6 teachers in this sample (who is line manager is OQ-182); approves their leave; sees their compliance chips"}, {"name": "Farah Ismail", "role": "Teacher, Science; class teacher 7B", "sees": "Own record, leave, appraisal, training (self-service, phone)"}, {"name": "Arvind Menon", "role": "Teacher, Mathematics; class teacher 7A", "today": "Reported sick 24 Nov 07:32; certificate due by 27 Nov"}, {"name": "Vivek Menon", "role": "Country Director, GIIS Singapore", "sees": "Approves new headcount (OQ-174); group-level counts"}, {"name": "Claire Tan", "role": "Principal, SG-OWD", "brand": "OWIS", "_note": "OWIS leave policies, compliance requirements and appraisal cycle are Not set (OQ-189)"}], "settings_sample": {"leave_principal_over_days": 3, "sick_report_cutoff": "07:00", "compliance_alert_days": [90, 60, 30], "fixed_term_alert_days": 60, "probation_alert_days": 30, "_note": "Sample values; campus or brand-country settings with no group default (DL-59)"}, "departments": [{"code": "MATH", "name": "Mathematics", "type": "ACADEMIC_DEPARTMENT", "campus": "SG-PGL"}, {"code": "SCI", "name": "Sciences", "type": "ACADEMIC_DEPARTMENT", "campus": "SG-PGL"}, {"code": "LANG", "name": "Languages", "type": "ACADEMIC_DEPARTMENT", "campus": "SG-PGL"}, {"code": "HUM", "name": "Humanities", "type": "ACADEMIC_DEPARTMENT", "campus": "SG-PGL"}, {"code": "ARTS", "name": "Arts and PE", "type": "ACADEMIC_DEPARTMENT", "campus": "SG-PGL"}, {"code": "LEAD", "name": "School leadership", "type": "FUNCTION", "campus": "SG-PGL"}, {"code": "ADM", "name": "Admissions", "type": "FUNCTION", "campus": "SG-PGL"}, {"code": "HR", "name": "HR", "type": "FUNCTION", "scope": "GIIS Singapore"}], "staff": [{"name": "Dr Anita Rao", "position": "Principal", "department": "School leadership", "campus": "SG-PGL", "category": "LEADERSHIP", "employment_type": "PERMANENT", "employment_status": "ACTIVE", "compliance_status": "CLEARED", "line_manager": "Vivek Menon"}, {"name": "Meera Joshi", "position": "Level Coordinator", "department": "Mathematics", "campus": "SG-PGL", "category": "TEACHING", "employment_type": "PERMANENT", "employment_status": "ACTIVE", "compliance_status": "CLEARED", "line_manager": "Dr Anita Rao", "leave_note": "Own leave request 18-19 Dec pending with Dr Rao"}, {"name": "Arvind Menon", "position": "Teacher - Secondary", "department": "Mathematics", "campus": "SG-PGL", "category": "TEACHING", "employment_type": "PERMANENT", "employment_status": "ACTIVE", "compliance_status": "CLEARED", "line_manager": "Meera Joshi", "away_today": "Away (sick report, type shown to HR, line manager and Principal only)"}, {"name": "Farah Ismail", "position": "Teacher - Secondary", "department": "Sciences", "campus": "SG-PGL", "category": "TEACHING", "employment_type": "PERMANENT", "employment_status": "ACTIVE", "compliance_status": "DUE_SOON", "line_manager": "Meera Joshi", "due": "Child protection training expires 31 Jan 2027"}, {"name": "Lakshmi Rao", "position": "Teacher - Secondary", "department": "Mathematics", "campus": "SG-PGL", "category": "TEACHING", "employment_type": "PERMANENT", "employment_status": "ACTIVE", "compliance_status": "CLEARED", "line_manager": "Meera Joshi"}, {"name": "Rohan Das", "position": "Teacher - Secondary", "department": "Humanities", "campus": "SG-PGL", "category": "TEACHING", "employment_type": "FIXED_TERM", "employment_status": "ACTIVE", "compliance_status": "CLEARED", "line_manager": "Meera Joshi", "contract": "Fixed term ends 31 Mar 2027 - renewal alert (60 days) from 30 Jan"}, {"name": "Jason Teo", "position": "Teacher - Secondary", "department": "Mathematics", "campus": "SG-PGL", "category": "TEACHING", "employment_type": "PERMANENT", "employment_status": "ACTIVE", "compliance_status": "CLEARED", "line_manager": "Meera Joshi", "leaving": "Leaves 18 Dec 2026 (resigned)"}, {"name": "Ananya Krishnan", "position": "Teacher - Secondary", "department": "Languages", "campus": "SG-PGL", "category": "TEACHING", "employment_type": "PERMANENT", "employment_status": "ACTIVE", "compliance_status": "ACTION_NEEDED", "line_manager": "Meera Joshi", "due": "First aid certificate expired 2 Nov 2026 (not blocking)"}, {"name": "Nikhil Sood", "position": "Teacher - Secondary", "department": "Sciences", "campus": "SG-PGL", "category": "TEACHING", "employment_type": "PART_TIME", "employment_status": "ACTIVE", "compliance_status": "NOT_CLEARED", "line_manager": "Farah Ismail", "due": "Work pass expired 20 Nov 2026 - renewal submitted, awaiting MOM (Tier 3); HR case open", "fte": 0.6, "work_pattern": "Mon-Wed"}, {"name": "Mei Ling Ho", "position": "Teacher - Secondary", "department": "Languages", "campus": "SG-PGL", "category": "TEACHING", "employment_type": "PERMANENT", "employment_status": "ACTIVE", "compliance_status": "CLEARED", "line_manager": "Meera Joshi", "away_today": "Away (leave)"}, {"name": "Grace Wong", "position": "Teacher - Primary", "department": "Arts and PE", "campus": "SG-PGL", "category": "TEACHING", "employment_type": "PART_TIME", "employment_status": "ACTIVE", "compliance_status": "CLEARED", "line_manager": "Dr Anita Rao", "fte": 0.5}, {"name": "Pooja Sharma", "position": "Teacher - Secondary", "department": "Languages", "campus": "SG-PGL", "category": "TEACHING", "employment_type": "PERMANENT", "employment_status": "ACTIVE", "compliance_status": "DUE_SOON", "line_manager": "Meera Joshi", "due": "Work pass expires 10 Feb 2027"}, {"name": "Rachel Lim", "position": "Campus Office Executive", "department": "Admissions", "campus": "SG-PGL", "category": "NON_TEACHING", "employment_type": "PERMANENT", "employment_status": "ACTIVE", "compliance_status": "CLEARED", "line_manager": "Dr Anita Rao"}, {"name": "Daniel Koh", "position": "Teacher - Secondary", "department": "Mathematics", "campus": "SG-PGL", "category": "TEACHING", "employment_type": "PERMANENT", "employment_status": "PENDING", "compliance_status": "NOT_CLEARED", "line_manager": "Meera Joshi", "starts": "4 Jan 2027", "due": "Background check pending; contract unsigned"}, {"name": "Rahul Bose", "position": "IB DP Coordinator", "department": "School leadership", "campus": "SG-ECS", "category": "TEACHING", "employment_type": "PERMANENT", "employment_status": "ACTIVE", "compliance_status": "CLEARED", "line_manager": "Principal SG-ECS", "campuses": ["SG-ECS (primary)", "SG-PGL (additional teaching)"]}, {"name": "Nadia Rahman", "position": "HR Business Partner", "department": "HR", "campus": "GIIS Singapore office", "category": "NON_TEACHING", "employment_type": "PERMANENT", "employment_status": "ACTIVE", "compliance_status": "CLEARED", "line_manager": "Vivek Menon", "campuses": "None (brand-country office, DL-149)"}], "leave_types_giis_sg": [{"code": "AL", "name": "Annual leave", "category": "ANNUAL", "days": "14 (teaching staff: school vacations only - SAMPLE, OQ-170)", "school_day_rule": "PRINCIPAL_APPROVAL", "carry_forward": "5 days"}, {"code": "SL", "name": "Sick leave", "category": "SICK", "days": 14, "certificate": "From day 1, upload within 3 days of return", "school_day_rule": "ANY"}, {"code": "HL", "name": "Hospitalisation leave", "category": "HOSPITALISATION", "days": 60, "certificate": "Always"}, {"code": "ML", "name": "Maternity leave", "category": "MATERNITY", "days": "16 weeks"}, {"code": "PL", "name": "Paternity leave", "category": "PATERNITY", "days": "2 weeks"}, {"code": "CCL", "name": "Childcare leave", "category": "CHILDCARE", "days": 6}, {"code": "CL", "name": "Compassionate leave", "category": "COMPASSIONATE", "days": 3}, {"code": "UL", "name": "Unpaid leave", "category": "UNPAID", "days": "By approval", "school_day_rule": "PRINCIPAL_APPROVAL"}, {"code": "DUTY", "name": "Duty (training, trip)", "category": "DUTY", "days": "Not deducted"}], "leave_types_owis_sg": "Not set (DL-59) - OQ-189", "leave_approvals_inbox": [{"id": "LR-2611", "employee": "Lakshmi Rao", "type": "Annual leave", "dates": "Thu 3 Dec - Fri 4 Dec 2026", "days": 2, "on_school_days": true, "steps": ["Meera Joshi (line manager) - waiting", "Dr Anita Rao (Principal, term-time) - next"], "lessons_affected": 11, "note": "Sister's wedding in Chennai", "balance_after": "AL 3 of 14 left", "submitted": "23 Nov"}, {"id": "LR-2614", "employee": "Rohan Das", "type": "Childcare leave", "dates": "Mon 30 Nov 2026 (AM)", "days": 0.5, "on_school_days": true, "steps": ["Meera Joshi - waiting"], "lessons_affected": 3, "balance_after": "CCL 4.5 of 6 left", "submitted": "24 Nov"}, {"id": "LR-2609", "employee": "Meera Joshi", "type": "Annual leave", "dates": "Fri 18 Dec - Sat 19 Dec 2026", "days": 1, "on_school_days": false, "steps": ["Dr Anita Rao (her line manager) - waiting"], "lessons_affected": 0, "submitted": "20 Nov", "_note": "Shown in Dr Rao's inbox, not Meera's"}, {"id": "LR-2617", "employee": "Ananya Krishnan", "type": "Duty (training)", "dates": "Mon 7 Dec 2026, P5-P8", "days": 0, "on_school_days": true, "steps": ["Meera Joshi - waiting"], "lessons_affected": 3, "note": "IB Category 2 workshop (online)", "training_link": "TR-0412"}], "sick_reports": [{"id": "LR-2615", "employee": "Arvind Menon", "type": "Sick leave", "kind": "SAME_DAY_REPORT", "reported": "Tue 24 Nov 07:32 (after the 07:00 cut-off: flagged late, OQ-168)", "dates": "Tue 24 Nov - Wed 25 Nov 2026", "status": "CERTIFICATE_DUE", "certificate_due": "Fri 27 Nov", "teaching_absence": "TE12 created 07:33, source STAFF_LEAVE - 8 lessons on Tuesday's cover board, 7 today. (teaching-timetable-sample.json shows the same absence as ENTERED by Rachel Lim because it was written before Staff & HR.)", "line_manager_sees": "Sick leave, certificate due", "colleagues_see": "Away"}], "away_today": [{"name": "Arvind Menon", "shown": "Away all day", "hr_sees": "Sick leave (day 2), certificate due 27 Nov"}, {"name": "Mei Ling Ho", "shown": "Away all day", "hr_sees": "Annual leave, approved 2 Nov"}, {"name": "Ananya Krishnan", "shown": "Away P5-P8 on 7 Dec (pending)", "hr_sees": "Duty - training"}], "team_calendar_meera": {"from": "2026-11-23", "to": "2026-12-04", "rows": [{"name": "Arvind Menon", "days": {"2026-11-24": "Away", "2026-11-25": "Away"}}, {"name": "Mei Ling Ho", "days": {"2026-11-25": "Away", "2026-11-26": "Away", "2026-11-27": "Away"}}, {"name": "Lakshmi Rao", "days": {"2026-12-03": "Pending", "2026-12-04": "Pending"}}, {"name": "Rohan Das", "days": {"2026-11-30": "Pending AM"}}, {"name": "Farah Ismail", "days": {}}, {"name": "Jason Teo", "days": {}}, {"name": "Ananya Krishnan", "days": {}}, {"name": "Pooja Sharma", "days": {}}], "school_events": [{"date": "2026-11-30", "label": "PT3 exams start (Grades 6-8) - sample"}]}, "compliance_dashboard": {"counts": {"cleared": 11, "due_soon": 2, "action_needed": 1, "not_cleared": 2, "to_verify": 2}, "not_cleared": [{"name": "Nikhil Sood", "item": "Work pass", "status": "EXPIRED 20 Nov 2026", "effect": "No new teaching assignments; left out of cover suggestions; existing lessons continue; HR case STAFF_COMPLIANCE open (DL-158)", "tier3_locked_for_others": true}, {"name": "Daniel Koh", "item": "Background check", "status": "Missing (required before start)", "effect": "Cannot start 4 Jan 2027 until cleared"}], "expiring_90_days": [{"name": "Farah Ismail", "item": "Child protection training", "expires": "2027-01-31", "alert": "90-day alert sent 2 Nov; 60-day alert due 2 Dec"}, {"name": "Pooja Sharma", "item": "Work pass", "expires": "2027-02-10", "alert": "90-day alert sent 12 Nov"}], "action_needed": [{"name": "Ananya Krishnan", "item": "First aid", "status": "EXPIRED 2 Nov 2026", "blocking": false}], "to_verify": [{"name": "Daniel Koh", "item": "Teaching qualification (PGDE)", "uploaded": "20 Nov"}, {"name": "Nikhil Sood", "item": "Work pass renewal", "uploaded": "23 Nov", "_note": "Tier 3 document"}], "requirements_giis_sg_sample": [{"item": "Background check", "applies_to": "All staff", "due": "Before start", "renew": "Every 3 years", "blocking": true}, {"item": "Work pass", "applies_to": "Non-citizens and non-PRs", "due": "Before start", "renew": "Per pass expiry", "blocking": true}, {"item": "Child protection training", "applies_to": "All staff", "due": "Within 30 days of start", "renew": "Every 2 years", "blocking": true}, {"item": "Teaching qualification", "applies_to": "Teaching", "due": "Before start", "renew": "Never", "blocking": false}, {"item": "IB Category 1 workshop", "applies_to": "Teachers of IB programmes (SG-ECS)", "due": "Within 12 months", "renew": "Never", "blocking": false}, {"item": "First aid", "applies_to": "PE teachers, campus office", "due": "Within 90 days", "renew": "Every 2 years", "blocking": false}], "_note": "Required checks are SAMPLE until OQ-171 is answered. OWIS: Not set."}, "profile_farah": {"directory": {"preferred_name": "Farah Ismail", "position": "Teacher - Secondary", "department": "Sciences", "campus": "SG-PGL (primary)", "work_email": "farah.ismail@sample.giis.edu.sg", "work_phone": "+65 6000 1207", "photo": "initials FI"}, "employment": {"employee_number": "GSG-SG-10457", "employer": "Global Indian International School Pte Ltd (sample legal entity)", "category": "TEACHING", "type": "PERMANENT", "start": "2019-07-15", "status": "ACTIVE", "line_manager": "Meera Joshi", "source": "Employment dates From payroll system (sample HRIS, DL-147)"}, "contract_terms": [{"type": "PERMANENT", "fte": 1.0, "from": "2021-07-15", "probation_end": null, "notice_days": 60}, {"type": "FIXED_TERM", "fte": 1.0, "from": "2019-07-15", "to": "2021-07-14", "status": "ENDED"}], "personal_t2": {"date_of_birth": "1988-03-09", "nationality": "SG", "personal_phone": "+65 9000 4512", "address": "Punggol, Singapore (sample)", "emergency_contacts": [{"name": "Imran Ismail", "relationship": "Spouse", "phone": "+65 9000 7781"}]}, "identity_t3": "Locked - needs Tier 3 access (A17)", "teaching_from_teaching_module": {"groups": "Science 7A, 7B, 7C, 8A; class teacher 7B; Head of Department Sciences (sample)", "load": "25 periods a week"}, "leave_balances_2026": [{"type": "Annual leave", "entitlement": 14, "carried": 3, "taken": 9, "booked": 0, "available": 8}, {"type": "Sick leave", "entitlement": 14, "taken": 2, "available": 12}, {"type": "Childcare leave", "entitlement": 6, "taken": 2, "available": 4}], "leave_history": [{"dates": "16-17 Sep 2026", "type": "Sick leave", "days": 2, "status": "APPROVED", "certificate": "Received"}, {"dates": "9-13 Jun 2026", "type": "Annual leave", "days": 5, "status": "APPROVED"}], "compliance": [{"item": "Background check", "status": "VALID", "expires": "2028-07-01", "tier": "T3 (result locked to others)"}, {"item": "Child protection training", "status": "EXPIRING", "expires": "2027-01-31"}, {"item": "Teaching qualification", "detail": "BSc Chemistry; PGDE (NIE)", "status": "VALID"}, {"item": "First aid", "status": "VALID", "expires": "2027-09-30"}], "training": [{"id": "TR-0388", "title": "Child Protection Refresher", "provider": "In-house (Designated Person)", "date": "2025-01-31", "hours": 3, "status": "RECORDED", "renews": "Child protection training"}, {"id": "TR-0401", "title": "CBSE Competency-Based Assessment", "provider": "CBSE (sample)", "date": "2026-08-22", "hours": 6, "status": "COMPLETED"}, {"id": "TR-0419", "title": "Child Protection Refresher", "provider": "In-house", "date": "2027-01-15", "hours": 3, "status": "APPROVED", "renews": "Child protection training"}], "training_hours_this_year": {"done": 9, "target": "20 (SAMPLE, OQ-179)"}, "appraisal": {"cycle": "Appraisal 2026-27, CBSE teaching staff", "stage": "IN_YEAR", "reviewer": "Meera Joshi", "goals": [{"goal": "Raise Grade 7 Science PT averages by 5 points", "measure": "PT1 vs PT3"}, {"goal": "Lead a Sciences department lab-safety refresh", "measure": "Done by Feb"}, {"goal": "Complete Child Protection refresher before expiry", "measure": "Certificate by 31 Jan"}], "observations": [{"date": "2026-10-14", "observer": "Meera Joshi", "group": "7B Science", "notes": "Clear objectives; strong questioning; extend lab write-up time"}], "next": "Mid-year check-in by 11 Dec", "rating": "Hidden until shared; scale Not set (OQ-178)"}}, "vacancies": [{"id": "VAC-031", "position": "Teacher - Secondary (Mathematics)", "campus": "SG-PGL", "fte": 1.0, "reason": "REPLACEMENT (Jason Teo, leaves 18 Dec)", "target_start": "2027-01-04", "status": "FILLED", "hiring_manager": "Meera Joshi", "filled_by": "Daniel Koh (offer accepted 16 Nov)"}, {"id": "VAC-034", "position": "Teacher - Secondary (Hindi)", "campus": "SG-PGL", "fte": 0.6, "reason": "NEW_HEADCOUNT", "target_start": "2027-04-01", "status": "OPEN", "hiring_manager": "Meera Joshi", "approved": "Dr Anita Rao 10 Nov; Vivek Menon 12 Nov (new headcount)"}, {"id": "VAC-036", "position": "Learning Support Assistant", "campus": "SG-PGL", "fte": 1.0, "reason": "NEW_HEADCOUNT", "target_start": "2027-04-01", "status": "PENDING_APPROVAL", "hiring_manager": "Dr Anita Rao", "waiting_for": "Vivek Menon (Country Director)"}], "candidates_vac_034": [{"name": "Kavita Iyer", "source": "REFERRAL", "stage": "DEMO_LESSON", "feedback": "2 of 3 submitted", "note": "Demo lesson 27 Nov, Grade 7 Hindi"}, {"name": "Sunita Verma", "source": "DIRECT", "stage": "INTERVIEW", "feedback": "1 of 2 submitted", "existing_person": "Matched: guardian of a Grade 3 student at SG-PGL (DL-58) - one Person, one login"}, {"name": "Priyanka Nair", "source": "JOB_BOARD", "stage": "SCREENING"}, {"name": "Ritu Malhotra", "source": "AGENCY", "stage": "APPLIED"}, {"name": "Deepa Rao", "source": "DIRECT", "stage": "REJECTED", "reason": "Not progressed after screening", "retain_until": "Not set (OQ-176)"}], "joining_daniel_koh": {"starts": "2027-01-04", "status": "Starts 4 Jan", "compliance": "Not cleared", "tasks": [{"task": "Background check", "owner": "HR", "due": "2026-12-18", "status": "OPEN"}, {"task": "Teaching qualification verified", "owner": "HR", "due": "2026-12-18", "status": "OPEN", "note": "Uploaded 20 Nov, to verify"}, {"task": "Work pass", "owner": "HR", "due": "-", "status": "NOT_NEEDED", "note": "Singapore citizen"}, {"task": "Contract signed", "owner": "HR", "due": "2026-12-04", "status": "OPEN"}, {"task": "Emergency contact", "owner": "EMPLOYEE", "due": "2026-12-28", "status": "DONE"}, {"task": "Account invite (7 days before start)", "owner": "SYSTEM", "due": "2026-12-28", "status": "OPEN"}, {"task": "Access request: Teaching, Assessment, Attendance", "owner": "LINE_MANAGER", "due": "2027-01-04", "status": "OPEN"}, {"task": "Induction and child protection briefing", "owner": "LINE_MANAGER", "due": "2027-01-08", "status": "OPEN"}, {"task": "Teaching groups (takes over Jason Teo's)", "owner": "COORDINATOR", "due": "2027-01-04", "status": "OPEN"}]}, "leaving_jason_teo": {"last_day": "2026-12-18", "reason": "Resigned (T2)", "status": "Leaves 18 Dec", "handover": [{"item": "8B Mathematics (lead teacher)", "module": "Teaching TE06", "to": "Daniel Koh from 4 Jan; cover 21 Dec - 1 Jan not needed (vacation)", "owner": "COORDINATOR", "status": "OPEN"}, {"item": "8C Mathematics (lead teacher)", "module": "Teaching TE06", "to": "Not chosen", "owner": "COORDINATOR", "status": "OPEN"}, {"item": "Co-class teacher 8B", "module": "Classes CL03", "to": "Not chosen", "owner": "COORDINATOR", "status": "OPEN"}, {"item": "2 open parent conversations", "module": "Communications", "to": "Meera Joshi", "owner": "LINE_MANAGER", "status": "OPEN"}, {"item": "PT2 mark sheet 8C (not yet locked)", "module": "Assessment AS07", "to": "Lock before 18 Dec", "owner": "EMPLOYEE", "status": "OPEN"}, {"item": "Return laptop and staff pass", "owner": "EMPLOYEE", "status": "OPEN"}, {"item": "Exit interview", "owner": "HR", "status": "OPEN", "optional": true}, {"item": "Exit review and account disable after 18 Dec", "owner": "SYSTEM", "status": "OPEN"}]}, "appraisal_cycle": {"name": "Appraisal 2026-27, CBSE teaching staff, GIIS SG", "year": "CBSE 2026-27 (April-March, DL-96)", "stages": {"GOALS": "Apr-May 2026", "MID_YEAR": "by 11 Dec 2026", "SELF_REVIEW": "Feb 2027", "MANAGER_REVIEW": "Feb-Mar 2027", "MODERATION": "Mar 2027", "SHARED": "by 31 Mar 2027"}, "progress": {"staff": 42, "goals_agreed": 40, "mid_year_done": 17, "overdue_goals": 2}, "rating_scale": "Not set (OQ-178)"}, "group_view": {"_note": "Counts only (DL-164, AR-01)", "GIIS SG": {"headcount": 214, "away_today": 9, "not_cleared": 2, "open_vacancies": 4}, "OWIS SG": {"headcount": "from HRIS, not yet in Campus OS", "policies": "Not set"}}};
+(function(){
+const $=s=>document.querySelector(s);
+const esc=t=>String(t??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const svg=p=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const ic={
+ people:svg('<circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M2 20c.6-3 3-4.5 6-4.5s5.4 1.5 6 4.5M14 15.6c.6-.1 1.3-.1 2-.1 3 0 5.4 1.5 6 4.5"/>'),
+ person:svg('<circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4.2-6 8-6s7 2 8 6"/>'),
+ shield:svg('<path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>'),
+ cal:svg('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>'),
+ inbox:svg('<path d="M3 13l3-8h12l3 8v6H3z"/><path d="M3 13h5l1 3h6l1-3h5"/>'),
+ hire:svg('<circle cx="10" cy="8" r="4"/><path d="M3 21c.8-3.8 3.6-6 7-6 1.5 0 2.9.4 4 1.2M18 14v7M14.5 17.5h7"/>'),
+ flow:svg('<path d="M4 6h10M4 12h16M4 18h8"/><path d="M17 3l3 3-3 3"/>'),
+ star:svg('<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/>'),
+ lockI:svg('<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'),
+ info:svg('<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>'),
+ check:svg('<path d="M5 12.5l4.5 4.5L19 7"/>'),
+ book:svg('<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5"/>')
+};
+const chip=(t,c)=>`<span class="chip ${c}">${esc(t)}</span>`;
+const pend=(oq,t='Pending decision')=>`<span class="chip c-pending" title="${oq}">${t} · ${oq}</span>`;
+const initials=n=>n.replace(/^Dr /,'').split(' ').filter(w=>/^[A-Z]/.test(w)).slice(0,2).map(w=>w[0]).join('');
+const COMP={CLEARED:['Cleared','c-success'],DUE_SOON:['Due soon','c-warning'],ACTION_NEEDED:['Action needed','c-warning'],NOT_CLEARED:['Not cleared','c-error']};
+const compChip=c=>chip(...COMP[c]);
+const empChip=p=>p.employment_status==='PENDING'?chip('Starts '+(p.starts||''),'c-info'):p.leaving?chip('Leaves 18 Dec','c-warning'):chip('Active','c-success');
+const TEAM=['Arvind Menon','Farah Ismail','Lakshmi Rao','Rohan Das','Jason Teo','Ananya Krishnan','Mei Ling Ho','Pooja Sharma','Daniel Koh'];
+const st={viewer:'nadia',view:null,tab:'overview',comp:'all',rtab:'board',done:{},inbox:JSON.parse(JSON.stringify(S.leave_approvals_inbox)),verified:{},tasks:{}};
+const V={
+ nadia:{name:'Nadia Rahman',role:'HR Business Partner · GIIS Singapore',scope:'GIIS › <b>GIIS Singapore</b> › all campuses',nav:[['dir','Staff',ic.people],['profile','Staff profile',ic.person],['comp','Compliance',ic.shield],['hire','Recruitment',ic.hire],['life','Joining and leaving',ic.flow],['appr','Appraisal',ic.star]]},
+ meera:{name:'Meera Joshi',role:'Level Coordinator · line manager of 9',scope:'SG-PGL › <b>My team</b>',nav:[['approvals','Leave approvals',ic.inbox],['team','My team',ic.people]]},
+ anita:{name:'Dr Anita Rao',role:'Principal · SG-PGL',scope:'GIIS Singapore › <b>SMART Campus Punggol</b>',nav:[['approvals','Approvals',ic.inbox],['team','Campus staff',ic.people]]},
+ farah:{name:'Farah Ismail',role:'Teacher · Science',scope:'SG-PGL › <b>Me</b>',phone:true,nav:[['myleave','My leave',ic.cal],['mychecks','Checks and training',ic.shield]]}
+};
+function toast(t){const d=document.createElement('div');d.className='toast';d.setAttribute('role','status');d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),3400)}
+function dlg(html,onok){const L=$('#layer');L.innerHTML=`<div class="scrim"><div class="dlg" role="dialog" aria-modal="true">${html}</div></div>`;L.querySelectorAll('[data-x]').forEach(b=>b.onclick=()=>L.innerHTML='');const ok=L.querySelector('[data-ok]');if(ok)ok.onclick=()=>{if(onok(L)!==false)L.innerHTML=''};const r=L.querySelector('textarea[required]');if(r&&ok){ok.disabled=true;r.oninput=()=>ok.disabled=!r.value.trim()}}
+function head(t,sub,extra=''){return `<div class="page-h"><div class="grow"><h1>${t}</h1><p>${sub}</p></div>${extra}</div>`}
+const card=(t,b,extra='')=>`<section class="card"><div class="card-h"><h2>${t}</h2>${extra}</div><div class="card-b">${b}</div></section>`;
+const locked=(who='HR with Tier 3 access')=>`<span class="lock">${ic.lockI}Restricted · ${who}</span>`;
+
+/* ---------- Staff directory ---------- */
+function awayOf(n){const a=S.away_today.find(x=>x.name===n&&/all day/.test(x.shown));return a?'<span class="away">Away</span>':''}
+function vDir(){
+ const v=st.viewer;let rows=S.staff;
+ if(v==='meera')rows=rows.filter(p=>TEAM.includes(p.name));
+ if(v!=='nadia')rows=rows.filter(p=>p.campus==='SG-PGL');
+ const showComp=p=>v==='nadia'||v==='anita'||(v==='meera'&&TEAM.includes(p.name));
+ if(st.comp!=='all')rows=rows.filter(p=>p.compliance_status===st.comp);
+ const g=S.group_view['GIIS SG'];
+ const stats=v==='nadia'?`<div class="sumrow"><div class="stat"><b>${g.headcount}</b><span>Staff, GIIS SG</span></div><div class="stat"><b>${g.away_today}</b><span>Away today</span></div><div class="stat"><b style="color:var(--error)">${g.not_cleared}</b><span>Not cleared</span></div><div class="stat"><b>${S.compliance_dashboard.counts.to_verify}</b><span>Checks to verify</span></div><div class="stat"><b>${S.vacancies.length}</b><span>Vacancies</span></div></div>`:'';
+ const sel=`<div class="filters"><label class="sub" for="cf">Compliance</label><select id="cf">${[['all','All'],...Object.entries(COMP).map(([k,x])=>[k,x[0]])].map(([k,l])=>`<option value="${k}" ${st.comp===k?'selected':''}>${l}</option>`).join('')}</select></div>`;
+ const tr=rows.map(p=>`<tr class="click" data-p="${esc(p.name)}"><td><div class="nm"><div class="avatar av-sm">${initials(p.name)}</div><div><b>${esc(p.name)}</b><span class="sub">${esc(p.position)}</span></div></div></td><td class="hide-ph">${esc(p.department)}</td><td class="hide-ph">${esc(Array.isArray(p.campuses)?p.campuses.join(', '):p.campus)}</td><td>${empChip(p)}</td><td>${showComp(p)?compChip(p.compliance_status):'<span class="sub">—</span>'}</td><td>${awayOf(p.name)}</td></tr>`).join('');
+ return head(v==='meera'?'My team':v==='anita'?'Campus staff':'Staff',v==='nadia'?'Everyone employed by GIIS Singapore. Colleagues see "Away", never the leave type (DL-156).':'Directory details are visible to colleagues; leave types and check details are not (DL-151).',v==='nadia'?sel:'')+stats+
+ `<div class="listcard"><div class="tablewrap"><table class="dirtab"><thead><tr><th>Name</th><th class="hide-ph">Department</th><th class="hide-ph">Campus</th><th>Employment</th><th>Compliance</th><th>Today</th></tr></thead><tbody>${tr||'<tr><td colspan="6" class="sub">No staff match.</td></tr>'}</tbody></table></div></div>`;
+}
+function bindDir(){const f=$('#cf');if(f)f.onchange=()=>{st.comp=f.value;render()};document.querySelectorAll('[data-p]').forEach(r=>r.onclick=()=>{if(r.dataset.p==='Farah Ismail'&&st.viewer==='nadia'){st.view='profile';render()}else toast(st.viewer==='nadia'?'This sample has a full profile for Farah Ismail only.':'Colleagues open a directory card: position, department, campus, work contact.')})}
+
+/* ---------- Profile (Farah, HR view) ---------- */
+function vProfile(){
+ const P=S.profile_farah,d=P.directory,e=P.employment;
+ const tabs=[['overview','Overview'],['employment','Employment'],['leave','Leave'],['compliance','Compliance'],['training','Training'],['appraisal','Appraisal']];
+ const hero=`<div class="hero"><div class="hero-band"></div><div class="hero-body"><div class="avatar av-xl">FI</div><div class="hero-id"><h1>${d.preferred_name}</h1><div class="hero-meta"><span>${d.position}</span><span>${d.department}</span><span>${d.campus}</span></div><div class="chips">${chip('Active','c-success')}${compChip('DUE_SOON')}${chip('Teaching','c-role')}</div></div><div class="hero-actions"><button class="btn" data-t="Edits Tier 2 fields; HRIS-owned fields are read-only (DL-147).">Edit</button><button class="btn" data-t="Sets an end date: shows Leaves {date} and builds the handover list (DL-160).">Set end date</button></div></div><nav class="tabs" aria-label="Profile sections">${tabs.map(t=>`<a href="#" data-tab="${t[0]}" class="${st.tab===t[0]?'on':''}">${t[1]}</a>`).join('')}</nav></div>`;
+ let b='';
+ if(st.tab==='overview'){
+  b=`<div class="grid">${card('Directory',`<div class="fields">${[['Preferred name',d.preferred_name],['Position',d.position],['Department',d.department],['Campus',d.campus],['Work email',d.work_email],['Work phone',d.work_phone],['Line manager',e.line_manager]].map(([l,v])=>`<div class="f"><div class="l">${l} <span class="tier">T1</span></div><div class="v">${esc(v)}</div></div>`).join('')}</div>`)}
+  ${card('Personal',`<div class="fields">${[['Date of birth',P.personal_t2.date_of_birth],['Nationality','Singapore'],['Personal phone',P.personal_t2.personal_phone],['Home address',P.personal_t2.address]].map(([l,v])=>`<div class="f"><div class="l">${l} <span class="tier">T2</span></div><div class="v">${esc(v)}</div></div>`).join('')}<div class="f"><div class="l">Identity number <span class="tier">T3</span></div><div class="v">${locked()}</div></div><div class="f"><div class="l">Emergency contact <span class="tier">T2</span></div><div class="v">${P.personal_t2.emergency_contacts.map(c=>esc(c.name+' ('+c.relationship+') '+c.phone)).join('<br>')}</div></div></div><p class="note">Farah can change her contact details and emergency contacts herself; a legal name or nationality change needs HR to check a document (DL-151).</p>`)}
+  ${card('Teaching (from Teaching &amp; Timetable)',`<dl class="kv"><dt>Groups</dt><dd>${P.teaching_from_teaching_module.groups}</dd><dt>Load</dt><dd>${P.teaching_from_teaching_module.load}</dd></dl><p class="note">Read only here. Teaching owns assignments (TE06); HR never edits them.</p>`,'<span class="chip c-source">From Teaching</span>')}</div>`;
+ }else if(st.tab==='employment'){
+  b=`<div class="grid">${card('Employment',`<dl class="kv"><dt>Employee number</dt><dd>${e.employee_number}</dd><dt>Employer</dt><dd>${e.employer}</dd><dt>Category · type</dt><dd>Teaching · Permanent</dd><dt>Started</dt><dd>15 Jul 2019 <span class="chip c-source">From payroll system</span></dd><dt>Line manager</dt><dd>${e.line_manager}</dd><dt>Campuses</dt><dd>SG-PGL (primary)</dd></dl><p class="note">Fields owned by the payroll system are read only until its cutover date (DL-147, ${'OQ-166'}). No salary or bank details are kept in Campus OS.</p>`)}
+  ${card('Contract terms',`<ul class="tl">${P.contract_terms.map((c,i)=>`<li><span class="dotm ${i===0?'cur':''}"></span><div class="h">${c.type==='PERMANENT'?'Permanent':'Fixed term'} · FTE ${c.fte.toFixed(1)} ${i===0?chip('Active','c-success'):chip('Ended','c-default')}</div><div class="m">From ${c.from}${c.to?' to '+c.to:''}${c.notice_days?' · notice '+c.notice_days+' days':''}</div></li>`).join('')}</ul><p class="note">A renewal or FTE change is a new term, never an edit (DL-152). Signed contract: Tier 2.</p>`)}</div>`;
+ }else if(st.tab==='leave'){
+  b=`<div class="bal">${P.leave_balances_2026.map(x=>`<div class="stat"><b>${x.available}</b><span>${x.type} left of ${x.entitlement}${x.carried?' + '+x.carried+' carried':''}</span></div>`).join('')}</div><div style="height:16px"></div>`+card('History',P.leave_history.map(h=>`<div class="list-row"><div class="grow"><b>${h.type}</b><div class="sub">${h.dates} · ${h.days} days</div></div>${chip('Approved','c-success')}${h.certificate?`<span class="lock">${ic.lockI}Certificate received</span>`:''}</div>`).join('')+'<p class="note">Balances are calculated from the GIIS SG sample policy (OQ-169). HR adjustments need a reason and are logged (DL-155).</p>');
+ }else if(st.tab==='compliance'){
+  b=card('Checks and qualifications',P.compliance.map(c=>{const ch=c.status==='VALID'?chip('Valid','c-success'):chip('Expires 31 Jan 2027','c-warning');return `<div class="list-row"><div class="grow"><b>${c.item}</b><div class="sub">${c.detail||''}${c.expires?' Expires '+c.expires:''}</div></div>${ch}${/T3/.test(c.tier||'')?locked('result'):''}</div>`}).join('')+`<p class="note">Requirements come from GIIS Singapore's list (sample, OQ-171). Farah's refresher on 15 Jan is approved and will renew the training when the certificate is verified (DL-162).</p>`,compChip('DUE_SOON'));
+ }else if(st.tab==='training'){
+  b=card('Training',`<div class="prog"><div class="meter" style="width:220px"><i style="width:45%;background:var(--primary)"></i></div><span class="sub">${P.training_hours_this_year.done} of ${P.training_hours_this_year.target} hours this year</span></div>`+P.training.map(t=>`<div class="list-row"><div class="grow"><b>${t.title}</b><div class="sub">${t.provider} · ${t.date} · ${t.hours} h${t.renews?' · renews '+t.renews:''}</div></div>${chip(t.status==='APPROVED'?'Approved':t.status==='COMPLETED'?'Completed':'Recorded',t.status==='RECORDED'?'c-default':'c-success')}</div>`).join(''));
+ }else{
+  const A=P.appraisal;
+  b=card(A.cycle,`<div class="sub" style="margin-bottom:12px">Reviewer ${A.reviewer} · ${A.next}</div>${A.goals.map(g=>`<div class="goal"><b>${g.goal}</b><span class="sub">${g.measure}</span></div>`).join('')}<h3 style="font-size:14px;margin:16px 0 6px">Observation</h3>${A.observations.map(o=>`<div class="list-row"><div class="grow"><b>${o.group} · ${o.date}</b><div class="sub">${o.observer}: ${o.notes}</div></div></div>`).join('')}<div class="hiddenfb">Rating hidden until shared with Farah. ${pend('OQ-178','Scale not set')}</div>`,chip('In year','c-info'));
+ }
+ return `<div class="crumbs"><span>Staff</span><span class="dot"></span><b>Farah Ismail</b></div>`+hero+b;
+}
+function bindProfile(){document.querySelectorAll('[data-tab]').forEach(a=>a.onclick=e=>{e.preventDefault();st.tab=a.dataset.tab;render()});document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>toast(b.dataset.t))}
+
+/* ---------- Approvals (line manager, Principal) ---------- */
+function stepHtml(steps){return `<div class="aroute">${steps.map(s=>{const cls=/approved/.test(s)?'done':/waiting/.test(s)?'cur':'';return `<span class="${cls}">${esc(s.replace(/ - (waiting|next)/,''))}${cls==='cur'?' · waiting':cls===''?' · next':''}</span>`}).join('')}</div>`}
+function vApprovals(){
+ const v=st.viewer;
+ const mine=st.inbox.filter(r=>v==='meera'?r.steps[0].startsWith('Meera')&&/waiting/.test(r.steps[0]):r.steps.some(s=>s.startsWith('Dr Anita Rao')));
+ const reqs=mine.map(r=>{const canAct=r.steps.find(s=>/waiting/.test(s))?.startsWith(v==='meera'?'Meera':'Dr Anita Rao');
+  return `<div class="req"><div class="req-h"><div class="avatar av-sm">${initials(r.employee)}</div><div class="grow"><b>${r.employee} · ${r.type}</b><span class="sub">${r.dates} · ${r.days} day${r.days===1?'':'s'}${r.on_school_days?' · school days':''}</span></div>${canAct?chip('Waiting for you','c-info'):chip('Waiting for '+r.steps.find(s=>/waiting/.test(s)).split(' (')[0],'c-default')}</div>${stepHtml(r.steps)}${r.note?`<p class="note">“${esc(r.note)}”</p>`:''}${r.balance_after?`<p class="note">After this: ${r.balance_after}</p>`:''}${r.lessons_affected?`<div class="effect">${ic.info}<span>Approving makes ${r.employee.split(' ')[0]} <b>Away</b> in Teaching and puts ${r.lessons_affected} lessons on the cover board. The leave type is never sent (DL-156).</span></div>`:''}${canAct?`<div class="acts"><button class="btn btn-primary btn-sm" data-ap="${r.id}">Approve</button><button class="btn btn-sm" data-dc="${r.id}">Decline</button></div>`:''}</div>`}).join('')||'<p class="sub">Nothing waiting.</p>';
+ const sick=S.sick_reports.map(s=>`<div class="req"><div class="req-h"><div class="avatar av-sm">${initials(s.employee)}</div><div class="grow"><b>${s.employee} · ${s.type}</b><span class="sub">${s.dates} · reported ${s.reported}</span></div>${chip('Certificate due 27 Nov','c-warning')}</div><div class="effect">${ic.info}<span>Already on the cover board: the sick report made him Away at once (DL-156). Colleagues see “Away”. ${pend('OQ-168','Cut-off')}</span></div></div>`).join('');
+ const days=['2026-11-23','2026-11-24','2026-11-25','2026-11-26','2026-11-27','2026-11-30','2026-12-01','2026-12-02','2026-12-03','2026-12-04'];
+ const T=S.team_calendar_meera;
+ const cal=`<div class="tablewrap"><div class="calg"><div class="hd nmc">&nbsp;</div>${days.map(d=>`<div class="hd ${d===S.today?'today':''}">${new Date(d).toLocaleDateString('en-GB',{weekday:'short',day:'numeric'})}</div>`).join('')}${T.rows.map(r=>`<div class="nmc">${r.name}</div>`+days.map(d=>{const x=r.days[d];const ev=T.school_events.some(e=>e.date===d);return `<div class="${ev?'ev':''}">${x?`<span class="${/Pending/.test(x)?'cl-pend':'cl-away'}" style="display:block;padding:2px">${x.replace('Pending AM','½ pend.').replace('Pending','Pend.')}</span>`:''}</div>`}).join('')).join('')}</div></div><div class="legend" style="margin-top:10px"><span><i style="background:var(--warning-soft)"></i>Away (type visible to you as line manager)</span><span><i style="border:1px dashed var(--warning-line)"></i>Pending</span><span><i style="background:var(--info-soft)"></i>PT3 exams (sample)</span></div>`;
+ return head(v==='meera'?'Leave approvals':'Approvals','Line manager first; the Principal also for leave over 3 days or teachers’ annual leave on school days (sample setting, DL-154).')+
+  `<div class="grid">${v==='meera'?'<div class="span2">'+card('Team calendar',cal)+'</div>':''}<div>${card('Waiting',reqs)}</div>${v==='meera'?card('Sick reports',sick):card('Vacancies and offers','<div class="list-row"><div class="grow"><b>VAC-036 Learning Support Assistant</b><div class="sub">You approved 18 Nov · new headcount, now waiting for Vivek Menon (Country Director)</div></div>'+chip('Waiting approval','c-info')+'</div><p class="note">Who approves vacancies and offers: '+pend('OQ-174')+'</p>')}</div>`;
+}
+function bindApprovals(){
+ document.querySelectorAll('[data-ap]').forEach(b=>b.onclick=()=>{const r=st.inbox.find(x=>x.id===b.dataset.ap);const i=r.steps.findIndex(s=>/waiting/.test(s));r.steps[i]=r.steps[i].replace('waiting','approved');if(r.steps[i+1]){r.steps[i+1]=r.steps[i+1].replace('next','waiting');toast(`Approved. Now waiting for ${r.steps[i+1].split(' (')[0]}.`)}else{st.inbox=st.inbox.filter(x=>x!==r);toast(r.lessons_affected?`Approved. ${r.employee} shows Away in Teaching; ${r.lessons_affected} lessons go to the cover board.`:'Approved.')}render()});
+ document.querySelectorAll('[data-dc]').forEach(b=>b.onclick=()=>dlg(`<h3>Decline leave</h3><p>The reason goes to the staff member only.</p><label for="why">Reason</label><textarea id="why" required></textarea><div class="row"><button class="btn" data-x>Cancel</button><button class="btn btn-primary" data-ok>Decline</button></div>`,()=>{st.inbox=st.inbox.filter(x=>x.id!==b.dataset.dc);toast('Declined. The staff member is told with your reason.');render()}));
+}
+
+/* ---------- Compliance ---------- */
+function vComp(){
+ const C=S.compliance_dashboard,c=C.counts;
+ const st2=`<div class="sumrow"><div class="stat"><b>${c.cleared}</b><span>Cleared (sample)</span></div><div class="stat"><b style="color:var(--warning)">${c.due_soon}</b><span>Due soon</span></div><div class="stat"><b style="color:var(--warning)">${c.action_needed}</b><span>Action needed</span></div><div class="stat"><b style="color:var(--error)">${c.not_cleared}</b><span>Not cleared</span></div><div class="stat"><b>${c.to_verify-Object.keys(st.verified).length}</b><span>To verify</span></div></div>`;
+ const nc=C.not_cleared.map(x=>`<div class="req"><div class="req-h"><div class="avatar av-sm">${initials(x.name)}</div><div class="grow"><b>${x.name} · ${x.item}</b><span class="sub">${x.status}</span></div>${compChip('NOT_CLEARED')}</div><div class="effect">${ic.info}<span>${x.effect.replace(/ \(DL-158\)/,'')}. Nothing is suspended or ended automatically (DL-158).</span></div>${x.tier3_locked_for_others?`<p class="note">${locked('pass details')} — you hold the grant in this sample.</p>`:''}</div>`).join('');
+ const exp=C.expiring_90_days.map(x=>`<div class="list-row"><div class="grow"><b>${x.name} · ${x.item}</b><div class="sub">${x.alert}</div></div>${chip('Expires '+new Date(x.expires).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}),'c-warning')}</div>`).join('')+C.action_needed.map(x=>`<div class="list-row"><div class="grow"><b>${x.name} · ${x.item}</b><div class="sub">Not blocking</div></div>${chip('Expired','c-error')}${compChip('ACTION_NEEDED')}</div>`).join('');
+ const ver=C.to_verify.map((x,i)=>`<div class="list-row"><div class="grow"><b>${x.name} · ${x.item}</b><div class="sub">Uploaded ${x.uploaded}${x._note?' · '+x._note:''}</div></div>${st.verified[i]?chip('Valid','c-success'):`${chip('To verify','c-info')}<button class="btn btn-sm" data-vf="${i}">Verify</button>`}</div>`).join('');
+ const reqs=`<div class="tablewrap"><table><thead><tr><th>Item</th><th>Applies to</th><th>Due</th><th>Renew</th><th>Blocks work</th></tr></thead><tbody>${C.requirements_giis_sg_sample.map(r=>`<tr><td><b>${r.item}</b></td><td>${r.applies_to}</td><td>${r.due}</td><td>${r.renew}</td><td>${r.blocking?chip('Yes','c-error'):chip('No','c-default')}</td></tr>`).join('')}</tbody></table></div><p class="note">GIIS Singapore list is a sample ${pend('OQ-171')}. OWIS Singapore: <span class="notset">Not set</span> ${pend('OQ-189')}</p>`;
+ return head('Compliance','Work passes, checks and qualifications for GIIS Singapore staff. Alerts at 90, 60 and 30 days (sample setting).')+st2+`<div class="grid"><div>${card('Not cleared',nc)}</div><div>${card('Expiring and action needed',exp)}${card('To verify',ver)}</div><div class="span2">${card('Requirements',reqs)}</div></div>`;
+}
+function bindComp(){document.querySelectorAll('[data-vf]').forEach(b=>b.onclick=()=>{st.verified[b.dataset.vf]=1;toast('Verified. Compliance status recalculates now.');render()})}
+
+/* ---------- Recruitment ---------- */
+function vHire(){
+ const vac=S.vacancies.map(v=>{const c={FILLED:['Filled','c-default'],OPEN:['Open','c-success'],PENDING_APPROVAL:['Waiting approval','c-info']}[v.status];return `<div class="list-row"><div class="grow"><b>${v.id} · ${v.position}</b><div class="sub">${v.campus} · FTE ${v.fte} · ${v.reason} · start ${v.target_start}${v.filled_by?' · '+v.filled_by:''}${v.waiting_for?' · waiting for '+v.waiting_for:''}</div></div>${chip(...c)}</div>`}).join('');
+ const stages=[['APPLIED','Applied'],['SCREENING','Screening'],['INTERVIEW','Interview'],['DEMO_LESSON','Demo lesson'],['OFFER','Offer'],['REJECTED','Not progressed']];
+ const board=`<div class="board">${stages.map(([k,l])=>{const cs=S.candidates_vac_034.filter(c=>c.stage===k);return `<div class="col"><div class="col-h">${l} <span class="cnt">${cs.length}</span></div>${cs.map(c=>`<button class="kcard" data-cand="${esc(c.name)}"><b>${c.name}</b><span class="sub">${c.source.toLowerCase().replace('_',' ')}${c.note?' · '+c.note:''}</span>${c.existing_person?chip('Matched to an existing person','c-info'):''}${c.feedback?`<span class="sub">Feedback ${c.feedback}</span>`:''}</button>`).join('')||'<div class="kempty">None</div>'}</div>`}).join('')}</div>`;
+ return head('Recruitment','Approved vacancies, candidates and offers (DL-159). Pay terms stay in the offer letter and payroll.')+`<div class="grid"><div class="span2">${card('VAC-034 · Teacher – Secondary (Hindi), FTE 0.6',board+'<p class="note">Interviewers see others’ feedback only after submitting their own. Hiring stages at GIIS: '+pend('OQ-175')+'</p>',chip('Open','c-success'))}</div><div class="span2">${card('Vacancies',vac)}</div></div>`;
+}
+function bindHire(){document.querySelectorAll('[data-cand]').forEach(b=>b.onclick=()=>{const c=S.candidates_vac_034.find(x=>x.name===b.dataset.cand);dlg(`<h3>${esc(c.name)}</h3><p>${c.existing_person?esc(c.existing_person):'New person; checked against existing records through the review queue (DL-58).'}</p><div class="hiddenfb">Other interviewers’ feedback is hidden until you submit yours.</div><label for="rec">Your recommendation</label><select id="rec"><option>Strong yes</option><option>Yes</option><option>No</option><option>Strong no</option></select><label for="fbn">Notes</label><textarea id="fbn"></textarea><div class="row"><button class="btn" data-x>Close</button><button class="btn btn-primary" data-ok>Submit feedback</button></div>`,()=>toast('Feedback submitted. You can now see the others.'))})}
+
+/* ---------- Joining and leaving ---------- */
+function taskRow(t,key){const on=st.tasks[key]??(t.status==='DONE');const na=t.status==='NOT_NEEDED';return `<div class="task"><button class="tick ${on?'on':''}" data-tk="${key}" aria-label="Mark done" ${na?'disabled':''}>${on?ic.check:''}</button><div class="grow"><b>${esc(t.task||t.item)}</b><div class="sub">${[t.module,t.to?'To: '+esc(t.to):'',t.note?esc(t.note):'',t.due&&t.due!=='-'?'Due '+t.due:''].filter(Boolean).join(' · ')}</div></div><span class="ow">${t.owner.replace('_',' ')}</span>${na?chip('Not needed','c-default'):on?chip('Done','c-success'):''}</div>`}
+function vLife(){
+ const J=S.joining_daniel_koh,L=S.leaving_jason_teo;
+ return head('Joining and leaving','Checklists per brand-country; leavers get a handover list from every module (DL-160).')+`<div class="grid">${card('Daniel Koh · Teacher – Secondary, Mathematics',`<div class="blocked">${ic.shield}<div><b>Can’t start until cleared</b><div class="sub">Background check missing; required before start (sample rule, ${'OQ-171'}).</div></div></div>`+J.tasks.map((t,i)=>taskRow(t,'j'+i)).join(''),chip('Starts 4 Jan','c-info')+compChip('NOT_CLEARED'))}
+ ${card('Jason Teo · leaving 18 Dec 2026',`<p class="sub" style="margin-top:0">Resigned (reason visible to HR only). Account disabled after 18 Dec; exit review opens (BR-10).</p>`+L.handover.map((t,i)=>taskRow(t,'l'+i)).join(''),chip('Leaves 18 Dec','c-warning'))}</div>`;
+}
+function bindLife(){document.querySelectorAll('[data-tk]').forEach(b=>b.onclick=()=>{const k=b.dataset.tk;st.tasks[k]=!(st.tasks[k]??false);render()})}
+
+/* ---------- Appraisal ---------- */
+function vAppr(){
+ const C=S.appraisal_cycle,p=C.progress;
+ const stg=Object.entries(C.stages);
+ return head('Appraisal',C.name+' · follows the CBSE year (DL-96, DL-161).')+card('Cycle',`<div class="steps">${stg.map(([k,d],i)=>`<div class="step ${i<1?'done':i===1?'cur':''}"><span class="d">${i+1}</span><b>${k.replace('_',' ').toLowerCase().replace(/^./,c=>c.toUpperCase())}</b><span>${d}</span></div>`).join('')}</div><div class="sumrow"><div class="stat"><b>${p.staff}</b><span>Staff in cycle</span></div><div class="stat"><b>${p.goals_agreed}</b><span>Goals agreed</span></div><div class="stat"><b>${p.mid_year_done}</b><span>Mid-year done</span></div><div class="stat"><b style="color:var(--warning)">${p.overdue_goals}</b><span>Goals overdue</span></div></div><p class="note">Rating scale ${pend('OQ-178','Not set')} · reviewer for teachers ${pend('OQ-177')}. Ratings never shown to colleagues and not linked to pay in Campus OS.</p>`)+'<div style="height:16px"></div>'+card('Farah Ismail',S.profile_farah.appraisal.goals.map(g=>`<div class="goal"><b>${g.goal}</b><span class="sub">${g.measure}</span></div>`).join(''),chip('In year','c-info'));
+}
+
+/* ---------- Staff self-service (phone) ---------- */
+function vMyLeave(){
+ const P=S.profile_farah;
+ return head('My leave','Leave year 2026 · GIIS Singapore')+`<div class="bal">${P.leave_balances_2026.map(x=>`<div class="stat"><b>${x.available}</b><span>${x.type} left</span></div>`).join('')}</div><div class="acts" style="display:flex;gap:8px;margin:16px 0;flex-wrap:wrap"><button class="btn btn-primary" id="apply">Apply for leave</button><button class="btn" id="sick">I’m unwell today</button></div>`+card('Requests',P.leave_history.map(h=>`<div class="list-row"><div class="grow"><b>${h.type}</b><div class="sub">${h.dates} · ${h.days} days</div></div>${chip('Approved','c-success')}</div>`).join(''));
+}
+function bindMyLeave(){
+ $('#apply').onclick=()=>{dlg(`<h3>Apply for leave</h3><p>Goes to Meera Joshi; Dr Anita Rao too for annual leave on school days.</p><label for="lt">Type</label><select id="lt">${S.leave_types_giis_sg.slice(0,8).map(t=>`<option>${t.name}</option>`).join('')}</select><label for="d1">From</label><input type="date" id="d1" value="2026-12-21"><label for="d2">To</label><input type="date" id="d2" value="2026-12-23"><label for="nt">Note to approver</label><textarea id="nt" placeholder="Don’t add medical details"></textarea><label for="cn">Cover note for your lessons</label><textarea id="cn" placeholder="Work set for each group"></textarea><div class="calc" id="calc"></div><div class="row"><button class="btn" data-x>Cancel</button><button class="btn btn-primary" data-ok>Submit</button></div>`,L=>toast('Sent to Meera Joshi. Colleagues will see “Away” once approved.'));
+ const upd=()=>{const a=new Date($('#d1').value),b=new Date($('#d2').value);let n=0;for(let d=new Date(a);d<=b;d.setDate(d.getDate()+1)){const w=d.getDay();if(w>0&&w<6)n++}const t=$('#lt').value;const bal=S.profile_farah.leave_balances_2026.find(x=>x.type===t);$('#calc').innerHTML=`<b>${n} working day${n===1?'':'s'}</b>${bal?` · ${bal.available-n} ${t.toLowerCase()} left after`:''}${t==='Annual leave'?' · 21–23 Dec is school vacation (sample): no Principal step':''}`};
+ ['#d1','#d2','#lt'].forEach(s=>$(s).onchange=upd);upd();};
+ $('#sick').onclick=()=>dlg(`<h3>Report sick today</h3><p>Meera Joshi is told now and your lessons go to the cover board as “Away”. Nobody but your line manager, the Principal and HR sees that it is sick leave.</p><label for="cn2">Cover note (optional)</label><textarea id="cn2"></textarea><p class="note">Upload a certificate within 3 days of return (sample policy). Cut-off ${pend('OQ-168','07:00 sample')}</p><div class="row"><button class="btn" data-x>Cancel</button><button class="btn btn-primary" data-ok>Report</button></div>`,()=>toast('Reported. 5 lessons today are on the cover board.'));
+}
+function vMyChecks(){
+ const P=S.profile_farah;
+ return head('Checks and training','What GIIS Singapore needs from you, and your training hours.')+card('My checks',P.compliance.map(c=>`<div class="list-row"><div class="grow"><b>${c.item}</b><div class="sub">${c.expires?'Expires '+c.expires:c.detail||''}</div></div>${c.status==='VALID'?chip('Valid','c-success'):chip('Expires 31 Jan','c-warning')}</div>`).join('')+'<p class="note">Your Child Protection refresher on 15 Jan will renew it.</p>',compChip('DUE_SOON'))+'<div style="height:16px"></div>'+card('Training',`<p class="sub" style="margin-top:0">${P.training_hours_this_year.done} of ${P.training_hours_this_year.target} hours</p>`+P.training.map(t=>`<div class="list-row"><div class="grow"><b>${t.title}</b><div class="sub">${t.date} · ${t.hours} h</div></div></div>`).join('')+'<button class="btn btn-sm" style="margin-top:12px" data-t2>Request training</button>');
+}
+function bindMyChecks(){const b=document.querySelector('[data-t2]');if(b)b.onclick=()=>toast('Request goes to Meera Joshi for approval (DL-162).')}
+
+const VIEWS={dir:[vDir,bindDir],team:[vDir,bindDir],profile:[vProfile,bindProfile],approvals:[vApprovals,bindApprovals],comp:[vComp,bindComp],hire:[vHire,bindHire],life:[vLife,bindLife],appr:[vAppr],myleave:[vMyLeave,bindMyLeave],mychecks:[vMyChecks,bindMyChecks]};
+function render(){
+ const v=V[st.viewer];if(!st.view||!v.nav.some(n=>n[0]===st.view))st.view=v.nav[0][0];
+ $('#meName').textContent=v.name;$('#meRole').textContent=v.role;$('#meAv').textContent=initials(v.name);$('#scopeTxt').innerHTML=v.scope;
+ const nav=v.nav.map(n=>`<a href="#" data-go="${n[0]}" class="${n[0]===st.view?'on':''}">${n[2]}<span>${n[1]}</span></a>`).join('');
+ $('#nav').innerHTML=nav;$('#bnav').innerHTML=nav;
+ const [fn,bind]=VIEWS[st.view];$('#view').innerHTML=fn()+`<p class="foot">Synthetic data · Staff &amp; HR dictionary v0.1 · DL-146 Confirmed · DL-147…DL-164 Assumed</p>`;bind&&bind();
+ document.querySelectorAll('[data-go]').forEach(a=>a.onclick=e=>{e.preventDefault();st.view=a.dataset.go;render();$('#view').focus()});
+}
+function setFrame(f){$('#stage').classList.toggle('mobile',f==='phone');document.querySelectorAll('#frame button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f))}
+document.querySelectorAll('#viewers button').forEach(b=>b.onclick=()=>{st.viewer=b.dataset.v;st.view=null;document.querySelectorAll('#viewers button').forEach(x=>x.setAttribute('aria-pressed',x===b));setFrame(V[st.viewer].phone?'phone':'desk');render()});
+document.querySelectorAll('#frame button').forEach(b=>b.onclick=()=>setFrame(b.dataset.f));
+document.querySelectorAll('#theme button').forEach(b=>b.onclick=()=>{const t=b.dataset.t;if(t==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',t);document.querySelectorAll('#theme button').forEach(x=>x.setAttribute('aria-pressed',x===b))});
+render();
+})();
+</script>
+</body></html>
