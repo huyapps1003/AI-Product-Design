@@ -177,8 +177,8 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 |---|---|---|:---:|---|---|---|
 | mark_sheet_id | UUID | PK | Y | T2 | Confirmed (DL-88) | |
 | assessment_id | UUID | FK:AS06 | Y | T1 | Assumed | |
-| class_id / teaching_group_id | UUID | FK:CL01 / Teaching | Y (one) | T1 | Known (CL01; teaching groups OQ-77) | |
-| teacher_employee_id | UUID | FK:E01 | Y | T1 | Known (Employee DD D02 subject allocation) | Default from the teaching allocation. |
+| class_id / teaching_group_id | UUID | FK:CL01 / TE04 | Y (one) | T1 | Known (CL01); teaching groups in the [teaching & timetable dictionary](./teaching-timetable-data-dictionary.md) (DL-132) | |
+| teacher_employee_id | UUID | FK:E01 | Y | T1 | Known (Employee DD D02 subject allocation, now TE06) | Default: the group's LEAD teacher (TE06, SR-TE-13). |
 | sheet_status | ENUM | — | Y | T1 | Assumed (DL-27) | NOT_OPEN, OPEN, SUBMITTED, RETURNED, MODERATED, LOCKED. |
 | submitted_at | TIMESTAMP | — | C | T1 | Assumed | |
 | moderated_by_user_id / moderated_at | — | — | C | T1 | Known need (HB "Answer script moderation form for Half-Yearly and Yearly exam") | Coordinator or HOD (OQ-98). |

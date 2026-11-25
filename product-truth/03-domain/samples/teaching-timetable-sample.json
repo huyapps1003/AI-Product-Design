@@ -1,0 +1,2855 @@
+{
+ "_about": "Synthetic sample for Teaching & Timetable screens (OBJ-12 Teaching allocation, OBJ-27 Timetable and lesson). All people, period times, rooms, loads and covers are invented. School timings 9:00-15:40 (Grades 1-12) and 9:00-12:30 (Nursery and KG), arrive by 8:50, and assembly on assigned weekdays come from HB p.22; Grade 7 CBSE subjects and Language 2/3 choices from HB p.52; additional languages about 2.5 hours a week from HB p.141-142. Period times are invented (OQ-147); the week is Mon-Fri (OQ-148); max load 34 and cover limit 3 a week are sample campus settings (OQ-149, OQ-164); Meera arranging cover is a sample assumption (OQ-162). Reuses classes 7A-7C and teachers from classes-, assessment- and attendance-sample.json. Viewer Meera Joshi; today Tuesday 24 Nov 2026, 08:20 SGT.",
+ "today": "2026-11-24",
+ "now_local": "08:20 SGT (Tuesday)",
+ "viewer": {
+  "name": "Meera Joshi",
+  "role": "Level Coordinator, CBSE Middle (Grades 6-8)",
+  "campus": "SG-PGL",
+  "responsibility": "LEVEL_COORDINATOR, CBSE 1-12 Grades 6-8",
+  "sees": "Cover board, Grade 6-8 groups and assignments, timetable builder"
+ },
+ "other_viewers": [
+  {
+   "name": "Dr Anita Rao",
+   "role": "Principal",
+   "campus": "SG-PGL",
+   "sees": "Publishes timetables (OQ-150), approves period plans and bell schedules"
+  },
+  {
+   "name": "Farah Ismail",
+   "role": "Class teacher 7B; Science 7A-7C, 8A",
+   "campus": "SG-PGL",
+   "sees": "My day, own timetable, own covers"
+  },
+  {
+   "name": "Arvind Menon",
+   "role": "Class teacher 7A; Mathematics 7A-7C, 8A-8C",
+   "campus": "SG-PGL",
+   "today": "Away (whole day). The reason is in Staff and HR, never shown here (DL-143)"
+  },
+  {
+   "name": "Rachel Lim",
+   "role": "Campus office",
+   "campus": "SG-PGL",
+   "sees": "Rooms, records absences reported by phone"
+  },
+  {
+   "name": "Claire Tan",
+   "role": "Principal",
+   "campus": "SG-OWD",
+   "brand": "OWIS",
+   "_note": "OWIS bell schedule and cycle Not set (OQ-161)"
+  }
+ ],
+ "campus_settings": {
+  "SG-PGL": {
+   "school_week": "Mon-Fri (OQ-148)",
+   "max_teaching_load_per_week": 34,
+   "_load_note": "Sample value; no group default (DL-136, OQ-149)",
+   "cover_limit_per_week": 3,
+   "_cover_note": "Sample value (DL-144, OQ-164)",
+   "cover_arranger": "Level coordinator (sample; OQ-162)",
+   "timetable_publisher": "Principal (DL-138; OQ-150)"
+  },
+  "SG-OWD": {
+   "_brand": "OWIS",
+   "school_week": "Not set (OQ-161)",
+   "max_teaching_load_per_week": "Not set",
+   "cover_limit_per_week": "Not set"
+  }
+ },
+ "bell_schedules": [
+  {
+   "name": "Grades 1-12 regular day",
+   "campus": "SG-PGL",
+   "academic_year": "AY 2026-27",
+   "applies_to": "GMP Extended, IB PYP Early Years, Grades 1-12",
+   "day_variant": "REGULAR",
+   "day_start": "09:00",
+   "day_end": "15:40",
+   "arrive_by": "08:50",
+   "source": "HB p.22 (start, end, arrive by); period times invented (OQ-147)",
+   "status": "ACTIVE",
+   "periods": [
+    {
+     "label": "Registration",
+     "code": "REG",
+     "start": "09:00",
+     "end": "09:10",
+     "kind": "REGISTRATION"
+    },
+    {
+     "label": "P1",
+     "code": "P1",
+     "start": "09:10",
+     "end": "09:50",
+     "kind": "TEACHING"
+    },
+    {
+     "label": "P2",
+     "code": "P2",
+     "start": "09:50",
+     "end": "10:30",
+     "kind": "TEACHING"
+    },
+    {
+     "label": "Break",
+     "code": "BRK",
+     "start": "10:30",
+     "end": "10:50",
+     "kind": "BREAK"
+    },
+    {
+     "label": "P3",
+     "code": "P3",
+     "start": "10:50",
+     "end": "11:30",
+     "kind": "TEACHING"
+    },
+    {
+     "label": "P4",
+     "code": "P4",
+     "start": "11:30",
+     "end": "12:10",
+     "kind": "TEACHING"
+    },
+    {
+     "label": "P5",
+     "code": "P5",
+     "start": "12:10",
+     "end": "12:50",
+     "kind": "TEACHING"
+    },
+    {
+     "label": "Lunch",
+     "code": "LUN",
+     "start": "12:50",
+     "end": "13:30",
+     "kind": "LUNCH"
+    },
+    {
+     "label": "P6",
+     "code": "P6",
+     "start": "13:30",
+     "end": "14:10",
+     "kind": "TEACHING"
+    },
+    {
+     "label": "P7",
+     "code": "P7",
+     "start": "14:10",
+     "end": "14:50",
+     "kind": "TEACHING"
+    },
+    {
+     "label": "P8",
+     "code": "P8",
+     "start": "14:50",
+     "end": "15:30",
+     "kind": "TEACHING"
+    },
+    {
+     "label": "Dismissal",
+     "code": "DIS",
+     "start": "15:30",
+     "end": "15:40",
+     "kind": "REGISTRATION"
+    }
+   ]
+  },
+  {
+   "name": "Grades 1-12 assembly day",
+   "campus": "SG-PGL",
+   "day_variant": "ASSEMBLY_DAY",
+   "used_on_days": "Not set (HB p.22 'assigned weekdays'; OQ-147)",
+   "day_start": "09:00",
+   "day_end": "15:40",
+   "status": "DRAFT",
+   "_note": "Registration becomes a 20-minute assembly; P1 shortened (invented)"
+  },
+  {
+   "name": "Nursery and KG",
+   "campus": "SG-PGL",
+   "applies_to": "Nursery, K1, K2",
+   "day_variant": "REGULAR",
+   "day_start": "09:00",
+   "day_end": "12:30",
+   "source": "HB p.22",
+   "status": "ACTIVE",
+   "periods": "Not set (OQ-147)"
+  }
+ ],
+ "rooms": [
+  {
+   "code": "S4-03",
+   "type": "CLASSROOM",
+   "capacity": 34,
+   "home_of": "7C"
+  },
+  {
+   "code": "S4-04",
+   "type": "CLASSROOM",
+   "capacity": 34,
+   "home_of": "7B"
+  },
+  {
+   "code": "S4-05",
+   "type": "CLASSROOM",
+   "capacity": 34,
+   "home_of": "7A"
+  },
+  {
+   "code": "S4-14",
+   "type": "CLASSROOM",
+   "capacity": 34,
+   "home_of": "6B"
+  },
+  {
+   "code": "S4-15",
+   "type": "CLASSROOM",
+   "capacity": 34,
+   "home_of": "6A"
+  },
+  {
+   "code": "S4-SEM",
+   "name": "Seminar room",
+   "type": "CLASSROOM",
+   "capacity": 60
+  },
+  {
+   "code": "S3-01",
+   "name": "Science Lab 1",
+   "type": "SCIENCE_LAB",
+   "capacity": 34
+  },
+  {
+   "code": "S3-02",
+   "name": "Science Lab 2",
+   "type": "SCIENCE_LAB",
+   "capacity": 34,
+   "status": "OUT_OF_USE",
+   "note": "Air-con repair until Fri 27 Nov"
+  },
+  {
+   "code": "C2-01",
+   "name": "Computer Lab",
+   "type": "COMPUTER_LAB",
+   "capacity": 32
+  },
+  {
+   "code": "A1-02",
+   "name": "Art Room",
+   "type": "ART_ROOM",
+   "capacity": 32
+  },
+  {
+   "code": "A1-03",
+   "name": "Music Room",
+   "type": "MUSIC_ROOM",
+   "capacity": 32
+  },
+  {
+   "code": "SH-1",
+   "name": "Sports Hall",
+   "type": "SPORTS",
+   "capacity": 100
+  },
+  {
+   "code": "L-1",
+   "name": "Library",
+   "type": "LIBRARY",
+   "capacity": 40
+  }
+ ],
+ "period_plan_grade_7": {
+  "programme": "CBSE 1-12",
+  "grade": "Grade 7",
+  "academic_year": "AY 2026-27",
+  "periods_per_week_total": 40,
+  "status": "APPROVED",
+  "approved_by": "Meera Joshi",
+  "subjects": [
+   {
+    "subject": "English",
+    "periods_per_week": 6,
+    "room_type": "CLASSROOM",
+    "max_per_day": 2
+   },
+   {
+    "subject": "Mathematics",
+    "periods_per_week": 6,
+    "room_type": "CLASSROOM",
+    "max_per_day": 2
+   },
+   {
+    "subject": "Science",
+    "periods_per_week": 6,
+    "room_type": "SCIENCE_LAB",
+    "double_periods": 1,
+    "max_per_day": 2
+   },
+   {
+    "subject": "Social Science",
+    "periods_per_week": 5,
+    "room_type": "CLASSROOM",
+    "max_per_day": 2
+   },
+   {
+    "subject": "ICT",
+    "periods_per_week": 2,
+    "room_type": "COMPUTER_LAB",
+    "max_per_day": 2
+   },
+   {
+    "subject": "Performing Arts",
+    "periods_per_week": 2,
+    "room_type": "MUSIC_ROOM",
+    "max_per_day": 2
+   },
+   {
+    "subject": "Visual Arts",
+    "periods_per_week": 2,
+    "room_type": "ART_ROOM",
+    "max_per_day": 2
+   },
+   {
+    "subject": "Physical and Health Education",
+    "periods_per_week": 3,
+    "room_type": "SPORTS",
+    "max_per_day": 2
+   },
+   {
+    "subject": "Language 2 (Hindi, Tamil, French)",
+    "periods_per_week": 4,
+    "block": "G7-L2",
+    "_source": "About 2.5 hours a week (HB p.141-142): 4 x 40 min = 2 h 40 min"
+   },
+   {
+    "subject": "Language 3 (Sanskrit, Hindi, Tamil)",
+    "periods_per_week": 3,
+    "block": "G7-L3"
+   },
+   {
+    "subject": "Class teacher period (library)",
+    "periods_per_week": 1
+   }
+  ]
+ },
+ "teaching_groups_grade_7": [
+  {
+   "group": "7A English",
+   "kind": "CLASS",
+   "class": "7A",
+   "members": 32,
+   "lead": "Lakshmi Rao",
+   "periods_per_week": 6,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "7A Mathematics",
+   "kind": "CLASS",
+   "class": "7A",
+   "members": 32,
+   "lead": "Arvind Menon",
+   "periods_per_week": 6,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "7A Science",
+   "kind": "CLASS",
+   "class": "7A",
+   "members": 32,
+   "lead": "Farah Ismail",
+   "periods_per_week": 6,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "7A Social Science",
+   "kind": "CLASS",
+   "class": "7A",
+   "members": 32,
+   "lead": "Rohan Das",
+   "periods_per_week": 5,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "7A ICT",
+   "kind": "CLASS",
+   "class": "7A",
+   "members": 32,
+   "lead": "Nikhil Sood",
+   "periods_per_week": 2,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "7A Performing Arts",
+   "kind": "CLASS",
+   "class": "7A",
+   "members": 32,
+   "lead": "Ananya Krishnan",
+   "periods_per_week": 2,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "7A Visual Arts",
+   "kind": "CLASS",
+   "class": "7A",
+   "members": 32,
+   "lead": "Mei Ling Ho",
+   "periods_per_week": 2,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "7A Physical and Health Education",
+   "kind": "CLASS",
+   "class": "7A",
+   "members": 32,
+   "lead": "Jason Teo",
+   "periods_per_week": 3,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "7B English",
+   "kind": "CLASS",
+   "class": "7B",
+   "members": 32,
+   "lead": "Lakshmi Rao",
+   "periods_per_week": 6,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "7B Mathematics",
+   "kind": "CLASS",
+   "class": "7B",
+   "members": 32,
+   "lead": "Arvind Menon",
+   "periods_per_week": 6,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "7B Science",
+   "kind": "CLASS",
+   "class": "7B",
+   "members": 32,
+   "lead": "Farah Ismail",
+   "periods_per_week": 6,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "7B Social Science",
+   "kind": "CLASS",
+   "class": "7B",
+   "members": 32,
+   "lead": "Rohan Das",
+   "periods_per_week": 5,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "7B ICT",
+   "kind": "CLASS",
+   "class": "7B",
+   "members": 32,
+   "lead": "Nikhil Sood",
+   "periods_per_week": 2,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "7B Performing Arts",
+   "kind": "CLASS",
+   "class": "7B",
+   "members": 32,
+   "lead": "Ananya Krishnan",
+   "periods_per_week": 2,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "7B Visual Arts",
+   "kind": "CLASS",
+   "class": "7B",
+   "members": 32,
+   "lead": "Mei Ling Ho",
+   "periods_per_week": 2,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "7B Physical and Health Education",
+   "kind": "CLASS",
+   "class": "7B",
+   "members": 32,
+   "lead": "Jason Teo",
+   "periods_per_week": 3,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "7C English",
+   "kind": "CLASS",
+   "class": "7C",
+   "members": 32,
+   "lead": "Lakshmi Rao",
+   "periods_per_week": 6,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "7C Mathematics",
+   "kind": "CLASS",
+   "class": "7C",
+   "members": 32,
+   "lead": "Arvind Menon",
+   "periods_per_week": 6,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "7C Science",
+   "kind": "CLASS",
+   "class": "7C",
+   "members": 32,
+   "lead": "Farah Ismail",
+   "periods_per_week": 6,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "7C Social Science",
+   "kind": "CLASS",
+   "class": "7C",
+   "members": 32,
+   "lead": "Rohan Das",
+   "periods_per_week": 5,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "7C ICT",
+   "kind": "CLASS",
+   "class": "7C",
+   "members": 32,
+   "lead": "Nikhil Sood",
+   "periods_per_week": 2,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "7C Performing Arts",
+   "kind": "CLASS",
+   "class": "7C",
+   "members": 32,
+   "lead": "Ananya Krishnan",
+   "periods_per_week": 2,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "7C Visual Arts",
+   "kind": "CLASS",
+   "class": "7C",
+   "members": 32,
+   "lead": "Mei Ling Ho",
+   "periods_per_week": 2,
+   "status": "ACTIVE",
+   "lead_until": "2026-11-30",
+   "flag": "No teacher from 1 Dec (Mei Ling Ho's assignment ends; SR-TE-06)"
+  },
+  {
+   "group": "7C Physical and Health Education",
+   "kind": "CLASS",
+   "class": "7C",
+   "members": 32,
+   "lead": "Jason Teo",
+   "periods_per_week": 3,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "Grade 7 Hindi (L2)",
+   "kind": "CHOICE",
+   "source_classes": [
+    "7A",
+    "7B",
+    "7C"
+   ],
+   "block": "G7-L2",
+   "members": 58,
+   "lead": "Pooja Sharma",
+   "periods_per_week": 4,
+   "status": "ACTIVE",
+   "_note": "One group of 58 in the seminar room, as on the Assessment sample; splitting it is OQ-152"
+  },
+  {
+   "group": "Grade 7 Tamil (L2)",
+   "kind": "CHOICE",
+   "source_classes": [
+    "7A",
+    "7B",
+    "7C"
+   ],
+   "block": "G7-L2",
+   "members": 22,
+   "lead": "Kumaran Selvam",
+   "periods_per_week": 4,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "Grade 7 French (L2)",
+   "kind": "CHOICE",
+   "source_classes": [
+    "7A",
+    "7B",
+    "7C"
+   ],
+   "block": "G7-L2",
+   "members": 16,
+   "lead": "Camille Laurent",
+   "periods_per_week": 4,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "Grade 7 Sanskrit (L3)",
+   "kind": "CHOICE",
+   "source_classes": [
+    "7A",
+    "7B",
+    "7C"
+   ],
+   "block": "G7-L3",
+   "members": 40,
+   "lead": "Venkat Iyer",
+   "periods_per_week": 3,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "Grade 7 Hindi (L3)",
+   "kind": "CHOICE",
+   "source_classes": [
+    "7A",
+    "7B",
+    "7C"
+   ],
+   "block": "G7-L3",
+   "members": 30,
+   "lead": "Sunil Verma",
+   "periods_per_week": 3,
+   "status": "ACTIVE"
+  },
+  {
+   "group": "Grade 7 Tamil (L3)",
+   "kind": "CHOICE",
+   "source_classes": [
+    "7A",
+    "7B",
+    "7C"
+   ],
+   "block": "G7-L3",
+   "members": 25,
+   "lead": "Kumaran Selvam",
+   "periods_per_week": 3,
+   "status": "ACTIVE"
+  }
+ ],
+ "not_in_a_group": [
+  {
+   "student": "Rhea Nair",
+   "class": "7C",
+   "joined": "2026-11-16",
+   "missing": "Language 3 (no choice recorded yet, ST03)",
+   "_note": "Shown to the coordinator (SR-TE-03)"
+  }
+ ],
+ "responsibilities": [
+  {
+   "name": "Meera Joshi",
+   "type": "LEVEL_COORDINATOR",
+   "scope": "CBSE 1-12, Grades 6-8, SG-PGL"
+  },
+  {
+   "name": "Dr Suresh Pillai",
+   "type": "ACADEMIC_SUPERVISOR",
+   "scope": "SG-PGL"
+  },
+  {
+   "name": "Farah Ismail",
+   "type": "HEAD_OF_DEPARTMENT",
+   "scope": "Sciences, Middle, SG-PGL",
+   "_note": "Invented"
+  },
+  {
+   "name": "Rahul Bose",
+   "type": "PROGRAMME_COORDINATOR",
+   "scope": "IB DP, SG-ECS"
+  }
+ ],
+ "teacher_loads": [
+  {
+   "teacher": "Arvind Menon",
+   "periods_per_week": 37,
+   "max": 34,
+   "over_max": true,
+   "covers_this_term": 0,
+   "covers_this_week": 0
+  },
+  {
+   "teacher": "Lakshmi Rao",
+   "periods_per_week": 28,
+   "max": 34,
+   "over_max": false,
+   "covers_this_term": 4,
+   "covers_this_week": 1
+  },
+  {
+   "teacher": "Rohan Das",
+   "periods_per_week": 27,
+   "max": 34,
+   "over_max": false,
+   "covers_this_term": 5,
+   "covers_this_week": 1
+  },
+  {
+   "teacher": "Jason Teo",
+   "periods_per_week": 27,
+   "max": 34,
+   "over_max": false,
+   "covers_this_term": 6,
+   "covers_this_week": 3
+  },
+  {
+   "teacher": "Farah Ismail",
+   "periods_per_week": 25,
+   "max": 34,
+   "over_max": false,
+   "covers_this_term": 3,
+   "covers_this_week": 1
+  },
+  {
+   "teacher": "Ananya Krishnan",
+   "periods_per_week": 24,
+   "max": 34,
+   "over_max": false,
+   "covers_this_term": 3,
+   "covers_this_week": 0
+  },
+  {
+   "teacher": "Nikhil Sood",
+   "periods_per_week": 22,
+   "max": 34,
+   "over_max": false,
+   "covers_this_term": 1,
+   "covers_this_week": 0
+  },
+  {
+   "teacher": "Mei Ling Ho",
+   "periods_per_week": 22,
+   "max": 34,
+   "over_max": false,
+   "covers_this_term": 2,
+   "covers_this_week": 0
+  },
+  {
+   "teacher": "Grace Wong",
+   "periods_per_week": 16,
+   "max": 34,
+   "over_max": false,
+   "covers_this_term": 3,
+   "covers_this_week": 0
+  },
+  {
+   "teacher": "Pooja Sharma",
+   "periods_per_week": 16,
+   "max": 34,
+   "over_max": false,
+   "covers_this_term": 3,
+   "covers_this_week": 0
+  },
+  {
+   "teacher": "Camille Laurent",
+   "periods_per_week": 16,
+   "max": 34,
+   "over_max": false,
+   "covers_this_term": 2,
+   "covers_this_week": 2
+  },
+  {
+   "teacher": "Kumaran Selvam",
+   "periods_per_week": 15,
+   "max": 34,
+   "over_max": false,
+   "covers_this_term": 1,
+   "covers_this_week": 0
+  },
+  {
+   "teacher": "Sunil Verma",
+   "periods_per_week": 15,
+   "max": 34,
+   "over_max": false,
+   "covers_this_term": 4,
+   "covers_this_week": 0
+  },
+  {
+   "teacher": "Venkat Iyer",
+   "periods_per_week": 9,
+   "max": 34,
+   "over_max": false,
+   "covers_this_term": 2,
+   "covers_this_week": 0
+  },
+  {
+   "teacher": "Meera Joshi",
+   "periods_per_week": 6,
+   "max": 34,
+   "over_max": false,
+   "covers_this_term": 2,
+   "covers_this_week": 1
+  }
+ ],
+ "timetable_live": {
+  "name": "CBSE Middle (Grades 6-8)",
+  "campus": "SG-PGL",
+  "programmes": [
+   "CBSE 1-12"
+  ],
+  "version": 2,
+  "status": "PUBLISHED",
+  "effective_from": "2026-09-28",
+  "cycle_days": 5,
+  "published_by": "Dr Anita Rao",
+  "published_at": "2026-09-24",
+  "change_note": "Semester 2: PHE moved to afternoons; Language 3 block moved off Monday P1",
+  "clashes": {
+   "hard": 0,
+   "soft": 1,
+   "soft_items": [
+    {
+     "kind": "PLAN_MISMATCH",
+     "text": "Science doubles: 0 of 1 placed for 7A, 7B, 7C",
+     "note": "Accepted by Meera: labs full on the double slots"
+    }
+   ]
+  },
+  "grade_7": {
+   "7A": {
+    "Mon": {
+     "P1": {
+      "group": "7A Science",
+      "subject": "Science",
+      "teacher": "Farah Ismail",
+      "room": "S3-01"
+     },
+     "P2": {
+      "group": "7A Mathematics",
+      "subject": "Mathematics",
+      "teacher": "Arvind Menon",
+      "room": "S4-05"
+     },
+     "P3": {
+      "block": "G7-L2",
+      "label": "Language 2",
+      "groups": [
+       {
+        "group": "Grade 7 Hindi (L2)",
+        "teacher": "Pooja Sharma",
+        "room": "S4-SEM"
+       },
+       {
+        "group": "Grade 7 Tamil (L2)",
+        "teacher": "Kumaran Selvam",
+        "room": "S4-14"
+       },
+       {
+        "group": "Grade 7 French (L2)",
+        "teacher": "Camille Laurent",
+        "room": "S4-15"
+       }
+      ]
+     },
+     "P4": {
+      "group": "7A English",
+      "subject": "English",
+      "teacher": "Lakshmi Rao",
+      "room": "S4-05"
+     },
+     "P5": {
+      "group": "7A English",
+      "subject": "English",
+      "teacher": "Lakshmi Rao",
+      "room": "S4-05"
+     },
+     "P6": {
+      "group": "7A Science",
+      "subject": "Science",
+      "teacher": "Farah Ismail",
+      "room": "S3-01"
+     },
+     "P7": {
+      "group": "7A Social Science",
+      "subject": "Social Science",
+      "teacher": "Rohan Das",
+      "room": "S4-05"
+     },
+     "P8": {
+      "block": "G7-L3",
+      "label": "Language 3",
+      "groups": [
+       {
+        "group": "Grade 7 Sanskrit (L3)",
+        "teacher": "Venkat Iyer",
+        "room": "S4-SEM"
+       },
+       {
+        "group": "Grade 7 Hindi (L3)",
+        "teacher": "Sunil Verma",
+        "room": "S4-14"
+       },
+       {
+        "group": "Grade 7 Tamil (L3)",
+        "teacher": "Kumaran Selvam",
+        "room": "S4-15"
+       }
+      ]
+     }
+    },
+    "Tue": {
+     "P1": {
+      "group": "7A Mathematics",
+      "subject": "Mathematics",
+      "teacher": "Arvind Menon",
+      "room": "S4-05"
+     },
+     "P2": {
+      "group": "7A English",
+      "subject": "English",
+      "teacher": "Lakshmi Rao",
+      "room": "S4-05"
+     },
+     "P3": {
+      "group": "7A Science",
+      "subject": "Science",
+      "teacher": "Farah Ismail",
+      "room": "S3-01"
+     },
+     "P4": {
+      "group": "7A Mathematics",
+      "subject": "Mathematics",
+      "teacher": "Arvind Menon",
+      "room": "S4-05"
+     },
+     "P5": {
+      "group": "7A Social Science",
+      "subject": "Social Science",
+      "teacher": "Rohan Das",
+      "room": "S4-05"
+     },
+     "P6": {
+      "group": "7A Physical and Health Education",
+      "subject": "Physical and Health Education",
+      "teacher": "Jason Teo",
+      "room": "SH-1"
+     },
+     "P7": {
+      "block": "G7-L2",
+      "label": "Language 2",
+      "groups": [
+       {
+        "group": "Grade 7 Hindi (L2)",
+        "teacher": "Pooja Sharma",
+        "room": "S4-SEM"
+       },
+       {
+        "group": "Grade 7 Tamil (L2)",
+        "teacher": "Kumaran Selvam",
+        "room": "S4-14"
+       },
+       {
+        "group": "Grade 7 French (L2)",
+        "teacher": "Camille Laurent",
+        "room": "S4-15"
+       }
+      ]
+     },
+     "P8": {
+      "group": "7A Social Science",
+      "subject": "Social Science",
+      "teacher": "Rohan Das",
+      "room": "S4-05"
+     }
+    },
+    "Wed": {
+     "P1": {
+      "group": "7A Mathematics",
+      "subject": "Mathematics",
+      "teacher": "Arvind Menon",
+      "room": "S4-05"
+     },
+     "P2": {
+      "group": "7A Science",
+      "subject": "Science",
+      "teacher": "Farah Ismail",
+      "room": "S3-01"
+     },
+     "P3": {
+      "group": "7A English",
+      "subject": "English",
+      "teacher": "Lakshmi Rao",
+      "room": "S4-05"
+     },
+     "P4": {
+      "block": "G7-L3",
+      "label": "Language 3",
+      "groups": [
+       {
+        "group": "Grade 7 Sanskrit (L3)",
+        "teacher": "Venkat Iyer",
+        "room": "S4-SEM"
+       },
+       {
+        "group": "Grade 7 Hindi (L3)",
+        "teacher": "Sunil Verma",
+        "room": "S4-14"
+       },
+       {
+        "group": "Grade 7 Tamil (L3)",
+        "teacher": "Kumaran Selvam",
+        "room": "S4-15"
+       }
+      ]
+     },
+     "P5": {
+      "group": "7A Science",
+      "subject": "Science",
+      "teacher": "Farah Ismail",
+      "room": "S3-01"
+     },
+     "P6": {
+      "group": "7A ICT",
+      "subject": "ICT",
+      "teacher": "Nikhil Sood",
+      "room": "C2-01"
+     },
+     "P7": {
+      "group": "7A English",
+      "subject": "English",
+      "teacher": "Lakshmi Rao",
+      "room": "S4-05"
+     },
+     "P8": {
+      "group": "7A Visual Arts",
+      "subject": "Visual Arts",
+      "teacher": "Mei Ling Ho",
+      "room": "A1-02"
+     }
+    },
+    "Thu": {
+     "P1": {
+      "group": "7A Physical and Health Education",
+      "subject": "Physical and Health Education",
+      "teacher": "Jason Teo",
+      "room": "SH-1"
+     },
+     "P2": {
+      "block": "G7-L2",
+      "label": "Language 2",
+      "groups": [
+       {
+        "group": "Grade 7 Hindi (L2)",
+        "teacher": "Pooja Sharma",
+        "room": "S4-SEM"
+       },
+       {
+        "group": "Grade 7 Tamil (L2)",
+        "teacher": "Kumaran Selvam",
+        "room": "S4-14"
+       },
+       {
+        "group": "Grade 7 French (L2)",
+        "teacher": "Camille Laurent",
+        "room": "S4-15"
+       }
+      ]
+     },
+     "P3": {
+      "group": "7A Mathematics",
+      "subject": "Mathematics",
+      "teacher": "Arvind Menon",
+      "room": "S4-05"
+     },
+     "P4": {
+      "group": "7A Social Science",
+      "subject": "Social Science",
+      "teacher": "Rohan Das",
+      "room": "S4-05"
+     },
+     "P5": {
+      "group": "7A Performing Arts",
+      "subject": "Performing Arts",
+      "teacher": "Ananya Krishnan",
+      "room": "A1-03"
+     },
+     "P6": {
+      "group": "7A Social Science",
+      "subject": "Social Science",
+      "teacher": "Rohan Das",
+      "room": "S4-05"
+     },
+     "P7": {
+      "group": "7A Visual Arts",
+      "subject": "Visual Arts",
+      "teacher": "Mei Ling Ho",
+      "room": "A1-02"
+     },
+     "P8": {
+      "group": "7A Performing Arts",
+      "subject": "Performing Arts",
+      "teacher": "Ananya Krishnan",
+      "room": "A1-03"
+     }
+    },
+    "Fri": {
+     "P1": {
+      "group": "7A English",
+      "subject": "English",
+      "teacher": "Lakshmi Rao",
+      "room": "S4-05"
+     },
+     "P2": {
+      "block": "G7-L3",
+      "label": "Language 3",
+      "groups": [
+       {
+        "group": "Grade 7 Sanskrit (L3)",
+        "teacher": "Venkat Iyer",
+        "room": "S4-SEM"
+       },
+       {
+        "group": "Grade 7 Hindi (L3)",
+        "teacher": "Sunil Verma",
+        "room": "S4-14"
+       },
+       {
+        "group": "Grade 7 Tamil (L3)",
+        "teacher": "Kumaran Selvam",
+        "room": "S4-15"
+       }
+      ]
+     },
+     "P3": {
+      "group": "7A ICT",
+      "subject": "ICT",
+      "teacher": "Nikhil Sood",
+      "room": "C2-01"
+     },
+     "P4": {
+      "group": "7A Physical and Health Education",
+      "subject": "Physical and Health Education",
+      "teacher": "Jason Teo",
+      "room": "SH-1"
+     },
+     "P5": {
+      "block": "G7-L2",
+      "label": "Language 2",
+      "groups": [
+       {
+        "group": "Grade 7 Hindi (L2)",
+        "teacher": "Pooja Sharma",
+        "room": "S4-SEM"
+       },
+       {
+        "group": "Grade 7 Tamil (L2)",
+        "teacher": "Kumaran Selvam",
+        "room": "S4-14"
+       },
+       {
+        "group": "Grade 7 French (L2)",
+        "teacher": "Camille Laurent",
+        "room": "S4-15"
+       }
+      ]
+     },
+     "P6": {
+      "group": "7A Mathematics",
+      "subject": "Mathematics",
+      "teacher": "Arvind Menon",
+      "room": "S4-05"
+     },
+     "P7": {
+      "group": "7A Science",
+      "subject": "Science",
+      "teacher": "Farah Ismail",
+      "room": "S3-01"
+     },
+     "P8": {
+      "group": "7A Class teacher period",
+      "subject": "Class teacher period (library)",
+      "teacher": "Arvind Menon",
+      "room": "L-1"
+     }
+    }
+   },
+   "7B": {
+    "Mon": {
+     "P1": {
+      "group": "7B Mathematics",
+      "subject": "Mathematics",
+      "teacher": "Arvind Menon",
+      "room": "S4-04"
+     },
+     "P2": {
+      "group": "7B Science",
+      "subject": "Science",
+      "teacher": "Farah Ismail",
+      "room": "S3-01"
+     },
+     "P3": {
+      "block": "G7-L2",
+      "label": "Language 2",
+      "groups": [
+       {
+        "group": "Grade 7 Hindi (L2)",
+        "teacher": "Pooja Sharma",
+        "room": "S4-SEM"
+       },
+       {
+        "group": "Grade 7 Tamil (L2)",
+        "teacher": "Kumaran Selvam",
+        "room": "S4-14"
+       },
+       {
+        "group": "Grade 7 French (L2)",
+        "teacher": "Camille Laurent",
+        "room": "S4-15"
+       }
+      ]
+     },
+     "P4": {
+      "group": "7B Science",
+      "subject": "Science",
+      "teacher": "Farah Ismail",
+      "room": "S3-01"
+     },
+     "P5": {
+      "group": "7B Mathematics",
+      "subject": "Mathematics",
+      "teacher": "Arvind Menon",
+      "room": "S4-04"
+     },
+     "P6": {
+      "group": "7B English",
+      "subject": "English",
+      "teacher": "Lakshmi Rao",
+      "room": "S4-04"
+     },
+     "P7": {
+      "group": "7B English",
+      "subject": "English",
+      "teacher": "Lakshmi Rao",
+      "room": "S4-04"
+     },
+     "P8": {
+      "block": "G7-L3",
+      "label": "Language 3",
+      "groups": [
+       {
+        "group": "Grade 7 Sanskrit (L3)",
+        "teacher": "Venkat Iyer",
+        "room": "S4-SEM"
+       },
+       {
+        "group": "Grade 7 Hindi (L3)",
+        "teacher": "Sunil Verma",
+        "room": "S4-14"
+       },
+       {
+        "group": "Grade 7 Tamil (L3)",
+        "teacher": "Kumaran Selvam",
+        "room": "S4-15"
+       }
+      ]
+     }
+    },
+    "Tue": {
+     "P1": {
+      "group": "7B Social Science",
+      "subject": "Social Science",
+      "teacher": "Rohan Das",
+      "room": "S4-04"
+     },
+     "P2": {
+      "group": "7B Science",
+      "subject": "Science",
+      "teacher": "Farah Ismail",
+      "room": "S3-01"
+     },
+     "P3": {
+      "group": "7B English",
+      "subject": "English",
+      "teacher": "Lakshmi Rao",
+      "room": "S4-04"
+     },
+     "P4": {
+      "group": "7B Social Science",
+      "subject": "Social Science",
+      "teacher": "Rohan Das",
+      "room": "S4-04"
+     },
+     "P5": {
+      "group": "7B Mathematics",
+      "subject": "Mathematics",
+      "teacher": "Arvind Menon",
+      "room": "S4-04"
+     },
+     "P6": {
+      "group": "7B Science",
+      "subject": "Science",
+      "teacher": "Farah Ismail",
+      "room": "S3-01"
+     },
+     "P7": {
+      "block": "G7-L2",
+      "label": "Language 2",
+      "groups": [
+       {
+        "group": "Grade 7 Hindi (L2)",
+        "teacher": "Pooja Sharma",
+        "room": "S4-SEM"
+       },
+       {
+        "group": "Grade 7 Tamil (L2)",
+        "teacher": "Kumaran Selvam",
+        "room": "S4-14"
+       },
+       {
+        "group": "Grade 7 French (L2)",
+        "teacher": "Camille Laurent",
+        "room": "S4-15"
+       }
+      ]
+     },
+     "P8": {
+      "group": "7B Mathematics",
+      "subject": "Mathematics",
+      "teacher": "Arvind Menon",
+      "room": "S4-04"
+     }
+    },
+    "Wed": {
+     "P1": {
+      "group": "7B Physical and Health Education",
+      "subject": "Physical and Health Education",
+      "teacher": "Jason Teo",
+      "room": "SH-1"
+     },
+     "P2": {
+      "group": "7B English",
+      "subject": "English",
+      "teacher": "Lakshmi Rao",
+      "room": "S4-04"
+     },
+     "P3": {
+      "group": "7B Social Science",
+      "subject": "Social Science",
+      "teacher": "Rohan Das",
+      "room": "S4-04"
+     },
+     "P4": {
+      "block": "G7-L3",
+      "label": "Language 3",
+      "groups": [
+       {
+        "group": "Grade 7 Sanskrit (L3)",
+        "teacher": "Venkat Iyer",
+        "room": "S4-SEM"
+       },
+       {
+        "group": "Grade 7 Hindi (L3)",
+        "teacher": "Sunil Verma",
+        "room": "S4-14"
+       },
+       {
+        "group": "Grade 7 Tamil (L3)",
+        "teacher": "Kumaran Selvam",
+        "room": "S4-15"
+       }
+      ]
+     },
+     "P5": {
+      "group": "7B ICT",
+      "subject": "ICT",
+      "teacher": "Nikhil Sood",
+      "room": "C2-01"
+     },
+     "P6": {
+      "group": "7B Science",
+      "subject": "Science",
+      "teacher": "Farah Ismail",
+      "room": "S3-01"
+     },
+     "P7": {
+      "group": "7B Performing Arts",
+      "subject": "Performing Arts",
+      "teacher": "Ananya Krishnan",
+      "room": "A1-03"
+     },
+     "P8": {
+      "group": "7B Physical and Health Education",
+      "subject": "Physical and Health Education",
+      "teacher": "Jason Teo",
+      "room": "SH-1"
+     }
+    },
+    "Thu": {
+     "P1": {
+      "group": "7B Visual Arts",
+      "subject": "Visual Arts",
+      "teacher": "Mei Ling Ho",
+      "room": "A1-02"
+     },
+     "P2": {
+      "block": "G7-L2",
+      "label": "Language 2",
+      "groups": [
+       {
+        "group": "Grade 7 Hindi (L2)",
+        "teacher": "Pooja Sharma",
+        "room": "S4-SEM"
+       },
+       {
+        "group": "Grade 7 Tamil (L2)",
+        "teacher": "Kumaran Selvam",
+        "room": "S4-14"
+       },
+       {
+        "group": "Grade 7 French (L2)",
+        "teacher": "Camille Laurent",
+        "room": "S4-15"
+       }
+      ]
+     },
+     "P3": {
+      "group": "7B Social Science",
+      "subject": "Social Science",
+      "teacher": "Rohan Das",
+      "room": "S4-04"
+     },
+     "P4": {
+      "group": "7B English",
+      "subject": "English",
+      "teacher": "Lakshmi Rao",
+      "room": "S4-04"
+     },
+     "P5": {
+      "group": "7B Mathematics",
+      "subject": "Mathematics",
+      "teacher": "Arvind Menon",
+      "room": "S4-04"
+     },
+     "P6": {
+      "group": "7B Physical and Health Education",
+      "subject": "Physical and Health Education",
+      "teacher": "Jason Teo",
+      "room": "SH-1"
+     },
+     "P7": {
+      "group": "7B Performing Arts",
+      "subject": "Performing Arts",
+      "teacher": "Ananya Krishnan",
+      "room": "A1-03"
+     },
+     "P8": {
+      "group": "7B Social Science",
+      "subject": "Social Science",
+      "teacher": "Rohan Das",
+      "room": "S4-04"
+     }
+    },
+    "Fri": {
+     "P1": {
+      "group": "7B Mathematics",
+      "subject": "Mathematics",
+      "teacher": "Arvind Menon",
+      "room": "S4-04"
+     },
+     "P2": {
+      "block": "G7-L3",
+      "label": "Language 3",
+      "groups": [
+       {
+        "group": "Grade 7 Sanskrit (L3)",
+        "teacher": "Venkat Iyer",
+        "room": "S4-SEM"
+       },
+       {
+        "group": "Grade 7 Hindi (L3)",
+        "teacher": "Sunil Verma",
+        "room": "S4-14"
+       },
+       {
+        "group": "Grade 7 Tamil (L3)",
+        "teacher": "Kumaran Selvam",
+        "room": "S4-15"
+       }
+      ]
+     },
+     "P3": {
+      "group": "7B Science",
+      "subject": "Science",
+      "teacher": "Farah Ismail",
+      "room": "S3-01"
+     },
+     "P4": {
+      "group": "7B Visual Arts",
+      "subject": "Visual Arts",
+      "teacher": "Mei Ling Ho",
+      "room": "A1-02"
+     },
+     "P5": {
+      "block": "G7-L2",
+      "label": "Language 2",
+      "groups": [
+       {
+        "group": "Grade 7 Hindi (L2)",
+        "teacher": "Pooja Sharma",
+        "room": "S4-SEM"
+       },
+       {
+        "group": "Grade 7 Tamil (L2)",
+        "teacher": "Kumaran Selvam",
+        "room": "S4-14"
+       },
+       {
+        "group": "Grade 7 French (L2)",
+        "teacher": "Camille Laurent",
+        "room": "S4-15"
+       }
+      ]
+     },
+     "P6": {
+      "group": "7B English",
+      "subject": "English",
+      "teacher": "Lakshmi Rao",
+      "room": "S4-04"
+     },
+     "P7": {
+      "group": "7B ICT",
+      "subject": "ICT",
+      "teacher": "Nikhil Sood",
+      "room": "C2-01"
+     },
+     "P8": {
+      "group": "7B Class teacher period",
+      "subject": "Class teacher period (library)",
+      "teacher": "Farah Ismail",
+      "room": "L-1"
+     }
+    }
+   },
+   "7C": {
+    "Mon": {
+     "P1": {
+      "group": "7C English",
+      "subject": "English",
+      "teacher": "Lakshmi Rao",
+      "room": "S4-03"
+     },
+     "P2": {
+      "group": "7C English",
+      "subject": "English",
+      "teacher": "Lakshmi Rao",
+      "room": "S4-03"
+     },
+     "P3": {
+      "block": "G7-L2",
+      "label": "Language 2",
+      "groups": [
+       {
+        "group": "Grade 7 Hindi (L2)",
+        "teacher": "Pooja Sharma",
+        "room": "S4-SEM"
+       },
+       {
+        "group": "Grade 7 Tamil (L2)",
+        "teacher": "Kumaran Selvam",
+        "room": "S4-14"
+       },
+       {
+        "group": "Grade 7 French (L2)",
+        "teacher": "Camille Laurent",
+        "room": "S4-15"
+       }
+      ]
+     },
+     "P4": {
+      "group": "7C Mathematics",
+      "subject": "Mathematics",
+      "teacher": "Arvind Menon",
+      "room": "S4-03"
+     },
+     "P5": {
+      "group": "7C Science",
+      "subject": "Science",
+      "teacher": "Farah Ismail",
+      "room": "S3-02"
+     },
+     "P6": {
+      "group": "7C Social Science",
+      "subject": "Social Science",
+      "teacher": "Rohan Das",
+      "room": "S4-03"
+     },
+     "P7": {
+      "group": "7C Science",
+      "subject": "Science",
+      "teacher": "Farah Ismail",
+      "room": "S3-02"
+     },
+     "P8": {
+      "block": "G7-L3",
+      "label": "Language 3",
+      "groups": [
+       {
+        "group": "Grade 7 Sanskrit (L3)",
+        "teacher": "Venkat Iyer",
+        "room": "S4-SEM"
+       },
+       {
+        "group": "Grade 7 Hindi (L3)",
+        "teacher": "Sunil Verma",
+        "room": "S4-14"
+       },
+       {
+        "group": "Grade 7 Tamil (L3)",
+        "teacher": "Kumaran Selvam",
+        "room": "S4-15"
+       }
+      ]
+     }
+    },
+    "Tue": {
+     "P1": {
+      "group": "7C Science",
+      "subject": "Science",
+      "teacher": "Farah Ismail",
+      "room": "S3-02"
+     },
+     "P2": {
+      "group": "7C Mathematics",
+      "subject": "Mathematics",
+      "teacher": "Arvind Menon",
+      "room": "S4-03"
+     },
+     "P3": {
+      "group": "7C Mathematics",
+      "subject": "Mathematics",
+      "teacher": "Arvind Menon",
+      "room": "S4-03"
+     },
+     "P4": {
+      "group": "7C English",
+      "subject": "English",
+      "teacher": "Lakshmi Rao",
+      "room": "S4-03"
+     },
+     "P5": {
+      "group": "7C English",
+      "subject": "English",
+      "teacher": "Lakshmi Rao",
+      "room": "S4-03"
+     },
+     "P6": {
+      "group": "7C Social Science",
+      "subject": "Social Science",
+      "teacher": "Rohan Das",
+      "room": "S4-03"
+     },
+     "P7": {
+      "block": "G7-L2",
+      "label": "Language 2",
+      "groups": [
+       {
+        "group": "Grade 7 Hindi (L2)",
+        "teacher": "Pooja Sharma",
+        "room": "S4-SEM"
+       },
+       {
+        "group": "Grade 7 Tamil (L2)",
+        "teacher": "Kumaran Selvam",
+        "room": "S4-14"
+       },
+       {
+        "group": "Grade 7 French (L2)",
+        "teacher": "Camille Laurent",
+        "room": "S4-15"
+       }
+      ]
+     },
+     "P8": {
+      "group": "7C Science",
+      "subject": "Science",
+      "teacher": "Farah Ismail",
+      "room": "S3-02"
+     }
+    },
+    "Wed": {
+     "P1": {
+      "group": "7C Social Science",
+      "subject": "Social Science",
+      "teacher": "Rohan Das",
+      "room": "S4-03"
+     },
+     "P2": {
+      "group": "7C Physical and Health Education",
+      "subject": "Physical and Health Education",
+      "teacher": "Jason Teo",
+      "room": "SH-1"
+     },
+     "P3": {
+      "group": "7C Mathematics",
+      "subject": "Mathematics",
+      "teacher": "Arvind Menon",
+      "room": "S4-03"
+     },
+     "P4": {
+      "block": "G7-L3",
+      "label": "Language 3",
+      "groups": [
+       {
+        "group": "Grade 7 Sanskrit (L3)",
+        "teacher": "Venkat Iyer",
+        "room": "S4-SEM"
+       },
+       {
+        "group": "Grade 7 Hindi (L3)",
+        "teacher": "Sunil Verma",
+        "room": "S4-14"
+       },
+       {
+        "group": "Grade 7 Tamil (L3)",
+        "teacher": "Kumaran Selvam",
+        "room": "S4-15"
+       }
+      ]
+     },
+     "P5": {
+      "group": "7C English",
+      "subject": "English",
+      "teacher": "Lakshmi Rao",
+      "room": "S4-03"
+     },
+     "P6": {
+      "group": "7C Performing Arts",
+      "subject": "Performing Arts",
+      "teacher": "Ananya Krishnan",
+      "room": "A1-03"
+     },
+     "P7": {
+      "group": "7C ICT",
+      "subject": "ICT",
+      "teacher": "Nikhil Sood",
+      "room": "C2-01"
+     },
+     "P8": {
+      "group": "7C Mathematics",
+      "subject": "Mathematics",
+      "teacher": "Arvind Menon",
+      "room": "S4-03"
+     }
+    },
+    "Thu": {
+     "P1": {
+      "group": "7C Social Science",
+      "subject": "Social Science",
+      "teacher": "Rohan Das",
+      "room": "S4-03"
+     },
+     "P2": {
+      "block": "G7-L2",
+      "label": "Language 2",
+      "groups": [
+       {
+        "group": "Grade 7 Hindi (L2)",
+        "teacher": "Pooja Sharma",
+        "room": "S4-SEM"
+       },
+       {
+        "group": "Grade 7 Tamil (L2)",
+        "teacher": "Kumaran Selvam",
+        "room": "S4-14"
+       },
+       {
+        "group": "Grade 7 French (L2)",
+        "teacher": "Camille Laurent",
+        "room": "S4-15"
+       }
+      ]
+     },
+     "P3": {
+      "group": "7C Visual Arts",
+      "subject": "Visual Arts",
+      "teacher": "Mei Ling Ho",
+      "room": "A1-02"
+     },
+     "P4": {
+      "group": "7C Physical and Health Education",
+      "subject": "Physical and Health Education",
+      "teacher": "Jason Teo",
+      "room": "SH-1"
+     },
+     "P5": {
+      "group": "7C Science",
+      "subject": "Science",
+      "teacher": "Farah Ismail",
+      "room": "S3-02"
+     },
+     "P6": {
+      "group": "7C English",
+      "subject": "English",
+      "teacher": "Lakshmi Rao",
+      "room": "S4-03"
+     },
+     "P7": {
+      "group": "7C Social Science",
+      "subject": "Social Science",
+      "teacher": "Rohan Das",
+      "room": "S4-03"
+     },
+     "P8": {
+      "group": "7C ICT",
+      "subject": "ICT",
+      "teacher": "Nikhil Sood",
+      "room": "C2-01"
+     }
+    },
+    "Fri": {
+     "P1": {
+      "group": "7C Science",
+      "subject": "Science",
+      "teacher": "Farah Ismail",
+      "room": "S3-02"
+     },
+     "P2": {
+      "block": "G7-L3",
+      "label": "Language 3",
+      "groups": [
+       {
+        "group": "Grade 7 Sanskrit (L3)",
+        "teacher": "Venkat Iyer",
+        "room": "S4-SEM"
+       },
+       {
+        "group": "Grade 7 Hindi (L3)",
+        "teacher": "Sunil Verma",
+        "room": "S4-14"
+       },
+       {
+        "group": "Grade 7 Tamil (L3)",
+        "teacher": "Kumaran Selvam",
+        "room": "S4-15"
+       }
+      ]
+     },
+     "P3": {
+      "group": "7C Mathematics",
+      "subject": "Mathematics",
+      "teacher": "Arvind Menon",
+      "room": "S4-03"
+     },
+     "P4": {
+      "group": "7C Performing Arts",
+      "subject": "Performing Arts",
+      "teacher": "Ananya Krishnan",
+      "room": "A1-03"
+     },
+     "P5": {
+      "block": "G7-L2",
+      "label": "Language 2",
+      "groups": [
+       {
+        "group": "Grade 7 Hindi (L2)",
+        "teacher": "Pooja Sharma",
+        "room": "S4-SEM"
+       },
+       {
+        "group": "Grade 7 Tamil (L2)",
+        "teacher": "Kumaran Selvam",
+        "room": "S4-14"
+       },
+       {
+        "group": "Grade 7 French (L2)",
+        "teacher": "Camille Laurent",
+        "room": "S4-15"
+       }
+      ]
+     },
+     "P6": {
+      "group": "7C Visual Arts",
+      "subject": "Visual Arts",
+      "teacher": "Mei Ling Ho",
+      "room": "A1-02"
+     },
+     "P7": {
+      "group": "7C Physical and Health Education",
+      "subject": "Physical and Health Education",
+      "teacher": "Jason Teo",
+      "room": "SH-1"
+     },
+     "P8": {
+      "group": "7C Class teacher period",
+      "subject": "Class teacher period (library)",
+      "teacher": "Grace Wong",
+      "room": "L-1"
+     }
+    }
+   }
+  }
+ },
+ "timetable_draft": {
+  "name": "CBSE Middle (Grades 6-8)",
+  "version": 3,
+  "status": "DRAFT",
+  "effective_from": "2027-01-04",
+  "built_by": "Meera Joshi",
+  "changes_from_v2": [
+   "7B ICT moves to Thu P5 (Computer Lab free after Grade 5 ICT ends)",
+   "Grade 8 Sanskrit (L3) moves to Thu P2 in the Seminar room",
+   "7A PHE becomes a double on Thu P7-P8",
+   "One 7C Science period moved to make room for a Social Science test slot"
+  ],
+  "clashes": [
+   {
+    "severity": "HARD",
+    "kind": "TEACHER_DOUBLE_BOOKED",
+    "text": "Nikhil Sood has 7B ICT and 8C ICT on Thu P5",
+    "fix": "Move 7B ICT to Thu P3 (Nikhil and the Computer Lab are free)"
+   },
+   {
+    "severity": "HARD",
+    "kind": "ROOM_DOUBLE_BOOKED",
+    "text": "Seminar room has Grade 7 Hindi (L2) and Grade 8 Sanskrit (L3) on Thu P2",
+    "fix": "Put Grade 8 Sanskrit in S4-14 or keep its old slot"
+   },
+   {
+    "severity": "SOFT",
+    "kind": "OVER_MAX_LOAD",
+    "text": "Arvind Menon: 37 periods a week, campus maximum 34",
+    "fix": "Give 8C Mathematics to Meera Joshi or note why"
+   },
+   {
+    "severity": "SOFT",
+    "kind": "ROOM_TYPE",
+    "text": "7A PHE double on Thu P7-P8 is in S4-05 (classroom); plan asks for SPORTS",
+    "fix": "Sports Hall is free Thu P7-P8"
+   },
+   {
+    "severity": "SOFT",
+    "kind": "PLAN_MISMATCH",
+    "text": "7C Science: 5 of 6 periods placed",
+    "fix": "Add one Science period"
+   }
+  ],
+  "publish_blocked": true,
+  "_note": "Two must-fix clashes block publishing (DL-139); Dr Rao publishes (OQ-150)"
+ },
+ "teacher_absence_today": {
+  "teacher": "Arvind Menon",
+  "date": "2026-11-24",
+  "periods": "Whole day",
+  "absence_kind": "LEAVE",
+  "source": "ENTERED",
+  "recorded_by": "Rachel Lim (campus office)",
+  "reported_at": "07:32",
+  "reason": "Not shown (Staff and HR, DL-143)",
+  "cover_note": "7A-7C: Worksheet 'Algebraic expressions 3' in the shared drive. 8A-8C: revise PT2 paper.",
+  "class_teacher_of": "7A (day register: co-class teacher or first-period cover, OQ-165)"
+ },
+ "cover_board_today": [
+  {
+   "period": "P1",
+   "time": "09:10–09:50",
+   "group": "7A Mathematics",
+   "room": "S4-05",
+   "suggestions": [
+    {
+     "teacher": "Meera Joshi",
+     "why": "Teaches Mathematics",
+     "covers_this_term": 1,
+     "load": 6
+    },
+    {
+     "teacher": "Nikhil Sood",
+     "why": "Free",
+     "covers_this_term": 1,
+     "load": 22
+    },
+    {
+     "teacher": "Mei Ling Ho",
+     "why": "Free",
+     "covers_this_term": 2,
+     "load": 22
+    },
+    {
+     "teacher": "Venkat Iyer",
+     "why": "Free",
+     "covers_this_term": 2,
+     "load": 9
+    }
+   ],
+   "cover_status": "NEEDED",
+   "urgent": true,
+   "_note": "Starts in 50 minutes"
+  },
+  {
+   "period": "P2",
+   "time": "09:50–10:30",
+   "group": "7C Mathematics",
+   "room": "S4-03",
+   "suggestions": [
+    {
+     "teacher": "Meera Joshi",
+     "why": "Teaches Mathematics",
+     "covers_this_term": 1,
+     "load": 6
+    },
+    {
+     "teacher": "Camille Laurent",
+     "why": "Free",
+     "covers_this_term": 0,
+     "load": 16
+    },
+    {
+     "teacher": "Kumaran Selvam",
+     "why": "Free",
+     "covers_this_term": 1,
+     "load": 15
+    },
+    {
+     "teacher": "Nikhil Sood",
+     "why": "Free",
+     "covers_this_term": 1,
+     "load": 22
+    }
+   ],
+   "cover_status": "ARRANGED",
+   "cover_kind": "COVER",
+   "cover_teacher": "Meera Joshi",
+   "suggestion_rank": 1,
+   "arranged_by": "Meera Joshi",
+   "arranged_at": "07:55"
+  },
+  {
+   "period": "P3",
+   "time": "10:50–11:30",
+   "group": "7C Mathematics",
+   "room": "S4-03",
+   "suggestions": [
+    {
+     "teacher": "Meera Joshi",
+     "why": "Teaches Mathematics",
+     "covers_this_term": 2,
+     "load": 6
+    },
+    {
+     "teacher": "Camille Laurent",
+     "why": "Free",
+     "covers_this_term": 0,
+     "load": 16
+    },
+    {
+     "teacher": "Nikhil Sood",
+     "why": "Free",
+     "covers_this_term": 1,
+     "load": 22
+    },
+    {
+     "teacher": "Venkat Iyer",
+     "why": "Free",
+     "covers_this_term": 2,
+     "load": 9
+    }
+   ],
+   "cover_status": "ARRANGED",
+   "cover_kind": "SUPERVISION",
+   "cover_teacher": "Camille Laurent",
+   "suggestion_rank": 2,
+   "arranged_by": "Meera Joshi",
+   "arranged_at": "07:55"
+  },
+  {
+   "period": "P4",
+   "time": "11:30–12:10",
+   "group": "7A Mathematics",
+   "room": "S4-05",
+   "suggestions": [
+    {
+     "teacher": "Meera Joshi",
+     "why": "Teaches Mathematics",
+     "covers_this_term": 2,
+     "load": 6
+    },
+    {
+     "teacher": "Camille Laurent",
+     "why": "Free",
+     "covers_this_term": 1,
+     "load": 16
+    },
+    {
+     "teacher": "Kumaran Selvam",
+     "why": "Free",
+     "covers_this_term": 1,
+     "load": 15
+    },
+    {
+     "teacher": "Nikhil Sood",
+     "why": "Free",
+     "covers_this_term": 1,
+     "load": 22
+    }
+   ],
+   "cover_status": "NEEDED"
+  },
+  {
+   "period": "P5",
+   "time": "12:10–12:50",
+   "group": "7B Mathematics",
+   "room": "S4-04",
+   "suggestions": [
+    {
+     "teacher": "Camille Laurent",
+     "why": "Free",
+     "covers_this_term": 1,
+     "load": 16
+    },
+    {
+     "teacher": "Farah Ismail",
+     "why": "Free",
+     "covers_this_term": 2,
+     "load": 25
+    },
+    {
+     "teacher": "Venkat Iyer",
+     "why": "Free",
+     "covers_this_term": 2,
+     "load": 9
+    },
+    {
+     "teacher": "Ananya Krishnan",
+     "why": "Free",
+     "covers_this_term": 3,
+     "load": 24
+    }
+   ],
+   "cover_status": "ARRANGED",
+   "cover_kind": "COVER",
+   "cover_teacher": "Camille Laurent",
+   "suggestion_rank": 1,
+   "arranged_by": "Meera Joshi",
+   "arranged_at": "07:55"
+  },
+  {
+   "period": "P6",
+   "time": "13:30–14:10",
+   "group": "8B Mathematics",
+   "room": "S4-08",
+   "suggestions": [
+    {
+     "teacher": "Meera Joshi",
+     "why": "Teaches Mathematics",
+     "covers_this_term": 2,
+     "load": 6
+    },
+    {
+     "teacher": "Kumaran Selvam",
+     "why": "Free",
+     "covers_this_term": 1,
+     "load": 15
+    },
+    {
+     "teacher": "Nikhil Sood",
+     "why": "Free",
+     "covers_this_term": 1,
+     "load": 22
+    },
+    {
+     "teacher": "Ananya Krishnan",
+     "why": "Free",
+     "covers_this_term": 3,
+     "load": 24
+    }
+   ],
+   "cover_status": "NEEDED"
+  },
+  {
+   "period": "P7",
+   "time": "14:10–14:50",
+   "group": "8C Mathematics",
+   "room": "S4-09",
+   "suggestions": [
+    {
+     "teacher": "Nikhil Sood",
+     "why": "Free",
+     "covers_this_term": 1,
+     "load": 22
+    },
+    {
+     "teacher": "Farah Ismail",
+     "why": "Free",
+     "covers_this_term": 2,
+     "load": 25
+    },
+    {
+     "teacher": "Mei Ling Ho",
+     "why": "Free",
+     "covers_this_term": 2,
+     "load": 22
+    },
+    {
+     "teacher": "Venkat Iyer",
+     "why": "Free",
+     "covers_this_term": 2,
+     "load": 9
+    }
+   ],
+   "cover_status": "ARRANGED",
+   "cover_kind": "SUPERVISION",
+   "cover_teacher": "Farah Ismail",
+   "suggestion_rank": 2,
+   "arranged_by": "Meera Joshi",
+   "arranged_at": "07:55"
+  },
+  {
+   "period": "P8",
+   "time": "14:50–15:30",
+   "group": "7B Mathematics",
+   "room": "S4-04",
+   "suggestions": [
+    {
+     "teacher": "Meera Joshi",
+     "why": "Teaches Mathematics",
+     "covers_this_term": 2,
+     "load": 6
+    },
+    {
+     "teacher": "Kumaran Selvam",
+     "why": "Free",
+     "covers_this_term": 1,
+     "load": 15
+    },
+    {
+     "teacher": "Camille Laurent",
+     "why": "Free",
+     "covers_this_term": 2,
+     "load": 16
+    },
+    {
+     "teacher": "Venkat Iyer",
+     "why": "Free",
+     "covers_this_term": 2,
+     "load": 9
+    }
+   ],
+   "cover_status": "NEEDED"
+  }
+ ],
+ "cover_summary_today": {
+  "lessons_needing_cover": 8,
+  "arranged": 4,
+  "needed": 4,
+  "urgent": 1
+ },
+ "changed_lessons_today": [
+  {
+   "lesson": "7C Science",
+   "periods": [
+    "P1",
+    "P8"
+   ],
+   "change_kind": "ROOM",
+   "from": "S3-02",
+   "to": "S3-01",
+   "reason": "Science Lab 2 out of use until 27 Nov (air-con repair)",
+   "changed_by": "Meera Joshi",
+   "families_told": false,
+   "_note": "Room changes are not sent to families (OQ-157)"
+  }
+ ],
+ "my_day_farah": {
+  "teacher": "Farah Ismail",
+  "date": "2026-11-24",
+  "lessons": [
+   {
+    "period": "P1",
+    "time": "09:10–09:50",
+    "group": "7C Science",
+    "room": "S3-01",
+    "status": "CHANGED",
+    "change": "Room: Lab 2 → Lab 1 (Lab 2 out of use until 27 Nov)"
+   },
+   {
+    "period": "P2",
+    "time": "09:50–10:30",
+    "group": "7B Science",
+    "room": "S3-01"
+   },
+   {
+    "period": "P3",
+    "time": "10:50–11:30",
+    "group": "7A Science",
+    "room": "S3-01"
+   },
+   {
+    "period": "P4",
+    "time": "11:30–12:10",
+    "group": "8A Science",
+    "room": "S3-01"
+   },
+   {
+    "period": "P6",
+    "time": "13:30–14:10",
+    "group": "7B Science",
+    "room": "S3-01"
+   },
+   {
+    "period": "P7",
+    "time": "14:10–14:50",
+    "group": "8C Mathematics",
+    "room": "S4-09",
+    "cover_for": "Arvind Menon",
+    "status": "COVERED",
+    "note": "Cover note: Worksheet 'Algebraic expressions 3'. You can take this period's register (DL-145)."
+   },
+   {
+    "period": "P8",
+    "time": "14:50–15:30",
+    "group": "7C Science",
+    "room": "S3-01",
+    "status": "CHANGED",
+    "change": "Room: Lab 2 → Lab 1 (Lab 2 out of use until 27 Nov)"
+   }
+  ],
+  "day_register": "7B, due 09:15"
+ },
+ "teacher_week": {
+  "Farah Ismail": {
+   "Mon": {
+    "P1": {
+     "group": "7A Science",
+     "room": "S3-01"
+    },
+    "P2": {
+     "group": "7B Science",
+     "room": "S3-01"
+    },
+    "P3": null,
+    "P4": {
+     "group": "7B Science",
+     "room": "S3-01"
+    },
+    "P5": {
+     "group": "7C Science",
+     "room": "S3-02"
+    },
+    "P6": {
+     "group": "7A Science",
+     "room": "S3-01"
+    },
+    "P7": {
+     "group": "7C Science",
+     "room": "S3-02"
+    },
+    "P8": null
+   },
+   "Tue": {
+    "P1": {
+     "group": "7C Science",
+     "room": "S3-02"
+    },
+    "P2": {
+     "group": "7B Science",
+     "room": "S3-01"
+    },
+    "P3": {
+     "group": "7A Science",
+     "room": "S3-01"
+    },
+    "P4": {
+     "group": "8A Science",
+     "room": "S3-01",
+     "_other_grade": true
+    },
+    "P5": null,
+    "P6": {
+     "group": "7B Science",
+     "room": "S3-01"
+    },
+    "P7": null,
+    "P8": {
+     "group": "7C Science",
+     "room": "S3-02"
+    }
+   },
+   "Wed": {
+    "P1": {
+     "group": "8A Science",
+     "room": "S3-01",
+     "_other_grade": true
+    },
+    "P2": {
+     "group": "7A Science",
+     "room": "S3-01"
+    },
+    "P3": {
+     "group": "8A Science",
+     "room": "S3-01",
+     "_other_grade": true
+    },
+    "P4": null,
+    "P5": {
+     "group": "7A Science",
+     "room": "S3-01"
+    },
+    "P6": {
+     "group": "7B Science",
+     "room": "S3-01"
+    },
+    "P7": null,
+    "P8": null
+   },
+   "Thu": {
+    "P1": null,
+    "P2": null,
+    "P3": {
+     "group": "8A Science",
+     "room": "S3-01",
+     "_other_grade": true
+    },
+    "P4": null,
+    "P5": {
+     "group": "7C Science",
+     "room": "S3-02"
+    },
+    "P6": null,
+    "P7": {
+     "group": "8A Science",
+     "room": "S3-01",
+     "_other_grade": true
+    },
+    "P8": null
+   },
+   "Fri": {
+    "P1": {
+     "group": "7C Science",
+     "room": "S3-02"
+    },
+    "P2": {
+     "group": "8A Science",
+     "room": "S3-01",
+     "_other_grade": true
+    },
+    "P3": {
+     "group": "7B Science",
+     "room": "S3-01"
+    },
+    "P4": null,
+    "P5": null,
+    "P6": null,
+    "P7": {
+     "group": "7A Science",
+     "room": "S3-01"
+    },
+    "P8": {
+     "group": "7B Class teacher period",
+     "room": "L-1"
+    }
+   }
+  },
+  "Arvind Menon": {
+   "Mon": {
+    "P1": {
+     "group": "7B Mathematics",
+     "room": "S4-04"
+    },
+    "P2": {
+     "group": "7A Mathematics",
+     "room": "S4-05"
+    },
+    "P3": null,
+    "P4": {
+     "group": "7C Mathematics",
+     "room": "S4-03"
+    },
+    "P5": {
+     "group": "7B Mathematics",
+     "room": "S4-04"
+    },
+    "P6": {
+     "group": "8B Mathematics",
+     "room": "S4-08",
+     "_other_grade": true
+    },
+    "P7": {
+     "group": "8C Mathematics",
+     "room": "S4-09",
+     "_other_grade": true
+    },
+    "P8": {
+     "group": "8A Mathematics",
+     "room": "S4-07",
+     "_other_grade": true
+    }
+   },
+   "Tue": {
+    "P1": {
+     "group": "7A Mathematics",
+     "room": "S4-05"
+    },
+    "P2": {
+     "group": "7C Mathematics",
+     "room": "S4-03"
+    },
+    "P3": {
+     "group": "7C Mathematics",
+     "room": "S4-03"
+    },
+    "P4": {
+     "group": "7A Mathematics",
+     "room": "S4-05"
+    },
+    "P5": {
+     "group": "7B Mathematics",
+     "room": "S4-04"
+    },
+    "P6": {
+     "group": "8B Mathematics",
+     "room": "S4-08",
+     "_other_grade": true
+    },
+    "P7": {
+     "group": "8C Mathematics",
+     "room": "S4-09",
+     "_other_grade": true
+    },
+    "P8": {
+     "group": "7B Mathematics",
+     "room": "S4-04"
+    }
+   },
+   "Wed": {
+    "P1": {
+     "group": "7A Mathematics",
+     "room": "S4-05"
+    },
+    "P2": {
+     "group": "8B Mathematics",
+     "room": "S4-08",
+     "_other_grade": true
+    },
+    "P3": {
+     "group": "7C Mathematics",
+     "room": "S4-03"
+    },
+    "P4": {
+     "group": "8B Mathematics",
+     "room": "S4-08",
+     "_other_grade": true
+    },
+    "P5": {
+     "group": "8A Mathematics",
+     "room": "S4-07",
+     "_other_grade": true
+    },
+    "P6": {
+     "group": "8A Mathematics",
+     "room": "S4-07",
+     "_other_grade": true
+    },
+    "P7": null,
+    "P8": {
+     "group": "7C Mathematics",
+     "room": "S4-03"
+    }
+   },
+   "Thu": {
+    "P1": {
+     "group": "8B Mathematics",
+     "room": "S4-08",
+     "_other_grade": true
+    },
+    "P2": {
+     "group": "8B Mathematics",
+     "room": "S4-08",
+     "_other_grade": true
+    },
+    "P3": {
+     "group": "7A Mathematics",
+     "room": "S4-05"
+    },
+    "P4": {
+     "group": "8C Mathematics",
+     "room": "S4-09",
+     "_other_grade": true
+    },
+    "P5": {
+     "group": "7B Mathematics",
+     "room": "S4-04"
+    },
+    "P6": {
+     "group": "8A Mathematics",
+     "room": "S4-07",
+     "_other_grade": true
+    },
+    "P7": {
+     "group": "8C Mathematics",
+     "room": "S4-09",
+     "_other_grade": true
+    },
+    "P8": null
+   },
+   "Fri": {
+    "P1": {
+     "group": "7B Mathematics",
+     "room": "S4-04"
+    },
+    "P2": {
+     "group": "8C Mathematics",
+     "room": "S4-09",
+     "_other_grade": true
+    },
+    "P3": {
+     "group": "7C Mathematics",
+     "room": "S4-03"
+    },
+    "P4": {
+     "group": "8A Mathematics",
+     "room": "S4-07",
+     "_other_grade": true
+    },
+    "P5": {
+     "group": "8A Mathematics",
+     "room": "S4-07",
+     "_other_grade": true
+    },
+    "P6": {
+     "group": "7A Mathematics",
+     "room": "S4-05"
+    },
+    "P7": {
+     "group": "8C Mathematics",
+     "room": "S4-09",
+     "_other_grade": true
+    },
+    "P8": {
+     "group": "7A Class teacher period",
+     "room": "L-1"
+    }
+   }
+  },
+  "Meera Joshi": {
+   "Mon": {
+    "P1": {
+     "group": "6C Mathematics",
+     "room": "S4-26",
+     "_other_grade": true
+    },
+    "P2": null,
+    "P3": {
+     "group": "6C Mathematics",
+     "room": "S4-26",
+     "_other_grade": true
+    },
+    "P4": null,
+    "P5": null,
+    "P6": null,
+    "P7": null,
+    "P8": null
+   },
+   "Tue": {
+    "P1": null,
+    "P2": null,
+    "P3": null,
+    "P4": null,
+    "P5": {
+     "group": "6C Mathematics",
+     "room": "S4-26",
+     "_other_grade": true
+    },
+    "P6": null,
+    "P7": {
+     "group": "6C Mathematics",
+     "room": "S4-26",
+     "_other_grade": true
+    },
+    "P8": null
+   },
+   "Wed": {
+    "P1": null,
+    "P2": null,
+    "P3": {
+     "group": "6C Mathematics",
+     "room": "S4-26",
+     "_other_grade": true
+    },
+    "P4": null,
+    "P5": null,
+    "P6": null,
+    "P7": null,
+    "P8": null
+   },
+   "Thu": {
+    "P1": null,
+    "P2": null,
+    "P3": null,
+    "P4": null,
+    "P5": null,
+    "P6": null,
+    "P7": null,
+    "P8": null
+   },
+   "Fri": {
+    "P1": null,
+    "P2": null,
+    "P3": null,
+    "P4": null,
+    "P5": null,
+    "P6": {
+     "group": "6C Mathematics",
+     "room": "S4-26",
+     "_other_grade": true
+    },
+    "P7": null,
+    "P8": null
+   }
+  },
+  "Nikhil Sood": {
+   "Mon": {
+    "P1": {
+     "group": "8B ICT",
+     "room": "C2-01",
+     "_other_grade": true
+    },
+    "P2": null,
+    "P3": {
+     "group": "6C ICT",
+     "room": "C2-01",
+     "_other_grade": true
+    },
+    "P4": {
+     "group": "8A ICT",
+     "room": "C2-01",
+     "_other_grade": true
+    },
+    "P5": null,
+    "P6": {
+     "group": "5A ICT",
+     "room": "C2-01",
+     "_other_grade": true
+    },
+    "P7": {
+     "group": "5A ICT",
+     "room": "C2-01",
+     "_other_grade": true
+    },
+    "P8": {
+     "group": "6B ICT",
+     "room": "C2-01",
+     "_other_grade": true
+    }
+   },
+   "Tue": {
+    "P1": null,
+    "P2": null,
+    "P3": null,
+    "P4": null,
+    "P5": {
+     "group": "8B ICT",
+     "room": "C2-01",
+     "_other_grade": true
+    },
+    "P6": null,
+    "P7": null,
+    "P8": {
+     "group": "5B ICT",
+     "room": "C2-01",
+     "_other_grade": true
+    }
+   },
+   "Wed": {
+    "P1": null,
+    "P2": null,
+    "P3": {
+     "group": "6A ICT",
+     "room": "C2-01",
+     "_other_grade": true
+    },
+    "P4": null,
+    "P5": {
+     "group": "7B ICT",
+     "room": "C2-01"
+    },
+    "P6": {
+     "group": "7A ICT",
+     "room": "C2-01"
+    },
+    "P7": {
+     "group": "7C ICT",
+     "room": "C2-01"
+    },
+    "P8": null
+   },
+   "Thu": {
+    "P1": {
+     "group": "6C ICT",
+     "room": "C2-01",
+     "_other_grade": true
+    },
+    "P2": {
+     "group": "8C ICT",
+     "room": "C2-01",
+     "_other_grade": true
+    },
+    "P3": null,
+    "P4": null,
+    "P5": {
+     "group": "8C ICT",
+     "room": "C2-01",
+     "_other_grade": true
+    },
+    "P6": null,
+    "P7": {
+     "group": "6B ICT",
+     "room": "C2-01",
+     "_other_grade": true
+    },
+    "P8": {
+     "group": "7C ICT",
+     "room": "C2-01"
+    }
+   },
+   "Fri": {
+    "P1": {
+     "group": "5B ICT",
+     "room": "C2-01",
+     "_other_grade": true
+    },
+    "P2": {
+     "group": "8A ICT",
+     "room": "C2-01",
+     "_other_grade": true
+    },
+    "P3": {
+     "group": "7A ICT",
+     "room": "C2-01"
+    },
+    "P4": null,
+    "P5": null,
+    "P6": {
+     "group": "6A ICT",
+     "room": "C2-01",
+     "_other_grade": true
+    },
+    "P7": {
+     "group": "7B ICT",
+     "room": "C2-01"
+    },
+    "P8": null
+   }
+  }
+ },
+ "parent_view_neha": {
+  "parent": "Neha Sharma",
+  "child": "Aarav Sharma (7B)",
+  "sees": "7B timetable with teacher names and rooms; cancellations only (OQ-157)",
+  "language_2": "Hindi",
+  "language_3": "Sanskrit",
+  "_note": "Parent app later (DL-118); data designed now (DL-142)"
+ }
+}

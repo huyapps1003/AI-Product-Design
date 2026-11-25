@@ -16,9 +16,9 @@ Approved by Henry, 14 Nov 2026: **how students are grouped into classes for a ye
 
 | In this dictionary | Not in this dictionary (owner) |
 |---|---|
-| Class per campus × programme offering × grade × academic year | Timetable, periods, rooms booking (Teaching and Learning: Timetable) |
-| Class plan per grade: number of classes × class size, the source of the Admissions seat limit (DL-61) | Subject-teacher allocation (Teaching: Academic Allocation, OBJ-12 / Employee DD D02) |
-| Class teacher and co-teacher | Elective subject groups and sets, streams (open: OQ-77) |
+| Class per campus × programme offering × grade × academic year | Timetable, periods, rooms ([Teaching & Timetable](./teaching-timetable-data-dictionary.md), OBJ-27) |
+| Class plan per grade: number of classes × class size, the source of the Admissions seat limit (DL-61) | Subject-teacher allocation ([Teaching & Timetable](./teaching-timetable-data-dictionary.md) TE06, OBJ-12; replaces Employee DD D02) |
+| Class teacher and co-teacher | Elective subject groups and sets ([Teaching & Timetable](./teaching-timetable-data-dictionary.md) TE04); streams are classes (Confirmed DL-132, answers OQ-77) |
 | Placing students: Admissions handoff, start-of-year allocation, in-year class moves | Attendance, leave, conduct (Attendance and Conduct) |
 | Year-end rollover: next year's classes, promotion, retention, stage-campus promotion (DL-54, DL-62) | Promotion rules and results (Assessment and Reporting; this file reads the outcome) |
 | House list and house allocation | House points and events (Activities and Awards) |
@@ -69,7 +69,7 @@ ST02, ST03, AD06 and Employee DD D01/D02 are referenced, not redefined. Employee
 | grade_id | UUID | FK:AC02 | Y | T1 | Known (Arch: grade level from the programme pack) | |
 | segment_code | VARCHAR(32) | — | N | T1 | Known values per campus (organisation dictionary); derived | Pre-Primary, Primary, Middle, Higher at GIIS (DL-29). |
 | size_limit | INT | — | Y | T1 | Confirmed (DL-71) | From the class plan; may differ per class (e.g. one smaller class). |
-| home_room | VARCHAR(40) | — | N | T1 | Known (HB p.9–14 room per class, e.g. "S4 - 04") | Becomes FK:Room when the Organisation building/room list exists (Arch § Data model "Room"). |
+| home_room | VARCHAR(40) | — | N | T1 | Known (HB p.9–14 room per class, e.g. "S4 - 04") | Becomes FK:TE03 (the room list [Teaching & Timetable](./teaching-timetable-data-dictionary.md) keeps until Campus Services owns rooms, DL-141, Confirmed). |
 | class_status | ENUM | — | Y | T1 | Assumed (DL-27) | DRAFT, ACTIVE, CLOSED. See enums. |
 | previous_class_id | UUID | FK:CL01 | N | T1 | Confirmed (DL-70) | Suggested predecessor from rollover (7B → 8B). Display only. |
 | enrolled_count | INT | — | Y | T1 | Assumed; derived | Current CL04 placements. Never stored by hand. |
@@ -173,7 +173,7 @@ ST02, ST03, AD06 and Employee DD D01/D02 are referenced, not redefined. Employee
 | Moment | Classes record | Other module | Rule |
 |---|---|---|---|
 | Plan next year | CL02 DRAFT → APPROVED | Admissions AD06 `seat_limit` updates | SR-CL-02, DL-61 |
-| Create classes | CL01 DRAFT (one per planned class), CL03 class teachers | Timetable reads classes (out of scope) | DL-70, DL-73 |
+| Create classes | CL01 DRAFT (one per planned class), CL03 class teachers | Teaching creates class teaching groups ([Teaching & Timetable](./teaching-timetable-data-dictionary.md) SR-TE-02) | DL-70, DL-73 |
 | Offer accepted, student CONFIRMED | CL04 pre-placement (optional) | Admissions handoff (SR-AD-07) | SR-CL-06 |
 | Year starts | CL01 ACTIVE, CL04 ALLOCATION | ST02 ENROLLED, `class_id` set | SR-07 |
 | Mid-year joiner enrolled | CL04 NEW_ENROLMENT | ST02 ENROLLED | SR-CL-06 |
