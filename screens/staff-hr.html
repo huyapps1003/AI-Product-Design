@@ -6,7 +6,7 @@
   Viewers: Nadia Rahman (HR Business Partner) · Meera Joshi (line manager) · Dr Anita Rao (Principal) · Farah Ismail (staff, phone)
   Objects: OBJ-05 Employee, OBJ-06 Employment, OBJ-28 Staff leave, OBJ-29 Compliance record, OBJ-30 Vacancy and candidate, OBJ-31 Appraisal and training
   Sample: product-truth/03-domain/samples/staff-hr-sample.json · today Wed 25 Nov 2026 09:15 SGT · synthetic
-  DL: DL-146…DL-153 Confirmed · DL-154…DL-164 Assumed · OQ shown as pending: OQ-166 OQ-168 OQ-169 OQ-171 OQ-174 OQ-175 OQ-177 OQ-178 OQ-189
+  DL: DL-146…DL-154 Confirmed · DL-155…DL-164 Assumed · OQ shown as pending: OQ-166 OQ-168 OQ-169 OQ-171 OQ-174 OQ-175 OQ-177 OQ-178 OQ-189
   Spec: Staff & HR Data Dictionary v0.1
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -688,7 +688,7 @@ function render(){
  $('#meName').textContent=v.name;$('#meRole').textContent=v.role;$('#meAv').textContent=initials(v.name);$('#scopeTxt').innerHTML=v.scope;
  const nav=v.nav.map(n=>`<a href="#" data-go="${n[0]}" class="${n[0]===st.view?'on':''}">${n[2]}<span>${n[1]}</span></a>`).join('');
  $('#nav').innerHTML=nav;$('#bnav').innerHTML=nav;
- const [fn,bind]=VIEWS[st.view];$('#view').innerHTML=fn()+`<p class="foot">Synthetic data · Staff &amp; HR dictionary v0.1 · DL-146…DL-153 Confirmed · DL-154…DL-164 Assumed</p>`;bind&&bind();
+ const [fn,bind]=VIEWS[st.view];$('#view').innerHTML=fn()+`<p class="foot">Synthetic data · Staff &amp; HR dictionary v0.1 · DL-146…DL-154 Confirmed · DL-155…DL-164 Assumed</p>`;bind&&bind();
  document.querySelectorAll('[data-go]').forEach(a=>a.onclick=e=>{e.preventDefault();st.view=a.dataset.go;render();$('#view').focus()});
 }
 function setFrame(f){$('#stage').classList.toggle('mobile',f==='phone');document.querySelectorAll('#frame button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f))}

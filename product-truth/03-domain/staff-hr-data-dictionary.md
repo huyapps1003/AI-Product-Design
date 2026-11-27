@@ -1,6 +1,6 @@
 # Global Campus OS — Staff & HR Data Dictionary v0.1 (draft)
 
-**Status:** Proposed draft, 25 Nov 2026. DL-146…DL-153 Confirmed; DL-154…DL-164 Assumed; OQ-166…OQ-193 Open · **Owner:** Henry
+**Status:** Proposed draft, 25 Nov 2026. DL-146…DL-154 Confirmed; DL-155…DL-164 Assumed; OQ-166…OQ-193 Open · **Owner:** Henry
 **Cites:** [Architecture v1](../00-sources/Global_Campus_OS_Product_Architecture_v1.md) § Domains and modules (module 12 Staff and HR "Staff records, allocation; cover, training, appraisal"), § Users and roles (Principal approvals; staff across campuses and programmes), § Data model (People "Person… Staff… Role grant"; "One Person can be a parent on one campus and staff on another"), § Security (Tier 3 never leaves its cell; AI keeps a human approver) · [Employee Data Dictionary v1](../00-sources/Global_Campus_OS_Employee_Data_Dictionary_v1.md) E01–E08, BR-01…BR-20, Decisions D01–D15 (all Proposed, 14 Oct 2026) · [Organisation dictionary](./organisation-data-dictionary.md) OR03, OR04, OR07, OR08, OR09 · [Teaching & timetable dictionary](./teaching-timetable-data-dictionary.md) TE06, TE07, TE12, DL-143, OQ-159, OQ-163, OQ-164 · [Cases & communications dictionary](./cases-communications-data-dictionary.md) CC01, CC03, DL-120, DL-125, DL-129 · [Academic structure dictionary](./academic-structure-data-dictionary.md) AC07, DL-96 · [Attendance dictionary](./attendance-data-dictionary.md) AT01, AT02 · [architecture.md](./architecture.md) DL-39, DL-41, DL-42, DL-43, DL-45 · [permission catalogue](../04-access/permission-catalogue.md) `hr.*` seed capabilities · GIIS Student Handbook 2025-26 (HB) p.210–213 (Child Protection Policy: Principal is Designated Person; staff allegations, suspension pending investigation), p.138 (English teachers receive IB training at workshops) · DL-09, DL-11, DL-13, DL-16, DL-19, DL-22, DL-24, DL-27, DL-34, DL-36, DL-47, DL-53, DL-58, DL-59, DL-69, DL-73, DL-118
 **Tóm tắt (VI):** Từ điển dữ liệu cho module Nhân sự (phạm vi "Full HR", Henry chọn 25/11/2026): hồ sơ nhân viên và hợp đồng (kế thừa E01–E08 của Employee DD v1), phòng ban, chức danh, người quản lý trực tiếp; nghỉ phép của nhân viên (loại phép, chính sách theo brand-country, số dư, xin và duyệt phép, tự động báo "vắng" sang module Giảng dạy để xếp dạy thay, không bao giờ gửi lý do); hồ sơ tuân thủ (giấy phép lao động, kiểm tra lý lịch/an toàn trẻ em, bằng cấp, chứng chỉ IB/CBSE/Cambridge, sơ cứu) với cảnh báo hết hạn; tuyển dụng (yêu cầu tuyển, ứng viên, phỏng vấn, offer); tiếp nhận và nghỉ việc (checklist, bàn giao); đánh giá năng lực hằng năm và đào tạo. Lương bổng do hệ thống payroll bên ngoài giữ. Mỗi trường có trạng thái Known / Assumed / Open.
 
@@ -63,8 +63,8 @@ Approved by Henry, 25 Nov 2026 (decision card "Full HR", chosen over the smaller
 | HR03 | Leave Type | Staff & HR (OBJ-28) | Confirmed (DL-153) |
 | HR04 | Leave Policy | Staff & HR (OBJ-28) | Confirmed (DL-153); values Open (OQ-169) |
 | HR05 | Leave Balance | Staff & HR (OBJ-28) | Assumed (DL-155) |
-| HR06 | Leave Request | Staff & HR (OBJ-28) | Known need (Arch module 12; TE12 `source` STAFF_LEAVE; OQ-163); model Assumed (DL-154) |
-| HR07 | Leave Approval Step | Staff & HR (OBJ-28) | Assumed (DL-154) |
+| HR06 | Leave Request | Staff & HR (OBJ-28) | Known need (Arch module 12; TE12 `source` STAFF_LEAVE; OQ-163); model Confirmed (DL-154) |
+| HR07 | Leave Approval Step | Staff & HR (OBJ-28) | Confirmed (DL-154) |
 | HR08 | Compliance Item Type | Staff & HR (OBJ-29) | Known need (HB p.210–213 child protection; IB training); catalogue Assumed (DL-157) |
 | HR09 | Compliance Requirement | Staff & HR (OBJ-29) | Assumed (DL-157); values Open (OQ-171, OQ-172) |
 | HR10 | Compliance Record | Staff & HR (OBJ-29) | Assumed (DL-157, DL-158) |
@@ -233,8 +233,8 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 | certificate_after_days | INT | — | N | T1 | Assumed | Sick leave: certificate needed from this many days (0 = always). |
 | certificate_due_days | INT | — | N | T1 | Assumed | Days after return to upload it. |
 | allow_half_day / allow_negative | BOOLEAN | — | Y | T1 | Assumed | |
-| school_day_rule | ENUM | — | Y | T1 | Assumed (DL-154) | ANY, PRINCIPAL_APPROVAL, NOT_ALLOWED. Whether teachers may take it on school days (AT01). |
-| principal_over_days | INT | — | N | T1 | Assumed (DL-154) | Requests longer than this also need the Principal. Campus may override (OR09). |
+| school_day_rule | ENUM | — | Y | T1 | Confirmed (DL-154) | ANY, PRINCIPAL_APPROVAL, NOT_ALLOWED. Whether teachers may take it on school days (AT01). |
+| principal_over_days | INT | — | N | T1 | Confirmed (DL-154) | Requests longer than this also need the Principal. Campus may override (OR09). |
 | policy_status | ENUM | — | Y | T1 | Assumed | DRAFT, ACTIVE, RETIRED. |
 
 ### HR05 — Leave Balance
@@ -258,7 +258,7 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| leave_request_id | UUID | PK | Y | T1 | Assumed (DL-154) | |
+| leave_request_id | UUID | PK | Y | T1 | Confirmed (DL-154) | |
 | employee_id | UUID | FK:E01 | Y | T1 | Assumed | |
 | employment_id | UUID | FK:E02 | Y | T1 | Assumed | |
 | leave_type_id | UUID | FK:HR03 | Y | T2 | Assumed (DL-156) | The type is T2: colleagues see "Away" only. |
@@ -276,7 +276,7 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| step_id | UUID | PK | Y | T1 | Assumed (DL-154) | |
+| step_id | UUID | PK | Y | T1 | Confirmed (DL-154) | |
 | leave_request_id | UUID | FK:HR06 | Y | T1 | Assumed | |
 | sequence | INT | — | Y | T1 | Assumed | 1 line manager, 2 Principal when needed. |
 | approver_role | ENUM | — | Y | T1 | Assumed | LINE_MANAGER, PRINCIPAL, HR. |
@@ -524,7 +524,7 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 - **SR-HR-19 (Confirmed, DL-153):** Only GSG HR (capability `hr.leave_template.manage`) edits country templates. A brand-country adopts a template once as a copy; template changes never flow into adopted policies automatically. A brand-country policy can't be activated with `days_per_year` below the template's `statutory_min_days`.
 - **SR-HR-05 (Assumed, DL-153, DL-154, DL-155):** A leave request computes `days_counted` from the work pattern, public holidays and the policy; it is blocked over `available_days` unless `allow_negative`; it routes to the line manager, then the Principal when longer than `principal_over_days` or when a teacher's leave falls on school days under PRINCIPAL_APPROVAL. Delegates approve with `acting_for` recorded (DL-36).
 - **SR-HR-06 (Assumed, DL-156; Confirmed DL-143):** On APPROVED (or SAME_DAY_REPORT) for an employee with lessons, Staff & HR creates TE12 with dates, periods and cover note, `absence_kind` LEAVE (DUTY for DUTY leave), `source` STAFF_LEAVE, and no type or note. Cancelling the request cancels TE12.
-- **SR-HR-07 (Assumed, DL-154):** A same-day sick report is accepted until a campus cut-off (OQ-168), becomes CERTIFICATE_DUE when the policy needs a certificate, and goes to HR's list if none arrives within `certificate_due_days`.
+- **SR-HR-07 (Confirmed, DL-154):** A same-day sick report is accepted until a campus cut-off (OQ-168), becomes CERTIFICATE_DUE when the policy needs a certificate, and goes to HR's list if none arrives within `certificate_due_days`.
 - **SR-HR-08 (Assumed, DL-158):** Compliance status is recalculated daily: any blocking requirement missing or EXPIRED → NOT_CLEARED; any other requirement missing or EXPIRED → ACTION_NEEDED; any item expiring within the alert window → DUE_SOON; else CLEARED. Alerts to the employee and HR at 90, 60 and 30 days (campus setting).
 - **SR-HR-09 (Assumed, DL-158):** NOT_CLEARED: the employment cannot move from PENDING to ACTIVE; Teaching cannot confirm a new TE06 and leaves the teacher out of TE13 suggestions; an HR case (STAFF_COMPLIANCE) opens. Existing assignments stay; nothing suspends or ends employment automatically. A Principal may WAIVE an item with a reason (audited).
 - **SR-HR-10 (Assumed, DL-158):** When a coordinator assigns a teacher (TE06), a missing TEACHING_QUALIFICATION or BOARD_TRAINING required for that programme shows a warning, never a block (OQ-159).
@@ -557,7 +557,7 @@ Existing seeds: `hr.employee.view`, `hr.employee.create`, `hr.employee.update`, 
 | DL-151 (**Confirmed**, Henry 27 Nov 2026, decision card "As proposed") | Directory (T1) visible to colleagues at the campus; line manager sees team leave and compliance status, appraisal reviewer sees the appraisals they run; HR sees T2; T3 (identity, work pass, check results, medical certificates) needs an HR capability plus A17; staff edit their own contact details and emergency contacts directly, legal and identity changes need HR to verify | DL-11, DL-34, DL-69; Employee DD D13 |
 | DL-152 (**Confirmed**, Henry 27 Nov 2026, decision card "As proposed") | Contract terms are effective-dated (type, FTE, hours, probation, notice, work pattern); a change is a new term; alerts before fixed-term and probation ends (campus setting); no salary | DL-24; DL-59 |
 | DL-153 (**Confirmed**, Henry 27 Nov 2026, decision card "GSG template") | GSG keeps a leave template per country (types, policies per employee category, statutory minimums); each brand-country adopts it once as a copy and adjusts it; never below the statutory minimum; template updates are offered, never applied automatically; policies versioned | Entitlements differ by country; chosen over brand-country-only policies with no group default |
-| DL-154 | Staff apply in the staff app (days, half days or periods); line manager approves; the Principal also approves long leave and teachers' leave on school days where the policy says so; delegates approve when the approver is away; sick leave can be reported the same morning | Arch Principal approvals; DL-36 delegation |
+| DL-154 (**Confirmed**, Henry 27 Nov 2026, decision card "As proposed") | Staff apply in the staff app (days, half days or periods); line manager approves; the Principal also approves long leave and teachers' leave on school days where the policy says so; delegates approve when the approver is away; sick leave can be reported the same morning | Arch Principal approvals; DL-36 delegation |
 | DL-155 | Balances are calculated (entitlement pro-rated + carried + adjustments − taken − booked), never typed; HR adjustments need a reason | Audit; no spreadsheet balances |
 | DL-156 | Approved leave or a sick report creates the Teaching absence (TE12, STAFF_LEAVE) with dates and periods only; the leave type stays with the employee, line manager, Principal and HR; colleagues see "Away" | DL-143; answers the "feed automatically" part of OQ-163 |
 | DL-157 | A GSG catalogue of compliance item types and requirements per brand-country × position or category (before start or within N days, renewal) | Child protection (HB p.210–213); IB training; work passes for non-citizens |
