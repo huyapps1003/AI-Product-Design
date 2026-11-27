@@ -24,7 +24,7 @@ Codes follow `module.object.action` (DL-53; new capabilities reviewed by the reg
 | `hr.restricted.view` | VIEW | OBJ-05, OBJ-28, OBJ-29 | New (staff & HR dictionary, DL-151; Tier 3 identity, work pass, checks, medical certificates; always with A17, OQ-173) |
 | `hr.self.view`, `hr.self.update` | VIEW, UPDATE | OBJ-05 | New (DL-151; own record; contact and emergency contacts edited directly) |
 | `hr.org.manage`, `hr.contract.manage`, `hr.checklist.manage` | MANAGE, MANAGE, MANAGE | OBJ-06 | New (DL-150, DL-152, DL-160) |
-| `hr.leave.request`, `hr.leave.approve`, `hr.leave.manage`, `hr.leave_policy.manage` | CREATE, APPROVE, MANAGE, MANAGE | OBJ-28 | New (DL-153…DL-156; line manager approves, Principal for long or term-time leave) |
+| `hr.leave.request`, `hr.leave.approve`, `hr.leave.manage`, `hr.leave_policy.manage`, `hr.leave_template.manage` | CREATE, APPROVE, MANAGE, MANAGE, MANAGE | OBJ-28 | New (DL-153…DL-156; leave templates GSG HR only, DL-153; line manager approves, Principal for long or term-time leave) |
 | `hr.compliance.view`, `hr.compliance.manage`, `hr.compliance.waive`, `hr.compliance_rule.manage` | VIEW, MANAGE, APPROVE, MANAGE | OBJ-29 | New (DL-157, DL-158; view = status chip only; Principal waives) |
 | `hr.vacancy.request`, `hr.vacancy.approve`, `hr.recruitment.manage`, `hr.interview.feedback`, `hr.offer.approve` | CREATE, APPROVE, MANAGE, CREATE, APPROVE | OBJ-30 | New (DL-159; approvers OQ-174) |
 | `hr.appraisal.manage`, `hr.appraisal.review`, `hr.appraisal.moderate`, `hr.training.request`, `hr.training.approve` | MANAGE, UPDATE, APPROVE, CREATE, APPROVE | OBJ-31 | New (DL-161, DL-162) |

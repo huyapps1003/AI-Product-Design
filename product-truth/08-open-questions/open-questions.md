@@ -339,6 +339,7 @@ Added 25 Nov 2026 with the [staff & HR dictionary](../03-domain/staff-hr-data-di
 | OQ-190 | Is the Designated Person for Child Protection always the Principal at every campus, and who is the backup? | STAFF_CONCERN case access | Staff & HR dictionary; Employee DD D01–D15; HB p.138, p.210–213 | staff & HR dictionary, OBJ-10 | Henry, GIIS school leadership | Open |
 | OQ-191 | Do Indian campuses need statutory HR registers (attendance register for staff, PF, gratuity) inside Campus OS? | India scope; payroll boundary | Staff & HR dictionary; Employee DD D01–D15; HB p.138, p.210–213 | staff & HR dictionary, OBJ-06 | Henry, GIIS India HR | Open |
 | OQ-192 | Which access does each position's standard template give at a campus (for example Teacher, Head of Department, HR Business Partner, Campus Admin), and who maintains the templates? | Campus-move access (DL-149, SR-HR-03) |
+| OQ-193 | Who in GSG maintains the country leave templates and statutory minimums (group HR, legal, each country lead), and how is a law change checked? | Leave templates (DL-153, SR-HR-19) |
 
 ## Research not yet done
 
