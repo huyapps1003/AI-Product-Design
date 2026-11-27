@@ -1,6 +1,6 @@
 # Global Campus OS — Staff & HR Data Dictionary v0.1 (draft)
 
-**Status:** Proposed draft, 25 Nov 2026. DL-146…DL-161 Confirmed; DL-162…DL-164 Assumed; OQ-166…OQ-193 Open · **Owner:** Henry
+**Status:** Proposed draft, 25 Nov 2026. DL-146…DL-162 Confirmed; DL-163…DL-164 Assumed; OQ-166…OQ-193 Open · **Owner:** Henry
 **Cites:** [Architecture v1](../00-sources/Global_Campus_OS_Product_Architecture_v1.md) § Domains and modules (module 12 Staff and HR "Staff records, allocation; cover, training, appraisal"), § Users and roles (Principal approvals; staff across campuses and programmes), § Data model (People "Person… Staff… Role grant"; "One Person can be a parent on one campus and staff on another"), § Security (Tier 3 never leaves its cell; AI keeps a human approver) · [Employee Data Dictionary v1](../00-sources/Global_Campus_OS_Employee_Data_Dictionary_v1.md) E01–E08, BR-01…BR-20, Decisions D01–D15 (all Proposed, 14 Oct 2026) · [Organisation dictionary](./organisation-data-dictionary.md) OR03, OR04, OR07, OR08, OR09 · [Teaching & timetable dictionary](./teaching-timetable-data-dictionary.md) TE06, TE07, TE12, DL-143, OQ-159, OQ-163, OQ-164 · [Cases & communications dictionary](./cases-communications-data-dictionary.md) CC01, CC03, DL-120, DL-125, DL-129 · [Academic structure dictionary](./academic-structure-data-dictionary.md) AC07, DL-96 · [Attendance dictionary](./attendance-data-dictionary.md) AT01, AT02 · [architecture.md](./architecture.md) DL-39, DL-41, DL-42, DL-43, DL-45 · [permission catalogue](../04-access/permission-catalogue.md) `hr.*` seed capabilities · GIIS Student Handbook 2025-26 (HB) p.210–213 (Child Protection Policy: Principal is Designated Person; staff allegations, suspension pending investigation), p.138 (English teachers receive IB training at workshops) · DL-09, DL-11, DL-13, DL-16, DL-19, DL-22, DL-24, DL-27, DL-34, DL-36, DL-47, DL-53, DL-58, DL-59, DL-69, DL-73, DL-118
 **Tóm tắt (VI):** Từ điển dữ liệu cho module Nhân sự (phạm vi "Full HR", Henry chọn 25/11/2026): hồ sơ nhân viên và hợp đồng (kế thừa E01–E08 của Employee DD v1), phòng ban, chức danh, người quản lý trực tiếp; nghỉ phép của nhân viên (loại phép, chính sách theo brand-country, số dư, xin và duyệt phép, tự động báo "vắng" sang module Giảng dạy để xếp dạy thay, không bao giờ gửi lý do); hồ sơ tuân thủ (giấy phép lao động, kiểm tra lý lịch/an toàn trẻ em, bằng cấp, chứng chỉ IB/CBSE/Cambridge, sơ cứu) với cảnh báo hết hạn; tuyển dụng (yêu cầu tuyển, ứng viên, phỏng vấn, offer); tiếp nhận và nghỉ việc (checklist, bàn giao); đánh giá năng lực hằng năm và đào tạo. Lương bổng do hệ thống payroll bên ngoài giữ. Mỗi trường có trạng thái Known / Assumed / Open.
 
@@ -75,7 +75,7 @@ Approved by Henry, 25 Nov 2026 (decision card "Full HR", chosen over the smaller
 | HR15 | Checklist Task | Staff & HR (OBJ-06) | Known need (BR-10 exit review; DL-13 invite timing); model Confirmed (DL-160) |
 | HR16 | Appraisal Cycle | Staff & HR (OBJ-31) | Known need (Arch module 12 "appraisal"); model Confirmed (DL-161) |
 | HR17 | Appraisal | Staff & HR (OBJ-31) | Confirmed (DL-161) |
-| HR18 | Training Record | Staff & HR (OBJ-31) | Known need (Arch module 12 "training"; HB p.138 IB training at workshops); model Assumed (DL-162) |
+| HR18 | Training Record | Staff & HR (OBJ-31) | Known need (Arch module 12 "training"; HB p.138 IB training at workshops); model Confirmed (DL-162) |
 
 OR03, OR04, OR07, OR08, OR09, AC07, TE06, TE07, TE12, CC01, CC03, A01, A15, A16 and A17 are referenced, not redefined. Employee DD E06 is OR04.
 
@@ -294,7 +294,7 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 | item_category | ENUM | — | Y | T1 | Assumed (DL-27) | WORK_PASS, BACKGROUND_CHECK, SAFEGUARDING_TRAINING, TEACHING_QUALIFICATION, BOARD_TRAINING, TEACHER_REGISTRATION, FIRST_AID, MEDICAL_CHECK, OTHER. |
 | result_tier | ENUM | — | Y | T1 | Confirmed (DL-151) | T2 or T3. WORK_PASS, BACKGROUND_CHECK, MEDICAL_CHECK are T3. |
 | blocking | BOOLEAN | — | Y | T1 | Confirmed (DL-158) | Missing or expired → Not cleared. Default TRUE for WORK_PASS, BACKGROUND_CHECK, SAFEGUARDING_TRAINING. |
-| satisfied_by_training | BOOLEAN | — | Y | T1 | Assumed (DL-162) | A matching HR18 record updates it. |
+| satisfied_by_training | BOOLEAN | — | Y | T1 | Confirmed (DL-162) | A matching HR18 record updates it. |
 
 ### HR09 — Compliance Requirement
 
@@ -324,7 +324,7 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 | result | ENUM | — | C | per HR08 `result_tier` | Assumed | CLEAR, NOT_CLEAR, PENDING. For checks only. |
 | document_ref | VARCHAR(512) | — | N | per HR08 `result_tier` | Assumed | |
 | verified_by_user_id / verified_at | UUID / TIMESTAMPTZ | — | C | T1 | Assumed | HR verifies an upload before it counts. |
-| source_training_id | UUID | FK:HR18 | N | T1 | Assumed (DL-162) | |
+| source_training_id | UUID | FK:HR18 | N | T1 | Confirmed (DL-162) | |
 | record_status | ENUM | — | Y | T1 | Confirmed (DL-158) | SUBMITTED, VALID, EXPIRING, EXPIRED, REJECTED, WAIVED. WAIVED needs the Principal and a reason. |
 
 ### HR11 — Vacancy
@@ -424,11 +424,11 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| training_id | UUID | PK | Y | T1 | Assumed (DL-162) | |
+| training_id | UUID | PK | Y | T1 | Confirmed (DL-162) | |
 | employee_id | UUID | FK:E01 | Y | T1 | Assumed | |
 | title / provider | VARCHAR | — | Y | T1 | Assumed; Known example (HB p.138: IB training at workshops) | "IB Category 1: Language A", "IBO". |
 | training_kind | ENUM | — | Y | T1 | Assumed | WORKSHOP, COURSE, CONFERENCE, IN_HOUSE, ONLINE. |
-| item_type_id | UUID | FK:HR08 | N | T1 | Assumed (DL-162) | When it counts as a compliance item. |
+| item_type_id | UUID | FK:HR08 | N | T1 | Confirmed (DL-162) | When it counts as a compliance item. |
 | date_from / date_to / hours | DATE / DATE / DECIMAL | — | Y | T1 | Assumed | |
 | certificate_ref | VARCHAR(512) | — | N | T2 | Assumed | |
 | request_status | ENUM | — | Y | T1 | Assumed | REQUESTED, APPROVED, REJECTED, COMPLETED, RECORDED (added after the event). |
@@ -533,7 +533,7 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 - **SR-HR-13 (Confirmed, DL-159):** An interviewer sees other feedback only after submitting their own. An ACCEPTED offer creates E02 PENDING, HR01 DRAFT and the joining checklist; the vacancy becomes FILLED.
 - **SR-HR-14 (Confirmed, DL-160; Assumed DL-13; Known BR-10):** Joining: account invite 7 days before start; access request case on start. Leaving: end date set → HR15 handover tasks listing every TE06, CL03, TE07, open case and active delegation of the employee; last day passed → E02 ENDED, account disabled, exit review case.
 - **SR-HR-15 (Confirmed, DL-161; reviewer Confirmed DL-150):** Each appraisal's reviewer is the employment's appraisal reviewer when the cycle opens; a change of manager mid-cycle moves it with the history kept. Ratings are hidden from the employee until SHARED.
-- **SR-HR-16 (Assumed, DL-162):** A COMPLETED or RECORDED training with `item_type_id` creates or renews the matching HR10 once HR verifies the certificate.
+- **SR-HR-16 (Confirmed, DL-162):** A COMPLETED or RECORDED training with `item_type_id` creates or renews the matching HR10 once HR verifies the certificate.
 - **SR-HR-17 (Assumed, DL-163; Known HB p.210–213):** A STAFF_CONCERN case is RESTRICTED (DL-125): only the Designated Person for Child Protection, the Principal and named HR open it; the staff member named never sees it. Suspension sets E02 SUSPENDED with no reason outside the case, suspends the account (DL-13) and creates TE12 "Away".
 - **SR-HR-18 (Assumed, DL-164):** HR records live in the data location of the employing entity's country; group dashboards show counts only (AR-01).
 
@@ -565,7 +565,7 @@ Existing seeds: `hr.employee.view`, `hr.employee.create`, `hr.employee.update`, 
 | DL-159 (**Confirmed**, Henry 27 Nov 2026, decision card "As proposed") | Recruitment: approved vacancy → candidates matched to Persons (DL-58) → stages with independent interview feedback → approved offer → accepted offer creates the employment as PENDING with a joining checklist | One pipeline from request to first day |
 | DL-160 (**Confirmed**, Henry 27 Nov 2026, decision card "As proposed") | Joining and leaving checklists per brand-country × category; leaving lists every assignment, class, responsibility, open case and delegation to hand over; exit review and account disable after the last day | BR-10; DL-13 |
 | DL-161 (**Confirmed**, Henry 27 Nov 2026, decision card "As proposed") | Appraisal: an annual cycle per brand-country following the academic year, with goals, mid-year check-in, self-review, manager review, Principal moderation; rating scales per brand; Tier 2; not linked to pay in Campus OS | Arch module 12 "appraisal"; DL-96 |
-| DL-162 | Training records (course, provider, hours, certificate) can clear a matching compliance item; staff request, line manager approves; hours targets a brand-country setting | Arch module 12 "training"; HB p.138 IB training at workshops |
+| DL-162 (**Confirmed**, Henry 27 Nov 2026, decision card "As proposed") | Training records (course, provider, hours, certificate) can clear a matching compliance item; staff request, line manager approves; hours targets a brand-country setting | Arch module 12 "training"; HB p.138 IB training at workshops |
 | DL-163 | A concern about a staff member is a RESTRICTED STAFF_CONCERN case (Designated Person, Principal, named HR); suspension shows no reason outside the case, suspends the account and makes the teacher "Away" | HB p.210–213; DL-120, DL-125; DL-13 |
 | DL-164 | HR records live in the data location of the employing entity's country; two countries mean two profiles under one Person; group views counts only | DL-39, DL-42, DL-47 |
 
