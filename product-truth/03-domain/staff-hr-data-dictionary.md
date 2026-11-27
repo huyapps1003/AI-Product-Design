@@ -1,6 +1,6 @@
 # Global Campus OS — Staff & HR Data Dictionary v0.1 (draft)
 
-**Status:** Proposed draft, 25 Nov 2026. DL-146…DL-150 Confirmed; DL-151…DL-164 Assumed; OQ-166…OQ-192 Open · **Owner:** Henry
+**Status:** Proposed draft, 25 Nov 2026. DL-146…DL-151 Confirmed; DL-152…DL-164 Assumed; OQ-166…OQ-192 Open · **Owner:** Henry
 **Cites:** [Architecture v1](../00-sources/Global_Campus_OS_Product_Architecture_v1.md) § Domains and modules (module 12 Staff and HR "Staff records, allocation; cover, training, appraisal"), § Users and roles (Principal approvals; staff across campuses and programmes), § Data model (People "Person… Staff… Role grant"; "One Person can be a parent on one campus and staff on another"), § Security (Tier 3 never leaves its cell; AI keeps a human approver) · [Employee Data Dictionary v1](../00-sources/Global_Campus_OS_Employee_Data_Dictionary_v1.md) E01–E08, BR-01…BR-20, Decisions D01–D15 (all Proposed, 14 Oct 2026) · [Organisation dictionary](./organisation-data-dictionary.md) OR03, OR04, OR07, OR08, OR09 · [Teaching & timetable dictionary](./teaching-timetable-data-dictionary.md) TE06, TE07, TE12, DL-143, OQ-159, OQ-163, OQ-164 · [Cases & communications dictionary](./cases-communications-data-dictionary.md) CC01, CC03, DL-120, DL-125, DL-129 · [Academic structure dictionary](./academic-structure-data-dictionary.md) AC07, DL-96 · [Attendance dictionary](./attendance-data-dictionary.md) AT01, AT02 · [architecture.md](./architecture.md) DL-39, DL-41, DL-42, DL-43, DL-45 · [permission catalogue](../04-access/permission-catalogue.md) `hr.*` seed capabilities · GIIS Student Handbook 2025-26 (HB) p.210–213 (Child Protection Policy: Principal is Designated Person; staff allegations, suspension pending investigation), p.138 (English teachers receive IB training at workshops) · DL-09, DL-11, DL-13, DL-16, DL-19, DL-22, DL-24, DL-27, DL-34, DL-36, DL-47, DL-53, DL-58, DL-59, DL-69, DL-73, DL-118
 **Tóm tắt (VI):** Từ điển dữ liệu cho module Nhân sự (phạm vi "Full HR", Henry chọn 25/11/2026): hồ sơ nhân viên và hợp đồng (kế thừa E01–E08 của Employee DD v1), phòng ban, chức danh, người quản lý trực tiếp; nghỉ phép của nhân viên (loại phép, chính sách theo brand-country, số dư, xin và duyệt phép, tự động báo "vắng" sang module Giảng dạy để xếp dạy thay, không bao giờ gửi lý do); hồ sơ tuân thủ (giấy phép lao động, kiểm tra lý lịch/an toàn trẻ em, bằng cấp, chứng chỉ IB/CBSE/Cambridge, sơ cứu) với cảnh báo hết hạn; tuyển dụng (yêu cầu tuyển, ứng viên, phỏng vấn, offer); tiếp nhận và nghỉ việc (checklist, bàn giao); đánh giá năng lực hằng năm và đào tạo. Lương bổng do hệ thống payroll bên ngoài giữ. Mỗi trường có trạng thái Known / Assumed / Open.
 
@@ -59,7 +59,7 @@ Approved by Henry, 25 Nov 2026 (decision card "Full HR", chosen over the smaller
 | E07 | Employee Campus Assignment | Staff & HR (OBJ-05) | Known (Employee DD E07; multi-campus Confirmed input); primary rule Confirmed (DL-149) |
 | E08 | External Employee Mapping | Staff & HR (OBJ-05) | Known entity (Employee DD E08); outbound to payroll Confirmed (DL-147) |
 | HR01 | Contract Term | Staff & HR (OBJ-06) | Assumed (DL-152) |
-| HR02 | Emergency Contact | Staff & HR (OBJ-05) | Assumed (DL-151) |
+| HR02 | Emergency Contact | Staff & HR (OBJ-05) | Confirmed (DL-151) |
 | HR03 | Leave Type | Staff & HR (OBJ-28) | Assumed (DL-153) |
 | HR04 | Leave Policy | Staff & HR (OBJ-28) | Assumed (DL-153); values Open (OQ-169) |
 | HR05 | Leave Balance | Staff & HR (OBJ-28) | Assumed (DL-155) |
@@ -92,13 +92,13 @@ OR03, OR04, OR07, OR08, OR09, AC07, TE06, TE07, TE12, CC01, CC03, A01, A15, A16 
 | preferred_name | VARCHAR(160) | — | N | T1 | Known (E01) | Shown in the directory and on timetables. |
 | legal_first_name / legal_last_name | VARCHAR(120) | — | Y / C | T2 | Known (E01) | Written only in Campus OS; sent to payroll (DL-147). |
 | work_email / work_phone | VARCHAR | — | N | T1 | Known (E01) | |
-| profile_photo_ref | VARCHAR(512) | — | N | T1 | Known field (E01); tier Assumed (DL-151) | Employee DD had Confidential; the directory shows it (DL-151). |
+| profile_photo_ref | VARCHAR(512) | — | N | T1 | Known field (E01); tier Confirmed (DL-151) | Employee DD had Confidential; the directory shows it (DL-151). |
 | date_of_birth | DATE | — | Y | T2 | Assumed | New. Needed for checks and work passes. |
 | gender | ENUM | — | N | T2 | Assumed (DL-27) | New. As the person states it. |
 | nationality | CHAR(2)[] | — | Y | T2 | Assumed | New. Drives which work pass is required (HR09). |
 | personal_email / personal_phone | VARCHAR | — | N | T2 | Assumed | New. Self-service (DL-151). |
 | home_address | JSON | — | N | T2 | Assumed | New. Self-service. |
-| identity_document | JSON | — | C | T3 | Assumed (DL-151) | New. NRIC/FIN, passport or Aadhaar number per country; only with A17. Never on an event (architecture.md). |
+| identity_document | JSON | — | C | T3 | Confirmed (DL-151) | New. NRIC/FIN, passport or Aadhaar number per country; only with A17. Never on an event (architecture.md). |
 | preferred_locale | VARCHAR(35) | — | N | T1 | Known (E01) | DL-15. |
 | compliance_status | ENUM | — | Y | T1 | Assumed (DL-158) | New, derived from HR10: CLEARED, DUE_SOON, ACTION_NEEDED, NOT_CLEARED. Status only; details are T2/T3. |
 | record_status | ENUM | — | Y | T1 | Known (E01) | ACTIVE, INACTIVE, ARCHIVED. Not employment status. |
@@ -193,7 +193,7 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| emergency_contact_id | UUID | PK | Y | T2 | Assumed (DL-151) | |
+| emergency_contact_id | UUID | PK | Y | T2 | Confirmed (DL-151) | |
 | employee_id | UUID | FK:E01 | Y | T2 | Assumed | |
 | name / relationship / phone | VARCHAR | — | Y | T2 | Assumed | Self-service. At least one required before start (HR15). |
 | priority | INT | — | Y | T2 | Assumed | 1 = call first. |
@@ -261,7 +261,7 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 | part_of_day | ENUM | — | N | T1 | Assumed | FULL, AM, PM; or `periods` for teachers (TE02). |
 | days_counted | DECIMAL | — | Y | T1 | Derived | Working days in the employee's pattern minus public holidays (CC09) and, for teaching staff on ACADEMIC policies, per OQ-170. |
 | note | TEXT | — | N | T2 | Assumed | Free text to the approver. Never medical detail; the UI says so. |
-| certificate_ref | VARCHAR(512) | — | C | T3 | Assumed (DL-151) | Medical certificate. HR with A17 only; the line manager sees "Certificate received". |
+| certificate_ref | VARCHAR(512) | — | C | T3 | Confirmed (DL-151) | Medical certificate. HR with A17 only; the line manager sees "Certificate received". |
 | request_kind | ENUM | — | Y | T1 | Assumed | PLANNED, SAME_DAY_REPORT (reported the morning of, approved after), ENTERED_BY_HR. |
 | cover_note | TEXT | — | N | T1 | Assumed (DL-156) | For teachers: work set for cover; copied to TE12 `cover_note`. |
 | request_status | ENUM | — | Y | T1 | Assumed (DL-27) | DRAFT, PENDING, APPROVED, REJECTED, CANCELLED, CERTIFICATE_DUE. |
@@ -287,7 +287,7 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 | item_type_id | UUID | PK | Y | T1 | Assumed (DL-157) | |
 | code / name | VARCHAR | UK | Y | T1 | Assumed | GSG catalogue; brand-country adds local types. |
 | item_category | ENUM | — | Y | T1 | Assumed (DL-27) | WORK_PASS, BACKGROUND_CHECK, SAFEGUARDING_TRAINING, TEACHING_QUALIFICATION, BOARD_TRAINING, TEACHER_REGISTRATION, FIRST_AID, MEDICAL_CHECK, OTHER. |
-| result_tier | ENUM | — | Y | T1 | Assumed (DL-151) | T2 or T3. WORK_PASS, BACKGROUND_CHECK, MEDICAL_CHECK are T3. |
+| result_tier | ENUM | — | Y | T1 | Confirmed (DL-151) | T2 or T3. WORK_PASS, BACKGROUND_CHECK, MEDICAL_CHECK are T3. |
 | blocking | BOOLEAN | — | Y | T1 | Assumed (DL-158) | Missing or expired → Not cleared. Default TRUE for WORK_PASS, BACKGROUND_CHECK, SAFEGUARDING_TRAINING. |
 | satisfied_by_training | BOOLEAN | — | Y | T1 | Assumed (DL-162) | A matching HR18 record updates it. |
 
@@ -313,7 +313,7 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 | compliance_record_id | UUID | PK | Y | T1 | Assumed (DL-157) | |
 | employee_id | UUID | FK:E01 | Y | T1 | Assumed | |
 | item_type_id | UUID | FK:HR08 | Y | T1 | Assumed | |
-| reference_number | VARCHAR(64) | — | N | per HR08 `result_tier` | Assumed (DL-151) | Pass number, check reference. |
+| reference_number | VARCHAR(64) | — | N | per HR08 `result_tier` | Confirmed (DL-151) | Pass number, check reference. |
 | issuer | VARCHAR(160) | — | N | T2 | Assumed | "Ministry of Manpower", "IBO", university. |
 | issued_on / expires_on | DATE | — | N | T1 | Assumed | Dates are T1 so the status can show. |
 | result | ENUM | — | C | per HR08 `result_tier` | Assumed | CLEAR, NOT_CLEAR, PENDING. For checks only. |
@@ -450,7 +450,7 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 
 ## Field visibility by role
 
-`M` manage, `A` approve, `V` view, `O` own record, `—` none. All cells Assumed (DL-151) except where cited.
+`M` manage, `A` approve, `V` view, `O` own record, `—` none. All cells Confirmed (DL-151) except where cited.
 
 | Record | Employee (self) | Colleague (campus) | Line manager | Principal (campus) | HR (brand-country) | Coordinator | Group leadership |
 |---|---|---|---|---|---|---|---|
@@ -548,7 +548,7 @@ Existing seeds: `hr.employee.view`, `hr.employee.create`, `hr.employee.update`, 
 | DL-148 (**Confirmed**, Henry 26 Nov 2026, decision card "As proposed") | An employee is the Employee profile of a global Person (DL-42); `employee_id` never changes; an employment per legal employer with its own employee number and `operating_entity_id`; concurrent employments allowed | Employee DD D02, D03; DL-41, DL-42 |
 | DL-149 (**Confirmed**, Henry 27 Nov 2026, decision card "Automatic through the Registry") | One primary campus per active employment (none for group, brand and country office staff); more campuses allowed; a campus change makes the Access Registry grant the position's standard access at the new campus (and end it at the old), logged, removable, never Tier 3 | Employee DD D04, D07; amends BR-06 for campus assignments; chosen over an access review step |
 | DL-150 (**Confirmed**, Henry 27 Nov 2026, decision card "Two managers") | Departments per brand-country or campus; positions from a GSG job-family list, named by each brand; two managers per employment: line manager (leave) and appraisal reviewer (appraisal), the same person by default; HR position ≠ access role ≠ academic responsibility, except the DL-149 template | Employee DD boundaries; TE07 (DL-135); chosen over one line manager |
-| DL-151 | Directory (T1) visible to colleagues at the campus; line manager sees team leave and compliance status, appraisal reviewer sees the appraisals they run; HR sees T2; T3 (identity, work pass, check results, medical certificates) needs an HR capability plus A17; staff edit their own contact details and emergency contacts directly, legal and identity changes need HR to verify | DL-11, DL-34, DL-69; Employee DD D13 |
+| DL-151 (**Confirmed**, Henry 27 Nov 2026, decision card "As proposed") | Directory (T1) visible to colleagues at the campus; line manager sees team leave and compliance status, appraisal reviewer sees the appraisals they run; HR sees T2; T3 (identity, work pass, check results, medical certificates) needs an HR capability plus A17; staff edit their own contact details and emergency contacts directly, legal and identity changes need HR to verify | DL-11, DL-34, DL-69; Employee DD D13 |
 | DL-152 | Contract terms are effective-dated (type, FTE, hours, probation, notice, work pattern); a change is a new term; alerts before fixed-term and probation ends (campus setting); no salary | DL-24; DL-59 |
 | DL-153 | Leave types and versioned leave policies per brand-country × employee category (days, leave year, accrual, carry forward, certificate rule, school-day rule); no group default | DL-59 pattern; entitlements differ by country |
 | DL-154 | Staff apply in the staff app (days, half days or periods); line manager approves; the Principal also approves long leave and teachers' leave on school days where the policy says so; delegates approve when the approver is away; sick leave can be reported the same morning | Arch Principal approvals; DL-36 delegation |
