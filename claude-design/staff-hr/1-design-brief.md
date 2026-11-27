@@ -15,7 +15,8 @@
 | Use | Meaning | Don't use |
 |---|---|---|
 | **Staff** / **staff member** | Anyone employed, teaching or not | Employee (in UI), worker, resource |
-| **Line manager** | Who the person reports to; approves leave, leads appraisal (DL-150) | Supervisor, boss, reporting officer |
+| **Line manager** | Who the person reports to; approves leave (DL-150) | Supervisor, boss, reporting officer |
+| **Appraisal reviewer** | Who runs the person's appraisal; the line manager unless HR sets someone else (DL-150) | Appraiser, assessor |
 | **Away** | What colleagues see when someone is on leave; never the type (DL-156) | Sick, on MC, on leave (to colleagues) |
 | **Leave** | Time off of a type: Annual, Sick, Childcare… The type is seen by the person, line manager, Principal and HR only | Absence (that's Teaching's word) |
 | **Balance** | Days left this leave year, calculated (DL-155) | Quota, credit |
@@ -51,7 +52,7 @@ Tier 3 field: lock icon with "Restricted" and who can see it.
 
 ## 5. Who sees what (summary)
 
-Staff member: own record, leave, balance, checks, training, appraisal. Colleagues: directory and "Away". Line manager: team leave with type, compliance chips, appraisal as reviewer. Principal: campus staff, approvals, moderation; Tier 3 only with a grant. HR: everything in the brand-country; Tier 3 with a grant. Coordinator: "Away" and compliance chip when assigning teachers. Group leadership: counts only.
+Staff member: own record, leave, balance, checks, training, appraisal. Colleagues: directory and "Away". Line manager: team leave with type, compliance chips, appraisal only where they are the appraisal reviewer. Principal: campus staff, approvals, moderation; Tier 3 only with a grant. HR: everything in the brand-country; Tier 3 with a grant. Coordinator: "Away" and compliance chip when assigning teachers. Group leadership: counts only.
 
 ## 6. Pending decisions (show "Pending decision")
 

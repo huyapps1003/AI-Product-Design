@@ -6,7 +6,7 @@
 
 ## Follow-ups (one per round)
 
-1. **Staff profile.** Farah Ismail: header with chips; tabs Overview (directory, line manager, teaching from Teaching), Employment (contract terms history, "Sent to payroll" status), Leave (balances and history), Compliance (child protection training "Expires 31 Jan 2027", background check result locked for anyone without Tier 3), Training (hours 9 of 20 sample), Appraisal (goals, one observation, rating hidden).
+1. **Staff profile.** Farah Ismail: header with chips; tabs Overview (directory, line manager, appraisal reviewer, teaching from Teaching), Employment (contract terms history, "Sent to payroll" status), Leave (balances and history), Compliance (child protection training "Expires 31 Jan 2027", background check result locked for anyone without Tier 3), Training (hours 9 of 20 sample), Appraisal (goals, one observation, rating hidden).
 2. **Leave approvals.** Meera Joshi's inbox: Lakshmi Rao (2 school days, then Dr Rao, "creates cover for 11 lessons"), Rohan Das (half day), Ananya Krishnan (duty, training). Beside it a two-week team calendar with Away, Pending and the PT3 exams band. Approve and Decline (with comment).
 3. **Apply for leave (phone).** Farah: choose type, dates or half day, see days counted and balance after, note "Don't add medical details", cover note for her lessons, submit. Show where it goes: "Meera Joshi, then Dr Anita Rao" when needed.
 4. **Compliance dashboard.** Not cleared (Nikhil Sood, Daniel Koh) with what it blocks, expiring in 90 days, action needed, to verify. Requirements tab with the sample GIIS SG list and OWIS "Not set".

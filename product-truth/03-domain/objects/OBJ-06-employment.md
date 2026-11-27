@@ -13,7 +13,7 @@ states:                 # E02 employment_status (rules-to-ui)
   ENDED: default        # label "Left"
   LEAVING: warning      # derived: end date set; label "Leaves {date}" (DL-160)
 field_groups:
-  - name: Employee number, employer, category, type, start and end date, position, department, line manager
+  - name: Employee number, employer, category, type, start and end date, position, department, line manager, appraisal reviewer
     tier: T1
     capability: hr.employee.view
     edit: [hr.employee.update, hr.org.manage]
@@ -45,4 +45,4 @@ patterns: [AP-04, AP-05, AP-14]
 **Status:** Confirmed structure (DL-43, DL-46), 7 Nov 2026; refined with the staff & HR dictionary v0.1, 25 Nov 2026 · **Owner:** Henry
 **Cites:** [staff & HR dictionary](../staff-hr-data-dictionary.md) · Employee DD E02–E05 · DL-13, DL-41, DL-148, DL-150, DL-152, DL-160, DL-163
 
-One engagement with one legal employer, with its position, department, line manager and contract terms; every change is a new effective-dated row (DL-24, DL-152). Setting an end date shows "Leaves {date}" and lists everything to hand over (DL-160). Suspension cascades to the account; account changes never change employment (DL-13). Salary is never stored (DL-147).
+One engagement with one legal employer, with its position, department, line manager, appraisal reviewer and contract terms; every change is a new effective-dated row (DL-24, DL-152). Setting an end date shows "Leaves {date}" and lists everything to hand over (DL-160). Suspension cascades to the account; account changes never change employment (DL-13). Salary is never stored (DL-147).

@@ -48,7 +48,8 @@ Use these terms exactly in screens and specs. Where a term's definition is still
 | **Timetable** | The weekly pattern of lessons. On screens a published version is "Live"; each change is a new version | Confirmed (DL-138) |
 | **Clash** | A timetable problem. "Must fix" (teacher, room or student in two places) blocks publishing; "Check" (load, room type) needs a note | Confirmed (DL-139) |
 | **Cover** | Another teacher taking or supervising a lesson when its teacher is away; the cover teacher sees the students for that day only | Confirmed (DL-143, DL-145) |
-| **Line manager** | The person a staff member reports to; approves their leave and leads their appraisal. Not an access role | Assumed (DL-150) |
+| **Line manager** | The person a staff member reports to; approves their leave and sees their compliance status. Not an access role | Confirmed (DL-150) |
+| **Appraisal reviewer** | The person who runs a staff member's appraisal; the line manager unless HR sets someone else, such as the Head of Department | Confirmed (DL-150) |
 | **Away** | A staff member is not at work. Colleagues and Teaching see only "Away", never the leave type or reason | Assumed (DL-156) |
 | **Compliance status** | One chip per staff member from their checks, passes and qualifications: Cleared, Due soon, Action needed, Not cleared | Assumed (DL-158) |
 | **Vacancy** | An approved post to hire for; candidates apply to a vacancy | Assumed (DL-159) |

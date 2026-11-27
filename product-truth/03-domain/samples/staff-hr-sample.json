@@ -633,6 +633,7 @@
       "start": "2019-07-15",
       "status": "ACTIVE",
       "line_manager": "Meera Joshi",
+      "appraisal_reviewer": "Suresh Pillai, Academic Supervisor",
       "payroll": "Sent to payroll (sample feed, DL-147): last change 1 Aug 2026 OK"
     },
     "contract_terms": [
@@ -764,7 +765,7 @@
     "appraisal": {
       "cycle": "Appraisal 2026-27, CBSE teaching staff",
       "stage": "IN_YEAR",
-      "reviewer": "Meera Joshi",
+      "reviewer": "Suresh Pillai (Academic Supervisor; appraisal reviewer, DL-150)",
       "goals": [
         {
           "goal": "Raise Grade 7 Science PT averages by 5 points",
