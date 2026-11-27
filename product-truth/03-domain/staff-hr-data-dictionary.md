@@ -1,6 +1,6 @@
 # Global Campus OS — Staff & HR Data Dictionary v0.1 (draft)
 
-**Status:** Proposed draft, 25 Nov 2026. DL-146…DL-156 Confirmed; DL-157…DL-164 Assumed; OQ-166…OQ-193 Open · **Owner:** Henry
+**Status:** Proposed draft, 25 Nov 2026. DL-146…DL-157 Confirmed; DL-158…DL-164 Assumed; OQ-166…OQ-193 Open · **Owner:** Henry
 **Cites:** [Architecture v1](../00-sources/Global_Campus_OS_Product_Architecture_v1.md) § Domains and modules (module 12 Staff and HR "Staff records, allocation; cover, training, appraisal"), § Users and roles (Principal approvals; staff across campuses and programmes), § Data model (People "Person… Staff… Role grant"; "One Person can be a parent on one campus and staff on another"), § Security (Tier 3 never leaves its cell; AI keeps a human approver) · [Employee Data Dictionary v1](../00-sources/Global_Campus_OS_Employee_Data_Dictionary_v1.md) E01–E08, BR-01…BR-20, Decisions D01–D15 (all Proposed, 14 Oct 2026) · [Organisation dictionary](./organisation-data-dictionary.md) OR03, OR04, OR07, OR08, OR09 · [Teaching & timetable dictionary](./teaching-timetable-data-dictionary.md) TE06, TE07, TE12, DL-143, OQ-159, OQ-163, OQ-164 · [Cases & communications dictionary](./cases-communications-data-dictionary.md) CC01, CC03, DL-120, DL-125, DL-129 · [Academic structure dictionary](./academic-structure-data-dictionary.md) AC07, DL-96 · [Attendance dictionary](./attendance-data-dictionary.md) AT01, AT02 · [architecture.md](./architecture.md) DL-39, DL-41, DL-42, DL-43, DL-45 · [permission catalogue](../04-access/permission-catalogue.md) `hr.*` seed capabilities · GIIS Student Handbook 2025-26 (HB) p.210–213 (Child Protection Policy: Principal is Designated Person; staff allegations, suspension pending investigation), p.138 (English teachers receive IB training at workshops) · DL-09, DL-11, DL-13, DL-16, DL-19, DL-22, DL-24, DL-27, DL-34, DL-36, DL-47, DL-53, DL-58, DL-59, DL-69, DL-73, DL-118
 **Tóm tắt (VI):** Từ điển dữ liệu cho module Nhân sự (phạm vi "Full HR", Henry chọn 25/11/2026): hồ sơ nhân viên và hợp đồng (kế thừa E01–E08 của Employee DD v1), phòng ban, chức danh, người quản lý trực tiếp; nghỉ phép của nhân viên (loại phép, chính sách theo brand-country, số dư, xin và duyệt phép, tự động báo "vắng" sang module Giảng dạy để xếp dạy thay, không bao giờ gửi lý do); hồ sơ tuân thủ (giấy phép lao động, kiểm tra lý lịch/an toàn trẻ em, bằng cấp, chứng chỉ IB/CBSE/Cambridge, sơ cứu) với cảnh báo hết hạn; tuyển dụng (yêu cầu tuyển, ứng viên, phỏng vấn, offer); tiếp nhận và nghỉ việc (checklist, bàn giao); đánh giá năng lực hằng năm và đào tạo. Lương bổng do hệ thống payroll bên ngoài giữ. Mỗi trường có trạng thái Known / Assumed / Open.
 
@@ -65,9 +65,9 @@ Approved by Henry, 25 Nov 2026 (decision card "Full HR", chosen over the smaller
 | HR05 | Leave Balance | Staff & HR (OBJ-28) | Confirmed (DL-155) |
 | HR06 | Leave Request | Staff & HR (OBJ-28) | Known need (Arch module 12; TE12 `source` STAFF_LEAVE; OQ-163); model Confirmed (DL-154) |
 | HR07 | Leave Approval Step | Staff & HR (OBJ-28) | Confirmed (DL-154) |
-| HR08 | Compliance Item Type | Staff & HR (OBJ-29) | Known need (HB p.210–213 child protection; IB training); catalogue Assumed (DL-157) |
-| HR09 | Compliance Requirement | Staff & HR (OBJ-29) | Assumed (DL-157); values Open (OQ-171, OQ-172) |
-| HR10 | Compliance Record | Staff & HR (OBJ-29) | Assumed (DL-157, DL-158) |
+| HR08 | Compliance Item Type | Staff & HR (OBJ-29) | Known need (HB p.210–213 child protection; IB training); catalogue Confirmed (DL-157) |
+| HR09 | Compliance Requirement | Staff & HR (OBJ-29) | Confirmed (DL-157); values Open (OQ-171, OQ-172) |
+| HR10 | Compliance Record | Staff & HR (OBJ-29) | Confirmed (DL-157, DL-158) |
 | HR11 | Vacancy | Staff & HR (OBJ-30) | Assumed (DL-159) |
 | HR12 | Candidate Application | Staff & HR (OBJ-30) | Assumed (DL-159) |
 | HR13 | Interview Feedback | Staff & HR (OBJ-30) | Assumed (DL-159) |
@@ -289,7 +289,7 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| item_type_id | UUID | PK | Y | T1 | Assumed (DL-157) | |
+| item_type_id | UUID | PK | Y | T1 | Confirmed (DL-157) | |
 | code / name | VARCHAR | UK | Y | T1 | Assumed | GSG catalogue; brand-country adds local types. |
 | item_category | ENUM | — | Y | T1 | Assumed (DL-27) | WORK_PASS, BACKGROUND_CHECK, SAFEGUARDING_TRAINING, TEACHING_QUALIFICATION, BOARD_TRAINING, TEACHER_REGISTRATION, FIRST_AID, MEDICAL_CHECK, OTHER. |
 | result_tier | ENUM | — | Y | T1 | Confirmed (DL-151) | T2 or T3. WORK_PASS, BACKGROUND_CHECK, MEDICAL_CHECK are T3. |
@@ -300,7 +300,7 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| requirement_id | UUID | PK | Y | T1 | Assumed (DL-157) | |
+| requirement_id | UUID | PK | Y | T1 | Confirmed (DL-157) | |
 | brand_country_id | UUID | FK:OR03 | Y | T1 | Assumed | No group default (DL-59). |
 | item_type_id | UUID | FK:HR08 | Y | T1 | Assumed | |
 | applies_to | JSON | — | Y | T1 | Assumed | Employee categories, positions or job families; nationality rule for WORK_PASS ("non-citizens"). |
@@ -315,7 +315,7 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| compliance_record_id | UUID | PK | Y | T1 | Assumed (DL-157) | |
+| compliance_record_id | UUID | PK | Y | T1 | Confirmed (DL-157) | |
 | employee_id | UUID | FK:E01 | Y | T1 | Assumed | |
 | item_type_id | UUID | FK:HR08 | Y | T1 | Assumed | |
 | reference_number | VARCHAR(64) | — | N | per HR08 `result_tier` | Confirmed (DL-151) | Pass number, check reference. |
@@ -560,7 +560,7 @@ Existing seeds: `hr.employee.view`, `hr.employee.create`, `hr.employee.update`, 
 | DL-154 (**Confirmed**, Henry 27 Nov 2026, decision card "As proposed") | Staff apply in the staff app (days, half days or periods); line manager approves; the Principal also approves long leave and teachers' leave on school days where the policy says so; delegates approve when the approver is away; sick leave can be reported the same morning | Arch Principal approvals; DL-36 delegation |
 | DL-155 (**Confirmed**, Henry 27 Nov 2026, decision card "As proposed") | Balances are calculated (entitlement pro-rated + carried + adjustments − taken − booked), never typed; HR adjustments need a reason | Audit; no spreadsheet balances |
 | DL-156 (**Confirmed**, Henry 27 Nov 2026, decision card "As proposed") | Approved leave or a sick report creates the Teaching absence (TE12, STAFF_LEAVE) with dates and periods only; the leave type stays with the employee, line manager, Principal and HR; colleagues see "Away" | DL-143; answers the "feed automatically" part of OQ-163 |
-| DL-157 | A GSG catalogue of compliance item types and requirements per brand-country × position or category (before start or within N days, renewal) | Child protection (HB p.210–213); IB training; work passes for non-citizens |
+| DL-157 (**Confirmed**, Henry 27 Nov 2026, decision card "As proposed") | A GSG catalogue of compliance item types and requirements per brand-country × position or category (before start or within N days, renewal) | Child protection (HB p.210–213); IB training; work passes for non-citizens |
 | DL-158 | One compliance status per employee (Cleared, Due soon, Action needed, Not cleared); Not cleared blocks starting, new teaching assignments and cover suggestions and opens an HR case, never suspends or ends employment by itself; missing board qualification only warns; alerts at 90/60/30 days | Safety without silent HR actions; partly answers OQ-159 |
 | DL-159 | Recruitment: approved vacancy → candidates matched to Persons (DL-58) → stages with independent interview feedback → approved offer → accepted offer creates the employment as PENDING with a joining checklist | One pipeline from request to first day |
 | DL-160 | Joining and leaving checklists per brand-country × category; leaving lists every assignment, class, responsibility, open case and delegation to hand over; exit review and account disable after the last day | BR-10; DL-13 |
