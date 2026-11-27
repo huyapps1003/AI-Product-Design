@@ -175,7 +175,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-161 | Appraisal: an annual cycle per brand-country following the academic year, with goals, mid-year check-in, self-review, manager review, Principal moderation; rating scales per brand; Tier 2; not linked to pay in Campus OS | **Confirmed** (Henry, 27 Nov 2026, decision card \"As proposed\") | staff & HR dictionary; Arch module 12 "appraisal"; DL-96 |
 | DL-162 | Training records (course, provider, hours, certificate) can clear a matching compliance item; staff request, line manager approves; hours targets a brand-country setting | **Confirmed** (Henry, 27 Nov 2026, decision card \"As proposed\") | staff & HR dictionary; Arch module 12 "training"; HB p.138 IB training at workshops |
 | DL-163 | A concern about a staff member is a RESTRICTED STAFF_CONCERN case (Designated Person, Principal, named HR and the line manager unless conflicted); suspension shows no reason outside the case, suspends the account and makes the teacher "Away" | **Confirmed** (Henry, 27 Nov 2026, decision card \"Include the line manager\") | staff & HR dictionary; HB p.210–213; DL-120, DL-125; DL-13 |
-| DL-164 | HR records live in the data location of the employing entity's country; two countries mean two profiles under one Person; group views counts only | Assumed | staff & HR dictionary; DL-39, DL-42, DL-47 |
+| DL-164 | HR records live in the data location of the employing entity's country; two countries mean two profiles under one Person; group views counts only | **Confirmed** (Henry, 27 Nov 2026, decision card \"As proposed\") | staff & HR dictionary; DL-39, DL-42, DL-47 |
 
 ---
 
@@ -562,7 +562,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Decision.** See the table above and [staff & HR dictionary § Decisions](../03-domain/staff-hr-data-dictionary.md).
 - **Why.** One staff record per Person (DL-42), leave that feeds cover without leaking why (DL-143), and one compliance status that keeps uncleared staff away from children without silent HR actions. The GIIS handbook is a student handbook, so almost every HR value is a candidate until HR owners answer section T.
 - **Open.** OQ-166…OQ-191 (section T), plus OQ-159, OQ-163, OQ-134.
-- **Status.** DL-146 Confirmed by Henry, 25 Nov 2026 (decision card "Full HR"). DL-147 Confirmed CHANGED, 25 Nov 2026 (decision card "Campus OS owns everything": one writer for all staff data from go-live; payroll receives a feed). Also Confirmed: DL-148, DL-149, DL-150, DL-151, DL-152, DL-153, DL-154, DL-155, DL-156, DL-157, DL-158, DL-159, DL-160, DL-161, DL-162, DL-163 (one card each). DL-164…DL-164 Assumed.
+- **Status.** DL-146 Confirmed by Henry, 25 Nov 2026 (decision card "Full HR"). DL-147 Confirmed CHANGED, 25 Nov 2026 (decision card "Campus OS owns everything": one writer for all staff data from go-live; payroll receives a feed). Also Confirmed: DL-148, DL-149, DL-150, DL-151, DL-152, DL-153, DL-154, DL-155, DL-156, DL-157, DL-158, DL-159, DL-160, DL-161, DL-162, DL-163, DL-164 (one card each). All DL-146…DL-164 Confirmed.
 
 ### Review of DL-01…DL-21 (22 Nov 2026; policy items held)
 - **Context.** DL-01…DL-21 were set on 25 Oct 2026 so Admin Platform design could start and are all still Assumed (DL-12 Proposed), although later Confirmed decisions build on most of them. The 22 Nov 2026 repo review flagged this.
