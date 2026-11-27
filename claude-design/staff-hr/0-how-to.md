@@ -20,4 +20,4 @@ All people, entitlements, checks, vacancies and ratings are invented. The Princi
 
 - Section 6 of the brief lists what is still open. Show those as "Pending decision".
 - Leave entitlements, required checks and the 3-day Principal threshold are sample GIIS SG settings, not group defaults; OWIS shows "Not set".
-- DL-165…DL-164 are Assumed until Henry reviews them one by one.
+- All DL-146…DL-164 are Confirmed (Henry, 25–27 Nov 2026).

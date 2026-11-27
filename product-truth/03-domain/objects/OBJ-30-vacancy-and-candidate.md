@@ -42,7 +42,7 @@ patterns: [AP-05, AP-14]
 
 # OBJ-30 · Vacancy and candidate
 
-**Status:** Proposed with the staff & HR dictionary v0.1, 25 Nov 2026 (DL-159 Assumed) · **Owner:** Henry
+**Status:** Proposed with the staff & HR dictionary v0.1, 25 Nov 2026 (DL-159 Confirmed by Henry, 27 Nov 2026) · **Owner:** Henry
 **Cites:** [staff & HR dictionary](../staff-hr-data-dictionary.md) · DL-58
 
 An approved vacancy collects candidates, matched to existing Persons through the review queue (DL-58). Interviewers record feedback before seeing others'. An accepted offer creates the employment as "Starts {date}" with a joining checklist (DL-159, DL-160).

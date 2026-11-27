@@ -44,7 +44,7 @@ patterns: [AP-04, AP-05, AP-14]
 
 # OBJ-29 · Compliance record
 
-**Status:** Proposed with the staff & HR dictionary v0.1, 25 Nov 2026 (DL-157, DL-158 Assumed) · **Owner:** Henry
+**Status:** Proposed with the staff & HR dictionary v0.1, 25 Nov 2026 (DL-157, DL-158 Confirmed by Henry, 27 Nov 2026) · **Owner:** Henry
 **Cites:** [staff & HR dictionary](../staff-hr-data-dictionary.md) · HB p.138, p.210–213 · DL-30, DL-69
 
 Work passes, background checks, safeguarding training, qualifications and board training, each with dates and a status. Requirements are set per brand-country and position (DL-157). They roll up into one compliance status per employee; Not cleared blocks starting work and new teaching, and opens an HR case, but never ends employment by itself (DL-158). Results and numbers of checks and passes are Tier 3.

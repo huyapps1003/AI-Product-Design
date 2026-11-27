@@ -44,7 +44,7 @@ patterns: [AP-05, AP-13, AP-14]
 
 # OBJ-28 · Staff leave
 
-**Status:** Proposed with the staff & HR dictionary v0.1, 25 Nov 2026 (DL-153…DL-156 Assumed) · **Owner:** Henry
+**Status:** Proposed with the staff & HR dictionary v0.1, 25 Nov 2026 (DL-153…DL-156 Confirmed by Henry, 27 Nov 2026) · **Owner:** Henry
 **Cites:** [staff & HR dictionary](../staff-hr-data-dictionary.md) · TE12, DL-143 · DL-36, DL-59
 
 Staff apply for leave or report sick the same morning; the line manager approves, and the Principal too for long or term-time leave (DL-154). Balances are calculated, never typed (DL-155). Each brand-country adopts GSG's country leave template and adjusts it, never below the statutory minimum (DL-153). Approved leave makes the teacher "Away" in Teaching so cover can be arranged, and never sends the type or reason (DL-156).

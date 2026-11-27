@@ -46,7 +46,7 @@ patterns: [AP-05, AP-14]
 
 # OBJ-31 · Appraisal and training
 
-**Status:** Proposed with the staff & HR dictionary v0.1, 25 Nov 2026 (DL-161, DL-162 Assumed) · **Owner:** Henry
+**Status:** Proposed with the staff & HR dictionary v0.1, 25 Nov 2026 (DL-161, DL-162 Confirmed by Henry, 27 Nov 2026) · **Owner:** Henry
 **Cites:** [staff & HR dictionary](../staff-hr-data-dictionary.md) · Arch module 12 · HB p.138 · DL-96
 
 A yearly appraisal per brand-country: goals, mid-year check-in, self-review, manager review, Principal moderation, then shared with the employee (DL-161). Ratings are Tier 2 and not linked to pay in Campus OS. Training records count hours and can renew a compliance item such as child-protection training or IB Category 1 (DL-162).
