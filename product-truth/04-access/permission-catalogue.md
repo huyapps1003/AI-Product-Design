@@ -21,6 +21,13 @@ Codes follow `module.object.action` (DL-53; new capabilities reviewed by the reg
 | `hr.employment.end` | UPDATE | OBJ-06 | Seed |
 | `hr.campus_assignment.manage` | MANAGE | OBJ-05 | Seed |
 | `hr.confidential.view` | VIEW | OBJ-05, OBJ-06 | Seed |
+| `hr.restricted.view` | VIEW | OBJ-05, OBJ-28, OBJ-29 | New (staff & HR dictionary, DL-151; Tier 3 identity, work pass, checks, medical certificates; always with A17, OQ-173) |
+| `hr.self.view`, `hr.self.update` | VIEW, UPDATE | OBJ-05 | New (DL-151; own record; contact and emergency contacts edited directly) |
+| `hr.org.manage`, `hr.contract.manage`, `hr.checklist.manage` | MANAGE, MANAGE, MANAGE | OBJ-06 | New (DL-150, DL-152, DL-160) |
+| `hr.leave.request`, `hr.leave.approve`, `hr.leave.manage`, `hr.leave_policy.manage`, `hr.leave_template.manage` | CREATE, APPROVE, MANAGE, MANAGE, MANAGE | OBJ-28 | New (DL-153…DL-156; leave templates GSG HR only, DL-153; line manager approves, Principal for long or term-time leave) |
+| `hr.compliance.view`, `hr.compliance.manage`, `hr.compliance.waive`, `hr.compliance_rule.manage` | VIEW, MANAGE, APPROVE, MANAGE | OBJ-29 | New (DL-157, DL-158; view = status chip only; Principal waives) |
+| `hr.vacancy.request`, `hr.vacancy.approve`, `hr.recruitment.manage`, `hr.interview.feedback`, `hr.offer.approve` | CREATE, APPROVE, MANAGE, CREATE, APPROVE | OBJ-30 | New (DL-159; approvers OQ-174) |
+| `hr.appraisal.manage`, `hr.appraisal.review`, `hr.appraisal.moderate`, `hr.training.request`, `hr.training.approve` | MANAGE, UPDATE, APPROVE, CREATE, APPROVE | OBJ-31 | New (DL-161, DL-162) |
 | `ga.module_grant.manage` / `ga.campus_grant.manage` | MANAGE | OBJ-07 | Seed |
 | `ga.catalog.manage` | MANAGE | R01, R02, A06, E06 | Seed |
 | `org.campus_operator.manage` | MANAGE | OBJ-14 | New (organisation dictionary; owner OQ-58) |
@@ -127,7 +134,10 @@ Each field group has a tier and the capability that views it (DL-34). Edit right
 | Guardian names, relationship, can-collect, emergency flag | OBJ-04 | T2 | `student.guardian.view` | — |
 | Guardian phone and email | OBJ-04 | T2 | `student.guardian_contact.view` | — |
 | Employee name, work contact, position, campus | OBJ-05 | T1 | `hr.employee.view` | — |
-| Legal names, photo, termination reason | OBJ-05, OBJ-06 | T2 | `hr.confidential.view` | — |
+| Legal names, personal contact, address, date of birth, nationality, emergency contacts, contract terms, leaving reason (photo moves to the T1 directory, DL-151) | OBJ-05, OBJ-06 | T2 | `hr.confidential.view` | — |
+| Staff identity numbers, work pass, background check results, medical certificates | OBJ-05, OBJ-28, OBJ-29 | T3 | `hr.restricted.view` | A17 (DL-69); read logged |
+| Leave type and balances (colleagues see "Away" only) | OBJ-28 | T2 | `hr.leave.approve` (own via `hr.self.view`) | — |
+| Appraisal goals, reviews, rating; candidate CVs and feedback | OBJ-30, OBJ-31 | T2 | `hr.appraisal.review`, `hr.recruitment.manage` | — |
 | Audit before and after snapshots | OBJ-11 | T3 | `gov.audit.view_snapshot` | — |
 
 ## Template contents

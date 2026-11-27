@@ -44,14 +44,14 @@ Which way each kind of actor gets access, as far as product truth defines it. Th
 
 | Constraint | Status | Source |
 |---|---|---|
-| Campus affiliation, HR position and academic role never grant access | Known | BR-06; [roles-personas](../02-users/roles-personas.md) |
+| Campus affiliation, HR position and academic role never grant access by themselves; exception: a campus assignment makes the Access Registry apply the position's standard template at that campus, never Tier 3 (DL-149, Confirmed 27 Nov 2026) | Known, amended | BR-06; DL-149; [roles-personas](../02-users/roles-personas.md) |
 | Deny wins; fail closed; no scope = no data | Assumed / Known | DL-07; BR-17 |
 | HR edits people, Global Admin edits the access ceiling, Module Admin edits teams; granting `GLOBAL_ADMIN` needs a second Global Admin | Assumed | DL-09 |
 | Least privilege by scope: a Grade 4 class teacher sees their section, not the campus | Known | Architecture § Security |
 | Cross-campus access is granted, time-boxed and logged | Known | Architecture § Security |
 | Tier 3 data is visible only to named roles and every read is logged | Known | Architecture § Security; DL-19 |
 | Child protection and discipline cases are restricted to designated officers and committees | Known | Architecture § Security; GIIS Handbook |
-| Transfers, rehires and campus changes create a review, never access | Assumed | BR-06, Decision D07 default; principle 3 in the [Admin Platform brief](../06-experience/admin-platform/README.md#principles-for-designers) |
+| Transfers and rehires create a review, never access; campus changes get the position's standard template through the Access Registry (DL-149) | Assumed; campus part Confirmed (DL-149) | BR-06, Decision D07 default; principle 3 in the [Admin Platform brief](../06-experience/admin-platform/README.md#principles-for-designers) |
 | Every access change has an audit event and actor | Known | A14; Admin Platform success metrics |
 
 ## What the research found the model doesn't cover

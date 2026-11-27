@@ -1,0 +1,1016 @@
+{
+  "_about": "Synthetic sample for Staff & HR screens (OBJ-05, OBJ-06, OBJ-28 to OBJ-31). All people, dates, entitlements, checks, vacancies and ratings are invented. GIIS Singapore leave entitlements, check types, renewal periods and approval thresholds are SAMPLE campus or brand-country settings, not known GIIS policy (OQ-169 to OQ-172, OQ-174). Child Protection: Principal is the Designated Person (HB p.210-213). IB training at workshops (HB p.138). Reuses teachers from teaching-timetable-sample.json; Arvind Menon's sick report yesterday is the absence on the Teaching cover board (DL-156). Viewer Nadia Rahman; today Wednesday 25 Nov 2026, 09:15 SGT.",
+  "today": "2026-11-25",
+  "now_local": "Wed 25 Nov 2026, 09:15 SGT",
+  "viewer": {
+    "name": "Nadia Rahman",
+    "role": "HR Business Partner, GIIS Singapore",
+    "scope": "SG-PGL and SG-ECS",
+    "sees": "Everything Tier 1 and 2 for GIIS SG staff; Tier 3 only with a type grant (A17) - in this sample she holds one for work passes and checks (OQ-173)"
+  },
+  "other_viewers": [
+    {
+      "name": "Dr Anita Rao",
+      "role": "Principal, SG-PGL",
+      "sees": "Approves leave over 3 days and teachers' term-time leave, vacancies, offers; moderates appraisals; Designated Person for Child Protection (HB p.210)"
+    },
+    {
+      "name": "Meera Joshi",
+      "role": "Level Coordinator, CBSE Grades 6-8, SG-PGL",
+      "sees": "Line manager of 6 teachers in this sample (who is line manager is OQ-182); approves their leave; sees their compliance chips"
+    },
+    {
+      "name": "Farah Ismail",
+      "role": "Teacher, Science; class teacher 7B",
+      "sees": "Own record, leave, appraisal, training (self-service, phone)"
+    },
+    {
+      "name": "Arvind Menon",
+      "role": "Teacher, Mathematics; class teacher 7A",
+      "today": "Reported sick 24 Nov 07:32; certificate due by 27 Nov"
+    },
+    {
+      "name": "Vivek Menon",
+      "role": "Country Director, GIIS Singapore",
+      "sees": "Approves new headcount (OQ-174); group-level counts"
+    },
+    {
+      "name": "Claire Tan",
+      "role": "Principal, SG-OWD",
+      "brand": "OWIS",
+      "_note": "OWIS leave policies, compliance requirements and appraisal cycle are Not set (OQ-189)"
+    }
+  ],
+  "settings_sample": {
+    "leave_principal_over_days": 3,
+    "sick_report_cutoff": "07:00",
+    "compliance_alert_days": [
+      90,
+      60,
+      30
+    ],
+    "fixed_term_alert_days": 60,
+    "probation_alert_days": 30,
+    "_note": "Sample values; campus or brand-country settings with no group default (DL-59)"
+  },
+  "departments": [
+    {
+      "code": "MATH",
+      "name": "Mathematics",
+      "type": "ACADEMIC_DEPARTMENT",
+      "campus": "SG-PGL"
+    },
+    {
+      "code": "SCI",
+      "name": "Sciences",
+      "type": "ACADEMIC_DEPARTMENT",
+      "campus": "SG-PGL"
+    },
+    {
+      "code": "LANG",
+      "name": "Languages",
+      "type": "ACADEMIC_DEPARTMENT",
+      "campus": "SG-PGL"
+    },
+    {
+      "code": "HUM",
+      "name": "Humanities",
+      "type": "ACADEMIC_DEPARTMENT",
+      "campus": "SG-PGL"
+    },
+    {
+      "code": "ARTS",
+      "name": "Arts and PE",
+      "type": "ACADEMIC_DEPARTMENT",
+      "campus": "SG-PGL"
+    },
+    {
+      "code": "LEAD",
+      "name": "School leadership",
+      "type": "FUNCTION",
+      "campus": "SG-PGL"
+    },
+    {
+      "code": "ADM",
+      "name": "Admissions",
+      "type": "FUNCTION",
+      "campus": "SG-PGL"
+    },
+    {
+      "code": "HR",
+      "name": "HR",
+      "type": "FUNCTION",
+      "scope": "GIIS Singapore"
+    }
+  ],
+  "staff": [
+    {
+      "name": "Dr Anita Rao",
+      "position": "Principal",
+      "department": "School leadership",
+      "campus": "SG-PGL",
+      "category": "LEADERSHIP",
+      "employment_type": "PERMANENT",
+      "employment_status": "ACTIVE",
+      "compliance_status": "CLEARED",
+      "line_manager": "Vivek Menon"
+    },
+    {
+      "name": "Meera Joshi",
+      "position": "Level Coordinator",
+      "department": "Mathematics",
+      "campus": "SG-PGL",
+      "category": "TEACHING",
+      "employment_type": "PERMANENT",
+      "employment_status": "ACTIVE",
+      "compliance_status": "CLEARED",
+      "line_manager": "Dr Anita Rao",
+      "leave_note": "Own leave request 18-19 Dec pending with Dr Rao"
+    },
+    {
+      "name": "Arvind Menon",
+      "position": "Teacher - Secondary",
+      "department": "Mathematics",
+      "campus": "SG-PGL",
+      "category": "TEACHING",
+      "employment_type": "PERMANENT",
+      "employment_status": "ACTIVE",
+      "compliance_status": "CLEARED",
+      "line_manager": "Meera Joshi",
+      "away_today": "Away (sick report, type shown to HR, line manager and Principal only)"
+    },
+    {
+      "name": "Farah Ismail",
+      "position": "Teacher - Secondary",
+      "department": "Sciences",
+      "campus": "SG-PGL",
+      "category": "TEACHING",
+      "employment_type": "PERMANENT",
+      "employment_status": "ACTIVE",
+      "compliance_status": "DUE_SOON",
+      "line_manager": "Meera Joshi",
+      "due": "Child protection training expires 31 Jan 2027"
+    },
+    {
+      "name": "Lakshmi Rao",
+      "position": "Teacher - Secondary",
+      "department": "Mathematics",
+      "campus": "SG-PGL",
+      "category": "TEACHING",
+      "employment_type": "PERMANENT",
+      "employment_status": "ACTIVE",
+      "compliance_status": "CLEARED",
+      "line_manager": "Meera Joshi"
+    },
+    {
+      "name": "Rohan Das",
+      "position": "Teacher - Secondary",
+      "department": "Humanities",
+      "campus": "SG-PGL",
+      "category": "TEACHING",
+      "employment_type": "FIXED_TERM",
+      "employment_status": "ACTIVE",
+      "compliance_status": "CLEARED",
+      "line_manager": "Meera Joshi",
+      "contract": "Fixed term ends 31 Mar 2027 - renewal alert (60 days) from 30 Jan"
+    },
+    {
+      "name": "Jason Teo",
+      "position": "Teacher - Secondary",
+      "department": "Mathematics",
+      "campus": "SG-PGL",
+      "category": "TEACHING",
+      "employment_type": "PERMANENT",
+      "employment_status": "ACTIVE",
+      "compliance_status": "CLEARED",
+      "line_manager": "Meera Joshi",
+      "leaving": "Leaves 18 Dec 2026 (resigned)"
+    },
+    {
+      "name": "Ananya Krishnan",
+      "position": "Teacher - Secondary",
+      "department": "Languages",
+      "campus": "SG-PGL",
+      "category": "TEACHING",
+      "employment_type": "PERMANENT",
+      "employment_status": "ACTIVE",
+      "compliance_status": "ACTION_NEEDED",
+      "line_manager": "Meera Joshi",
+      "due": "First aid certificate expired 2 Nov 2026 (not blocking)"
+    },
+    {
+      "name": "Nikhil Sood",
+      "position": "Teacher - Secondary",
+      "department": "Sciences",
+      "campus": "SG-PGL",
+      "category": "TEACHING",
+      "employment_type": "PART_TIME",
+      "employment_status": "ACTIVE",
+      "compliance_status": "NOT_CLEARED",
+      "line_manager": "Farah Ismail",
+      "due": "Work pass expired 20 Nov 2026 - renewal submitted, awaiting MOM (Tier 3); HR case open",
+      "fte": 0.6,
+      "work_pattern": "Mon-Wed"
+    },
+    {
+      "name": "Mei Ling Ho",
+      "position": "Teacher - Secondary",
+      "department": "Languages",
+      "campus": "SG-PGL",
+      "category": "TEACHING",
+      "employment_type": "PERMANENT",
+      "employment_status": "ACTIVE",
+      "compliance_status": "CLEARED",
+      "line_manager": "Meera Joshi",
+      "away_today": "Away (leave)"
+    },
+    {
+      "name": "Grace Wong",
+      "position": "Teacher - Primary",
+      "department": "Arts and PE",
+      "campus": "SG-PGL",
+      "category": "TEACHING",
+      "employment_type": "PART_TIME",
+      "employment_status": "ACTIVE",
+      "compliance_status": "CLEARED",
+      "line_manager": "Dr Anita Rao",
+      "fte": 0.5
+    },
+    {
+      "name": "Pooja Sharma",
+      "position": "Teacher - Secondary",
+      "department": "Languages",
+      "campus": "SG-PGL",
+      "category": "TEACHING",
+      "employment_type": "PERMANENT",
+      "employment_status": "ACTIVE",
+      "compliance_status": "DUE_SOON",
+      "line_manager": "Meera Joshi",
+      "due": "Work pass expires 10 Feb 2027"
+    },
+    {
+      "name": "Rachel Lim",
+      "position": "Campus Office Executive",
+      "department": "Admissions",
+      "campus": "SG-PGL",
+      "category": "NON_TEACHING",
+      "employment_type": "PERMANENT",
+      "employment_status": "ACTIVE",
+      "compliance_status": "CLEARED",
+      "line_manager": "Dr Anita Rao"
+    },
+    {
+      "name": "Daniel Koh",
+      "position": "Teacher - Secondary",
+      "department": "Mathematics",
+      "campus": "SG-PGL",
+      "category": "TEACHING",
+      "employment_type": "PERMANENT",
+      "employment_status": "PENDING",
+      "compliance_status": "NOT_CLEARED",
+      "line_manager": "Meera Joshi",
+      "starts": "4 Jan 2027",
+      "due": "Background check pending; contract unsigned"
+    },
+    {
+      "name": "Rahul Bose",
+      "position": "IB DP Coordinator",
+      "department": "School leadership",
+      "campus": "SG-ECS",
+      "category": "TEACHING",
+      "employment_type": "PERMANENT",
+      "employment_status": "ACTIVE",
+      "compliance_status": "CLEARED",
+      "line_manager": "Principal SG-ECS",
+      "campuses": [
+        "SG-ECS (primary)",
+        "SG-PGL (additional teaching)"
+      ]
+    },
+    {
+      "name": "Nadia Rahman",
+      "position": "HR Business Partner",
+      "department": "HR",
+      "campus": "GIIS Singapore office",
+      "category": "NON_TEACHING",
+      "employment_type": "PERMANENT",
+      "employment_status": "ACTIVE",
+      "compliance_status": "CLEARED",
+      "line_manager": "Vivek Menon",
+      "campuses": "None (brand-country office, DL-149)"
+    }
+  ],
+  "leave_types_giis_sg": [
+    {
+      "code": "AL",
+      "name": "Annual leave",
+      "category": "ANNUAL",
+      "days": "14 (teaching staff: school vacations only - SAMPLE, OQ-170)",
+      "school_day_rule": "PRINCIPAL_APPROVAL",
+      "carry_forward": "5 days"
+    },
+    {
+      "code": "SL",
+      "name": "Sick leave",
+      "category": "SICK",
+      "days": 14,
+      "certificate": "From day 1, upload within 3 days of return",
+      "school_day_rule": "ANY"
+    },
+    {
+      "code": "HL",
+      "name": "Hospitalisation leave",
+      "category": "HOSPITALISATION",
+      "days": 60,
+      "certificate": "Always"
+    },
+    {
+      "code": "ML",
+      "name": "Maternity leave",
+      "category": "MATERNITY",
+      "days": "16 weeks"
+    },
+    {
+      "code": "PL",
+      "name": "Paternity leave",
+      "category": "PATERNITY",
+      "days": "2 weeks"
+    },
+    {
+      "code": "CCL",
+      "name": "Childcare leave",
+      "category": "CHILDCARE",
+      "days": 6
+    },
+    {
+      "code": "CL",
+      "name": "Compassionate leave",
+      "category": "COMPASSIONATE",
+      "days": 3
+    },
+    {
+      "code": "UL",
+      "name": "Unpaid leave",
+      "category": "UNPAID",
+      "days": "By approval",
+      "school_day_rule": "PRINCIPAL_APPROVAL"
+    },
+    {
+      "code": "DUTY",
+      "name": "Duty (training, trip)",
+      "category": "DUTY",
+      "days": "Not deducted"
+    }
+  ],
+  "leave_types_owis_sg": "Not set (DL-59) - OQ-189",
+  "leave_approvals_inbox": [
+    {
+      "id": "LR-2611",
+      "employee": "Lakshmi Rao",
+      "type": "Annual leave",
+      "dates": "Thu 3 Dec - Fri 4 Dec 2026",
+      "days": 2,
+      "on_school_days": true,
+      "steps": [
+        "Meera Joshi (line manager) - waiting",
+        "Dr Anita Rao (Principal, term-time) - next"
+      ],
+      "lessons_affected": 11,
+      "note": "Sister's wedding in Chennai",
+      "balance_after": "AL 3 of 14 left",
+      "submitted": "23 Nov"
+    },
+    {
+      "id": "LR-2614",
+      "employee": "Rohan Das",
+      "type": "Childcare leave",
+      "dates": "Mon 30 Nov 2026 (AM)",
+      "days": 0.5,
+      "on_school_days": true,
+      "steps": [
+        "Meera Joshi - waiting"
+      ],
+      "lessons_affected": 3,
+      "balance_after": "CCL 4.5 of 6 left",
+      "submitted": "24 Nov"
+    },
+    {
+      "id": "LR-2609",
+      "employee": "Meera Joshi",
+      "type": "Annual leave",
+      "dates": "Fri 18 Dec - Sat 19 Dec 2026",
+      "days": 1,
+      "on_school_days": false,
+      "steps": [
+        "Dr Anita Rao (her line manager) - waiting"
+      ],
+      "lessons_affected": 0,
+      "submitted": "20 Nov",
+      "_note": "Shown in Dr Rao's inbox, not Meera's"
+    },
+    {
+      "id": "LR-2617",
+      "employee": "Ananya Krishnan",
+      "type": "Duty (training)",
+      "dates": "Mon 7 Dec 2026, P5-P8",
+      "days": 0,
+      "on_school_days": true,
+      "steps": [
+        "Meera Joshi - waiting"
+      ],
+      "lessons_affected": 3,
+      "note": "IB Category 2 workshop (online)",
+      "training_link": "TR-0412"
+    }
+  ],
+  "sick_reports": [
+    {
+      "id": "LR-2615",
+      "employee": "Arvind Menon",
+      "type": "Sick leave",
+      "kind": "SAME_DAY_REPORT",
+      "reported": "Tue 24 Nov 07:32 (after the 07:00 cut-off: flagged late, OQ-168)",
+      "dates": "Tue 24 Nov - Wed 25 Nov 2026",
+      "status": "CERTIFICATE_DUE",
+      "certificate_due": "Fri 27 Nov",
+      "teaching_absence": "TE12 created 07:33, source STAFF_LEAVE - 8 lessons on Tuesday's cover board, 7 today. (teaching-timetable-sample.json shows the same absence as ENTERED by Rachel Lim because it was written before Staff & HR.)",
+      "line_manager_sees": "Sick leave, certificate due",
+      "colleagues_see": "Away"
+    }
+  ],
+  "away_today": [
+    {
+      "name": "Arvind Menon",
+      "shown": "Away all day",
+      "hr_sees": "Sick leave (day 2), certificate due 27 Nov"
+    },
+    {
+      "name": "Mei Ling Ho",
+      "shown": "Away all day",
+      "hr_sees": "Annual leave, approved 2 Nov"
+    },
+    {
+      "name": "Ananya Krishnan",
+      "shown": "Away P5-P8 on 7 Dec (pending)",
+      "hr_sees": "Duty - training"
+    }
+  ],
+  "team_calendar_meera": {
+    "from": "2026-11-23",
+    "to": "2026-12-04",
+    "rows": [
+      {
+        "name": "Arvind Menon",
+        "days": {
+          "2026-11-24": "Away",
+          "2026-11-25": "Away"
+        }
+      },
+      {
+        "name": "Mei Ling Ho",
+        "days": {
+          "2026-11-25": "Away",
+          "2026-11-26": "Away",
+          "2026-11-27": "Away"
+        }
+      },
+      {
+        "name": "Lakshmi Rao",
+        "days": {
+          "2026-12-03": "Pending",
+          "2026-12-04": "Pending"
+        }
+      },
+      {
+        "name": "Rohan Das",
+        "days": {
+          "2026-11-30": "Pending AM"
+        }
+      },
+      {
+        "name": "Farah Ismail",
+        "days": {}
+      },
+      {
+        "name": "Jason Teo",
+        "days": {}
+      },
+      {
+        "name": "Ananya Krishnan",
+        "days": {}
+      },
+      {
+        "name": "Pooja Sharma",
+        "days": {}
+      }
+    ],
+    "school_events": [
+      {
+        "date": "2026-11-30",
+        "label": "PT3 exams start (Grades 6-8) - sample"
+      }
+    ]
+  },
+  "compliance_dashboard": {
+    "counts": {
+      "cleared": 11,
+      "due_soon": 2,
+      "action_needed": 1,
+      "not_cleared": 2,
+      "to_verify": 2
+    },
+    "not_cleared": [
+      {
+        "name": "Nikhil Sood",
+        "item": "Work pass",
+        "status": "EXPIRED 20 Nov 2026",
+        "effect": "No new teaching assignments; left out of cover suggestions; existing lessons continue; HR case STAFF_COMPLIANCE open (DL-158)",
+        "tier3_locked_for_others": true
+      },
+      {
+        "name": "Daniel Koh",
+        "item": "Background check",
+        "status": "Missing (required before start)",
+        "effect": "Cannot start 4 Jan 2027 until cleared"
+      }
+    ],
+    "expiring_90_days": [
+      {
+        "name": "Farah Ismail",
+        "item": "Child protection training",
+        "expires": "2027-01-31",
+        "alert": "90-day alert sent 2 Nov; 60-day alert due 2 Dec"
+      },
+      {
+        "name": "Pooja Sharma",
+        "item": "Work pass",
+        "expires": "2027-02-10",
+        "alert": "90-day alert sent 12 Nov"
+      }
+    ],
+    "action_needed": [
+      {
+        "name": "Ananya Krishnan",
+        "item": "First aid",
+        "status": "EXPIRED 2 Nov 2026",
+        "blocking": false
+      }
+    ],
+    "to_verify": [
+      {
+        "name": "Daniel Koh",
+        "item": "Teaching qualification (PGDE)",
+        "uploaded": "20 Nov"
+      },
+      {
+        "name": "Nikhil Sood",
+        "item": "Work pass renewal",
+        "uploaded": "23 Nov",
+        "_note": "Tier 3 document"
+      }
+    ],
+    "requirements_giis_sg_sample": [
+      {
+        "item": "Background check",
+        "applies_to": "All staff",
+        "due": "Before start",
+        "renew": "Every 3 years",
+        "blocking": true
+      },
+      {
+        "item": "Work pass",
+        "applies_to": "Non-citizens and non-PRs",
+        "due": "Before start",
+        "renew": "Per pass expiry",
+        "blocking": true
+      },
+      {
+        "item": "Child protection training",
+        "applies_to": "All staff",
+        "due": "Within 30 days of start",
+        "renew": "Every 2 years",
+        "blocking": true
+      },
+      {
+        "item": "Teaching qualification",
+        "applies_to": "Teaching",
+        "due": "Before start",
+        "renew": "Never",
+        "blocking": false
+      },
+      {
+        "item": "IB Category 1 workshop",
+        "applies_to": "Teachers of IB programmes (SG-ECS)",
+        "due": "Within 12 months",
+        "renew": "Never",
+        "blocking": false
+      },
+      {
+        "item": "First aid",
+        "applies_to": "PE teachers, campus office",
+        "due": "Within 90 days",
+        "renew": "Every 2 years",
+        "blocking": false
+      }
+    ],
+    "_note": "Required checks are SAMPLE until OQ-171 is answered. OWIS: Not set."
+  },
+  "profile_farah": {
+    "directory": {
+      "preferred_name": "Farah Ismail",
+      "position": "Teacher - Secondary",
+      "department": "Sciences",
+      "campus": "SG-PGL (primary)",
+      "work_email": "farah.ismail@sample.giis.edu.sg",
+      "work_phone": "+65 6000 1207",
+      "photo": "initials FI"
+    },
+    "employment": {
+      "employee_number": "GSG-SG-10457",
+      "employer": "Global Indian International School Pte Ltd (sample legal entity)",
+      "category": "TEACHING",
+      "type": "PERMANENT",
+      "start": "2019-07-15",
+      "status": "ACTIVE",
+      "line_manager": "Meera Joshi",
+      "appraisal_reviewer": "Suresh Pillai, Academic Supervisor",
+      "payroll": "Sent to payroll (sample feed, DL-147): last change 1 Aug 2026 OK"
+    },
+    "contract_terms": [
+      {
+        "type": "PERMANENT",
+        "fte": 1.0,
+        "from": "2021-07-15",
+        "probation_end": null,
+        "notice_days": 60
+      },
+      {
+        "type": "FIXED_TERM",
+        "fte": 1.0,
+        "from": "2019-07-15",
+        "to": "2021-07-14",
+        "status": "ENDED"
+      }
+    ],
+    "personal_t2": {
+      "date_of_birth": "1988-03-09",
+      "nationality": "SG",
+      "personal_phone": "+65 9000 4512",
+      "address": "Punggol, Singapore (sample)",
+      "emergency_contacts": [
+        {
+          "name": "Imran Ismail",
+          "relationship": "Spouse",
+          "phone": "+65 9000 7781"
+        }
+      ]
+    },
+    "identity_t3": "Locked - needs Tier 3 access (A17)",
+    "teaching_from_teaching_module": {
+      "groups": "Science 7A, 7B, 7C, 8A; class teacher 7B; Head of Department Sciences (sample)",
+      "load": "25 periods a week"
+    },
+    "leave_balances_2026": [
+      {
+        "type": "Annual leave",
+        "entitlement": 14,
+        "carried": 3,
+        "taken": 9,
+        "booked": 0,
+        "available": 8
+      },
+      {
+        "type": "Sick leave",
+        "entitlement": 14,
+        "taken": 2,
+        "available": 12
+      },
+      {
+        "type": "Childcare leave",
+        "entitlement": 6,
+        "taken": 2,
+        "available": 4
+      }
+    ],
+    "leave_history": [
+      {
+        "dates": "16-17 Sep 2026",
+        "type": "Sick leave",
+        "days": 2,
+        "status": "APPROVED",
+        "certificate": "Received"
+      },
+      {
+        "dates": "9-13 Jun 2026",
+        "type": "Annual leave",
+        "days": 5,
+        "status": "APPROVED"
+      }
+    ],
+    "compliance": [
+      {
+        "item": "Background check",
+        "status": "VALID",
+        "expires": "2028-07-01",
+        "tier": "T3 (result locked to others)"
+      },
+      {
+        "item": "Child protection training",
+        "status": "EXPIRING",
+        "expires": "2027-01-31"
+      },
+      {
+        "item": "Teaching qualification",
+        "detail": "BSc Chemistry; PGDE (NIE)",
+        "status": "VALID"
+      },
+      {
+        "item": "First aid",
+        "status": "VALID",
+        "expires": "2027-09-30"
+      }
+    ],
+    "training": [
+      {
+        "id": "TR-0388",
+        "title": "Child Protection Refresher",
+        "provider": "In-house (Designated Person)",
+        "date": "2025-01-31",
+        "hours": 3,
+        "status": "RECORDED",
+        "renews": "Child protection training"
+      },
+      {
+        "id": "TR-0401",
+        "title": "CBSE Competency-Based Assessment",
+        "provider": "CBSE (sample)",
+        "date": "2026-08-22",
+        "hours": 6,
+        "status": "COMPLETED"
+      },
+      {
+        "id": "TR-0419",
+        "title": "Child Protection Refresher",
+        "provider": "In-house",
+        "date": "2027-01-15",
+        "hours": 3,
+        "status": "APPROVED",
+        "renews": "Child protection training"
+      }
+    ],
+    "training_hours_this_year": {
+      "done": 9,
+      "target": "20 (SAMPLE, OQ-179)"
+    },
+    "appraisal": {
+      "cycle": "Appraisal 2026-27, CBSE teaching staff",
+      "stage": "IN_YEAR",
+      "reviewer": "Suresh Pillai (Academic Supervisor; appraisal reviewer, DL-150)",
+      "goals": [
+        {
+          "goal": "Raise Grade 7 Science PT averages by 5 points",
+          "measure": "PT1 vs PT3"
+        },
+        {
+          "goal": "Lead a Sciences department lab-safety refresh",
+          "measure": "Done by Feb"
+        },
+        {
+          "goal": "Complete Child Protection refresher before expiry",
+          "measure": "Certificate by 31 Jan"
+        }
+      ],
+      "observations": [
+        {
+          "date": "2026-10-14",
+          "observer": "Meera Joshi",
+          "group": "7B Science",
+          "notes": "Clear objectives; strong questioning; extend lab write-up time"
+        }
+      ],
+      "next": "Mid-year check-in by 11 Dec",
+      "rating": "Hidden until shared; scale Not set (OQ-178)"
+    }
+  },
+  "vacancies": [
+    {
+      "id": "VAC-031",
+      "position": "Teacher - Secondary (Mathematics)",
+      "campus": "SG-PGL",
+      "fte": 1.0,
+      "reason": "REPLACEMENT (Jason Teo, leaves 18 Dec)",
+      "target_start": "2027-01-04",
+      "status": "FILLED",
+      "hiring_manager": "Meera Joshi",
+      "filled_by": "Daniel Koh (offer accepted 16 Nov)"
+    },
+    {
+      "id": "VAC-034",
+      "position": "Teacher - Secondary (Hindi)",
+      "campus": "SG-PGL",
+      "fte": 0.6,
+      "reason": "NEW_HEADCOUNT",
+      "target_start": "2027-04-01",
+      "status": "OPEN",
+      "hiring_manager": "Meera Joshi",
+      "approved": "Dr Anita Rao 10 Nov; Vivek Menon 12 Nov (new headcount)"
+    },
+    {
+      "id": "VAC-036",
+      "position": "Learning Support Assistant",
+      "campus": "SG-PGL",
+      "fte": 1.0,
+      "reason": "NEW_HEADCOUNT",
+      "target_start": "2027-04-01",
+      "status": "PENDING_APPROVAL",
+      "hiring_manager": "Dr Anita Rao",
+      "waiting_for": "Vivek Menon (Country Director)"
+    }
+  ],
+  "candidates_vac_034": [
+    {
+      "name": "Kavita Iyer",
+      "source": "REFERRAL",
+      "stage": "DEMO_LESSON",
+      "feedback": "2 of 3 submitted",
+      "note": "Demo lesson 27 Nov, Grade 7 Hindi"
+    },
+    {
+      "name": "Sunita Verma",
+      "source": "DIRECT",
+      "stage": "INTERVIEW",
+      "feedback": "1 of 2 submitted",
+      "existing_person": "Matched: guardian of a Grade 3 student at SG-PGL (DL-58) - one Person, one login"
+    },
+    {
+      "name": "Priyanka Nair",
+      "source": "JOB_BOARD",
+      "stage": "SCREENING"
+    },
+    {
+      "name": "Ritu Malhotra",
+      "source": "AGENCY",
+      "stage": "APPLIED"
+    },
+    {
+      "name": "Deepa Rao",
+      "source": "DIRECT",
+      "stage": "REJECTED",
+      "reason": "Not progressed after screening",
+      "retain_until": "Not set (OQ-176)"
+    }
+  ],
+  "joining_daniel_koh": {
+    "starts": "2027-01-04",
+    "status": "Starts 4 Jan",
+    "compliance": "Not cleared",
+    "tasks": [
+      {
+        "task": "Background check",
+        "owner": "HR",
+        "due": "2026-12-18",
+        "status": "OPEN"
+      },
+      {
+        "task": "Teaching qualification verified",
+        "owner": "HR",
+        "due": "2026-12-18",
+        "status": "OPEN",
+        "note": "Uploaded 20 Nov, to verify"
+      },
+      {
+        "task": "Work pass",
+        "owner": "HR",
+        "due": "-",
+        "status": "NOT_NEEDED",
+        "note": "Singapore citizen"
+      },
+      {
+        "task": "Contract signed",
+        "owner": "HR",
+        "due": "2026-12-04",
+        "status": "OPEN"
+      },
+      {
+        "task": "Emergency contact",
+        "owner": "EMPLOYEE",
+        "due": "2026-12-28",
+        "status": "DONE"
+      },
+      {
+        "task": "Account invite (7 days before start)",
+        "owner": "SYSTEM",
+        "due": "2026-12-28",
+        "status": "OPEN"
+      },
+      {
+        "task": "Access request: Teaching, Assessment, Attendance",
+        "owner": "LINE_MANAGER",
+        "due": "2027-01-04",
+        "status": "OPEN"
+      },
+      {
+        "task": "Induction and child protection briefing",
+        "owner": "LINE_MANAGER",
+        "due": "2027-01-08",
+        "status": "OPEN"
+      },
+      {
+        "task": "Teaching groups (takes over Jason Teo's)",
+        "owner": "COORDINATOR",
+        "due": "2027-01-04",
+        "status": "OPEN"
+      }
+    ]
+  },
+  "leaving_jason_teo": {
+    "last_day": "2026-12-18",
+    "reason": "Resigned (T2)",
+    "status": "Leaves 18 Dec",
+    "handover": [
+      {
+        "item": "8B Mathematics (lead teacher)",
+        "module": "Teaching TE06",
+        "to": "Daniel Koh from 4 Jan; cover 21 Dec - 1 Jan not needed (vacation)",
+        "owner": "COORDINATOR",
+        "status": "OPEN"
+      },
+      {
+        "item": "8C Mathematics (lead teacher)",
+        "module": "Teaching TE06",
+        "to": "Not chosen",
+        "owner": "COORDINATOR",
+        "status": "OPEN"
+      },
+      {
+        "item": "Co-class teacher 8B",
+        "module": "Classes CL03",
+        "to": "Not chosen",
+        "owner": "COORDINATOR",
+        "status": "OPEN"
+      },
+      {
+        "item": "2 open parent conversations",
+        "module": "Communications",
+        "to": "Meera Joshi",
+        "owner": "LINE_MANAGER",
+        "status": "OPEN"
+      },
+      {
+        "item": "PT2 mark sheet 8C (not yet locked)",
+        "module": "Assessment AS07",
+        "to": "Lock before 18 Dec",
+        "owner": "EMPLOYEE",
+        "status": "OPEN"
+      },
+      {
+        "item": "Return laptop and staff pass",
+        "owner": "EMPLOYEE",
+        "status": "OPEN"
+      },
+      {
+        "item": "Exit interview",
+        "owner": "HR",
+        "status": "OPEN",
+        "optional": true
+      },
+      {
+        "item": "Exit review and account disable after 18 Dec",
+        "owner": "SYSTEM",
+        "status": "OPEN"
+      }
+    ]
+  },
+  "appraisal_cycle": {
+    "name": "Appraisal 2026-27, CBSE teaching staff, GIIS SG",
+    "year": "CBSE 2026-27 (April-March, DL-96)",
+    "stages": {
+      "GOALS": "Apr-May 2026",
+      "MID_YEAR": "by 11 Dec 2026",
+      "SELF_REVIEW": "Feb 2027",
+      "MANAGER_REVIEW": "Feb-Mar 2027",
+      "MODERATION": "Mar 2027",
+      "SHARED": "by 31 Mar 2027"
+    },
+    "progress": {
+      "staff": 42,
+      "goals_agreed": 40,
+      "mid_year_done": 17,
+      "overdue_goals": 2
+    },
+    "rating_scale": "Not set (OQ-178)"
+  },
+  "group_view": {
+    "_note": "Counts only (DL-164, AR-01)",
+    "GIIS SG": {
+      "headcount": 214,
+      "away_today": 9,
+      "not_cleared": 2,
+      "open_vacancies": 4
+    },
+    "OWIS SG": {
+      "headcount": "Not live yet: OWIS still edits staff in its current HR system until its go-live (DL-147, OQ-166)",
+      "policies": "Not set"
+    }
+  }
+}

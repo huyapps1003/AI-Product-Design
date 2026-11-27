@@ -14,8 +14,8 @@ A design object is something a user sees, finds and acts on. Each maps to dictio
 | OBJ-02 | Student | ST01, ST06–ST10 | Student Records | Cell | T3 | [card](./OBJ-02-student.md) |
 | OBJ-03 | Enrolment | ST02, ST03 | Admissions creates, Student Records holds | Cell | T2 | [card](./OBJ-03-enrolment.md) |
 | OBJ-04 | Guardian | ST04, ST05, ST07 | Student Records | Cell | T2 | [card](./OBJ-04-guardian.md) |
-| OBJ-05 | Employee | E01, E07, E08 | Staff and HR | Cell | T2 | [card](./OBJ-05-employee.md) |
-| OBJ-06 | Employment | E02–E05 | Staff and HR | Cell | T2 | [card](./OBJ-06-employment.md) |
+| OBJ-05 | Employee | E01, E07, E08, HR02 (employee, campus assignment, external mapping, emergency contact; staff & HR dictionary, DL-146) | Staff and HR | Cell | T2 (T3 identity numbers) | [card](./OBJ-05-employee.md) |
+| OBJ-06 | Employment | E02–E05, HR01, HR15 (employment, department, org assignment, position, contract term, checklist task) | Staff and HR | Cell | T2 | [card](./OBJ-06-employment.md) |
 | OBJ-07 | Access grant | A03, A04 | Access Registry (Global Admin) | Global | T1 | [card](./OBJ-07-access-grant.md) |
 | OBJ-08 | Team membership | A05, A07, A10, A12, A13 | Access Registry (Module Admin) | Cell | T1 | [card](./OBJ-08-team-membership.md) |
 | OBJ-09 | Family access | F01, R03 | Access Registry (system) | Cell | T1 | [card](./OBJ-09-family-access.md) |
@@ -35,6 +35,10 @@ A design object is something a user sees, finds and acts on. Each maps to dictio
 | OBJ-25 | Academic year and programme offering | AC01–AC09 (programme pack, grade level, pack subject, grade band, year template, programme offering, academic year, term, offered subject) | Academic structure (DL-109; packs DL-110) | Global (packs) and cell (offerings, years) | T1 | [card](./OBJ-25-academic-year.md) |
 | OBJ-26 | Message and announcement | CC10–CC16 (conversation, message, announcement, receipt, notification template, notification, preference) | Engagement (Cases & Communications, DL-119) | Cell | T2 (messages) | [card](./OBJ-26-message-and-announcement.md) |
 | OBJ-27 | Timetable and lesson | TE01–TE03, TE08–TE13 (bell schedule, bell period, room, period plan, timetable, timetable lesson, dated lesson, teacher absence, cover arrangement; replace Employee DD D03) | Teaching (DL-131) | Cell | T1 | [card](./OBJ-27-timetable-and-lesson.md) |
+| OBJ-28 | Staff leave | HR03–HR07 (leave type, leave policy, leave balance, leave request, approval step) | Staff and HR (DL-146) | Cell | T2 (T3 medical certificates) | [card](./OBJ-28-staff-leave.md) |
+| OBJ-29 | Compliance record | HR08–HR10 (compliance item type, requirement, record) | Staff and HR (DL-146) | Cell | T3 (work pass, checks) | [card](./OBJ-29-compliance-record.md) |
+| OBJ-30 | Vacancy and candidate | HR11–HR14 (vacancy, candidate application, interview feedback, offer) | Staff and HR (DL-146) | Cell | T2 | [card](./OBJ-30-vacancy-and-candidate.md) |
+| OBJ-31 | Appraisal and training | HR16–HR18 (appraisal cycle, appraisal, training record) | Staff and HR (DL-146) | Cell | T2 | [card](./OBJ-31-appraisal-and-training.md) |
 
 ## Card format
 

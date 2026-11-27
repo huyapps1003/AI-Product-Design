@@ -349,6 +349,7 @@ GIIS SG values recorded in the sample (all from the handbook): complaint 2/7/14/
 | CL06 year-end campus change | YEAR_END_CAMPUS_CHANGE | Both principals | Before the rollover is applied | DL-62 |
 | OR05 operator handover | CAMPUS_OPERATOR_HANDOVER | Group (owner OQ-58) | Open | DL-50 |
 | Access request and reviews | ACCESS_REQUEST, ONBOARDING_ACCESS, AFFILIATION_REVIEW, EXIT_REVIEW, CAMPUS_ATTESTATION | Per DL-08; Tier 3 type grant: Campus Leader (DL-69) | Not set (DL-08 names SLA timers, no values) | DL-08, DL-69 |
+| Staff (proposed with the [staff & HR dictionary](./staff-hr-data-dictionary.md)) | STAFF_CONCERN (RESTRICTED: Designated Person for Child Protection, Principal, named HR, the line manager unless conflicted (DL-163); never the staff member named), STAFF_COMPLIANCE (HR) | HR; Principal | Not set (OQ-184, OQ-190) | DL-158, DL-163, HB p.210–213 |
 
 AS11 result appeals keep their own status and deadline in Assessment (DL-91) and have no `case_id`; whether they should also run on a Case is OQ-141.
 

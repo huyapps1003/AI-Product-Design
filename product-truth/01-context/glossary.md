@@ -48,6 +48,12 @@ Use these terms exactly in screens and specs. Where a term's definition is still
 | **Timetable** | The weekly pattern of lessons. On screens a published version is "Live"; each change is a new version | Confirmed (DL-138) |
 | **Clash** | A timetable problem. "Must fix" (teacher, room or student in two places) blocks publishing; "Check" (load, room type) needs a note | Confirmed (DL-139) |
 | **Cover** | Another teacher taking or supervising a lesson when its teacher is away; the cover teacher sees the students for that day only | Confirmed (DL-143, DL-145) |
+| **Line manager** | The person a staff member reports to; approves their leave and sees their compliance status. Not an access role | Confirmed (DL-150) |
+| **Appraisal reviewer** | The person who runs a staff member's appraisal; the line manager unless HR sets someone else, such as the Head of Department | Confirmed (DL-150) |
+| **Away** | A staff member is not at work. Colleagues and Teaching see only "Away", never the leave type or reason | Confirmed (DL-156) |
+| **Compliance status** | One chip per staff member from their checks, passes and qualifications: Cleared, Due soon, Action needed, Not cleared | Confirmed (DL-158) |
+| **Vacancy** | An approved post to hire for; candidates apply to a vacancy | Confirmed (DL-159) |
+| **Leaving** | A staff member with an end date set; screens show "Leaves {date}" and a handover list | Confirmed (DL-160) |
 | **House** | A student team that runs across years, such as House B | Known (HB p.169); list per campus Open (OQ-20) |
 | **Student ID** | The number people use for a student; unique across Campus OS and kept on campus transfer | Confirmed (DL-31) |
 | **Programme** (data: programme offering) | What a campus runs: a curriculum for a grade range, for example CBSE 1–12 at Punggol or IB Diploma at East Coast. Statuses: Opening soon, Open, No new students, Closed. Use "Programme" on screens; "programme offering" only in data and specs | Confirmed (DL-112, DL-117) |
