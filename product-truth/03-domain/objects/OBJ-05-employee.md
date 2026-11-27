@@ -44,7 +44,7 @@ actions:
   - hr.employee.create
   - hr.employee.update
   - hr.self.update
-  - hr.campus_assignment.manage   # never grants access (BR-06, DL-149)
+  - hr.campus_assignment.manage   # Registry applies position template, never Tier 3 (DL-149)
 events: [EmployeeCreated, CampusAssignmentChanged, ComplianceStatusChanged]
 variation: [MC-03, MC-13]
 open: [OQ-166, OQ-167, OQ-173, OQ-183, OQ-188]
@@ -57,4 +57,4 @@ patterns: [AP-03, AP-04, AP-12, AP-14]
 **Status:** Confirmed structure (DL-43, DL-46), 7 Nov 2026; refined with the staff & HR dictionary v0.1, 25 Nov 2026 (DL-146, DL-147 Confirmed; DL-148…DL-164 Assumed) · **Owner:** Henry
 **Cites:** [staff & HR dictionary](../staff-hr-data-dictionary.md) · Employee DD E01, E07, E08 · DL-42, DL-148, DL-149, DL-151
 
-The staff profile of one Person (DL-42, DL-148). Colleagues see the directory; HR sees Tier 2; identity numbers need Tier 3 access. Campus affiliation never grants access; it opens a review (BR-06, DL-149). Campus OS is the only place staff data changes; payroll receives what it needs (DL-147). Compliance status is one chip anyone who assigns or manages the person can see; the details stay with HR (DL-158).
+The staff profile of one Person (DL-42, DL-148). Colleagues see the directory; HR sees Tier 2; identity numbers need Tier 3 access. A campus move makes the Access Registry give the position's standard access at that campus, never Tier 3 (DL-149). Campus OS is the only place staff data changes; payroll receives what it needs (DL-147). Compliance status is one chip anyone who assigns or manages the person can see; the details stay with HR (DL-158).
