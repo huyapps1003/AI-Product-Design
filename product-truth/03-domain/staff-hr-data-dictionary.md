@@ -1,6 +1,6 @@
 # Global Campus OS — Staff & HR Data Dictionary v0.1 (draft)
 
-**Status:** Proposed draft, 25 Nov 2026. DL-146…DL-158 Confirmed; DL-159…DL-164 Assumed; OQ-166…OQ-193 Open · **Owner:** Henry
+**Status:** Proposed draft, 25 Nov 2026. DL-146…DL-159 Confirmed; DL-160…DL-164 Assumed; OQ-166…OQ-193 Open · **Owner:** Henry
 **Cites:** [Architecture v1](../00-sources/Global_Campus_OS_Product_Architecture_v1.md) § Domains and modules (module 12 Staff and HR "Staff records, allocation; cover, training, appraisal"), § Users and roles (Principal approvals; staff across campuses and programmes), § Data model (People "Person… Staff… Role grant"; "One Person can be a parent on one campus and staff on another"), § Security (Tier 3 never leaves its cell; AI keeps a human approver) · [Employee Data Dictionary v1](../00-sources/Global_Campus_OS_Employee_Data_Dictionary_v1.md) E01–E08, BR-01…BR-20, Decisions D01–D15 (all Proposed, 14 Oct 2026) · [Organisation dictionary](./organisation-data-dictionary.md) OR03, OR04, OR07, OR08, OR09 · [Teaching & timetable dictionary](./teaching-timetable-data-dictionary.md) TE06, TE07, TE12, DL-143, OQ-159, OQ-163, OQ-164 · [Cases & communications dictionary](./cases-communications-data-dictionary.md) CC01, CC03, DL-120, DL-125, DL-129 · [Academic structure dictionary](./academic-structure-data-dictionary.md) AC07, DL-96 · [Attendance dictionary](./attendance-data-dictionary.md) AT01, AT02 · [architecture.md](./architecture.md) DL-39, DL-41, DL-42, DL-43, DL-45 · [permission catalogue](../04-access/permission-catalogue.md) `hr.*` seed capabilities · GIIS Student Handbook 2025-26 (HB) p.210–213 (Child Protection Policy: Principal is Designated Person; staff allegations, suspension pending investigation), p.138 (English teachers receive IB training at workshops) · DL-09, DL-11, DL-13, DL-16, DL-19, DL-22, DL-24, DL-27, DL-34, DL-36, DL-47, DL-53, DL-58, DL-59, DL-69, DL-73, DL-118
 **Tóm tắt (VI):** Từ điển dữ liệu cho module Nhân sự (phạm vi "Full HR", Henry chọn 25/11/2026): hồ sơ nhân viên và hợp đồng (kế thừa E01–E08 của Employee DD v1), phòng ban, chức danh, người quản lý trực tiếp; nghỉ phép của nhân viên (loại phép, chính sách theo brand-country, số dư, xin và duyệt phép, tự động báo "vắng" sang module Giảng dạy để xếp dạy thay, không bao giờ gửi lý do); hồ sơ tuân thủ (giấy phép lao động, kiểm tra lý lịch/an toàn trẻ em, bằng cấp, chứng chỉ IB/CBSE/Cambridge, sơ cứu) với cảnh báo hết hạn; tuyển dụng (yêu cầu tuyển, ứng viên, phỏng vấn, offer); tiếp nhận và nghỉ việc (checklist, bàn giao); đánh giá năng lực hằng năm và đào tạo. Lương bổng do hệ thống payroll bên ngoài giữ. Mỗi trường có trạng thái Known / Assumed / Open.
 
@@ -68,10 +68,10 @@ Approved by Henry, 25 Nov 2026 (decision card "Full HR", chosen over the smaller
 | HR08 | Compliance Item Type | Staff & HR (OBJ-29) | Known need (HB p.210–213 child protection; IB training); catalogue Confirmed (DL-157) |
 | HR09 | Compliance Requirement | Staff & HR (OBJ-29) | Confirmed (DL-157); values Open (OQ-171, OQ-172) |
 | HR10 | Compliance Record | Staff & HR (OBJ-29) | Confirmed (DL-157, DL-158) |
-| HR11 | Vacancy | Staff & HR (OBJ-30) | Assumed (DL-159) |
-| HR12 | Candidate Application | Staff & HR (OBJ-30) | Assumed (DL-159) |
-| HR13 | Interview Feedback | Staff & HR (OBJ-30) | Assumed (DL-159) |
-| HR14 | Offer | Staff & HR (OBJ-30) | Assumed (DL-159) |
+| HR11 | Vacancy | Staff & HR (OBJ-30) | Confirmed (DL-159) |
+| HR12 | Candidate Application | Staff & HR (OBJ-30) | Confirmed (DL-159) |
+| HR13 | Interview Feedback | Staff & HR (OBJ-30) | Confirmed (DL-159) |
+| HR14 | Offer | Staff & HR (OBJ-30) | Confirmed (DL-159) |
 | HR15 | Checklist Task | Staff & HR (OBJ-06) | Known need (BR-10 exit review; DL-13 invite timing); model Assumed (DL-160) |
 | HR16 | Appraisal Cycle | Staff & HR (OBJ-31) | Known need (Arch module 12 "appraisal"); model Assumed (DL-161) |
 | HR17 | Appraisal | Staff & HR (OBJ-31) | Assumed (DL-161) |
@@ -119,7 +119,7 @@ OR03, OR04, OR07, OR08, OR09, AC07, TE06, TE07, TE12, CC01, CC03, A01, A15, A16 
 | start_date / end_date | DATE | — | Y / N | T1 | Known (E02) | End date set → shown as Leaving (DL-160). |
 | employment_status | ENUM | — | Y | T1 | Known (E02); transitions Assumed (DL-160, DL-163) | PENDING, ACTIVE, SUSPENDED, ENDED. History kept (DL-24). |
 | leaving_reason | ENUM | — | C | T2 | Known field (E02 `termination_reason_code`); values Assumed | RESIGNED, CONTRACT_ENDED, RETIRED, DISMISSED, MUTUAL, TRANSFERRED_WITHIN_GSG, OTHER. Detail stays in the case. |
-| source_hiring_id | UUID | FK:HR14 | N | T1 | Assumed (DL-159) | New. The offer that created it. |
+| source_hiring_id | UUID | FK:HR14 | N | T1 | Confirmed (DL-159) | New. The offer that created it. |
 
 ### E03 — Department (Organizational Unit)
 
@@ -331,7 +331,7 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| vacancy_id | UUID | PK | Y | T1 | Assumed (DL-159) | |
+| vacancy_id | UUID | PK | Y | T1 | Confirmed (DL-159) | |
 | campus_id / org_unit_id / position_id | UUID | FK | Y | T1 | Assumed | |
 | fte / employment_type | DECIMAL / ENUM | — | Y | T1 | Assumed | |
 | reason | ENUM | — | Y | T1 | Assumed | NEW_HEADCOUNT, REPLACEMENT (links the leaving employment), COVER_FOR_LEAVE. |
@@ -345,7 +345,7 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| application_id | UUID | PK | Y | T2 | Assumed (DL-159) | |
+| application_id | UUID | PK | Y | T2 | Confirmed (DL-159) | |
 | vacancy_id | UUID | FK:HR11 | Y | T2 | Assumed | |
 | person_id | UUID | FK:Person | Y | T2 | Assumed; matching Confirmed pattern (DL-58) | Matched through the review queue; an internal candidate keeps their `employee_id`. |
 | source | ENUM | — | Y | T2 | Assumed | DIRECT, REFERRAL, AGENCY, INTERNAL, JOB_BOARD. |
@@ -358,19 +358,19 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| feedback_id | UUID | PK | Y | T2 | Assumed (DL-159) | |
+| feedback_id | UUID | PK | Y | T2 | Confirmed (DL-159) | |
 | application_id | UUID | FK:HR12 | Y | T2 | Assumed | |
 | interviewer_employee_id | UUID | FK:E01 | Y | T2 | Assumed | |
 | stage | ENUM | — | Y | T2 | Assumed | INTERVIEW, DEMO_LESSON. |
 | scores | JSON | — | Y | T2 | Assumed | Per criterion of the vacancy's scorecard (brand-set). |
 | recommendation | ENUM | — | Y | T2 | Assumed | STRONG_YES, YES, NO, STRONG_NO. |
-| submitted_at | TIMESTAMPTZ | — | Y | T2 | Assumed (DL-159) | An interviewer sees others' feedback only after submitting their own. |
+| submitted_at | TIMESTAMPTZ | — | Y | T2 | Confirmed (DL-159) | An interviewer sees others' feedback only after submitting their own. |
 
 ### HR14 — Offer
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| offer_id | UUID | PK | Y | T2 | Assumed (DL-159) | |
+| offer_id | UUID | PK | Y | T2 | Confirmed (DL-159) | |
 | application_id | UUID | FK:HR12 | Y | T2 | Assumed | |
 | proposed_start / contract_type / fte | DATE / ENUM / DECIMAL | — | Y | T2 | Assumed | Copied into E02 and HR01 on acceptance. |
 | offer_letter_ref | VARCHAR(512) | — | N | T2 | Assumed | Pay terms live in the letter and payroll, not in fields (DL-147). |
@@ -529,8 +529,8 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 - **SR-HR-09 (Confirmed, DL-158):** NOT_CLEARED: the employment cannot move from PENDING to ACTIVE; Teaching cannot confirm a new TE06 and leaves the teacher out of TE13 suggestions; an HR case (STAFF_COMPLIANCE) opens. Existing assignments stay; nothing suspends or ends employment automatically. A Principal may WAIVE an item with a reason (audited).
 - **SR-HR-10 (Confirmed, DL-158):** When a coordinator assigns a teacher (TE06), a missing TEACHING_QUALIFICATION or BOARD_TRAINING required for that programme shows a warning, never a block (OQ-159).
 - **SR-HR-11 (Confirmed, DL-152):** Fixed-term end dates and probation ends raise an HR task N days before (campus setting, "Not set" otherwise).
-- **SR-HR-12 (Assumed, DL-159):** A vacancy opens only after approval; REPLACEMENT vacancies link the leaving employment; new headcount needs the Country Director (OQ-174).
-- **SR-HR-13 (Assumed, DL-159):** An interviewer sees other feedback only after submitting their own. An ACCEPTED offer creates E02 PENDING, HR01 DRAFT and the joining checklist; the vacancy becomes FILLED.
+- **SR-HR-12 (Confirmed, DL-159):** A vacancy opens only after approval; REPLACEMENT vacancies link the leaving employment; new headcount needs the Country Director (OQ-174).
+- **SR-HR-13 (Confirmed, DL-159):** An interviewer sees other feedback only after submitting their own. An ACCEPTED offer creates E02 PENDING, HR01 DRAFT and the joining checklist; the vacancy becomes FILLED.
 - **SR-HR-14 (Assumed, DL-160; Assumed DL-13; Known BR-10):** Joining: account invite 7 days before start; access request case on start. Leaving: end date set → HR15 handover tasks listing every TE06, CL03, TE07, open case and active delegation of the employee; last day passed → E02 ENDED, account disabled, exit review case.
 - **SR-HR-15 (Assumed, DL-161; reviewer Confirmed DL-150):** Each appraisal's reviewer is the employment's appraisal reviewer when the cycle opens; a change of manager mid-cycle moves it with the history kept. Ratings are hidden from the employee until SHARED.
 - **SR-HR-16 (Assumed, DL-162):** A COMPLETED or RECORDED training with `item_type_id` creates or renews the matching HR10 once HR verifies the certificate.
@@ -562,7 +562,7 @@ Existing seeds: `hr.employee.view`, `hr.employee.create`, `hr.employee.update`, 
 | DL-156 (**Confirmed**, Henry 27 Nov 2026, decision card "As proposed") | Approved leave or a sick report creates the Teaching absence (TE12, STAFF_LEAVE) with dates and periods only; the leave type stays with the employee, line manager, Principal and HR; colleagues see "Away" | DL-143; answers the "feed automatically" part of OQ-163 |
 | DL-157 (**Confirmed**, Henry 27 Nov 2026, decision card "As proposed") | A GSG catalogue of compliance item types and requirements per brand-country × position or category (before start or within N days, renewal) | Child protection (HB p.210–213); IB training; work passes for non-citizens |
 | DL-158 (**Confirmed**, Henry 27 Nov 2026, decision card "As proposed") | One compliance status per employee (Cleared, Due soon, Action needed, Not cleared); Not cleared blocks starting, new teaching assignments and cover suggestions and opens an HR case, never suspends or ends employment by itself; missing board qualification only warns; alerts at 90/60/30 days | Safety without silent HR actions; partly answers OQ-159 |
-| DL-159 | Recruitment: approved vacancy → candidates matched to Persons (DL-58) → stages with independent interview feedback → approved offer → accepted offer creates the employment as PENDING with a joining checklist | One pipeline from request to first day |
+| DL-159 (**Confirmed**, Henry 27 Nov 2026, decision card "As proposed") | Recruitment: approved vacancy → candidates matched to Persons (DL-58) → stages with independent interview feedback → approved offer → accepted offer creates the employment as PENDING with a joining checklist | One pipeline from request to first day |
 | DL-160 | Joining and leaving checklists per brand-country × category; leaving lists every assignment, class, responsibility, open case and delegation to hand over; exit review and account disable after the last day | BR-10; DL-13 |
 | DL-161 | Appraisal: an annual cycle per brand-country following the academic year, with goals, mid-year check-in, self-review, manager review, Principal moderation; rating scales per brand; Tier 2; not linked to pay in Campus OS | Arch module 12 "appraisal"; DL-96 |
 | DL-162 | Training records (course, provider, hours, certificate) can clear a matching compliance item; staff request, line manager approves; hours targets a brand-country setting | Arch module 12 "training"; HB p.138 IB training at workshops |
