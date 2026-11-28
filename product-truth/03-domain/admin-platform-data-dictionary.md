@@ -66,7 +66,7 @@ Proposed on a decision card on 28 Nov 2026 (recommended "Setup, access and data 
 | A15 | Record ACL Entry | Cell | Confirmed (DL-19) |
 | A16 | Delegation | Cell | Confirmed entity (DL-36); 90-day cap Assumed (DL-21, held) |
 | A17 | Tier 3 Type Grant | Cell | Confirmed entity (DL-36); approver Confirmed (DL-69) |
-| A18 | Operator Session | Cell | New; approver Confirmed (DL-52); shape Assumed (DL-175) |
+| A18 | Operator Session | Cell | New; approver Confirmed (DL-52); shape Known (DL-175) |
 | R01 | Module | Global | Known entity (Employee DD R01); codes Confirmed (DL-04) |
 | R02 | Capability | Global | Known entity (Employee DD R02); naming Confirmed (DL-53) |
 | R03 | Parent Capability Set | Global | Confirmed (DL-18, DL-28, DL-37) |
@@ -235,7 +235,7 @@ Referenced, not redefined: OR01–OR09, AC06, AC07, AC08, E01, E02, E05, E07, HR
 | scope_node_id | UUID | FK:OR01 | Y | T1 | Assumed | Lets a Campus Leader filter their campus (SCR-GOV-04). |
 | purpose_code | VARCHAR(40) | FK:PA07 | C | T1 | Confirmed rule (DL-44, AR-10) | Required on Tier 3 reveal, cross-cell access and operator sessions. |
 | acting_for_user_id | UUID | FK:A01 | C | T1 | Confirmed (DL-36) | When a delegate (A16) acted. |
-| operator_session_id | UUID | FK:A18 | C | T1 | Assumed (DL-175) | Every event inside a support session. |
+| operator_session_id | UUID | FK:A18 | C | T1 | Known (DL-175) | Every event inside a support session. |
 | before_ref_or_redacted, after_ref_or_redacted | JSON | — | N | T3 | Known (A14 Restricted) | Viewed with `gov.audit.view_snapshot`. |
 
 Retention of audit events per country: OQ-199.
@@ -280,7 +280,7 @@ Retention of audit events per country: OQ-199.
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| operator_session_id | UUID | PK | Y | T1 | Assumed (DL-175) | |
+| operator_session_id | UUID | PK | Y | T1 | Known (DL-175) | |
 | operator_user_id | UUID | FK:A01 | Y | T1 | Assumed | Holds PLATFORM_SUPPORT at Group; no campus memberships. |
 | scope_node_id | UUID | FK:OR01 | Y | T1 | Assumed | One campus. |
 | module_ids | UUID[] | FK:R01 | Y | T1 | Assumed | Only the modules named in the request. |
@@ -292,7 +292,7 @@ Retention of audit events per country: OQ-199.
 | approver_user_id, approved_at | UUID, TIMESTAMPTZ | FK:A01 | C | T1 | Confirmed (DL-52): Campus Leader | Not required for BREAK_GLASS; then `notified_at` within 24 hours. |
 | started_at, ended_at | TIMESTAMPTZ | — | N | T1 | Assumed | Ends at the cap, on the operator's "End session", or when the Campus Leader ends it. |
 | session_status | ENUM | — | Y | T1 | Assumed | REQUESTED, APPROVED, ACTIVE, ENDED, DECLINED, EXPIRED. |
-| tier3_allowed | BOOLEAN | — | Y | T1 | Assumed (DL-175) | False for SUPPORT; Tier 3 stays masked. BREAK_GLASS: OQ-207. |
+| tier3_allowed | BOOLEAN | — | Y | T1 | Known (DL-175) | False for SUPPORT; Tier 3 stays masked. BREAK_GLASS: OQ-207. |
 
 ### R01 — Module
 
@@ -499,7 +499,7 @@ Each campus case lists one line per person with any A03, A04, A05, A16 or A17 at
 | A05 | A07 → A10 | 1 → 0..N | membership_id | Roles and pinned templates | Known |
 | A08 | A09 | 1 → 0..N | permission_template_id | | Known |
 | A05 | A12 → A13 | 1 → 0..N | membership_id | Data scope | Known, DL-16 |
-| A01 | A16, A17, A18 | 1 → 0..N | user ids | Special access | Confirmed (DL-36), Assumed (DL-175) |
+| A01 | A16, A17, A18 | 1 → 0..N | user ids | Special access | Confirmed (DL-36), Known (DL-175) |
 | OR01 | PA02 | 1 → 0..N | scope_node_id | One open run per node at a time | Known (DL-167) |
 | PA02 | PA03 | 1 → 1..N | setup_run_id | | Assumed |
 | OR01 × R01 | PA04 | 1 → 1..N | scope_node_id, module_id | One row per field group | Known (DL-168) |
@@ -614,7 +614,7 @@ Existing seeds: `ga.module_grant.manage`, `ga.campus_grant.manage`, `ga.catalog.
 | DL-172 | **Confirmed** (Henry, 28 Nov 2026). The GSG platform team keeps roles, templates and capabilities (DL-51); templates are versioned, a published version never changes; brands don't create roles in v1; overrides stay off (DL-14) | Keeps one catalogue across 12 brands; change requests go through the registry owner |
 | DL-173 | **Confirmed** (Henry, 28 Nov 2026). Each brand keeps a position → standard template list (per module) for DL-149; brand HR proposes, the platform team publishes; never Tier 3 | Answers the "who maintains" half of OQ-192; contents per position stay open |
 | DL-174 | **Confirmed** (Henry, 28 Nov 2026). Termly access review: a cycle per brand-country opens a CAMPUS_ATTESTATION case per campus in week 1 of term, due in 10 working days (S5); flagged rows first; undecided rows escalate to the brand-country head, never auto-remove | Makes the S5 flow and the "≥95% attested per term" metric concrete; auto-removal would cut teachers off mid-term |
-| DL-175 | Operator sessions (A18): named GSG support engineer, one campus, named modules, purpose and ticket, read-only, at most 4 hours, Tier 3 masked, every screen logged; Campus Leader approves (DL-52); break-glass for security only, Campus Leader told within 24 hours | Confirms the DL-52 limits that are still Assumed and gives them an entity; answers most of OQ-15 |
+| DL-175 | **Confirmed** (Henry, 28 Nov 2026). Operator sessions (A18): named GSG support engineer, one campus, named modules, purpose and ticket, read-only, at most 4 hours, Tier 3 masked, every screen logged; Campus Leader approves (DL-52); break-glass for security only, Campus Leader told within 24 hours | Confirms the DL-52 limits that are still Assumed and gives them an entity; answers most of OQ-15 |
 | DL-176 | Data protection settings in the Admin Platform: purpose catalogue (GSG), retention rules per country, privacy notices per brand-country × audience; legal fields stay empty with pending markers; a Data Protection Lead role per brand-country views audit and retention and activates rules, with no record access by default | DL-44 records need an editor; keeps AR-04 (no controller named); partly answers OQ-34 |
 | DL-177 | Setting definitions catalogue (PA06): every setting key once with owner module, allowed levels, default (empty means "Not set") and default override policy; the settings screen groups keys by module and shows inheritance (AP-02) | OR09 holds values but nobody defined the keys; every module dictionary adds campus or brand-country settings |
 | DL-178 | New access role Brand Admin at a Brand node: setup runs, module switch-on, grants and accounts for that brand; definitions stay with Global Admin (GSG); granting Brand or Global Admin needs a second Global Admin (DL-09) | 12 brands can't all route day-to-day setup through the GSG platform team; keeps brand boundaries (DL-40) |
