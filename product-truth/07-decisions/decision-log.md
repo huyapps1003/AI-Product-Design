@@ -190,7 +190,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-176 | Purposes, retention rules and privacy notices are edited in the Admin Platform with legal fields pending; new Data Protection Lead role per brand-country, no record access by default | **Confirmed** (Henry, 28 Nov 2026) | admin platform dictionary |
 | DL-177 | Setting definitions catalogue (PA06): each key once with owner module, allowed levels, default (empty = Not set) and override policy | **Confirmed** (Henry, 28 Nov 2026) | admin platform dictionary |
 | DL-178 | New Brand Admin role at a Brand node for setup, switch-on, grants and accounts in that brand; definitions stay with Global Admin; second Global Admin approves Brand or Global Admin grants (DL-09) | **Confirmed** (Henry, 28 Nov 2026) | admin platform dictionary |
-| DL-179 | Admin Platform navigation by task: Setup · People and access · Data protection · Audit; staff screens move to Staff & HR; definitions global, assignments and audit in the campus's data location | Assumed | admin platform dictionary |
+| DL-179 | Admin Platform navigation by task: Setup · People and access · Data protection · Audit; staff screens move to Staff & HR; definitions global, assignments and audit in the campus's data location | **Confirmed** (Henry, 28 Nov 2026) | admin platform dictionary |
 
 ---
 
