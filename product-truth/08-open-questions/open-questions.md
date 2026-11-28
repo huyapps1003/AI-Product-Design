@@ -347,7 +347,7 @@ Added 28 Nov 2026 with the [admin platform dictionary](../03-domain/admin-platfo
 
 | ID | Question | Why it matters for design | Evidence | Affects | Who can answer | Status |
 |---|---|---|---|---|---|---|
-| OQ-194 | Which identity provider does each brand use for staff (GIIS: Google Workspace), does any brand run several tenants, and should Campus OS sync users from the provider or only authenticate? | Sign-in setup (PA05), account creation | Admin Platform brief (GIIS Google Workspace); OQ-27 | admin-platform dictionary, OBJ-32 | Brand IT leads | Open |
+| OQ-194 | Which identity provider does each brand use for staff (GIIS: Google Workspace), does any brand run several tenants, and should Campus OS sync users from the provider or only authenticate? | Sign-in setup (PA05), account creation | Admin Platform brief (GIIS Google Workspace); OQ-27 | admin-platform dictionary, OBJ-32 | Brand IT leads | **Partly answered** (Henry, 28 Nov 2026): one GSG-wide provider → DL-169; rest → OQ-210 |
 | OQ-195 | When a person works for two brands and has two work emails, which one is primary for notifications and the directory? | A02 `is_primary`, directory display | DL-42; GIIS SMART and OWIS Digital share Punggol (OQ-52) | A02, OBJ-01 | Henry, group HR | Open |
 | OQ-196 | Who signs off a campus or brand-country go-live: brand-country head, Country Director, brand head or GSG operations? | PA02 approver, CAMPUS_GO_LIVE case | OQ-58 (who creates campuses) | PA02, OBJ-32 | Henry, GSG group office | **Answered** (Henry, 28 Nov 2026): brand-country head signs off → DL-167 |
 | OQ-197 | Which modules does each brand go live with first, and in what order and dates? | Module switch-on samples and setup plans | Arch § Roadmap phases; OQ-05, OQ-32 | PA01, OBJ-32 | Henry, GSG leadership | Open |
@@ -363,6 +363,7 @@ Added 28 Nov 2026 with the [admin platform dictionary](../03-domain/admin-platfo
 | OQ-207 | Who in GSG may open break-glass, may it ever show Tier 3, and who besides the Campus Leader is told? | A18 BREAK_GLASS rules | DL-52; OQ-15; PowerSchool support-credential breach (research §08) | A18, OBJ-35 | GSG IT security, counsel | Open |
 | OQ-208 | Do vendors or implementation partners (not GSG staff) ever need operator sessions, and on what contract? | Operator session eligibility | OQ-12 sub-processors; DL-52 | A18 | GSG IT, procurement | Open |
 | OQ-209 | How will parents and students sign in (email or phone one-time code, MyGIIS migration, brand identity provider)? | Parent and Student apps (later, DL-118); account model must not block it | DL-42, DL-118; OQ-28 | A01, A02, PA05 | Henry, GIIS IT | Open |
+| OQ-210 | Which product is the GSG-wide staff identity provider, how and when does each brand's staff move onto it (GIIS from Google Workspace), and does Campus OS sync users from it or only authenticate? | PA05 setup, go-live task SIGN_IN_CONNECTED, brand IT effort | DL-169; OQ-194, OQ-27 | admin-platform dictionary, OBJ-32 | GSG IT, brand IT leads | Open |
 
 ## Research not yet done
 

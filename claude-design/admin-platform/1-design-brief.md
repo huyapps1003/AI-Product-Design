@@ -20,7 +20,7 @@
 | **Legacy systems** | Which system is the source of truth for each field group until its cutover date (DL-45, DL-168) | Authority register (in UI), integrations |
 | **Data location** | Where a country's data lives, "Data location: Singapore" (DL-47) | Cell, region, data home |
 | **Account** | A person's one Campus OS login (DL-42) | User ID, profile |
-| **Sign-in** | How staff log in through their brand's provider (DL-169) | SSO config, IdP (in UI) |
+| **Sign-in** | How staff log in through the one GSG-wide provider, and each brand's move onto it (DL-169, OQ-210) | SSO config, IdP (in UI) |
 | **Route** | How someone got access: From position template, From allocation, By request, Added by admin (DL-171) | Source type |
 | **Support session** | Approved, read-only, time-boxed GSG support access to one campus (DL-175) | Impersonation, admin login |
 | **Break-glass** | Security-only session without prior approval | Emergency access |

@@ -40,14 +40,14 @@ actions:
   - identity.idp.manage
 events: [ModuleSwitchChanged, SetupTaskDone, CampusWentLive, AuthorityCutOver]
 variation: [MC-01, MC-02, MC-14]
-open: [OQ-05, OQ-21, OQ-27, OQ-28, OQ-55, OQ-58, OQ-194, OQ-197]
+open: [OQ-05, OQ-21, OQ-27, OQ-28, OQ-55, OQ-58, OQ-197, OQ-210]
 sample: product-truth/03-domain/samples/admin-platform-sample.json
 patterns: [AP-01, AP-02, AP-04, AP-12, AP-13, AP-14]
 ---
 
 # OBJ-32 · Campus setup and go-live
 
-**Status:** Proposed with the admin platform dictionary v0.1, 28 Nov 2026 (DL-166…DL-169 Assumed, awaiting Henry) · **Owner:** Henry
+**Status:** Proposed with the admin platform dictionary v0.1, 28 Nov 2026 (DL-166…DL-169 Confirmed by Henry 28 Nov 2026) · **Owner:** Henry
 **Cites:** [admin platform dictionary](../admin-platform-data-dictionary.md) · OR01–OR08, AC06, AC07 · DL-45, DL-50, DL-113
 
 A campus goes live through a setup run: a checklist where most tasks tick themselves from the owning record (node, operator link, data location, sign-in, published year, Campus Leader, module dates, legacy system rows) and the brand-country head signs off (DL-167). Modules are switched on per brand-country or campus, and nobody can be a member of a module that isn't Live or in Pilot there (DL-166). The legacy systems list says which system is the source for each field group until its cutover date; until then the field is read-only with a source chip (DL-45, DL-168).

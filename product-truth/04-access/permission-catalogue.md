@@ -43,7 +43,7 @@ Codes follow `module.object.action` (DL-53; new capabilities reviewed by the reg
 | `identity.person.view`, `identity.person.merge` | VIEW, MANAGE | OBJ-01 | New |
 | `identity.account.view`, `identity.account.suspend` | VIEW, UPDATE | OBJ-01 | New |
 | `identity.account.invite` | CREATE | OBJ-01 | New (admin platform dictionary, DL-170) |
-| `identity.idp.manage` | MANAGE | OBJ-32 | New (DL-169; Global Admin, Brand Admin for own brand) |
+| `identity.idp.manage` | MANAGE | OBJ-32 | New (DL-169; Global Admin only: one GSG-wide provider) |
 | `ga.module_switch.manage` | MANAGE | OBJ-32 | New (DL-166) |
 | `ga.setup.manage`, `ga.setup.approve` | MANAGE, APPROVE | OBJ-32 | New (DL-167; approver = brand-country head, OQ-196 answered) |
 | `ga.authority.manage` | MANAGE | OBJ-32 | New (DL-168) |

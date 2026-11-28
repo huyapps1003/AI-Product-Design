@@ -54,7 +54,7 @@
       ],
       "campuses_live": 0,
       "brand_admin": "Aisha Karim (sample)",
-      "sign_in": "PENDING:OQ-194"
+      "sign_in": "PENDING:OQ-210"
     }
   ],
   "campuses": [
@@ -107,7 +107,7 @@
     "run_kind": "CAMPUS_MIGRATION",
     "target_go_live": "2027-01-04",
     "owner": "Aisha Karim",
-    "approver": "PENDING:OQ-196 (DL-167 proposes the brand-country head)",
+    "approver": "Brand-country head, OWIS Singapore (DL-167)",
     "run_status": "IN_PROGRESS",
     "_note": "OWIS SG runs a calendar year (classes sample: Claire Tan's January rollover), so the sample go-live is the first school day of 2027.",
     "tasks": [
@@ -145,9 +145,9 @@
         "blocking": true,
         "mode": "AUTO",
         "status": "OPEN",
-        "owner": "Brand admin",
-        "detail": "OWIS identity provider unknown",
-        "oq": "OQ-194"
+        "owner": "Platform team",
+        "detail": "owis.example not yet on the GSG identity provider",
+        "oq": "OQ-210"
       },
       {
         "code": "PROGRAMMES_SET",
@@ -639,27 +639,44 @@
   ],
   "identity_providers": [
     {
+      "brand": "GSG (all brands)",
+      "scope": "Group",
+      "provider": "PENDING:OQ-210",
+      "domains": [
+        "giis.example",
+        "owis.example"
+      ],
+      "audience": "STAFF",
+      "mfa": true,
+      "status": "TESTING",
+      "accounts": 0,
+      "_note": "One GSG-wide staff identity provider (DL-169). Product not chosen yet (OQ-210)."
+    },
+    {
       "brand": "GIIS",
+      "scope": "Brand",
       "provider": "GOOGLE_WORKSPACE",
       "domains": [
         "giis.example"
       ],
       "audience": "STAFF",
       "mfa": true,
-      "status": "ACTIVE",
+      "status": "MIGRATING",
       "accounts": 405,
-      "_note": "Provider Known (Admin Platform brief); domain synthetic."
+      "_note": "GIIS today signs in with Google Workspace (Admin Platform brief); stays as MIGRATING until GIIS staff move to the GSG provider (OQ-210). Domain synthetic."
     },
     {
       "brand": "OWIS",
-      "provider": "PENDING:OQ-194",
+      "scope": "Brand",
+      "provider": "PENDING:OQ-27",
       "domains": [
         "owis.example"
       ],
       "audience": "STAFF",
       "mfa": true,
       "status": "DRAFT",
-      "accounts": 0
+      "accounts": 0,
+      "_note": "OWIS's current provider unknown (OQ-27); OWIS staff go straight onto the GSG provider."
     }
   ],
   "users": [
@@ -811,7 +828,7 @@
       "last_sign_in": null,
       "modules": 1,
       "flags": [],
-      "_note": "OWIS sign-in not connected yet (OQ-194)."
+      "_note": "OWIS domain not on the GSG identity provider yet (OQ-210)."
     },
     {
       "name": "Payroll feed · GIIS Singapore",

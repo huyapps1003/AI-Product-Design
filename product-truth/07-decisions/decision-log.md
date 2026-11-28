@@ -180,7 +180,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-166 | Modules switched on per brand-country or campus (Planned, Pilot, Live, Paused, Off); members only where Live or Pilot | **Confirmed** (Henry, 28 Nov 2026) | admin platform dictionary |
 | DL-167 | A campus or brand-country goes live through a setup run (blocking and non-blocking tasks, most checked automatically); brand-country head signs off a CAMPUS_GO_LIVE case | **Confirmed** (Henry, 28 Nov 2026) | admin platform dictionary |
 | DL-168 | Legacy systems register (PA04) per brand × module × field group (changed from brand-country by Henry): system, direction, cutover date, conflict reviewer; brand-country or campus exceptions; a module is Live only when its rows are complete | **Confirmed** (Henry, 28 Nov 2026) | admin platform dictionary |
-| DL-169 | Staff sign in through the brand's identity provider with SSO and MFA (GIIS: Google Workspace); one account per Person, one or more sign-in identities matched by provider subject, never email | Assumed | admin platform dictionary |
+| DL-169 | All staff sign in through one GSG-wide identity provider with SSO and MFA (changed from per-brand providers by Henry); brands move onto it (OQ-210); one account per Person, one GSG sign-in identity matched by provider subject, never email | **Confirmed** (Henry, 28 Nov 2026) | admin platform dictionary |
 | DL-170 | Account lifecycle: INVITED from the employment, invite N days before start (DL-13), ACTIVE on first sign-in, SUSPENDED with the employment, DISABLED after the last day; Dormant is a review flag; service accounts for integrations | Assumed | admin platform dictionary |
 | DL-171 | Access arrives three ways through the Registry (automatic from facts, ACCESS_REQUEST case, admin inside the ceiling) and every record keeps its route; scope grant puts a person on a node, module grant is the module ceiling | Assumed | admin platform dictionary |
 | DL-172 | GSG platform team keeps roles, templates and capabilities; published template versions never change; brands don't create roles in v1; overrides stay off (DL-14) | Assumed | admin platform dictionary |
@@ -584,8 +584,8 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Decision.** See the table above and [admin platform dictionary § Decisions](../03-domain/admin-platform-data-dictionary.md#decisions-dl-165dl-179-assumed-awaiting-henry). The scope was proposed on a decision card (recommended "Setup, access and data protection").
 - **Why.** One dictionary for everything an admin configures, so module dictionaries can point at accounts, roles, switch-on, settings and purposes instead of describing them; the RBAC decisions (DL-32…DL-38, DL-51…DL-53, DL-69) get entities and screens.
 - **Builds on.** DL-02, DL-05, DL-08, DL-16…DL-20, DL-32…DL-53, DL-69, DL-73, DL-147, DL-149. Uses the held DL-09, DL-13, DL-14 and DL-21 as they stand; they stay Assumed until Henry discusses them.
-- **Open.** OQ-194…OQ-209 (section V), plus OQ-06, OQ-09, OQ-15, OQ-27, OQ-43, OQ-58, OQ-192.
-- **Status.** DL-165…DL-168 Confirmed (Henry, 28 Nov 2026; OQ-196 answered: brand-country head signs off go-live; DL-168 changed to per brand); DL-169…DL-179 Assumed, awaiting Henry.
+- **Open.** OQ-194…OQ-210 (section V), plus OQ-06, OQ-09, OQ-15, OQ-27, OQ-43, OQ-58, OQ-192.
+- **Status.** DL-165…DL-169 Confirmed (Henry, 28 Nov 2026; OQ-196 answered: brand-country head signs off go-live; DL-168 changed to per brand; DL-169 changed to one GSG-wide identity provider, new OQ-210); DL-170…DL-179 Assumed, awaiting Henry.
 
 ### Review of DL-01…DL-21 (22 Nov 2026; policy items held)
 - **Context.** DL-01…DL-21 were set on 25 Oct 2026 so Admin Platform design could start and are all still Assumed (DL-12 Proposed), although later Confirmed decisions build on most of them. The 22 Nov 2026 repo review flagged this.

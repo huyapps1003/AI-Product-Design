@@ -1,6 +1,6 @@
 # Global Campus OS — Admin Platform Data Dictionary v0.1 (draft)
 
-**Status:** Proposed draft, 28 Nov 2026. DL-165…DL-168 Confirmed; DL-169…DL-179 Assumed, awaiting Henry; OQ-194…OQ-209 Open · **Owner:** Henry
+**Status:** Proposed draft, 28 Nov 2026. DL-165…DL-168 Confirmed; DL-169…DL-179 Assumed, awaiting Henry; OQ-194…OQ-210 Open (OQ-194, OQ-196 answered) · **Owner:** Henry
 **Cites:** [Architecture v1](../00-sources/Global_Campus_OS_Product_Architecture_v1.md) § Multi-campus and tenancy model, § Users and roles, § Security ("cross-campus access is granted, time-boxed and logged"; Tier 3 visible only to named roles, every read logged), § Shared core services (Identity and roles, Tenancy and config, Events and audit), § Integrations (Google Workspace, payroll, ERP) · [Employee Data Dictionary v1](../00-sources/Global_Campus_OS_Employee_Data_Dictionary_v1.md) A01–A14, R01, R02, BR-06…BR-17, Decisions D07…D13 · [architecture.md](./architecture.md) AR-01…AR-14, AP-01…AP-14 · [organisation dictionary](./organisation-data-dictionary.md) OR01–OR09 · [academic structure dictionary](./academic-structure-data-dictionary.md) AC06, AC07 · [cases & communications dictionary](./cases-communications-data-dictionary.md) CC01 access case types · [staff & HR dictionary](./staff-hr-data-dictionary.md) E02, E07, HR15 · [04-access/](../04-access/README.md) rbac-model, permission-catalogue, role-catalogue · [data-controller-model](../05-data-governance/data-controller-model.md) · [Admin Platform slice](../06-experience/admin-platform/README.md) S1–S5, SCR-GA/TM/GOV · DL-02, DL-04, DL-05, DL-07…DL-09, DL-13, DL-14, DL-16…DL-21, DL-22, DL-32…DL-53, DL-69, DL-73, DL-96, DL-118, DL-147, DL-149, DL-160, DL-163 · OQ-01, OQ-05, OQ-06, OQ-09, OQ-12, OQ-15, OQ-16, OQ-18, OQ-20, OQ-21, OQ-26, OQ-27, OQ-32, OQ-34, OQ-43, OQ-58, OQ-192
 **Tóm tắt (VI):** Từ điển dữ liệu cho Admin Platform, "xương sống" của ứng dụng web cho nhân viên (DL-118): mở brand và campus (checklist go-live, bật module theo campus, sổ "hệ thống nào là nguồn" khi chuyển đổi), đăng nhập và tài khoản (nhà cung cấp danh tính theo brand), vai trò và quyền truy cập (nhà của A01–A17, R01–R03 từ Employee DD v1, thêm A18 phiên hỗ trợ của GSG), rà soát quyền định kỳ, và cài đặt bảo vệ dữ liệu (danh mục mục đích, quy tắc lưu giữ, thông báo quyền riêng tư; bên kiểm soát dữ liệu vẫn để trống đến khi có OQ-06). Mọi quyết định mới (DL-165…DL-179) đang là giả định chờ Henry.
 
@@ -34,7 +34,7 @@ Proposed on a decision card on 28 Nov 2026 (recommended "Setup, access and data 
 - **A grant is a ceiling; a membership gives work (DL-02, Confirmed; DL-35, DL-40).** A module grant (A03) says a person may work in a module at a scope node and below. A scope grant (A04) puts the person on a node (scope switcher, campus directory, self-service). A membership (A05) at that node or below gives a role, a template and a data scope. Nothing in this file gives data access without a membership, a family link, an ACL entry, a delegation, a Tier 3 type grant or an approved operator session.
 - **Three ways access arrives (DL-171).** (1) **Automatically from facts**, through the Registry only: the position's standard access template on a campus assignment (DL-149), class-teacher and teaching scope (DL-73, DL-133), cover scope for one day (DL-145). (2) **By request**: an ACCESS_REQUEST case approved by the Module Admin and, for anything beyond the campus, the next level up. (3) **By an admin directly**: Module Admins add members inside the grant ceiling; Brand and Global Admins set ceilings. Every route writes the same records and audit events, and "Why can I see this?" names the route (DL-38).
 - **Campus go-live is a gated run (DL-167).** A campus moves from PLANNED to ACTIVE (OR04, DL-50) only through a setup run whose blocking tasks are done: tree node and operator link, data location live, sign-in connected, at least one programme with a published academic year (AC06, AC07), Campus Leader and Module Admins assigned, module switch-on dates set, and the authority register filled for every switched-on module. Module data screens are empty and closed to members until the module is LIVE at that campus.
-- **One account per Person, signed in through the brand's identity provider (DL-169).** Staff sign in with single sign-on and MFA at their brand's identity provider (GIIS: Google Workspace, Known). One Person (DL-42) has one Campus OS account (A01) and may have several sign-in identities, for example a teacher with a GIIS and an OWIS email. Campus OS never stores passwords. Parent and student sign-in come with their apps (DL-118) and are not designed here.
+- **One account per Person, signed in through one GSG-wide identity provider (DL-169, Henry 28 Nov 2026).** All staff of every brand sign in with single sign-on and MFA at one GSG identity provider; each brand's staff email domains are added to it and brands move off their own providers (GIIS today: Google Workspace, Known). Which product, and how each brand moves, is OQ-210. One Person (DL-42) has one Campus OS account (A01) and one GSG sign-in identity; brand emails are addresses on that identity, so a teacher at GIIS and OWIS signs in once. A02 can hold a second link only while a brand is moving. Campus OS never stores passwords. Parent and student sign-in come with their apps (DL-118) and are not designed here.
 - **Accounts follow employment but are managed on their own (DL-170).** HR creates the employment; the Registry creates the account in INVITED state and sends the invite a set number of days before the start date (DL-13, brand-country setting). It becomes ACTIVE on first sign-in, SUSPENDED when the employment is suspended (DL-163) or on an admin action, and DISABLED the day after the last working day (DL-160, BR-10). Accounts with no sign-in for a set number of days are flagged Dormant for the access review, not suspended automatically (OQ-204).
 - **Roles and templates are defined centrally (DL-172).** The GSG platform team (DL-51) keeps the access role catalogue (A06), templates (A08, A09) and capabilities (R02). Templates are versioned and published; a published version never changes. Brands don't create roles in v1; a brand asks the platform team for a template change (OQ-198). Per-member overrides stay off (DL-14, held).
 - **Position templates map HR positions to access (DL-173).** Each brand keeps a list "position → standard access template per module" used by DL-149. Brand HR proposes the list, the platform team checks it against the catalogue and publishes it. A position template never includes Tier 3 capabilities. This answers the "who maintains" part of OQ-192 as a proposal; the contents per position stay open.
@@ -75,7 +75,7 @@ Proposed on a decision card on 28 Nov 2026 (recommended "Setup, access and data 
 | PA02 | Setup Run | Global | New, Known (DL-167) |
 | PA03 | Setup Task | Global | New, Known (DL-167) |
 | PA04 | Authority Register Entry | Global | Confirmed structure (DL-45); entity Known (DL-168) |
-| PA05 | Identity Provider Connection | Global | New, Assumed (DL-169); GIIS Google Workspace Known |
+| PA05 | Identity Provider Connection | Global | New; one GSG-wide connection (DL-169 Confirmed); product Open (OQ-210) |
 | PA06 | Setting Definition | Global | Known need (OR09 "definitions belong to each module"); catalogue Assumed (DL-177) |
 | PA07 | Purpose | Global | Confirmed structure (DL-44); list Open (OQ-200) |
 | PA08 | Retention Rule | Global | Confirmed structure (DL-44); periods Open (OQ-43) |
@@ -124,10 +124,10 @@ Referenced, not redefined: OR01–OR09, AC06, AC07, AC08, E01, E02, E05, E07, HR
 |---|---|---|:---:|---|---|---|
 | account_link_id | UUID | PK | Y | T1 | Known (A02) | |
 | user_id | UUID | FK:A01 | Y | T1 | Known (A02) | |
-| idp_connection_id | UUID | FK:PA05 | Y | T1 | Assumed (DL-169) | Which provider and tenant (A01 `identity_provider_code`, `idp_tenant_id` move here). |
+| idp_connection_id | UUID | FK:PA05 | Y | T1 | Known (DL-169) | Which provider and tenant (A01 `identity_provider_code`, `idp_tenant_id` move here). |
 | idp_subject_id | VARCHAR(255) | UK with connection | Y | T1 | Known (A01) | Immutable subject; the join key. Never match by email (DL-42). |
 | login_identifier | VARCHAR(254) | — | C | T1 | Known (A01) | The work email shown, e.g. `priya.nair@giis.example`. Display only. |
-| is_primary | BOOLEAN | — | Y | T1 | Assumed (DL-169) | One primary link per account; used for notifications. Which brand's email wins for a multi-brand person: OQ-195. |
+| is_primary | BOOLEAN | — | Y | T1 | Known (DL-169) | One primary link per account; used for notifications. Which brand's email wins for a multi-brand person: OQ-195. |
 | linked_from / linked_until | TIMESTAMPTZ | — | Y / N | T1 | Known (A02) | A link ends when the provider account is removed; the Campus OS account stays. |
 | link_status | ENUM | — | Y | T1 | Known (A02) | ACTIVE, ENDED. |
 
@@ -363,7 +363,7 @@ Parent path link (Confirmed, DL-18, DL-37): `family_access_id`, `guardian_person
 | NODE_CREATED | OR01 node exists with parent and code (codes placeholder, OQ-55) | Global Admin | B |
 | OPERATOR_LINKED | OR08 OPERATOR link valid on go-live date (entity name pending OQ-02) | Global Admin | B |
 | DATA_LOCATION_LIVE | The brand-country's OR06 is LIVE (OQ-21 outside SG and IN) | Platform team | B |
-| SIGN_IN_CONNECTED | A PA05 connection for the brand is ACTIVE and a test sign-in passed | Brand Admin | B |
+| SIGN_IN_CONNECTED | The brand's staff email domains are on the GSG identity provider (PA05) and a test sign-in passed | Platform team | B |
 | PROGRAMMES_SET | At least one AC06 programme OPEN or opening at the campus | Academic coordinator | B |
 | YEAR_PUBLISHED | Each programme has an AC07 year PUBLISHED (DL-113) | Principal | B |
 | LEADER_ASSIGNED | A CAMPUS_LEADER membership is ACTIVE from go-live | Brand Admin | B |
@@ -396,19 +396,19 @@ Parent path link (Confirmed, DL-18, DL-37): `family_access_id`, `guardian_person
 
 ### PA05 — Identity Provider Connection (new)
 
-**Purpose:** How a brand's staff sign in (DL-169).
+**Purpose:** How staff sign in: one GSG-wide connection for all brands (DL-169), with each brand's email domains listed on it. A brand's own provider can stay as a MIGRATING connection while its staff move (OQ-210).
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
 | idp_connection_id | UUID | PK | Y | T1 | Assumed | |
-| scope_node_id | UUID | FK:OR01 | Y | T1 | Assumed: Brand, or Brand-country when a brand runs several tenants (OQ-194) | |
-| provider | ENUM | — | Y | T1 | Known for GIIS (Google Workspace, Admin Platform brief); others Open (OQ-194) | GOOGLE_WORKSPACE, MICROSOFT_ENTRA, OTHER_OIDC. |
+| scope_node_id | UUID | FK:OR01 | Y | T1 | Known (DL-169): the Group node for the GSG connection; a Brand node only for a MIGRATING connection | |
+| provider | ENUM | — | Y | T1 | GSG product Open (OQ-210); GIIS today Google Workspace (Admin Platform brief) | GOOGLE_WORKSPACE, MICROSOFT_ENTRA, OTHER_OIDC. |
 | tenant_ref | VARCHAR(160) | — | Y | T1 | Assumed | Provider tenant or domain ID. |
-| email_domains | VARCHAR(120)[] | — | Y | T1 | Assumed | Synthetic in samples, e.g. `giis.example`. |
+| email_domains | VARCHAR(120)[] | — | Y | T1 | Assumed | Every brand's staff domains on the GSG connection. Synthetic in samples, e.g. `giis.example`. |
 | audience | ENUM | — | Y | T1 | Assumed (DL-118) | STAFF. PARENT and STUDENT later. |
 | mfa_required | BOOLEAN | — | Y | T1 | Known (brief: "staff SSO, MFA") | True for STAFF; can't be switched off. |
-| provisioning | ENUM | — | Y | T1 | Assumed (DL-170) | CAMPUS_OS_INVITES (Campus OS creates accounts from employments; the provider only authenticates). Directory sync from the provider: OQ-194. |
-| connection_status | ENUM | — | Y | T1 | Assumed | DRAFT, TESTING, ACTIVE, DISABLED. |
+| provisioning | ENUM | — | Y | T1 | Assumed (DL-170) | CAMPUS_OS_INVITES (Campus OS creates accounts from employments; the provider only authenticates). Directory sync from the provider: OQ-210. |
+| connection_status | ENUM | — | Y | T1 | Assumed | DRAFT, TESTING, ACTIVE, MIGRATING, DISABLED. |
 
 ### PA06 — Setting Definition
 
@@ -491,7 +491,7 @@ Each campus case lists one line per person with any A03, A04, A05, A16 or A17 at
 | Parent | Child | Cardinality | FK | Meaning | Status |
 |---|---|---|---|---|---|
 | Person | A01 | 1 → 0..1 | person_id | One account per Person | Confirmed (DL-42) |
-| A01 | A02 | 1 → 1..N | user_id | Several sign-in identities, one primary | Assumed (DL-169) |
+| A01 | A02 | 1 → 1..N | user_id | Several sign-in identities, one primary | Known (DL-169) |
 | PA05 | A02 | 1 → 0..N | idp_connection_id | | Assumed |
 | A01 | A03, A04 | 1 → 0..N | user_id | Ceilings on scope nodes | Known, DL-40 |
 | A03 + A04 | A05 | covers | module_id, scope_node_id | A membership needs both at or above its node | Known (A05), DL-35 |
@@ -552,7 +552,7 @@ Each campus case lists one line per person with any A03, A04, A05, A16 or A17 at
 | PA04 | sync_direction | INBOUND, OUTBOUND, NONE |
 | PA04 | entry_status | PLANNED, ACTIVE, CUT_OVER |
 | PA05 | provider | GOOGLE_WORKSPACE, MICROSOFT_ENTRA, OTHER_OIDC |
-| PA05 | connection_status | DRAFT, TESTING, ACTIVE, DISABLED |
+| PA05 | connection_status | DRAFT, TESTING, ACTIVE, MIGRATING (a brand's old provider while its staff move), DISABLED |
 | PA07 | consent_needed | YES, NO, PENDING |
 | PA08 | then_action | ANONYMISE, DELETE |
 | PA09 | notice_status | DRAFT, PUBLISHED, SUPERSEDED |
@@ -608,7 +608,7 @@ Existing seeds: `ga.module_grant.manage`, `ga.campus_grant.manage`, `ga.catalog.
 | DL-166 | **Confirmed** (Henry, 28 Nov 2026). Modules are switched on per Brand-country or Campus (PA01: Planned, Pilot, Live, Paused, Off, inherited downward); members only where Live or Pilot | Brands will go live module by module (Arch § Roadmap phases); grants for a module a campus doesn't use would be noise and a risk |
 | DL-167 | **Confirmed** (Henry, 28 Nov 2026). A campus or brand-country goes live through a setup run: a checklist of blocking and non-blocking tasks, most checked from the owning record; READY when blocking tasks are done; the brand-country head signs off on a CAMPUS_GO_LIVE case | One place to see what's missing; nothing goes live with no Campus Leader, no published year or no sign-in. Approver = brand-country head (OQ-196 answered 28 Nov 2026) |
 | DL-168 | **Confirmed** (Henry, 28 Nov 2026). Authority register (PA04) per **brand** × module × field group (Henry, 28 Nov 2026, changed from brand-country): authoritative system, sync direction, cutover date, conflict reviewer; brand-country or campus exceptions allowed; a module is Live only when its rows are complete | Gives DL-45 an entity and a screen; per brand because legacy systems are per brand (OQ-27); a country that differs gets an exception row |
-| DL-169 | Staff sign in through their brand's identity provider with SSO and MFA (GIIS: Google Workspace); one account per Person with one or more sign-in identities, matched by provider subject, never by email; parent and student sign-in later | DL-42 one login; GIIS fact from the brief; brands use different providers (OQ-194) |
+| DL-169 | **Confirmed** (Henry, 28 Nov 2026; changed from per-brand providers). All staff sign in through **one GSG-wide identity provider** with SSO and MFA; brands move their staff onto it (product and plan OQ-210); one account per Person with one GSG sign-in identity, matched by provider subject, never by email; parent and student sign-in later | One sign-in across 12 brands, one place to switch off a leaver, staff who work across brands sign in once; GSG runs the platform for every brand |
 | DL-170 | Accounts: created INVITED from the employment, invite N days before start (brand-country setting, default 7; DL-13), ACTIVE on first sign-in, SUSPENDED with the employment, DISABLED the day after the last working day; Dormant is a flag for review after N days, not a status; service accounts for integrations | Joins DL-13, DL-160, DL-163 and BR-10 into one lifecycle; avoids silent suspension of rarely used accounts (OQ-204) |
 | DL-171 | Access arrives three ways, all through the Registry: automatically from facts (position template DL-149, class and teaching scope DL-73, DL-133, cover DL-145), by an ACCESS_REQUEST case, or by an admin inside the ceiling; every record carries its route. A scope grant (A04) puts a person on a node; a module grant (A03) is the module ceiling | One explanation model for "Why can I see this?" (DL-38) across automatic and manual access |
 | DL-172 | The GSG platform team keeps roles, templates and capabilities (DL-51); templates are versioned, a published version never changes; brands don't create roles in v1; overrides stay off (DL-14) | Keeps one catalogue across 12 brands; change requests go through the registry owner |
@@ -624,7 +624,7 @@ Existing seeds: `ga.module_grant.manage`, `ga.campus_grant.manage`, `ga.catalog.
 
 | ID | Question | Why it matters for design | Evidence | Affects | Who can answer | Status |
 |---|---|---|---|---|---|---|
-| OQ-194 | Which identity provider does each brand use for staff (GIIS: Google Workspace), does any brand run several tenants, and should Campus OS sync users from the provider or only authenticate? | Sign-in setup (PA05), account creation | Admin Platform brief (GIIS Google Workspace); OQ-27 | admin-platform dictionary, OBJ-32 | Brand IT leads | Open |
+| OQ-194 | Which identity provider does each brand use for staff (GIIS: Google Workspace), does any brand run several tenants, and should Campus OS sync users from the provider or only authenticate? | Sign-in setup (PA05), account creation | Admin Platform brief (GIIS Google Workspace); OQ-27 | admin-platform dictionary, OBJ-32 | Brand IT leads | **Partly answered** (Henry, 28 Nov 2026): one GSG-wide provider → DL-169; product, migration and sync → OQ-210 |
 | OQ-195 | When a person works for two brands and has two work emails, which one is primary for notifications and the directory? | A02 `is_primary`, directory display | DL-42; GIIS SMART and OWIS Digital share Punggol (OQ-52) | A02, OBJ-01 | Henry, group HR | Open |
 | OQ-196 | Who signs off a campus or brand-country go-live: brand-country head, Country Director, brand head or GSG operations? | PA02 approver, CAMPUS_GO_LIVE case | OQ-58 (who creates campuses) | PA02, OBJ-32 | Henry, GSG group office | **Answered** (Henry, 28 Nov 2026): brand-country head signs off → DL-167 |
 | OQ-197 | Which modules does each brand go live with first, and in what order and dates? | Module switch-on samples and setup plans | Arch § Roadmap phases; OQ-05, OQ-32 | PA01, OBJ-32 | Henry, GSG leadership | Open |
@@ -640,6 +640,7 @@ Existing seeds: `ga.module_grant.manage`, `ga.campus_grant.manage`, `ga.catalog.
 | OQ-207 | Who in GSG may open break-glass, may it ever show Tier 3, and who besides the Campus Leader is told? | A18 BREAK_GLASS rules | DL-52; OQ-15; PowerSchool support-credential breach (research §08) | A18, OBJ-35 | GSG IT security, counsel | Open |
 | OQ-208 | Do vendors or implementation partners (not GSG staff) ever need operator sessions, and on what contract? | Operator session eligibility | OQ-12 sub-processors; DL-52 | A18 | GSG IT, procurement | Open |
 | OQ-209 | How will parents and students sign in (email or phone one-time code, MyGIIS migration, brand identity provider)? | Parent and Student apps (later, DL-118); account model must not block it | DL-42, DL-118; OQ-28 | A01, A02, PA05 | Henry, GIIS IT | Open |
+| OQ-210 | Which product is the GSG-wide staff identity provider, how and when does each brand's staff move onto it (GIIS from Google Workspace), and does Campus OS sync users from it or only authenticate? | PA05 setup, go-live task SIGN_IN_CONNECTED, brand IT effort | DL-169; OQ-194, OQ-27 | PA05, OBJ-32 | GSG IT, brand IT leads | Open |
 
 Existing questions this dictionary depends on: OQ-01, OQ-02, OQ-05, OQ-06, OQ-09, OQ-10, OQ-12, OQ-15, OQ-16, OQ-18, OQ-20, OQ-21, OQ-25, OQ-26, OQ-27, OQ-28, OQ-32, OQ-34, OQ-43, OQ-55, OQ-58, OQ-166, OQ-185, OQ-192.
 
