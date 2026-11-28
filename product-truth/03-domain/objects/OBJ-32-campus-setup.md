@@ -24,7 +24,7 @@ field_groups:
     tier: T1
     capability: ga.setup.manage            # Brand Admin (own brand), Global Admin; Campus Leader views own campus
     edit: [ga.setup.manage, ga.module_switch.manage]
-    approve: [ga.setup.approve]            # brand-country head (DL-167; OQ-196)
+    approve: [ga.setup.approve]            # brand-country head (DL-167; OQ-196 answered)
   - name: Legacy systems (authority register)
     tier: T1
     capability: ga.authority.manage
@@ -40,7 +40,7 @@ actions:
   - identity.idp.manage
 events: [ModuleSwitchChanged, SetupTaskDone, CampusWentLive, AuthorityCutOver]
 variation: [MC-01, MC-02, MC-14]
-open: [OQ-05, OQ-21, OQ-27, OQ-28, OQ-55, OQ-58, OQ-194, OQ-196, OQ-197]
+open: [OQ-05, OQ-21, OQ-27, OQ-28, OQ-55, OQ-58, OQ-194, OQ-197]
 sample: product-truth/03-domain/samples/admin-platform-sample.json
 patterns: [AP-01, AP-02, AP-04, AP-12, AP-13, AP-14]
 ---

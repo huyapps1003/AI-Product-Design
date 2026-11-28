@@ -45,7 +45,7 @@ Codes follow `module.object.action` (DL-53; new capabilities reviewed by the reg
 | `identity.account.invite` | CREATE | OBJ-01 | New (admin platform dictionary, DL-170) |
 | `identity.idp.manage` | MANAGE | OBJ-32 | New (DL-169; Global Admin, Brand Admin for own brand) |
 | `ga.module_switch.manage` | MANAGE | OBJ-32 | New (DL-166) |
-| `ga.setup.manage`, `ga.setup.approve` | MANAGE, APPROVE | OBJ-32 | New (DL-167; approver OQ-196) |
+| `ga.setup.manage`, `ga.setup.approve` | MANAGE, APPROVE | OBJ-32 | New (DL-167; approver = brand-country head, OQ-196 answered) |
 | `ga.authority.manage` | MANAGE | OBJ-32 | New (DL-168) |
 | `ga.setting_definition.manage` | MANAGE | OBJ-13 | New (DL-177; Global Admin) |
 | `ga.delegation.manage` | MANAGE | OBJ-35 | New (DL-36, DL-21 held) |
