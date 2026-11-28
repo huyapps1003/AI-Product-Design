@@ -71,7 +71,7 @@ Proposed on a decision card on 28 Nov 2026 (recommended "Setup, access and data 
 | R02 | Capability | Global | Known entity (Employee DD R02); naming Confirmed (DL-53) |
 | R03 | Parent Capability Set | Global | Confirmed (DL-18, DL-28, DL-37) |
 | F01 | Family Access Link | Cell | Confirmed (DL-18, DL-37); states pending (OBJ-09) |
-| PA01 | Module Switch-on | Global | New, Assumed (DL-166) |
+| PA01 | Module Switch-on | Global | New, Known (DL-166) |
 | PA02 | Setup Run | Global | New, Assumed (DL-167) |
 | PA03 | Setup Task | Global | New, Assumed (DL-167) |
 | PA04 | Authority Register Entry | Global | Confirmed structure (DL-45); entity Assumed (DL-168) |
@@ -316,7 +316,7 @@ Parent path link (Confirmed, DL-18, DL-37): `family_access_id`, `guardian_person
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| switch_on_id | UUID | PK | Y | T1 | Assumed (DL-166) | |
+| switch_on_id | UUID | PK | Y | T1 | Known (DL-166) | |
 | module_id | UUID | FK:R01 | Y | T1 | Assumed | Campus modules only; platform modules are always on. |
 | scope_node_id | UUID | FK:OR01 | Y | T1 | Assumed | Set at Brand-country or Campus; inherits downward like a setting (AR-03). |
 | switch_status | ENUM | — | Y | T1 | Assumed | PLANNED, PILOT, LIVE, PAUSED, OFF. |
@@ -495,7 +495,7 @@ Each campus case lists one line per person with any A03, A04, A05, A16 or A17 at
 | PA05 | A02 | 1 → 0..N | idp_connection_id | | Assumed |
 | A01 | A03, A04 | 1 → 0..N | user_id | Ceilings on scope nodes | Known, DL-40 |
 | A03 + A04 | A05 | covers | module_id, scope_node_id | A membership needs both at or above its node | Known (A05), DL-35 |
-| PA01 | A05 | gates | module_id, scope_node_id | Only LIVE or PILOT modules take members | Assumed (DL-166) |
+| PA01 | A05 | gates | module_id, scope_node_id | Only LIVE or PILOT modules take members | Known (DL-166) |
 | A05 | A07 → A10 | 1 → 0..N | membership_id | Roles and pinned templates | Known |
 | A08 | A09 | 1 → 0..N | permission_template_id | | Known |
 | A05 | A12 → A13 | 1 → 0..N | membership_id | Data scope | Known, DL-16 |
@@ -605,7 +605,7 @@ Existing seeds: `ga.module_grant.manage`, `ga.campus_grant.manage`, `ga.catalog.
 | ID | Decision | Why |
 |---|---|---|
 | DL-165 | **Confirmed** (Henry, 28 Nov 2026). Admin Platform scope: setup and go-live, module switch-on, authority register, setting definitions, sign-in and accounts, roles and access, special access (delegation, Tier 3 grants, operator sessions), access reviews, purposes, retention and notices. This dictionary is the home of Employee DD A01–A14, R01–R02 and the DL-defined A15–A17, R03, F01 (IDs kept, refined here); new A18 and PA01–PA10 | The Admin Platform slice (18 Oct) has no dictionary; access entities still sit in a Proposed source file; go-live, sign-in and data protection had no entities. Same pattern as Staff & HR taking over E01–E08 (DL-146) |
-| DL-166 | Modules are switched on per Brand-country or Campus (PA01: Planned, Pilot, Live, Paused, Off, inherited downward); members only where Live or Pilot | Brands will go live module by module (Arch § Roadmap phases); grants for a module a campus doesn't use would be noise and a risk |
+| DL-166 | **Confirmed** (Henry, 28 Nov 2026). Modules are switched on per Brand-country or Campus (PA01: Planned, Pilot, Live, Paused, Off, inherited downward); members only where Live or Pilot | Brands will go live module by module (Arch § Roadmap phases); grants for a module a campus doesn't use would be noise and a risk |
 | DL-167 | A campus or brand-country goes live through a setup run: a checklist of blocking and non-blocking tasks, most checked from the owning record; READY when blocking tasks are done; the brand-country head signs off on a CAMPUS_GO_LIVE case | One place to see what's missing; nothing goes live with no Campus Leader, no published year or no sign-in. Approver open (OQ-196, OQ-58) |
 | DL-168 | Authority register (PA04) per brand-country × module × field group: authoritative system, sync direction, cutover date, conflict reviewer; campus exceptions allowed; a module is Live only when its rows are complete | Gives DL-45 an entity and a screen; per brand-country because legacy systems are per brand (OQ-27) |
 | DL-169 | Staff sign in through their brand's identity provider with SSO and MFA (GIIS: Google Workspace); one account per Person with one or more sign-in identities, matched by provider subject, never by email; parent and student sign-in later | DL-42 one login; GIIS fact from the brief; brands use different providers (OQ-194) |
