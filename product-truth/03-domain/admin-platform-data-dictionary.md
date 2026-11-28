@@ -52,7 +52,7 @@ Proposed on a decision card on 28 Nov 2026 (recommended "Setup, access and data 
 | A01 | User Account (refined) | Global | Known entity (Employee DD A01); one per Person Confirmed (DL-42); lifecycle Known (DL-170) |
 | A02 | Account Link (refined from Employee Account Link) | Global | Known entity (Employee DD A02); widened to Person profiles (DL-169) |
 | A03 | Module Grant (refined) | Global | Known entity (Employee DD A03); scope node Confirmed (DL-17, DL-40) |
-| A04 | Scope Grant (refined from GA Campus Grant) | Global | Known entity (Employee DD A04); scope node Confirmed (DL-40); meaning Assumed (DL-171) |
+| A04 | Scope Grant (refined from GA Campus Grant) | Global | Known entity (Employee DD A04); scope node Confirmed (DL-40); meaning Known (DL-171) |
 | A05 | Module Membership (refined) | Cell | Known entity (Employee DD A05); scope node Confirmed (DL-35) |
 | A06 | Access Role | Global | Known entity (Employee DD A06); owner Confirmed (DL-51); new roles Assumed (DL-176, DL-178) |
 | A07 | Role Assignment | Cell | Known entity (Employee DD A07) |
@@ -141,7 +141,7 @@ Referenced, not redefined: OR01–OR09, AC06, AC07, AC08, E01, E02, E05, E07, HR
 | user_id | UUID | FK:A01 | Y | T1 | Known | |
 | module_id | UUID | FK:R01 | Y | T1 | Known | |
 | scope_node_id | UUID | FK:OR01 | Y | T1 | Confirmed (DL-40, DL-48) | GROUP, BRAND, BRAND_COUNTRY or CAMPUS; never SEGMENT (OR-R01). |
-| grant_route | ENUM | — | Y | T1 | Assumed (DL-171) | POSITION_TEMPLATE (DL-149), REQUEST (ACCESS_REQUEST case), ADMIN, SYSTEM (GLOBAL_ADMIN implicit grant). Powers "Why can I see this?" (DL-38). |
+| grant_route | ENUM | — | Y | T1 | Known (DL-171) | POSITION_TEMPLATE (DL-149), REQUEST (ACCESS_REQUEST case), ADMIN, SYSTEM (GLOBAL_ADMIN implicit grant). Powers "Why can I see this?" (DL-38). |
 | source_case_id | UUID | FK:CC03 | C | T1 | Confirmed pattern (DL-08) | Required for REQUEST. |
 | grant_status | ENUM | — | Y | T1 | Known (A03) | ACTIVE, REVOKED, EXPIRED. |
 | valid_from / valid_to | TIMESTAMPTZ | — | Y / N | T1 | Known | Cross-country grants at most 90 days (rbac-model Layer 1). |
@@ -156,7 +156,7 @@ Referenced, not redefined: OR01–OR09, AC06, AC07, AC08, E01, E02, E05, E07, HR
 | scope_grant_id | UUID | PK | Y | T1 | Known (A04) | |
 | user_id | UUID | FK:A01 | Y | T1 | Known | |
 | scope_node_id | UUID | FK:OR01 | Y | T1 | Confirmed (DL-40) | Replaces A04 `campus_id`. |
-| grant_route, source_case_id | ENUM, UUID | — | Y, C | T1 | Assumed (DL-171) | As A03. A campus assignment (E07) creates a POSITION_TEMPLATE scope grant (DL-149). |
+| grant_route, source_case_id | ENUM, UUID | — | Y, C | T1 | Known (DL-171) | As A03. A campus assignment (E07) creates a POSITION_TEMPLATE scope grant (DL-149). |
 | grant_status, valid_from / valid_to, granted_by_user_id | — | — | — | T1 | Known (A04) | As A03. |
 
 ### A05 — Module Membership (refined)
@@ -169,7 +169,7 @@ Referenced, not redefined: OR01–OR09, AC06, AC07, AC08, E01, E02, E05, E07, HR
 | user_id | UUID | FK:A01 | Y | T1 | Known | |
 | module_id | UUID | FK:R01 | Y | T1 | Known | Module must be LIVE or PILOT at the node (PA01, DL-166). |
 | scope_node_id | UUID | FK:OR01 | Y | T1 | Confirmed (DL-35) | Campus by default; must sit at or below an ACTIVE A03 for the same module. |
-| membership_route | ENUM | — | Y | T1 | Assumed (DL-171) | POSITION_TEMPLATE, REQUEST, ADMIN, ALLOCATION ("add from allocation", rbac-model Layer 2). |
+| membership_route | ENUM | — | Y | T1 | Known (DL-171) | POSITION_TEMPLATE, REQUEST, ADMIN, ALLOCATION ("add from allocation", rbac-model Layer 2). |
 | membership_status | ENUM | — | Y | T1 | Known (A05) | INVITED, ACTIVE, DEACTIVATED, REMOVED. Deactivated with reason CEILING_REMOVED when the grant ends (rbac-model). |
 | valid_from / valid_to | TIMESTAMPTZ | — | Y / N | T1 | Known | |
 | assigned_by_user_id | UUID | FK:A01 | N | T1 | Known | |
@@ -610,7 +610,7 @@ Existing seeds: `ga.module_grant.manage`, `ga.campus_grant.manage`, `ga.catalog.
 | DL-168 | **Confirmed** (Henry, 28 Nov 2026). Authority register (PA04) per **brand** × module × field group (Henry, 28 Nov 2026, changed from brand-country): authoritative system, sync direction, cutover date, conflict reviewer; brand-country or campus exceptions allowed; a module is Live only when its rows are complete | Gives DL-45 an entity and a screen; per brand because legacy systems are per brand (OQ-27); a country that differs gets an exception row |
 | DL-169 | **Confirmed** (Henry, 28 Nov 2026; changed from per-brand providers). All staff sign in through **one GSG-wide identity provider** with SSO and MFA; brands move their staff onto it (product and plan OQ-210); one account per Person with one GSG sign-in identity, matched by provider subject, never by email; parent and student sign-in later | One sign-in across 12 brands, one place to switch off a leaver, staff who work across brands sign in once; GSG runs the platform for every brand |
 | DL-170 | **Confirmed** (Henry, 28 Nov 2026). Accounts: created INVITED from the employment, invite N days before start (brand-country setting, default 7; DL-13), ACTIVE on first sign-in, SUSPENDED with the employment, DISABLED the day after the last working day; Dormant is a flag for review after N days, not a status; service accounts for integrations | Joins DL-13, DL-160, DL-163 and BR-10 into one lifecycle; avoids silent suspension of rarely used accounts (OQ-204) |
-| DL-171 | Access arrives three ways, all through the Registry: automatically from facts (position template DL-149, class and teaching scope DL-73, DL-133, cover DL-145), by an ACCESS_REQUEST case, or by an admin inside the ceiling; every record carries its route. A scope grant (A04) puts a person on a node; a module grant (A03) is the module ceiling | One explanation model for "Why can I see this?" (DL-38) across automatic and manual access |
+| DL-171 | **Confirmed** (Henry, 28 Nov 2026). Access arrives three ways, all through the Registry: automatically from facts (position template DL-149, class and teaching scope DL-73, DL-133, cover DL-145), by an ACCESS_REQUEST case, or by an admin inside the ceiling; every record carries its route. A scope grant (A04) puts a person on a node; a module grant (A03) is the module ceiling | One explanation model for "Why can I see this?" (DL-38) across automatic and manual access |
 | DL-172 | The GSG platform team keeps roles, templates and capabilities (DL-51); templates are versioned, a published version never changes; brands don't create roles in v1; overrides stay off (DL-14) | Keeps one catalogue across 12 brands; change requests go through the registry owner |
 | DL-173 | Each brand keeps a position → standard template list (per module) for DL-149; brand HR proposes, the platform team publishes; never Tier 3 | Answers the "who maintains" half of OQ-192; contents per position stay open |
 | DL-174 | Termly access review: a cycle per brand-country opens a CAMPUS_ATTESTATION case per campus in week 1 of term, due in 10 working days (S5); flagged rows first; undecided rows escalate to the brand-country head, never auto-remove | Makes the S5 flow and the "≥95% attested per term" metric concrete; auto-removal would cut teachers off mid-term |
