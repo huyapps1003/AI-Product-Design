@@ -7,7 +7,7 @@
   Objects: OBJ-01 Person, OBJ-07 Access grant, OBJ-08 Team membership, OBJ-11 Audit event, OBJ-32 Campus setup, OBJ-33 Access role and template, OBJ-34 Data protection settings, OBJ-35 Special access, OBJ-36 Access review
   AR/AP: AR-01 AR-03 AR-04 AR-06 AR-09 AR-10 AR-12 AR-13 · AP-01 AP-02 AP-04 AP-06 AP-07 AP-09 AP-10 AP-13 AP-14
   Sample: product-truth/03-domain/samples/admin-platform-sample.json · today Mon 30 Nov 2026 09:30 SGT · synthetic
-  DL: DL-165…DL-174 Confirmed, DL-175…DL-179 Assumed · DL-52, DL-69, DL-149 Confirmed · OQ shown as pending: OQ-02 OQ-06 OQ-09 OQ-10 OQ-21 OQ-27 OQ-43 OQ-185 OQ-192 OQ-197 OQ-199 OQ-200 OQ-201 OQ-202 OQ-204 OQ-205 OQ-206 OQ-207 OQ-209 OQ-210
+  DL: DL-165…DL-175 Confirmed, DL-176…DL-179 Assumed · DL-52, DL-69, DL-149 Confirmed · OQ shown as pending: OQ-02 OQ-06 OQ-09 OQ-10 OQ-21 OQ-27 OQ-43 OQ-185 OQ-192 OQ-197 OQ-199 OQ-200 OQ-201 OQ-202 OQ-204 OQ-205 OQ-206 OQ-207 OQ-209 OQ-210
   Spec: Admin Platform Data Dictionary v0.1
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -778,7 +778,7 @@ function render(){
  const cur=st.view==='user'?'users':st.view;
  $('#nav').innerHTML=v.nav.map(g=>`<div class="nav-h">${g[0]}</div>`+g[1].map(n=>`<a href="#" data-go="${n[0]}" class="${n[0]===cur?'on':''}">${n[2]}<span>${n[1]}</span></a>`).join('')).join('');
  $('#bnav').innerHTML=all.slice(0,5).map(n=>`<a href="#" data-go="${n[0]}" class="${n[0]===cur?'on':''}">${n[2]}<span>${n[1]}</span></a>`).join('');
- const [fn,bind]=VIEWS[st.view];$('#view').innerHTML=fn()+`<p class="foot">Synthetic data · Admin Platform dictionary v0.1 · DL-165…DL-174 Confirmed; DL-175…DL-179 Assumed, awaiting Henry</p>`;bind&&bind();
+ const [fn,bind]=VIEWS[st.view];$('#view').innerHTML=fn()+`<p class="foot">Synthetic data · Admin Platform dictionary v0.1 · DL-165…DL-175 Confirmed; DL-176…DL-179 Assumed, awaiting Henry</p>`;bind&&bind();
  document.querySelectorAll('[data-go]').forEach(a=>a.onclick=e=>{e.preventDefault();st.view=a.dataset.go;render();$('#view').focus()});
  document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>toast(b.dataset.t));
 }
