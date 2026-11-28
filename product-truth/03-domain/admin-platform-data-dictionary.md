@@ -185,7 +185,7 @@ Referenced, not redefined: OR01–OR09, AC06, AC07, AC08, E01, E02, E05, E07, HR
 | role_name | VARCHAR(160) | — | Y | T1 | Known | Screen label, e.g. "Brand admin". |
 | role_category | ENUM | — | Y | T1 | Known (A06) | SYSTEM, FUNCTIONAL. |
 | module_id | UUID | FK:R01 | N | T1 | Known | Null for roles used across modules. |
-| lowest_node_type / highest_node_type | ENUM | — | Y | T1 | Assumed (DL-178) | Where the role may be assigned, e.g. BRAND_ADMIN: BRAND only; CAMPUS_LEADER: BRAND_COUNTRY to CAMPUS. |
+| lowest_node_type / highest_node_type | ENUM | — | Y | T1 | Known (DL-178) | Where the role may be assigned, e.g. BRAND_ADMIN: BRAND only; CAMPUS_LEADER: BRAND_COUNTRY to CAMPUS. |
 | needs_second_approver | BOOLEAN | — | Y | T1 | DL-09 (held) | True for GLOBAL_ADMIN and BRAND_ADMIN. |
 | is_assignable, role_status | BOOLEAN, ENUM | — | Y | T1 | Known (A06) | ACTIVE, RETIRED. |
 
@@ -617,7 +617,7 @@ Existing seeds: `ga.module_grant.manage`, `ga.campus_grant.manage`, `ga.catalog.
 | DL-175 | **Confirmed** (Henry, 28 Nov 2026). Operator sessions (A18): named GSG support engineer, one campus, named modules, purpose and ticket, read-only, at most 4 hours, Tier 3 masked, every screen logged; Campus Leader approves (DL-52); break-glass for security only, Campus Leader told within 24 hours | Confirms the DL-52 limits that are still Assumed and gives them an entity; answers most of OQ-15 |
 | DL-176 | **Confirmed** (Henry, 28 Nov 2026). Data protection settings in the Admin Platform: purpose catalogue (GSG), retention rules per country, privacy notices per brand-country × audience; legal fields stay empty with pending markers; a Data Protection Lead role per brand-country views audit and retention and activates rules, with no record access by default | DL-44 records need an editor; keeps AR-04 (no controller named); partly answers OQ-34 |
 | DL-177 | **Confirmed** (Henry, 28 Nov 2026). Setting definitions catalogue (PA06): every setting key once with owner module, allowed levels, default (empty means "Not set") and default override policy; the settings screen groups keys by module and shows inheritance (AP-02) | OR09 holds values but nobody defined the keys; every module dictionary adds campus or brand-country settings |
-| DL-178 | New access role Brand Admin at a Brand node: setup runs, module switch-on, grants and accounts for that brand; definitions stay with Global Admin (GSG); granting Brand or Global Admin needs a second Global Admin (DL-09) | 12 brands can't all route day-to-day setup through the GSG platform team; keeps brand boundaries (DL-40) |
+| DL-178 | **Confirmed** (Henry, 28 Nov 2026). New access role Brand Admin at a Brand node: setup runs, module switch-on, grants and accounts for that brand; definitions stay with Global Admin (GSG); granting Brand or Global Admin needs a second Global Admin (DL-09) | 12 brands can't all route day-to-day setup through the GSG platform team; keeps brand boundaries (DL-40) |
 | DL-179 | Admin Platform navigation: Setup (Brands and campuses, Modules, Settings, Sign-in, Legacy systems) · People and access (Users, Roles and templates, Requests, Special access, Reviews) · Data protection (Data locations, Purposes, Retention, Notices) · Audit. Staff screens move to the Staff & HR module. Definitions are global; assignments, sessions, cases and audit live in the campus's data location, shown on each record | The 18 Oct screen map grouped by entity owner (GA, TM, GOV); this groups by admin task and reflects DL-146 and the data architecture |
 
 ## Open questions (new)
