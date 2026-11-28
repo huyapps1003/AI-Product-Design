@@ -1,6 +1,6 @@
 # Global Campus OS — Student Directory Spec v1.0
 
-**Status:** **Locked v1.0**, 13 Nov 2026 — the first Campus OS module spec (lock candidate 12 Nov; v0.2 merged 9 Nov). DL-23…DL-31, DL-41, DL-42, DL-45, DL-47, DL-49, DL-53…DL-55, DL-62…DL-68 Confirmed by Henry. Changes from here need a new DL entry · **Owner:** Henry
+**Status:** **Locked v1.0**, 13 Nov 2026 — the first Campus OS module spec (lock candidate 12 Nov; v0.2 merged 9 Nov). DL-23…DL-31, DL-41, DL-42, DL-45, DL-47, DL-49, DL-53…DL-55, DL-62…DL-68 Confirmed by Henry. Changes from here need a new DL entry. **v1.1**, 28 Nov 2026: ST02 `grade_level_id` (DL-192) and `pack_subject_id` naming (DL-193) · **Owner:** Henry
 **Cites:** [Student Data Dictionary v1.0](../00-sources/Global_Campus_OS_Student_Data_Dictionary_v1.md) (1 Nov 2026, merged here) · [Organisation dictionary](./organisation-data-dictionary.md) OR04, OR08 · DL-39, DL-41, DL-42, DL-45 · [Architecture v1](../00-sources/Global_Campus_OS_Product_Architecture_v1.md) § Users and roles, § Domains and modules, § Key workflows (Admission to enrolment), § Multi-campus and tenancy model, § High-level data model, § Security · [Employee Data Dictionary v1](../00-sources/Global_Campus_OS_Employee_Data_Dictionary_v1.md) (format, BR-01, E08 pattern) · [rbac-model](../04-access/rbac-model.md) Layers 4–6 · [data-classification](../05-data-governance/data-classification.md) · [data-controller-model](../05-data-governance/data-controller-model.md) · [regulatory-context](../05-data-governance/regulatory-context.md) · GIIS Student Handbook 2025-26 (HB) · GIIS Noida Almanac 2025-26 · DL-11, DL-17, DL-18, DL-19, DL-22 · RES-F05, MC-08, MC-09, MC-10 · DL-23…DL-27 (Assumed), DL-28…DL-31 (Confirmed, Henry 30 Oct 2026) · DL-32…DL-38 (access), DL-47, DL-49, DL-53 · DL-54, DL-55 (Confirmed, Henry 12 Nov 2026) · DL-62…DL-68 (Confirmed, Henry 13 Nov 2026) · OQ-35…OQ-45, OQ-50, OQ-60, OQ-61
 **Tóm tắt (VI):** Bản hợp nhất duy nhất của từ điển dữ liệu học sinh (gộp Student Data Dictionary v1.0 vào bản danh bạ học sinh; xem § Merge notes). Từ điển dữ liệu cho danh bạ học sinh (hồ sơ học sinh, ghi danh, phụ huynh/người giám hộ, giấy tờ, mã định danh) phục vụ thiết kế module Admissions and Enrolment. Mỗi trường có trạng thái Known / Assumed / Open, mức phân loại dữ liệu, quyền xem theo vai trò và ghi chú về bên kiểm soát dữ liệu.
 
@@ -99,7 +99,8 @@ The student directory is the record of **who a student is, where they are enroll
 | operating_entity_id | UUID | FK:OR07 | Y | T1 | Confirmed structure (DL-41); values Open (OQ-02) | Copied at creation from the campus operator (OR08) valid on `start_date`; never re-pointed. Not the data controller (AR-04, OQ-06). Show "[operating entity — OQ-02]". |
 | academic_year_id | UUID | FK:AC07 | Y | T1 | Known (Arch § Data model "Enrolment … for a year") | From the calendar engine; years start in April (Noida) or mid-year (Singapore) (MC-06). |
 | programme_offering_id | UUID | FK:AC06 | Y | T1 | Known (Arch § Tenancy) | e.g. CBSE 6–8 at Punggol, IGCSE 9–10 at East Coast. AEPP is a placement, not a programme offering (DL-65). |
-| grade_level_code | VARCHAR(32) | — | Y | T1 | Known (Arch § Data model; levels from programme pack) | e.g. KG1, Grade 7, IB DP Year 1. Never hard-coded; read from the pack. |
+| grade_level_code | VARCHAR(32) | — | Y | T1 | Known (Arch § Data model; levels from programme pack) | e.g. KG1, Grade 7, IB DP Year 1. Display label copied from AC02 `grade_code`; never hard-coded and never used to join (DL-192). |
+| grade_level_id | UUID | FK:AC02 | Y | T1 | Confirmed (DL-192, v1.1) | The grade level, the key other modules join on (classes, fees, assessment, admissions). |
 | segment_code | VARCHAR(32) | — | N | T1 | Known values (Noida Almanac: Pre-Primary, Primary, Middle, Higher); term Confirmed (DL-29) | Derived from grade level and campus settings. |
 | class_id | UUID | FK:CL01 | C | T1 | Known (Arch § Data model "Section (class)"); term Confirmed (DL-29) | Required once ENROLLED; assigned on enrolment (Arch § Admission to enrolment step 4). |
 | house_code | VARCHAR(32) | — | N | T1 | Known for GIIS SG ("one of four Houses", HB p.169); list per campus Open (OQ-20) | Campus reference list, not fixed to four. |
@@ -119,7 +120,7 @@ The student directory is the record of **who a student is, where they are enroll
 |---|---|---|:---:|---|---|---|
 | subject_choice_id | UUID | PK | Y | T1 | Known entity need (Arch § Data model) | |
 | enrolment_id | UUID | FK:ST02 | Y | T1 | Known | |
-| subject_id | UUID | FK:AC03 | Y | T1 | Known (Arch: subjects come from the programme pack) | e.g. second language Hindi, Tamil, French, Mandarin; third language Sanskrit (GIIS, HB § Language policy). |
+| pack_subject_id | UUID | FK:AC03 | Y | T1 | Known (Arch: subjects come from the programme pack) | e.g. second language Hindi, Tamil, French, Mandarin; third language Sanskrit (GIIS, HB § Language policy). |
 | choice_type | ENUM | — | Y | T1 | Confirmed (DL-27) | CORE, SECOND_LANGUAGE, THIRD_LANGUAGE, ELECTIVE, SUPPORT (e.g. English as a Second Language). |
 | valid_from | DATE | — | Y | T1 | Confirmed (DL-24) | Subject changes mid-year keep history. |
 | valid_to | DATE | — | N | T1 | Confirmed (DL-24) | |

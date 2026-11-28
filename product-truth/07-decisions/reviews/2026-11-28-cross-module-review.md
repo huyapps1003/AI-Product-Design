@@ -1,6 +1,6 @@
 # Cross-module consistency review, 28 Nov 2026
 
-**Status:** Review (findings Known, proposals pending Henry), 28 Nov 2026 · **Owner:** Henry
+**Status:** Review, 28 Nov 2026; proposals P1…P5 Confirmed as DL-190…DL-194 (Henry, "Ok all", 28 Nov 2026) · **Owner:** Henry
 **Cites:** ten module dictionaries in `03-domain/`, `04-access/`, `07-decisions/decision-log.md`, `08-open-questions/open-questions.md`, previous review of 22 Nov 2026 (thread "Suggest next direction for Campus OS")
 **Tóm tắt (VI):** Rà soát chéo mười từ điển module sau khi Cases & Communications, Teaching & Timetable, Staff & HR và Academic structure được merge: khóa ngoại, vai trò và quyền, đánh số DL/OQ/OBJ, thuật ngữ. Lỗi cơ học đã sửa; các điểm cần quyết định chuyển thành OQ-230…OQ-234.
 
@@ -33,17 +33,17 @@ Scope: Student Directory, Organisation, Admissions, Classes, Fees & Billing, Ass
 | F14 | Role catalogue (25 Oct) didn't know 13 roles that later dictionaries name (brand-country academic head, head of department, admissions officer and manager, finance executive, HR brand-country, campus office…) | New table "School roles named by module dictionaries"; mapping to access roles left to the Admin Platform spec |
 | F15 | Same-named records in different modules (leave request AT06/HR06, offer AD07/HR14, school day vs working day vs work pattern) | "Not to be confused" entries in the glossary |
 
-## Proposals for Henry (not applied)
+## Proposals for Henry
 
-Each has an open question so designs keep the element generic until Henry decides. Candidate decision IDs DL-190…DL-199 are reserved for this review (DL-165…DL-189 belong to the Admin Platform spec).
+**Outcome (Henry, 28 Nov 2026, "Ok all").** P1…P5 Confirmed as DL-190…DL-194 and applied in PR #29; OQ-230…OQ-234 answered. P6 agreed: held DLs stay Assumed and are settled with the Admin Platform; DL-15 gets its own card. P5 was already met by PR #30, which defines Person.
 
 | # | Proposal | Recommendation | OQ |
 |---|---|---|---|
-| P1 | **One public holiday list.** OR03, AT02 and CC09 each hold public holidays; staff leave counts them without a source | The brand-country holds the list (OR03); AT02, CC09 and leave read it, and campuses add their own closures | OQ-230 |
-| P2 | **Period registers for choice groups.** AT03 is keyed by class; a lesson for a group drawn from several classes has no register | Period registers key to the dated lesson (TE11), day registers stay by class | OQ-231 |
-| P3 | **Enrolment grade as a key.** ST02 stores `grade_level_code` text; every other module keys to AC02 | Add `grade_level_id FK:AC02` to ST02 (needs a v1.1 of the locked Student Directory) | OQ-232 |
-| P4 | **One name per key.** `grade_id` / `grade_level_id`, `offering_id` / `programme_offering_id`, `subject_id` / `pack_subject_id` | Key columns carry the target's key name; rename in one PR with the samples | OQ-233 |
-| P5 | **A home for Person.** Nine fields point at `FK:Person` but no dictionary lists Person's attributes | The Admin Platform (identity) dictionary defines Person next to A01 User Account | OQ-234 |
+| P1 → DL-190 | **One public holiday list.** OR03, AT02 and CC09 each hold public holidays; staff leave counts them without a source | The brand-country holds the list (OR03); AT02, CC09 and leave read it, and campuses add their own closures | OQ-230 |
+| P2 → DL-191 | **Period registers for choice groups.** AT03 is keyed by class; a lesson for a group drawn from several classes has no register | Period registers key to the dated lesson (TE11), day registers stay by class | OQ-231 |
+| P3 → DL-192 | **Enrolment grade as a key.** ST02 stores `grade_level_code` text; every other module keys to AC02 | Add `grade_level_id FK:AC02` to ST02 (needs a v1.1 of the locked Student Directory) | OQ-232 |
+| P4 → DL-193 | **One name per key.** `grade_id` / `grade_level_id`, `offering_id` / `programme_offering_id`, `subject_id` / `pack_subject_id` | Key columns carry the target's key name; rename in one PR with the samples | OQ-233 |
+| P5 → DL-194 | **A home for Person.** Nine fields point at `FK:Person` but no dictionary lists Person's attributes | The Admin Platform (identity) dictionary defines Person next to A01 User Account | OQ-234 |
 | P6 | **Held early decisions.** DL-09 (separation of duties), DL-13 (invite timing), DL-14 (overrides), DL-21 (delegation) are Admin Platform behaviour; DL-15 (language) is cross-cutting | Settle DL-09, 13, 14, 21 inside the Admin Platform spec; DL-15 as a one-line card | — |
 
 ## Not found / not checked

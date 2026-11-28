@@ -91,8 +91,8 @@ ST01, ST02, ST04, ST05, ST08, ST09 and ST11 are referenced, not redefined.
 | child_person_id | UUID | FK:Person | N | T1 | Confirmed rule (DL-42) | Set when matched or when an application starts. |
 | first_name / last_name | VARCHAR(80) | — | Y | T1 | Assumed | |
 | date_of_birth | DATE | — | N | T2* | Assumed | Drives grade suggestion; age-to-grade rules Open (OQ-64). |
-| interested_grade_id | UUID | FK:AC02 | N | T1 | Assumed | Academic structure grade level. |
-| interested_offering_id | UUID | FK:AC06 | N | T1 | Assumed | MC-07. |
+| interested_grade_level_id | UUID | FK:AC02 | N | T1 | Assumed | Academic structure grade level. |
+| interested_programme_offering_id | UUID | FK:AC06 | N | T1 | Assumed | MC-07. |
 | interested_academic_year_id | UUID | FK:AC07 | N | T1 | Assumed | MC-06: years start at different times. |
 | application_id | UUID | FK:AD03 | N | T1 | Assumed | Set on conversion. |
 
@@ -111,7 +111,7 @@ ST01, ST02, ST04, ST05, ST08, ST09 and ST11 are referenced, not redefined.
 | campus_id | UUID | FK:OR04 | Y | T1 | Known (Arch step 1) | |
 | operating_entity_id | UUID | FK:OR07 | Y | T1 | Confirmed rule (DL-41) | Copied from OR08 at creation. |
 | programme_offering_id | UUID | FK:AC06 | Y | T1 | Known (MC-07) | AEPP is a placement inside a regular enrolment, never an offering (DL-65). |
-| grade_id | UUID | FK:AC02 | Y | T1 | Known | Applied-for grade. |
+| grade_level_id | UUID | FK:AC02 | Y | T1 | Known | Applied-for grade. |
 | academic_year_id | UUID | FK:AC07 | Y | T1 | Known need (DL-54) | |
 | requested_start_date | DATE | — | Y | T1 | Assumed | Mid-year joiners are common in international schools (assumption, not sourced). |
 | applicant_legal_first_name / last_name | VARCHAR(80) | — | Y | T1 | Assumed | Copied to ST01 at offer (DL-57). |
@@ -163,7 +163,7 @@ ST01, ST02, ST04, ST05, ST08, ST09 and ST11 are referenced, not redefined.
 | outcome | ENUM | — | C | T2 (T3 for SEN) | Confirmed (DL-60) | Generic: MEETS, BELOW, PLACE_IN_AEPP. SEN: CAN_SUPPORT, NEEDS_DISCUSSION, CANNOT_SUPPORT. |
 | score_summary | VARCHAR(120) | — | N | T2 | Assumed | Not used for SEN. |
 | restricted_record_ref | UUID | FK:Wellbeing record | C | T3 | Confirmed (DL-60) | SEN notes live in Wellbeing; Admissions sees the outcome only. |
-| recommended_grade_id / offering_id | UUID | FK:AC02 / AC06 | N | T1 | Known need (HB p.125 "initial placement") | |
+| recommended_grade_level_id / programme_offering_id | UUID | FK:AC02 / AC06 | N | T1 | Known need (HB p.125 "initial placement") | |
 
 ### AD06 — Intake Capacity
 
@@ -172,7 +172,7 @@ ST01, ST02, ST04, ST05, ST08, ST09 and ST11 are referenced, not redefined.
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
 | intake_capacity_id | UUID | PK | Y | T1 | Confirmed (DL-61) | |
-| campus_id, programme_offering_id, grade_id, academic_year_id | UUID | UK; FK:OR04 / AC06 / AC02 / AC07 | Y | T1 | Assumed | One row per target. |
+| campus_id, programme_offering_id, grade_level_id, academic_year_id | UUID | UK; FK:OR04 / AC06 / AC02 / AC07 | Y | T1 | Assumed | One row per target. |
 | seat_limit | INT | — | Y | T1 | Confirmed (DL-61) | Classes × class size for the grade; set by the Principal before the year opens. |
 | override_buffer | INT | — | Y | T1 | Confirmed (DL-61) | Seats an Admissions Manager may add over the limit, with a reason; set per campus. |
 | seats_enrolled / seats_held | INT | — | Y | T1 | Assumed | Derived from ST02 (ENROLLED) and open offers (OFFERED, CONFIRMED). |
@@ -187,7 +187,7 @@ ST01, ST02, ST04, ST05, ST08, ST09 and ST11 are referenced, not redefined.
 | offer_id | UUID | PK | Y | T1 | Assumed | |
 | application_id | UUID | FK:AD03 | Y | T1 | Known (Arch step 2) | One open offer per application. |
 | enrolment_id | UUID | FK:ST02 | Y | T1 | Confirmed (DL-57) | Created in status OFFERED. |
-| offered_grade_id / offering_id / start_date | UUID, UUID, DATE | FK:AC02 / AC06 | Y | T1 | Known need | May differ from what was applied for (placement). |
+| offered_grade_level_id / programme_offering_id / start_date | UUID, UUID, DATE | FK:AC02 / AC06 | Y | T1 | Known need | May differ from what was applied for (placement). |
 | conditions | TEXT | — | N | T2 | Assumed | For example "subject to Student Pass approval". |
 | issued_by_user_id / issued_at | — | — | Y | T1 | Open (OQ-66: who may issue) | |
 | expires_at | DATE | — | Y | T1 | Open (OQ-66: validity); setting (DL-59) | |

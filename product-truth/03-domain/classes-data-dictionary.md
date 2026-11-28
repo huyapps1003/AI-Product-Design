@@ -66,7 +66,7 @@ ST02, ST03, AD06 and Employee DD D01/D02 are referenced, not redefined. Employee
 | academic_year_id | UUID | FK:AC07 | Y | T1 | Confirmed (DL-70) | Years start at different times (MC-06). |
 | programme_offering_id | UUID | FK:AC06 | Y | T1 | Known (MC-07) | e.g. CBSE 1-12, IB PYP, Cambridge CLSP 6-8. |
 | class_type | ENUM | — | Y | T1 | Assumed (DL-27) | REGULAR only for now. AEPP is not a class (DL-74). Composite or mixed-age: OQ-78. |
-| grade_id | UUID | FK:AC02 | Y | T1 | Known (Arch: grade level from the programme pack) | |
+| grade_level_id | UUID | FK:AC02 | Y | T1 | Known (Arch: grade level from the programme pack) | |
 | segment_code | VARCHAR(32) | — | N | T1 | Known values per campus (organisation dictionary); derived | Pre-Primary, Primary, Middle, Higher at GIIS (DL-29). |
 | size_limit | INT | — | Y | T1 | Confirmed (DL-71) | From the class plan; may differ per class (e.g. one smaller class). |
 | home_room_id | UUID | FK:TE03 | N | T1 | Known (HB p.9–14 room per class, e.g. "S4 - 04"); key Confirmed (DL-141) | The class's home room from the room list that [Teaching & Timetable](./teaching-timetable-data-dictionary.md) keeps until Campus Services owns rooms (DL-141). Was free text `home_room` before the 28 Nov 2026 review. |
@@ -82,7 +82,7 @@ ST02, ST03, AD06 and Employee DD D01/D02 are referenced, not redefined. Employee
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
 | class_plan_id | UUID | PK | Y | T1 | Confirmed (DL-71) | |
-| campus_id, programme_offering_id, grade_id, academic_year_id | UUID | UK; FK:OR04 / AC06 / AC02 / AC07 | Y | T1 | Confirmed shape (DL-61 target) | Same key as AD06. |
+| campus_id, programme_offering_id, grade_level_id, academic_year_id | UUID | UK; FK:OR04 / AC06 / AC02 / AC07 | Y | T1 | Confirmed shape (DL-61 target) | Same key as AD06. |
 | planned_class_count | INT | — | Y | T1 | Confirmed (DL-61 "classes") | |
 | default_size_limit | INT | — | C | T1 | Confirmed (DL-61 "class size"); value per campus setting (OQ-74) | Required to approve. "Not set" blocks approval. |
 | seat_limit | INT | — | Y | T1 | Confirmed (DL-61); derived (DL-71) | Sum of the planned classes' `size_limit`. Written to AD06 `seat_limit`. |
@@ -161,7 +161,7 @@ ST02, ST03, AD06 and Employee DD D01/D02 are referenced, not redefined. Employee
 | promotion_outcome | ENUM | — | Y | T2 | Known values (HB p.128–131: promotion, conditional promotion with re-test, weak pass, retained/detained, board criteria for 10 and 12); source Assessment | See enums. T2 because it reflects academic results. |
 | outcome_source | ENUM | — | Y | T1 | Assumed | ASSESSMENT (promotion decision AS12, [assessment dictionary](./assessment-data-dictionary.md)), WITHDRAWAL_CASE, PRINCIPAL_DECISION, PARENT_REQUEST (K–5 retention, HB p.128). |
 | target_campus_id | UUID | FK:OR04 | C | T1 | Confirmed rule (DL-62) | Differs from the run's campus for a stage-campus promotion. |
-| target_offering_id / target_grade_id | UUID | FK:AC06 / AC02 | C | T1 | Known need (SR-16) | Grade 10 CBSE → Grade 11 needs a stream choice (OQ-77). |
+| target_programme_offering_id / target_grade_level_id | UUID | FK:AC06 / AC02 | C | T1 | Known need (SR-16) | Grade 10 CBSE → Grade 11 needs a stream choice (OQ-77). |
 | target_class_id | UUID | FK:CL01 | C | T1 | Assumed | Next-year class; may be left for start-of-year allocation. |
 | house_code | VARCHAR(32) | — | N | T1 | Confirmed (DL-76) | Copied forward. |
 | line_status | ENUM | — | Y | T1 | Assumed (DL-27) | See enums. |

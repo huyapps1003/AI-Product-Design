@@ -82,7 +82,7 @@ ST02, ST08, ST09, CL01, CL03, CL04, AS05, AS10 and the Case object (OBJ-10) are 
 | non_school_day_id | UUID | PK | Y | T1 | Confirmed (DL-98) | |
 | calendar_id | UUID | FK:AT01 | Y | T1 | Assumed | |
 | date_from / date_to | DATE | — | Y | T1 | Known examples (Holiday Schedule: Deepavali 9–10 Nov 2026; December vacation 5 Dec 2026 – 3 Jan 2027) | Inclusive. |
-| day_type | ENUM | — | Y | T1 | Known kinds (Holiday Schedule: holidays, vacation, semester break); CLOSURE Assumed | PUBLIC_HOLIDAY, VACATION, TERM_BREAK, SCHOOL_HOLIDAY, CLOSURE. |
+| day_type | ENUM | — | Y | T1 | Known kinds (Holiday Schedule: holidays, vacation, semester break); CLOSURE Assumed | PUBLIC_HOLIDAY, VACATION, TERM_BREAK, SCHOOL_HOLIDAY, CLOSURE. PUBLIC_HOLIDAY rows come from the brand-country public holiday list (OR03 `holiday_calendar_ref`, DL-190), never typed per campus. |
 | name | VARCHAR(80) | — | Y | T1 | Known | "Deepavali", "Sem 1 Break". |
 | applies_to_grades | JSON | — | N | T1 | Assumed (Arch § Principles 4: scoped "by segment") | Null = whole offering. A grade-only day (e.g. exam study leave) is OQ-119. |
 | added_after_publish_reason | TEXT | — | C | T1 | Assumed | Required for an unplanned closure after the calendar is published; marks already taken that day are voided with an audit entry. |
@@ -94,10 +94,11 @@ ST02, ST08, ST09, CL01, CL03, CL04, AS05, AS10 and the Case object (OBJ-10) are 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
 | register_id | UUID | PK | Y | T1 | Confirmed (DL-99) | |
-| class_id | UUID | FK:CL01 | Y | T1 | Known (Arch § Users and roles: class teacher scope is the class) | Students listed are the class's placements valid that day (CL04). |
-| school_date | DATE | UK with class + period | Y | T1 | Assumed | Must be a school day in AT01. |
+| class_id | UUID | FK:CL01 | C | T1 | Known (Arch § Users and roles: class teacher scope is the class) | Students listed are the class's placements valid that day (CL04). Required for DAY registers. A PERIOD register takes its students from the dated lesson's teaching group instead; `class_id` is set only when that group is one class (DL-191). |
+| school_date | DATE | UK with class (DAY) or dated lesson (PERIOD) | Y | T1 | Assumed | Must be a school day in AT01. |
 | register_kind | ENUM | — | Y | T1 | Known both exist (Arch step 3 "by period or by day"); campus setting Confirmed (DL-99) | DAY or PERIOD. |
 | period_id | UUID | FK:TE02 | C | T1 | Assumed | Required when PERIOD. The bell period of the dated lesson (TE11) in the [teaching & timetable dictionary](./teaching-timetable-data-dictionary.md). |
+| dated_lesson_id | UUID | FK:TE11 | C | T1 | Confirmed (DL-191) | Required when PERIOD. The register covers the lesson's teaching group (TE05 members valid that day), so a group drawn from several classes (IB DP HL Biology, Grade 7 Hindi L2) has one register. `period_id` is the lesson's bell period. |
 | taken_by_employee_id | UUID | FK:E01 | Y | T1 | Known: class teacher (Arch § Users and roles); cover teacher Assumed | Class teacher, co-teacher or a cover teacher with that day's scope (TE13, DL-145; who takes the day register OQ-165). |
 | due_at | TIMESTAMPTZ | — | Y | T1 | Assumed; campus setting (OQ-110) | From the campus register cut-off. Late registers show "Overdue" to the coordinator. |
 | register_status | ENUM | — | Y | T1 | Assumed (DL-27) | NOT_TAKEN, SUBMITTED, LOCKED. See enums. |

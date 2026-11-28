@@ -221,7 +221,7 @@ GIIS SG values recorded in the sample (all from the handbook): complaint 2/7/14/
 | working_calendar_id | UUID | PK | Y | T1 | Confirmed (DL-122) | |
 | campus_id, calendar_year | UUID, INT | UK; FK:OR04 | Y | T1 | Assumed | |
 | working_week | VARCHAR(20) | — | Y | T1 | Assumed (Arch § How GIIS operates: SG Mon–Fri; India "Saturdays marked NWD") | MON-FRI; IN-NOI may differ (OQ-130). |
-| public_holidays | JSON | — | Y | T1 | Known for GIIS SG (Holiday Schedule 2026-27, the same list as AT02 public holidays) | Shared with AT02, never retyped. |
+| public_holidays | JSON | — | Y | T1 | Confirmed source (DL-190); Known for GIIS SG (Holiday Schedule 2026-27, the same list as AT02 public holidays) | Read from the brand-country public holiday list (OR03 `holiday_calendar_ref`, DL-190), never retyped. |
 | office_closures | JSON | — | N | T1 | Open (OQ-130) | Days the office is closed outside public holidays. |
 | office_day_end | TIME | — | Y | T1 | Open (OQ-130) | When a due day ends (sample 18:00). |
 

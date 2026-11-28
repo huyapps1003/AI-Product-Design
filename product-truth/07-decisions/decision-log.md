@@ -191,6 +191,11 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-177 | Setting definitions catalogue (PA06): each key once with owner module, allowed levels, default (empty = Not set) and override policy | **Confirmed** (Henry, 28 Nov 2026) | admin platform dictionary |
 | DL-178 | New Brand Admin role at a Brand node for setup, switch-on, grants and accounts in that brand; definitions stay with Global Admin; second Global Admin approves Brand or Global Admin grants (DL-09) | **Confirmed** (Henry, 28 Nov 2026) | admin platform dictionary |
 | DL-179 | Admin Platform navigation by task: Setup · People and access · Data protection · Audit; staff screens move to Staff & HR; definitions global, assignments and audit in the campus's data location | **Confirmed** (Henry, 28 Nov 2026) | admin platform dictionary |
+| DL-190 | One public holiday list per brand-country (OR03 `holiday_calendar_ref`); Attendance non-school days (AT02), the case working-day calendar (CC09) and staff leave days read it; campuses add only their own closures | **Confirmed** (Henry, 28 Nov 2026, "Ok all" on the cross-module review) | OQ-230; OR03, AT02, CC09, SR-HR-05 |
+| DL-191 | Period registers key to the dated lesson (AT03 `dated_lesson_id` → TE11) and cover its teaching group, so a group drawn from several classes has one register; day registers stay by class | **Confirmed** (Henry, 28 Nov 2026) | OQ-231; AT03, TE04, TE11 |
+| DL-192 | Student Directory v1.1: ST02 enrolment holds `grade_level_id` (FK:AC02) as its join key; `grade_level_code` stays as a display label | **Confirmed** (Henry, 28 Nov 2026) | OQ-232; ST02, AC02 |
+| DL-193 | Key columns carry the target's key name with an optional role prefix (`grade_level_id`, `programme_offering_id`, `pack_subject_id`); Key cells name the entity ID | **Confirmed** (Henry, 28 Nov 2026) | OQ-233; CONVENTIONS § 3 |
+| DL-194 | The Admin Platform dictionary is the home of Person (first defined there in PR #30); module `FK:Person` fields point at it | **Confirmed** (Henry, 28 Nov 2026) | OQ-234; admin platform dictionary |
 
 ---
 
@@ -586,6 +591,13 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Builds on.** DL-02, DL-05, DL-08, DL-16…DL-20, DL-32…DL-53, DL-69, DL-73, DL-147, DL-149. Uses the held DL-09, DL-13, DL-14 and DL-21 as they stand; they stay Assumed until Henry discusses them.
 - **Open.** OQ-194…OQ-210 (section V), plus OQ-06, OQ-09, OQ-15, OQ-27, OQ-43, OQ-58, OQ-192.
 - **Status.** DL-165…DL-179 all Confirmed (Henry, 28 Nov 2026; OQ-196 answered: brand-country head signs off go-live; DL-168 changed to per brand; DL-169 changed to one GSG-wide identity provider, new OQ-210).
+
+### DL-190…DL-194 — Cross-module consistency review
+- **Context.** The [28 Nov 2026 review](./reviews/2026-11-28-cross-module-review.md) of all ten module dictionaries fixed mechanical issues (keys, statuses, terms) and raised five items that needed a decision (OQ-230…OQ-234).
+- **Decision.** See the table above. Henry accepted all five recommendations ("Ok all", 28 Nov 2026).
+- **Why.** One source per fact (holidays), registers that work for choice groups, joins on keys instead of text, one name per key, and a home for Person.
+- **Also agreed.** The held DL-09, DL-13, DL-14 and DL-21 stay Assumed and are settled as Admin Platform work; DL-15 gets its own card. DL-195…DL-199 stay unused.
+- **Status.** DL-190…DL-194 Confirmed (Henry, 28 Nov 2026).
 
 ### Review of DL-01…DL-21 (22 Nov 2026; policy items held)
 - **Context.** DL-01…DL-21 were set on 25 Oct 2026 so Admin Platform design could start and are all still Assumed (DL-12 Proposed), although later Confirmed decisions build on most of them. The 22 Nov 2026 repo review flagged this.

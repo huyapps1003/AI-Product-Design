@@ -119,7 +119,7 @@ ST02, ST03, CL01, CL03, CL04, AC02, AC03, AC07, AC08, AC09, AT01, AT02 and E01 a
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| teaching_group_id | UUID | PK | Y | T1 | Known need (AS07 `teaching_group_id`) | Referenced by AS07, TE05, TE06, TE10, TE11. AT03 period registers do not key to it yet (see the 28 Nov 2026 cross-module review). |
+| teaching_group_id | UUID | PK | Y | T1 | Known need (AS07 `teaching_group_id`) | Referenced by AS07, TE05, TE06, TE10, TE11; AT03 period registers reach it through the dated lesson (DL-191). |
 | campus_id | UUID | FK:OR04 | Y | T1 | Known | |
 | academic_year_id | UUID | FK:AC07 | Y | T1 | Known (DL-96) | Offering comes from the year. |
 | offered_subject_id | UUID | FK:AC09 | Y | T1 | Confirmed (DL-116: "teaching groups… stay with Teaching") | The grade and subject come from it. |
@@ -235,7 +235,7 @@ ST02, ST03, CL01, CL03, CL04, AC02, AC03, AC07, AC08, AC09, AT01, AT02 and E01 a
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| dated_lesson_id | UUID | PK | Y | T1 | Known entity (Employee DD D03 `teaching_session_id`) | Read by period registers (AT03) and, later, cover. |
+| dated_lesson_id | UUID | PK | Y | T1 | Known entity (Employee DD D03 `teaching_session_id`) | Referenced by AT03 period registers (`dated_lesson_id`, DL-191) and TE13 cover. |
 | lesson_id | UUID | FK:TE10 | Y | T1 | Confirmed (DL-140) | |
 | lesson_date | DATE | — | Y | T1 | Known (D03 `session_date`) | A school day in AT01 for the group's offering (DL-98). |
 | bell_period_id | UUID | FK:TE02 | Y | T1 | Known (D03 `period_id`) | Can differ from the pattern when moved. |

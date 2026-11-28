@@ -158,8 +158,8 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 | campus_id | UUID | FK:OR04 | Y | T1 | Known | |
 | academic_year_id | UUID | FK:AC07 | Y | T1 | Known; per offering (DL-96) | The offering's year: GIIS SG CBSE April–March, IB DP July–May. |
 | scheme_id / component_id | UUID | FK:AS02 / AS03 | Y | T1 | Confirmed (DL-88) | Must be an APPROVED scheme version. |
-| grade_id | UUID | FK:AC02 | Y | T1 | Known (Exam Schedule: per grade) | |
-| subject_id | UUID | FK:AC03 | Y | T1 | Known | Language groups (L2 Hindi/Tamil/French) are one assessment with several mark sheets. |
+| grade_level_id | UUID | FK:AC02 | Y | T1 | Known (Exam Schedule: per grade) | |
+| pack_subject_id | UUID | FK:AC03 | Y | T1 | Known | Language groups (L2 Hindi/Tamil/French) are one assessment with several mark sheets. |
 | assessment_kind | ENUM | — | Y | T1 | Assumed (DL-27) | REGULAR, RETEST, IMPROVEMENT, PRE_BOARD. |
 | exam_window_id | UUID | FK:Calendar | N | T1 | Known (Arch § Data model Calendar "Exam window") | |
 | scheduled_date / start_time / duration_minutes | DATE / TIME / INT | — | Y / N / N | T1 | Known (Exam Schedule; HB "Duration of PT1 45 Minutes") | |
@@ -213,7 +213,7 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
 | subject_result_id | UUID | PK | Y | T2 | Confirmed (DL-89) | |
-| enrolment_id / subject_id / reporting_period_code | UUID, UUID, VARCHAR | UK; FK:ST02 / AC03 | Y | T2 | Known | |
+| enrolment_id / pack_subject_id / reporting_period_code | UUID, UUID, VARCHAR | UK; FK:ST02 / AC03 | Y | T2 | Known | |
 | scheme_id | UUID | FK:AS02 | Y | T1 | Known (Arch: effective-dated rules) | The version used. |
 | weighted_percent | DECIMAL(5,2) | — | C | T2 | Known (HB weightages) | Calculated from locked marks; never typed. |
 | grade | VARCHAR(8) | — | C | T2 | Known | From AS04. Descriptor scales store the descriptor. |
@@ -289,7 +289,7 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
 | predicted_grade_id | UUID | PK | Y | T2 | Known (Arch § Data model) | |
-| enrolment_id / subject_id | UUID | UK with round; FK:ST02 / AC03 | Y | T1 | Known | |
+| enrolment_id / pack_subject_id | UUID | UK with round; FK:ST02 / AC03 | Y | T1 | Known | |
 | board | ENUM | — | Y | T1 | Known (HB p.132: IB DP, CBSE 12) | IB_DP, CBSE_12. |
 | calculated_basis | JSON | — | N | T2 | Known for GIIS SG IB (Year 1 consolidated 5% FA I + 10% CT I + 5% FA II + 10% CT II + 20% Sem I + 50% Sem II; Year 2 20% IA + 80% Sem I; average mapped to board thresholds, HB p.132) | Shown to the teacher as a starting point. |
 | predicted_value | VARCHAR(8) | — | Y | T2 | Known (IB 1–7; CBSE score) | Teacher judgment; may differ from the basis. |

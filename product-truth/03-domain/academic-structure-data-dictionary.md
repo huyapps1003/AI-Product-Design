@@ -83,7 +83,7 @@ ST02, ST03, AD02, CL01, FB02, FB04, AS02, AS06, AT01 and AT08 are referenced, no
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| grade_level_id | UUID | PK | Y | T1 | Known entity (Arch "Grade level") | Referenced by AC03, AC04, AC06, AC09, AD02, AD03, AD05, AD06, AD07, AS06, CL01, CL02, CL07, FB02 (ST02 stores the `grade_level_code`, not this key). |
+| grade_level_id | UUID | PK | Y | T1 | Known entity (Arch "Grade level") | Referenced by AC03, AC04, AC06, AC09, AD02, AD03, AD05, AD06, AD07, AS06, CL01, CL02, CL07, FB02, ST02 (DL-192). |
 | pack_id | UUID | FK:AC01 | Y | T1 | Known | |
 | grade_code | VARCHAR(16) | UK with pack | Y | T1 | Assumed | e.g. CBSE-06, IBDP-1, GMP-K1. |
 | display_label | VARCHAR(40) | — | Y | T1 | Known values (HB p.47–62: "Nursery", "Kindergarten 1", "Class 6", "IB PYP – 2", "IB Diploma Programme Year 1") | Brand-country version may rename (OQ-127). |
