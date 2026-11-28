@@ -76,7 +76,7 @@ Proposed on a decision card on 28 Nov 2026 (recommended "Setup, access and data 
 | PA03 | Setup Task | Global | New, Known (DL-167) |
 | PA04 | Authority Register Entry | Global | Confirmed structure (DL-45); entity Known (DL-168) |
 | PA05 | Identity Provider Connection | Global | New; one GSG-wide connection (DL-169 Confirmed); product Open (OQ-210) |
-| PA06 | Setting Definition | Global | Known need (OR09 "definitions belong to each module"); catalogue Assumed (DL-177) |
+| PA06 | Setting Definition | Global | Known need (OR09 "definitions belong to each module"); catalogue Known (DL-177) |
 | PA07 | Purpose | Global | Confirmed structure (DL-44); list Open (OQ-200) |
 | PA08 | Retention Rule | Global | Confirmed structure (DL-44); periods Open (OQ-43) |
 | PA09 | Privacy Notice | Global | New, Known (DL-176); controller Open (OQ-06) |
@@ -420,7 +420,7 @@ Parent path link (Confirmed, DL-18, DL-37): `family_access_id`, `guardian_person
 | owner_module_id | UUID | FK:R01 | Y | T1 | Known (OR09 "definitions belong to each module") | |
 | label, help_text | VARCHAR | — | Y | T1 | Assumed | Shown on the settings screen. |
 | value_type | ENUM | — | Y | T1 | Assumed | BOOLEAN, INTEGER, DURATION, TIME, DATE, ENUM, TEXT, JSON. |
-| highest_level / lowest_level | ENUM | — | Y | T1 | Assumed (DL-177); which keys: Open (OQ-20) | e.g. GROUP to CAMPUS. A value can't be set outside this range. |
+| highest_level / lowest_level | ENUM | — | Y | T1 | Known (DL-177); which keys: Open (OQ-20) | e.g. GROUP to CAMPUS. A value can't be set outside this range. |
 | default_value | JSON | — | N | T1 | Assumed | Empty means "Not set": the module shows "Not set" and never invents a group default (DL-59). |
 | default_override_policy | ENUM | — | Y | T1 | Confirmed values (DL-50) | OPEN, LOCKED_BELOW. |
 | source_ref | VARCHAR(120) | — | N | T1 | Known where cited | The DL or handbook page behind the key. |
@@ -503,7 +503,7 @@ Each campus case lists one line per person with any A03, A04, A05, A16 or A17 at
 | OR01 | PA02 | 1 → 0..N | scope_node_id | One open run per node at a time | Known (DL-167) |
 | PA02 | PA03 | 1 → 1..N | setup_run_id | | Assumed |
 | OR01 × R01 | PA04 | 1 → 1..N | scope_node_id, module_id | One row per field group | Known (DL-168) |
-| R01 | PA06 | 1 → 0..N | owner_module_id | | Assumed (DL-177) |
+| R01 | PA06 | 1 → 0..N | owner_module_id | | Known (DL-177) |
 | PA06 | OR09 | 1 → 0..N | setting_key | Values per node | Known (OR09) |
 | PA10 | CC03 | 1 → 1..N | review_cycle_id | One CAMPUS_ATTESTATION case per campus | Known (DL-174) |
 
@@ -616,7 +616,7 @@ Existing seeds: `ga.module_grant.manage`, `ga.campus_grant.manage`, `ga.catalog.
 | DL-174 | **Confirmed** (Henry, 28 Nov 2026). Termly access review: a cycle per brand-country opens a CAMPUS_ATTESTATION case per campus in week 1 of term, due in 10 working days (S5); flagged rows first; undecided rows escalate to the brand-country head, never auto-remove | Makes the S5 flow and the "≥95% attested per term" metric concrete; auto-removal would cut teachers off mid-term |
 | DL-175 | **Confirmed** (Henry, 28 Nov 2026). Operator sessions (A18): named GSG support engineer, one campus, named modules, purpose and ticket, read-only, at most 4 hours, Tier 3 masked, every screen logged; Campus Leader approves (DL-52); break-glass for security only, Campus Leader told within 24 hours | Confirms the DL-52 limits that are still Assumed and gives them an entity; answers most of OQ-15 |
 | DL-176 | **Confirmed** (Henry, 28 Nov 2026). Data protection settings in the Admin Platform: purpose catalogue (GSG), retention rules per country, privacy notices per brand-country × audience; legal fields stay empty with pending markers; a Data Protection Lead role per brand-country views audit and retention and activates rules, with no record access by default | DL-44 records need an editor; keeps AR-04 (no controller named); partly answers OQ-34 |
-| DL-177 | Setting definitions catalogue (PA06): every setting key once with owner module, allowed levels, default (empty means "Not set") and default override policy; the settings screen groups keys by module and shows inheritance (AP-02) | OR09 holds values but nobody defined the keys; every module dictionary adds campus or brand-country settings |
+| DL-177 | **Confirmed** (Henry, 28 Nov 2026). Setting definitions catalogue (PA06): every setting key once with owner module, allowed levels, default (empty means "Not set") and default override policy; the settings screen groups keys by module and shows inheritance (AP-02) | OR09 holds values but nobody defined the keys; every module dictionary adds campus or brand-country settings |
 | DL-178 | New access role Brand Admin at a Brand node: setup runs, module switch-on, grants and accounts for that brand; definitions stay with Global Admin (GSG); granting Brand or Global Admin needs a second Global Admin (DL-09) | 12 brands can't all route day-to-day setup through the GSG platform team; keeps brand boundaries (DL-40) |
 | DL-179 | Admin Platform navigation: Setup (Brands and campuses, Modules, Settings, Sign-in, Legacy systems) · People and access (Users, Roles and templates, Requests, Special access, Reviews) · Data protection (Data locations, Purposes, Retention, Notices) · Audit. Staff screens move to the Staff & HR module. Definitions are global; assignments, sessions, cases and audit live in the campus's data location, shown on each record | The 18 Oct screen map grouped by entity owner (GA, TM, GOV); this groups by admin task and reflects DL-146 and the data architecture |
 
