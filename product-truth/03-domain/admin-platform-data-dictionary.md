@@ -1,6 +1,6 @@
 # Global Campus OS — Admin Platform Data Dictionary v0.1 (draft)
 
-**Status:** Proposed draft, 28 Nov 2026. DL-165…DL-179 Assumed, awaiting Henry; OQ-194…OQ-209 Open · **Owner:** Henry
+**Status:** Proposed draft, 28 Nov 2026. DL-165 Confirmed; DL-166…DL-179 Assumed, awaiting Henry; OQ-194…OQ-209 Open · **Owner:** Henry
 **Cites:** [Architecture v1](../00-sources/Global_Campus_OS_Product_Architecture_v1.md) § Multi-campus and tenancy model, § Users and roles, § Security ("cross-campus access is granted, time-boxed and logged"; Tier 3 visible only to named roles, every read logged), § Shared core services (Identity and roles, Tenancy and config, Events and audit), § Integrations (Google Workspace, payroll, ERP) · [Employee Data Dictionary v1](../00-sources/Global_Campus_OS_Employee_Data_Dictionary_v1.md) A01–A14, R01, R02, BR-06…BR-17, Decisions D07…D13 · [architecture.md](./architecture.md) AR-01…AR-14, AP-01…AP-14 · [organisation dictionary](./organisation-data-dictionary.md) OR01–OR09 · [academic structure dictionary](./academic-structure-data-dictionary.md) AC06, AC07 · [cases & communications dictionary](./cases-communications-data-dictionary.md) CC01 access case types · [staff & HR dictionary](./staff-hr-data-dictionary.md) E02, E07, HR15 · [04-access/](../04-access/README.md) rbac-model, permission-catalogue, role-catalogue · [data-controller-model](../05-data-governance/data-controller-model.md) · [Admin Platform slice](../06-experience/admin-platform/README.md) S1–S5, SCR-GA/TM/GOV · DL-02, DL-04, DL-05, DL-07…DL-09, DL-13, DL-14, DL-16…DL-21, DL-22, DL-32…DL-53, DL-69, DL-73, DL-96, DL-118, DL-147, DL-149, DL-160, DL-163 · OQ-01, OQ-05, OQ-06, OQ-09, OQ-12, OQ-15, OQ-16, OQ-18, OQ-20, OQ-21, OQ-26, OQ-27, OQ-32, OQ-34, OQ-43, OQ-58, OQ-192
 **Tóm tắt (VI):** Từ điển dữ liệu cho Admin Platform, "xương sống" của ứng dụng web cho nhân viên (DL-118): mở brand và campus (checklist go-live, bật module theo campus, sổ "hệ thống nào là nguồn" khi chuyển đổi), đăng nhập và tài khoản (nhà cung cấp danh tính theo brand), vai trò và quyền truy cập (nhà của A01–A17, R01–R03 từ Employee DD v1, thêm A18 phiên hỗ trợ của GSG), rà soát quyền định kỳ, và cài đặt bảo vệ dữ liệu (danh mục mục đích, quy tắc lưu giữ, thông báo quyền riêng tư; bên kiểm soát dữ liệu vẫn để trống đến khi có OQ-06). Mọi quyết định mới (DL-165…DL-179) đang là giả định chờ Henry.
 
@@ -12,7 +12,7 @@ Same layout and rules as the [Student Directory Spec](./student-directory-data-d
 
 ## Scope
 
-Proposed on a decision card on 28 Nov 2026 (recommended "Setup, access and data protection"; scope recorded as DL-165, Assumed until Henry picks).
+Proposed on a decision card on 28 Nov 2026 (recommended "Setup, access and data protection"; scope recorded as DL-165, **Confirmed** by Henry on 28 Nov 2026).
 
 | In this dictionary | Not in this dictionary (owner) |
 |---|---|
@@ -96,7 +96,7 @@ Referenced, not redefined: OR01–OR09, AC06, AC07, AC08, E01, E02, E05, E07, HR
 | display_name | VARCHAR(180) | — | Y | T1 | Confirmed (DL-39 directory index) | The name every profile shows by default; legal names stay in cell profiles (T2). |
 | profile_pointers | JSON | — | Y | T1 | Confirmed (DL-39 "cell pointer") | One entry per profile: type (STUDENT, GUARDIAN, EMPLOYEE), data location, profile ID. No profile data. |
 | role_chips | VARCHAR(40)[] | — | N | T1 | Confirmed (AP-03) | Derived: Student, Guardian, Staff. |
-| person_status | ENUM | — | Y | T1 | Assumed (DL-165) | ACTIVE, MERGED (kept for history, `merged_into_person_id` set), CLOSED (every profile past retention, OQ-43). |
+| person_status | ENUM | — | Y | T1 | Known (DL-165) | ACTIVE, MERGED (kept for history, `merged_into_person_id` set), CLOSED (every profile past retention, OQ-43). |
 | merged_into_person_id | UUID | FK:Person | C | T1 | Confirmed rule (DL-42: review queue, never automatic) | Set by `identity.person.merge` only. |
 
 ### A01 — User Account (refined)
@@ -604,7 +604,7 @@ Existing seeds: `ga.module_grant.manage`, `ga.campus_grant.manage`, `ga.catalog.
 
 | ID | Decision | Why |
 |---|---|---|
-| DL-165 | Admin Platform scope: setup and go-live, module switch-on, authority register, setting definitions, sign-in and accounts, roles and access, special access (delegation, Tier 3 grants, operator sessions), access reviews, purposes, retention and notices. This dictionary is the home of Employee DD A01–A14, R01–R02 and the DL-defined A15–A17, R03, F01 (IDs kept, refined here); new A18 and PA01–PA10 | The Admin Platform slice (18 Oct) has no dictionary; access entities still sit in a Proposed source file; go-live, sign-in and data protection had no entities. Same pattern as Staff & HR taking over E01–E08 (DL-146) |
+| DL-165 | **Confirmed** (Henry, 28 Nov 2026). Admin Platform scope: setup and go-live, module switch-on, authority register, setting definitions, sign-in and accounts, roles and access, special access (delegation, Tier 3 grants, operator sessions), access reviews, purposes, retention and notices. This dictionary is the home of Employee DD A01–A14, R01–R02 and the DL-defined A15–A17, R03, F01 (IDs kept, refined here); new A18 and PA01–PA10 | The Admin Platform slice (18 Oct) has no dictionary; access entities still sit in a Proposed source file; go-live, sign-in and data protection had no entities. Same pattern as Staff & HR taking over E01–E08 (DL-146) |
 | DL-166 | Modules are switched on per Brand-country or Campus (PA01: Planned, Pilot, Live, Paused, Off, inherited downward); members only where Live or Pilot | Brands will go live module by module (Arch § Roadmap phases); grants for a module a campus doesn't use would be noise and a risk |
 | DL-167 | A campus or brand-country goes live through a setup run: a checklist of blocking and non-blocking tasks, most checked from the owning record; READY when blocking tasks are done; the brand-country head signs off on a CAMPUS_GO_LIVE case | One place to see what's missing; nothing goes live with no Campus Leader, no published year or no sign-in. Approver open (OQ-196, OQ-58) |
 | DL-168 | Authority register (PA04) per brand-country × module × field group: authoritative system, sync direction, cutover date, conflict reviewer; campus exceptions allowed; a module is Live only when its rows are complete | Gives DL-45 an entity and a screen; per brand-country because legacy systems are per brand (OQ-27) |
