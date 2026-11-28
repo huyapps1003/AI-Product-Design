@@ -1,6 +1,6 @@
 # Global Campus OS — Admin Platform Data Dictionary v0.1 (draft)
 
-**Status:** Proposed draft, 28 Nov 2026. DL-165…DL-166 Confirmed; DL-167…DL-179 Assumed, awaiting Henry; OQ-194…OQ-209 Open · **Owner:** Henry
+**Status:** Proposed draft, 28 Nov 2026. DL-165…DL-167 Confirmed; DL-168…DL-179 Assumed, awaiting Henry; OQ-194…OQ-209 Open · **Owner:** Henry
 **Cites:** [Architecture v1](../00-sources/Global_Campus_OS_Product_Architecture_v1.md) § Multi-campus and tenancy model, § Users and roles, § Security ("cross-campus access is granted, time-boxed and logged"; Tier 3 visible only to named roles, every read logged), § Shared core services (Identity and roles, Tenancy and config, Events and audit), § Integrations (Google Workspace, payroll, ERP) · [Employee Data Dictionary v1](../00-sources/Global_Campus_OS_Employee_Data_Dictionary_v1.md) A01–A14, R01, R02, BR-06…BR-17, Decisions D07…D13 · [architecture.md](./architecture.md) AR-01…AR-14, AP-01…AP-14 · [organisation dictionary](./organisation-data-dictionary.md) OR01–OR09 · [academic structure dictionary](./academic-structure-data-dictionary.md) AC06, AC07 · [cases & communications dictionary](./cases-communications-data-dictionary.md) CC01 access case types · [staff & HR dictionary](./staff-hr-data-dictionary.md) E02, E07, HR15 · [04-access/](../04-access/README.md) rbac-model, permission-catalogue, role-catalogue · [data-controller-model](../05-data-governance/data-controller-model.md) · [Admin Platform slice](../06-experience/admin-platform/README.md) S1–S5, SCR-GA/TM/GOV · DL-02, DL-04, DL-05, DL-07…DL-09, DL-13, DL-14, DL-16…DL-21, DL-22, DL-32…DL-53, DL-69, DL-73, DL-96, DL-118, DL-147, DL-149, DL-160, DL-163 · OQ-01, OQ-05, OQ-06, OQ-09, OQ-12, OQ-15, OQ-16, OQ-18, OQ-20, OQ-21, OQ-26, OQ-27, OQ-32, OQ-34, OQ-43, OQ-58, OQ-192
 **Tóm tắt (VI):** Từ điển dữ liệu cho Admin Platform, "xương sống" của ứng dụng web cho nhân viên (DL-118): mở brand và campus (checklist go-live, bật module theo campus, sổ "hệ thống nào là nguồn" khi chuyển đổi), đăng nhập và tài khoản (nhà cung cấp danh tính theo brand), vai trò và quyền truy cập (nhà của A01–A17, R01–R03 từ Employee DD v1, thêm A18 phiên hỗ trợ của GSG), rà soát quyền định kỳ, và cài đặt bảo vệ dữ liệu (danh mục mục đích, quy tắc lưu giữ, thông báo quyền riêng tư; bên kiểm soát dữ liệu vẫn để trống đến khi có OQ-06). Mọi quyết định mới (DL-165…DL-179) đang là giả định chờ Henry.
 
@@ -72,8 +72,8 @@ Proposed on a decision card on 28 Nov 2026 (recommended "Setup, access and data 
 | R03 | Parent Capability Set | Global | Confirmed (DL-18, DL-28, DL-37) |
 | F01 | Family Access Link | Cell | Confirmed (DL-18, DL-37); states pending (OBJ-09) |
 | PA01 | Module Switch-on | Global | New, Known (DL-166) |
-| PA02 | Setup Run | Global | New, Assumed (DL-167) |
-| PA03 | Setup Task | Global | New, Assumed (DL-167) |
+| PA02 | Setup Run | Global | New, Known (DL-167) |
+| PA03 | Setup Task | Global | New, Known (DL-167) |
 | PA04 | Authority Register Entry | Global | Confirmed structure (DL-45); entity Assumed (DL-168) |
 | PA05 | Identity Provider Connection | Global | New, Assumed (DL-169); GIIS Google Workspace Known |
 | PA06 | Setting Definition | Global | Known need (OR09 "definitions belong to each module"); catalogue Assumed (DL-177) |
@@ -331,12 +331,12 @@ Parent path link (Confirmed, DL-18, DL-37): `family_access_id`, `guardian_person
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| setup_run_id | UUID | PK | Y | T1 | Assumed (DL-167) | |
+| setup_run_id | UUID | PK | Y | T1 | Known (DL-167) | |
 | scope_node_id | UUID | FK:OR01 | Y | T1 | Assumed | A BRAND_COUNTRY or CAMPUS node with status PLANNED. |
 | run_kind | ENUM | — | Y | T1 | Assumed | BRAND_COUNTRY_SETUP, CAMPUS_OPENING, CAMPUS_MIGRATION (an existing school moving onto Campus OS from legacy systems). |
 | target_go_live | DATE | — | Y | T1 | Assumed | |
 | owner_user_id | UUID | FK:A01 | Y | T1 | Assumed | Usually the Brand Admin. |
-| approver_user_id | UUID | FK:A01 | C | T1 | Assumed (DL-167): brand-country head; Open (OQ-196) | Signs off go-live. |
+| approver_user_id | UUID | FK:A01 | C | T1 | Known (DL-167): brand-country head; Open (OQ-196) | Signs off go-live. |
 | run_status | ENUM | — | Y | T1 | Assumed | DRAFT, IN_PROGRESS, READY, LIVE, CANCELLED. READY when every blocking task is DONE. |
 | go_live_case_id | UUID | FK:CC03 | C | T1 | Assumed | CAMPUS_GO_LIVE case for the sign-off. |
 
@@ -348,7 +348,7 @@ Parent path link (Confirmed, DL-18, DL-37): `family_access_id`, `guardian_person
 |---|---|---|:---:|---|---|---|
 | setup_task_id | UUID | PK | Y | T1 | Assumed | |
 | setup_run_id | UUID | FK:PA02 | Y | T1 | Assumed | |
-| task_code | VARCHAR(40) | — | Y | T1 | Assumed (DL-167) | See the setup task list below. |
+| task_code | VARCHAR(40) | — | Y | T1 | Known (DL-167) | See the setup task list below. |
 | blocking | BOOLEAN | — | Y | T1 | Assumed | Blocking tasks gate READY. |
 | check_mode | ENUM | — | Y | T1 | Assumed | AUTO (read from the owning record), MANUAL (owner ticks with a note). |
 | source_ref | VARCHAR(120) | — | N | T1 | Assumed | The record that satisfies an AUTO task, e.g. an AC07 year ID. |
@@ -500,7 +500,7 @@ Each campus case lists one line per person with any A03, A04, A05, A16 or A17 at
 | A08 | A09 | 1 → 0..N | permission_template_id | | Known |
 | A05 | A12 → A13 | 1 → 0..N | membership_id | Data scope | Known, DL-16 |
 | A01 | A16, A17, A18 | 1 → 0..N | user ids | Special access | Confirmed (DL-36), Assumed (DL-175) |
-| OR01 | PA02 | 1 → 0..N | scope_node_id | One open run per node at a time | Assumed (DL-167) |
+| OR01 | PA02 | 1 → 0..N | scope_node_id | One open run per node at a time | Known (DL-167) |
 | PA02 | PA03 | 1 → 1..N | setup_run_id | | Assumed |
 | OR01 × R01 | PA04 | 1 → 1..N | scope_node_id, module_id | One row per field group | Assumed (DL-168) |
 | R01 | PA06 | 1 → 0..N | owner_module_id | | Assumed (DL-177) |
@@ -606,7 +606,7 @@ Existing seeds: `ga.module_grant.manage`, `ga.campus_grant.manage`, `ga.catalog.
 |---|---|---|
 | DL-165 | **Confirmed** (Henry, 28 Nov 2026). Admin Platform scope: setup and go-live, module switch-on, authority register, setting definitions, sign-in and accounts, roles and access, special access (delegation, Tier 3 grants, operator sessions), access reviews, purposes, retention and notices. This dictionary is the home of Employee DD A01–A14, R01–R02 and the DL-defined A15–A17, R03, F01 (IDs kept, refined here); new A18 and PA01–PA10 | The Admin Platform slice (18 Oct) has no dictionary; access entities still sit in a Proposed source file; go-live, sign-in and data protection had no entities. Same pattern as Staff & HR taking over E01–E08 (DL-146) |
 | DL-166 | **Confirmed** (Henry, 28 Nov 2026). Modules are switched on per Brand-country or Campus (PA01: Planned, Pilot, Live, Paused, Off, inherited downward); members only where Live or Pilot | Brands will go live module by module (Arch § Roadmap phases); grants for a module a campus doesn't use would be noise and a risk |
-| DL-167 | A campus or brand-country goes live through a setup run: a checklist of blocking and non-blocking tasks, most checked from the owning record; READY when blocking tasks are done; the brand-country head signs off on a CAMPUS_GO_LIVE case | One place to see what's missing; nothing goes live with no Campus Leader, no published year or no sign-in. Approver open (OQ-196, OQ-58) |
+| DL-167 | **Confirmed** (Henry, 28 Nov 2026). A campus or brand-country goes live through a setup run: a checklist of blocking and non-blocking tasks, most checked from the owning record; READY when blocking tasks are done; the brand-country head signs off on a CAMPUS_GO_LIVE case | One place to see what's missing; nothing goes live with no Campus Leader, no published year or no sign-in. Approver = brand-country head (OQ-196 answered 28 Nov 2026) |
 | DL-168 | Authority register (PA04) per brand-country × module × field group: authoritative system, sync direction, cutover date, conflict reviewer; campus exceptions allowed; a module is Live only when its rows are complete | Gives DL-45 an entity and a screen; per brand-country because legacy systems are per brand (OQ-27) |
 | DL-169 | Staff sign in through their brand's identity provider with SSO and MFA (GIIS: Google Workspace); one account per Person with one or more sign-in identities, matched by provider subject, never by email; parent and student sign-in later | DL-42 one login; GIIS fact from the brief; brands use different providers (OQ-194) |
 | DL-170 | Accounts: created INVITED from the employment, invite N days before start (brand-country setting, default 7; DL-13), ACTIVE on first sign-in, SUSPENDED with the employment, DISABLED the day after the last working day; Dormant is a flag for review after N days, not a status; service accounts for integrations | Joins DL-13, DL-160, DL-163 and BR-10 into one lifecycle; avoids silent suspension of rarely used accounts (OQ-204) |
@@ -626,7 +626,7 @@ Existing seeds: `ga.module_grant.manage`, `ga.campus_grant.manage`, `ga.catalog.
 |---|---|---|---|---|---|---|
 | OQ-194 | Which identity provider does each brand use for staff (GIIS: Google Workspace), does any brand run several tenants, and should Campus OS sync users from the provider or only authenticate? | Sign-in setup (PA05), account creation | Admin Platform brief (GIIS Google Workspace); OQ-27 | admin-platform dictionary, OBJ-32 | Brand IT leads | Open |
 | OQ-195 | When a person works for two brands and has two work emails, which one is primary for notifications and the directory? | A02 `is_primary`, directory display | DL-42; GIIS SMART and OWIS Digital share Punggol (OQ-52) | A02, OBJ-01 | Henry, group HR | Open |
-| OQ-196 | Who signs off a campus or brand-country go-live: brand-country head, Country Director, brand head or GSG operations? | PA02 approver, CAMPUS_GO_LIVE case | OQ-58 (who creates campuses) | PA02, OBJ-32 | Henry, GSG group office | Open |
+| OQ-196 | Who signs off a campus or brand-country go-live: brand-country head, Country Director, brand head or GSG operations? | PA02 approver, CAMPUS_GO_LIVE case | OQ-58 (who creates campuses) | PA02, OBJ-32 | Henry, GSG group office | **Answered** (Henry, 28 Nov 2026): brand-country head signs off → DL-167 |
 | OQ-197 | Which modules does each brand go live with first, and in what order and dates? | Module switch-on samples and setup plans | Arch § Roadmap phases; OQ-05, OQ-32 | PA01, OBJ-32 | Henry, GSG leadership | Open |
 | OQ-198 | Who acts as Brand Admin at each brand (brand IT lead, operations head), and may a brand ever create its own access roles or templates? | Brand Admin role (DL-178), template requests (DL-172) | OQ-16; role-catalogue "Brand leadership" | A06, permission catalogue | Henry, brand heads | Open |
 | OQ-199 | How long are audit events kept per country, and may a redacted copy be kept longer in the global index? | Audit retention rule (PA08 AUDIT_EVENT) | Arch § Security; OQ-43 | A14, PA08 | Counsel per country, GSG IT security | Open |

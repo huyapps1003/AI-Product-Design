@@ -178,7 +178,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-164 | HR records live in the data location of the employing entity's country; two countries mean two profiles under one Person; group views counts only | **Confirmed** (Henry, 27 Nov 2026, decision card \"As proposed\") | staff & HR dictionary; DL-39, DL-42, DL-47 |
 | DL-165 | Admin Platform scope: setup and go-live, module switch-on, legacy systems register, setting definitions, sign-in and accounts, roles and access, special access, access reviews, purposes, retention, notices; home of Person, A01–A18, R01–R03, F01; new PA01–PA10 | **Confirmed** (Henry, 28 Nov 2026) | admin platform dictionary |
 | DL-166 | Modules switched on per brand-country or campus (Planned, Pilot, Live, Paused, Off); members only where Live or Pilot | **Confirmed** (Henry, 28 Nov 2026) | admin platform dictionary |
-| DL-167 | A campus or brand-country goes live through a setup run (blocking and non-blocking tasks, most checked automatically); brand-country head signs off a CAMPUS_GO_LIVE case | Assumed | admin platform dictionary |
+| DL-167 | A campus or brand-country goes live through a setup run (blocking and non-blocking tasks, most checked automatically); brand-country head signs off a CAMPUS_GO_LIVE case | **Confirmed** (Henry, 28 Nov 2026) | admin platform dictionary |
 | DL-168 | Legacy systems register (PA04) per brand-country × module × field group: system, direction, cutover date, conflict reviewer; a module is Live only when its rows are complete | Assumed | admin platform dictionary |
 | DL-169 | Staff sign in through the brand's identity provider with SSO and MFA (GIIS: Google Workspace); one account per Person, one or more sign-in identities matched by provider subject, never email | Assumed | admin platform dictionary |
 | DL-170 | Account lifecycle: INVITED from the employment, invite N days before start (DL-13), ACTIVE on first sign-in, SUSPENDED with the employment, DISABLED after the last day; Dormant is a review flag; service accounts for integrations | Assumed | admin platform dictionary |
@@ -585,7 +585,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Why.** One dictionary for everything an admin configures, so module dictionaries can point at accounts, roles, switch-on, settings and purposes instead of describing them; the RBAC decisions (DL-32…DL-38, DL-51…DL-53, DL-69) get entities and screens.
 - **Builds on.** DL-02, DL-05, DL-08, DL-16…DL-20, DL-32…DL-53, DL-69, DL-73, DL-147, DL-149. Uses the held DL-09, DL-13, DL-14 and DL-21 as they stand; they stay Assumed until Henry discusses them.
 - **Open.** OQ-194…OQ-209 (section V), plus OQ-06, OQ-09, OQ-15, OQ-27, OQ-43, OQ-58, OQ-192.
-- **Status.** DL-165, DL-166 Confirmed (Henry, 28 Nov 2026); DL-167…DL-179 Assumed, awaiting Henry.
+- **Status.** DL-165…DL-167 Confirmed (Henry, 28 Nov 2026; OQ-196 answered: brand-country head signs off go-live); DL-168…DL-179 Assumed, awaiting Henry.
 
 ### Review of DL-01…DL-21 (22 Nov 2026; policy items held)
 - **Context.** DL-01…DL-21 were set on 25 Oct 2026 so Admin Platform design could start and are all still Assumed (DL-12 Proposed), although later Confirmed decisions build on most of them. The 22 Nov 2026 repo review flagged this.
