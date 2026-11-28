@@ -32,7 +32,7 @@ Use these names exactly in navigation and copy. Don't invent new module names or
 | `communication_cases` | Communication and Cases | Engagement | Complaint SLAs of 2, 7, 14 and 21 working days. Designed in the [cases & communications dictionary](./cases-communications-data-dictionary.md) (DL-119): Case engine, complaints, messages, announcements, notifications; PTM booking and surveys later | Messaging common; SLA-tracked cases not found |
 | `staff_hr` | Staff and HR | People | Staff across campuses and programmes; Child Protection Policy (HB p.210–213); IB training (HB p.138). Designed in the [staff & HR dictionary](./staff-hr-data-dictionary.md) (DL-146): records, contracts, leave, compliance, recruitment, joining and leaving, appraisal, training; payroll stays outside | Central HR in Arbor (UK trusts) |
 
-Platform modules (DL-04): `global_admin` (Global Admin) and `governance` (access review, audit, reports).
+Platform modules (DL-04): `global_admin` (Global Admin) and `governance` (access review, audit, reports). Both are defined in the [admin platform dictionary](./admin-platform-data-dictionary.md) (DL-165): setup and go-live, module switch-on, sign-in and accounts, roles and access, support sessions, access reviews, purposes, retention and notices.
 
 The evidence column is GIIS only. Whether other brands' rules fit the same modules hasn't been researched (OQ-27).
 

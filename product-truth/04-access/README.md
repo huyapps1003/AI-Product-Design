@@ -11,6 +11,7 @@
 | this README | Which access paths exist for which actors, and the constraints every path must meet |
 | [role-catalogue.md](./role-catalogue.md) | Every role name in product truth, how they relate, and the role families with no definition |
 | [rbac-model.md](./rbac-model.md) | The six-layer model and evaluation algorithm (DL-16…DL-20 Confirmed, DL-21 Assumed; changes DL-32…DL-38 Confirmed) |
+| [admin platform dictionary](../03-domain/admin-platform-data-dictionary.md) | The access entities themselves (A01–A18, R01–R03, F01) with fields, states, routes and rules; operator sessions and access review cycles (DL-165) |
 | [permission-catalogue.md](./permission-catalogue.md) | **Canonical** capabilities, field policies, fixed capability sets (DL-33) |
 
 ## Three sources, one model

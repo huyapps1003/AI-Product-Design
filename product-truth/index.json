@@ -1,6 +1,6 @@
 {
   "$description": "Machine-readable map of product-truth/ for the AI design workflow. Paths are relative to the repository root. 'routes' lists the files to load for each task, in order. Statuses follow product-truth/CONVENTIONS.md: Known (cited), Assumed (DL-xx), Open (OQ-xx), Proposed (source documents).",
-  "updated": "2026-11-25",
+  "updated": "2026-11-28",
   "scope": {
     "product": "Global Campus OS",
     "operator": "Global Schools Group (GSG)",
@@ -41,6 +41,8 @@
     { "path": "product-truth/03-domain/teaching-timetable-data-dictionary.md", "covers": "Teaching & Timetable (v0.1, 24 Nov 2026): teaching group, group membership, teaching assignment, academic responsibility (TE04-TE07, OBJ-12); bell schedule, bell period, room, period plan, timetable, timetable lesson, dated lesson, teacher absence, cover arrangement (TE01-TE03, TE08-TE13, OBJ-27); replaces Employee DD D01-D03", "status": "Proposed (DL-131..DL-145 Confirmed)", "cites": ["DL-131..DL-145", "OQ-147..OQ-165", "OQ-77"] },
     { "path": "product-truth/07-decisions/reviews/2026-11-28-cross-module-review.md", "covers": "Cross-module consistency review of all ten module dictionaries (28 Nov 2026): fixes F1-F15, proposals P1-P6", "status": "Review", "cites": ["OQ-230..OQ-234"] },
     { "path": "product-truth/03-domain/staff-hr-data-dictionary.md", "covers": "Staff & HR (v0.1, 25 Nov 2026): employee, employment, department, org assignment, position, campus assignment, external mapping (E01-E05, E07, E08 refined; OBJ-05, OBJ-06), contract term, emergency contact, checklist task (HR01, HR02, HR15); leave type, policy, balance, request, approval step (HR03-HR07, OBJ-28); compliance item type, requirement, record (HR08-HR10, OBJ-29); vacancy, candidate application, interview feedback, offer (HR11-HR14, OBJ-30); appraisal cycle, appraisal, training record (HR16-HR18, OBJ-31)", "status": "Proposed (DL-146..DL-164 Confirmed)", "cites": ["DL-146..DL-164", "OQ-166..OQ-193", "OQ-159", "OQ-163"] },
+    { "path": "product-truth/03-domain/admin-platform-data-dictionary.md", "covers": "Admin Platform (v0.1, 28 Nov 2026): Person; account, sign-in identity, module and scope grants, membership, access role, role assignment, template, template capability, binding, override, data scope, audit event, record ACL, delegation, Tier 3 type grant, operator session (A01-A18 refined/new; OBJ-01, OBJ-07, OBJ-08, OBJ-11, OBJ-33, OBJ-35); module, capability, parent set (R01-R03), family access (F01); module switch-on, setup run and task, legacy systems register, identity provider (PA01-PA05, OBJ-32); setting definition (PA06, OBJ-13); purpose, retention rule, privacy notice (PA07-PA09, OBJ-34); access review cycle (PA10, OBJ-36)", "status": "Proposed (DL-165..DL-179 Assumed)", "cites": ["DL-165..DL-179", "OQ-194..OQ-209", "DL-32..DL-53", "DL-69"] },
+    { "path": "product-truth/03-domain/samples/admin-platform-sample.json", "covers": "Synthetic Admin Platform sample (Daniel Tan, Aisha Karim, Dr Anita Rao, Leo Fernandes; 30 Nov 2026)", "status": "Synthetic" },
     { "path": "product-truth/04-access/README.md", "covers": "Access paths by actor, constraints, gaps", "status": "Mixed", "cites": ["RES-F06", "DL-07", "DL-09", "DL-16..DL-21"] },
     { "path": "product-truth/04-access/role-catalogue.md", "covers": "School roles, access roles, role families with no definition", "status": "Known/Assumed/Open" },
     { "path": "product-truth/04-access/rbac-model.md", "covers": "Six-layer RBAC model and evaluation algorithm", "status": "Assumed; changes Confirmed", "cites": ["DL-16..DL-21", "DL-32..DL-38"] },
@@ -63,7 +65,7 @@
     "admin-platform": {
       "status": "Proposed (v1 scope DL-118 Confirmed)",
       "folder": "product-truth/06-experience/admin-platform/",
-      "screen_ids": "SCR-HR-*, SCR-GA-*, SCR-TM-*, SCR-GOV-*, SCR-CL-01, SCR-ME-*, SCR-HOME-01, SCR-AUTH-01, SCR-SYS-*",
+      "screen_ids": "SCR-HR-*, SCR-GA-*, SCR-TM-*, SCR-GOV-*, SCR-CL-01, SCR-ME-*, SCR-HOME-01, SCR-AUTH-01, SCR-SYS-*; prototype SCR-ADM-01..SCR-ADM-14 (DL-179 proposed navigation)", "dictionary": "product-truth/03-domain/admin-platform-data-dictionary.md",
       "scenarios": ["S1", "S2", "S3", "S4", "S5"]
     }
   },
@@ -142,6 +144,23 @@
       "product-truth/03-domain/teaching-timetable-data-dictionary.md",
       "product-truth/03-domain/organisation-data-dictionary.md",
       "product-truth/04-access/permission-catalogue.md",
+      "product-truth/08-open-questions/open-questions.md"
+    ],
+    "admin-platform-data": [
+      "product-truth/03-domain/objects/OBJ-01-person.md",
+      "product-truth/03-domain/objects/OBJ-07-access-grant.md",
+      "product-truth/03-domain/objects/OBJ-08-team-membership.md",
+      "product-truth/03-domain/objects/OBJ-32-campus-setup.md",
+      "product-truth/03-domain/objects/OBJ-33-access-role-and-template.md",
+      "product-truth/03-domain/objects/OBJ-34-data-protection-settings.md",
+      "product-truth/03-domain/objects/OBJ-35-special-access.md",
+      "product-truth/03-domain/objects/OBJ-36-access-review.md",
+      "product-truth/03-domain/admin-platform-data-dictionary.md",
+      "product-truth/03-domain/samples/admin-platform-sample.json",
+      "product-truth/03-domain/organisation-data-dictionary.md",
+      "product-truth/04-access/rbac-model.md",
+      "product-truth/04-access/permission-catalogue.md",
+      "product-truth/06-experience/admin-platform/README.md",
       "product-truth/08-open-questions/open-questions.md"
     ],
     "teaching-timetable-data": [

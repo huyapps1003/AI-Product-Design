@@ -17,8 +17,8 @@ actions:
   - gov.report.export
 events: []
 variation: []
-open: [OQ-09 purpose values]
-sample: product-truth/06-experience/admin-platform/README.md#canonical-sample-data
+open: [OQ-09 purpose values, OQ-199 audit retention per country]   # purpose_code, acting_for_user_id, operator_session_id added (admin platform dictionary)
+sample: product-truth/03-domain/samples/admin-platform-sample.json   # admin platform dictionary (DL-165)
 patterns: [AP-06, AP-07]
 ---
 

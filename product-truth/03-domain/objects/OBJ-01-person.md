@@ -1,7 +1,7 @@
 ---
 id: OBJ-01
 name: Person
-entities: [Person (DL-42), A01, A02]
+entities: [Person (DL-42), A01, A02]   # A01 account, A02 sign-in identity; refined in the admin platform dictionary (DL-165, DL-169)
 owner: identity_access
 home: global            # Tier 1 only (DL-39); profiles live in cells
 effective_dated: false
@@ -23,8 +23,8 @@ actions:
   - identity.account.suspend
 events: [PersonCreated, PersonMerged, AccountStatusChanged]
 variation: [MC-15]
-open: []   # OQ-39 answered by DL-55: guardian profile per child's data location
-sample: product-truth/06-experience/admin-platform/README.md#canonical-sample-data
+open: [OQ-195 primary email for multi-brand staff, OQ-204 dormant threshold, OQ-209 parent and student sign-in]   # OQ-39 answered by DL-55
+sample: product-truth/03-domain/samples/admin-platform-sample.json   # admin platform dictionary (DL-165)
 patterns: [AP-03, AP-07, AP-14]
 ---
 

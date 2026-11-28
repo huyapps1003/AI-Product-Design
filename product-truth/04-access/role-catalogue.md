@@ -62,6 +62,8 @@ Which access role (A06) and position template (OQ-192) each of these maps to bel
 
 `GLOBAL_ADMIN` · `PLATFORM_AUDITOR` · `HR_ADMIN` · `HR_VIEWER` · `MODULE_ADMIN` · `CAMPUS_LEADER` · `TEACHER` · `MEMBER` · `VIEWER`. Definitions and the persona × capability matrix are in [roles-personas.md](../02-users/roles-personas.md#access-role-catalog-a06--proposed-values). Self-service (My profile, My access) comes with an active account and is not a role.
 
+Proposed new values (admin platform dictionary, Assumed): `BRAND_ADMIN` at a Brand node (DL-178; who holds it OQ-198), `DATA_PROTECTION_LEAD` at a Brand-country node (DL-176; OQ-201), `PLATFORM_SUPPORT` for GSG support engineers, usable only through approved operator sessions (DL-175; OQ-15). Where each role may be assigned and whether it needs a second approver are in the [admin platform dictionary § A06](../03-domain/admin-platform-data-dictionary.md#a06--access-role).
+
 ## Role families with no definition
 
 People in these groups exist (research §03), but product truth has no school role, access role or persona for them. Don't invent one in a design; cite the open question.
