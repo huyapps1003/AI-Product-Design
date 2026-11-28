@@ -6,7 +6,7 @@
 ## 1. Context
 
 - Global Campus OS is the school platform GSG runs for all its brands (DL-22). v1 is the staff web app (DL-118); the Admin Platform is a set of sections inside it (DL-05), not a separate product.
-- Scope (DL-165, Assumed): **how GSG and each brand set Campus OS up, who can sign in, how access is given, reviewed and explained, and the data protection settings every module reads.**
+- Scope (DL-165, Confirmed): **how GSG and each brand set Campus OS up, who can sign in, how access is given, reviewed and explained, and the data protection settings every module reads.**
 - Viewers: **Daniel Tan**, Global admin, GSG platform team (desktop, main viewer) · **Aisha Karim**, Brand admin for OWIS (new role, DL-178) · **Dr Anita Rao**, Campus leader, SMART Campus Punggol (approves support sessions and Tier 3 grants, attests access each term) · **Leo Fernandes**, GSG support engineer (no standing access to school data).
 - Today is **Monday 30 Nov 2026, 09:30 SGT**. OWIS Digital Campus (SG-OWD) is moving onto Campus OS for 4 Jan 2027 (sample date).
 - All admin screens are desktop first (DL-06). Dr Rao's approvals also work on a phone.

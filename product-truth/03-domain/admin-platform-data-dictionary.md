@@ -1,6 +1,6 @@
 # Global Campus OS — Admin Platform Data Dictionary v0.1 (draft)
 
-**Status:** Proposed draft, 28 Nov 2026. DL-165…DL-178 Confirmed; DL-179…DL-179 Assumed, awaiting Henry; OQ-194…OQ-210 Open (OQ-194, OQ-196 answered) · **Owner:** Henry
+**Status:** Proposed draft, 28 Nov 2026. DL-165…DL-179 all Confirmed by Henry on 28 Nov 2026; OQ-194…OQ-210 Open (OQ-194, OQ-196 answered) · **Owner:** Henry
 **Cites:** [Architecture v1](../00-sources/Global_Campus_OS_Product_Architecture_v1.md) § Multi-campus and tenancy model, § Users and roles, § Security ("cross-campus access is granted, time-boxed and logged"; Tier 3 visible only to named roles, every read logged), § Shared core services (Identity and roles, Tenancy and config, Events and audit), § Integrations (Google Workspace, payroll, ERP) · [Employee Data Dictionary v1](../00-sources/Global_Campus_OS_Employee_Data_Dictionary_v1.md) A01–A14, R01, R02, BR-06…BR-17, Decisions D07…D13 · [architecture.md](./architecture.md) AR-01…AR-14, AP-01…AP-14 · [organisation dictionary](./organisation-data-dictionary.md) OR01–OR09 · [academic structure dictionary](./academic-structure-data-dictionary.md) AC06, AC07 · [cases & communications dictionary](./cases-communications-data-dictionary.md) CC01 access case types · [staff & HR dictionary](./staff-hr-data-dictionary.md) E02, E07, HR15 · [04-access/](../04-access/README.md) rbac-model, permission-catalogue, role-catalogue · [data-controller-model](../05-data-governance/data-controller-model.md) · [Admin Platform slice](../06-experience/admin-platform/README.md) S1–S5, SCR-GA/TM/GOV · DL-02, DL-04, DL-05, DL-07…DL-09, DL-13, DL-14, DL-16…DL-21, DL-22, DL-32…DL-53, DL-69, DL-73, DL-96, DL-118, DL-147, DL-149, DL-160, DL-163 · OQ-01, OQ-05, OQ-06, OQ-09, OQ-12, OQ-15, OQ-16, OQ-18, OQ-20, OQ-21, OQ-26, OQ-27, OQ-32, OQ-34, OQ-43, OQ-58, OQ-192
 **Tóm tắt (VI):** Từ điển dữ liệu cho Admin Platform, "xương sống" của ứng dụng web cho nhân viên (DL-118): mở brand và campus (checklist go-live, bật module theo campus, sổ "hệ thống nào là nguồn" khi chuyển đổi), đăng nhập và tài khoản (nhà cung cấp danh tính theo brand), vai trò và quyền truy cập (nhà của A01–A17, R01–R03 từ Employee DD v1, thêm A18 phiên hỗ trợ của GSG), rà soát quyền định kỳ, và cài đặt bảo vệ dữ liệu (danh mục mục đích, quy tắc lưu giữ, thông báo quyền riêng tư; bên kiểm soát dữ liệu vẫn để trống đến khi có OQ-06). Mọi quyết định mới (DL-165…DL-179) đang là giả định chờ Henry.
 
@@ -54,7 +54,7 @@ Proposed on a decision card on 28 Nov 2026 (recommended "Setup, access and data 
 | A03 | Module Grant (refined) | Global | Known entity (Employee DD A03); scope node Confirmed (DL-17, DL-40) |
 | A04 | Scope Grant (refined from GA Campus Grant) | Global | Known entity (Employee DD A04); scope node Confirmed (DL-40); meaning Known (DL-171) |
 | A05 | Module Membership (refined) | Cell | Known entity (Employee DD A05); scope node Confirmed (DL-35) |
-| A06 | Access Role | Global | Known entity (Employee DD A06); owner Confirmed (DL-51); new roles Assumed (DL-176, DL-178) |
+| A06 | Access Role | Global | Known entity (Employee DD A06); owner Confirmed (DL-51); new roles Brand Admin and Data Protection Lead Confirmed (DL-176, DL-178) |
 | A07 | Role Assignment | Cell | Known entity (Employee DD A07) |
 | A08 | Permission Template | Global | Known entity (Employee DD A08); BASE/MODULE Confirmed (DL-20) |
 | A09 | Template Capability | Global | Known entity (Employee DD A09); deny wins Confirmed (DL-07) |
@@ -509,7 +509,7 @@ Each campus case lists one line per person with any A03, A04, A05, A16 or A17 at
 
 ## Field visibility by role
 
-`M` manage, `A` approve, `V` view, `C` counts only, `O` own, `—` none. All cells Assumed (DL-171, DL-176, DL-178) except where cited.
+`M` manage, `A` approve, `V` view, `C` counts only, `O` own, `—` none. Cells follow DL-171, DL-176 and DL-178 (Confirmed); individual cells not otherwise cited are Assumed.
 
 | Record | Global Admin (GSG) | Brand Admin | Campus Leader | Module Admin | Data Protection Lead | Platform Auditor | Platform Support | Staff (self) |
 |---|---|---|---|---|---|---|---|---|
@@ -600,7 +600,7 @@ AccountInvited, AccountActivated, AccountSuspended, AccountDisabled, SignInIdent
 
 Existing seeds: `ga.module_grant.manage`, `ga.campus_grant.manage`, `ga.catalog.manage`, `ga.template.publish`, `tm.membership.manage`, `tm.scope.manage`, `gov.access_review.decide`, `gov.audit.view`, `gov.audit.view_snapshot`, `gov.report.export`, `gov.case.view_all`, `identity.account.view`, `identity.account.suspend`, `identity.person.view`, `identity.person.merge`, `org.campus_operator.manage`, `org.setting.manage`. New, added to the [permission catalogue](../04-access/permission-catalogue.md): `ga.module_switch.manage` · `ga.setup.manage`, `ga.setup.approve` · `ga.authority.manage` · `ga.setting_definition.manage` · `identity.idp.manage` · `identity.account.invite` · `ga.delegation.manage` · `ga.type_grant.request`, `ga.type_grant.approve` · `ga.operator_session.request`, `ga.operator_session.approve`, `ga.operator_session.break_glass` · `gov.review_cycle.manage` · `gov.purpose.manage` · `gov.retention.manage` · `gov.notice.manage`.
 
-## Decisions (DL-165…DL-179, Assumed, awaiting Henry)
+## Decisions (DL-165…DL-179, Confirmed by Henry 28 Nov 2026)
 
 | ID | Decision | Why |
 |---|---|---|
@@ -650,7 +650,7 @@ Existing questions this dictionary depends on: OQ-01, OQ-02, OQ-05, OQ-06, OQ-09
 |---|---|---|---|---|
 | Identity and Access Registry | Person, A01–A18, R01–R03, F01, PA07–PA10 | GSG platform team (DL-51) | Every module (decision service per cell), apps (sign-in, switcher), audit | Explained decisions (DL-38); events with IDs only |
 | Tenancy and config | PA01–PA06 (and OR01–OR09) | GSG platform team; Brand Admins for their brand (DL-178) | Every module (switch-on, settings, source chips), migration tooling | Resolved value with source node (AP-02); `authoritative_system` per field group |
-| Identity providers | Authentication, MFA | Each brand's provider (GIIS: Google Workspace) | A02 | OIDC or SAML; subject ID only |
+| Identity providers | Authentication, MFA | One GSG-wide provider (DL-169; product OQ-210); GIIS today Google Workspace until it moves | A02 | OIDC or SAML; subject ID only |
 | Staff & HR | E02, E07 | Staff & HR (DL-146) | Registry (account lifecycle, position templates) | EmploymentStarted/Ended/Suspended, CampusAssignmentChanged |
 | Cases & Communications | CC03 cases | Engagement (DL-119) | Access requests, reviews, go-live, operator sessions | Case types above; deadlines from CC02 |
 | Platform services | A14 storage and search | Platform services | Audit screens, reports | Append-only; redacted global index |

@@ -36,7 +36,7 @@ patterns: [AP-09, AP-10, AP-13, AP-14]
 
 # OBJ-34 · Data protection settings
 
-**Status:** Proposed with the admin platform dictionary v0.1, 28 Nov 2026 (DL-176 Assumed) · **Owner:** Henry
+**Status:** Proposed with the admin platform dictionary v0.1, 28 Nov 2026 (DL-176 Confirmed by Henry 28 Nov 2026) · **Owner:** Henry
 **Cites:** [admin platform dictionary](../admin-platform-data-dictionary.md) · [data-controller-model](../../05-data-governance/data-controller-model.md) · DL-44, AR-04, AR-10
 
 The purpose catalogue feeds the purpose prompt on Tier 3 reveal, cross-cell access and support sessions (AR-10). Retention rules are per country and record type; a rule with no period deletes nothing and shows "Pending · OQ-43". Privacy notices are versioned per brand-country and audience and never name a controller until OQ-06 is answered. Consent records and data-sharing records are not here (OBJ-17, OBJ-18).

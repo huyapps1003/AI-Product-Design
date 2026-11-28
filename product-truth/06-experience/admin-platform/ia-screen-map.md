@@ -4,7 +4,7 @@
 
 **Tóm tắt (VI):** Định nghĩa shell (thanh scope campus, module switcher), danh mục module chuẩn cho R01, cây điều hướng của Admin Platform và **danh sách 37 màn hình** có ID, persona, entity, layout MinV và kịch bản liên quan. Designer chọn một ID và bắt đầu wireframe.
 
-> **Proposed change, 28 Nov 2026 (DL-179, Assumed).** Group the admin sections by task instead of by entity owner: **Setup** (Brands and campuses with setup runs, Modules switch-on, Settings, Sign-in, Legacy systems) · **People and access** (Users, Roles and templates, Requests, Special access, Reviews) · **Data protection** (Data locations, Purposes, Retention, Notices) · **Audit**. Staff and HR screens (SCR-HR-*) move to the Staff & HR module. The prototype uses IDs SCR-ADM-01…SCR-ADM-14; this map is unchanged until Henry confirms. Source: [admin platform dictionary](../../03-domain/admin-platform-data-dictionary.md).
+> **Change, 28 Nov 2026 (DL-179, Confirmed by Henry).** Group the admin sections by task instead of by entity owner: **Setup** (Brands and campuses with setup runs, Modules switch-on, Settings, Sign-in, Legacy systems) · **People and access** (Users, Roles and templates, Requests, Special access, Reviews) · **Data protection** (Data locations, Purposes, Retention, Notices) · **Audit**. Staff and HR screens (SCR-HR-*) move to the Staff & HR module. The prototype uses IDs SCR-ADM-01…SCR-ADM-14; this map is unchanged until Henry confirms. Source: [admin platform dictionary](../../03-domain/admin-platform-data-dictionary.md).
 
 ## Shell
 

@@ -32,7 +32,7 @@ patterns: [AP-07, AP-13, AP-14]
 
 # OBJ-36 · Access review
 
-**Status:** Proposed with the admin platform dictionary v0.1, 28 Nov 2026 (DL-174 Assumed) · **Owner:** Henry
+**Status:** Proposed with the admin platform dictionary v0.1, 28 Nov 2026 (DL-174 Confirmed by Henry 28 Nov 2026) · **Owner:** Henry
 **Cites:** [admin platform dictionary](../admin-platform-data-dictionary.md) · [S5 flow](../../06-experience/admin-platform/flows/S5-access-review.md) · DL-08
 
 Every term a review cycle opens one attestation case per campus, due in 10 working days (S5). The Campus Leader keeps, reduces or removes each person's access, flagged rows first. Undecided rows escalate to the brand-country head; a missed review never removes access by itself (DL-174).

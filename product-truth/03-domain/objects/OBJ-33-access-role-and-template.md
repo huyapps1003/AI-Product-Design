@@ -30,7 +30,7 @@ patterns: [AP-05, AP-06, AP-07, AP-14]
 
 # OBJ-33 · Access role and template
 
-**Status:** Proposed with the admin platform dictionary v0.1, 28 Nov 2026 (DL-172, DL-173, DL-178 Assumed) · **Owner:** Henry
+**Status:** Proposed with the admin platform dictionary v0.1, 28 Nov 2026 (DL-172, DL-173, DL-178 Confirmed by Henry 28 Nov 2026) · **Owner:** Henry
 **Cites:** [admin platform dictionary](../admin-platform-data-dictionary.md) · [permission catalogue](../../04-access/permission-catalogue.md) · DL-07, DL-14, DL-20, DL-33, DL-51, DL-53, DL-149
 
 Access roles and templates are defined once by the GSG platform team; brands ask for changes (DL-172). A template is versioned and a published version never changes; publishing shows how many members are still on older versions. Each brand keeps a position → standard template list used when a campus assignment changes (DL-149, DL-173); it never contains Tier 3 capabilities.

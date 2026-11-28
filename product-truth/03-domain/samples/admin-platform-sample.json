@@ -1,5 +1,5 @@
 {
-  "_about": "Synthetic sample for Admin Platform screens (OBJ-01, OBJ-07, OBJ-08, OBJ-11, OBJ-32 to OBJ-36). All people, accounts, dates, go-live plans, sessions and review numbers are invented. Go-live dates and module switch-on values are SAMPLE values, not GSG plans (OQ-197). Operating entities, controller and retention periods stay pending (OQ-02, OQ-06, OQ-43). Dictionary: product-truth/03-domain/admin-platform-data-dictionary.md (DL-165..DL-179 Assumed).",
+  "_about": "Synthetic sample for Admin Platform screens (OBJ-01, OBJ-07, OBJ-08, OBJ-11, OBJ-32 to OBJ-36). All people, accounts, dates, go-live plans, sessions and review numbers are invented. Go-live dates and module switch-on values are SAMPLE values, not GSG plans (OQ-197). Operating entities, controller and retention periods stay pending (OQ-02, OQ-06, OQ-43). Dictionary: product-truth/03-domain/admin-platform-data-dictionary.md (DL-165..DL-179 Confirmed 28 Nov 2026).",
   "today": "2026-11-30T09:30:00+08:00",
   "viewers": [
     {
