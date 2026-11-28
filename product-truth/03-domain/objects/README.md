@@ -10,19 +10,19 @@ A design object is something a user sees, finds and acts on. Each maps to dictio
 
 | ID | Object | Entities | Owner (writer) | Home | Top tier | Card |
 |---|---|---|---|---|---|---|
-| OBJ-01 | Person | Person, A01, A02 | Identity and Access Registry | Global | T1 | [card](./OBJ-01-person.md) |
+| OBJ-01 | Person | Person, A01, A02 (defined in the [admin platform dictionary](../admin-platform-data-dictionary.md), DL-165) | Identity and Access Registry | Global | T1 | [card](./OBJ-01-person.md) |
 | OBJ-02 | Student | ST01, ST06–ST10 | Student Records | Cell | T3 | [card](./OBJ-02-student.md) |
 | OBJ-03 | Enrolment | ST02, ST03 | Admissions creates, Student Records holds | Cell | T2 | [card](./OBJ-03-enrolment.md) |
 | OBJ-04 | Guardian | ST04, ST05, ST07 | Student Records | Cell | T2 | [card](./OBJ-04-guardian.md) |
 | OBJ-05 | Employee | E01, E07, E08, HR02 (employee, campus assignment, external mapping, emergency contact; staff & HR dictionary, DL-146) | Staff and HR | Cell | T2 (T3 identity numbers) | [card](./OBJ-05-employee.md) |
 | OBJ-06 | Employment | E02–E05, HR01, HR15 (employment, department, org assignment, position, contract term, checklist task) | Staff and HR | Cell | T2 | [card](./OBJ-06-employment.md) |
-| OBJ-07 | Access grant | A03, A04 | Access Registry (Global Admin) | Global | T1 | [card](./OBJ-07-access-grant.md) |
-| OBJ-08 | Team membership | A05, A07, A10, A12, A13 | Access Registry (Module Admin) | Cell | T1 | [card](./OBJ-08-team-membership.md) |
+| OBJ-07 | Access grant | A03 module grant, A04 scope grant (admin platform dictionary) | Access Registry (Global Admin) | Global | T1 | [card](./OBJ-07-access-grant.md) |
+| OBJ-08 | Team membership | A05, A07, A10, A12, A13 (admin platform dictionary) | Access Registry (Module Admin) | Cell | T1 | [card](./OBJ-08-team-membership.md) |
 | OBJ-09 | Family access | F01, R03 | Access Registry (system) | Cell | T1 | [card](./OBJ-09-family-access.md) |
 | OBJ-10 | Case | CC01–CC09 (case type, case policy, case, deadline, participant, decision, activity, feedback item, working-day calendar), A15 | Engagement (Cases & Communications, DL-119) | Cell | T3 when restricted | [card](./OBJ-10-case.md) |
 | OBJ-11 | Audit event | A14 | Platform services | Cell, redacted global index | T3 snapshots | [card](./OBJ-11-audit-event.md) |
 | OBJ-12 | Teaching allocation | TE04–TE07 (teaching group, group membership, teaching assignment, academic responsibility; replace Employee DD D01, D02) | Teaching (DL-131) | Cell | T1 | [card](./OBJ-12-teaching-allocation.md) |
-| OBJ-13 | Scope node and campus | OR01–OR06, OR09 | Tenancy and config | Global | T1 | [card](./OBJ-13-scope-node.md) |
+| OBJ-13 | Scope node and campus | OR01–OR06, OR09, PA06 (setting definition) | Tenancy and config | Global | T1 | [card](./OBJ-13-scope-node.md) |
 | OBJ-14 | Legal entity | OR07, OR08 | Tenancy and config | Global | T1 | [card](./OBJ-14-legal-entity.md) |
 | OBJ-15 | Class | CL01–CL07 (class, class plan, class staff, placement, house, rollover); year, term, pack, offering, grade and subject are OBJ-25 | Academic structure (Classes, DL-70) | Cell | T2 (rollover outcomes, move notes) | [card](./OBJ-15-class.md) |
 | OBJ-16 | Application | AD01–AD10 | Admissions | Cell | T3 (documents, SEN outcome) | [card](./OBJ-16-application.md) |
@@ -39,6 +39,11 @@ A design object is something a user sees, finds and acts on. Each maps to dictio
 | OBJ-29 | Compliance record | HR08–HR10 (compliance item type, requirement, record) | Staff and HR (DL-146) | Cell | T3 (work pass, checks) | [card](./OBJ-29-compliance-record.md) |
 | OBJ-30 | Vacancy and candidate | HR11–HR14 (vacancy, candidate application, interview feedback, offer) | Staff and HR (DL-146) | Cell | T2 | [card](./OBJ-30-vacancy-and-candidate.md) |
 | OBJ-31 | Appraisal and training | HR16–HR18 (appraisal cycle, appraisal, training record) | Staff and HR (DL-146) | Cell | T2 | [card](./OBJ-31-appraisal-and-training.md) |
+| OBJ-32 | Campus setup and go-live | PA01–PA05 (module switch-on, setup run, setup task, legacy systems register, identity provider connection) | Tenancy and config (Admin Platform, DL-165) | Global | T1 | [card](./OBJ-32-campus-setup.md) |
+| OBJ-33 | Access role and template | A06, A08–A10, R01–R03 | Identity and Access Registry (GSG platform team, DL-51) | Global | T1 | [card](./OBJ-33-access-role-and-template.md) |
+| OBJ-34 | Data protection settings | PA07–PA09 (purpose, retention rule, privacy notice) | Identity and Access Registry (Admin Platform, DL-176) | Global | T1 | [card](./OBJ-34-data-protection-settings.md) |
+| OBJ-35 | Special access | A16–A18 (delegation, Tier 3 type grant, operator session) | Identity and Access Registry | Cell | T1 (opens T3 for A17) | [card](./OBJ-35-special-access.md) |
+| OBJ-36 | Access review | PA10, CC03 (review cycle, CAMPUS_ATTESTATION cases) | Identity and Access Registry with Engagement | Cell | T1 | [card](./OBJ-36-access-review.md) |
 
 ## Card format
 

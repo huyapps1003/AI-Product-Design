@@ -11,14 +11,15 @@ states:                    # A05 membership_status
   ACTIVE: success
   DEACTIVATED: warning
   REMOVED: default
-scope_sources: [STATIC, ALLOCATION, ORG_UNIT]   # relationship removed (DL-37)
+scope_sources: [STATIC, ALLOCATION, ORG_UNIT]   # relationship removed (DL-37); ORG_UNIT dimension shown as Department (DL-150)
+routes: [POSITION_TEMPLATE, REQUEST, ADMIN, ALLOCATION]   # how the membership arrived (DL-171); module must be Live or Pilot (DL-166)
 actions:
   - tm.membership.manage
   - tm.scope.manage            # derived scope is a suggestion by default (DL-16)
 events: [MembershipChanged, ScopeChanged]
 variation: [MC-07]
 open: [Employee DD D08 scope group semantics]
-sample: product-truth/06-experience/admin-platform/README.md#canonical-sample-data
+sample: product-truth/03-domain/samples/admin-platform-sample.json   # admin platform dictionary (DL-165)
 patterns: [AP-01, AP-05, AP-07, AP-14]
 ---
 

@@ -176,6 +176,21 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 | DL-162 | Training records (course, provider, hours, certificate) can clear a matching compliance item; staff request, line manager approves; hours targets a brand-country setting | **Confirmed** (Henry, 27 Nov 2026, decision card \"As proposed\") | staff & HR dictionary; Arch module 12 "training"; HB p.138 IB training at workshops |
 | DL-163 | A concern about a staff member is a RESTRICTED STAFF_CONCERN case (Designated Person, Principal, named HR and the line manager unless conflicted); suspension shows no reason outside the case, suspends the account and makes the teacher "Away" | **Confirmed** (Henry, 27 Nov 2026, decision card \"Include the line manager\") | staff & HR dictionary; HB p.210–213; DL-120, DL-125; DL-13 |
 | DL-164 | HR records live in the data location of the employing entity's country; two countries mean two profiles under one Person; group views counts only | **Confirmed** (Henry, 27 Nov 2026, decision card \"As proposed\") | staff & HR dictionary; DL-39, DL-42, DL-47 |
+| DL-165 | Admin Platform scope: setup and go-live, module switch-on, legacy systems register, setting definitions, sign-in and accounts, roles and access, special access, access reviews, purposes, retention, notices; home of Person, A01–A18, R01–R03, F01; new PA01–PA10 | Assumed | admin platform dictionary |
+| DL-166 | Modules switched on per brand-country or campus (Planned, Pilot, Live, Paused, Off); members only where Live or Pilot | Assumed | admin platform dictionary |
+| DL-167 | A campus or brand-country goes live through a setup run (blocking and non-blocking tasks, most checked automatically); brand-country head signs off a CAMPUS_GO_LIVE case | Assumed | admin platform dictionary |
+| DL-168 | Legacy systems register (PA04) per brand-country × module × field group: system, direction, cutover date, conflict reviewer; a module is Live only when its rows are complete | Assumed | admin platform dictionary |
+| DL-169 | Staff sign in through the brand's identity provider with SSO and MFA (GIIS: Google Workspace); one account per Person, one or more sign-in identities matched by provider subject, never email | Assumed | admin platform dictionary |
+| DL-170 | Account lifecycle: INVITED from the employment, invite N days before start (DL-13), ACTIVE on first sign-in, SUSPENDED with the employment, DISABLED after the last day; Dormant is a review flag; service accounts for integrations | Assumed | admin platform dictionary |
+| DL-171 | Access arrives three ways through the Registry (automatic from facts, ACCESS_REQUEST case, admin inside the ceiling) and every record keeps its route; scope grant puts a person on a node, module grant is the module ceiling | Assumed | admin platform dictionary |
+| DL-172 | GSG platform team keeps roles, templates and capabilities; published template versions never change; brands don't create roles in v1; overrides stay off (DL-14) | Assumed | admin platform dictionary |
+| DL-173 | Each brand keeps a position → standard template list for DL-149; brand HR proposes, platform team publishes; never Tier 3 | Assumed | admin platform dictionary |
+| DL-174 | Termly access review: one CAMPUS_ATTESTATION case per campus in week 1 of term, due in 10 working days; flagged rows first; undecided rows escalate, never auto-remove | Assumed | admin platform dictionary |
+| DL-175 | Operator sessions (A18): named GSG support engineer, one campus, named modules, purpose and ticket, read-only, max 4 hours, Tier 3 masked, every screen logged; Campus Leader approves (DL-52); break-glass for security only, notice within 24 hours | Assumed | admin platform dictionary |
+| DL-176 | Purposes, retention rules and privacy notices are edited in the Admin Platform with legal fields pending; new Data Protection Lead role per brand-country, no record access by default | Assumed | admin platform dictionary |
+| DL-177 | Setting definitions catalogue (PA06): each key once with owner module, allowed levels, default (empty = Not set) and override policy | Assumed | admin platform dictionary |
+| DL-178 | New Brand Admin role at a Brand node for setup, switch-on, grants and accounts in that brand; definitions stay with Global Admin; second Global Admin approves Brand or Global Admin grants (DL-09) | Assumed | admin platform dictionary |
+| DL-179 | Admin Platform navigation by task: Setup · People and access · Data protection · Audit; staff screens move to Staff & HR; definitions global, assignments and audit in the campus's data location | Assumed | admin platform dictionary |
 
 ---
 
@@ -563,6 +578,14 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Why.** One staff record per Person (DL-42), leave that feeds cover without leaking why (DL-143), and one compliance status that keeps uncleared staff away from children without silent HR actions. The GIIS handbook is a student handbook, so almost every HR value is a candidate until HR owners answer section T.
 - **Open.** OQ-166…OQ-191 (section T), plus OQ-159, OQ-163, OQ-134.
 - **Status.** DL-146 Confirmed by Henry, 25 Nov 2026 (decision card "Full HR"). DL-147 Confirmed CHANGED, 25 Nov 2026 (decision card "Campus OS owns everything": one writer for all staff data from go-live; payroll receives a feed). Also Confirmed: DL-148, DL-149, DL-150, DL-151, DL-152, DL-153, DL-154, DL-155, DL-156, DL-157, DL-158, DL-159, DL-160, DL-161, DL-162, DL-163, DL-164 (one card each). All DL-146…DL-164 Confirmed.
+
+### DL-165…DL-179 — Admin Platform
+- **Context.** After ten campus modules, the Admin Platform (the backbone of the v1 staff web app, DL-118) still had no dictionary: its access entities sat in the Employee Data Dictionary v1 (Proposed) and the RBAC model, and brand and campus go-live, module switch-on, sign-in, purposes, retention and GSG support access had no entities. Henry asked to start on it on 28 Nov 2026, in parallel with a cross-module consistency review.
+- **Decision.** See the table above and [admin platform dictionary § Decisions](../03-domain/admin-platform-data-dictionary.md#decisions-dl-165dl-179-assumed-awaiting-henry). The scope was proposed on a decision card (recommended "Setup, access and data protection").
+- **Why.** One dictionary for everything an admin configures, so module dictionaries can point at accounts, roles, switch-on, settings and purposes instead of describing them; the RBAC decisions (DL-32…DL-38, DL-51…DL-53, DL-69) get entities and screens.
+- **Builds on.** DL-02, DL-05, DL-08, DL-16…DL-20, DL-32…DL-53, DL-69, DL-73, DL-147, DL-149. Uses the held DL-09, DL-13, DL-14 and DL-21 as they stand; they stay Assumed until Henry discusses them.
+- **Open.** OQ-194…OQ-209 (section V), plus OQ-06, OQ-09, OQ-15, OQ-27, OQ-43, OQ-58, OQ-192.
+- **Status.** All Assumed, awaiting Henry.
 
 ### Review of DL-01…DL-21 (22 Nov 2026; policy items held)
 - **Context.** DL-01…DL-21 were set on 25 Oct 2026 so Admin Platform design could start and are all still Assumed (DL-12 Proposed), although later Confirmed decisions build on most of them. The 22 Nov 2026 repo review flagged this.

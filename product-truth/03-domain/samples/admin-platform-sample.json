@@ -1,0 +1,1501 @@
+{
+  "_about": "Synthetic sample for Admin Platform screens (OBJ-01, OBJ-07, OBJ-08, OBJ-11, OBJ-32 to OBJ-36). All people, accounts, dates, go-live plans, sessions and review numbers are invented. Go-live dates and module switch-on values are SAMPLE values, not GSG plans (OQ-197). Operating entities, controller and retention periods stay pending (OQ-02, OQ-06, OQ-43). Dictionary: product-truth/03-domain/admin-platform-data-dictionary.md (DL-165..DL-179 Assumed).",
+  "today": "2026-11-30T09:30:00+08:00",
+  "viewers": [
+    {
+      "key": "daniel",
+      "name": "Daniel Tan",
+      "role": "GLOBAL_ADMIN",
+      "title": "Global Admin · GSG platform team",
+      "scope_node": "gsg",
+      "_note": "Canonical Global Admin (Admin Platform brief)."
+    },
+    {
+      "key": "aisha",
+      "name": "Aisha Karim",
+      "role": "BRAND_ADMIN",
+      "title": "Brand admin · OWIS",
+      "scope_node": "gsg/owis",
+      "_note": "New role proposed by DL-178; who holds it per brand is OQ-198."
+    },
+    {
+      "key": "anita",
+      "name": "Dr Anita Rao",
+      "role": "CAMPUS_LEADER",
+      "title": "Principal · SMART Campus Punggol",
+      "scope_node": "gsg/giis/giis-sg/sg-pgl"
+    },
+    {
+      "key": "leo",
+      "name": "Leo Fernandes",
+      "role": "PLATFORM_SUPPORT",
+      "title": "Support engineer · GSG platform team",
+      "scope_node": "gsg",
+      "_note": "No campus memberships; works only through approved operator sessions (DL-175)."
+    }
+  ],
+  "brands": [
+    {
+      "code": "GIIS",
+      "name": "Global Indian International School",
+      "brand_countries": [
+        "GIIS Singapore",
+        "GIIS India"
+      ],
+      "campuses_live": 3,
+      "brand_admin": "PENDING:OQ-198",
+      "sign_in": "Google Workspace"
+    },
+    {
+      "code": "OWIS",
+      "name": "One World International School",
+      "brand_countries": [
+        "OWIS Singapore"
+      ],
+      "campuses_live": 0,
+      "brand_admin": "Aisha Karim (sample)",
+      "sign_in": "PENDING:OQ-194"
+    }
+  ],
+  "campuses": [
+    {
+      "code": "SG-PGL",
+      "name": "SMART Campus Punggol",
+      "brand": "GIIS",
+      "brand_country": "GIIS Singapore",
+      "data_location": "Singapore",
+      "status": "ACTIVE",
+      "staff": 210,
+      "users_with_access": 204
+    },
+    {
+      "code": "SG-ECS",
+      "name": "East Coast Campus",
+      "brand": "GIIS",
+      "brand_country": "GIIS Singapore",
+      "data_location": "Singapore",
+      "status": "ACTIVE",
+      "staff": 95,
+      "users_with_access": 91,
+      "_note": "Not on GSG's public list (OQ-57)."
+    },
+    {
+      "code": "IN-NOI",
+      "name": "Noida Campus",
+      "brand": "GIIS",
+      "brand_country": "GIIS India",
+      "data_location": "India",
+      "status": "ACTIVE",
+      "staff": 100,
+      "users_with_access": 97
+    },
+    {
+      "code": "SG-OWD",
+      "name": "OWIS Digital Campus, Punggol",
+      "brand": "OWIS",
+      "brand_country": "OWIS Singapore",
+      "data_location": "Singapore",
+      "status": "PLANNED",
+      "staff": 48,
+      "users_with_access": 3,
+      "setup_run": "RUN-OWD"
+    }
+  ],
+  "setup_run": {
+    "id": "RUN-OWD",
+    "node": "gsg/owis/owis-sg/sg-owd",
+    "run_kind": "CAMPUS_MIGRATION",
+    "target_go_live": "2027-01-04",
+    "owner": "Aisha Karim",
+    "approver": "PENDING:OQ-196 (DL-167 proposes the brand-country head)",
+    "run_status": "IN_PROGRESS",
+    "_note": "OWIS SG runs a calendar year (classes sample: Claire Tan's January rollover), so the sample go-live is the first school day of 2027.",
+    "tasks": [
+      {
+        "code": "NODE_CREATED",
+        "label": "Campus in the scope tree",
+        "blocking": true,
+        "mode": "AUTO",
+        "status": "DONE",
+        "owner": "Global Admin",
+        "detail": "gsg/owis/owis-sg/sg-owd · code SG-OWD is a placeholder (OQ-55)"
+      },
+      {
+        "code": "OPERATOR_LINKED",
+        "label": "Operating entity linked from go-live",
+        "blocking": true,
+        "mode": "AUTO",
+        "status": "BLOCKED",
+        "owner": "Global Admin",
+        "detail": "[operating entity — OQ-02]",
+        "oq": "OQ-02"
+      },
+      {
+        "code": "DATA_LOCATION_LIVE",
+        "label": "Data location live",
+        "blocking": true,
+        "mode": "AUTO",
+        "status": "DONE",
+        "owner": "Platform team",
+        "detail": "Singapore (shared with GIIS Singapore)"
+      },
+      {
+        "code": "SIGN_IN_CONNECTED",
+        "label": "Staff sign-in connected",
+        "blocking": true,
+        "mode": "AUTO",
+        "status": "OPEN",
+        "owner": "Brand admin",
+        "detail": "OWIS identity provider unknown",
+        "oq": "OQ-194"
+      },
+      {
+        "code": "PROGRAMMES_SET",
+        "label": "Programmes set up",
+        "blocking": true,
+        "mode": "AUTO",
+        "status": "DONE",
+        "owner": "Academic coordinator",
+        "detail": "Cambridge Primary, Cambridge Lower Secondary (academic structure sample)"
+      },
+      {
+        "code": "YEAR_PUBLISHED",
+        "label": "Academic year 2027 published",
+        "blocking": true,
+        "mode": "AUTO",
+        "status": "OPEN",
+        "owner": "Principal",
+        "detail": "Draft dates waiting for Claire Tan"
+      },
+      {
+        "code": "LEADER_ASSIGNED",
+        "label": "Campus Leader assigned",
+        "blocking": true,
+        "mode": "AUTO",
+        "status": "DONE",
+        "owner": "Brand admin",
+        "detail": "Claire Tan · Campus Leader from 4 Jan 2027"
+      },
+      {
+        "code": "MODULES_PLANNED",
+        "label": "Module go-live dates set",
+        "blocking": true,
+        "mode": "AUTO",
+        "status": "DONE",
+        "owner": "Brand admin",
+        "detail": "5 modules planned"
+      },
+      {
+        "code": "AUTHORITY_FILLED",
+        "label": "Legacy systems listed for every module",
+        "blocking": true,
+        "mode": "AUTO",
+        "status": "OPEN",
+        "owner": "Brand admin with OWIS IT",
+        "detail": "2 of 5 modules complete",
+        "oq": "OQ-27"
+      },
+      {
+        "code": "MODULE_ADMINS",
+        "label": "Module admins assigned",
+        "blocking": true,
+        "mode": "AUTO",
+        "status": "OPEN",
+        "owner": "Brand admin",
+        "detail": "3 of 5 modules"
+      },
+      {
+        "code": "POSITION_TEMPLATES",
+        "label": "Position access templates published",
+        "blocking": true,
+        "mode": "AUTO",
+        "status": "OPEN",
+        "owner": "Platform team",
+        "detail": "OWIS list drafted, not published",
+        "oq": "OQ-192"
+      },
+      {
+        "code": "STAFF_IMPORTED",
+        "label": "Staff imported and invited",
+        "blocking": true,
+        "mode": "AUTO",
+        "status": "OPEN",
+        "owner": "Brand HR",
+        "detail": "48 staff imported · invites go out 28 Dec (7 days before start)"
+      },
+      {
+        "code": "NOTICE_PUBLISHED",
+        "label": "Staff privacy notice published",
+        "blocking": true,
+        "mode": "AUTO",
+        "status": "OPEN",
+        "owner": "Data protection lead",
+        "detail": "Draft v1 · controller pending",
+        "oq": "OQ-06"
+      },
+      {
+        "code": "SETTINGS_REVIEWED",
+        "label": "Brand-country settings reviewed",
+        "blocking": false,
+        "mode": "MANUAL",
+        "status": "DONE",
+        "owner": "Brand admin",
+        "detail": "14 keys Not set accepted"
+      },
+      {
+        "code": "FEE_PLANS",
+        "label": "Fee plans approved",
+        "blocking": false,
+        "mode": "AUTO",
+        "status": "NOT_NEEDED",
+        "owner": "Finance Controller",
+        "detail": "Fees & Billing not switched on at go-live"
+      },
+      {
+        "code": "CLASSES_PLANNED",
+        "label": "Class plan approved",
+        "blocking": false,
+        "mode": "AUTO",
+        "status": "DONE",
+        "owner": "Principal",
+        "detail": "2027 class plan approved"
+      },
+      {
+        "code": "TRAINING_DONE",
+        "label": "Campus admins trained",
+        "blocking": false,
+        "mode": "MANUAL",
+        "status": "OPEN",
+        "owner": "Brand admin",
+        "detail": "Session booked 14 Dec"
+      }
+    ]
+  },
+  "modules": [
+    "student_records",
+    "admissions",
+    "teaching_learning",
+    "assessment",
+    "attendance_conduct",
+    "fees_finance",
+    "communication_cases",
+    "staff_hr"
+  ],
+  "module_names": {
+    "student_records": "Student Records",
+    "admissions": "Admissions",
+    "teaching_learning": "Teaching & Timetable",
+    "assessment": "Assessment",
+    "attendance_conduct": "Attendance",
+    "fees_finance": "Fees & Billing",
+    "communication_cases": "Cases & Communications",
+    "staff_hr": "Staff & HR"
+  },
+  "module_switch_on": {
+    "_note": "SAMPLE values only; real go-live order per brand is OQ-197.",
+    "SG-PGL": {
+      "student_records": [
+        "LIVE",
+        "2026-08-03"
+      ],
+      "admissions": [
+        "LIVE",
+        "2026-08-03"
+      ],
+      "teaching_learning": [
+        "LIVE",
+        "2026-08-03"
+      ],
+      "assessment": [
+        "PILOT",
+        "2026-11-02"
+      ],
+      "attendance_conduct": [
+        "LIVE",
+        "2026-08-03"
+      ],
+      "fees_finance": [
+        "PLANNED",
+        "2027-04-01"
+      ],
+      "communication_cases": [
+        "LIVE",
+        "2026-09-01"
+      ],
+      "staff_hr": [
+        "LIVE",
+        "2026-08-03"
+      ]
+    },
+    "SG-ECS": {
+      "student_records": [
+        "LIVE",
+        "2026-08-03"
+      ],
+      "admissions": [
+        "LIVE",
+        "2026-08-03"
+      ],
+      "teaching_learning": [
+        "LIVE",
+        "2026-08-03"
+      ],
+      "assessment": [
+        "PLANNED",
+        "2027-04-01"
+      ],
+      "attendance_conduct": [
+        "LIVE",
+        "2026-08-03"
+      ],
+      "fees_finance": [
+        "PLANNED",
+        "2027-04-01"
+      ],
+      "communication_cases": [
+        "LIVE",
+        "2026-09-01"
+      ],
+      "staff_hr": [
+        "LIVE",
+        "2026-08-03"
+      ]
+    },
+    "IN-NOI": {
+      "student_records": [
+        "LIVE",
+        "2026-10-05"
+      ],
+      "admissions": [
+        "PLANNED",
+        "2027-01-04"
+      ],
+      "teaching_learning": [
+        "PLANNED",
+        "2027-04-05"
+      ],
+      "assessment": [
+        "OFF",
+        null
+      ],
+      "attendance_conduct": [
+        "LIVE",
+        "2026-10-05"
+      ],
+      "fees_finance": [
+        "OFF",
+        null
+      ],
+      "communication_cases": [
+        "PAUSED",
+        "2026-10-05"
+      ],
+      "staff_hr": [
+        "LIVE",
+        "2026-10-05"
+      ]
+    },
+    "SG-OWD": {
+      "student_records": [
+        "PLANNED",
+        "2027-01-04"
+      ],
+      "admissions": [
+        "PLANNED",
+        "2027-01-04"
+      ],
+      "teaching_learning": [
+        "PLANNED",
+        "2027-01-04"
+      ],
+      "assessment": [
+        "OFF",
+        null
+      ],
+      "attendance_conduct": [
+        "PLANNED",
+        "2027-01-04"
+      ],
+      "fees_finance": [
+        "OFF",
+        null
+      ],
+      "communication_cases": [
+        "OFF",
+        null
+      ],
+      "staff_hr": [
+        "PLANNED",
+        "2027-01-04"
+      ]
+    }
+  },
+  "authority_register": [
+    {
+      "node": "GIIS Singapore",
+      "module": "Student Records",
+      "field_group": "student.profile, student.identity",
+      "system": "MyGIIS",
+      "direction": "INBOUND",
+      "cutover": "PENDING:OQ-28",
+      "status": "ACTIVE",
+      "reviewer": "Admissions lead"
+    },
+    {
+      "node": "GIIS Singapore",
+      "module": "Student Records",
+      "field_group": "guardian.contact",
+      "system": "MyGIIS",
+      "direction": "INBOUND",
+      "cutover": "PENDING:OQ-28",
+      "status": "ACTIVE",
+      "reviewer": "Admissions lead"
+    },
+    {
+      "node": "GIIS Singapore",
+      "module": "Staff & HR",
+      "field_group": "* (whole record, DL-147)",
+      "system": "Campus OS",
+      "direction": "OUTBOUND",
+      "cutover": "2026-08-03",
+      "status": "CUT_OVER",
+      "reviewer": "HR Business Partner",
+      "_note": "Payroll receives the feed (E08 PAYROLL_FEED)."
+    },
+    {
+      "node": "GIIS Singapore",
+      "module": "Fees & Billing",
+      "field_group": "* (Campus OS owns billing, DL-77)",
+      "system": "Campus OS",
+      "direction": "OUTBOUND",
+      "cutover": "2027-04-01",
+      "status": "PLANNED",
+      "reviewer": "Finance Controller",
+      "_note": "Journals to the ERP."
+    },
+    {
+      "node": "GIIS Singapore",
+      "module": "Staff & HR",
+      "field_group": "staff.work_email",
+      "system": "Google Workspace",
+      "direction": "INBOUND",
+      "cutover": null,
+      "status": "ACTIVE",
+      "reviewer": "IT",
+      "_note": "Work email stays with the identity provider."
+    },
+    {
+      "node": "OWIS Singapore",
+      "module": "Student Records",
+      "field_group": "student.profile",
+      "system": "PENDING:OQ-27",
+      "direction": "INBOUND",
+      "cutover": "2027-01-04",
+      "status": "PLANNED",
+      "reviewer": "Admissions lead"
+    },
+    {
+      "node": "OWIS Singapore",
+      "module": "Staff & HR",
+      "field_group": "* (whole record, DL-147)",
+      "system": "Campus OS",
+      "direction": "OUTBOUND",
+      "cutover": "2027-01-04",
+      "status": "PLANNED",
+      "reviewer": "HR"
+    },
+    {
+      "node": "OWIS Singapore",
+      "module": "Admissions",
+      "field_group": "—",
+      "system": "Not listed yet",
+      "direction": null,
+      "cutover": null,
+      "status": "MISSING",
+      "reviewer": null
+    },
+    {
+      "node": "OWIS Singapore",
+      "module": "Attendance",
+      "field_group": "—",
+      "system": "Not listed yet",
+      "direction": null,
+      "cutover": null,
+      "status": "MISSING",
+      "reviewer": null
+    },
+    {
+      "node": "OWIS Singapore",
+      "module": "Teaching & Timetable",
+      "field_group": "—",
+      "system": "Not listed yet",
+      "direction": null,
+      "cutover": null,
+      "status": "MISSING",
+      "reviewer": null
+    }
+  ],
+  "settings": [
+    {
+      "key": "account.invite_days_before_start",
+      "module": "Admin Platform",
+      "levels": "Brand-country",
+      "default": 7,
+      "values": [
+        {
+          "node": "GIIS Singapore",
+          "value": 7,
+          "from": "default"
+        },
+        {
+          "node": "OWIS Singapore",
+          "value": null,
+          "from": "default 7"
+        }
+      ],
+      "source": "DL-13 (held), DL-170"
+    },
+    {
+      "key": "account.dormant_after_days",
+      "module": "Admin Platform",
+      "levels": "Group",
+      "default": null,
+      "values": [
+        {
+          "node": "GSG",
+          "value": 60,
+          "from": "set at Group",
+          "pending": "OQ-204"
+        }
+      ],
+      "source": "ia-screen-map SCR-GA-03; OQ-204"
+    },
+    {
+      "key": "operator_session.max_minutes",
+      "module": "Admin Platform",
+      "levels": "Group (locked)",
+      "default": 240,
+      "values": [
+        {
+          "node": "GSG",
+          "value": 240,
+          "from": "set at Group · locked below"
+        }
+      ],
+      "source": "DL-52, DL-175"
+    },
+    {
+      "key": "access.review_due_working_days",
+      "module": "Governance",
+      "levels": "Group to Brand-country",
+      "default": 10,
+      "values": [
+        {
+          "node": "GSG",
+          "value": 10,
+          "from": "S5"
+        }
+      ],
+      "source": "S5"
+    },
+    {
+      "key": "attendance.register_lock_time",
+      "module": "Attendance",
+      "levels": "Brand-country to Campus",
+      "default": null,
+      "values": [
+        {
+          "node": "SG-PGL",
+          "value": "end of school day",
+          "from": "campus"
+        },
+        {
+          "node": "SG-OWD",
+          "value": null,
+          "from": "Not set"
+        }
+      ],
+      "source": "DL-100"
+    },
+    {
+      "key": "calendar.academic_year_start",
+      "module": "Academic structure",
+      "levels": "Campus × programme",
+      "default": null,
+      "values": [
+        {
+          "node": "SG-PGL · CBSE",
+          "value": "2026-04-06",
+          "from": "campus"
+        },
+        {
+          "node": "SG-ECS · IB DP",
+          "value": "2026-07-13",
+          "from": "campus"
+        }
+      ],
+      "source": "DL-96; organisation sample"
+    }
+  ],
+  "identity_providers": [
+    {
+      "brand": "GIIS",
+      "provider": "GOOGLE_WORKSPACE",
+      "domains": [
+        "giis.example"
+      ],
+      "audience": "STAFF",
+      "mfa": true,
+      "status": "ACTIVE",
+      "accounts": 405,
+      "_note": "Provider Known (Admin Platform brief); domain synthetic."
+    },
+    {
+      "brand": "OWIS",
+      "provider": "PENDING:OQ-194",
+      "domains": [
+        "owis.example"
+      ],
+      "audience": "STAFF",
+      "mfa": true,
+      "status": "DRAFT",
+      "accounts": 0
+    }
+  ],
+  "users": [
+    {
+      "name": "Priya Nair",
+      "email": "priya.nair@giis.example",
+      "person_roles": [
+        "Staff"
+      ],
+      "position": "Subject Teacher (Maths)",
+      "campuses": [
+        "SG-PGL",
+        "SG-ECS"
+      ],
+      "status": "ACTIVE",
+      "last_sign_in": "2026-11-30",
+      "modules": 4,
+      "flags": [
+        "CROSS_CAMPUS"
+      ]
+    },
+    {
+      "name": "Kenji Lim",
+      "email": "kenji.lim@giis.example",
+      "person_roles": [
+        "Staff"
+      ],
+      "position": "Module admin, Attendance",
+      "campuses": [
+        "SG-PGL"
+      ],
+      "status": "ACTIVE",
+      "last_sign_in": "2026-11-29",
+      "modules": 3,
+      "flags": []
+    },
+    {
+      "name": "Nadia Rahman",
+      "email": "nadia.rahman@giis.example",
+      "person_roles": [
+        "Staff",
+        "Guardian"
+      ],
+      "position": "HR Business Partner",
+      "campuses": [
+        "GIIS Singapore"
+      ],
+      "status": "ACTIVE",
+      "last_sign_in": "2026-11-30",
+      "modules": 2,
+      "flags": [
+        "TIER3_HOLDER"
+      ]
+    },
+    {
+      "name": "Daniel Koh",
+      "email": "daniel.koh@giis.example",
+      "person_roles": [
+        "Staff"
+      ],
+      "position": "Teacher – Secondary",
+      "campuses": [
+        "SG-PGL"
+      ],
+      "status": "INVITED",
+      "last_sign_in": null,
+      "modules": 0,
+      "flags": [],
+      "_note": "Joiner from the staff & HR sample; starts 4 Jan 2027, invite sent 28 Dec."
+    },
+    {
+      "name": "Jason Teo",
+      "email": "jason.teo@giis.example",
+      "person_roles": [
+        "Staff"
+      ],
+      "position": "Teacher – Primary",
+      "campuses": [
+        "SG-PGL"
+      ],
+      "status": "ACTIVE",
+      "last_sign_in": "2026-11-27",
+      "modules": 3,
+      "flags": [
+        "LEAVING_30_DAYS"
+      ],
+      "_note": "Leaves 18 Dec (staff & HR sample); account disabled 19 Dec."
+    },
+    {
+      "name": "Nikhil Sood",
+      "email": "nikhil.sood@giis.example",
+      "person_roles": [
+        "Staff"
+      ],
+      "position": "Lab Technician",
+      "campuses": [
+        "SG-PGL"
+      ],
+      "status": "ACTIVE",
+      "last_sign_in": "2026-11-26",
+      "modules": 1,
+      "flags": [],
+      "_note": "Compliance Not cleared (work pass) is an HR fact; it does not change the account (DL-158)."
+    },
+    {
+      "name": "Rahul Verma",
+      "email": "rahul.verma@giis.example",
+      "person_roles": [
+        "Staff"
+      ],
+      "position": "Class Teacher",
+      "campuses": [
+        "IN-NOI"
+      ],
+      "status": "ACTIVE",
+      "last_sign_in": "2026-09-27",
+      "modules": 2,
+      "flags": [
+        "DORMANT"
+      ],
+      "_note": "64 days without sign-in; flag only (OQ-204)."
+    },
+    {
+      "name": "Meera Iyer",
+      "email": "meera.iyer@giis.example",
+      "person_roles": [
+        "Staff"
+      ],
+      "position": "Global HR Admin",
+      "campuses": [
+        "GSG"
+      ],
+      "status": "ACTIVE",
+      "last_sign_in": "2026-11-30",
+      "modules": 2,
+      "flags": []
+    },
+    {
+      "name": "Claire Tan",
+      "email": "claire.tan@owis.example",
+      "person_roles": [
+        "Staff"
+      ],
+      "position": "Principal",
+      "campuses": [
+        "SG-OWD"
+      ],
+      "status": "INVITED",
+      "last_sign_in": null,
+      "modules": 1,
+      "flags": [],
+      "_note": "OWIS sign-in not connected yet (OQ-194)."
+    },
+    {
+      "name": "Payroll feed · GIIS Singapore",
+      "email": "service account",
+      "person_roles": [
+        "Service"
+      ],
+      "position": "Integration",
+      "campuses": [
+        "GIIS Singapore"
+      ],
+      "status": "ACTIVE",
+      "last_sign_in": "2026-11-30",
+      "modules": 1,
+      "flags": [],
+      "account_type": "SERVICE",
+      "_note": "OQ-203."
+    }
+  ],
+  "user_detail": {
+    "name": "Priya Nair",
+    "email": "priya.nair@giis.example",
+    "primary_campus": "SG-PGL",
+    "account": {
+      "status": "ACTIVE",
+      "first_sign_in": "2026-08-03",
+      "last_sign_in": "2026-11-30 07:42",
+      "sign_in": "Google Workspace · priya.nair@giis.example (primary)"
+    },
+    "access": [
+      {
+        "kind": "Scope grant",
+        "node": "SG-PGL",
+        "module": null,
+        "route": "POSITION_TEMPLATE",
+        "source": "Campus assignment SG-PGL (primary) from 3 Aug 2026 · position Subject Teacher",
+        "since": "2026-08-03",
+        "status": "ACTIVE"
+      },
+      {
+        "kind": "Scope grant",
+        "node": "SG-ECS",
+        "module": null,
+        "route": "POSITION_TEMPLATE",
+        "source": "Campus assignment SG-ECS (additional teaching) from 3 Aug 2026",
+        "since": "2026-08-03",
+        "status": "ACTIVE"
+      },
+      {
+        "kind": "Membership",
+        "node": "SG-PGL",
+        "module": "Teaching & Timetable",
+        "role": "TEACHER",
+        "template": "teaching.teacher v2",
+        "scope": "Teaching groups: 7B, 8A, 8B Maths · AY 2026-27",
+        "route": "POSITION_TEMPLATE",
+        "scope_route": "ALLOCATION (DL-133)",
+        "status": "ACTIVE"
+      },
+      {
+        "kind": "Membership",
+        "node": "SG-PGL",
+        "module": "Attendance",
+        "role": "TEACHER",
+        "template": "attendance.teacher v3",
+        "scope": "Lessons she teaches (period registers)",
+        "route": "POSITION_TEMPLATE",
+        "status": "ACTIVE"
+      },
+      {
+        "kind": "Membership",
+        "node": "SG-PGL",
+        "module": "Assessment",
+        "role": "TEACHER",
+        "template": "assessment.teacher v1",
+        "scope": "Teaching groups: 7B, 8A, 8B Maths",
+        "route": "POSITION_TEMPLATE",
+        "status": "ACTIVE",
+        "_note": "Assessment is in Pilot at SG-PGL; Priya is on the pilot list."
+      },
+      {
+        "kind": "Membership",
+        "node": "SG-ECS",
+        "module": "Teaching & Timetable",
+        "role": "TEACHER",
+        "template": "teaching.teacher v2",
+        "scope": "Teaching groups: 7A Maths (CBSE)",
+        "route": "POSITION_TEMPLATE",
+        "status": "ACTIVE"
+      },
+      {
+        "kind": "Request",
+        "node": "SG-ECS",
+        "module": "Assessment",
+        "role": "MODULE_ADMIN",
+        "template": "assessment.moderator v1",
+        "scope": "CBSE 6-8 Maths",
+        "route": "REQUEST",
+        "status": "PENDING",
+        "case": "ACCESS_REQUEST · waiting for module admin (SG-ECS)",
+        "_note": "Assessment is Planned at SG-ECS, so approval waits until it is Live or Pilot (DL-166)."
+      }
+    ],
+    "why_example": {
+      "question": "Why can Priya see 8B's marks?",
+      "capability": "assessment.mark.enter",
+      "answer": "Allowed at SG-PGL",
+      "chain": [
+        [
+          "Module grant",
+          "Assessment at SMART Campus Punggol · from position template Subject Teacher (DL-149)"
+        ],
+        [
+          "Module switch-on",
+          "Assessment is in Pilot at SG-PGL; Priya is on the pilot list (DL-166)"
+        ],
+        [
+          "Membership",
+          "Assessment @ SG-PGL · role Teacher"
+        ],
+        [
+          "Template",
+          "assessment.teacher v1 · Allow"
+        ],
+        [
+          "Scope",
+          "Teaching group 8B Maths from her AY 2026-27 assignment (DL-133)"
+        ],
+        [
+          "Record",
+          "Not Tier 3"
+        ]
+      ]
+    }
+  },
+  "roles": [
+    {
+      "code": "GLOBAL_ADMIN",
+      "name": "Global admin",
+      "levels": "Group",
+      "holders": 4,
+      "second_approver": true,
+      "status": "ACTIVE"
+    },
+    {
+      "code": "BRAND_ADMIN",
+      "name": "Brand admin",
+      "levels": "Brand",
+      "holders": 1,
+      "second_approver": true,
+      "status": "PROPOSED",
+      "_note": "DL-178"
+    },
+    {
+      "code": "PLATFORM_AUDITOR",
+      "name": "Platform auditor",
+      "levels": "Group",
+      "holders": 2,
+      "second_approver": false,
+      "status": "ACTIVE"
+    },
+    {
+      "code": "DATA_PROTECTION_LEAD",
+      "name": "Data protection lead",
+      "levels": "Brand-country",
+      "holders": 0,
+      "second_approver": false,
+      "status": "PROPOSED",
+      "_note": "DL-176; OQ-201"
+    },
+    {
+      "code": "PLATFORM_SUPPORT",
+      "name": "Platform support",
+      "levels": "Group",
+      "holders": 3,
+      "second_approver": false,
+      "status": "PROPOSED",
+      "_note": "Operator sessions only (DL-175)"
+    },
+    {
+      "code": "CAMPUS_LEADER",
+      "name": "Campus leader",
+      "levels": "Brand-country to Campus",
+      "holders": 9,
+      "second_approver": false,
+      "status": "ACTIVE"
+    },
+    {
+      "code": "MODULE_ADMIN",
+      "name": "Module admin",
+      "levels": "Brand-country to Campus",
+      "holders": 31,
+      "second_approver": false,
+      "status": "ACTIVE"
+    },
+    {
+      "code": "HR_ADMIN",
+      "name": "HR admin",
+      "levels": "Group to Campus",
+      "holders": 6,
+      "second_approver": false,
+      "status": "ACTIVE"
+    },
+    {
+      "code": "TEACHER",
+      "name": "Teacher",
+      "levels": "Campus",
+      "holders": 288,
+      "second_approver": false,
+      "status": "ACTIVE"
+    },
+    {
+      "code": "MEMBER",
+      "name": "Member",
+      "levels": "Campus",
+      "holders": 74,
+      "second_approver": false,
+      "status": "ACTIVE"
+    },
+    {
+      "code": "VIEWER",
+      "name": "Viewer",
+      "levels": "Group to Campus",
+      "holders": 12,
+      "second_approver": false,
+      "status": "ACTIVE"
+    }
+  ],
+  "templates": [
+    {
+      "code": "attendance.teacher",
+      "module": "Attendance",
+      "category": "MODULE",
+      "latest": 3,
+      "status": "PUBLISHED",
+      "members_on_latest": 201,
+      "members_on_older": 18,
+      "tier3": false
+    },
+    {
+      "code": "assessment.teacher",
+      "module": "Assessment",
+      "category": "MODULE",
+      "latest": 1,
+      "status": "PUBLISHED",
+      "members_on_latest": 22,
+      "members_on_older": 0,
+      "tier3": false
+    },
+    {
+      "code": "teaching.teacher",
+      "module": "Teaching & Timetable",
+      "category": "MODULE",
+      "latest": 2,
+      "status": "PUBLISHED",
+      "members_on_latest": 250,
+      "members_on_older": 0,
+      "tier3": false
+    },
+    {
+      "code": "staff.base",
+      "module": "(all modules)",
+      "category": "BASE",
+      "latest": 1,
+      "status": "PUBLISHED",
+      "members_on_latest": 405,
+      "members_on_older": 0,
+      "tier3": false
+    },
+    {
+      "code": "hr.business_partner",
+      "module": "Staff & HR",
+      "category": "MODULE",
+      "latest": 2,
+      "status": "PUBLISHED",
+      "members_on_latest": 5,
+      "members_on_older": 0,
+      "tier3": true
+    },
+    {
+      "code": "attendance.teacher",
+      "module": "Attendance",
+      "category": "MODULE",
+      "latest": 4,
+      "status": "DRAFT",
+      "members_on_latest": 0,
+      "members_on_older": 0,
+      "tier3": false,
+      "_note": "Adds attendance.leave.approve for class teachers (1-2 days, DL-101)."
+    }
+  ],
+  "position_templates": {
+    "brand": "GIIS",
+    "status": "PUBLISHED",
+    "rows": [
+      [
+        "Subject Teacher",
+        "teaching.teacher, attendance.teacher, assessment.teacher, staff.base"
+      ],
+      [
+        "Class Teacher",
+        "+ classes roster view, attendance leave approval (1-2 days)"
+      ],
+      [
+        "Academic Coordinator",
+        "+ assessment.coordinator, teaching.coordinator"
+      ],
+      [
+        "HR Business Partner",
+        "hr.business_partner (Tier 3 needs a separate type grant, DL-173)"
+      ]
+    ],
+    "_note": "Contents per position are open (OQ-192); rows are samples."
+  },
+  "requests": [
+    {
+      "who": "Priya Nair",
+      "what": "Assessment · Module admin (moderation) · SG-ECS",
+      "why": "CBSE Grade 7 Maths moderation for Term 2",
+      "status": "Waiting · module not Live at SG-ECS",
+      "age": "2 days",
+      "route": "ACCESS_REQUEST"
+    },
+    {
+      "who": "Kenji Lim",
+      "what": "Cases & Communications · Member · SG-PGL",
+      "why": "Handle attendance-related parent cases",
+      "status": "Waiting for Dr Anita Rao",
+      "age": "1 day",
+      "route": "ACCESS_REQUEST"
+    },
+    {
+      "who": "Nadia Rahman",
+      "what": "Tier 3 type grant · Staff identity and work passes · GIIS Singapore",
+      "why": "Work pass renewals for 12 staff",
+      "status": "Approved by Vivek Menon (brand-country head) · Campus Leader route n/a above campus",
+      "age": "—",
+      "route": "TYPE_GRANT",
+      "oq": "OQ-205"
+    },
+    {
+      "who": "Daniel Koh",
+      "what": "Onboarding access · SG-PGL",
+      "why": "Joiner from 4 Jan 2027 · position template applies on start",
+      "status": "Scheduled 4 Jan 2027",
+      "age": "—",
+      "route": "ONBOARDING_ACCESS"
+    }
+  ],
+  "special_access": {
+    "delegations": [
+      {
+        "from": "Dr Anita Rao",
+        "to": "Mr Arjun Pillai (Vice Principal)",
+        "what": "Approvals: staff leave, cases, placements",
+        "node": "SG-PGL",
+        "from_date": "2026-12-14",
+        "to_date": "2026-12-23",
+        "status": "SCHEDULED",
+        "reason": "Principal on leave"
+      }
+    ],
+    "type_grants": [
+      {
+        "who": "Nadia Rahman",
+        "record_type": "Staff identity and work passes",
+        "node": "GIIS Singapore",
+        "approver": "Vivek Menon",
+        "valid_to": "2027-03-31",
+        "status": "ACTIVE"
+      },
+      {
+        "who": "Lina Goh",
+        "record_type": "Student identity documents and ICA review cases",
+        "node": "SG-PGL",
+        "approver": "Dr Anita Rao",
+        "valid_to": "2027-03-31",
+        "status": "ACTIVE"
+      }
+    ],
+    "operator_sessions": [
+      {
+        "id": "OPS-0412",
+        "operator": "Leo Fernandes",
+        "node": "SG-PGL",
+        "modules": [
+          "Attendance"
+        ],
+        "kind": "SUPPORT",
+        "purpose": "SUPPORT_INVESTIGATION",
+        "ticket": "SUP-2291 · period registers not syncing to the gate log",
+        "minutes": 120,
+        "access": "Read-only · Tier 3 masked",
+        "status": "REQUESTED",
+        "approver": "Dr Anita Rao",
+        "requested_at": "2026-11-30 08:55"
+      },
+      {
+        "id": "OPS-0398",
+        "operator": "Leo Fernandes",
+        "node": "IN-NOI",
+        "modules": [
+          "Cases & Communications"
+        ],
+        "kind": "SUPPORT",
+        "purpose": "SUPPORT_INVESTIGATION",
+        "ticket": "SUP-2214 · notification template error",
+        "minutes": 90,
+        "access": "Read-only · Tier 3 masked",
+        "status": "ENDED",
+        "approver": "Campus Leader, Noida",
+        "requested_at": "2026-11-18 10:02",
+        "screens_logged": 23
+      }
+    ]
+  },
+  "review_cycle": {
+    "name": "Term 2 2026-27 access review",
+    "node": "GIIS Singapore",
+    "opened": "2026-11-23",
+    "due": "2026-12-07",
+    "status": "OPEN",
+    "campuses": [
+      {
+        "campus": "SG-PGL",
+        "leader": "Dr Anita Rao",
+        "people": 212,
+        "flagged": 18,
+        "decided": 151
+      },
+      {
+        "campus": "SG-ECS",
+        "leader": "Campus Leader, East Coast",
+        "people": 96,
+        "flagged": 7,
+        "decided": 96,
+        "submitted": "2026-11-27"
+      }
+    ],
+    "flagged_lines_pgl": [
+      {
+        "who": "Nadia Rahman",
+        "access": "Tier 3 type grant (staff identity) via GIIS Singapore; Staff & HR",
+        "flag": "TIER3_HOLDER",
+        "decision": null
+      },
+      {
+        "who": "Priya Nair",
+        "access": "Teaching, Attendance, Assessment at SG-PGL and SG-ECS",
+        "flag": "CROSS_CAMPUS",
+        "decision": "KEEP"
+      },
+      {
+        "who": "Jason Teo",
+        "access": "Teaching, Attendance, Classes (class teacher role)",
+        "flag": "LEAVING_30_DAYS",
+        "decision": null
+      },
+      {
+        "who": "Leo Fernandes",
+        "access": "Operator session OPS-0412 (if approved)",
+        "flag": "OPERATOR_SESSION_USED",
+        "decision": null
+      },
+      {
+        "who": "Siti Rahman",
+        "access": "Attendance (gate log) at SG-PGL",
+        "flag": "DORMANT",
+        "decision": null,
+        "_note": "No sign-in for 61 days."
+      },
+      {
+        "who": "Arjun Pillai",
+        "access": "Delegation from Dr Anita Rao, 14-23 Dec",
+        "flag": "CROSS_CAMPUS",
+        "decision": "KEEP"
+      }
+    ]
+  },
+  "purposes": [
+    {
+      "code": "EDUCATION_DELIVERY",
+      "label": "Teaching and running the school",
+      "consent": "PENDING",
+      "basis": "PENDING:OQ-09",
+      "asked_on": [
+        "CROSS_CELL"
+      ]
+    },
+    {
+      "code": "SAFEGUARDING",
+      "label": "Keeping children safe",
+      "consent": "PENDING",
+      "basis": "PENDING:OQ-09",
+      "asked_on": [
+        "TIER3_REVEAL"
+      ]
+    },
+    {
+      "code": "ADMISSIONS_DECISION",
+      "label": "Deciding an application",
+      "consent": "PENDING",
+      "basis": "PENDING:OQ-09",
+      "asked_on": [
+        "TIER3_REVEAL"
+      ]
+    },
+    {
+      "code": "STAFF_ADMINISTRATION",
+      "label": "Employing and managing staff",
+      "consent": "PENDING",
+      "basis": "PENDING:OQ-09",
+      "asked_on": [
+        "TIER3_REVEAL"
+      ]
+    },
+    {
+      "code": "REGULATORY_REPORT",
+      "label": "Reports required by a regulator or board",
+      "consent": "PENDING",
+      "basis": "PENDING:OQ-09",
+      "asked_on": [
+        "TIER3_REVEAL",
+        "CROSS_CELL"
+      ]
+    },
+    {
+      "code": "SUPPORT_INVESTIGATION",
+      "label": "GSG support investigating a reported problem",
+      "consent": "PENDING",
+      "basis": "PENDING:OQ-09",
+      "asked_on": [
+        "OPERATOR_SESSION"
+      ]
+    },
+    {
+      "code": "SECURITY_INCIDENT",
+      "label": "Responding to a security incident (break-glass)",
+      "consent": "PENDING",
+      "basis": "PENDING:OQ-09",
+      "asked_on": [
+        "OPERATOR_SESSION"
+      ]
+    }
+  ],
+  "retention_rules": [
+    {
+      "country": "SG",
+      "record_type": "Student record",
+      "trigger": "Enrolment ended",
+      "keep": "PENDING:OQ-43",
+      "then": "ANONYMISE",
+      "status": "DRAFT"
+    },
+    {
+      "country": "SG",
+      "record_type": "Staff record",
+      "trigger": "Employment ended",
+      "keep": "PENDING:OQ-185",
+      "then": "DELETE",
+      "status": "DRAFT"
+    },
+    {
+      "country": "SG",
+      "record_type": "Audit event",
+      "trigger": "Created",
+      "keep": "PENDING:OQ-199",
+      "then": "DELETE",
+      "status": "DRAFT"
+    },
+    {
+      "country": "IN",
+      "record_type": "Student record",
+      "trigger": "Enrolment ended",
+      "keep": "PENDING:OQ-43",
+      "then": "ANONYMISE",
+      "status": "DRAFT"
+    },
+    {
+      "country": "IN",
+      "record_type": "Candidate",
+      "trigger": "Application closed",
+      "keep": "PENDING:OQ-185",
+      "then": "DELETE",
+      "status": "DRAFT"
+    }
+  ],
+  "notices": [
+    {
+      "brand_country": "GIIS Singapore",
+      "audience": "Staff",
+      "version": 1,
+      "status": "PUBLISHED",
+      "controller": "[data controller — OQ-06]",
+      "acknowledged": "398 of 405",
+      "published": "2026-08-03"
+    },
+    {
+      "brand_country": "GIIS India",
+      "audience": "Staff",
+      "version": 1,
+      "status": "PUBLISHED",
+      "controller": "[data controller — OQ-06]",
+      "acknowledged": "97 of 100",
+      "published": "2026-10-05"
+    },
+    {
+      "brand_country": "OWIS Singapore",
+      "audience": "Staff",
+      "version": 1,
+      "status": "DRAFT",
+      "controller": "[data controller — OQ-06]",
+      "acknowledged": "—",
+      "published": null
+    },
+    {
+      "brand_country": "GIIS Singapore",
+      "audience": "Guardians",
+      "version": null,
+      "status": "LATER",
+      "controller": "[data controller — OQ-06]",
+      "acknowledged": "—",
+      "published": null,
+      "_note": "Parent app later (DL-118)."
+    }
+  ],
+  "audit": [
+    {
+      "at": "2026-11-30 09:12",
+      "actor": "Nadia Rahman",
+      "action": "Revealed work pass number",
+      "entity": "Employee · Nikhil Sood",
+      "node": "GIIS Singapore",
+      "purpose": "STAFF_ADMINISTRATION",
+      "tier3": true
+    },
+    {
+      "at": "2026-11-30 08:55",
+      "actor": "Leo Fernandes",
+      "action": "Requested operator session OPS-0412",
+      "entity": "Attendance · SG-PGL",
+      "node": "SG-PGL",
+      "purpose": "SUPPORT_INVESTIGATION"
+    },
+    {
+      "at": "2026-11-30 07:42",
+      "actor": "System",
+      "action": "Applied position template (scope)",
+      "entity": "Membership · Priya Nair · Teaching",
+      "node": "SG-PGL",
+      "purpose": null,
+      "_note": "Allocation change for 8B (DL-133)."
+    },
+    {
+      "at": "2026-11-29 16:20",
+      "actor": "Aisha Karim",
+      "action": "Set module go-live date",
+      "entity": "Attendance · SG-OWD · 4 Jan 2027",
+      "node": "SG-OWD",
+      "purpose": null
+    },
+    {
+      "at": "2026-11-28 11:03",
+      "actor": "Daniel Tan",
+      "action": "Published template version",
+      "entity": "teaching.teacher v2",
+      "node": "GSG",
+      "purpose": null
+    },
+    {
+      "at": "2026-11-27 15:40",
+      "actor": "Campus Leader, East Coast",
+      "action": "Submitted access review",
+      "entity": "Term 2 2026-27 · SG-ECS",
+      "node": "SG-ECS",
+      "purpose": null
+    },
+    {
+      "at": "2026-11-18 11:31",
+      "actor": "Leo Fernandes",
+      "action": "Ended operator session OPS-0398 (23 screens logged)",
+      "entity": "Cases & Communications · IN-NOI",
+      "node": "IN-NOI",
+      "purpose": "SUPPORT_INVESTIGATION"
+    }
+  ]
+}

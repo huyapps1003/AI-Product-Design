@@ -1,7 +1,7 @@
 ---
 id: OBJ-13
 name: Scope node and campus
-entities: [OR01, OR02, OR03, OR04, OR05, OR06, OR09]
+entities: [OR01, OR02, OR03, OR04, OR05, OR06, OR09, PA06]   # PA06 setting definition (admin platform dictionary, DL-177)
 owner: tenancy_config      # team Open (OQ-58)
 home: global               # DL-39; Tier 1 only, no personal data
 tenant_path: the node's own path
