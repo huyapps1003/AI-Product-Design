@@ -432,7 +432,7 @@
   },
   "authority_register": [
     {
-      "node": "GIIS Singapore",
+      "node": "GIIS",
       "module": "Student Records",
       "field_group": "student.profile, student.identity",
       "system": "MyGIIS",
@@ -442,7 +442,7 @@
       "reviewer": "Admissions lead"
     },
     {
-      "node": "GIIS Singapore",
+      "node": "GIIS",
       "module": "Student Records",
       "field_group": "guardian.contact",
       "system": "MyGIIS",
@@ -452,7 +452,7 @@
       "reviewer": "Admissions lead"
     },
     {
-      "node": "GIIS Singapore",
+      "node": "GIIS",
       "module": "Staff & HR",
       "field_group": "* (whole record, DL-147)",
       "system": "Campus OS",
@@ -463,7 +463,7 @@
       "_note": "Payroll receives the feed (E08 PAYROLL_FEED)."
     },
     {
-      "node": "GIIS Singapore",
+      "node": "GIIS",
       "module": "Fees & Billing",
       "field_group": "* (Campus OS owns billing, DL-77)",
       "system": "Campus OS",
@@ -474,7 +474,7 @@
       "_note": "Journals to the ERP."
     },
     {
-      "node": "GIIS Singapore",
+      "node": "GIIS",
       "module": "Staff & HR",
       "field_group": "staff.work_email",
       "system": "Google Workspace",
@@ -485,7 +485,7 @@
       "_note": "Work email stays with the identity provider."
     },
     {
-      "node": "OWIS Singapore",
+      "node": "OWIS",
       "module": "Student Records",
       "field_group": "student.profile",
       "system": "PENDING:OQ-27",
@@ -495,7 +495,7 @@
       "reviewer": "Admissions lead"
     },
     {
-      "node": "OWIS Singapore",
+      "node": "OWIS",
       "module": "Staff & HR",
       "field_group": "* (whole record, DL-147)",
       "system": "Campus OS",
@@ -505,7 +505,7 @@
       "reviewer": "HR"
     },
     {
-      "node": "OWIS Singapore",
+      "node": "OWIS",
       "module": "Admissions",
       "field_group": "—",
       "system": "Not listed yet",
@@ -515,7 +515,7 @@
       "reviewer": null
     },
     {
-      "node": "OWIS Singapore",
+      "node": "OWIS",
       "module": "Attendance",
       "field_group": "—",
       "system": "Not listed yet",
@@ -525,7 +525,7 @@
       "reviewer": null
     },
     {
-      "node": "OWIS Singapore",
+      "node": "OWIS",
       "module": "Teaching & Timetable",
       "field_group": "—",
       "system": "Not listed yet",
