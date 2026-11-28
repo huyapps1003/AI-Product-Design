@@ -585,7 +585,7 @@ The "Linked" column uses the old flat file numbers: `00` = admin-platform brief,
 - **Why.** One dictionary for everything an admin configures, so module dictionaries can point at accounts, roles, switch-on, settings and purposes instead of describing them; the RBAC decisions (DL-32…DL-38, DL-51…DL-53, DL-69) get entities and screens.
 - **Builds on.** DL-02, DL-05, DL-08, DL-16…DL-20, DL-32…DL-53, DL-69, DL-73, DL-147, DL-149. Uses the held DL-09, DL-13, DL-14 and DL-21 as they stand; they stay Assumed until Henry discusses them.
 - **Open.** OQ-194…OQ-210 (section V), plus OQ-06, OQ-09, OQ-15, OQ-27, OQ-43, OQ-58, OQ-192.
-- **Status.** DL-165…DL-169 Confirmed (Henry, 28 Nov 2026; OQ-196 answered: brand-country head signs off go-live; DL-168 changed to per brand; DL-169 changed to one GSG-wide identity provider, new OQ-210); DL-170…DL-179 Assumed, awaiting Henry.
+- **Status.** DL-165…DL-170 Confirmed (Henry, 28 Nov 2026; OQ-196 answered: brand-country head signs off go-live; DL-168 changed to per brand; DL-169 changed to one GSG-wide identity provider, new OQ-210); DL-171…DL-179 Assumed, awaiting Henry.
 
 ### Review of DL-01…DL-21 (22 Nov 2026; policy items held)
 - **Context.** DL-01…DL-21 were set on 25 Oct 2026 so Admin Platform design could start and are all still Assumed (DL-12 Proposed), although later Confirmed decisions build on most of them. The 22 Nov 2026 repo review flagged this.
