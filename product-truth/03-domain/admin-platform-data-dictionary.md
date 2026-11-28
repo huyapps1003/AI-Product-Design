@@ -80,7 +80,7 @@ Proposed on a decision card on 28 Nov 2026 (recommended "Setup, access and data 
 | PA07 | Purpose | Global | Confirmed structure (DL-44); list Open (OQ-200) |
 | PA08 | Retention Rule | Global | Confirmed structure (DL-44); periods Open (OQ-43) |
 | PA09 | Privacy Notice | Global | New, Assumed (DL-176); controller Open (OQ-06) |
-| PA10 | Access Review Cycle | Global (definition), cell (cases) | Known need (S5, Admin Platform success metric); Assumed (DL-174) |
+| PA10 | Access Review Cycle | Global (definition), cell (cases) | Known need (S5, Admin Platform success metric); Known (DL-174) |
 
 Referenced, not redefined: OR01–OR09, AC06, AC07, AC08, E01, E02, E05, E07, HR15, ST01, ST04, ST05, CC01, CC03.
 
@@ -476,7 +476,7 @@ Parent path link (Confirmed, DL-18, DL-37): `family_access_id`, `guardian_person
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| review_cycle_id | UUID | PK | Y | T1 | Assumed (DL-174) | |
+| review_cycle_id | UUID | PK | Y | T1 | Known (DL-174) | |
 | scope_node_id | UUID | FK:OR01 | Y | T1 | Assumed | Usually a Brand-country; one case per campus below it. |
 | cycle_kind | ENUM | — | Y | T1 | Assumed | TERMLY, AD_HOC (e.g. after an incident). |
 | term_ref | UUID | FK:AC08 | C | T1 | Assumed (S5 "week 1 of Semester 2") | Starts in week 1 of the term of the campus's main programme. |
@@ -505,7 +505,7 @@ Each campus case lists one line per person with any A03, A04, A05, A16 or A17 at
 | OR01 × R01 | PA04 | 1 → 1..N | scope_node_id, module_id | One row per field group | Known (DL-168) |
 | R01 | PA06 | 1 → 0..N | owner_module_id | | Assumed (DL-177) |
 | PA06 | OR09 | 1 → 0..N | setting_key | Values per node | Known (OR09) |
-| PA10 | CC03 | 1 → 1..N | review_cycle_id | One CAMPUS_ATTESTATION case per campus | Assumed (DL-174) |
+| PA10 | CC03 | 1 → 1..N | review_cycle_id | One CAMPUS_ATTESTATION case per campus | Known (DL-174) |
 
 ## Field visibility by role
 
@@ -613,7 +613,7 @@ Existing seeds: `ga.module_grant.manage`, `ga.campus_grant.manage`, `ga.catalog.
 | DL-171 | **Confirmed** (Henry, 28 Nov 2026). Access arrives three ways, all through the Registry: automatically from facts (position template DL-149, class and teaching scope DL-73, DL-133, cover DL-145), by an ACCESS_REQUEST case, or by an admin inside the ceiling; every record carries its route. A scope grant (A04) puts a person on a node; a module grant (A03) is the module ceiling | One explanation model for "Why can I see this?" (DL-38) across automatic and manual access |
 | DL-172 | **Confirmed** (Henry, 28 Nov 2026). The GSG platform team keeps roles, templates and capabilities (DL-51); templates are versioned, a published version never changes; brands don't create roles in v1; overrides stay off (DL-14) | Keeps one catalogue across 12 brands; change requests go through the registry owner |
 | DL-173 | **Confirmed** (Henry, 28 Nov 2026). Each brand keeps a position → standard template list (per module) for DL-149; brand HR proposes, the platform team publishes; never Tier 3 | Answers the "who maintains" half of OQ-192; contents per position stay open |
-| DL-174 | Termly access review: a cycle per brand-country opens a CAMPUS_ATTESTATION case per campus in week 1 of term, due in 10 working days (S5); flagged rows first; undecided rows escalate to the brand-country head, never auto-remove | Makes the S5 flow and the "≥95% attested per term" metric concrete; auto-removal would cut teachers off mid-term |
+| DL-174 | **Confirmed** (Henry, 28 Nov 2026). Termly access review: a cycle per brand-country opens a CAMPUS_ATTESTATION case per campus in week 1 of term, due in 10 working days (S5); flagged rows first; undecided rows escalate to the brand-country head, never auto-remove | Makes the S5 flow and the "≥95% attested per term" metric concrete; auto-removal would cut teachers off mid-term |
 | DL-175 | Operator sessions (A18): named GSG support engineer, one campus, named modules, purpose and ticket, read-only, at most 4 hours, Tier 3 masked, every screen logged; Campus Leader approves (DL-52); break-glass for security only, Campus Leader told within 24 hours | Confirms the DL-52 limits that are still Assumed and gives them an entity; answers most of OQ-15 |
 | DL-176 | Data protection settings in the Admin Platform: purpose catalogue (GSG), retention rules per country, privacy notices per brand-country × audience; legal fields stay empty with pending markers; a Data Protection Lead role per brand-country views audit and retention and activates rules, with no record access by default | DL-44 records need an editor; keeps AR-04 (no controller named); partly answers OQ-34 |
 | DL-177 | Setting definitions catalogue (PA06): every setting key once with owner module, allowed levels, default (empty means "Not set") and default override policy; the settings screen groups keys by module and shows inheritance (AP-02) | OR09 holds values but nobody defined the keys; every module dictionary adds campus or brand-country settings |
