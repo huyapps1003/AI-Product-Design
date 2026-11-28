@@ -36,6 +36,28 @@ Three kinds of "role" exist. Don't mix them in a screen.
 
 "Not mapped" follows [roles-personas § Architecture roles not yet personas](../02-users/roles-personas.md#architecture-roles-not-yet-personas): these people hold memberships, and their access role is set when their module is designed. These roles come from one brand's handbook. Whether other brands use the same roles hasn't been researched.
 
+## School roles named by module dictionaries (since 12 Nov 2026)
+
+The ten module dictionaries name these roles in their "Field visibility by role" tables and rules. This list only records them; none has an access-role mapping yet, so they hold memberships like the "Not mapped" roles above (cross-module review, 28 Nov 2026).
+
+| Role as named | Scope | Named in | Status | Same as |
+|---|---|---|---|---|
+| Brand-country academic head | Brand-country | Academic structure (approves published date changes) | Confirmed (DL-113) | — |
+| GSG platform team | Group | Academic structure, Access Registry owner | Confirmed (DL-51) | Platform operator family (OQ-15) |
+| Academic coordinator / Coordinator (programme band) | Programme offering × grade band | Academic structure, Assessment, Attendance, Classes, Teaching & Timetable, Staff & HR | Known (Arch § Users and roles) | "Programme or level coordinator" above |
+| Head of department | Campus × subject | Teaching & Timetable (TE07), Staff & HR (appraisal reviewer example) | Known title (HB p.7–8); confirmed as academic responsibility (DL-135) | — |
+| Admissions officer | Campus | Admissions | Assumed (admissions dictionary) | "Admissions and customer relations" above |
+| Admissions manager | Brand-country | Admissions | Assumed (admissions dictionary) | — |
+| Assessor | Assigned applications | Admissions (AD05) | Assumed | Record-level, not a standing role |
+| Admissions / registrar (Tier 3 team) | Campus | Attendance (ICA cases), Student Directory | Known need (DL-105) | — |
+| Finance executive | Campus | Fees & Billing | Assumed (fees dictionary) | — |
+| HR (brand-country), e.g. HR Business Partner | Brand-country | Staff & HR | Confirmed scope (DL-151) | — |
+| Campus office | Campus | Teaching & Timetable, Cases & Communications (office queue) | Assumed | Overlaps "Security / reception" |
+| Line manager, appraisal reviewer | Relationship | Staff & HR | Confirmed (DL-150) | Not a role: a reporting line (glossary) |
+| Case assignee, participants | Record | Cases & Communications | Confirmed (DL-120, DL-125) | Record ACL (A15) |
+
+Which access role (A06) and position template (OQ-192) each of these maps to belongs to the Admin Platform spec.
+
 ## Access roles (A06, Assumed values)
 
 `GLOBAL_ADMIN` · `PLATFORM_AUDITOR` · `HR_ADMIN` · `HR_VIEWER` · `MODULE_ADMIN` · `CAMPUS_LEADER` · `TEACHER` · `MEMBER` · `VIEWER`. Definitions and the persona × capability matrix are in [roles-personas.md](../02-users/roles-personas.md#access-role-catalog-a06--proposed-values). Self-service (My profile, My access) comes with an active account and is not a role.

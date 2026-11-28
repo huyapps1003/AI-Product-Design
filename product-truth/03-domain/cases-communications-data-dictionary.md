@@ -218,8 +218,8 @@ GIIS SG values recorded in the sample (all from the handbook): complaint 2/7/14/
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| calendar_id | UUID | PK | Y | T1 | Confirmed (DL-122) | |
-| campus_id, calendar_year | UUID, INT | UK | Y | T1 | Assumed | |
+| working_calendar_id | UUID | PK | Y | T1 | Confirmed (DL-122) | |
+| campus_id, calendar_year | UUID, INT | UK; FK:OR04 | Y | T1 | Assumed | |
 | working_week | VARCHAR(20) | — | Y | T1 | Assumed (Arch § How GIIS operates: SG Mon–Fri; India "Saturdays marked NWD") | MON-FRI; IN-NOI may differ (OQ-130). |
 | public_holidays | JSON | — | Y | T1 | Known for GIIS SG (Holiday Schedule 2026-27, the same list as AT02 public holidays) | Shared with AT02, never retyped. |
 | office_closures | JSON | — | N | T1 | Open (OQ-130) | Days the office is closed outside public holidays. |
@@ -396,17 +396,17 @@ AS11 result appeals keep their own status and deadline in Assessment (DL-91) and
 - **SR-CC-02 (Known for GIIS SG, HB p.249 C–D):** The recipient replies in writing to close a complaint within 7 working days, or forwards it to the process owner, who replies within the same 7 days and copies the recipient.
 - **SR-CC-03 (Known for GIIS SG, HB p.250 E–H; Assumed automatic move DL-123):** A complaint still open after 7 working days goes to the process owner's supervisor (due day 14); still open after 14 goes to the Dispute Resolution Committee chaired by the Country Director (due day 21). Each move notifies the new owner and the complainant.
 - **SR-CC-04 (Known for GIIS SG, HB p.250 I):** If no solution is agreed by day 21, the Country Director proposes the CPE Dispute Resolution Scheme. Staff record the referral and any reference; the case stays open as EXTERNAL until the outcome is recorded.
-- **SR-CC-05 (Assumed, DL-122; OQ-130, OQ-131):** Working days are Monday to Friday minus the campus country's public holidays. The clock pauses while the case is WAITING for the family; deadlines move by the paused working days.
-- **SR-CC-06 (Assumed, DL-121):** A case keeps the policy version it started with. Publishing a new policy version affects new cases only.
-- **SR-CC-07 (Confirmed DL-08, DL-84, DL-62; Assumed DL-120):** A case with several approvers is DECIDED only when every required approver has decided; one REJECT rejects the case unless the policy says otherwise.
-- **SR-CC-08 (Assumed, DL-120):** DECIDED cases with a source record are APPLIED by the owning module (leave days marked ON_LEAVE, refund paid, enrolment ended); the case shows when and by whom.
+- **SR-CC-05 (Confirmed, DL-122; OQ-130, OQ-131):** Working days are Monday to Friday minus the campus country's public holidays. The clock pauses while the case is WAITING for the family; deadlines move by the paused working days.
+- **SR-CC-06 (Confirmed, DL-121):** A case keeps the policy version it started with. Publishing a new policy version affects new cases only.
+- **SR-CC-07 (Confirmed DL-08, DL-84, DL-62, DL-120):** A case with several approvers is DECIDED only when every required approver has decided; one REJECT rejects the case unless the policy says otherwise.
+- **SR-CC-08 (Confirmed, DL-120):** DECIDED cases with a source record are APPLIED by the owning module (leave days marked ON_LEAVE, refund paid, enrolment ended); the case shows when and by whom.
 - **SR-CC-09 (Confirmed DL-19, DL-125):** For people who are not named, a RESTRICTED case appears only as a locked row (type, received date, next due date; no student, title or content) in queue and module case lists they can already see; never in search, on teacher, class or student screens, in counts per student or in notifications. Opening it is refused. Every read of the content is logged (Tier 3).
 - **SR-CC-10 (Confirmed, DL-126):** On a family-visible case every timeline entry is visible to the family; there are no staff-only notes. Each message is sent by email in v1 and stored on the case.
-- **SR-CC-11 (Assumed, DL-127):** Staff start conversations only with guardians of students in their data scope; guardians write to their child's teachers and listed campus offices. No parent-to-parent or student-to-student messaging.
-- **SR-CC-12 (Assumed, DL-127):** Converting a message to a complaint creates the case with `received_via = MESSAGE` and `received_at` = the message's send time, so the deadline counts from when the parent wrote.
-- **SR-CC-13 (Assumed, DL-128; OQ-138):** An announcement wider than the author's own class needs approval before it is sent. The audience is resolved at send time.
-- **SR-CC-14 (Assumed, DL-129):** SAFETY and REQUIRED notifications cannot be turned off; they fall back to another channel if delivery fails. OPTIONAL notifications respect opt-out and quiet hours.
-- **SR-CC-15 (Assumed, DL-129; DL-30):** Notification text never includes Tier 3 values or restricted case titles. A restricted case notice says only "You have a case to review" with a link.
+- **SR-CC-11 (Confirmed, DL-127):** Staff start conversations only with guardians of students in their data scope; guardians write to their child's teachers and listed campus offices. No parent-to-parent or student-to-student messaging.
+- **SR-CC-12 (Confirmed, DL-127):** Converting a message to a complaint creates the case with `received_via = MESSAGE` and `received_at` = the message's send time, so the deadline counts from when the parent wrote.
+- **SR-CC-13 (Confirmed, DL-128; OQ-138):** An announcement wider than the author's own class needs approval before it is sent. The audience is resolved at send time.
+- **SR-CC-14 (Confirmed, DL-129):** SAFETY and REQUIRED notifications cannot be turned off; they fall back to another channel if delivery fails. OPTIONAL notifications respect opt-out and quiet hours.
+- **SR-CC-15 (Confirmed, DL-129; DL-30):** Notification text never includes Tier 3 values or restricted case titles. A restricted case notice says only "You have a case to review" with a link.
 - **SR-CC-16 (Known HB p.237, p.245):** Where a policy sets a family escalation path, the family is told who to escalate to and when, in the acknowledgement.
 
 ## Events

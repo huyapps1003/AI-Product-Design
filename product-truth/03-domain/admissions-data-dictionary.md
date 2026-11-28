@@ -40,7 +40,7 @@ Approved by Henry, 12 Nov 2026: **a new family's path from first enquiry to firs
 | ID | Entity | Module | Status |
 |---|---|---|---|
 | AD01 | Enquiry | Admissions | Known need (Arch § Admission to enrolment step 1; Arch § Users and roles "Enquiries"; operating-context enquiry site); fields Assumed |
-| AD02 | Enquiry Child | Admissions | Assumed (DL-56) |
+| AD02 | Enquiry Child | Admissions | Confirmed (DL-56) |
 | AD03 | Application | Admissions | Known (Arch step 1; module 1 "Enquiry, application, AEPP") |
 | AD04 | Application Document | Admissions | Known need (Arch § Fees "documents checklist" pattern; HB p.35 student particulars); list Open (OQ-72) |
 | AD05 | Admission Assessment | Admissions (outcome) / Wellbeing (SEN notes) | Known (Arch step 1 "assessment… AEPP placement"; HB p.125 placement test; HB § SEN pre-admission evaluation) |
@@ -61,7 +61,7 @@ ST01, ST02, ST04, ST05, ST08, ST09 and ST11 are referenced, not redefined.
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| enquiry_id | UUID | PK | Y | T1 | Assumed (DL-56) | |
+| enquiry_id | UUID | PK | Y | T1 | Confirmed (DL-56) | |
 | enquiry_number | VARCHAR(20) | UK | Y | T1 | Open (format, OQ-55 pattern) | Shown to staff and the family. |
 | source_channel | ENUM | — | Y | T1 | Known (enquiry site, operating-context); values Assumed (DL-27) | See enums. |
 | source_detail | VARCHAR(120) | — | N | T1 | Assumed | Event name, referrer, agent name (OQ-70). |
@@ -72,7 +72,7 @@ ST01, ST02, ST04, ST05, ST08, ST09 and ST11 are referenced, not redefined.
 | preferred_language | VARCHAR(10) | — | N | T1 | Assumed (MC-12) | |
 | brand_id | UUID | FK:OR02 | C | T1 | Known need (operating-context: "chosen school isn't carried") | Required once routed. |
 | campus_id | UUID | FK:OR04 | C | T1 | Known need (same) | Routed campus. Several campuses: OQ-63. |
-| assigned_to_user_id | UUID | FK:User | N | T1 | Assumed | Admissions officer who owns follow-up. |
+| assigned_to_user_id | UUID | FK:A01 | N | T1 | Assumed | Admissions officer who owns follow-up. |
 | enquiry_status | ENUM | — | Y | T1 | Assumed (DL-27) | See enums. |
 | next_action_at | TIMESTAMP | — | N | T1 | Assumed | Drives the follow-up queue. |
 | visit_at | TIMESTAMP | — | N | T1 | Assumed | Campus tour or meeting. |
@@ -86,7 +86,7 @@ ST01, ST02, ST04, ST05, ST08, ST09 and ST11 are referenced, not redefined.
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| enquiry_child_id | UUID | PK | Y | T1 | Assumed (DL-56) | |
+| enquiry_child_id | UUID | PK | Y | T1 | Confirmed (DL-56) | |
 | enquiry_id | UUID | FK:AD01 | Y | T1 | Assumed | |
 | child_person_id | UUID | FK:Person | N | T1 | Confirmed rule (DL-42) | Set when matched or when an application starts. |
 | first_name / last_name | VARCHAR(80) | — | Y | T1 | Assumed | |
@@ -107,7 +107,7 @@ ST01, ST02, ST04, ST05, ST08, ST09 and ST11 are referenced, not redefined.
 | application_number | VARCHAR(20) | UK | Y | T1 | Open (format) | |
 | enquiry_id | UUID | FK:AD01 | N | T1 | Assumed | Walk-in applications may have none. |
 | child_person_id | UUID | FK:Person | Y | T1 | Confirmed rule (DL-42) | |
-| student_id | UUID | FK:ST01 | C | T1 | Assumed (DL-57) | Set when the offer is issued; Student ID format per DL-67. A returning student or a year-end move into another brand or country (a new admission, DL-63) keeps the existing student (DL-31). |
+| student_id | UUID | FK:ST01 | C | T1 | Confirmed (DL-57) | Set when the offer is issued; Student ID format per DL-67. A returning student or a year-end move into another brand or country (a new admission, DL-63) keeps the existing student (DL-31). |
 | campus_id | UUID | FK:OR04 | Y | T1 | Known (Arch step 1) | |
 | operating_entity_id | UUID | FK:OR07 | Y | T1 | Confirmed rule (DL-41) | Copied from OR08 at creation. |
 | programme_offering_id | UUID | FK:AC06 | Y | T1 | Known (MC-07) | AEPP is a placement inside a regular enrolment, never an offering (DL-65). |
@@ -129,7 +129,7 @@ ST01, ST02, ST04, ST05, ST08, ST09 and ST11 are referenced, not redefined.
 | submitted_at | TIMESTAMP | — | C | T1 | Assumed | |
 | submitted_channel | ENUM | — | Y | T1 | Open (OQ-62) | STAFF_ENTERED, PARENT_ONLINE, AGENT. |
 | decision | ENUM | — | C | T2 | Assumed | OFFER, WAITLIST, REJECT. |
-| decision_by_user_id | UUID | FK:User | C | T2 | Open (OQ-66: who decides) | |
+| decision_by_user_id | UUID | FK:A01 | C | T2 | Open (OQ-66: who decides) | |
 | decision_reason | TEXT | — | C | T2 | Assumed | Required for REJECT. |
 | waitlist_position | INT | — | C | T2 | Confirmed (DL-61) | Computed: siblings, then staff children, then date the application was complete. |
 | closed_reason | ENUM | — | C | T1 | Assumed | When WITHDRAWN or DECLINED. |
@@ -159,11 +159,11 @@ ST01, ST02, ST04, ST05, ST08, ST09 and ST11 are referenced, not redefined.
 | application_id | UUID | FK:AD03 | Y | T1 | Assumed | |
 | assessment_type | ENUM | — | Y | T1 | Known: AEPP_PLACEMENT (HB p.125), SEN_PRE_ADMISSION (HB § SEN); others Open (OQ-64) | ENTRANCE_TEST, INTERVIEW Assumed. |
 | scheduled_at | TIMESTAMP | — | N | T1 | Assumed | |
-| assessor_user_id | UUID | FK:User | N | T1 | Assumed | Teacher, coordinator or counsellor. |
-| outcome | ENUM | — | C | T2 (T3 for SEN) | Assumed (DL-60) | Generic: MEETS, BELOW, PLACE_IN_AEPP. SEN: CAN_SUPPORT, NEEDS_DISCUSSION, CANNOT_SUPPORT. |
+| assessor_user_id | UUID | FK:A01 | N | T1 | Assumed | Teacher, coordinator or counsellor. |
+| outcome | ENUM | — | C | T2 (T3 for SEN) | Confirmed (DL-60) | Generic: MEETS, BELOW, PLACE_IN_AEPP. SEN: CAN_SUPPORT, NEEDS_DISCUSSION, CANNOT_SUPPORT. |
 | score_summary | VARCHAR(120) | — | N | T2 | Assumed | Not used for SEN. |
-| restricted_record_ref | UUID | FK:Wellbeing record | C | T3 | Assumed (DL-60) | SEN notes live in Wellbeing; Admissions sees the outcome only. |
-| recommended_grade_id / offering_id | UUID | — | N | T1 | Known need (HB p.125 "initial placement") | |
+| restricted_record_ref | UUID | FK:Wellbeing record | C | T3 | Confirmed (DL-60) | SEN notes live in Wellbeing; Admissions sees the outcome only. |
+| recommended_grade_id / offering_id | UUID | FK:AC02 / AC06 | N | T1 | Known need (HB p.125 "initial placement") | |
 
 ### AD06 — Intake Capacity
 
@@ -172,7 +172,7 @@ ST01, ST02, ST04, ST05, ST08, ST09 and ST11 are referenced, not redefined.
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
 | intake_capacity_id | UUID | PK | Y | T1 | Confirmed (DL-61) | |
-| campus_id, programme_offering_id, grade_id, academic_year_id | UUID | UK | Y | T1 | Assumed | One row per target. |
+| campus_id, programme_offering_id, grade_id, academic_year_id | UUID | UK; FK:OR04 / AC06 / AC02 / AC07 | Y | T1 | Assumed | One row per target. |
 | seat_limit | INT | — | Y | T1 | Confirmed (DL-61) | Classes × class size for the grade; set by the Principal before the year opens. |
 | override_buffer | INT | — | Y | T1 | Confirmed (DL-61) | Seats an Admissions Manager may add over the limit, with a reason; set per campus. |
 | seats_enrolled / seats_held | INT | — | Y | T1 | Assumed | Derived from ST02 (ENROLLED) and open offers (OFFERED, CONFIRMED). |
@@ -186,8 +186,8 @@ ST01, ST02, ST04, ST05, ST08, ST09 and ST11 are referenced, not redefined.
 |---|---|---|:---:|---|---|---|
 | offer_id | UUID | PK | Y | T1 | Assumed | |
 | application_id | UUID | FK:AD03 | Y | T1 | Known (Arch step 2) | One open offer per application. |
-| enrolment_id | UUID | FK:ST02 | Y | T1 | Assumed (DL-57) | Created in status OFFERED. |
-| offered_grade_id / offering_id / start_date | — | — | Y | T1 | Known need | May differ from what was applied for (placement). |
+| enrolment_id | UUID | FK:ST02 | Y | T1 | Confirmed (DL-57) | Created in status OFFERED. |
+| offered_grade_id / offering_id / start_date | UUID, UUID, DATE | FK:AC02 / AC06 | Y | T1 | Known need | May differ from what was applied for (placement). |
 | conditions | TEXT | — | N | T2 | Assumed | For example "subject to Student Pass approval". |
 | issued_by_user_id / issued_at | — | — | Y | T1 | Open (OQ-66: who may issue) | |
 | expires_at | DATE | — | Y | T1 | Open (OQ-66: validity); setting (DL-59) | |
@@ -234,7 +234,7 @@ ST01, ST02, ST04, ST05, ST08, ST09 and ST11 are referenced, not redefined.
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| case_id | UUID | FK:Case | Y | T3 | Known (ST09 `approval_case_id`) | |
+| case_id | UUID | FK:CC03 | Y | T3 | Known (ST09 `approval_case_id`) | |
 | application_id | UUID | FK:AD03 | Y | T2 | Assumed | |
 | approval_type | ENUM | — | Y | T2 | Known (Arch step 3; HB p.242) | STUDENT_PASS, MOE_APPROVAL; other countries Open (OQ-22). |
 | authority | VARCHAR | — | Y | T1 | Known (ICA, MOE Singapore) | |
@@ -288,14 +288,14 @@ Known: Admissions and customer relations work at campus or country scope and own
 
 ## Business rules
 
-- **SR-AD-01 (Assumed, DL-56):** An application moves forward only; going back (for example UNDER_REVIEW to DOCUMENTS_PENDING) is allowed and logged. ENROLLED, DECLINED, REJECTED and WITHDRAWN are final.
+- **SR-AD-01 (Confirmed, DL-56):** An application moves forward only; going back (for example UNDER_REVIEW to DOCUMENTS_PENDING) is allowed and logged. ENROLLED, DECLINED, REJECTED and WITHDRAWN are final.
 - **SR-AD-02 (Confirmed rule, DL-42 / DL-58):** Matching an enquirer or child to a Person never merges automatically; possible duplicates go to the review queue.
 - **SR-AD-03 (Confirmed, DL-61):** Open offers and confirmed students hold seats until they expire or are cancelled. An officer can't issue an offer above `seat_limit`. An Admissions Manager may go over by up to `override_buffer` with a reason; beyond that the Principal approves. When a seat frees, the first waitlisted application gets a time-limited offer.
-- **SR-AD-04 (Assumed, DL-57):** ST02 becomes CONFIRMED when the offer is accepted, the contract is SIGNED and every AT_ACCEPTANCE fee is PAID or WAIVED.
+- **SR-AD-04 (Confirmed, DL-57):** ST02 becomes CONFIRMED when the offer is accepted, the contract is SIGNED and every AT_ACCEPTANCE fee is PAID or WAIVED.
 - **SR-AD-05 (Known, GIIS SG, HB p.233):** Withdrawal within the cooling-off period (7 working days from full signature) is handled as a cooling-off withdrawal. The withdrawal case itself is out of scope.
 - **SR-AD-06 (Known, GIIS SG, HB p.242):** Application and registration fees are non-refundable, except for new admissions when ICA rejects the Student Pass or MOE rejects a Singapore citizen's application, less an administrative charge.
 - **SR-AD-07 (Known, Arch step 4 = student SR-07):** On ENROLLED the student gets a class, timetable, bus route and logins for parent and student apps. Parent access comes from a Family Link created from the verified ST05 relationship (DL-25), never from the application.
-- **SR-AD-08 (Assumed, DL-60):** SEN evaluation notes never appear on the application; only the outcome and the link to the Wellbeing record.
+- **SR-AD-08 (Confirmed, DL-60):** SEN evaluation notes never appear on the application; only the outcome and the link to the Wellbeing record.
 - **SR-AD-09 (Confirmed, DL-59):** Every rule value is a brand-country or campus setting with no group default. Screens read it, never hard-code it, and show "Not set" (step blocked) when it is missing.
 - **SR-AD-10 (Known, Arch step 1; Confirmed DL-65):** AEPP placement is recorded as an AD05 outcome and becomes a placement inside the regular enrolment, not a separate AEPP enrolment.
 

@@ -41,7 +41,7 @@ Add a year-end promotion preview for Harrods Phnom Penh. Sokha Chan moves from t
 
 **Complete enrolment (Daniel Lee)**
 ```
-Add a "Complete enrolment" flow for Daniel Lee (Confirmed, IBDP Year 1, East Coast Campus). Steps: confirm details → assign class and house → subject choices → guardians and verification → preview of what gets created (student login, parent app access for verified guardians, timetable and bus route to follow) → done. Block "Complete" until the cooling-off period has ended on 12 Nov 2026, and show why. Follow rule SR-07 in the brief.
+Add a "Complete enrolment" flow for Daniel Lee (Confirmed, IB DP Year 1, East Coast Campus). Steps: confirm details → assign class and house → subject choices → guardians and verification → preview of what gets created (student login, parent app access for verified guardians, timetable and bus route to follow) → done. Block "Complete" until the cooling-off period has ended on 12 Nov 2026, and show why. Follow rule SR-07 in the brief.
 ```
 
 **Campus transfer case (Rohan Mehta)**

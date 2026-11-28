@@ -158,7 +158,7 @@ Controller, fiduciary or processor roles are **not** attributes here; they belon
 | legal_entity_id | UUID | FK:OR07 | Y | T1 | Confirmed (DL-41); values Open (OQ-02) | |
 | operator_role | ENUM | — | Y | T1 | Confirmed (DL-50) | OPERATOR, FRANCHISEE, JV_PARTNER. Which campuses are partner-run: OQ-03. |
 | valid_from / valid_to | DATE | — | Y / N | T1 | Confirmed (DL-41) | No overlapping OPERATOR links for one campus. Handover effects: OQ-04. |
-| change_case_id | UUID | FK:Case | N | T1 | Confirmed (DL-50) | The case behind a handover. |
+| change_case_id | UUID | FK:CC03 | N | T1 | Confirmed (DL-50) | The case behind a handover. |
 
 ### OR09 — Setting value
 

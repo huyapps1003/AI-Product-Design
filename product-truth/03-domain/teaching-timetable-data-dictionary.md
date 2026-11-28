@@ -104,7 +104,7 @@ ST02, ST03, CL01, CL03, CL04, AC02, AC03, AC07, AC08, AC09, AT01, AT02 and E01 a
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| room_id | UUID | PK | Y | T1 | Known entity (Arch § Data model "Room") | Referenced by CL01 `home_room`, TE10, TE11. |
+| room_id | UUID | PK | Y | T1 | Known entity (Arch § Data model "Room") | Referenced by CL01 `home_room_id`, TE10, TE11, TE13. |
 | campus_id | UUID | FK:OR04 | Y | T1 | Known | |
 | room_code | VARCHAR(24) | UK with campus | Y | T1 | Known format for GIIS SG (HB p.9–14 "S4 - 04"; Arch "Block B #02-01A") | As the campus writes it. |
 | room_name | VARCHAR(60) | — | N | T1 | Assumed | "Chemistry Lab 2". |
@@ -119,7 +119,7 @@ ST02, ST03, CL01, CL03, CL04, AC02, AC03, AC07, AC08, AC09, AT01, AT02 and E01 a
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| teaching_group_id | UUID | PK | Y | T1 | Known need (AS07 `teaching_group_id`) | Referenced by AS07, AT03, TE05, TE06, TE10. |
+| teaching_group_id | UUID | PK | Y | T1 | Known need (AS07 `teaching_group_id`) | Referenced by AS07, TE05, TE06, TE10, TE11. AT03 period registers do not key to it yet (see the 28 Nov 2026 cross-module review). |
 | campus_id | UUID | FK:OR04 | Y | T1 | Known | |
 | academic_year_id | UUID | FK:AC07 | Y | T1 | Known (DL-96) | Offering comes from the year. |
 | offered_subject_id | UUID | FK:AC09 | Y | T1 | Confirmed (DL-116: "teaching groups… stay with Teaching") | The grade and subject come from it. |
@@ -143,7 +143,7 @@ ST02, ST03, CL01, CL03, CL04, AC02, AC03, AC07, AC08, AC09, AT01, AT02 and E01 a
 | subject_choice_id | UUID | FK:ST03 | C | T1 | Known need (ST03) | Required for CHOICE and SPLIT; must match the group's subject. |
 | valid_from / valid_to | DATE | — | Y / N | T1 | Confirmed pattern (DL-24) | |
 | source | ENUM | — | Y | T1 | Confirmed (DL-133) | FROM_CLASS (follows CL04), FROM_CHOICE (follows ST03), PLACED (coordinator, for SPLIT or a choice with several groups). |
-| placed_by_user_id | UUID | FK:User | C | T1 | Assumed | Required for PLACED. |
+| placed_by_user_id | UUID | FK:A01 | C | T1 | Assumed | Required for PLACED. |
 
 ### TE06 — Teaching Assignment
 
@@ -157,7 +157,7 @@ ST02, ST03, CL01, CL03, CL04, AC02, AC03, AC07, AC08, AC09, AT01, AT02 and E01 a
 | assignment_role | ENUM | — | Y | T1 | Assumed (DL-27, DL-134) | LEAD, CO_TEACHER, ASSISTANT. One LEAD at a time per group. |
 | periods_per_week | DECIMAL(4,1) | — | Y | T1 | Confirmed (DL-136) | Defaults from the period plan (TE08); counts toward load. Co-teaching share: OQ-158. |
 | valid_from / valid_to | DATE | — | Y / N | T1 | Known (D02 is effective-dated by year); Confirmed pattern (DL-24) | A mid-year change ends one row and starts another. |
-| assigned_by_user_id | UUID | FK:User | Y | T1 | Known role (Arch § Users and roles: coordinator "Timetables"); who exactly Open (OQ-150) | |
+| assigned_by_user_id | UUID | FK:A01 | Y | T1 | Known role (Arch § Users and roles: coordinator "Timetables"); who exactly Open (OQ-150) | |
 | assignment_status | ENUM | — | Y | T1 | Assumed (DL-27) | PROPOSED, CONFIRMED, ENDED. Only CONFIRMED sets data scope (SR-TE-05). |
 
 ### TE07 — Academic Responsibility
@@ -207,7 +207,7 @@ ST02, ST03, CL01, CL03, CL04, AC02, AC03, AC07, AC08, AC09, AT01, AT02 and E01 a
 | effective_from / effective_to | DATE | — | Y / N | T1 | Confirmed (DL-138) | Starts on a school day. Publishing a new version closes the previous one the day before. |
 | timetable_status | ENUM | — | Y | T1 | Assumed (DL-27) | DRAFT, PUBLISHED, SUPERSEDED, ARCHIVED. See enums. |
 | hard_clash_count / soft_clash_count | INT | — | Y | T1 | Confirmed (DL-139); derived | Publish needs zero hard clashes. |
-| built_by_user_id | UUID | FK:User | Y | T1 | Known role (Arch: coordinator "Timetables"); timetabler Open (OQ-150) | |
+| built_by_user_id | UUID | FK:A01 | Y | T1 | Known role (Arch: coordinator "Timetables"); timetabler Open (OQ-150) | |
 | published_by_user_id / published_at | — | — | C | T1 | Assumed: Principal (OQ-150) | |
 | import_source | VARCHAR(40) | — | N | T1 | Open (OQ-151) | e.g. "aSc export 2026-11-20". Imported lessons still go through the clash check. |
 | change_note | TEXT | — | C | T1 | Assumed | Required to publish a version after the first: what changed and why. Sent with the change notice (SR-TE-10). |
@@ -262,7 +262,7 @@ ST02, ST03, CL01, CL03, CL04, AC02, AC03, AC07, AC08, AC09, AT01, AT02 and E01 a
 | source | ENUM | — | Y | T1 | Assumed | STAFF_LEAVE (created by Staff & HR when leave is approved or sick leave reported, with dates and periods only: [staff & HR dictionary](./staff-hr-data-dictionary.md) DL-156, SR-HR-06), ENTERED (coordinator or office), TIMETABLE_EVENT. How GIIS teachers report absence today: OQ-163, OQ-168. |
 | reported_at | TIMESTAMPTZ | — | Y | T1 | Assumed | Same-morning reports show first on the cover board. |
 | cover_note | TEXT | — | N | T1 | Assumed | Work set by the absent teacher ("Worksheet 7 on the shared drive"). Shown to the cover teacher only. |
-| recorded_by_user_id | UUID | FK:User | Y | T1 | Assumed | |
+| recorded_by_user_id | UUID | FK:A01 | Y | T1 | Assumed | |
 | absence_status | ENUM | — | Y | T1 | Assumed (DL-27) | PLANNED, ACTIVE, ENDED, CANCELLED. Cancelling returns covered lessons to SCHEDULED. |
 
 ### TE13 — Cover Arrangement

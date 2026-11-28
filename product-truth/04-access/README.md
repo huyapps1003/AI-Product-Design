@@ -10,7 +10,7 @@
 |---|---|
 | this README | Which access paths exist for which actors, and the constraints every path must meet |
 | [role-catalogue.md](./role-catalogue.md) | Every role name in product truth, how they relate, and the role families with no definition |
-| [rbac-model.md](./rbac-model.md) | The six-layer model and evaluation algorithm (Assumed, DL-16…DL-21; confirmed changes DL-32…DL-38) |
+| [rbac-model.md](./rbac-model.md) | The six-layer model and evaluation algorithm (DL-16…DL-20 Confirmed, DL-21 Assumed; changes DL-32…DL-38 Confirmed) |
 | [permission-catalogue.md](./permission-catalogue.md) | **Canonical** capabilities, field policies, fixed capability sets (DL-33) |
 
 ## Three sources, one model

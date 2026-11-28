@@ -87,7 +87,7 @@ OR03, OR04, OR07, OR08, OR09, AC07, TE06, TE07, TE12, CC01, CC03, A01, A15, A16 
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| employee_id | UUID | PK | Y | T1 | Known (Employee DD E01, BR-01) | Never reused. Referenced by TE06, TE12, TE13. |
+| employee_id | UUID | PK | Y | T1 | Known (Employee DD E01, BR-01) | Never reused. Referenced by E02, HR02, HR05, HR06, HR10, HR11, HR13, HR17, HR18, and outside this file by AS07, AS11, AS13, AT03, CC03, CC10, CC12, CL03, TE06, TE07, TE10, TE11, TE12, TE13. |
 | person_id | UUID | FK:Person | Y | T1 | Confirmed (DL-42) | New. One Person, one employee profile per data location (DL-164). |
 | preferred_name | VARCHAR(160) | — | N | T1 | Known (E01) | Shown in the directory and on timetables. |
 | legal_first_name / legal_last_name | VARCHAR(120) | — | Y / C | T2 | Known (E01) | Written only in Campus OS; sent to payroll (DL-147). |
@@ -244,7 +244,7 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
 | balance_id | UUID | PK | Y | T2 | Confirmed (DL-155) | |
-| employee_id / leave_type_id | UUID | UK with year | Y | T2 | Assumed | |
+| employee_id / leave_type_id | UUID | UK with year; FK:E01 / HR03 | Y | T2 | Assumed | |
 | leave_year_start / leave_year_end | DATE | — | Y | T2 | Assumed | |
 | entitlement_days | DECIMAL | — | Y | T2 | Derived | Pro-rated for start date and FTE (HR01). |
 | carried_forward_days | DECIMAL | — | Y | T2 | Derived | |
@@ -280,7 +280,7 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 | leave_request_id | UUID | FK:HR06 | Y | T1 | Assumed | |
 | sequence | INT | — | Y | T1 | Assumed | 1 line manager, 2 Principal when needed. |
 | approver_role | ENUM | — | Y | T1 | Assumed | LINE_MANAGER, PRINCIPAL, HR. |
-| approver_user_id / acting_for_user_id | UUID | FK:User | Y / N | T1 | Assumed; delegation Confirmed (DL-36) | Delegate approvals record whom they acted for (A16). |
+| approver_user_id / acting_for_user_id | UUID | FK:A01 | Y / N | T1 | Assumed; delegation Confirmed (DL-36) | Delegate approvals record whom they acted for (A16). |
 | decision / decided_at / comment | ENUM / TIMESTAMPTZ / TEXT | — | C | T1 | Assumed | APPROVED, REJECTED. A rejection needs a comment. |
 
 ### HR08 — Compliance Item Type
@@ -332,12 +332,12 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
 | vacancy_id | UUID | PK | Y | T1 | Confirmed (DL-159) | |
-| campus_id / org_unit_id / position_id | UUID | FK | Y | T1 | Assumed | |
+| campus_id / org_unit_id / position_id | UUID | FK:OR04 / E03 / E05 | Y | T1 | Assumed | |
 | fte / employment_type | DECIMAL / ENUM | — | Y | T1 | Assumed | |
 | reason | ENUM | — | Y | T1 | Assumed | NEW_HEADCOUNT, REPLACEMENT (links the leaving employment), COVER_FOR_LEAVE. |
 | replaces_employment_id | UUID | FK:E02 | C | T1 | Assumed | |
 | target_start | DATE | — | Y | T1 | Assumed | Teaching posts usually start with a term (AC08). |
-| requested_by_user_id | UUID | FK:User | Y | T1 | Assumed | Line manager or Principal. |
+| requested_by_user_id | UUID | FK:A01 | Y | T1 | Assumed | Line manager or Principal. |
 | hiring_manager_employee_id | UUID | FK:E01 | Y | T1 | Assumed | |
 | vacancy_status | ENUM | — | Y | T1 | Assumed (DL-27) | DRAFT, PENDING_APPROVAL, OPEN, ON_HOLD, FILLED, CANCELLED. |
 
@@ -374,7 +374,7 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 | application_id | UUID | FK:HR12 | Y | T2 | Assumed | |
 | proposed_start / contract_type / fte | DATE / ENUM / DECIMAL | — | Y | T2 | Assumed | Copied into E02 and HR01 on acceptance. |
 | offer_letter_ref | VARCHAR(512) | — | N | T2 | Assumed | Pay terms live in the letter and payroll, not in fields (DL-147). |
-| approved_by_user_id | UUID | FK:User | C | T2 | Assumed | Principal; Country Director for new headcount (OQ-174). |
+| approved_by_user_id | UUID | FK:A01 | C | T2 | Assumed | Principal; Country Director for new headcount (OQ-174). |
 | offer_status | ENUM | — | Y | T2 | Assumed | DRAFT, PENDING_APPROVAL, SENT, ACCEPTED, DECLINED, WITHDRAWN. ACCEPTED creates E02 PENDING and the joining checklist. |
 
 ### HR15 — Checklist Task
@@ -398,7 +398,7 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 |---|---|---|:---:|---|---|---|
 | cycle_id | UUID | PK | Y | T1 | Confirmed (DL-161) | |
 | brand_country_id | UUID | FK:OR03 | Y | T1 | Assumed | |
-| academic_year_id | UUID | FK:AC07 | C | T1 | Assumed (DL-96) | Or a calendar year for non-teaching staff (OQ-177). |
+| academic_year_id | UUID | FK:AC07 | C | T1 | Confirmed (DL-96) | Or a calendar year for non-teaching staff (OQ-177). |
 | name | VARCHAR(80) | — | Y | T1 | Assumed | "Appraisal 2026-27, CBSE staff". |
 | applies_to | JSON | — | Y | T1 | Assumed | Categories, campuses. |
 | stage_dates | JSON | — | Y | T1 | Assumed | GOALS, MID_YEAR, SELF_REVIEW, MANAGER_REVIEW, MODERATION, SHARED. |
@@ -410,13 +410,13 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
 | appraisal_id | UUID | PK | Y | T2 | Confirmed (DL-161) | |
-| cycle_id / employee_id | UUID | UK | Y | T2 | Assumed | |
+| cycle_id / employee_id | UUID | UK; FK:HR16 / E01 | Y | T2 | Assumed | |
 | reviewer_employee_id | UUID | FK:E01 | Y | T2 | Assumed | Appraisal reviewer at cycle open (E04 `appraisal_reviewer_assignment_id`, DL-150). |
 | goals | JSON | — | Y | T2 | Assumed | 3–5 goals with measures; agreed by both. |
 | observations | JSON | — | N | T2 | Assumed | Lesson observation notes (date, observer, group from TE04, notes). |
 | self_review / manager_review | TEXT | — | C | T2 | Assumed | |
 | rating | VARCHAR(24) | — | C | T2 | Open (OQ-178) | |
-| moderated_by_user_id | UUID | FK:User | N | T2 | Assumed | Principal. |
+| moderated_by_user_id | UUID | FK:A01 | N | T2 | Assumed | Principal. |
 | employee_acknowledged_at | TIMESTAMPTZ | — | N | T2 | Assumed | The employee can add a comment; acknowledging isn't agreeing. |
 | stage | ENUM | — | Y | T2 | Assumed | GOALS, IN_YEAR, SELF_REVIEW, MANAGER_REVIEW, MODERATION, SHARED, CLOSED. |
 
@@ -432,7 +432,7 @@ Fields as Employee DD E08, with `direction` ENUM (new, Confirmed DL-147): IMPORT
 | date_from / date_to / hours | DATE / DATE / DECIMAL | — | Y | T1 | Assumed | |
 | certificate_ref | VARCHAR(512) | — | N | T2 | Assumed | |
 | request_status | ENUM | — | Y | T1 | Assumed | REQUESTED, APPROVED, REJECTED, COMPLETED, RECORDED (added after the event). |
-| approved_by_user_id | UUID | FK:User | C | T1 | Assumed | Line manager. Cost and budget Open (OQ-180). |
+| approved_by_user_id | UUID | FK:A01 | C | T1 | Assumed | Line manager. Cost and budget Open (OQ-180). |
 
 ## A staff year and how it maps to other modules
 
