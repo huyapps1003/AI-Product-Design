@@ -29,7 +29,7 @@ Coverage: **Described** (product truth models it) · **Partly** (named but not m
 ## Examples to use in designs (GIIS)
 
 - Singapore runs two semesters; Noida's year starts in April and Saturdays are non-working (MC-06).
-- GIIS Singapore teaches six curricula on one campus: GMP, CBSE, IB PYP, Cambridge CLSP, IGCSE, IBDP (MC-07).
+- GIIS Singapore teaches six curricula on one campus: GMP, CBSE, IB PYP, Cambridge CLSP, IGCSE, IB DP (MC-07).
 - Currencies SGD and INR; GST (MC-12).
 
 Equivalent facts for other brands haven't been researched.

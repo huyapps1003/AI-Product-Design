@@ -41,7 +41,7 @@ patterns: [AP-01, AP-02, AP-08, AP-13, AP-14]
 
 # OBJ-13 · Scope node and campus
 
-**Status:** Proposed card, 9 Nov 2026 (Organisation dictionary v0.1; DL-47…DL-50 Assumed) · **Owner:** Henry
+**Status:** Proposed card, 9 Nov 2026 (Organisation dictionary v0.1; DL-47…DL-50 Confirmed 12 Nov 2026) · **Owner:** Henry
 **Cites:** see `entities`, `states` and comments above · [organisation dictionary](../organisation-data-dictionary.md)
 
 The breadcrumb reads Group › Brand › Brand-country › Campus, e.g. "GIIS · Singapore · SMART Campus Punggol" (AP-01). Show a campus with its brand, because names repeat across brands. Call a cell a **data location** (DL-47). Show data locations other than Singapore and India as Planned (OQ-21).

@@ -13,7 +13,7 @@ This is a compact, design-ready digest. Where it and the full dictionary disagre
 
 - **Global Campus OS** is the school platform Global Schools Group (GSG) runs for all of its school brands. GIIS (Global Indian International School) is the detailed example brand; five other brands appear with one student each. Never present a GIIS fact as true for every brand.
 - Campuses in the sample: GIIS `SG-PGL` SMART Campus Punggol, `SG-ECS` East Coast Campus (Singapore), `IN-NOI` Noida Campus (India); plus OWIS `SG-OWD`, Harrods `KH-HLP`/`KH-HUP` (stage campuses of one school), Witty `IN-WKB`, Heath House `UK-HTH`, Regent `MY-RKL`. Campus codes are placeholders (OQ-55).
-- Programmes: GMP (KG), CBSE 1–12, IB PYP, Cambridge CLSP 6–8, IGCSE 9–10, IBDP.
+- Programmes: GMP (KG), CBSE 1–12, IB PYP, Cambridge CLSP 6–8, IGCSE 9–10, IB DP.
 - Staff work in the **staff web app** (desktop). Parents use the **parent app** (mobile). Students use the **student app** (mobile) and see only their own Tier 1 profile and enrolment (DL-68).
 - Students and staff sign in with Google Workspace SSO. Parents sign in with OTP.
 

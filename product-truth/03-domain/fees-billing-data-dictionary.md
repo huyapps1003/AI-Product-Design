@@ -96,13 +96,13 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 | fee_plan_id | UUID | PK | Y | T1 | Known entity (Arch § Data model) | |
 | campus_id | UUID | FK:OR04 | Y | T1 | Known (Arch § Tenancy "Campus: fee plans") | |
 | programme_offering_id | UUID | FK:AC06 | Y | T1 | Known (Arch "per campus and programme") | |
-| grade_ids | UUID[] | — | Y | T1 | Assumed | One plan may cover a band of grades (Grades 6–8). A grade appears in one plan per offering and year. |
+| grade_ids | UUID[] | FK:AC02 | Y | T1 | Assumed | One plan may cover a band of grades (Grades 6–8). A grade appears in one plan per offering and year. |
 | academic_year_id | UUID | FK:AC07 | Y | T1 | Assumed | |
 | version | INT | UK with the four keys | Y | T1 | Known need (Arch § Tenancy "Every fee plan has a valid-from date") | |
 | valid_from | DATE | — | Y | T1 | Known (Arch § Tenancy) | Invoices use the version valid on the period start. |
 | currency | CHAR(3) | — | Y | T1 | Known (Arch § Tenancy currency per country; MC-12) | Other currencies: OQ-92. |
 | plan_status | ENUM | — | Y | T1 | Assumed (DL-27) | DRAFT, SUBMITTED, APPROVED, SUPERSEDED. |
-| prepared_by_user_id | UUID | FK:User | Y | T1 | Assumed | Finance executive. |
+| prepared_by_user_id | UUID | FK:A01 | Y | T1 | Assumed | Finance executive. |
 | approved_by_user_id / approved_at | — | — | C | T1 | Known (Arch § Users and roles: Finance Controller "Fee plans") | |
 | change_reason | TEXT | — | C | T1 | Assumed | Required for version 2 onwards. |
 | annual_total | DECIMAL | — | Y | T1 | Assumed; derived | Shown on admission offers and the parent fee schedule. |
@@ -129,7 +129,7 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 |---|---|---|:---:|---|---|---|
 | billing_period_id | UUID | PK | Y | T1 | Assumed | |
 | campus_id | UUID | FK:OR04 | Y | T1 | Assumed | |
-| academic_year_id | UUID | FK | Y | T1 | Assumed | |
+| academic_year_id | UUID | FK:AC07 | Y | T1 | Assumed | |
 | programme_offering_id | UUID | FK:AC06 | Y | T1 | Confirmed (DL-96, DL-114) | Always set: years are per campus × offering, so billing periods are too (IB DP July start differs from CBSE April). Billing periods lie inside the AC07 year but are not academic terms (AC08). |
 | period_label | VARCHAR(40) | — | Y | T1 | Known for GIIS SG ("term period of four (4) months", HB p.244) | e.g. "Term 2 (Aug–Nov)" for GIIS SG CBSE (April year; HB p.244 example "Term 2 … starts in August"). |
 | period_start / period_end | DATE | — | Y | T1 | Assumed | Must sit inside the academic year (MC-06). |
@@ -147,7 +147,7 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 | account_number | VARCHAR(20) | UK | Y | T2 | Assumed | Shown on statements and bank transfer references. Format Open (with OQ-55). |
 | brand_country_id | UUID | FK:OR03 | Y | T1 | Confirmed (DL-79) | Selects the data location (DL-47). |
 | payer_type | ENUM | — | Y | T2 | Assumed; sponsors Open (OQ-85) | GUARDIAN, SPONSOR_ORGANISATION. |
-| payer_person_id | UUID | FK:Person | C | T2 | Assumed (DL-55) | Required for GUARDIAN. Must hold a VERIFIED ST05 to every student billed to the account (SR-FB-05). |
+| payer_person_id | UUID | FK:Person | C | T2 | Confirmed (DL-55) | Required for GUARDIAN. Must hold a VERIFIED ST05 to every student billed to the account (SR-FB-05). |
 | sponsor_name / sponsor_contact | VARCHAR / JSON | — | C | T2 | Assumed | Required for SPONSOR_ORGANISATION. Sponsors never get a parent-app login (OQ-85). |
 | billing_address | TEXT | — | Y | T2 | Assumed | Defaults from the guardian's current address (ST06). |
 | tax_registration_no | VARCHAR(32) | — | N | T2 | Open (OQ-87) | For sponsors who need tax invoices. |
@@ -169,7 +169,7 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 | share_percent | DECIMAL(5,2) | — | Y | T2 | Assumed | Shares for the same fee types add up to 100 (SR-FB-04). |
 | fee_type_ids | UUID[] | — | N | T2 | Assumed | Empty = all fee types. Lets an employer pay tuition while a parent pays bus. |
 | valid_from / valid_to | DATE | — | Y / N | T1 | Assumed | Changes take effect from the next billing period. |
-| set_by_user_id | UUID | FK:User | Y | T1 | Assumed | Finance, from the admission contract (AD08) or a parent request. |
+| set_by_user_id | UUID | FK:A01 | Y | T1 | Assumed | Finance, from the admission contract (AD08) or a parent request. |
 
 ### FB07 — Fee Adjustment
 
@@ -187,7 +187,7 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 | reason | TEXT | — | Y | T2 | Assumed | Shown to Finance only; parents see the type name. |
 | scholarship_ref | VARCHAR | — | C | T2 | Assumed | Award reference from the scholarship office (outside this module). |
 | status | ENUM | — | Y | T1 | Assumed (DL-27) | REQUESTED, APPROVED, REJECTED, ENDED. Only APPROVED applies. |
-| approved_by_user_id | UUID | FK:User | C | T2 | Open approver (OQ-83) | |
+| approved_by_user_id | UUID | FK:A01 | C | T2 | Open approver (OQ-83) | |
 
 ### FB08 — Billing Run
 
@@ -202,7 +202,7 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 | run_status | ENUM | — | Y | T1 | Assumed (DL-27) | See enums. |
 | exceptions | JSON | — | Y | T2 | Assumed; derived | Students the run can't bill: no billing account, shares not 100, plan "Not set", tax code "Not set". Must be cleared or excluded before approval. |
 | totals | JSON | — | Y | T2 | Assumed; derived | Invoice count, gross, adjustments, tax, net, per currency. |
-| prepared_by_user_id | UUID | FK:User | Y | T1 | Assumed | Finance executive. |
+| prepared_by_user_id | UUID | FK:A01 | Y | T1 | Assumed | Finance executive. |
 | approved_by_user_id / approved_at | — | — | C | T1 | Assumed (Arch: Finance Controller "invoicing") | |
 | issued_at | TIMESTAMP | — | C | T1 | Assumed | Invoices become visible to parents. |
 
@@ -212,13 +212,13 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| invoice_id | UUID | PK | Y | T2 | Known entity (Arch § Data model) | Referenced by AD09 `invoice_ref`. |
+| invoice_id | UUID | PK | Y | T2 | Known entity (Arch § Data model) | Referenced by FB10, FB12, FB13, FB15 and AD09 `invoice_ref`. |
 | invoice_number | VARCHAR(24) | UK per issuer | Y | T2 | Assumed | Sequential per legal entity; format Open (OQ-87 e-invoicing). |
 | billing_account_id | UUID | FK:FB05 | Y | T2 | Assumed | |
 | issuer_legal_entity_id | UUID | FK:OR07 | Y | T1 | Known slot (DL-41 `operating_entity_id`) | From the enrolment's operating entity; named once OQ-06 is answered. |
 | campus_id | UUID | FK:OR04 | Y | T1 | Assumed | |
 | source | ENUM | — | Y | T1 | Confirmed (DL-80) | See enums. |
-| billing_run_id / billing_period_id | UUID | FK | C | T1 | Assumed | For BILLING_RUN invoices. |
+| billing_run_id / billing_period_id | UUID | FK:FB08 / FB04 | C | T1 | Assumed | For BILLING_RUN invoices. |
 | invoice_date / due_date | DATE | — | Y | T2 | Assumed | |
 | currency | CHAR(3) | — | Y | T2 | Known (MC-12) | |
 | subtotal / adjustments / tax / total | DECIMAL | — | Y | T2 | Assumed; derived from FB10 | |
@@ -261,7 +261,7 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 | surcharge_amount | DECIMAL | — | N | T2 | Known that card charges exist (HB p.246 "charges for credit card payment"); policy Open (OQ-82) | |
 | payment_status | ENUM | — | Y | T2 | Assumed (DL-27) | See enums. |
 | received_at | TIMESTAMP | — | Y | T2 | Assumed | Gateway confirmation time or the date Finance records. |
-| recorded_by_user_id | UUID | FK:User | C | T2 | Assumed | Required for offline payments. |
+| recorded_by_user_id | UUID | FK:A01 | C | T2 | Assumed | Required for offline payments. |
 | receipt_number | VARCHAR(24) | UK per issuer | C | T2 | Known need (MyGIIS payment history, HB p.34) | Issued when SUCCEEDED. |
 | reversal_reason | TEXT | — | C | T2 | Assumed | Bounced cheque, chargeback. |
 
@@ -290,7 +290,7 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 | reason_code | ENUM | — | Y | T2 | Assumed (DL-27) | BILLING_ERROR, WITHDRAWAL_PRORATION, LATE_ADJUSTMENT, GOODWILL, REFUND. |
 | reason_note | TEXT | — | Y | T2 | Assumed | |
 | total | DECIMAL | — | Y | T2 | Assumed | Can't exceed the invoice total minus earlier credits. |
-| approved_by_user_id | UUID | FK:User | Y | T2 | Assumed; approver above a threshold Open (OQ-83) | |
+| approved_by_user_id | UUID | FK:A01 | Y | T2 | Assumed; approver above a threshold Open (OQ-83) | |
 
 ### FB14 — Refund
 
@@ -299,7 +299,7 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
 | refund_id | UUID | PK | Y | T2 | Known entity (Arch § Data model "Refund case") | |
-| case_id | UUID | FK:Case | Y | T2 | Confirmed (DL-08, DL-84) | Approval steps, documents, deadline and escalation run on the shared Case. |
+| case_id | UUID | FK:CC03 | Y | T2 | Confirmed (DL-08, DL-84) | Approval steps, documents, deadline and escalation run on the shared Case. |
 | billing_account_id | UUID | FK:FB05 | Y | T2 | Assumed | |
 | enrolment_id | UUID | FK:ST02 | Y | T1 | Assumed | |
 | refund_basis | ENUM | — | Y | T2 | Known for GIIS SG (HB p.240–244) | See enums. |
@@ -338,7 +338,7 @@ ST02, ST04, ST05, AD09, AD10 and Case (OBJ-10) are referenced, not redefined. AD
 | enrolment_id | UUID | FK:ST02 | Y | T1 | Assumed | |
 | reason | ENUM | — | Y | T2 | Known: LONG_LEAVE (HB p.237); others Assumed | LONG_LEAVE, OTHER. |
 | pause_from / pause_to | DATE | — | Y | T2 | Known need (HB p.237) | Billing runs skip covered months. |
-| case_id | UUID | FK:Case | Y | T2 | Known (HB p.239: Principal processes, Associate Director Academic Quality Assurance approves at GIIS SG) | The approved deferment. |
+| case_id | UUID | FK:CC03 | Y | T2 | Known (HB p.239: Principal processes, Associate Director Academic Quality Assurance approves at GIIS SG) | The approved deferment. |
 
 ### FB17 — Fee Protection Record
 

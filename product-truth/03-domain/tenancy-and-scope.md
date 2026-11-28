@@ -13,7 +13,7 @@
 | Brand-country | GIIS Singapore, GIIS India | Data cell (by country), regulator pack, currency and tax, public holidays, refund and fee protection rules, languages offered | Confirmed (DL-40); contents from Architecture "Country" |
 | Campus | SMART Campus Punggol, East Coast, Noida | Calendar, fee plans, buildings and rooms, transport routes, contacts and escalation owners | Proposed |
 | Segment (Architecture: "Section", DL-29) | Pre-Primary, Primary, Middle, Higher | School day timings, assembly days, segment events | Proposed |
-| Programme offering | CBSE 1–12 at Punggol, IGCSE 9–10 at East Coast | Academic year and term dates (DL-96), offered subjects, assessment scheme version, promotion rule version ([academic structure](./academic-structure-data-dictionary.md) AC06) | Confirmed level (DL-40); model Assumed (DL-112) |
+| Programme offering | CBSE 1–12 at Punggol, IGCSE 9–10 at East Coast | Academic year and term dates (DL-96), offered subjects, assessment scheme version, promotion rule version ([academic structure](./academic-structure-data-dictionary.md) AC06) | Confirmed level (DL-40); model Confirmed (DL-112) |
 
 Rules from Architecture v1: settings inherit downward; every row carries `tenant_path` (group/country/campus); policies, fee plans and grading scales are effective-dated; Singapore and Indian data stay in their own country cells; a thin global layer holds identity, directory and anonymised group analytics; parents link to children on any campus or country.
 

@@ -39,6 +39,8 @@ Architecture v1 and the Employee Data Dictionary v1 are both marked *Proposed*. 
 | `S1`–`S5`, `SCR-…` | Admin Platform scenarios and screens | [`06-experience/admin-platform/`](./06-experience/admin-platform/) |
 | `G1`–`G16` | Gaps from the 18 Oct review (archived) | [`_archive/gap-analysis-2026-10-18.md`](./_archive/gap-analysis-2026-10-18.md) |
 
+**Key columns (DL-193).** A key column carries the name of the key it points at, with an optional role prefix: `grade_level_id`, `offered_grade_level_id`, `programme_offering_id`, `pack_subject_id`, never `grade_id`, `offering_id` or `subject_id`. Its Key cell names the entity ID (`FK:AC02`), not a word such as `FK:Grade`.
+
 "Decision D01" (Data Dictionary open decision) is not "entity D01" (academic role allocation); DL-12 records the proposed rename.
 
 ## 4. File header

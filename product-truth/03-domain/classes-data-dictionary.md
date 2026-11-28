@@ -59,17 +59,17 @@ ST02, ST03, AD06 and Employee DD D01/D02 are referenced, not redefined. Employee
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| class_id | UUID | PK | Y | T1 | Known entity (Arch § Data model) | Referenced by ST02 `class_id` and Employee DD D02 `section_id`. |
+| class_id | UUID | PK | Y | T1 | Known entity (Arch § Data model) | Referenced by AS07, AT03, CL03, CL04, CL07, ST02 `class_id` and TE04 (which replaces Employee DD D02 `section_id`). |
 | class_name | VARCHAR(40) | UK with campus + year | Y | T1 | Known that names vary (HB p.9–14: "Standard 7 B", "IB PYP 2A", "K1 A Extnd"; sample: "4 Orchid", "Year 2 Oak") | Free text; naming convention per campus. Unique within a campus and year. |
 | short_name | VARCHAR(12) | — | N | T1 | Assumed | For chips and tight lists, e.g. "7B". |
 | campus_id | UUID | FK:OR04 | Y | T1 | Known | |
 | academic_year_id | UUID | FK:AC07 | Y | T1 | Confirmed (DL-70) | Years start at different times (MC-06). |
 | programme_offering_id | UUID | FK:AC06 | Y | T1 | Known (MC-07) | e.g. CBSE 1-12, IB PYP, Cambridge CLSP 6-8. |
 | class_type | ENUM | — | Y | T1 | Assumed (DL-27) | REGULAR only for now. AEPP is not a class (DL-74). Composite or mixed-age: OQ-78. |
-| grade_id | UUID | FK:AC02 | Y | T1 | Known (Arch: grade level from the programme pack) | |
+| grade_level_id | UUID | FK:AC02 | Y | T1 | Known (Arch: grade level from the programme pack) | |
 | segment_code | VARCHAR(32) | — | N | T1 | Known values per campus (organisation dictionary); derived | Pre-Primary, Primary, Middle, Higher at GIIS (DL-29). |
 | size_limit | INT | — | Y | T1 | Confirmed (DL-71) | From the class plan; may differ per class (e.g. one smaller class). |
-| home_room | VARCHAR(40) | — | N | T1 | Known (HB p.9–14 room per class, e.g. "S4 - 04") | Becomes FK:TE03 (the room list [Teaching & Timetable](./teaching-timetable-data-dictionary.md) keeps until Campus Services owns rooms, DL-141, Confirmed). |
+| home_room_id | UUID | FK:TE03 | N | T1 | Known (HB p.9–14 room per class, e.g. "S4 - 04"); key Confirmed (DL-141) | The class's home room from the room list that [Teaching & Timetable](./teaching-timetable-data-dictionary.md) keeps until Campus Services owns rooms (DL-141). Was free text `home_room` before the 28 Nov 2026 review. |
 | class_status | ENUM | — | Y | T1 | Assumed (DL-27) | DRAFT, ACTIVE, CLOSED. See enums. |
 | previous_class_id | UUID | FK:CL01 | N | T1 | Confirmed (DL-70) | Suggested predecessor from rollover (7B → 8B). Display only. |
 | enrolled_count | INT | — | Y | T1 | Assumed; derived | Current CL04 placements. Never stored by hand. |
@@ -82,12 +82,12 @@ ST02, ST03, AD06 and Employee DD D01/D02 are referenced, not redefined. Employee
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
 | class_plan_id | UUID | PK | Y | T1 | Confirmed (DL-71) | |
-| campus_id, programme_offering_id, grade_id, academic_year_id | UUID | UK | Y | T1 | Confirmed shape (DL-61 target) | Same key as AD06. |
+| campus_id, programme_offering_id, grade_level_id, academic_year_id | UUID | UK; FK:OR04 / AC06 / AC02 / AC07 | Y | T1 | Confirmed shape (DL-61 target) | Same key as AD06. |
 | planned_class_count | INT | — | Y | T1 | Confirmed (DL-61 "classes") | |
 | default_size_limit | INT | — | C | T1 | Confirmed (DL-61 "class size"); value per campus setting (OQ-74) | Required to approve. "Not set" blocks approval. |
 | seat_limit | INT | — | Y | T1 | Confirmed (DL-61); derived (DL-71) | Sum of the planned classes' `size_limit`. Written to AD06 `seat_limit`. |
 | plan_status | ENUM | — | Y | T1 | Assumed (DL-27) | DRAFT, SUBMITTED, APPROVED. |
-| prepared_by_user_id | UUID | FK:User | Y | T1 | Open (who prepares, OQ-73) | |
+| prepared_by_user_id | UUID | FK:A01 | Y | T1 | Open (who prepares, OQ-73) | |
 | approved_by_user_id / approved_at | — | — | C | T1 | Confirmed (DL-61: set by the Principal) | |
 | revision_reason | TEXT | — | C | T1 | Assumed | Required when an APPROVED plan changes. |
 | minimum_allowed_seats | INT | — | Y | T1 | Assumed (SR-CL-02); derived | Enrolled + held seats (AD06). The plan can't go below it. |
@@ -103,7 +103,7 @@ ST02, ST03, AD06 and Employee DD D01/D02 are referenced, not redefined. Employee
 | employee_id | UUID | FK:E01 | Y | T1 | Known (Employee DD keys by `employee_id`) | |
 | class_role | ENUM | — | Y | T1 | Known: CLASS_TEACHER (Arch § Users and roles); CO_CLASS_TEACHER, ASSISTANT Assumed | One active CLASS_TEACHER per class (SR-CL-05). |
 | valid_from / valid_to | DATE | — | Y / N | T1 | Assumed | Effective-dated; a mid-year change ends one row and starts another. |
-| assigned_by_user_id | UUID | FK:User | Y | T1 | Open (OQ-73) | |
+| assigned_by_user_id | UUID | FK:A01 | Y | T1 | Open (OQ-73) | |
 
 ### CL04 — Class Placement
 
@@ -118,8 +118,8 @@ ST02, ST03, AD06 and Employee DD D01/D02 are referenced, not redefined. Employee
 | valid_to | DATE | — | N | T1 | Assumed | Null = current. |
 | placement_reason | ENUM | — | Y | T1 | Assumed (DL-27) | See enums. |
 | reason_note | TEXT | — | C | T2 | Assumed | Required for CLASS_MOVE. May describe a family or conduct reason, so T2. |
-| placed_by_user_id | UUID | FK:User | Y | T1 | Open (OQ-73) | |
-| approved_by_user_id | UUID | FK:User | C | T1 | Open (OQ-73) | Over-limit placements need the Principal (SR-CL-04). |
+| placed_by_user_id | UUID | FK:A01 | Y | T1 | Open (OQ-73) | |
+| approved_by_user_id | UUID | FK:A01 | C | T1 | Open (OQ-73) | Over-limit placements need the Principal (SR-CL-04). |
 
 ### CL05 — House
 
@@ -142,9 +142,9 @@ ST02, ST03, AD06 and Employee DD D01/D02 are referenced, not redefined. Employee
 | rollover_run_id | UUID | PK | Y | T1 | Confirmed (DL-75) | |
 | campus_id | UUID | FK:OR04 | Y | T1 | Assumed | The campus students leave. Stage-campus targets are per line. |
 | programme_offering_id | UUID | FK:AC06 | Y | T1 | Confirmed (DL-96) | One run per campus × offering × year: GIIS SG CBSE rolls over in March, IB DP in May. |
-| from_academic_year_id / to_academic_year_id | UUID | FK | Y | T1 | Confirmed rule (DL-54: the year decides promotion) | |
+| from_academic_year_id / to_academic_year_id | UUID | FK:AC07 | Y | T1 | Confirmed rule (DL-54: the year decides promotion) | |
 | run_status | ENUM | — | Y | T1 | Assumed (DL-27) | See enums. |
-| prepared_by_user_id | UUID | FK:User | Y | T1 | Open (OQ-73) | |
+| prepared_by_user_id | UUID | FK:A01 | Y | T1 | Open (OQ-73) | |
 | approved_by_user_id / approved_at | — | — | C | T1 | Known (Arch § Users and roles: Principal approves promotion) | |
 | applied_at | TIMESTAMP | — | C | T1 | Assumed | When new enrolments were created. |
 | line_counts | JSON | — | Y | T1 | Assumed; derived | Counts per outcome and line status for the header. |
@@ -161,11 +161,11 @@ ST02, ST03, AD06 and Employee DD D01/D02 are referenced, not redefined. Employee
 | promotion_outcome | ENUM | — | Y | T2 | Known values (HB p.128–131: promotion, conditional promotion with re-test, weak pass, retained/detained, board criteria for 10 and 12); source Assessment | See enums. T2 because it reflects academic results. |
 | outcome_source | ENUM | — | Y | T1 | Assumed | ASSESSMENT (promotion decision AS12, [assessment dictionary](./assessment-data-dictionary.md)), WITHDRAWAL_CASE, PRINCIPAL_DECISION, PARENT_REQUEST (K–5 retention, HB p.128). |
 | target_campus_id | UUID | FK:OR04 | C | T1 | Confirmed rule (DL-62) | Differs from the run's campus for a stage-campus promotion. |
-| target_offering_id / target_grade_id | UUID | — | C | T1 | Known need (SR-16) | Grade 10 CBSE → Grade 11 needs a stream choice (OQ-77). |
+| target_programme_offering_id / target_grade_level_id | UUID | FK:AC06 / AC02 | C | T1 | Known need (SR-16) | Grade 10 CBSE → Grade 11 needs a stream choice (OQ-77). |
 | target_class_id | UUID | FK:CL01 | C | T1 | Assumed | Next-year class; may be left for start-of-year allocation. |
 | house_code | VARCHAR(32) | — | N | T1 | Confirmed (DL-76) | Copied forward. |
 | line_status | ENUM | — | Y | T1 | Assumed (DL-27) | See enums. |
-| approval_case_id | UUID | FK:Case | C | T2 | Confirmed (DL-62: non-stage year-end campus change needs both principals) | |
+| approval_case_id | UUID | FK:CC03 | C | T2 | Confirmed (DL-62: non-stage year-end campus change needs both principals) | |
 | new_enrolment_id | UUID | FK:ST02 | C | T1 | Known (SR-03 `previous_enrolment_id` link) | Set when applied. |
 
 ## Class lifecycle and how it maps to other modules

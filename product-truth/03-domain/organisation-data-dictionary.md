@@ -88,7 +88,7 @@ Group has no profile entity: there is one GROUP node, GSG (Known, DL-22). Region
 | data_region_id | UUID | FK:OR06 | Y | T1 | Confirmed (DL-39, DL-40) | Derived from country_code; never chosen per campus. |
 | regulator_pack_code | VARCHAR(32) | — | C | T1 | Known for SG, IN (regulatory-context); others Open (OQ-22) | Shown as pending outside SG and IN. |
 | currency_code | CHAR(3) | — | Y | T1 | Known (Arch § Tenancy "currency and tax") | ISO 4217. |
-| holiday_calendar_ref | UUID | FK:Calendar | N | T1 | Known (Arch § Tenancy) | Public holidays; campuses add their own (OR09). |
+| holiday_calendar_ref | UUID | FK:Calendar | N | T1 | Known (Arch § Tenancy); one list Confirmed (DL-190) | The one public holiday list for the brand-country (DL-190). Attendance non-school days (AT02), the case working-day calendar (CC09) and staff leave days (SR-HR-05) read it and never retype it; campuses add their own closures (OR09, AT02 CLOSURE). |
 | languages_offered | VARCHAR(35)[] | — | N | T1 | Known field (Arch § Tenancy); values Open (OQ-25, OQ-53) | BCP 47 tags. UI copy stays English in v1 (DL-15). |
 
 ### OR04 — Campus
@@ -158,7 +158,7 @@ Controller, fiduciary or processor roles are **not** attributes here; they belon
 | legal_entity_id | UUID | FK:OR07 | Y | T1 | Confirmed (DL-41); values Open (OQ-02) | |
 | operator_role | ENUM | — | Y | T1 | Confirmed (DL-50) | OPERATOR, FRANCHISEE, JV_PARTNER. Which campuses are partner-run: OQ-03. |
 | valid_from / valid_to | DATE | — | Y / N | T1 | Confirmed (DL-41) | No overlapping OPERATOR links for one campus. Handover effects: OQ-04. |
-| change_case_id | UUID | FK:Case | N | T1 | Confirmed (DL-50) | The case behind a handover. |
+| change_case_id | UUID | FK:CC03 | N | T1 | Confirmed (DL-50) | The case behind a handover. |
 
 ### OR09 — Setting value
 

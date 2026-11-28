@@ -74,7 +74,7 @@ ST02, ST03, AD02, CL01, FB02, FB04, AS02, AS06, AT01 and AT08 are referenced, no
 | version_label | VARCHAR(24) | — | Y | T1 | Confirmed (DL-111) | e.g. "2026.1". |
 | valid_from_year_label | VARCHAR(16) | — | Y | T1 | Confirmed (DL-111) | First academic year it applies to, e.g. "2026-27". |
 | pack_status | ENUM | — | Y | T1 | Confirmed (DL-111) | DRAFT, PUBLISHED, RETIRED. Published versions are read-only. |
-| approved_by | UUID | FK:User | C | T1 | Open (OQ-122) | Who approves a brand-country version. |
+| approved_by | UUID | FK:A01 | C | T1 | Open (OQ-122) | Who approves a brand-country version. |
 | grade_label_style | VARCHAR(24) | — | N | T1 | Confirmed (DL-115); values Open (OQ-127) | How grades are shown for this brand-country: "Class 6", "Grade 6", "Year 7". |
 
 ### AC02 — Grade Level
@@ -83,7 +83,7 @@ ST02, ST03, AD02, CL01, FB02, FB04, AS02, AS06, AT01 and AT08 are referenced, no
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| grade_level_id | UUID | PK | Y | T1 | Known entity (Arch "Grade level") | Referenced by ST02, AD02, CL01, CL02, FB02, AS06. |
+| grade_level_id | UUID | PK | Y | T1 | Known entity (Arch "Grade level") | Referenced by AC03, AC04, AC06, AC09, AD02, AD03, AD05, AD06, AD07, AS06, CL01, CL02, CL07, FB02, ST02 (DL-192). |
 | pack_id | UUID | FK:AC01 | Y | T1 | Known | |
 | grade_code | VARCHAR(16) | UK with pack | Y | T1 | Assumed | e.g. CBSE-06, IBDP-1, GMP-K1. |
 | display_label | VARCHAR(40) | — | Y | T1 | Known values (HB p.47–62: "Nursery", "Kindergarten 1", "Class 6", "IB PYP – 2", "IB Diploma Programme Year 1") | Brand-country version may rename (OQ-127). |
@@ -99,7 +99,7 @@ ST02, ST03, AD02, CL01, FB02, FB04, AS02, AS06, AT01 and AT08 are referenced, no
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| pack_subject_id | UUID | PK | Y | T1 | Known entity (Arch "Subject") | Referenced by ST03, AS06, AC09 and teaching allocation (OBJ-12). |
+| pack_subject_id | UUID | PK | Y | T1 | Known entity (Arch "Subject") | Referenced by AC09, AS06, AS09, AS13, ST03 and teaching allocation (OBJ-12). |
 | pack_id | UUID | FK:AC01 | Y | T1 | Known | |
 | subject_code | VARCHAR(24) | UK with pack | Y | T1 | Assumed | e.g. CBSE-SCI, IBDP-BIO-HL. Board codes where they exist (OQ-124). |
 | subject_name | VARCHAR(120) | — | Y | T1 | Known (HB p.47–62) | e.g. "Social Science", "Mathematics Analysis and Approaches". |
@@ -116,7 +116,7 @@ ST02, ST03, AD02, CL01, FB02, FB04, AS02, AS06, AT01 and AT08 are referenced, no
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| grade_band_id | UUID | PK | Y | T1 | Confirmed (DL-115) | Referenced by AS02 schemes (replaces the free-text `grade_band`), coordinator data scope (A13) and exam windows (Calendar, later). |
+| grade_band_id | UUID | PK | Y | T1 | Confirmed (DL-115) | Referenced by AS01 and AS02 schemes (`grade_band_id`), TE07 academic responsibilities, coordinator data scope (A13) and, later, exam windows (Calendar). |
 | pack_id | UUID | FK:AC01 | Y | T1 | Known | Brand-country version. |
 | band_label | VARCHAR(40) | — | Y | T1 | Known (HB p.68 "Grades 6-8"; Exam Schedule 2026-27 per band; sample "CBSE Grades 6-8") | |
 | grade_level_ids | UUID[] | FK:AC02 | Y | T1 | Assumed | Contiguous levels of the same pack. A level can sit in more than one band set (assessment bands vs coordinator bands: OQ-129). |
@@ -141,7 +141,7 @@ ST02, ST03, AD02, CL01, FB02, FB04, AS02, AS06, AT01 and AT08 are referenced, no
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| programme_offering_id | UUID | PK | Y | T1 | Known entity (Arch § Multi-campus "Programme offering") | Referenced by ST02, AD02/AD03, CL01, CL06, FB02, FB04, AS02, AT01. |
+| programme_offering_id | UUID | PK | Y | T1 | Known entity (Arch § Multi-campus "Programme offering") | Referenced by AC07, AD02, AD03, AD05, AD06, AD07, AS02, AT01, CL01, CL02, CL06, CL07, FB02, FB04, ST02, TE07, TE09. |
 | campus_id | UUID | FK:OR04 | Y | T1 | Known | |
 | pack_code | VARCHAR(24) | — | Y | T1 | Confirmed (DL-110) | The brand-country pack this offering follows; the version comes from each academic year (AC07 `pack_id`). |
 | offering_label | VARCHAR(60) | UK with campus | Y | T1 | Known values (samples: "CBSE 1-12", "Cambridge CLSP 6-8", "IGCSE 9-10", "IB DP", "IB PYP", "GMP (KG)") | One spelling everywhere: "IB DP", not "IBDP". |
@@ -158,7 +158,7 @@ ST02, ST03, AD02, CL01, FB02, FB04, AS02, AS06, AT01 and AT08 are referenced, no
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| academic_year_id | UUID | PK | Y | T1 | Confirmed key (DL-96) | Referenced by ST02, AD02, AD03, CL01, CL02, CL06, FB02, FB04, AS02, AS06, AT01, AT08. |
+| academic_year_id | UUID | PK | Y | T1 | Confirmed key (DL-96) | Referenced by AC08, AC09, AD02, AD03, AD06, AS02, AS06, AS12, AT01, AT08, CL01, CL02, CL06, FB02, FB04, HR16, ST02, TE01, TE04, TE07, TE09. |
 | programme_offering_id | UUID | FK:AC06 | Y | T1 | Confirmed (DL-96) | Campus comes from the offering. |
 | year_label | VARCHAR(16) | UK with offering | Y | T1 | Known style ("AY 2026-27") | |
 | pack_id | UUID | FK:AC01 | Y | T1 | Confirmed (DL-111) | The pack version used all year. |
@@ -175,7 +175,7 @@ ST02, ST03, AD02, CL01, FB02, FB04, AS02, AS06, AT01 and AT08 are referenced, no
 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
-| term_id | UUID | PK | Y | T1 | Known entity (Arch "Term") | Referenced by AS assessments and report cards, AT08 thresholds measured per term or semester (DL-108). |
+| term_id | UUID | PK | Y | T1 | Known entity (Arch "Term") | Read by AS assessments and report cards, and by AT08 thresholds measured per term or semester (DL-108, through `measured_over`, not a key). |
 | academic_year_id | UUID | FK:AC07 | Y | T1 | Confirmed (DL-96) | |
 | term_label | VARCHAR(40) | — | Y | T1 | Known (HB p.45 "two semesters"; p.68 "Term 1 April – September") | "Semester 1", "Term 1". |
 | term_kind | ENUM | — | Y | T1 | Confirmed (DL-114) | SEMESTER, TERM, TRIMESTER. A year uses one kind. |

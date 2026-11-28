@@ -1,6 +1,6 @@
 # Global Campus OS — Student Directory Spec v1.0
 
-**Status:** **Locked v1.0**, 13 Nov 2026 — the first Campus OS module spec (lock candidate 12 Nov; v0.2 merged 9 Nov). DL-23…DL-31, DL-41, DL-42, DL-45, DL-47, DL-49, DL-53…DL-55, DL-62…DL-68 Confirmed by Henry. Changes from here need a new DL entry · **Owner:** Henry
+**Status:** **Locked v1.0**, 13 Nov 2026 — the first Campus OS module spec (lock candidate 12 Nov; v0.2 merged 9 Nov). DL-23…DL-31, DL-41, DL-42, DL-45, DL-47, DL-49, DL-53…DL-55, DL-62…DL-68 Confirmed by Henry. Changes from here need a new DL entry. **v1.1**, 28 Nov 2026: ST02 `grade_level_id` (DL-192) and `pack_subject_id` naming (DL-193) · **Owner:** Henry
 **Cites:** [Student Data Dictionary v1.0](../00-sources/Global_Campus_OS_Student_Data_Dictionary_v1.md) (1 Nov 2026, merged here) · [Organisation dictionary](./organisation-data-dictionary.md) OR04, OR08 · DL-39, DL-41, DL-42, DL-45 · [Architecture v1](../00-sources/Global_Campus_OS_Product_Architecture_v1.md) § Users and roles, § Domains and modules, § Key workflows (Admission to enrolment), § Multi-campus and tenancy model, § High-level data model, § Security · [Employee Data Dictionary v1](../00-sources/Global_Campus_OS_Employee_Data_Dictionary_v1.md) (format, BR-01, E08 pattern) · [rbac-model](../04-access/rbac-model.md) Layers 4–6 · [data-classification](../05-data-governance/data-classification.md) · [data-controller-model](../05-data-governance/data-controller-model.md) · [regulatory-context](../05-data-governance/regulatory-context.md) · GIIS Student Handbook 2025-26 (HB) · GIIS Noida Almanac 2025-26 · DL-11, DL-17, DL-18, DL-19, DL-22 · RES-F05, MC-08, MC-09, MC-10 · DL-23…DL-27 (Assumed), DL-28…DL-31 (Confirmed, Henry 30 Oct 2026) · DL-32…DL-38 (access), DL-47, DL-49, DL-53 · DL-54, DL-55 (Confirmed, Henry 12 Nov 2026) · DL-62…DL-68 (Confirmed, Henry 13 Nov 2026) · OQ-35…OQ-45, OQ-50, OQ-60, OQ-61
 **Tóm tắt (VI):** Bản hợp nhất duy nhất của từ điển dữ liệu học sinh (gộp Student Data Dictionary v1.0 vào bản danh bạ học sinh; xem § Merge notes). Từ điển dữ liệu cho danh bạ học sinh (hồ sơ học sinh, ghi danh, phụ huynh/người giám hộ, giấy tờ, mã định danh) phục vụ thiết kế module Admissions and Enrolment. Mỗi trường có trạng thái Known / Assumed / Open, mức phân loại dữ liệu, quyền xem theo vai trò và ghi chú về bên kiểm soát dữ liệu.
 
@@ -15,7 +15,7 @@
   - **Known** — stated in a source. Cited as `Arch § …`, `HB p.N` (GIIS Handbook page), `ED` (Employee Data Dictionary), `RES-…`/`MC-…`.
   - **Assumed** — a design direction so work can start, cited by DL ID. Expect change.
   - **Open** — unknown, cited by OQ ID. Keep the field generic in designs; don't invent values.
-- **Tier** is the data classification from Architecture § Security and DL-11: **T1** Internal (directory), **T2** Confidential (academic, finance), **T3** Restricted (identity documents, health, SEN, counselling, child protection; field-level encryption, named roles only, every read logged). A tier marked `T2*` is assigned by DL-26 (Assumed) because Architecture does not name it. Whether children's data should sit higher across the board is open (OQ-13).
+- **Tier** is the data classification from Architecture § Security and DL-11: **T1** Internal (directory), **T2** Confidential (academic, finance), **T3** Restricted (identity documents, health, SEN, counselling, child protection; field-level encryption, named roles only, every read logged). A tier marked `T2*` is assigned by DL-26 (Confirmed) because Architecture does not name it. Whether children's data should sit higher across the board is open (OQ-13).
 - `Y` = required, `N` = optional, `C` = conditionally required. Types and keys are proposals for data architect review (as in ED).
 - Every row also carries `tenant_path` (group/brand/brand-country/campus, DL-40), `data_region` (DL-39; shown in the UI as **Data location**, never "cell", DL-47) and the shared common fields from ED § Shared common fields (`created_at`, `created_by_user_id`, `updated_at`, `updated_by_user_id`, `row_version`, `source_system_code`). They are not repeated per table.
 - Scope is every GSG brand (DL-22). Facts from GIIS files are labelled GIIS examples. SmartLearn is excluded.
@@ -99,17 +99,18 @@ The student directory is the record of **who a student is, where they are enroll
 | operating_entity_id | UUID | FK:OR07 | Y | T1 | Confirmed structure (DL-41); values Open (OQ-02) | Copied at creation from the campus operator (OR08) valid on `start_date`; never re-pointed. Not the data controller (AR-04, OQ-06). Show "[operating entity — OQ-02]". |
 | academic_year_id | UUID | FK:AC07 | Y | T1 | Known (Arch § Data model "Enrolment … for a year") | From the calendar engine; years start in April (Noida) or mid-year (Singapore) (MC-06). |
 | programme_offering_id | UUID | FK:AC06 | Y | T1 | Known (Arch § Tenancy) | e.g. CBSE 6–8 at Punggol, IGCSE 9–10 at East Coast. AEPP is a placement, not a programme offering (DL-65). |
-| grade_level_code | VARCHAR(32) | — | Y | T1 | Known (Arch § Data model; levels from programme pack) | e.g. KG1, Grade 7, IBDP Year 1. Never hard-coded; read from the pack. |
+| grade_level_code | VARCHAR(32) | — | Y | T1 | Known (Arch § Data model; levels from programme pack) | e.g. KG1, Grade 7, IB DP Year 1. Display label copied from AC02 `grade_code`; never hard-coded and never used to join (DL-192). |
+| grade_level_id | UUID | FK:AC02 | Y | T1 | Confirmed (DL-192, v1.1) | The grade level, the key other modules join on (classes, fees, assessment, admissions). |
 | segment_code | VARCHAR(32) | — | N | T1 | Known values (Noida Almanac: Pre-Primary, Primary, Middle, Higher); term Confirmed (DL-29) | Derived from grade level and campus settings. |
-| class_id | UUID | FK:Class | C | T1 | Known (Arch § Data model "Section (class)"); term Confirmed (DL-29) | Required once ENROLLED; assigned on enrolment (Arch § Admission to enrolment step 4). |
+| class_id | UUID | FK:CL01 | C | T1 | Known (Arch § Data model "Section (class)"); term Confirmed (DL-29) | Required once ENROLLED; assigned on enrolment (Arch § Admission to enrolment step 4). |
 | house_code | VARCHAR(32) | — | N | T1 | Known for GIIS SG ("one of four Houses", HB p.169); list per campus Open (OQ-20) | Campus reference list, not fixed to four. |
 | enrolment_status | ENUM | — | Y | T1 | Confirmed (DL-27); terms Known (HB p.232) | See enums. Withdrawal, transfer and deferment are defined in HB p.232. |
 | start_date | DATE | — | Y | T1 | Confirmed (DL-24) | First day of this enrolment. |
 | end_date | DATE | — | N | T1 | Known rule for withdrawal (HB p.234: "withdrawal effective date is the last attendance date") | Inclusive; null = open. Must not precede start_date. |
 | end_reason | ENUM | — | C | T2* | Confirmed (DL-27); terms Known (HB p.232–235) | Required when end_date is set: WITHDRAWAL, CAMPUS_TRANSFER, COURSE_CHANGE, PROMOTION_ROLLOVER, GRADUATION, NON_DELIVERY, EXPULSION, OTHER. |
-| contract_id | UUID | FK:Contract | C | T2 | Known (HB p.232: course change needs a new contract, campus change does not; Arch § Admission to enrolment step 2) | Admissions pipeline entity, next dictionary. |
+| contract_id | UUID | FK:AD08 | C | T2 | Known (HB p.232: course change needs a new contract, campus change does not; Arch § Admission to enrolment step 2) | Admissions pipeline entity, next dictionary. |
 | previous_enrolment_id | UUID | FK:ST02 | N | T1 | Confirmed (DL-24) | Links a transfer or rollover to the enrolment it replaced, so history is never overwritten. |
-| approval_case_id | UUID | FK:Case | N | T2 | Known (Arch: one Case object; HB p.235: both principals approve campus transfers) | Transfer, withdrawal or Student Pass case behind this change. |
+| approval_case_id | UUID | FK:CC03 | N | T2 | Known (Arch: one Case object; HB p.235: both principals approve campus transfers) | Transfer, withdrawal or Student Pass case behind this change. |
 
 ### ST03 — Enrolment Subject Choice
 
@@ -119,7 +120,7 @@ The student directory is the record of **who a student is, where they are enroll
 |---|---|---|:---:|---|---|---|
 | subject_choice_id | UUID | PK | Y | T1 | Known entity need (Arch § Data model) | |
 | enrolment_id | UUID | FK:ST02 | Y | T1 | Known | |
-| subject_id | UUID | FK:AC03 | Y | T1 | Known (Arch: subjects come from the programme pack) | e.g. second language Hindi, Tamil, French, Mandarin; third language Sanskrit (GIIS, HB § Language policy). |
+| pack_subject_id | UUID | FK:AC03 | Y | T1 | Known (Arch: subjects come from the programme pack) | e.g. second language Hindi, Tamil, French, Mandarin; third language Sanskrit (GIIS, HB § Language policy). |
 | choice_type | ENUM | — | Y | T1 | Confirmed (DL-27) | CORE, SECOND_LANGUAGE, THIRD_LANGUAGE, ELECTIVE, SUPPORT (e.g. English as a Second Language). |
 | valid_from | DATE | — | Y | T1 | Confirmed (DL-24) | Subject changes mid-year keep history. |
 | valid_to | DATE | — | N | T1 | Confirmed (DL-24) | |
@@ -229,7 +230,7 @@ Conditional rule: a student with an ACTIVE Student Pass (ST09) needs an INTERNAT
 | pass_document_id | UUID | FK:ST08 | C | T3 | Known | Required for pass types. |
 | valid_from | DATE | — | Y | T3 | Known need (HB p.35: inform school on change, e.g. citizenship acquired) | |
 | valid_to | DATE | — | N | T3 | Known need | |
-| approval_case_id | UUID | FK:Case | N | T3 | Known (Arch: Student Pass or MOE approval case; HB p.235: Admissions coordinates issue and cancellation) | |
+| approval_case_id | UUID | FK:CC03 | N | T3 | Known (Arch: Student Pass or MOE approval case; HB p.235: Admissions coordinates issue and cancellation) | |
 
 ### ST10 — Student External Identifier
 
@@ -335,10 +336,10 @@ Don't name a controller, fiduciary or processor in any notice, consent or export
 
 ## Business rules
 
-- **SR-01 (Assumed, DL-23):** Each learner has one immutable, never-reused `student_id`, kept across campuses, brands and countries.
+- **SR-01 (Confirmed, DL-23):** Each learner has one immutable, never-reused `student_id`, kept across campuses, brands and countries.
 - **SR-01a (Confirmed, DL-31):** Each learner has one Student ID (`student_number`), unique across Campus OS, that stays the same when they transfer between campuses.
 - **SR-02 (Known, Arch):** An enrolment links one student to one class and its subject choices for one academic year at one campus.
-- **SR-03 (Assumed, DL-24):** A new enrolment period never overwrites a past one. Transfers and rollovers end the old enrolment and create a new one linked by `previous_enrolment_id`.
+- **SR-03 (Confirmed, DL-24):** A new enrolment period never overwrites a past one. Transfers and rollovers end the old enrolment and create a new one linked by `previous_enrolment_id`.
 - **SR-04 (Known, HB p.232):** A course change ends the student contract and needs a new one; a campus change with the same course does not.
 - **SR-05 (Known, HB p.235):** A campus transfer is accepted only when both principals approve; decision within three weeks; profile updated within three working days.
 - **SR-06 (Known, HB p.234):** Withdrawal effective date is the last attendance date and becomes `end_date`.
@@ -346,7 +347,7 @@ Don't name a controller, fiduciary or processor in any notice, consent or export
 - **SR-08 (Known, HB p.35, Singapore pack):** A Student Pass holder needs an international home address.
 - **SR-09 (Known, HB p.167; Arch § Absence and leave):** Immigration status sets the attendance threshold (90% monthly for Student Pass holders) and the ICA notice after 7 consecutive days of absence.
 - **SR-10 (Known, Arch § Security; DL-19):** Identity documents and immigration status are Tier 3: field-level encryption, named roles, record ACL, every read logged, never sent to AI.
-- **SR-11 (Assumed, DL-25):** A Family Link (F01) is created only from a VERIFIED student–guardian relationship; ending the relationship ends the link.
+- **SR-11 (Confirmed, DL-25):** A Family Link (F01) is created only from a VERIFIED student–guardian relationship; ending the relationship ends the link.
 - **SR-12 (Known, BR-06 principle):** Enrolment, guardianship or campus affiliation never grants staff access. Staff see students only through GA/TM grants, scope and ACL.
 - **SR-13 (Known, ED § guardrails):** Never join people by name, email, phone or student number; use `student_id`, `guardian_id` and explicit mappings.
 - **SR-14 (Known, ED BR-20 pattern):** Data from MyGIIS or another brand's SIS that conflicts with the directory is quarantined, never silently overwritten.

@@ -66,7 +66,7 @@ ST02, ST08, ST09, CL01, CL03, CL04, AS05, AS10 and the Case object (OBJ-10) are 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
 | calendar_id | UUID | PK | Y | T1 | Confirmed (DL-98) | |
-| campus_id, programme_offering_id, academic_year_id | UUID | UK | Y | T1 | Confirmed key (DL-96) | GIIS SG CBSE starts 6 Apr 2026; IB DP at SG-ECS starts 13 Jul 2026. |
+| campus_id, programme_offering_id, academic_year_id | UUID | UK; FK:OR04 / AC06 / AC07 | Y | T1 | Confirmed key (DL-96) | GIIS SG CBSE starts 6 Apr 2026; IB DP at SG-ECS starts 13 Jul 2026. |
 | term_dates | JSON | — | Y | T1 | Confirmed source (DL-96) | Read from the year and term dates, never retyped here. |
 | school_week | VARCHAR(16) | — | Y | T1 | Assumed; campus setting | e.g. MON-FRI. Saturday schooling: OQ-119. |
 | school_day_count | INT | — | Y | T1 | Known for GIIS SG ("Total no of study days: 196", Holiday Schedule 2026-27); derived | Weekdays in term dates minus AT02 days. Shown so the office can check it against the published almanac. |
@@ -82,7 +82,7 @@ ST02, ST08, ST09, CL01, CL03, CL04, AS05, AS10 and the Case object (OBJ-10) are 
 | non_school_day_id | UUID | PK | Y | T1 | Confirmed (DL-98) | |
 | calendar_id | UUID | FK:AT01 | Y | T1 | Assumed | |
 | date_from / date_to | DATE | — | Y | T1 | Known examples (Holiday Schedule: Deepavali 9–10 Nov 2026; December vacation 5 Dec 2026 – 3 Jan 2027) | Inclusive. |
-| day_type | ENUM | — | Y | T1 | Known kinds (Holiday Schedule: holidays, vacation, semester break); CLOSURE Assumed | PUBLIC_HOLIDAY, VACATION, TERM_BREAK, SCHOOL_HOLIDAY, CLOSURE. |
+| day_type | ENUM | — | Y | T1 | Known kinds (Holiday Schedule: holidays, vacation, semester break); CLOSURE Assumed | PUBLIC_HOLIDAY, VACATION, TERM_BREAK, SCHOOL_HOLIDAY, CLOSURE. PUBLIC_HOLIDAY rows come from the brand-country public holiday list (OR03 `holiday_calendar_ref`, DL-190), never typed per campus. |
 | name | VARCHAR(80) | — | Y | T1 | Known | "Deepavali", "Sem 1 Break". |
 | applies_to_grades | JSON | — | N | T1 | Assumed (Arch § Principles 4: scoped "by segment") | Null = whole offering. A grade-only day (e.g. exam study leave) is OQ-119. |
 | added_after_publish_reason | TEXT | — | C | T1 | Assumed | Required for an unplanned closure after the calendar is published; marks already taken that day are voided with an audit entry. |
@@ -94,10 +94,11 @@ ST02, ST08, ST09, CL01, CL03, CL04, AS05, AS10 and the Case object (OBJ-10) are 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
 | register_id | UUID | PK | Y | T1 | Confirmed (DL-99) | |
-| class_id | UUID | FK:CL01 | Y | T1 | Known (Arch § Users and roles: class teacher scope is the class) | Students listed are the class's placements valid that day (CL04). |
-| school_date | DATE | UK with class + period | Y | T1 | Assumed | Must be a school day in AT01. |
+| class_id | UUID | FK:CL01 | C | T1 | Known (Arch § Users and roles: class teacher scope is the class) | Students listed are the class's placements valid that day (CL04). Required for DAY registers. A PERIOD register takes its students from the dated lesson's teaching group instead; `class_id` is set only when that group is one class (DL-191). |
+| school_date | DATE | UK with class (DAY) or dated lesson (PERIOD) | Y | T1 | Assumed | Must be a school day in AT01. |
 | register_kind | ENUM | — | Y | T1 | Known both exist (Arch step 3 "by period or by day"); campus setting Confirmed (DL-99) | DAY or PERIOD. |
 | period_id | UUID | FK:TE02 | C | T1 | Assumed | Required when PERIOD. The bell period of the dated lesson (TE11) in the [teaching & timetable dictionary](./teaching-timetable-data-dictionary.md). |
+| dated_lesson_id | UUID | FK:TE11 | C | T1 | Confirmed (DL-191) | Required when PERIOD. The register covers the lesson's teaching group (TE05 members valid that day), so a group drawn from several classes (IB DP HL Biology, Grade 7 Hindi L2) has one register. `period_id` is the lesson's bell period. |
 | taken_by_employee_id | UUID | FK:E01 | Y | T1 | Known: class teacher (Arch § Users and roles); cover teacher Assumed | Class teacher, co-teacher or a cover teacher with that day's scope (TE13, DL-145; who takes the day register OQ-165). |
 | due_at | TIMESTAMPTZ | — | Y | T1 | Assumed; campus setting (OQ-110) | From the campus register cut-off. Late registers show "Overdue" to the coordinator. |
 | register_status | ENUM | — | Y | T1 | Assumed (DL-27) | NOT_TAKEN, SUBMITTED, LOCKED. See enums. |
@@ -134,8 +135,8 @@ ST02, ST08, ST09, CL01, CL03, CL04, AS05, AS10 and the Case object (OBJ-10) are 
 | mark_id | UUID | FK:AT04 | Y | T2 | Assumed | |
 | from_code / to_code | ENUM | — | Y | T2 | Assumed | |
 | reason | TEXT | — | Y | T2 | Known need (Arch § Security "attendance edits" in the immutable audit log) | Required. |
-| requested_by_user_id | UUID | FK:User | Y | T1 | Assumed | Class teacher, office, or SYSTEM when leave is approved late. |
-| approved_by_user_id | UUID | FK:User | C | T1 | Assumed (S4 `attendance.mark.edit_after_lock`); approver Open (OQ-110) | Not needed when an approved leave request or a gate event changes the mark. |
+| requested_by_user_id | UUID | FK:A01 | Y | T1 | Assumed | Class teacher, office, or SYSTEM when leave is approved late. |
+| approved_by_user_id | UUID | FK:A01 | C | T1 | Assumed (S4 `attendance.mark.edit_after_lock`); approver Open (OQ-110) | Not needed when an approved leave request or a gate event changes the mark. |
 | correction_status | ENUM | — | Y | T1 | Assumed (DL-27) | REQUESTED, APPLIED, REJECTED. |
 
 ### AT06 — Leave Request
@@ -147,17 +148,17 @@ ST02, ST08, ST09, CL01, CL03, CL04, AS05, AS10 and the Case object (OBJ-10) are 
 | leave_request_id | UUID | PK | Y | T2 | Known entity (Arch § Data model "Leave request") | |
 | enrolment_id | UUID | FK:ST02 | Y | T2 | Known | |
 | requested_by_guardian_id | UUID | FK:ST04 | C | T2 | Known (HB p.166: "should be made by the parent"; Arch § Users and roles: parent leave requests) | Needs an active family link (F01). |
-| recorded_by_user_id | UUID | FK:User | C | T1 | Confirmed (DL-101) | When office or the class teacher enters a request for a parent. |
+| recorded_by_user_id | UUID | FK:A01 | C | T1 | Confirmed (DL-101) | When office or the class teacher enters a request for a parent. |
 | date_from / date_to | DATE | — | Y | T2 | Known (HB p.166 "the specific dates for which leave is sought") | Inclusive. Partial days: OQ-111. |
 | school_days_count | INT | — | Y | T1 | Assumed; derived from AT01 | Drives routing. Weekends and holidays don't count. |
 | leave_type | ENUM | — | Y | T2 | Known: medical, pre-planned (HB p.23); others Assumed (DL-27) | MEDICAL, FAMILY, TRAVEL, RELIGIOUS, COMPETITION, OTHER. |
 | planned | BOOLEAN | — | Y | T2 | Known (HB p.23 "pre-planned leave of more than two days") | False = told after the absence started. |
 | reason | TEXT | — | Y | T2 | Known (HB p.166 "giving details of reasons") | Seen by the approver and class teacher only. Never a diagnosis needed. |
 | approval_route | ENUM | — | Y | T1 | Known for GIIS SG (HB p.23, p.166; Arch step 2); thresholds a campus setting (DL-59 pattern) | CLASS_TEACHER (1–2 school days), PRINCIPAL (more than 2). |
-| approver_user_id | UUID | FK:User | C | T1 | Known roles (HB p.166); delegate Open (OQ-109) | |
+| approver_user_id | UUID | FK:A01 | C | T1 | Known roles (HB p.166); delegate Open (OQ-109) | |
 | certificate_required | BOOLEAN | — | Y | T1 | Known (HB p.23 "Medical leaves must be supported with a medical certificate"; HB p.166 Student Pass holders) | True for MEDICAL. Due on return (HB p.23). |
 | certificate_document_id | UUID | FK:ST08 | C | T3 | Known type (ST08 "Medical certificate") | Tier 3 file; the approver and class teacher see "Certificate received", the file only with `attendance.certificate.view`. |
-| case_id | UUID | FK:Case | C | T2 | Known (Arch § Data model: Case covers "leave over 2 days") | Created for PRINCIPAL route so the decision has SLA and history. |
+| case_id | UUID | FK:CC03 | C | T2 | Known (Arch § Data model: Case covers "leave over 2 days") | Created for PRINCIPAL route so the decision has SLA and history. |
 | request_status | ENUM | — | Y | T2 | Assumed (DL-27) | SUBMITTED, APPROVED, DECLINED, CANCELLED, CERTIFICATE_DUE, CLOSED. |
 | decision_note | TEXT | — | C | T2 | Assumed | Required to decline. Shown to the parent. |
 
@@ -173,9 +174,9 @@ ST02, ST08, ST09, CL01, CL03, CL04, AS05, AS10 and the Case object (OBJ-10) are 
 | event_time | TIMESTAMPTZ | — | Y | T2 | Known | |
 | stated_reason | VARCHAR(200) | — | N | T2 | Known (HB p.174: reason "as stated by the student"; parents note arrival time and reason) | |
 | late_exemption | ENUM | — | N | T1 | Known for GIIS SG (HB p.174: school bus, doctor's note, court documents, prior permission) | SCHOOL_BUS, DOCTOR_NOTE, PRIOR_PERMISSION, OTHER. An exempt late doesn't count toward the late-arrival steps. |
-| out_pass_approved_by_user_id | UUID | FK:User | C | T1 | Known (HB p.23: "only on approval from the Level Coordinator / Class Teacher") | Required for OUT_PASS. |
+| out_pass_approved_by_user_id | UUID | FK:A01 | C | T1 | Known (HB p.23: "only on approval from the Level Coordinator / Class Teacher") | Required for OUT_PASS. |
 | collected_by | VARCHAR(80) | — | C | T2 | Assumed | Guardian or authorised adult who collected the student. Authorised-pickup list: OQ-116. |
-| recorded_by_user_id | UUID | FK:User | Y | T1 | Known role (Arch § Users and roles "Security / reception") | |
+| recorded_by_user_id | UUID | FK:A01 | Y | T1 | Known role (Arch § Users and roles "Security / reception") | |
 | source | ENUM | — | Y | T1 | Known need (Arch § Integrations: gate devices, inbound events, phase 2) | DESK, DEVICE. |
 
 ### AT08 — Attendance Rule
@@ -222,7 +223,7 @@ ST02, ST08, ST09, CL01, CL03, CL04, AS05, AS10 and the Case object (OBJ-10) are 
 | rule_id | UUID | FK:AT08 | C | T1 | Assumed | |
 | raised_at | TIMESTAMPTZ | — | Y | T1 | Assumed | |
 | audience | JSON | — | Y | T1 | Known (Arch step 4: teacher, coordinator, parent) | ICA_REVIEW goes to the Tier 3 owner only (DL-105). |
-| case_id | UUID | FK:Case | C | T3 for ICA | Known (Arch § Data model: Case covers Student Pass issues) | Set for ICA_REVIEW and any alert escalated to a Case. |
+| case_id | UUID | FK:CC03 | C | T3 for ICA | Known (Arch § Data model: Case covers Student Pass issues) | Set for ICA_REVIEW and any alert escalated to a Case. |
 | ica_filed_at / ica_reference | — | — | C | T3 | Known need (Arch § Security: ICA notifications audited; § Integrations "Case exports") | Recorded by the Tier 3 owner after filing. |
 | alert_status | ENUM | — | Y | T1 | Assumed (DL-27) | OPEN, ACKNOWLEDGED, RESOLVED, DISMISSED. Dismissing needs a reason. |
 

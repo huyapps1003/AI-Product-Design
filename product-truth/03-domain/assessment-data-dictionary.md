@@ -72,7 +72,7 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 |---|---|---|:---:|---|---|---|
 | template_id | UUID | PK | Y | T1 | Confirmed (DL-87) | |
 | programme_pack_code | VARCHAR(32) | — | Y | T1 | Known packs (Arch § Principles: CBSE, IB PYP, IB DP, Cambridge CLSP, IGCSE, Global Montessori Plus) | |
-| grade_band | VARCHAR(40) | UK with pack + version | Y | T1 | Known bands (HB annexes: CBSE 3-5, 6-8, 9-10, 11-12; IB Year 1–2…) | |
+| grade_band_id | UUID | FK:AC04; UK with pack + version | Y | T1 | Known bands (HB annexes: CBSE 3-5, 6-8, 9-10, 11-12; IB Year 1–2…); key Confirmed (DL-115) | Was free text `grade_band` before the 28 Nov 2026 review; AC04 is the band list. |
 | template_version | VARCHAR(16) | UK | Y | T1 | Assumed | e.g. "2026.1". New board rules = new version. |
 | reporting_periods | JSON | — | Y | T1 | Known shapes (HB: Term 1/Term 2; Semester 1/2; "after every assessment" for CBSE 3-5) | Default periods with names. |
 | default_components | JSON | — | Y | T1 | Known (HB weightages) | Copied into AS03 on adoption. |
@@ -91,12 +91,12 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 | scheme_id | UUID | PK | Y | T1 | Confirmed (DL-87) | |
 | scope_node_id | UUID | FK:OR01 | Y | T1 | Confirmed: brand-country (DL-87); campus-only schemes Open (OQ-93) | |
 | programme_offering_id | UUID | FK:AC06 | Y | T1 | Known (Arch § Tenancy) | |
-| grade_band | VARCHAR(40) | — | Y | T1 | Known | e.g. "Grades 6-8". |
+| grade_band_id | UUID | FK:AC04 | Y | T1 | Known; key Confirmed (DL-115) | e.g. "Grades 6-8". Was free text `grade_band` before the 28 Nov 2026 review. |
 | template_id / template_version | UUID / VARCHAR | FK:AS01 | Y | T1 | Confirmed (DL-87) | Which template it was copied from. Shows "Differs from template" where changed. |
 | scheme_version | INT | UK with scope + offering + band | Y | T1 | Known need (Arch § Tenancy effective dating) | |
 | valid_from_academic_year_id | UUID | FK:AC07 | Y | T1 | Known (Arch: "2025-26 report cards keep using 2025-26 rules") | |
 | scheme_status | ENUM | — | Y | T1 | Assumed (DL-27) | DRAFT, SUBMITTED, APPROVED, SUPERSEDED. |
-| prepared_by_user_id | UUID | FK:User | Y | T1 | Assumed (coordinator) | |
+| prepared_by_user_id | UUID | FK:A01 | Y | T1 | Assumed (coordinator) | |
 | approved_by_user_id / approved_at | — | — | C | T1 | Confirmed: Academic Supervisor (DL-87); for brand-country scope OQ-93 | Required before any assessment uses the version. |
 | change_summary | TEXT | — | C | T1 | Assumed | Required for version 2+. |
 | report_card_layout_code | VARCHAR(32) | — | Y | T1 | Open (OQ-94) | |
@@ -126,9 +126,9 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
 | grade_scale_id | UUID | PK | Y | T1 | Known (Arch § Data model) | |
-| scale_name | VARCHAR(80) | — | Y | T1 | Known | e.g. "CBSE 6-8 eight-point", "IBDP Category 1". |
+| scale_name | VARCHAR(80) | — | Y | T1 | Known | e.g. "CBSE 6-8 eight-point", "IB DP Category 1". |
 | scale_type | ENUM | — | Y | T1 | Assumed (DL-27) | PERCENT_BANDS, POINTS, DESCRIPTORS. |
-| bands | JSON | — | Y | T1 | Known for GIIS SG (CBSE 6-8: 91–100 A1 … 32 and below E, HB p.68–69; CBSE 3-5: A*–D, p.67; IBDP Category 1: 90–100% = 7 … <20% = 1, p.79; co-scholastic A–E with 5–1 points, p.85; KG: Beginner, Progressing, Proficient, Advanced, p.65; PYP: Exemplary, Proficient, Progressing…, p.87) | Ordered; no gaps or overlaps (SR-AS-03). |
+| bands | JSON | — | Y | T1 | Known for GIIS SG (CBSE 6-8: 91–100 A1 … 32 and below E, HB p.68–69; CBSE 3-5: A*–D, p.67; IB DP Category 1: 90–100% = 7 … <20% = 1, p.79; co-scholastic A–E with 5–1 points, p.85; KG: Beginner, Progressing, Proficient, Advanced, p.65; PYP: Exemplary, Proficient, Progressing…, p.87) | Ordered; no gaps or overlaps (SR-AS-03). |
 | pass_band | VARCHAR(8) | — | N | T1 | Known (CBSE 6-9: D; CLSP: 40%) | Used by the promotion rule. |
 | owner | ENUM | — | Y | T1 | Confirmed (DL-87) | TEMPLATE or SCHEME. |
 | version / valid_from | — | — | Y | T1 | Known (Arch: "Grade scales are versioned per programme pack") | |
@@ -156,10 +156,10 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 |---|---|---|:---:|---|---|---|
 | assessment_id | UUID | PK | Y | T1 | Known (Arch § Data model) | |
 | campus_id | UUID | FK:OR04 | Y | T1 | Known | |
-| academic_year_id | UUID | FK | Y | T1 | Known; per offering (DL-96) | The offering's year: GIIS SG CBSE April–March, IB DP July–May. |
+| academic_year_id | UUID | FK:AC07 | Y | T1 | Known; per offering (DL-96) | The offering's year: GIIS SG CBSE April–March, IB DP July–May. |
 | scheme_id / component_id | UUID | FK:AS02 / AS03 | Y | T1 | Confirmed (DL-88) | Must be an APPROVED scheme version. |
-| grade_id | UUID | FK:AC02 | Y | T1 | Known (Exam Schedule: per grade) | |
-| subject_id | UUID | FK:AC03 | Y | T1 | Known | Language groups (L2 Hindi/Tamil/French) are one assessment with several mark sheets. |
+| grade_level_id | UUID | FK:AC02 | Y | T1 | Known (Exam Schedule: per grade) | |
+| pack_subject_id | UUID | FK:AC03 | Y | T1 | Known | Language groups (L2 Hindi/Tamil/French) are one assessment with several mark sheets. |
 | assessment_kind | ENUM | — | Y | T1 | Assumed (DL-27) | REGULAR, RETEST, IMPROVEMENT, PRE_BOARD. |
 | exam_window_id | UUID | FK:Calendar | N | T1 | Known (Arch § Data model Calendar "Exam window") | |
 | scheduled_date / start_time / duration_minutes | DATE / TIME / INT | — | Y / N / N | T1 | Known (Exam Schedule; HB "Duration of PT1 45 Minutes") | |
@@ -167,7 +167,7 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 | syllabus_note | TEXT | — | N | T1 | Known (HB: syllabus sent one week before a PT, 15 days before a term exam) | Shared to parents with the date. |
 | assessment_status | ENUM | — | Y | T1 | Assumed (DL-27) | SCHEDULED, HELD, MARKING, LOCKED, PUBLISHED, CANCELLED. Derived from mark sheets once held. |
 | marks_published_at / published_by_user_id | — | — | C | T1 | Known need (HB p.34: MyGIIS "Exam & Results" shows test marks online); Confirmed (DL-93) | Coordinator publishes locked marks to parents per assessment; this starts the appeal window where the setting counts from results. |
-| scheduled_by_user_id | UUID | FK:User | Y | T1 | Known: coordinator publishes the assessment calendar (Arch § Key workflows step 1) | |
+| scheduled_by_user_id | UUID | FK:A01 | Y | T1 | Known: coordinator publishes the assessment calendar (Arch § Key workflows step 1) | |
 
 ### AS07 — Mark Sheet
 
@@ -200,7 +200,7 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 | descriptor | VARCHAR(32) | — | C | T2 | Known (descriptor scales, AS04) | For DESCRIPTOR components only. |
 | absence_code | ENUM | — | C | T2 | Confirmed need (HB p.43); codes Confirmed (DL-95) | ABSENT, APPROVED_ABSENCE, EXEMPT, NOT_ASSESSED ("NA", HB p.88). |
 | prorated | BOOLEAN | — | N | T2 | Known (HB p.43 "marks would be prorated for the report card") | Only with APPROVED_ABSENCE and a Principal approval (SR-AS-07). |
-| proration_approved_by_user_id | UUID | FK:User | C | T1 | Known (HB p.43 "approval from the principal") | |
+| proration_approved_by_user_id | UUID | FK:A01 | C | T1 | Known (HB p.43 "approval from the principal") | |
 | mark_version | INT | — | Y | T1 | Confirmed (DL-88) | Every change after lock adds a version. |
 | change_reason | ENUM | — | C | T1 | Assumed (DL-27) | APPEAL, CORRECTION, RETEST. Required after lock. |
 | appeal_id | UUID | FK:AS11 | C | T1 | Assumed | |
@@ -213,7 +213,7 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
 | subject_result_id | UUID | PK | Y | T2 | Confirmed (DL-89) | |
-| enrolment_id / subject_id / reporting_period_code | — | UK | Y | T2 | Known | |
+| enrolment_id / pack_subject_id / reporting_period_code | UUID, UUID, VARCHAR | UK; FK:ST02 / AC03 | Y | T2 | Known | |
 | scheme_id | UUID | FK:AS02 | Y | T1 | Known (Arch: effective-dated rules) | The version used. |
 | weighted_percent | DECIMAL(5,2) | — | C | T2 | Known (HB weightages) | Calculated from locked marks; never typed. |
 | grade | VARCHAR(8) | — | C | T2 | Known | From AS04. Descriptor scales store the descriptor. |
@@ -232,7 +232,7 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 | enrolment_id | UUID | FK:ST02 | Y | T1 | Known | |
 | reporting_period_code | VARCHAR(32) | UK with enrolment + version | Y | T1 | Known (HB: GIIS SG CBSE 6-8 "2 times a year"; CBSE 3-5 "after every assessment (4 Report Cards)"; KG HPC "twice in a year") | |
 | card_version | INT | UK | Y | T1 | Confirmed need (DL-90) | 1, then 2… on reissue. |
-| scheme_id / layout_code | — | — | Y | T1 | Known; layout Open (OQ-94) | |
+| scheme_id / layout_code | UUID, VARCHAR | FK:AS02 | Y | T1 | Known; layout Open (OQ-94) | |
 | class_id_snapshot / class_teacher_snapshot | — | — | Y | T1 | Assumed | As printed; not updated by later class moves. |
 | results_snapshot | JSON | — | Y | T2 | Confirmed (DL-90) | Subject results, co-scholastic grades, descriptors at generation. |
 | attendance_snapshot | JSON | — | N | T2 | Assumed; source Attendance | Days present / working days. Threshold only, never leave reasons. |
@@ -259,7 +259,7 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 | appeal_status | ENUM | — | Y | T1 | Assumed (DL-27) | SUBMITTED, WITH_TEACHER, AWAITING_ENDORSEMENT, UPHELD, NOT_UPHELD, WITHDRAWN, LATE_REJECTED. |
 | reviewed_by_employee_id | UUID | FK:E01 | C | T1 | Known (HB p.127: forwarded to the teacher through the HOD) | |
 | original_mark / revised_mark | DECIMAL | — | C | T2 | Known (HB p.127 "Modified marks may be re-entered") | |
-| endorsed_by_user_id | UUID | FK:User | C | T1 | Known (HB p.127 "endorsed by the Examination Board"); membership Open (OQ-98) | |
+| endorsed_by_user_id | UUID | FK:A01 | C | T1 | Known (HB p.127 "endorsed by the Examination Board"); membership Open (OQ-98) | |
 | outcome_sent_at | TIMESTAMP | — | C | T1 | Known (coordinator mails the outcome) | |
 | response_due_at | TIMESTAMP | — | Y | T1 | Known for GIIS SG (6 working days for CBSE 1–8, HB p.88; 4 weeks in-house, 8 weeks external, HB p.127) | |
 | external_board_ref | VARCHAR(64) | — | N | T1 | Known (CBSE re-evaluation form, IBIS, CAIE Direct, HB p.127) | Board appeals tracked as a reference only. |
@@ -271,7 +271,7 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
 | promotion_decision_id | UUID | PK | Y | T2 | Confirmed (DL-92) | |
-| enrolment_id / academic_year_id | UUID | UK | Y | T1 | Known | |
+| enrolment_id / academic_year_id | UUID | UK; FK:ST02 / AC07 | Y | T1 | Known | |
 | promotion_rule_id | UUID | FK:AS05 | Y | T1 | Assumed | |
 | proposed_outcome | ENUM | — | Y | T2 | Known values (HB p.128–131) | Calculated. See enums. |
 | proposal_reasons | JSON | — | Y | T2 | Assumed | e.g. "E in Mathematics", "Attendance 86% (needs 90%)". |
@@ -279,7 +279,7 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 | decision_status | ENUM | — | Y | T1 | Assumed (DL-27) | PROPOSED, NEEDS_DECISION, RETEST_PENDING, CONFIRMED, SENT_TO_ROLLOVER. |
 | retest_assessment_ids | UUID[] | FK:AS06 | C | T1 | Known (HB: re-tests, improvement test) | |
 | decided_by_user_id / decided_at | — | — | C | T1 | Known: Principal for detention, retention, IB Year 1 (HB p.130) | Coordinator for straight promotions (OQ-99). |
-| parent_request_ref | UUID | FK:Case | C | T1 | Known for K–5 (HB p.128: parents' written request to retain) | |
+| parent_request_ref | UUID | FK:CC03 | C | T1 | Known for K–5 (HB p.128: parents' written request to retain) | |
 | rollover_line_id | UUID | FK:CL07 | C | T1 | Confirmed (DL-75) | Set when handed to Classes. |
 
 ### AS13 — Predicted Grade
@@ -289,14 +289,14 @@ ST02, ST03, CL01, CL07, OBJ-12 teaching allocation, the Case and the calendar's 
 | Attribute | Type | Key | Req. | Tier | Status | Validation / meaning |
 |---|---|---|:---:|---|---|---|
 | predicted_grade_id | UUID | PK | Y | T2 | Known (Arch § Data model) | |
-| enrolment_id / subject_id | UUID | UK with round | Y | T1 | Known | |
+| enrolment_id / pack_subject_id | UUID | UK with round; FK:ST02 / AC03 | Y | T1 | Known | |
 | board | ENUM | — | Y | T1 | Known (HB p.132: IB DP, CBSE 12) | IB_DP, CBSE_12. |
 | calculated_basis | JSON | — | N | T2 | Known for GIIS SG IB (Year 1 consolidated 5% FA I + 10% CT I + 5% FA II + 10% CT II + 20% Sem I + 50% Sem II; Year 2 20% IA + 80% Sem I; average mapped to board thresholds, HB p.132) | Shown to the teacher as a starting point. |
 | predicted_value | VARCHAR(8) | — | Y | T2 | Known (IB 1–7; CBSE score) | Teacher judgment; may differ from the basis. |
 | entered_by_employee_id | UUID | FK:E01 | Y | T1 | Known (HB p.133 "given by subject teachers") | |
 | prediction_status | ENUM | — | Y | T1 | Assumed (DL-27) | DRAFT, SUBMITTED, RELEASED, UNDER_APPEAL, REVISED. |
 | released_at | TIMESTAMP | — | C | T1 | Known for GIIS SG (first week of October, HB p.133) | |
-| appeal_case_id | UUID | FK:Case | C | T2 | Known (committee headed by the Principal, with Academic Supervisor, IB Coordinator, Career Counsellor, HB p.133) | |
+| appeal_case_id | UUID | FK:CC03 | C | T2 | Known (committee headed by the Principal, with Academic Supervisor, IB Coordinator, Career Counsellor, HB p.133) | |
 
 ## Assessment lifecycle and how it maps to other modules
 
