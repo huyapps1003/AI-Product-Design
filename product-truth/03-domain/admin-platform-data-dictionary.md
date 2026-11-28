@@ -49,7 +49,7 @@ Proposed on a decision card on 28 Nov 2026 (recommended "Setup, access and data 
 | ID | Entity | Home | Status |
 |---|---|---|---|
 | Person | Person | Global | Confirmed (DL-42); first dictionary definition (cross-module review OQ-234) |
-| A01 | User Account (refined) | Global | Known entity (Employee DD A01); one per Person Confirmed (DL-42); lifecycle Assumed (DL-170) |
+| A01 | User Account (refined) | Global | Known entity (Employee DD A01); one per Person Confirmed (DL-42); lifecycle Known (DL-170) |
 | A02 | Account Link (refined from Employee Account Link) | Global | Known entity (Employee DD A02); widened to Person profiles (DL-169) |
 | A03 | Module Grant (refined) | Global | Known entity (Employee DD A03); scope node Confirmed (DL-17, DL-40) |
 | A04 | Scope Grant (refined from GA Campus Grant) | Global | Known entity (Employee DD A04); scope node Confirmed (DL-40); meaning Assumed (DL-171) |
@@ -107,12 +107,12 @@ Referenced, not redefined: OR01–OR09, AC06, AC07, AC08, E01, E02, E05, E07, HR
 |---|---|---|:---:|---|---|---|
 | user_id | UUID | PK | Y | T1 | Known (A01) | Every `*_by_user_id` field points here. |
 | person_id | UUID | FK:Person, UK | Y | T1 | Confirmed (DL-42) | One account per Person. |
-| account_type | ENUM | — | Y | T1 | Assumed (DL-170) | PERSON, SERVICE. Service accounts belong to an integration (payroll feed, ERP journal), never to a human, and hold no membership in a campus module UI. |
-| account_status | ENUM | — | Y | T1 | Known values (A01); rules Assumed (DL-170) | INVITED, ACTIVE, SUSPENDED, DISABLED, CLOSED. Not inferred from employment alone (A01 note). |
-| status_reason | ENUM | — | C | T1 | Assumed (DL-170) | Required for SUSPENDED and DISABLED: EMPLOYMENT_SUSPENDED, EMPLOYMENT_ENDED, ADMIN_ACTION, SECURITY, MERGED. Never shows a case reason (DL-163). |
+| account_type | ENUM | — | Y | T1 | Known (DL-170) | PERSON, SERVICE. Service accounts belong to an integration (payroll feed, ERP journal), never to a human, and hold no membership in a campus module UI. |
+| account_status | ENUM | — | Y | T1 | Known values (A01); rules Known (DL-170) | INVITED, ACTIVE, SUSPENDED, DISABLED, CLOSED. Not inferred from employment alone (A01 note). |
+| status_reason | ENUM | — | C | T1 | Known (DL-170) | Required for SUSPENDED and DISABLED: EMPLOYMENT_SUSPENDED, EMPLOYMENT_ENDED, ADMIN_ACTION, SECURITY, MERGED. Never shows a case reason (DL-163). |
 | invited_at, invite_expires_at | TIMESTAMPTZ | — | N | T1 | Assumed (DL-13, held) | Invite sent `account.invite_days_before_start` days before the employment start (brand-country setting, default 7). |
 | first_sign_in_at, last_sign_in_at | TIMESTAMPTZ | — | N | T1 | Known (A01 `last_login_at`) | Drives the Dormant flag. |
-| dormant | BOOLEAN | — | Y | T1 | Assumed (DL-170); days Open (OQ-204) | Derived daily: ACTIVE and no sign-in for `account.dormant_after_days`. A flag for review, not a status. |
+| dormant | BOOLEAN | — | Y | T1 | Known (DL-170); days Open (OQ-204) | Derived daily: ACTIVE and no sign-in for `account.dormant_after_days`. A flag for review, not a status. |
 | preferred_locale | VARCHAR(35) | — | N | T1 | Known (E01 `preferred_locale`); DL-15 held | Date and number format. UI copy English in v1 (DL-15). |
 | home_data_region_id | UUID | FK:OR06 | N | T1 | Assumed (DL-179) | Where the directory index points first; a Person with profiles in two countries keeps one account. |
 
@@ -407,7 +407,7 @@ Parent path link (Confirmed, DL-18, DL-37): `family_access_id`, `guardian_person
 | email_domains | VARCHAR(120)[] | — | Y | T1 | Assumed | Every brand's staff domains on the GSG connection. Synthetic in samples, e.g. `giis.example`. |
 | audience | ENUM | — | Y | T1 | Assumed (DL-118) | STAFF. PARENT and STUDENT later. |
 | mfa_required | BOOLEAN | — | Y | T1 | Known (brief: "staff SSO, MFA") | True for STAFF; can't be switched off. |
-| provisioning | ENUM | — | Y | T1 | Assumed (DL-170) | CAMPUS_OS_INVITES (Campus OS creates accounts from employments; the provider only authenticates). Directory sync from the provider: OQ-210. |
+| provisioning | ENUM | — | Y | T1 | Known (DL-170) | CAMPUS_OS_INVITES (Campus OS creates accounts from employments; the provider only authenticates). Directory sync from the provider: OQ-210. |
 | connection_status | ENUM | — | Y | T1 | Assumed | DRAFT, TESTING, ACTIVE, MIGRATING, DISABLED. |
 
 ### PA06 — Setting Definition
@@ -609,7 +609,7 @@ Existing seeds: `ga.module_grant.manage`, `ga.campus_grant.manage`, `ga.catalog.
 | DL-167 | **Confirmed** (Henry, 28 Nov 2026). A campus or brand-country goes live through a setup run: a checklist of blocking and non-blocking tasks, most checked from the owning record; READY when blocking tasks are done; the brand-country head signs off on a CAMPUS_GO_LIVE case | One place to see what's missing; nothing goes live with no Campus Leader, no published year or no sign-in. Approver = brand-country head (OQ-196 answered 28 Nov 2026) |
 | DL-168 | **Confirmed** (Henry, 28 Nov 2026). Authority register (PA04) per **brand** × module × field group (Henry, 28 Nov 2026, changed from brand-country): authoritative system, sync direction, cutover date, conflict reviewer; brand-country or campus exceptions allowed; a module is Live only when its rows are complete | Gives DL-45 an entity and a screen; per brand because legacy systems are per brand (OQ-27); a country that differs gets an exception row |
 | DL-169 | **Confirmed** (Henry, 28 Nov 2026; changed from per-brand providers). All staff sign in through **one GSG-wide identity provider** with SSO and MFA; brands move their staff onto it (product and plan OQ-210); one account per Person with one GSG sign-in identity, matched by provider subject, never by email; parent and student sign-in later | One sign-in across 12 brands, one place to switch off a leaver, staff who work across brands sign in once; GSG runs the platform for every brand |
-| DL-170 | Accounts: created INVITED from the employment, invite N days before start (brand-country setting, default 7; DL-13), ACTIVE on first sign-in, SUSPENDED with the employment, DISABLED the day after the last working day; Dormant is a flag for review after N days, not a status; service accounts for integrations | Joins DL-13, DL-160, DL-163 and BR-10 into one lifecycle; avoids silent suspension of rarely used accounts (OQ-204) |
+| DL-170 | **Confirmed** (Henry, 28 Nov 2026). Accounts: created INVITED from the employment, invite N days before start (brand-country setting, default 7; DL-13), ACTIVE on first sign-in, SUSPENDED with the employment, DISABLED the day after the last working day; Dormant is a flag for review after N days, not a status; service accounts for integrations | Joins DL-13, DL-160, DL-163 and BR-10 into one lifecycle; avoids silent suspension of rarely used accounts (OQ-204) |
 | DL-171 | Access arrives three ways, all through the Registry: automatically from facts (position template DL-149, class and teaching scope DL-73, DL-133, cover DL-145), by an ACCESS_REQUEST case, or by an admin inside the ceiling; every record carries its route. A scope grant (A04) puts a person on a node; a module grant (A03) is the module ceiling | One explanation model for "Why can I see this?" (DL-38) across automatic and manual access |
 | DL-172 | The GSG platform team keeps roles, templates and capabilities (DL-51); templates are versioned, a published version never changes; brands don't create roles in v1; overrides stay off (DL-14) | Keeps one catalogue across 12 brands; change requests go through the registry owner |
 | DL-173 | Each brand keeps a position → standard template list (per module) for DL-149; brand HR proposes, the platform team publishes; never Tier 3 | Answers the "who maintains" half of OQ-192; contents per position stay open |
