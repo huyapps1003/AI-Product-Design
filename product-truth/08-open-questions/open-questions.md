@@ -341,6 +341,30 @@ Added 25 Nov 2026 with the [staff & HR dictionary](../03-domain/staff-hr-data-di
 | OQ-192 | Which access does each position's standard template give at a campus (for example Teacher, Head of Department, HR Business Partner, Campus Admin), and who maintains the templates? | Campus-move access (DL-149, SR-HR-03) |
 | OQ-193 | Who in GSG maintains the country leave templates and statutory minimums (group HR, legal, each country lead), and how is a law change checked? | Leave templates (DL-153, SR-HR-19) |
 
+## V · Admin Platform
+
+Added 28 Nov 2026 with the [admin platform dictionary](../03-domain/admin-platform-data-dictionary.md). Section U is used by the cross-module consistency review.
+
+| ID | Question | Why it matters for design | Evidence | Affects | Who can answer | Status |
+|---|---|---|---|---|---|---|
+| OQ-194 | Which identity provider does each brand use for staff (GIIS: Google Workspace), does any brand run several tenants, and should Campus OS sync users from the provider or only authenticate? | Sign-in setup (PA05), account creation | Admin Platform brief (GIIS Google Workspace); OQ-27 | admin-platform dictionary, OBJ-32 | Brand IT leads | **Partly answered** (Henry, 28 Nov 2026): one GSG-wide provider → DL-169; rest → OQ-210 |
+| OQ-195 | When a person works for two brands and has two work emails, which one is primary for notifications and the directory? | A02 `is_primary`, directory display | DL-42; GIIS SMART and OWIS Digital share Punggol (OQ-52) | A02, OBJ-01 | Henry, group HR | Open |
+| OQ-196 | Who signs off a campus or brand-country go-live: brand-country head, Country Director, brand head or GSG operations? | PA02 approver, CAMPUS_GO_LIVE case | OQ-58 (who creates campuses) | PA02, OBJ-32 | Henry, GSG group office | **Answered** (Henry, 28 Nov 2026): brand-country head signs off → DL-167 |
+| OQ-197 | Which modules does each brand go live with first, and in what order and dates? | Module switch-on samples and setup plans | Arch § Roadmap phases; OQ-05, OQ-32 | PA01, OBJ-32 | Henry, GSG leadership | Open |
+| OQ-198 | Who acts as Brand Admin at each brand (brand IT lead, operations head), and may a brand ever create its own access roles or templates? | Brand Admin role (DL-178), template requests (DL-172) | OQ-16; role-catalogue "Brand leadership" | A06, permission catalogue | Henry, brand heads | Open |
+| OQ-199 | How long are audit events kept per country, and may a redacted copy be kept longer in the global index? | Audit retention rule (PA08 AUDIT_EVENT) | Arch § Security; OQ-43 | A14, PA08 | Counsel per country, GSG IT security | Open |
+| OQ-200 | What is the initial purpose catalogue, who owns it (group DPO, counsel, platform team), and which purposes need consent? | Purpose picker (AP-10), PA07 | DL-44; OQ-09, OQ-10 | PA07, OBJ-34 | Group DPO, counsel | Open |
+| OQ-201 | Does each brand-country have a named data protection contact, and are they GSG staff, school staff or external? | Data Protection Lead role (DL-176), notice contact line | OQ-34; role-catalogue "Data protection: group and country DPOs" (no role defined) | A06, PA09 | Henry, group legal | Open |
+| OQ-202 | Is a privacy notice issued per brand-country, per operating entity or per campus, and in which languages? | PA09 key, notice screens | OQ-02, OQ-06, OQ-25 | PA09, OBJ-34 | Counsel, brand marketing | Open |
+| OQ-203 | Which integrations need service accounts (payroll feed, ERP journals, MyGIIS sync, Google Workspace), and who approves and rotates their keys? | Service accounts (A01 SERVICE), authority register | DL-77, DL-147; Arch § Integrations; OQ-12 | A01, PA04 | GSG IT security, brand IT | Open |
+| OQ-204 | After how many days without sign-in is an account Dormant, and should dormant accounts ever be suspended automatically? | Dormant flag, access review flags | ia-screen-map SCR-GA-03 ("inactive 60 d"); S5 "no login > 60 days" | A01, PA10 | Henry, GSG IT security | Open |
+| OQ-205 | Who approves a Tier 3 type grant or an operator session when the Campus Leader is the grantee, is away, or the node is above campus? | A17 and A18 approver routing | DL-69 "Watch"; DL-52 | A17, A18, OBJ-35 | Henry | Open |
+| OQ-206 | Who attests access held at Brand-country, Brand and Group nodes (people with no campus), and how often? | Access review coverage beyond campuses | S5 covers campuses only | PA10, OBJ-36 | Henry, GSG IT security | Open |
+| OQ-207 | Who in GSG may open break-glass, may it ever show Tier 3, and who besides the Campus Leader is told? | A18 BREAK_GLASS rules | DL-52; OQ-15; PowerSchool support-credential breach (research §08) | A18, OBJ-35 | GSG IT security, counsel | Open |
+| OQ-208 | Do vendors or implementation partners (not GSG staff) ever need operator sessions, and on what contract? | Operator session eligibility | OQ-12 sub-processors; DL-52 | A18 | GSG IT, procurement | Open |
+| OQ-209 | How will parents and students sign in (email or phone one-time code, MyGIIS migration, brand identity provider)? | Parent and Student apps (later, DL-118); account model must not block it | DL-42, DL-118; OQ-28 | A01, A02, PA05 | Henry, GIIS IT | Open |
+| OQ-210 | Which product is the GSG-wide staff identity provider, how and when does each brand's staff move onto it (GIIS from Google Workspace), and does Campus OS sync users from it or only authenticate? | PA05 setup, go-live task SIGN_IN_CONNECTED, brand IT effort | DL-169; OQ-194, OQ-27 | admin-platform dictionary, OBJ-32 | GSG IT, brand IT leads | Open |
+
 ## Research not yet done
 
 These are evidence gaps, not product questions. They are listed in [research §11](../../research/2026-10-25-campus-os-foundation-research.md#11--open-questions-and-research-gaps): contextual inquiry with staff, family research, vendor verification, legal review and a systems inventory. No users have been interviewed yet, so every persona and scenario is an assumption.

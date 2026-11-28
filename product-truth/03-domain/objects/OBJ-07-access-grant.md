@@ -1,7 +1,7 @@
 ---
 id: OBJ-07
 name: Access grant
-entities: [A03, A04]
+entities: [A03, A04]   # module grant (ceiling), scope grant (puts a person on a node); refined in the admin platform dictionary (DL-171)
 owner: identity_access     # written by Global Admin through the Access Registry (DL-32)
 home: global               # replicated to every cell
 scope_node: [GROUP, BRAND, BRAND_COUNTRY, CAMPUS]   # DL-17, DL-40
@@ -15,8 +15,8 @@ actions:
   - ga.campus_grant.manage
 events: [GrantChanged]
 variation: [MC-13]
-open: [OQ-15 platform operator access, OQ-48 support sessions]
-sample: product-truth/06-experience/admin-platform/README.md#canonical-sample-data
+open: [OQ-198 who is Brand Admin]   # OQ-15 support access → OBJ-35 (DL-175); OQ-48 answered by DL-52
+sample: product-truth/03-domain/samples/admin-platform-sample.json   # admin platform dictionary (DL-165)
 patterns: [AP-01, AP-05, AP-07, AP-14]
 ---
 

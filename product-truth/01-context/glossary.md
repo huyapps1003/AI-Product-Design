@@ -83,6 +83,14 @@ Use these terms exactly in screens and specs. Where a term's definition is still
 | **Family link** | The link between a parent account and a student enrolment that authorises parent access | Confirmed (DL-18) |
 | **Record ACL** | A per-record access list for restricted cases and Tier 3 fields | Confirmed (DL-19) |
 | **Delegation / acting grant** | Time-boxed transfer of capabilities from one user to another | Assumed (DL-21) |
+| **Scope grant**, **module grant** | A scope grant puts a person on a scope node (switcher, directory, self-service); a module grant is the ceiling for one module at a node and below (A04, A03) | Assumed (DL-171) |
+| **Brand admin** | Access role at a Brand node: campus setup, module switch-on, grants and accounts for one brand; can't edit roles or templates | Assumed (DL-178) |
+| **Module switch-on** | Whether a module is Planned, Pilot, Live, Paused or Off at a brand-country or campus (PA01). Nobody can be a member where it isn't Live or Pilot | Assumed (DL-166) |
+| **Setup run** | The go-live checklist for a campus or brand-country (PA02, PA03); "Ready for sign-off" when every blocking task is done | Assumed (DL-167) |
+| **Legacy systems** (authority register) | Which system is the source of truth for each field group until its cutover date (PA04); shown as source chips | Confirmed structure (DL-45); entity Assumed (DL-168) |
+| **Operator session** (support session) | Approved, read-only, time-boxed access by GSG support to one campus (A18). **Break-glass** is the security-only variant without prior approval | Approver Confirmed (DL-52); shape Assumed (DL-175) |
+| **Tier 3 type grant** | Standing access to one kind of restricted record at a node, approved by the Campus Leader (A17) | Confirmed (DL-36, DL-69) |
+| **Data protection lead** | Access role per brand-country that reads audit and retention reports and activates retention rules; no record access by default | Assumed (DL-176) |
 | **Persona** | A design concept: a typical bundle of grants, memberships and scope. Never stored | Confirmed (DL-02) |
 | **HR position**, **campus affiliation**, **academic role** | Facts about employment and teaching. None of them grants access (BR-06) | Known |
 

@@ -42,6 +42,17 @@ Codes follow `module.object.action` (DL-53; new capabilities reviewed by the reg
 | `gov.audit.view_snapshot` | VIEW | OBJ-11 | New |
 | `identity.person.view`, `identity.person.merge` | VIEW, MANAGE | OBJ-01 | New |
 | `identity.account.view`, `identity.account.suspend` | VIEW, UPDATE | OBJ-01 | New |
+| `identity.account.invite` | CREATE | OBJ-01 | New (admin platform dictionary, DL-170) |
+| `identity.idp.manage` | MANAGE | OBJ-32 | New (DL-169; Global Admin only: one GSG-wide provider) |
+| `ga.module_switch.manage` | MANAGE | OBJ-32 | New (DL-166) |
+| `ga.setup.manage`, `ga.setup.approve` | MANAGE, APPROVE | OBJ-32 | New (DL-167; approver = brand-country head, OQ-196 answered) |
+| `ga.authority.manage` | MANAGE | OBJ-32 | New (DL-168) |
+| `ga.setting_definition.manage` | MANAGE | OBJ-13 | New (DL-177; Global Admin) |
+| `ga.delegation.manage` | MANAGE | OBJ-35 | New (DL-36, DL-21 held) |
+| `ga.type_grant.request`, `ga.type_grant.approve` | CREATE, APPROVE | OBJ-35 | New (DL-69; Campus Leader approves, OQ-205) |
+| `ga.operator_session.request`, `ga.operator_session.approve`, `ga.operator_session.break_glass` | CREATE, APPROVE, MANAGE | OBJ-35 | New (DL-52, DL-175; break-glass GSG security, OQ-207) |
+| `gov.review_cycle.manage` | MANAGE | OBJ-36 | New (DL-174) |
+| `gov.purpose.manage`, `gov.retention.manage`, `gov.notice.manage` | MANAGE | OBJ-34 | New (DL-176; retention activated by the country's Data Protection Lead) |
 | `student.profile.view`, `student.profile.view_confidential`, `student.profile.edit` | VIEW, UPDATE | OBJ-02 | New |
 | `student.address.view` | VIEW | OBJ-02 | New |
 | `student.identity.reveal` | VIEW | OBJ-02 (T3) | New |

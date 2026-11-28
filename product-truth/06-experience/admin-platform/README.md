@@ -5,6 +5,8 @@
 
 > **Scope note, 25 Oct 2026.** Campus OS serves every GSG brand and GSG operates it (DL-22). This slice was written with GIIS as the only brand, and its sample data is still GIIS-only (DL-03; OQ-33). For other brands, take scope nodes from [gsg-landscape](../../01-context/gsg-landscape.md#sample-scope-nodes-for-screen-prompts) and student records from [`03-domain/samples/`](../../03-domain/samples/README.md). Read "GIIS" below as the example brand. Platform-level context: [`../../01-context/product-brief.md`](../../01-context/product-brief.md).
 
+> **Dictionary note, 28 Nov 2026.** The Admin Platform now has its own data dictionary, [`admin-platform-data-dictionary.md`](../../03-domain/admin-platform-data-dictionary.md) (DL-165, Confirmed): it is the home of A01–A18, R01–R03 and F01 (replacing the Employee Data Dictionary as the source for access entities) and adds brand and campus setup, module switch-on, the legacy systems register, sign-in, support sessions, access review cycles and data protection settings. Staff and HR screens now belong to the [Staff & HR module](../../03-domain/staff-hr-data-dictionary.md) (DL-146). A task-based navigation is proposed in DL-179; the screen map below stays the reference until Henry confirms it. Prototype: `screens/admin-platform.html`.
+
 **Tóm tắt (VI):** Thiết kế đợt đầu tập trung vào **Admin Platform**: quản lý nhân sự (Staff and HR) và quyền truy cập (Global Admin + Team Management) cho các campus của GSG (dữ liệu mẫu hiện là GIIS). Đây là "cửa ngõ" của 12 module: chưa có người và quyền đúng thì không module nào chạy được.
 
 ## Problem

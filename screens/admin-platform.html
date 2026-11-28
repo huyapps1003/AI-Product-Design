@@ -1,0 +1,793 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Admin Platform Prototype</title>
+<!--
+  Screens (DL-179 proposed navigation): SCR-ADM-01 Admin home · SCR-ADM-02 Brands and campuses + setup run · SCR-ADM-03 Modules switch-on · SCR-ADM-04 Legacy systems · SCR-ADM-05 Settings · SCR-ADM-06 Sign-in · SCR-ADM-07 Users · SCR-ADM-08 User access detail ("Why can I see this?") · SCR-ADM-09 Roles and templates · SCR-ADM-10 Requests · SCR-ADM-11 Special access (support sessions, Tier 3 grants, delegations) · SCR-ADM-12 Access review · SCR-ADM-13 Data protection · SCR-ADM-14 Audit log
+  Viewers: Daniel Tan (Global admin) · Aisha Karim (Brand admin, OWIS) · Dr Anita Rao (Campus leader, SG-PGL) · Leo Fernandes (GSG support)
+  Objects: OBJ-01 Person, OBJ-07 Access grant, OBJ-08 Team membership, OBJ-11 Audit event, OBJ-32 Campus setup, OBJ-33 Access role and template, OBJ-34 Data protection settings, OBJ-35 Special access, OBJ-36 Access review
+  AR/AP: AR-01 AR-03 AR-04 AR-06 AR-09 AR-10 AR-12 AR-13 · AP-01 AP-02 AP-04 AP-06 AP-07 AP-09 AP-10 AP-13 AP-14
+  Sample: product-truth/03-domain/samples/admin-platform-sample.json · today Mon 30 Nov 2026 09:30 SGT · synthetic
+  DL: DL-165…DL-179 Confirmed · DL-52, DL-69, DL-149 Confirmed · OQ shown as pending: OQ-02 OQ-06 OQ-09 OQ-10 OQ-21 OQ-27 OQ-43 OQ-185 OQ-192 OQ-197 OQ-199 OQ-200 OQ-201 OQ-202 OQ-204 OQ-205 OQ-206 OQ-207 OQ-209 OQ-210
+  Spec: Admin Platform Data Dictionary v0.1
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#00A76F;--primary-dark:#007867;--primary-soft:rgba(0,167,111,.08);--primary-soft2:rgba(0,167,111,.16);
+  --secondary:#8E33FF;--secondary-soft:rgba(142,51,255,.08);
+  --error:#B71D18;--error-soft:rgba(255,86,48,.12);
+  --warning:#B76E00;--warning-soft:rgba(255,171,0,.14);--warning-line:#FFAB00;
+  --info:#006C9C;--info-soft:rgba(0,184,217,.12);
+  --success:#118D57;--success-soft:rgba(34,197,94,.14);
+  --text:#212B36;--text2:#637381;--text3:#919EAB;
+  --bg:#FFFFFF;--paper:#FFFFFF;--neutral:#F4F6F8;--canvas:#EDEFF2;
+  --divider:rgba(145,158,171,.2);--line:rgba(145,158,171,.32);
+  --z1:0 1px 2px rgba(145,158,171,.16);
+  --card:0 0 2px 0 rgba(145,158,171,.2),0 12px 24px -4px rgba(145,158,171,.12);
+  --scrim:rgba(22,28,36,.48);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --primary:#5BE49B;--primary-dark:#5BE49B;--primary-soft:rgba(91,228,155,.10);--primary-soft2:rgba(91,228,155,.18);
+  --secondary:#C684FF;--secondary-soft:rgba(198,132,255,.12);
+  --error:#FFAC82;--error-soft:rgba(255,86,48,.18);
+  --warning:#FFD666;--warning-soft:rgba(255,171,0,.16);
+  --info:#61F3F3;--info-soft:rgba(0,184,217,.16);
+  --success:#77ED8B;--success-soft:rgba(34,197,94,.16);
+  --text:#FFFFFF;--text2:#919EAB;--text3:#637381;
+  --bg:#161C24;--paper:#212B36;--neutral:#28323D;--canvas:#10141A;
+  --card:0 0 2px 0 rgba(0,0,0,.2),0 12px 24px -4px rgba(0,0,0,.16);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --primary:#5BE49B;--primary-dark:#5BE49B;--primary-soft:rgba(91,228,155,.10);--primary-soft2:rgba(91,228,155,.18);
+  --secondary:#C684FF;--secondary-soft:rgba(198,132,255,.12);
+  --error:#FFAC82;--error-soft:rgba(255,86,48,.18);
+  --warning:#FFD666;--warning-soft:rgba(255,171,0,.16);
+  --info:#61F3F3;--info-soft:rgba(0,184,217,.16);
+  --success:#77ED8B;--success-soft:rgba(34,197,94,.16);
+  --text:#FFFFFF;--text2:#919EAB;--text3:#637381;
+  --bg:#161C24;--paper:#212B36;--neutral:#28323D;--canvas:#10141A;
+  --card:0 0 2px 0 rgba(0,0,0,.2),0 12px 24px -4px rgba(0,0,0,.16);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--canvas);color:var(--text);font:400 14px/1.57 "Public Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.mono{font-variant-numeric:tabular-nums}
+
+/* ---------- Prototype toolbar (not part of the product) ---------- */
+.proto{position:sticky;top:0;z-index:30;background:var(--paper);border-bottom:1px solid var(--divider);
+  padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));
+  display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+.proto-title{font-weight:700;font-size:13px;margin-right:auto;display:flex;gap:8px;align-items:center}
+.proto-title small{font-weight:500;color:var(--text2)}
+.ctl{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2)}
+.seg{display:inline-flex;background:var(--neutral);border-radius:8px;padding:3px}
+.seg button{border:0;background:transparent;padding:5px 10px;border-radius:6px;font-size:12px;font-weight:600;color:var(--text2);white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--paper);color:var(--text);box-shadow:var(--z1)}
+
+.stage{padding:24px max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
+.device{margin:0 auto;background:var(--bg);border-radius:16px;overflow:hidden;box-shadow:var(--card);max-width:1440px}
+.stage.mobile .device{max-width:390px;height:800px;border-radius:36px;border:10px solid #161C24;display:flex;flex-direction:column}
+.stage.mobile .app{flex:1;overflow:auto}
+
+/* ---------- App shell ---------- */
+.app{container-type:inline-size;background:var(--bg);min-height:640px}
+.shell{display:grid;grid-template-columns:280px 1fr;min-height:100%}
+.side{border-right:1px dashed var(--line);padding:20px 16px;display:flex;flex-direction:column;gap:4px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;padding:4px 8px 20px}
+.logo i{width:32px;height:32px;border-radius:10px;background:var(--primary);display:grid;place-items:center;color:#fff;font-style:normal;font-size:14px}
+:root[data-theme="dark"] .logo i{color:#161C24}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo i{color:#161C24}}
+.nav-h{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);padding:12px 12px 6px}
+.nav a{display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:8px;color:var(--text2);text-decoration:none;font-weight:500;min-height:44px}
+.nav a.on{background:var(--primary-soft);color:var(--primary);font-weight:600}
+.nav svg{width:22px;height:22px;flex:none}
+
+.main{min-width:0;display:flex;flex-direction:column}
+.top{height:64px;display:flex;align-items:center;gap:12px;padding:0 24px;border-bottom:1px solid var(--divider);position:sticky;top:0;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(6px);z-index:5}
+.scope{display:flex;align-items:center;gap:6px;min-width:0;border:1px solid var(--line);border-radius:8px;padding:6px 10px;background:transparent;font-size:13px;font-weight:500}
+.scope span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.scope .sep{color:var(--text3)}
+.scope b{font-weight:700}
+.top .grow{flex:1}
+.iconbtn{width:40px;height:40px;border-radius:50%;border:0;background:transparent;display:grid;place-items:center;color:var(--text2)}
+.iconbtn svg{width:22px;height:22px}
+.me{display:flex;align-items:center;gap:10px}
+.me .who{line-height:1.25;text-align:right}
+.me .who b{display:block;font-size:13px}
+.me .who small{color:var(--text2);font-size:12px;white-space:nowrap}
+.seg{flex-wrap:wrap}
+.proto .ctl{flex-wrap:wrap}
+
+.avatar{border-radius:50%;display:grid;place-items:center;font-weight:700;flex:none}
+.av-sm{width:36px;height:36px;font-size:13px;background:var(--secondary-soft);color:var(--secondary)}
+
+.content{padding:24px 40px 48px;max-width:1200px;width:100%;margin:0 auto}
+.crumbs{font-size:13px;color:var(--text2);display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.crumbs .dot{width:4px;height:4px;border-radius:50%;background:var(--text3);align-self:center}
+.crumbs b{color:var(--text);font-weight:500}
+
+/* Person header AP-03 */
+.hero{background:var(--paper);border-radius:16px;box-shadow:var(--card);overflow:hidden;margin-bottom:24px}
+.hero-band{height:72px;background:linear-gradient(120deg,var(--primary-soft2),var(--secondary-soft))}
+.hero-body{display:flex;gap:20px;padding:0 24px 20px;align-items:flex-end;flex-wrap:wrap;margin-top:-36px}
+.av-xl{width:96px;height:96px;font-size:32px;background:var(--primary);color:#fff;border:4px solid var(--paper)}
+:root[data-theme="dark"] .av-xl{color:#161C24}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .av-xl{color:#161C24}}
+.hero-id{flex:1;min-width:220px;padding-top:40px}
+.hero-id h1{margin:0;font-size:24px;line-height:1.3;font-weight:700}
+.hero-meta{color:var(--text2);font-size:14px;margin-top:2px;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.hero-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+.chip{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 8px;border-radius:6px;font-size:12px;font-weight:700;line-height:1;white-space:nowrap}
+.c-success{background:var(--success-soft);color:var(--success)}
+.c-warning{background:var(--warning-soft);color:var(--warning)}
+.c-error{background:var(--error-soft);color:var(--error)}
+.c-info{background:var(--info-soft);color:var(--info)}
+.c-default{background:var(--neutral);color:var(--text2)}
+.c-role{background:var(--secondary-soft);color:var(--secondary)}
+.c-pending{background:transparent;border:1px solid var(--warning-line);color:var(--warning);font-weight:600}
+.c-source{background:var(--info-soft);color:var(--info);font-weight:600}
+.chip svg{width:13px;height:13px}
+
+.btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--line);background:transparent;font-weight:700;font-size:14px;white-space:nowrap}
+.btn-primary{background:var(--text);color:var(--bg);border-color:var(--text)}
+.btn-sm{height:30px;padding:0 10px;font-size:13px}
+.btn-ghost{border-color:transparent;color:var(--primary)}
+.btn svg{width:18px;height:18px}
+
+/* Tabs */
+.tabs{display:flex;gap:28px;border-bottom:1px solid var(--divider);padding:0 24px;overflow-x:auto;scrollbar-width:none}
+.tabs a{padding:12px 0;color:var(--text2);text-decoration:none;font-weight:600;white-space:nowrap;border-bottom:2px solid transparent}
+.tabs a.on{color:var(--text);border-color:var(--text)}
+
+/* Cards */
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+.span2{grid-column:1/-1}
+.card{background:var(--paper);border-radius:16px;box-shadow:var(--card);scroll-margin-top:80px}
+.card-h{display:flex;align-items:center;gap:8px;padding:20px 24px 0;flex-wrap:wrap}
+.card-h h2{margin:0;font-size:17px;font-weight:700;margin-right:auto}
+.card-b{padding:16px 24px 24px}
+.why{border:0;background:transparent;color:var(--text2);font-size:12px;font-weight:600;display:inline-flex;gap:4px;align-items:center;padding:4px 6px;border-radius:6px;min-height:32px}
+.why:hover{background:var(--neutral)}
+.why svg{width:16px;height:16px}
+.explain{margin:12px 24px 0;padding:12px 14px;border-radius:10px;background:var(--neutral);font-size:13px}
+.explain dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0}
+.explain dt{color:var(--text2)}
+.explain dd{margin:0;font-weight:500;overflow-wrap:anywhere}
+.explain code{font-size:12px;background:var(--paper);padding:1px 5px;border-radius:4px}
+
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 24px}
+.f{min-width:0}
+.f .l{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.f .v{font-weight:500;margin-top:2px;overflow-wrap:anywhere;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tier{font-size:10px;font-weight:700;color:var(--text3);border:1px solid var(--line);border-radius:4px;padding:0 4px;line-height:16px}
+
+.masked{display:inline-flex;align-items:center;gap:6px;color:var(--text2);font-family:ui-monospace,Menlo,monospace;letter-spacing:.04em}
+.masked svg{width:15px;height:15px}
+
+.noaccess{display:flex;gap:14px;align-items:flex-start;padding:16px;border:1px dashed var(--line);border-radius:12px}
+.noaccess .ico{width:40px;height:40px;border-radius:12px;background:var(--neutral);display:grid;place-items:center;color:var(--text2);flex:none}
+.noaccess .ico svg{width:22px;height:22px}
+.noaccess b{display:block}
+.noaccess p{margin:2px 0 0;color:var(--text2);font-size:13px}
+
+.addr{display:flex;flex-direction:column;gap:12px}
+.addr-row{padding:12px 14px;border-radius:10px;border:1px solid var(--divider)}
+.addr-row .l{font-size:12px;color:var(--text2);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.addr-row .v{font-weight:500;margin-top:2px}
+
+.doc{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:14px;border-radius:12px;border:1px solid var(--divider);margin-bottom:12px}
+.doc .t{font-weight:700;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.doc .s{grid-column:1/-1;color:var(--text2);font-size:13px;display:flex;flex-wrap:wrap;gap:4px 14px}
+.logline{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--text2);padding:10px 12px;border-radius:8px;background:var(--info-soft);margin-top:4px}
+.logline svg{width:16px;height:16px;color:var(--info);flex:none;margin-top:1px}
+
+/* Timeline AP-05 */
+.tl{list-style:none;margin:0;padding:0}
+.tl li{position:relative;padding:0 0 20px 28px}
+.tl li::before{content:"";position:absolute;left:6px;top:20px;bottom:0;width:2px;background:var(--divider)}
+.tl li:last-child::before{display:none}
+.tl .dotm{position:absolute;left:0;top:5px;width:14px;height:14px;border-radius:50%;border:3px solid var(--paper);box-shadow:0 0 0 2px var(--line);background:var(--text3)}
+.tl .dotm.cur{background:var(--success);box-shadow:0 0 0 2px var(--success-soft)}
+.tl .h{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-weight:700}
+.tl .m{color:var(--text2);font-size:13px}
+
+.guard{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.g{border:1px solid var(--divider);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.g-top{display:flex;gap:12px;align-items:center}
+.av-md{width:44px;height:44px;font-size:15px;background:var(--info-soft);color:var(--info)}
+.g-top b{display:block}
+.g-top small{color:var(--text2)}
+.flags{display:flex;gap:6px;flex-wrap:wrap}
+.contact{display:flex;flex-direction:column;gap:4px;font-size:13px}
+.contact div{display:flex;gap:8px;align-items:center}
+.contact svg{width:16px;height:16px;color:var(--text3);flex:none}
+
+.pendcard{border:1px dashed var(--warning-line);border-radius:12px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;background:transparent}
+.pendcard p{margin:2px 0 0;color:var(--text2);font-size:13px}
+.pendcard>svg{width:18px;height:18px;flex:none;margin-top:1px}
+
+.foot{margin-top:24px;font-size:12px;color:var(--text3)}
+
+/* Bottom nav for compact widths */
+.bnav{display:none}
+
+/* ---------- Compact layout, driven by frame width ---------- */
+@container (max-width: 1080px){
+  .shell{grid-template-columns:88px 1fr}
+  .side .logo span,.nav-h,.nav a span{display:none}
+  .nav a{justify-content:center;padding:10px}
+  .content{padding:24px 24px 48px}
+}
+@container (max-width: 860px){
+  .grid,.guard{grid-template-columns:minmax(0,1fr)}
+  .me .who{display:none}
+}
+@container (max-width: 640px){
+  .shell{grid-template-columns:1fr}
+  .side{display:none}
+  .top{padding:0 12px;height:56px}
+  .scope .hide-sm{display:none}
+  .content{padding:16px 16px 96px}
+  .hero-body{padding:0 16px 16px;gap:12px}
+  .av-xl{width:72px;height:72px;font-size:24px}
+  .hero-id{padding-top:0;min-width:100%}
+  .hero-id h1{font-size:20px}
+  .hero-actions{width:100%}
+  .hero-actions .btn{flex:1;justify-content:center}
+  .tabs{padding:0 16px;gap:20px}
+  .card-h{padding:16px 16px 0}
+  .card-b{padding:12px 16px 16px}
+  .explain{margin:12px 16px 0}
+  .fields{grid-template-columns:minmax(0,1fr)}
+  .crumbs{display:none}
+  .bnav{display:flex;position:sticky;bottom:0;background:var(--paper);border-top:1px solid var(--divider);justify-content:space-around;padding:6px 0 calc(6px + env(safe-area-inset-bottom,0px))}
+  .bnav a{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;font-weight:600;color:var(--text2);text-decoration:none;min-width:64px;min-height:44px;justify-content:center}
+  .bnav a.on{color:var(--primary)}
+  .bnav svg{width:22px;height:22px}
+}
+
+/* Dialog */
+.scrim{position:fixed;inset:0;background:var(--scrim);display:grid;place-items:center;padding:16px;z-index:50}
+.dlg{background:var(--paper);border-radius:16px;box-shadow:0 24px 48px rgba(0,0,0,.24);width:100%;max-width:480px;padding:24px}
+.dlg h3{margin:0 0 4px;font-size:18px}
+.dlg p{margin:0 0 16px;color:var(--text2);font-size:13px}
+.dlg label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin:12px 0 6px}
+.dlg select,.dlg textarea{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.dlg textarea{min-height:72px;resize:vertical}
+.dlg .row{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+.dlg .btn-primary:disabled{opacity:.4;cursor:not-allowed}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:600;font-size:13px;z-index:60;max-width:calc(100% - 32px)}
+
+.content a:not(.btn):not(.tabs a){color:var(--primary-dark);font-weight:600;text-decoration:none}
+.content a:not(.btn):not(.tabs a):hover{text-decoration:underline}
+.page-h{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.page-h h1{margin:0;font-size:24px;font-weight:700;line-height:1.3}
+.page-h p{margin:2px 0 0;color:var(--text2)}
+.page-h .grow{flex:1}
+.listcard{background:var(--paper);border-radius:16px;box-shadow:var(--card);overflow:hidden}
+.qtabs{display:flex;gap:24px;padding:0 20px;border-bottom:1px solid var(--divider);overflow-x:auto;scrollbar-width:none}
+.qtabs button{border:0;background:transparent;padding:12px 0;font-weight:600;color:var(--text2);white-space:nowrap;border-bottom:2px solid transparent;display:flex;gap:6px;align-items:center;min-height:44px}
+.qtabs button[aria-pressed="true"]{color:var(--text);border-color:var(--text)}
+.cnt{font-size:11px;font-weight:700;border-radius:6px;padding:1px 6px;background:var(--neutral);color:var(--text2)}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:13px;font-weight:600;color:var(--text2);background:var(--neutral);padding:12px 16px;white-space:nowrap}
+td{padding:14px 16px;border-bottom:1px dashed var(--divider);vertical-align:middle}
+tbody tr.click{cursor:pointer}
+tbody tr.click:hover td{background:var(--primary-soft)}
+.sub{color:var(--text2);font-size:12px}
+.whoc{display:flex;gap:12px;align-items:center;min-width:0}
+.whoc b{display:block;font-weight:600;white-space:nowrap}
+.av-row{width:40px;height:40px;font-size:13px;background:var(--primary-soft2);color:var(--primary-dark)}
+.scopebar{display:flex;gap:10px;align-items:flex-start;padding:10px 14px;border-radius:10px;background:var(--neutral);font-size:13px;margin:16px 20px}
+.scopebar svg{width:16px;height:16px;color:var(--text2);flex:none;margin-top:2px}
+
+/* Board */
+.board{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(220px,1fr);gap:16px;overflow-x:auto;padding-bottom:8px}
+.col{background:var(--neutral);border-radius:16px;padding:12px;min-height:200px;display:flex;flex-direction:column;gap:10px}
+.col-h{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13px;padding:2px 4px}
+.kcard{background:var(--paper);border-radius:12px;box-shadow:var(--z1);padding:12px;border:1px solid var(--divider);text-align:left;display:flex;flex-direction:column;gap:6px;width:100%}
+.kcard:hover{border-color:var(--primary)}
+.kcard b{font-size:14px}
+.kcard .blk{font-size:12px;color:var(--warning);display:flex;gap:4px;align-items:flex-start}
+.kcard .blk svg{width:14px;height:14px;flex:none;margin-top:2px}
+.kempty{font-size:12px;color:var(--text3);padding:8px 4px}
+
+/* Stepper */
+.steps{display:flex;gap:0;padding:16px 24px 20px;overflow-x:auto;scrollbar-width:none}
+.step{flex:1;min-width:96px;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;font-size:12px;color:var(--text2);text-align:center}
+.step::before{content:"";position:absolute;top:11px;left:-50%;right:50%;height:2px;background:var(--divider)}
+.step:first-child::before{display:none}
+.step .d{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--neutral);color:var(--text2);font-weight:700;font-size:11px;position:relative;z-index:1}
+.step.done .d{background:var(--success);color:#fff}
+.step.done::before,.step.cur::before{background:var(--success)}
+.step.cur .d{background:var(--text);color:var(--bg)}
+.step.cur{color:var(--text);font-weight:700}
+.step.bad .d{background:var(--error);color:#fff}
+
+/* Capacity bar */
+.bar{height:8px;border-radius:4px;background:var(--neutral);overflow:hidden;display:flex;min-width:120px}
+.bar i{display:block;height:100%}
+.bar .e{background:var(--primary)}
+.bar .h{background:var(--warning-line)}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--text2);flex-wrap:wrap}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+.kv{display:grid;grid-template-columns:200px 1fr;gap:10px 16px;font-size:14px}
+.kv dt{color:var(--text2)}
+.kv dd{margin:0;font-weight:500;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.notset{color:var(--warning);font-weight:700;display:inline-flex;gap:4px;align-items:center}
+.notset svg{width:15px;height:15px}
+.settings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.count{display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:12px;background:var(--warning-soft);color:var(--warning);font-weight:600;font-size:13px}
+.count svg{width:20px;height:20px;flex:none}
+.blocked{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:12px;border:1px solid var(--warning-line);font-size:13px}
+.blocked svg{width:20px;height:20px;color:var(--warning);flex:none}
+.blocked b{display:block}
+.list-row{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px dashed var(--divider);flex-wrap:wrap}
+.list-row:last-child{border-bottom:0}
+.list-row .grow{flex:1;min-width:160px}
+.pos{width:28px;height:28px;border-radius:8px;background:var(--neutral);display:grid;place-items:center;font-weight:700;font-size:13px;flex:none}
+.dlg input[type=text]{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.drawer-kids{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.drawer-kids div{padding:10px 12px;border:1px solid var(--divider);border-radius:10px}
+@container (max-width: 860px){.settings{grid-template-columns:minmax(0,1fr)}.kv{grid-template-columns:minmax(0,1fr);gap:2px 0}.kv dd{margin-bottom:10px}}
+@container (max-width: 640px){.page-h h1{font-size:20px}.steps{padding:12px 16px 16px}.board{grid-auto-columns:minmax(240px,80%)}}
+/* ---------- Classes additions ---------- */
+.ccards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.ccard{background:var(--paper);border-radius:14px;box-shadow:var(--card);padding:16px;text-align:left;border:1px solid transparent;display:flex;flex-direction:column;gap:8px;width:100%}
+.ccard:hover{border-color:var(--primary)}
+.ccard .t{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ccard .t b{font-size:16px;margin-right:auto}
+.ccard .m{font-size:13px;color:var(--text2);display:flex;gap:4px 12px;flex-wrap:wrap}
+.gh{display:flex;align-items:baseline;gap:10px;margin:28px 0 12px;flex-wrap:wrap}
+.gh h2{margin:0;font-size:16px}
+.gh .sub{font-size:13px}
+.fill{display:flex;align-items:center;gap:10px;font-size:13px}
+.fill .bar{flex:1;min-width:80px}
+.bar .o{background:var(--error)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.filters select,.dlg input[type=date],.dlg input[type=number]{font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 10px}
+.dlg input[type=date]{width:100%;padding:10px 12px}
+.hdot{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none}
+.stepper{display:inline-flex;align-items:center;gap:6px}
+.stepper button{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:transparent;font-weight:700}
+.stepper button:disabled{opacity:.35;cursor:not-allowed}
+.dlg .opt,.opt{display:flex;font-size:14px;font-weight:400;color:var(--text);margin:0 0 8px;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--divider);border-radius:10px;margin-bottom:8px;cursor:pointer}
+.opt input{accent-color:var(--primary)}
+.opt.dis{opacity:.55}
+.opt .grow{flex:1}
+.houses{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.house{background:var(--paper);border-radius:14px;box-shadow:var(--card);padding:16px;display:flex;flex-direction:column;gap:6px}
+.house b{font-size:22px}
+.note{font-size:12px;color:var(--text2);margin-top:6px}
+.proto-note{border:1px dashed var(--line);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--text2);margin-top:24px}
+.sumrow{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 16px}
+.stat{background:var(--paper);border-radius:12px;box-shadow:var(--card);padding:12px 16px;min-width:120px}
+.stat b{display:block;font-size:20px}
+.stat span{font-size:12px;color:var(--text2)}
+@container (max-width: 860px){.houses{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@container (max-width: 640px){.roster td,.roster th{padding:10px 8px}.roster .hname{display:none}.roster .whoc{gap:8px}.roster .av-row{display:none}.ccards{grid-template-columns:minmax(0,1fr)}.hide-phone{display:none}}
+
+/* ---------- Attendance additions ---------- */
+.reg{display:flex;flex-direction:column}
+.rrow{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--divider)}
+.rrow:last-child{border-bottom:0}
+.rrow .nm{flex:1;min-width:0}
+.rrow .nm b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rrow select{font:inherit;font-size:13px;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 8px;max-width:140px}
+.tag{font-size:11px;font-weight:600;color:var(--info)}
+.pct{font-weight:700;font-variant-numeric:tabular-nums}
+.meter{position:relative;height:8px;border-radius:4px;background:var(--neutral);min-width:90px}
+.meter i{position:absolute;left:0;top:0;bottom:0;border-radius:4px}
+.meter u{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--text)}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;font-size:12px;text-align:center}
+.cal .h{color:var(--text3);font-weight:700}
+.cal .d{padding:6px 0;border-radius:6px;background:var(--success-soft);color:var(--success);font-weight:600}
+.cal .d.off{background:var(--neutral);color:var(--text3);font-weight:400}
+.cal .d.hol{background:var(--warning-soft);color:var(--warning)}
+.cal .d.today{outline:2px solid var(--text)}
+.cal .d.blank{background:transparent}
+.t3{border:1px solid var(--secondary);border-radius:12px;padding:10px 14px;font-size:13px;color:var(--secondary);background:var(--secondary-soft);display:flex;gap:8px;align-items:center}
+.dlg input[type=time]{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.route{padding:10px 12px;border-radius:10px;background:var(--neutral);font-size:13px;margin-top:12px}
+@container (max-width: 640px){.roster .meter{display:none}.hide-ph{display:none}}
+/* ---------- Teaching & Timetable additions ---------- */
+.covtab td{vertical-align:top}
+.sugs{display:flex;gap:6px;flex-wrap:wrap}
+.sug{display:flex;flex-direction:column;align-items:flex-start;gap:1px;border:1px solid var(--line);background:transparent;border-radius:10px;padding:6px 10px;text-align:left;min-height:44px}
+.sug b{font-size:13px}
+.sug span{font-size:11px;color:var(--text2)}
+.sug:hover:not(:disabled){border-color:var(--primary);background:var(--primary-soft)}
+.sug:disabled{cursor:default}
+.tt{table-layout:fixed;min-width:760px}
+.tt th{text-align:center;padding:10px 8px}
+.tt th.today,.tt td.today{background:var(--primary-soft)}
+.tt th.pt{width:76px;text-align:left;background:var(--neutral)}
+.tt th.pt b{display:block;color:var(--text)}
+.tt th.pt span{font-size:11px;color:var(--text3);font-weight:500}
+.tt td{padding:4px;border-bottom:1px solid var(--divider);vertical-align:top}
+.tt tr.nont td{font-size:12px;color:var(--text3);text-align:center;background:var(--neutral);padding:4px}
+.ttc{border-radius:8px;padding:6px 8px;background:var(--neutral);display:flex;flex-direction:column;gap:1px;font-size:12px;line-height:1.35;min-height:58px}
+.ttc b{font-size:12px}
+.ttc span{color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ttc em{font-style:normal;font-weight:700;font-size:11px;margin-top:2px}
+.ttc em.cv{color:var(--secondary)}.ttc em.nc{color:var(--error)}.ttc em.cn{color:var(--warning)}.ttc em.ch{color:var(--info)}
+.ttc.blk{background:var(--secondary-soft)}
+.ttc.blk b{color:var(--secondary)}
+.ttc.blk span{white-space:normal}
+.ttc.free{color:var(--text3);background:transparent;border:1px dashed var(--divider);justify-content:center;align-items:center}
+.ttc.s-Mathem{background:var(--info-soft)}
+.ttc.s-Scienc{background:var(--success-soft)}
+.bgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:24px;align-items:start}
+.chg{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.clash{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px dashed var(--divider)}
+.clash:last-child{border-bottom:0}
+.clash .grow{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.clash.done{opacity:.6}
+.mini{margin-top:12px}
+.mini td{padding:6px 8px;font-size:13px}
+.rooms{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.room{border:1px solid var(--divider);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;font-size:13px}
+.room.oou{border-color:var(--warning-line)}
+.lrow{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px dashed var(--divider)}
+.lrow .pp{width:48px;flex:none}
+.lrow .pp b{display:block}
+.lrow .pp span{font-size:12px;color:var(--text2)}
+.lrow .nm{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;align-items:flex-start}
+.lrow.isc{background:var(--secondary-soft);border-radius:12px;padding:12px;border-bottom:0;margin:4px 0}
+.lrow .btn{margin-top:6px}
+@container (max-width: 860px){.bgrid{grid-template-columns:minmax(0,1fr)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+/* ---------- Staff & HR additions ---------- */
+.dirtab td .nm{display:flex;gap:10px;align-items:center}
+.dirtab td .nm b{display:block}
+.away{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--text2);background:var(--neutral);border-radius:6px;padding:0 8px;height:24px}
+.away::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--warning-line)}
+.lock{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--secondary);font-weight:600}
+.lock svg{width:15px;height:15px}
+.req{border:1px solid var(--divider);border-radius:14px;padding:16px;margin-bottom:12px;background:var(--paper)}
+.req-h{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.req-h .grow{flex:1;min-width:180px}
+.req-h b{display:block;font-size:15px}
+.aroute{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;font-size:12px}
+.aroute span{display:inline-flex;gap:6px;align-items:center;border:1px solid var(--divider);border-radius:20px;padding:3px 10px;color:var(--text2)}
+.aroute span.cur{border-color:var(--info);color:var(--info);font-weight:700}
+.aroute span.done{border-color:var(--success);color:var(--success);font-weight:700}
+.effect{margin-top:10px;font-size:13px;color:var(--text2);display:flex;gap:8px;align-items:flex-start}
+.effect svg{width:16px;height:16px;flex:none;color:var(--info);margin-top:2px}
+.req .acts{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.calg{display:grid;grid-template-columns:150px repeat(10,minmax(44px,1fr));min-width:640px;font-size:12px}
+.calg div{padding:8px 4px;border-bottom:1px solid var(--divider);text-align:center;min-height:36px}
+.calg .nmc{text-align:left;font-weight:600;font-size:13px;padding-left:0}
+.calg .hd{font-weight:700;color:var(--text2);background:var(--neutral)}
+.calg .hd.today{color:var(--primary)}
+.calg .ev{background:var(--info-soft)}
+.cl-away{background:var(--warning-soft);color:var(--warning);font-weight:700;border-radius:6px}
+.cl-pend{border:1px dashed var(--warning-line);color:var(--warning);border-radius:6px}
+.bal{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.bal .stat b{font-size:24px}
+.task{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px dashed var(--divider);flex-wrap:wrap}
+.task .grow{flex:1;min-width:180px}
+.task .ow{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.04em}
+.tick{width:22px;height:22px;border-radius:6px;border:2px solid var(--line);display:grid;place-items:center;flex:none;background:transparent;padding:0}
+.tick.on{background:var(--success);border-color:var(--success);color:#fff}
+.tick svg{width:14px;height:14px}
+.goal{padding:12px 14px;border:1px solid var(--divider);border-radius:12px;margin-bottom:10px}
+.goal b{display:block}
+.prog{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.hiddenfb{border:1px dashed var(--line);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--text2);margin-top:8px}
+.dlg input[type=text],.dlg input[type=date]{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.calc{margin-top:12px;padding:10px 12px;border-radius:10px;background:var(--neutral);font-size:13px}
+@container (max-width: 640px){.req{padding:14px}.kv{grid-template-columns:minmax(0,1fr)}.dirtab .hide-ph{display:none}}
+
+.ow{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.04em}
+.cellbtn{border:0;background:transparent;padding:4px;border-radius:8px;text-align:left;display:flex;flex-direction:column;gap:2px;min-height:44px}
+.cellbtn:hover{background:var(--neutral)}
+table.matrix td{padding:8px 10px}
+table.matrix th{white-space:normal;min-width:120px}
+.g-top small{display:block;color:var(--text2);font-size:12px;overflow-wrap:anywhere}
+.nav .nav-h:first-child{padding-top:0}
+</style>
+</head><body>
+<div class="proto" role="region" aria-label="Prototype controls">
+  <div class="proto-title">Admin Platform prototype <small>Campus OS · synthetic data · Mon 30 Nov 2026, 09:30</small></div>
+  <div class="ctl">Viewer
+    <div class="seg" id="viewers">
+      <button data-v="daniel" aria-pressed="true">Daniel · Global admin</button>
+      <button data-v="aisha" aria-pressed="false">Aisha · Brand admin</button>
+      <button data-v="anita" aria-pressed="false">Dr Rao · Campus leader</button>
+      <button data-v="leo" aria-pressed="false">Leo · GSG support</button>
+    </div>
+  </div>
+  <div class="ctl">Frame
+    <div class="seg" id="frame"><button data-f="desk" aria-pressed="true">Desktop</button><button data-f="phone" aria-pressed="false">Phone</button></div>
+  </div>
+  <div class="ctl">Theme
+    <div class="seg" id="theme"><button data-t="light" aria-pressed="false">Light</button><button data-t="dark" aria-pressed="false">Dark</button><button data-t="auto" aria-pressed="true">Auto</button></div>
+  </div>
+</div>
+<div class="stage" id="stage"><div class="device"><div class="app">
+  <div class="shell">
+    <aside class="side" aria-label="Main navigation">
+      <div class="logo"><i>C</i><span>Campus OS</span></div>
+      <nav class="nav" id="nav"></nav>
+    </aside>
+    <div class="main">
+      <header class="top">
+        <button class="scope" title="Current scope"><span id="scopeTxt"></span></button>
+        <div class="grow"></div>
+        <div class="me"><div class="who"><b id="meName"></b><small id="meRole"></small></div><div class="avatar av-sm" id="meAv"></div></div>
+      </header>
+      <main class="content" id="view" tabindex="-1"></main>
+      <nav class="bnav" id="bnav"></nav>
+    </div>
+  </div>
+</div></div></div>
+<div id="layer"></div>
+<script>
+const S = {"_about": "Synthetic sample for Admin Platform screens (OBJ-01, OBJ-07, OBJ-08, OBJ-11, OBJ-32 to OBJ-36). All people, accounts, dates, go-live plans, sessions and review numbers are invented. Go-live dates and module switch-on values are SAMPLE values, not GSG plans (OQ-197). Operating entities, controller and retention periods stay pending (OQ-02, OQ-06, OQ-43). Dictionary: product-truth/03-domain/admin-platform-data-dictionary.md (DL-165..DL-179 Confirmed 28 Nov 2026).", "today": "2026-11-30T09:30:00+08:00", "viewers": [{"key": "daniel", "name": "Daniel Tan", "role": "GLOBAL_ADMIN", "title": "Global Admin · GSG platform team", "scope_node": "gsg", "_note": "Canonical Global Admin (Admin Platform brief)."}, {"key": "aisha", "name": "Aisha Karim", "role": "BRAND_ADMIN", "title": "Brand admin · OWIS", "scope_node": "gsg/owis", "_note": "New role proposed by DL-178; who holds it per brand is OQ-198."}, {"key": "anita", "name": "Dr Anita Rao", "role": "CAMPUS_LEADER", "title": "Principal · SMART Campus Punggol", "scope_node": "gsg/giis/giis-sg/sg-pgl"}, {"key": "leo", "name": "Leo Fernandes", "role": "PLATFORM_SUPPORT", "title": "Support engineer · GSG platform team", "scope_node": "gsg", "_note": "No campus memberships; works only through approved operator sessions (DL-175)."}], "brands": [{"code": "GIIS", "name": "Global Indian International School", "brand_countries": ["GIIS Singapore", "GIIS India"], "campuses_live": 3, "brand_admin": "PENDING:OQ-198", "sign_in": "Google Workspace"}, {"code": "OWIS", "name": "One World International School", "brand_countries": ["OWIS Singapore"], "campuses_live": 0, "brand_admin": "Aisha Karim (sample)", "sign_in": "PENDING:OQ-210"}], "campuses": [{"code": "SG-PGL", "name": "SMART Campus Punggol", "brand": "GIIS", "brand_country": "GIIS Singapore", "data_location": "Singapore", "status": "ACTIVE", "staff": 210, "users_with_access": 204}, {"code": "SG-ECS", "name": "East Coast Campus", "brand": "GIIS", "brand_country": "GIIS Singapore", "data_location": "Singapore", "status": "ACTIVE", "staff": 95, "users_with_access": 91, "_note": "Not on GSG's public list (OQ-57)."}, {"code": "IN-NOI", "name": "Noida Campus", "brand": "GIIS", "brand_country": "GIIS India", "data_location": "India", "status": "ACTIVE", "staff": 100, "users_with_access": 97}, {"code": "SG-OWD", "name": "OWIS Digital Campus, Punggol", "brand": "OWIS", "brand_country": "OWIS Singapore", "data_location": "Singapore", "status": "PLANNED", "staff": 48, "users_with_access": 3, "setup_run": "RUN-OWD"}], "setup_run": {"id": "RUN-OWD", "node": "gsg/owis/owis-sg/sg-owd", "run_kind": "CAMPUS_MIGRATION", "target_go_live": "2027-01-04", "owner": "Aisha Karim", "approver": "Brand-country head, OWIS Singapore (DL-167)", "run_status": "IN_PROGRESS", "_note": "OWIS SG runs a calendar year (classes sample: Claire Tan's January rollover), so the sample go-live is the first school day of 2027.", "tasks": [{"code": "NODE_CREATED", "label": "Campus in the scope tree", "blocking": true, "mode": "AUTO", "status": "DONE", "owner": "Global Admin", "detail": "gsg/owis/owis-sg/sg-owd · code SG-OWD is a placeholder (OQ-55)"}, {"code": "OPERATOR_LINKED", "label": "Operating entity linked from go-live", "blocking": true, "mode": "AUTO", "status": "BLOCKED", "owner": "Global Admin", "detail": "[operating entity — OQ-02]", "oq": "OQ-02"}, {"code": "DATA_LOCATION_LIVE", "label": "Data location live", "blocking": true, "mode": "AUTO", "status": "DONE", "owner": "Platform team", "detail": "Singapore (shared with GIIS Singapore)"}, {"code": "SIGN_IN_CONNECTED", "label": "Staff sign-in connected", "blocking": true, "mode": "AUTO", "status": "OPEN", "owner": "Platform team", "detail": "owis.example not yet on the GSG identity provider", "oq": "OQ-210"}, {"code": "PROGRAMMES_SET", "label": "Programmes set up", "blocking": true, "mode": "AUTO", "status": "DONE", "owner": "Academic coordinator", "detail": "Cambridge Primary, Cambridge Lower Secondary (academic structure sample)"}, {"code": "YEAR_PUBLISHED", "label": "Academic year 2027 published", "blocking": true, "mode": "AUTO", "status": "OPEN", "owner": "Principal", "detail": "Draft dates waiting for Claire Tan"}, {"code": "LEADER_ASSIGNED", "label": "Campus Leader assigned", "blocking": true, "mode": "AUTO", "status": "DONE", "owner": "Brand admin", "detail": "Claire Tan · Campus Leader from 4 Jan 2027"}, {"code": "MODULES_PLANNED", "label": "Module go-live dates set", "blocking": true, "mode": "AUTO", "status": "DONE", "owner": "Brand admin", "detail": "5 modules planned"}, {"code": "AUTHORITY_FILLED", "label": "Legacy systems listed for every module", "blocking": true, "mode": "AUTO", "status": "OPEN", "owner": "Brand admin with OWIS IT", "detail": "2 of 5 modules complete", "oq": "OQ-27"}, {"code": "MODULE_ADMINS", "label": "Module admins assigned", "blocking": true, "mode": "AUTO", "status": "OPEN", "owner": "Brand admin", "detail": "3 of 5 modules"}, {"code": "POSITION_TEMPLATES", "label": "Position access templates published", "blocking": true, "mode": "AUTO", "status": "OPEN", "owner": "Platform team", "detail": "OWIS list drafted, not published", "oq": "OQ-192"}, {"code": "STAFF_IMPORTED", "label": "Staff imported and invited", "blocking": true, "mode": "AUTO", "status": "OPEN", "owner": "Brand HR", "detail": "48 staff imported · invites go out 28 Dec (7 days before start)"}, {"code": "NOTICE_PUBLISHED", "label": "Staff privacy notice published", "blocking": true, "mode": "AUTO", "status": "OPEN", "owner": "Data protection lead", "detail": "Draft v1 · controller pending", "oq": "OQ-06"}, {"code": "SETTINGS_REVIEWED", "label": "Brand-country settings reviewed", "blocking": false, "mode": "MANUAL", "status": "DONE", "owner": "Brand admin", "detail": "14 keys Not set accepted"}, {"code": "FEE_PLANS", "label": "Fee plans approved", "blocking": false, "mode": "AUTO", "status": "NOT_NEEDED", "owner": "Finance Controller", "detail": "Fees & Billing not switched on at go-live"}, {"code": "CLASSES_PLANNED", "label": "Class plan approved", "blocking": false, "mode": "AUTO", "status": "DONE", "owner": "Principal", "detail": "2027 class plan approved"}, {"code": "TRAINING_DONE", "label": "Campus admins trained", "blocking": false, "mode": "MANUAL", "status": "OPEN", "owner": "Brand admin", "detail": "Session booked 14 Dec"}]}, "modules": ["student_records", "admissions", "teaching_learning", "assessment", "attendance_conduct", "fees_finance", "communication_cases", "staff_hr"], "module_names": {"student_records": "Student Records", "admissions": "Admissions", "teaching_learning": "Teaching & Timetable", "assessment": "Assessment", "attendance_conduct": "Attendance", "fees_finance": "Fees & Billing", "communication_cases": "Cases & Communications", "staff_hr": "Staff & HR"}, "module_switch_on": {"_note": "SAMPLE values only; real go-live order per brand is OQ-197.", "SG-PGL": {"student_records": ["LIVE", "2026-08-03"], "admissions": ["LIVE", "2026-08-03"], "teaching_learning": ["LIVE", "2026-08-03"], "assessment": ["PILOT", "2026-11-02"], "attendance_conduct": ["LIVE", "2026-08-03"], "fees_finance": ["PLANNED", "2027-04-01"], "communication_cases": ["LIVE", "2026-09-01"], "staff_hr": ["LIVE", "2026-08-03"]}, "SG-ECS": {"student_records": ["LIVE", "2026-08-03"], "admissions": ["LIVE", "2026-08-03"], "teaching_learning": ["LIVE", "2026-08-03"], "assessment": ["PLANNED", "2027-04-01"], "attendance_conduct": ["LIVE", "2026-08-03"], "fees_finance": ["PLANNED", "2027-04-01"], "communication_cases": ["LIVE", "2026-09-01"], "staff_hr": ["LIVE", "2026-08-03"]}, "IN-NOI": {"student_records": ["LIVE", "2026-10-05"], "admissions": ["PLANNED", "2027-01-04"], "teaching_learning": ["PLANNED", "2027-04-05"], "assessment": ["OFF", null], "attendance_conduct": ["LIVE", "2026-10-05"], "fees_finance": ["OFF", null], "communication_cases": ["PAUSED", "2026-10-05"], "staff_hr": ["LIVE", "2026-10-05"]}, "SG-OWD": {"student_records": ["PLANNED", "2027-01-04"], "admissions": ["PLANNED", "2027-01-04"], "teaching_learning": ["PLANNED", "2027-01-04"], "assessment": ["OFF", null], "attendance_conduct": ["PLANNED", "2027-01-04"], "fees_finance": ["OFF", null], "communication_cases": ["OFF", null], "staff_hr": ["PLANNED", "2027-01-04"]}}, "authority_register": [{"node": "GIIS", "module": "Student Records", "field_group": "student.profile, student.identity", "system": "MyGIIS", "direction": "INBOUND", "cutover": "PENDING:OQ-28", "status": "ACTIVE", "reviewer": "Admissions lead"}, {"node": "GIIS", "module": "Student Records", "field_group": "guardian.contact", "system": "MyGIIS", "direction": "INBOUND", "cutover": "PENDING:OQ-28", "status": "ACTIVE", "reviewer": "Admissions lead"}, {"node": "GIIS", "module": "Staff & HR", "field_group": "* (whole record, DL-147)", "system": "Campus OS", "direction": "OUTBOUND", "cutover": "2026-08-03", "status": "CUT_OVER", "reviewer": "HR Business Partner", "_note": "Payroll receives the feed (E08 PAYROLL_FEED)."}, {"node": "GIIS", "module": "Fees & Billing", "field_group": "* (Campus OS owns billing, DL-77)", "system": "Campus OS", "direction": "OUTBOUND", "cutover": "2027-04-01", "status": "PLANNED", "reviewer": "Finance Controller", "_note": "Journals to the ERP."}, {"node": "GIIS", "module": "Staff & HR", "field_group": "staff.work_email", "system": "Google Workspace", "direction": "INBOUND", "cutover": null, "status": "ACTIVE", "reviewer": "IT", "_note": "Work email stays with the identity provider."}, {"node": "OWIS", "module": "Student Records", "field_group": "student.profile", "system": "PENDING:OQ-27", "direction": "INBOUND", "cutover": "2027-01-04", "status": "PLANNED", "reviewer": "Admissions lead"}, {"node": "OWIS", "module": "Staff & HR", "field_group": "* (whole record, DL-147)", "system": "Campus OS", "direction": "OUTBOUND", "cutover": "2027-01-04", "status": "PLANNED", "reviewer": "HR"}, {"node": "OWIS", "module": "Admissions", "field_group": "—", "system": "Not listed yet", "direction": null, "cutover": null, "status": "MISSING", "reviewer": null}, {"node": "OWIS", "module": "Attendance", "field_group": "—", "system": "Not listed yet", "direction": null, "cutover": null, "status": "MISSING", "reviewer": null}, {"node": "OWIS", "module": "Teaching & Timetable", "field_group": "—", "system": "Not listed yet", "direction": null, "cutover": null, "status": "MISSING", "reviewer": null}], "settings": [{"key": "account.invite_days_before_start", "module": "Admin Platform", "levels": "Brand-country", "default": 7, "values": [{"node": "GIIS Singapore", "value": 7, "from": "default"}, {"node": "OWIS Singapore", "value": null, "from": "default 7"}], "source": "DL-13 (held), DL-170"}, {"key": "account.dormant_after_days", "module": "Admin Platform", "levels": "Group", "default": null, "values": [{"node": "GSG", "value": 60, "from": "set at Group", "pending": "OQ-204"}], "source": "ia-screen-map SCR-GA-03; OQ-204"}, {"key": "operator_session.max_minutes", "module": "Admin Platform", "levels": "Group (locked)", "default": 240, "values": [{"node": "GSG", "value": 240, "from": "set at Group · locked below"}], "source": "DL-52, DL-175"}, {"key": "access.review_due_working_days", "module": "Governance", "levels": "Group to Brand-country", "default": 10, "values": [{"node": "GSG", "value": 10, "from": "S5"}], "source": "S5"}, {"key": "attendance.register_lock_time", "module": "Attendance", "levels": "Brand-country to Campus", "default": null, "values": [{"node": "SG-PGL", "value": "end of school day", "from": "campus"}, {"node": "SG-OWD", "value": null, "from": "Not set"}], "source": "DL-100"}, {"key": "calendar.academic_year_start", "module": "Academic structure", "levels": "Campus × programme", "default": null, "values": [{"node": "SG-PGL · CBSE", "value": "2026-04-06", "from": "campus"}, {"node": "SG-ECS · IB DP", "value": "2026-07-13", "from": "campus"}], "source": "DL-96; organisation sample"}], "identity_providers": [{"brand": "GSG (all brands)", "scope": "Group", "provider": "PENDING:OQ-210", "domains": ["giis.example", "owis.example"], "audience": "STAFF", "mfa": true, "status": "TESTING", "accounts": 0, "_note": "One GSG-wide staff identity provider (DL-169). Product not chosen yet (OQ-210)."}, {"brand": "GIIS", "scope": "Brand", "provider": "GOOGLE_WORKSPACE", "domains": ["giis.example"], "audience": "STAFF", "mfa": true, "status": "MIGRATING", "accounts": 405, "_note": "GIIS today signs in with Google Workspace (Admin Platform brief); stays as MIGRATING until GIIS staff move to the GSG provider (OQ-210). Domain synthetic."}, {"brand": "OWIS", "scope": "Brand", "provider": "PENDING:OQ-27", "domains": ["owis.example"], "audience": "STAFF", "mfa": true, "status": "DRAFT", "accounts": 0, "_note": "OWIS's current provider unknown (OQ-27); OWIS staff go straight onto the GSG provider."}], "users": [{"name": "Priya Nair", "email": "priya.nair@giis.example", "person_roles": ["Staff"], "position": "Subject Teacher (Maths)", "campuses": ["SG-PGL", "SG-ECS"], "status": "ACTIVE", "last_sign_in": "2026-11-30", "modules": 4, "flags": ["CROSS_CAMPUS"]}, {"name": "Kenji Lim", "email": "kenji.lim@giis.example", "person_roles": ["Staff"], "position": "Module admin, Attendance", "campuses": ["SG-PGL"], "status": "ACTIVE", "last_sign_in": "2026-11-29", "modules": 3, "flags": []}, {"name": "Nadia Rahman", "email": "nadia.rahman@giis.example", "person_roles": ["Staff", "Guardian"], "position": "HR Business Partner", "campuses": ["GIIS Singapore"], "status": "ACTIVE", "last_sign_in": "2026-11-30", "modules": 2, "flags": ["TIER3_HOLDER"]}, {"name": "Daniel Koh", "email": "daniel.koh@giis.example", "person_roles": ["Staff"], "position": "Teacher – Secondary", "campuses": ["SG-PGL"], "status": "INVITED", "last_sign_in": null, "modules": 0, "flags": [], "_note": "Joiner from the staff & HR sample; starts 4 Jan 2027, invite sent 28 Dec."}, {"name": "Jason Teo", "email": "jason.teo@giis.example", "person_roles": ["Staff"], "position": "Teacher – Primary", "campuses": ["SG-PGL"], "status": "ACTIVE", "last_sign_in": "2026-11-27", "modules": 3, "flags": ["LEAVING_30_DAYS"], "_note": "Leaves 18 Dec (staff & HR sample); account disabled 19 Dec."}, {"name": "Nikhil Sood", "email": "nikhil.sood@giis.example", "person_roles": ["Staff"], "position": "Lab Technician", "campuses": ["SG-PGL"], "status": "ACTIVE", "last_sign_in": "2026-11-26", "modules": 1, "flags": [], "_note": "Compliance Not cleared (work pass) is an HR fact; it does not change the account (DL-158)."}, {"name": "Rahul Verma", "email": "rahul.verma@giis.example", "person_roles": ["Staff"], "position": "Class Teacher", "campuses": ["IN-NOI"], "status": "ACTIVE", "last_sign_in": "2026-09-27", "modules": 2, "flags": ["DORMANT"], "_note": "64 days without sign-in; flag only (OQ-204)."}, {"name": "Meera Iyer", "email": "meera.iyer@giis.example", "person_roles": ["Staff"], "position": "Global HR Admin", "campuses": ["GSG"], "status": "ACTIVE", "last_sign_in": "2026-11-30", "modules": 2, "flags": []}, {"name": "Claire Tan", "email": "claire.tan@owis.example", "person_roles": ["Staff"], "position": "Principal", "campuses": ["SG-OWD"], "status": "INVITED", "last_sign_in": null, "modules": 1, "flags": [], "_note": "OWIS domain not on the GSG identity provider yet (OQ-210)."}, {"name": "Payroll feed · GIIS Singapore", "email": "service account", "person_roles": ["Service"], "position": "Integration", "campuses": ["GIIS Singapore"], "status": "ACTIVE", "last_sign_in": "2026-11-30", "modules": 1, "flags": [], "account_type": "SERVICE", "_note": "OQ-203."}], "user_detail": {"name": "Priya Nair", "email": "priya.nair@giis.example", "primary_campus": "SG-PGL", "account": {"status": "ACTIVE", "first_sign_in": "2026-08-03", "last_sign_in": "2026-11-30 07:42", "sign_in": "Google Workspace · priya.nair@giis.example (primary)"}, "access": [{"kind": "Scope grant", "node": "SG-PGL", "module": null, "route": "POSITION_TEMPLATE", "source": "Campus assignment SG-PGL (primary) from 3 Aug 2026 · position Subject Teacher", "since": "2026-08-03", "status": "ACTIVE"}, {"kind": "Scope grant", "node": "SG-ECS", "module": null, "route": "POSITION_TEMPLATE", "source": "Campus assignment SG-ECS (additional teaching) from 3 Aug 2026", "since": "2026-08-03", "status": "ACTIVE"}, {"kind": "Membership", "node": "SG-PGL", "module": "Teaching & Timetable", "role": "TEACHER", "template": "teaching.teacher v2", "scope": "Teaching groups: 7B, 8A, 8B Maths · AY 2026-27", "route": "POSITION_TEMPLATE", "scope_route": "ALLOCATION (DL-133)", "status": "ACTIVE"}, {"kind": "Membership", "node": "SG-PGL", "module": "Attendance", "role": "TEACHER", "template": "attendance.teacher v3", "scope": "Lessons she teaches (period registers)", "route": "POSITION_TEMPLATE", "status": "ACTIVE"}, {"kind": "Membership", "node": "SG-PGL", "module": "Assessment", "role": "TEACHER", "template": "assessment.teacher v1", "scope": "Teaching groups: 7B, 8A, 8B Maths", "route": "POSITION_TEMPLATE", "status": "ACTIVE", "_note": "Assessment is in Pilot at SG-PGL; Priya is on the pilot list."}, {"kind": "Membership", "node": "SG-ECS", "module": "Teaching & Timetable", "role": "TEACHER", "template": "teaching.teacher v2", "scope": "Teaching groups: 7A Maths (CBSE)", "route": "POSITION_TEMPLATE", "status": "ACTIVE"}, {"kind": "Request", "node": "SG-ECS", "module": "Assessment", "role": "MODULE_ADMIN", "template": "assessment.moderator v1", "scope": "CBSE 6-8 Maths", "route": "REQUEST", "status": "PENDING", "case": "ACCESS_REQUEST · waiting for module admin (SG-ECS)", "_note": "Assessment is Planned at SG-ECS, so approval waits until it is Live or Pilot (DL-166)."}], "why_example": {"question": "Why can Priya see 8B's marks?", "capability": "assessment.mark.enter", "answer": "Allowed at SG-PGL", "chain": [["Module grant", "Assessment at SMART Campus Punggol · from position template Subject Teacher (DL-149)"], ["Module switch-on", "Assessment is in Pilot at SG-PGL; Priya is on the pilot list (DL-166)"], ["Membership", "Assessment @ SG-PGL · role Teacher"], ["Template", "assessment.teacher v1 · Allow"], ["Scope", "Teaching group 8B Maths from her AY 2026-27 assignment (DL-133)"], ["Record", "Not Tier 3"]]}}, "roles": [{"code": "GLOBAL_ADMIN", "name": "Global admin", "levels": "Group", "holders": 4, "second_approver": true, "status": "ACTIVE"}, {"code": "BRAND_ADMIN", "name": "Brand admin", "levels": "Brand", "holders": 1, "second_approver": true, "status": "PROPOSED", "_note": "DL-178"}, {"code": "PLATFORM_AUDITOR", "name": "Platform auditor", "levels": "Group", "holders": 2, "second_approver": false, "status": "ACTIVE"}, {"code": "DATA_PROTECTION_LEAD", "name": "Data protection lead", "levels": "Brand-country", "holders": 0, "second_approver": false, "status": "PROPOSED", "_note": "DL-176; OQ-201"}, {"code": "PLATFORM_SUPPORT", "name": "Platform support", "levels": "Group", "holders": 3, "second_approver": false, "status": "PROPOSED", "_note": "Operator sessions only (DL-175)"}, {"code": "CAMPUS_LEADER", "name": "Campus leader", "levels": "Brand-country to Campus", "holders": 9, "second_approver": false, "status": "ACTIVE"}, {"code": "MODULE_ADMIN", "name": "Module admin", "levels": "Brand-country to Campus", "holders": 31, "second_approver": false, "status": "ACTIVE"}, {"code": "HR_ADMIN", "name": "HR admin", "levels": "Group to Campus", "holders": 6, "second_approver": false, "status": "ACTIVE"}, {"code": "TEACHER", "name": "Teacher", "levels": "Campus", "holders": 288, "second_approver": false, "status": "ACTIVE"}, {"code": "MEMBER", "name": "Member", "levels": "Campus", "holders": 74, "second_approver": false, "status": "ACTIVE"}, {"code": "VIEWER", "name": "Viewer", "levels": "Group to Campus", "holders": 12, "second_approver": false, "status": "ACTIVE"}], "templates": [{"code": "attendance.teacher", "module": "Attendance", "category": "MODULE", "latest": 3, "status": "PUBLISHED", "members_on_latest": 201, "members_on_older": 18, "tier3": false}, {"code": "assessment.teacher", "module": "Assessment", "category": "MODULE", "latest": 1, "status": "PUBLISHED", "members_on_latest": 22, "members_on_older": 0, "tier3": false}, {"code": "teaching.teacher", "module": "Teaching & Timetable", "category": "MODULE", "latest": 2, "status": "PUBLISHED", "members_on_latest": 250, "members_on_older": 0, "tier3": false}, {"code": "staff.base", "module": "(all modules)", "category": "BASE", "latest": 1, "status": "PUBLISHED", "members_on_latest": 405, "members_on_older": 0, "tier3": false}, {"code": "hr.business_partner", "module": "Staff & HR", "category": "MODULE", "latest": 2, "status": "PUBLISHED", "members_on_latest": 5, "members_on_older": 0, "tier3": true}, {"code": "attendance.teacher", "module": "Attendance", "category": "MODULE", "latest": 4, "status": "DRAFT", "members_on_latest": 0, "members_on_older": 0, "tier3": false, "_note": "Adds attendance.leave.approve for class teachers (1-2 days, DL-101)."}], "position_templates": {"brand": "GIIS", "status": "PUBLISHED", "rows": [["Subject Teacher", "teaching.teacher, attendance.teacher, assessment.teacher, staff.base"], ["Class Teacher", "+ classes roster view, attendance leave approval (1-2 days)"], ["Academic Coordinator", "+ assessment.coordinator, teaching.coordinator"], ["HR Business Partner", "hr.business_partner (Tier 3 needs a separate type grant, DL-173)"]], "_note": "Contents per position are open (OQ-192); rows are samples."}, "requests": [{"who": "Priya Nair", "what": "Assessment · Module admin (moderation) · SG-ECS", "why": "CBSE Grade 7 Maths moderation for Term 2", "status": "Waiting · module not Live at SG-ECS", "age": "2 days", "route": "ACCESS_REQUEST"}, {"who": "Kenji Lim", "what": "Cases & Communications · Member · SG-PGL", "why": "Handle attendance-related parent cases", "status": "Waiting for Dr Anita Rao", "age": "1 day", "route": "ACCESS_REQUEST"}, {"who": "Nadia Rahman", "what": "Tier 3 type grant · Staff identity and work passes · GIIS Singapore", "why": "Work pass renewals for 12 staff", "status": "Approved by Vivek Menon (brand-country head) · Campus Leader route n/a above campus", "age": "—", "route": "TYPE_GRANT", "oq": "OQ-205"}, {"who": "Daniel Koh", "what": "Onboarding access · SG-PGL", "why": "Joiner from 4 Jan 2027 · position template applies on start", "status": "Scheduled 4 Jan 2027", "age": "—", "route": "ONBOARDING_ACCESS"}], "special_access": {"delegations": [{"from": "Dr Anita Rao", "to": "Mr Arjun Pillai (Vice Principal)", "what": "Approvals: staff leave, cases, placements", "node": "SG-PGL", "from_date": "2026-12-14", "to_date": "2026-12-23", "status": "SCHEDULED", "reason": "Principal on leave"}], "type_grants": [{"who": "Nadia Rahman", "record_type": "Staff identity and work passes", "node": "GIIS Singapore", "approver": "Vivek Menon", "valid_to": "2027-03-31", "status": "ACTIVE"}, {"who": "Lina Goh", "record_type": "Student identity documents and ICA review cases", "node": "SG-PGL", "approver": "Dr Anita Rao", "valid_to": "2027-03-31", "status": "ACTIVE"}], "operator_sessions": [{"id": "OPS-0412", "operator": "Leo Fernandes", "node": "SG-PGL", "modules": ["Attendance"], "kind": "SUPPORT", "purpose": "SUPPORT_INVESTIGATION", "ticket": "SUP-2291 · period registers not syncing to the gate log", "minutes": 120, "access": "Read-only · Tier 3 masked", "status": "REQUESTED", "approver": "Dr Anita Rao", "requested_at": "2026-11-30 08:55"}, {"id": "OPS-0398", "operator": "Leo Fernandes", "node": "IN-NOI", "modules": ["Cases & Communications"], "kind": "SUPPORT", "purpose": "SUPPORT_INVESTIGATION", "ticket": "SUP-2214 · notification template error", "minutes": 90, "access": "Read-only · Tier 3 masked", "status": "ENDED", "approver": "Campus Leader, Noida", "requested_at": "2026-11-18 10:02", "screens_logged": 23}]}, "review_cycle": {"name": "Term 2 2026-27 access review", "node": "GIIS Singapore", "opened": "2026-11-23", "due": "2026-12-07", "status": "OPEN", "campuses": [{"campus": "SG-PGL", "leader": "Dr Anita Rao", "people": 212, "flagged": 18, "decided": 151}, {"campus": "SG-ECS", "leader": "Campus Leader, East Coast", "people": 96, "flagged": 7, "decided": 96, "submitted": "2026-11-27"}], "flagged_lines_pgl": [{"who": "Nadia Rahman", "access": "Tier 3 type grant (staff identity) via GIIS Singapore; Staff & HR", "flag": "TIER3_HOLDER", "decision": null}, {"who": "Priya Nair", "access": "Teaching, Attendance, Assessment at SG-PGL and SG-ECS", "flag": "CROSS_CAMPUS", "decision": "KEEP"}, {"who": "Jason Teo", "access": "Teaching, Attendance, Classes (class teacher role)", "flag": "LEAVING_30_DAYS", "decision": null}, {"who": "Leo Fernandes", "access": "Operator session OPS-0412 (if approved)", "flag": "OPERATOR_SESSION_USED", "decision": null}, {"who": "Siti Rahman", "access": "Attendance (gate log) at SG-PGL", "flag": "DORMANT", "decision": null, "_note": "No sign-in for 61 days."}, {"who": "Arjun Pillai", "access": "Delegation from Dr Anita Rao, 14-23 Dec", "flag": "CROSS_CAMPUS", "decision": "KEEP"}]}, "purposes": [{"code": "EDUCATION_DELIVERY", "label": "Teaching and running the school", "consent": "PENDING", "basis": "PENDING:OQ-09", "asked_on": ["CROSS_CELL"]}, {"code": "SAFEGUARDING", "label": "Keeping children safe", "consent": "PENDING", "basis": "PENDING:OQ-09", "asked_on": ["TIER3_REVEAL"]}, {"code": "ADMISSIONS_DECISION", "label": "Deciding an application", "consent": "PENDING", "basis": "PENDING:OQ-09", "asked_on": ["TIER3_REVEAL"]}, {"code": "STAFF_ADMINISTRATION", "label": "Employing and managing staff", "consent": "PENDING", "basis": "PENDING:OQ-09", "asked_on": ["TIER3_REVEAL"]}, {"code": "REGULATORY_REPORT", "label": "Reports required by a regulator or board", "consent": "PENDING", "basis": "PENDING:OQ-09", "asked_on": ["TIER3_REVEAL", "CROSS_CELL"]}, {"code": "SUPPORT_INVESTIGATION", "label": "GSG support investigating a reported problem", "consent": "PENDING", "basis": "PENDING:OQ-09", "asked_on": ["OPERATOR_SESSION"]}, {"code": "SECURITY_INCIDENT", "label": "Responding to a security incident (break-glass)", "consent": "PENDING", "basis": "PENDING:OQ-09", "asked_on": ["OPERATOR_SESSION"]}], "retention_rules": [{"country": "SG", "record_type": "Student record", "trigger": "Enrolment ended", "keep": "PENDING:OQ-43", "then": "ANONYMISE", "status": "DRAFT"}, {"country": "SG", "record_type": "Staff record", "trigger": "Employment ended", "keep": "PENDING:OQ-185", "then": "DELETE", "status": "DRAFT"}, {"country": "SG", "record_type": "Audit event", "trigger": "Created", "keep": "PENDING:OQ-199", "then": "DELETE", "status": "DRAFT"}, {"country": "IN", "record_type": "Student record", "trigger": "Enrolment ended", "keep": "PENDING:OQ-43", "then": "ANONYMISE", "status": "DRAFT"}, {"country": "IN", "record_type": "Candidate", "trigger": "Application closed", "keep": "PENDING:OQ-185", "then": "DELETE", "status": "DRAFT"}], "notices": [{"brand_country": "GIIS Singapore", "audience": "Staff", "version": 1, "status": "PUBLISHED", "controller": "[data controller — OQ-06]", "acknowledged": "398 of 405", "published": "2026-08-03"}, {"brand_country": "GIIS India", "audience": "Staff", "version": 1, "status": "PUBLISHED", "controller": "[data controller — OQ-06]", "acknowledged": "97 of 100", "published": "2026-10-05"}, {"brand_country": "OWIS Singapore", "audience": "Staff", "version": 1, "status": "DRAFT", "controller": "[data controller — OQ-06]", "acknowledged": "—", "published": null}, {"brand_country": "GIIS Singapore", "audience": "Guardians", "version": null, "status": "LATER", "controller": "[data controller — OQ-06]", "acknowledged": "—", "published": null, "_note": "Parent app later (DL-118)."}], "audit": [{"at": "2026-11-30 09:12", "actor": "Nadia Rahman", "action": "Revealed work pass number", "entity": "Employee · Nikhil Sood", "node": "GIIS Singapore", "purpose": "STAFF_ADMINISTRATION", "tier3": true}, {"at": "2026-11-30 08:55", "actor": "Leo Fernandes", "action": "Requested operator session OPS-0412", "entity": "Attendance · SG-PGL", "node": "SG-PGL", "purpose": "SUPPORT_INVESTIGATION"}, {"at": "2026-11-30 07:42", "actor": "System", "action": "Applied position template (scope)", "entity": "Membership · Priya Nair · Teaching", "node": "SG-PGL", "purpose": null, "_note": "Allocation change for 8B (DL-133)."}, {"at": "2026-11-29 16:20", "actor": "Aisha Karim", "action": "Set module go-live date", "entity": "Attendance · SG-OWD · 4 Jan 2027", "node": "SG-OWD", "purpose": null}, {"at": "2026-11-28 11:03", "actor": "Daniel Tan", "action": "Published template version", "entity": "teaching.teacher v2", "node": "GSG", "purpose": null}, {"at": "2026-11-27 15:40", "actor": "Campus Leader, East Coast", "action": "Submitted access review", "entity": "Term 2 2026-27 · SG-ECS", "node": "SG-ECS", "purpose": null}, {"at": "2026-11-18 11:31", "actor": "Leo Fernandes", "action": "Ended operator session OPS-0398 (23 screens logged)", "entity": "Cases & Communications · IN-NOI", "node": "IN-NOI", "purpose": "SUPPORT_INVESTIGATION"}]};
+(function(){
+const $=s=>document.querySelector(s);
+const esc=t=>String(t??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const svg=p=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const ic={
+ home:svg('<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>'),
+ building:svg('<path d="M4 21V5l8-3 8 3v16"/><path d="M9 21v-4h6v4M8 8h2M14 8h2M8 12h2M14 12h2"/>'),
+ grid:svg('<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>'),
+ db:svg('<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>'),
+ sliders:svg('<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>'),
+ key:svg('<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M14 9l2 2"/>'),
+ people:svg('<circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M2 20c.6-3 3-4.5 6-4.5s5.4 1.5 6 4.5M14 15.6c.6-.1 1.3-.1 2-.1 3 0 5.4 1.5 6 4.5"/>'),
+ badge:svg('<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 3v3h6V3M8 12h8M8 16h5"/>'),
+ inbox:svg('<path d="M3 13l3-8h12l3 8v6H3z"/><path d="M3 13h5l1 3h6l1-3h5"/>'),
+ bolt:svg('<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>'),
+ check:svg('<path d="M5 12.5l4.5 4.5L19 7"/>'),
+ shield:svg('<path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>'),
+ log:svg('<path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h5"/>'),
+ lockI:svg('<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'),
+ info:svg('<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>'),
+ clock:svg('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),
+ x:svg('<path d="M6 6l12 12M18 6L6 18"/>')
+};
+const chip=(t,c)=>`<span class="chip ${c}">${esc(t)}</span>`;
+const pend=(oq,t='Pending')=>`<span class="chip c-pending" title="${esc(oq)}">${t} · ${esc(oq)}</span>`;
+const pv=v=>typeof v==='string'&&v.startsWith('PENDING:')?pend(v.slice(8).split(' ')[0]):esc(v??'—');
+const initials=n=>n.replace(/^(Dr|Mr|Ms) /,'').split(' ').filter(w=>/^[A-Z]/.test(w)).slice(0,2).map(w=>w[0]).join('');
+const fmtD=d=>{if(!d)return '—';const x=new Date(d+'T00:00:00');return x.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})};
+const MN=S.module_names;
+const SW={PLANNED:['Planned','c-info'],PILOT:['Pilot','c-role'],LIVE:['Live','c-success'],PAUSED:['Paused','c-warning'],OFF:['Off','c-default']};
+const ACC={INVITED:['Invited','c-info'],ACTIVE:['Active','c-success'],SUSPENDED:['Suspended','c-warning'],DISABLED:['Disabled','c-error'],CLOSED:['Closed','c-default']};
+const FLAG={CROSS_CAMPUS:'Cross-campus',TIER3_HOLDER:'Tier 3 holder',LEAVING_30_DAYS:'Leaving ≤ 30 days',DORMANT:'Dormant',OPERATOR_SESSION_USED:'Support session',NO_EMPLOYEE_LINK:'No employee link'};
+const ROUTE={POSITION_TEMPLATE:'From position template',REQUEST:'By request',ADMIN:'Added by admin',ALLOCATION:'From allocation',SYSTEM:'System'};
+const TASK={DONE:['Done','c-success'],OPEN:null,BLOCKED:['Blocked','c-error'],NOT_NEEDED:['Not needed','c-default']};
+const st={viewer:'daniel',view:null,user:null,tasks:{},ops:'REQUESTED',lines:{},campusFilter:'all'};
+function toast(t){const d=document.createElement('div');d.className='toast';d.setAttribute('role','status');d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),3600)}
+function dlg(html,onok){const L=$('#layer');L.innerHTML=`<div class="scrim"><div class="dlg" role="dialog" aria-modal="true">${html}</div></div>`;L.querySelectorAll('[data-x]').forEach(b=>b.onclick=()=>L.innerHTML='');const ok=L.querySelector('[data-ok]');if(ok)ok.onclick=()=>{if(onok(L)!==false)L.innerHTML=''};const r=L.querySelector('textarea[required]');if(r&&ok){ok.disabled=true;r.oninput=()=>ok.disabled=!r.value.trim()}}
+function head(t,sub,extra=''){return `<div class="page-h"><div class="grow"><h1>${t}</h1><p>${sub}</p></div>${extra}</div>`}
+function card(t,body,extra=''){return `<section class="card"><div class="card-h"><h2>${t}</h2>${extra}</div><div class="card-b">${body}</div></section>`}
+function table(cols,rows,cls=''){return `<div class="tablewrap"><table class="${cls}"><thead><tr>${cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table></div>`}
+function noAccess(what,who){return `<div class="noaccess"><div class="ico">${ic.lockI}</div><div><b>You don't have access to ${esc(what)}</b><p>${esc(who)}</p></div></div>`}
+
+const V={
+ daniel:{name:'Daniel Tan',role:'Global admin · GSG platform team',scope:'GSG › <b>All brands</b>',brands:null,
+  nav:[['Setup',[['home','Home',ic.home],['campuses','Brands and campuses',ic.building],['modules','Modules',ic.grid],['legacy','Legacy systems',ic.db],['settings','Settings',ic.sliders],['signin','Sign-in',ic.key]]],['People and access',[['users','Users',ic.people],['roles','Roles and templates',ic.badge],['requests','Requests',ic.inbox],['special','Special access',ic.bolt],['reviews','Reviews',ic.check]]],['Data protection',[['dp','Purposes, retention, notices',ic.shield]]],['Audit',[['audit','Audit log',ic.log]]]]},
+ aisha:{name:'Aisha Karim',role:'Brand admin · OWIS',scope:'GSG › <b>OWIS</b>',brands:['OWIS'],
+  nav:[['Setup',[['home','Home',ic.home],['campuses','Campuses',ic.building],['modules','Modules',ic.grid],['legacy','Legacy systems',ic.db],['signin','Sign-in',ic.key]]],['People and access',[['users','Users',ic.people],['roles','Roles and templates',ic.badge]]],['Audit',[['audit','Audit log',ic.log]]]]},
+ anita:{name:'Dr Anita Rao',role:'Campus leader · SMART Campus Punggol',scope:'GIIS › GIIS Singapore › <b>SMART Campus Punggol</b>',brands:['GIIS'],campus:'SG-PGL',
+  nav:[['Campus access',[['home','Home',ic.home],['special','Approvals and special access',ic.bolt],['reviews','Access review',ic.check],['users','People with access',ic.people],['audit','Audit log',ic.log]]]]},
+ leo:{name:'Leo Fernandes',role:'Support engineer · GSG platform team',scope:'GSG › <b>Support sessions</b>',
+  nav:[['Support',[['sessions','My support sessions',ic.clock],['users','Users',ic.people]]]]}
+};
+
+/* ---------- Home ---------- */
+function vHome(){
+ const v=st.viewer;
+ if(v==='anita'){
+  const op=S.special_access.operator_sessions[0];
+  return head('Good morning, Dr Rao','Access at SMART Campus Punggol · Mon 30 Nov 2026')+
+  `<div class="sumrow"><div class="stat"><b>204</b><span>people with access</span></div><div class="stat"><b>${st.ops==='REQUESTED'?2:1}</b><span>waiting for you</span></div><div class="stat"><b>151 / 212</b><span>review lines decided</span></div><div class="stat"><b>7 Dec</b><span>review due</span></div></div>
+  <div class="grid">${card('Waiting for you',`
+   <div class="list-row"><div class="grow"><b>Support session · ${esc(op.operator)}</b><div class="sub">${esc(op.ticket)} · ${op.modules.join(', ')} · ${op.minutes} min · read-only</div></div>${st.ops==='REQUESTED'?`<button class="btn btn-sm btn-primary" data-go="special">Review</button>`:opsChip(st.ops)}</div>
+   <div class="list-row"><div class="grow"><b>Access request · Kenji Lim</b><div class="sub">Cases &amp; Communications · Member · SG-PGL</div></div><button class="btn btn-sm" data-t="Approving adds a membership from tomorrow; Kenji's module admin is told.">Review</button></div>`)}
+  ${card('Term 2 access review',`<div class="fill"><div class="bar"><i class="e" style="width:71%"></i></div><span class="mono">151 of 212</span></div><p class="note">18 flagged rows need a decision first: Tier 3 holders, cross-campus, leaving, dormant, support sessions.</p><button class="btn btn-sm" data-go="reviews">Continue review</button>`)}</div>`;
+ }
+ if(v==='aisha'){
+  const done=S.setup_run.tasks.filter(t=>t.blocking&&taskStatus(t)==='DONE').length,all=S.setup_run.tasks.filter(t=>t.blocking).length;
+  return head('OWIS setup','OWIS Digital Campus goes live on 4 Jan 2027 (sample date, OQ-197)')+
+  `<div class="sumrow"><div class="stat"><b>${done} / ${all}</b><span>blocking tasks done</span></div><div class="stat"><b>35</b><span>days to go-live</span></div><div class="stat"><b>5</b><span>modules planned</span></div><div class="stat"><b>3</b><span>accounts</span></div></div>
+  ${card('Needs you',S.setup_run.tasks.filter(t=>t.blocking&&taskStatus(t)!=='DONE').map(t=>`<div class="list-row"><div class="grow"><b>${esc(t.label)}</b><div class="sub">${esc(t.detail)}</div></div>${t.oq?pend(t.oq):''}<span class="ow">${esc(t.owner)}</span></div>`).join(''),`<button class="btn btn-sm" data-go="campuses">Open setup run</button>`)}`;
+ }
+ return head('Admin home','GSG · Mon 30 Nov 2026, 09:30')+
+ `<div class="sumrow"><div class="stat"><b>2</b><span>brands on Campus OS</span></div><div class="stat"><b>3 + 1</b><span>campuses live + in setup</span></div><div class="stat"><b>405</b><span>active accounts</span></div><div class="stat"><b>1</b><span>support session waiting</span></div><div class="stat"><b>3</b><span>templates with members on old versions</span></div></div>
+ <div class="grid">${card('Go-lives',`<div class="list-row"><div class="grow"><b>OWIS Digital Campus</b><div class="sub">Campus migration · 4 Jan 2027 · owner Aisha Karim</div></div>${chip(setupCount(),'c-info')}<button class="btn btn-sm" data-go="campuses">Open</button></div>`)}
+ ${card('Attention',`<div class="list-row"><div class="grow"><b>Operating entity not linked</b><div class="sub">OWIS Digital Campus can't go live without an operator link</div></div>${pend('OQ-02')}</div>
+ <div class="list-row"><div class="grow"><b>Legacy systems incomplete</b><div class="sub">OWIS Singapore: 3 modules have no rows</div></div><button class="btn btn-sm" data-go="legacy">Fix</button></div>
+ <div class="list-row"><div class="grow"><b>1 dormant account</b><div class="sub">Rahul Verma, Noida · 64 days without sign-in · flag only</div></div>${pend('OQ-204','Threshold')}</div>`)}
+ ${card('Data locations',`<div class="list-row"><div class="grow"><b>Singapore</b><div class="sub">GIIS Singapore, OWIS Singapore</div></div>${chip('Live','c-success')}</div><div class="list-row"><div class="grow"><b>India</b><div class="sub">GIIS India</div></div>${chip('Live','c-success')}</div><div class="list-row"><div class="grow"><b>8 more countries</b><div class="sub">Japan, Malaysia, UAE, Cambodia, UK, Saudi Arabia, Philippines, South Korea</div></div>${pend('OQ-21','Planned')}</div>`,'<span class="sub">sample status</span>')}</div>`;
+}
+function setupCount(){const b=S.setup_run.tasks.filter(t=>t.blocking);return `${b.filter(t=>taskStatus(t)==='DONE').length} of ${b.length} done`}
+function taskStatus(t){return st.tasks[t.code]||t.status}
+
+/* ---------- Campuses + setup run ---------- */
+function vCampuses(){
+ const v=V[st.viewer];const cs=S.campuses.filter(c=>!v.brands||v.brands.includes(c.brand));
+ const rows=cs.map(c=>`<tr><td><b>${esc(c.name)}</b><div class="sub">${esc(c.code)} · placeholder code</div></td><td>${esc(c.brand_country)}</td><td>${esc(c.data_location)}</td><td>${c.status==='ACTIVE'?chip('Active','c-success'):chip('Planned','c-info')}</td><td class="mono">${c.staff}</td><td class="mono">${c.users_with_access}</td></tr>`);
+ const r=S.setup_run;
+ const tasks=r.tasks.map(t=>{const s=taskStatus(t);const c=TASK[s];const manual=t.mode==='MANUAL';return `<div class="task"><button class="tick ${s==='DONE'?'on':''}" ${manual&&s!=='NOT_NEEDED'?`data-tk="${t.code}"`:'disabled'} aria-label="${manual?'Mark done':'Checked automatically'}">${s==='DONE'?ic.check:''}</button><div class="grow"><b>${esc(t.label)}</b> ${t.blocking?'<span class="tier">Blocking</span>':''}<div class="sub">${esc(t.detail)} · ${manual?'Ticked by owner':'Checked automatically'}</div></div>${t.oq?pend(t.oq):''}<span class="ow">${esc(t.owner)}</span>${c?chip(...c):''}</div>`}).join('');
+ const ready=r.tasks.filter(t=>t.blocking).every(t=>taskStatus(t)==='DONE');
+ return head(v.brands?'Campuses':'Brands and campuses',v.brands?'OWIS campuses on Campus OS':'Campuses on Campus OS. Brand-country, data location and operator come from the organisation tree.')+
+ card('Campuses',table(['Campus','Brand-country','Data location','Status','Staff','People with access'],rows))+
+ `<div style="height:24px"></div>`+
+ card('Setup run · OWIS Digital Campus, Punggol',`<div class="kv" style="margin-bottom:12px"><dt>Kind</dt><dd>Campus migration (moving from current systems)</dd><dt>Go-live</dt><dd>${fmtD(r.target_go_live)} ${chip('sample date','c-default')}</dd><dt>Owner</dt><dd>${esc(r.owner)}</dd><dt>Signs off</dt><dd>Brand-country head (DL-167)</dd><dt>Operating entity</dt><dd>[operating entity — OQ-02]</dd></div>${tasks}
+  <div class="row" style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px"><button class="btn" data-t="A reminder goes to each task owner.">Remind owners</button><button class="btn btn-primary" id="signoff" ${ready?'':'disabled'} title="${ready?'':'Blocking tasks still open'}">Send for sign-off</button></div>
+  <p class="note">Most tasks tick themselves from the record that owns them (DL-167). "Send for sign-off" opens a go-live case once every blocking task is done.</p>`,chip(setupCount(),'c-info'));
+}
+function bindCampuses(){document.querySelectorAll('[data-tk]').forEach(b=>b.onclick=()=>{const k=b.dataset.tk;st.tasks[k]=taskStatus(S.setup_run.tasks.find(t=>t.code===k))==='DONE'?'OPEN':'DONE';render()})}
+
+/* ---------- Modules ---------- */
+function vModules(){
+ const v=V[st.viewer];const camps=Object.keys(S.module_switch_on).filter(k=>k[0]!=='_').filter(k=>!v.brands||v.brands.includes(S.campuses.find(c=>c.code===k).brand));
+ const rows=S.modules.map(m=>`<tr><td><b>${esc(MN[m])}</b></td>${camps.map(c=>{const [s,d]=S.module_switch_on[c][m];return `<td><button class="cellbtn" data-sw="${c}|${m}">${chip(...SW[s])}<div class="sub">${s==='OFF'?'':fmtD(d)}</div></button></td>`}).join('')}</tr>`);
+ return head('Modules','Which modules each campus uses, and from when. Members can only be added where a module is Live or in Pilot (DL-166).')+
+ `<div class="pendcard" style="margin-bottom:16px">${ic.info}<div><b>Sample dates</b><p>Real go-live order per brand isn't known yet (OQ-197). Values set at a brand-country apply to its campuses unless a campus sets its own.</p></div></div>`+
+ card('Switch-on by campus',table(['Module',...camps.map(c=>`${c}<div class="sub">${esc(S.campuses.find(x=>x.code===c).name)}</div>`)],rows,'matrix'));
+}
+function bindModules(){document.querySelectorAll('[data-sw]').forEach(b=>b.onclick=()=>{const [c,m]=b.dataset.sw.split('|');const [s]=S.module_switch_on[c][m];const camp=S.campuses.find(x=>x.code===c);
+ const blocked=c==='SG-OWD'&&['admissions','attendance_conduct','teaching_learning'].includes(m);
+ dlg(`<h3>${esc(MN[m])} at ${esc(camp.name)}</h3><p>Now: ${SW[s][0]}. Changing this is logged and members are told.</p>${['PLANNED','PILOT','LIVE','PAUSED','OFF'].map(x=>`<label class="opt"><input type="radio" name="sw" value="${x}" ${x===s?'checked':''} ${x==='LIVE'&&(blocked||camp.status!=='ACTIVE')?'disabled':''}> ${SW[x][0]}${x==='LIVE'&&camp.status!=='ACTIVE'?' · campus not live yet':''}${x==='LIVE'&&blocked?' · legacy systems not listed':''}</label>`).join('')}<label for="swd">From</label><input type="date" id="swd" value="2027-01-04"><div class="row"><button class="btn" data-x>Cancel</button><button class="btn btn-primary" data-ok>Save</button></div>`,L=>{const x=L.querySelector('input[name=sw]:checked').value;S.module_switch_on[c][m]=[x,L.querySelector('#swd').value];toast(`${MN[m]} at ${c}: ${SW[x][0]}.`);render()})})}
+
+/* ---------- Legacy systems ---------- */
+function vLegacy(){
+ const v=V[st.viewer];const rows=S.authority_register.filter(r=>!v.brands||r.node.startsWith(v.brands[0])).map(r=>{const s=r.status==='CUT_OVER'?chip('Campus OS','c-success'):r.status==='PLANNED'?chip('Cutover '+fmtD(r.cutover),'c-info'):r.status==='MISSING'?chip('Not listed','c-error'):chip('From '+r.system,'c-source');
+  return `<tr><td>${esc(r.node)}</td><td><b>${esc(r.module)}</b><div class="sub">${esc(r.field_group)}</div></td><td>${pv(r.system)}</td><td>${esc(r.direction||'—')}</td><td>${r.status==='MISSING'?'—':pv(r.cutover||'No cutover')}</td><td>${esc(r.reviewer||'—')}</td><td>${s}</td></tr>`});
+ return head('Legacy systems','Which system is the source of truth for each field group until its cutover date (DL-45). Until then the field is read-only in Campus OS with a source chip.',`<button class="btn btn-primary" data-t="Adds a row for a module × field group at this brand; add a country or campus exception where it differs (DL-168).">Add row</button>`)+
+ card('Register',table(['Brand-country','Module · field group','System','Direction','Cutover','Conflict reviewer','Shows as'],rows))+`<p class="note">Systems used by brands other than GIIS: OQ-27. MyGIIS cutover dates: OQ-28. A module can't go Live until its rows are complete.</p>`;
+}
+
+/* ---------- Settings ---------- */
+function vSettings(){
+ const rows=S.settings.map(s=>`<tr><td><code>${esc(s.key)}</code><div class="sub">${esc(s.source)}</div></td><td>${esc(s.module)}</td><td>${esc(s.levels)}</td><td>${s.default==null?'<span class="sub">Not set</span>':esc(s.default)}</td><td>${s.values.map(x=>`<div><b>${esc(x.node)}</b>: ${x.value==null?'<span class="sub">Not set</span>':esc(x.value)} <span class="sub">· ${esc(x.from)}</span> ${x.pending?pend(x.pending):''}</div>`).join('')}</td></tr>`);
+ return head('Settings','Every setting is defined once, with the module that owns it, where it can be set and its default (DL-177). Empty means "Not set": modules never invent a group default.')+card('Setting definitions',table(['Key','Owner module','Can be set at','Default','Values (inherited downward)'],rows));
+}
+
+/* ---------- Sign-in ---------- */
+function vSignin(){
+ const v=V[st.viewer];const all=S.identity_providers;const g=all.find(p=>p.scope==='Group');const ps=all.filter(p=>p.scope==='Brand'&&(!v.brands||v.brands.includes(p.brand)));
+ const pn=p=>p.provider==='GOOGLE_WORKSPACE'?'Google Workspace':pv(p.provider);
+ const st2=p=>p.status==='ACTIVE'?chip('Connected','c-success'):p.status==='MIGRATING'?chip('Moving to GSG sign-in','c-warning'):p.status==='TESTING'?chip('Testing','c-info'):chip('Not started','c-default');
+ return head('Sign-in','All staff sign in through one GSG identity provider, with single sign-on and MFA (DL-169). Campus OS creates accounts from employments; the provider only checks who you are.')+
+ card('GSG staff sign-in',`<dl class="kv"><dt>Provider</dt><dd>${pn(g)}</dd><dt>Email domains</dt><dd>${g.domains.join(', ')} ${chip('synthetic','c-default')}</dd><dt>Who</dt><dd>Staff, every brand</dd><dt>MFA</dt><dd>Required</dd></dl><div class="pendcard" style="margin-top:12px">${ic.info}<div><b>Product not chosen yet</b><p>Which provider GSG uses, and how each brand moves onto it, is open (OQ-210).</p></div></div>`,st2(g))+
+ `<h3 style="margin:20px 0 8px">Brands moving onto GSG sign-in</h3><div class="grid">${ps.map(p=>card(p.brand,`<dl class="kv"><dt>Signs in today with</dt><dd>${pn(p)}</dd><dt>Email domains</dt><dd>${p.domains.join(', ')} ${chip('synthetic','c-default')}</dd><dt>Accounts</dt><dd class="mono">${p.accounts}</dd></dl><p class="sub" style="margin:10px 0 0">${p.status==='MIGRATING'?'Staff keep signing in this way until the move. Their account stays the same afterwards; only the sign-in link changes.':'Staff will go straight onto GSG sign-in. The go-live task "Staff sign-in connected" stays open until then.'}</p>`,st2(p))).join('')}
+ ${card('Parents and students',`<p class="sub" style="margin:0">Parent and student sign-in come with their apps (DL-118). How they sign in is open (OQ-209).</p>`,pend('OQ-209','Later'))}</div>`;
+}
+
+/* ---------- Users ---------- */
+function vUsers(){
+ const v=st.viewer;
+ if(v==='leo')return head('Users','')+noAccess('user records','Support engineers see school data only inside an approved support session (DL-175). Open "My support sessions" to request one.');
+ let us=S.users;if(v==='aisha')us=us.filter(u=>u.email.includes('owis'));if(v==='anita')us=us.filter(u=>u.campuses.includes('SG-PGL')||u.campuses.includes('GIIS Singapore'));
+ const rows=us.map(u=>`<tr class="click" data-u="${esc(u.name)}"><td><div class="g-top"><div class="avatar av-sm">${u.account_type==='SERVICE'?'⚙':initials(u.name)}</div><div><b>${esc(u.name)}</b><small>${esc(u.email)}</small></div></div></td><td>${esc(u.position)}</td><td>${u.campuses.join(', ')}</td><td>${chip(...ACC[u.status])}</td><td>${u.last_sign_in?fmtD(u.last_sign_in):'<span class="sub">Never</span>'}</td><td class="mono">${u.modules}</td><td><div class="flags">${u.flags.map(f=>chip(FLAG[f],f==='DORMANT'||f==='LEAVING_30_DAYS'?'c-warning':'c-default')).join('')}</div></td></tr>`);
+ return head(v==='anita'?'People with access':'Users',v==='anita'?'Everyone who can work at SMART Campus Punggol. Read-only; changes go through the access review or the module admin.':'One account per person (DL-42). Accounts follow employment: invited before the start date, disabled after the last day (DL-170).',v==='anita'?'':`<button class="btn" data-t="Invites are sent automatically from HR employments; this sends one again.">Resend invite</button>`)+
+ card(`${us.length} accounts`,table(['Person','Position','Campuses','Account','Last sign-in','Modules','Flags'],rows))+`<p class="note">Dormant = no sign-in for 60 days (threshold pending, OQ-204). A flag for review, never an automatic suspension.</p>`;
+}
+function bindUsers(){document.querySelectorAll('[data-u]').forEach(r=>r.onclick=()=>{if(r.dataset.u==='Priya Nair'){st.view='user';render()}else toast('This sample has full access detail for Priya Nair only.')})}
+
+function vUser(){
+ const d=S.user_detail;const w=d.why_example;
+ const acc=d.access.map(a=>`<tr><td><b>${esc(a.kind)}</b><div class="sub">${esc(a.node)}${a.module?' · '+esc(a.module):''}</div></td><td>${a.role?esc(a.role):'—'}${a.template?`<div class="sub">${esc(a.template)}</div>`:''}</td><td>${esc(a.scope||'Directory, switcher, self-service')}${a.scope_route?`<div class="sub">${esc(a.scope_route)}</div>`:''}</td><td>${chip(ROUTE[a.route]||a.route,'c-source')}${a.source?`<div class="sub">${esc(a.source)}</div>`:''}${a.case?`<div class="sub">${esc(a.case)}</div>`:''}</td><td>${a.status==='PENDING'?chip('Waiting','c-info'):chip('Active','c-success')}</td></tr>`);
+ return `<div class="crumbs"><a href="#" data-go="users">Users</a><span class="dot"></span><b>Priya Nair</b></div>`+
+ head('Priya Nair','Subject Teacher (Maths) · primary campus SG-PGL, also SG-ECS · Data location: Singapore',`<button class="btn" data-why>Why can Priya see…?</button>`)+
+ `<div class="grid">${card('Account',`<dl class="kv"><dt>Status</dt><dd>${chip('Active','c-success')}</dd><dt>Sign-in</dt><dd>${esc(d.account.sign_in)}</dd><dt>First sign-in</dt><dd>${fmtD(d.account.first_sign_in)}</dd><dt>Last sign-in</dt><dd>${esc(d.account.last_sign_in)}</dd><dt>Person</dt><dd>One Person · Staff</dd></dl>`)}
+ ${card('How access arrived',`<div class="list-row"><div class="grow"><b>5 automatic</b><div class="sub">Position template on campus assignments (DL-149); teaching groups from her allocation (DL-133)</div></div></div><div class="list-row"><div class="grow"><b>1 by request</b><div class="sub">Assessment moderation at SG-ECS · waiting: Assessment is Planned there (DL-166)</div></div></div><div class="list-row"><div class="grow"><b>0 added by admin</b></div></div>`)}
+ <div class="span2">${card('Access',table(['What','Role · template','Scope','Route','Status'],acc))}</div></div>`;
+}
+function bindUser(){const b=document.querySelector('[data-why]');if(b)b.onclick=()=>{const w=S.user_detail.why_example;dlg(`<h3>${esc(w.question)}</h3><p><code>${esc(w.capability)}</code> · ${chip(w.answer,'c-success')}</p><div class="explain" style="margin:0"><dl>${w.chain.map(c=>`<dt>${esc(c[0])}</dt><dd>${esc(c[1])}</dd>`).join('')}</dl></div><p class="note">Every answer names the layer that decided it and the record behind it (DL-38).</p><div class="row"><button class="btn btn-primary" data-x>Close</button></div>`)}}
+
+/* ---------- Roles ---------- */
+function vRoles(){
+ const ro=S.roles.map(r=>`<tr><td><b>${esc(r.name)}</b><div class="sub"><code>${r.code}</code></div></td><td>${esc(r.levels)}</td><td class="mono">${r.holders}</td><td>${r.second_approver?'Second Global Admin':'—'}</td><td>${r.status==='PROPOSED'?chip('Proposed','c-info')+(r._note?`<div class="sub">${esc(r._note)}</div>`:''):chip('Active','c-success')}</td></tr>`);
+ const te=S.templates.map(t=>`<tr><td><b>${esc(t.code)}</b><div class="sub">${t.category==='BASE'?'Base · all modules':esc(t.module)}</div></td><td>${t.status==='DRAFT'?chip('Draft v'+t.latest,'c-default'):chip('v'+t.latest+' published','c-success')}</td><td class="mono">${t.members_on_latest}${t.members_on_older?` <span class="chip c-warning">${t.members_on_older} on older</span>`:''}</td><td>${t.tier3?`<span class="lock">${ic.lockI} Tier 3</span>`:'—'}</td><td>${t._note?`<span class="sub">${esc(t._note)}</span>`:''}</td></tr>`);
+ const edit=st.viewer==='daniel';
+ return head('Roles and templates',edit?'Defined once by the GSG platform team (DL-51, DL-172). A published version never changes.':'Read-only. Brands ask the GSG platform team for changes (DL-172).',edit?`<button class="btn btn-primary" data-t="Publishing v4 shows 219 members on older versions; moving them is a separate, previewed step.">Publish attendance.teacher v4</button>`:'')+
+ card('Access roles',table(['Role','Can be given at','Holders','Granting needs','Status'],ro))+`<div style="height:24px"></div>`+card('Templates',table(['Template','Version','Members','Restricted','Note'],te))+`<div style="height:24px"></div>`+
+ card('Position templates · GIIS',S.position_templates.rows.map(r=>`<div class="list-row"><div class="grow"><b>${esc(r[0])}</b><div class="sub">${esc(r[1])}</div></div></div>`).join('')+`<p class="note">Applied automatically when a campus assignment starts (DL-149, DL-173). Never Tier 3. Contents per position: OQ-192.</p>`,pend('OQ-192','Sample rows'));
+}
+
+/* ---------- Requests ---------- */
+function vRequests(){
+ const rows=S.requests.map(r=>`<tr><td><b>${esc(r.who)}</b></td><td>${esc(r.what)}<div class="sub">${esc(r.why)}</div></td><td>${esc(r.route.replace('_',' ').toLowerCase())}</td><td>${esc(r.status)} ${r.oq?pend(r.oq):''}</td><td>${esc(r.age)}</td></tr>`);
+ return head('Requests','Access requests, onboarding access and Tier 3 grant requests. Each is a case with a deadline (DL-08).')+card('Open and recent',table(['Person','Asked for','Kind','Status','Age'],rows));
+}
+
+/* ---------- Special access ---------- */
+function opsChip(s){return {REQUESTED:chip('Waiting for Dr Anita Rao','c-info'),APPROVED:chip('Approved','c-info'),ACTIVE:chip('Live · ends 12:30','c-warning'),ENDED:chip('Ended','c-default'),DECLINED:chip('Declined','c-error')}[s]}
+function vSpecial(){
+ const sa=S.special_access;const op=sa.operator_sessions[0];const v=st.viewer;
+ const sess=`<div class="g"><div class="g-top"><div class="avatar av-md">LF</div><div class="grow"><b>${esc(op.operator)} · GSG support</b><small>${esc(op.ticket)}</small></div>${opsChip(st.ops)}</div>
+  <dl class="kv"><dt>Campus</dt><dd>SMART Campus Punggol</dd><dt>Modules</dt><dd>${op.modules.join(', ')}</dd><dt>Purpose</dt><dd>Support investigation</dd><dt>Access</dt><dd>Read-only · Tier 3 stays masked</dd><dt>Time</dt><dd>${op.minutes} minutes (limit 4 hours)</dd><dt>Requested</dt><dd>${esc(op.requested_at)}</dd></dl>
+  ${v==='anita'&&st.ops==='REQUESTED'?`<div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn" id="opsNo">Decline</button><button class="btn btn-primary" id="opsYes">Approve 2 hours</button></div>`:''}
+  ${v==='anita'&&st.ops==='ACTIVE'?`<div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn" id="opsEnd">End session now</button></div>`:''}
+  <div class="logline">${ic.info}<span>Every screen Leo opens is logged with this session and shows in your audit log and next access review (DL-175).</span></div></div>`;
+ const dl=sa.delegations.map(d=>`<div class="list-row"><div class="grow"><b>${esc(d.from)} → ${esc(d.to)}</b><div class="sub">${esc(d.what)} · ${fmtD(d.from_date)} – ${fmtD(d.to_date)} · ${esc(d.reason)}</div></div>${chip('Starts '+fmtD(d.from_date),'c-info')}</div>`).join('');
+ const tg=sa.type_grants.filter(t=>v!=='anita'||t.node==='SG-PGL'||true).map(t=>`<div class="list-row"><div class="grow"><b>${esc(t.who)}</b><div class="sub">${esc(t.record_type)} · ${esc(t.node)} · approved by ${esc(t.approver)} · until ${fmtD(t.valid_to)}</div></div>${t.node==='GIIS Singapore'?pend('OQ-205','Approver above campus'):''}${chip('Active','c-success')}</div>`).join('');
+ return head(v==='anita'?'Approvals and special access':'Special access','Access that is time-limited and always names who approved it: support sessions, Tier 3 grants and delegations.')+
+ `<div class="grid">${card('Support session request',sess)}${card('Delegations',dl+`<p class="note">At most 90 days (DL-21, held). The delegate sees an "Acting for Dr Anita Rao" banner.</p>`)}<div class="span2">${card('Tier 3 type grants',tg+`<p class="note">The Campus Leader approves (DL-69). Ends at the end of the academic year, then a new request.</p>`)}</div></div>`;
+}
+function bindSpecial(){
+ const y=$('#opsYes'),n=$('#opsNo'),e=$('#opsEnd');
+ if(y)y.onclick=()=>{st.ops='ACTIVE';toast('Approved. Leo can open Attendance at SG-PGL read-only until 12:30.');render()};
+ if(n)n.onclick=()=>dlg('<h3>Decline support session</h3><p>Leo sees your reason.</p><label for="r">Reason</label><textarea id="r" required></textarea><div class="row"><button class="btn" data-x>Cancel</button><button class="btn btn-primary" data-ok>Decline</button></div>',()=>{st.ops='DECLINED';toast('Declined. Leo has been told.');render()});
+ if(e)e.onclick=()=>{st.ops='ENDED';toast('Session ended. 0 screens opened so far.');render()};
+}
+
+/* ---------- Reviews ---------- */
+function vReviews(){
+ const r=S.review_cycle;const v=st.viewer;
+ if(v==='anita'){
+  const lines=r.flagged_lines_pgl.map((l,i)=>{const d=st.lines[i]??l.decision;return `<tr><td><b>${esc(l.who)}</b><div class="sub">${esc(l.access)}</div></td><td>${chip(FLAG[l.flag],'c-warning')}</td><td><div class="seg" role="group" aria-label="Decision for ${esc(l.who)}">${['KEEP','REDUCE','REMOVE'].map(x=>`<button data-ln="${i}|${x}" aria-pressed="${d===x}">${x[0]+x.slice(1).toLowerCase()}</button>`).join('')}</div></td></tr>`}).join('');
+  const left=r.flagged_lines_pgl.filter((l,i)=>!(st.lines[i]??l.decision)).length;
+  return head('Term 2 access review','SMART Campus Punggol · due 7 Dec 2026 (10 working days, S5). Flagged rows first.')+
+  `<div class="sumrow"><div class="stat"><b>212</b><span>people</span></div><div class="stat"><b>18</b><span>flagged</span></div><div class="stat"><b>${left}</b><span>flagged rows left (6 shown)</span></div></div>`+
+  card('Flagged',`<div class="tablewrap"><table><thead><tr><th>Person and access</th><th>Flag</th><th>Decision</th></tr></thead><tbody>${lines}</tbody></table></div><div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px"><button class="btn" data-t="Keeps the 194 unflagged rows as they are.">Keep remaining unflagged</button><button class="btn btn-primary" ${left?'disabled':''} data-t="Attestation submitted. Remove lines take effect tomorrow and go to the module admins.">Submit attestation</button></div><p class="note">Rows still undecided on 7 Dec go to the brand-country head. A missed review never removes access by itself (DL-174).</p>`);
+ }
+ return head('Reviews','Termly access reviews: one attestation case per campus (DL-174).')+card(esc(r.name),`<dl class="kv" style="margin-bottom:12px"><dt>Brand-country</dt><dd>${esc(r.node)}</dd><dt>Opened</dt><dd>${fmtD(r.opened)}</dd><dt>Due</dt><dd>${fmtD(r.due)}</dd></dl>`+r.campuses.map(c=>`<div class="list-row"><div class="grow"><b>${esc(c.campus)}</b><div class="sub">${esc(c.leader)} · ${c.flagged} flagged</div></div><div class="fill" style="min-width:200px"><div class="bar"><i class="e" style="width:${Math.round(c.decided/c.people*100)}%"></i></div><span class="mono">${c.decided}/${c.people}</span></div>${c.submitted?chip('Submitted','c-success'):chip('In progress','c-info')}</div>`).join('')+`<p class="note">Who reviews access held above campus level (brand-country, brand, group): OQ-206.</p>`,chip('Open','c-warning'));
+}
+function bindReviews(){document.querySelectorAll('[data-ln]').forEach(b=>b.onclick=()=>{const [i,x]=b.dataset.ln.split('|');st.lines[i]=x;render()})}
+
+/* ---------- Data protection ---------- */
+function vDP(){
+ const pu=S.purposes.map(p=>`<tr><td><b>${esc(p.label)}</b><div class="sub"><code>${p.code}</code></div></td><td>${p.asked_on.map(a=>({TIER3_REVEAL:'Tier 3 reveal',CROSS_CELL:'Other data location',OPERATOR_SESSION:'Support session'})[a]).join(', ')}</td><td>${pend('OQ-10','Consent')}</td><td>${pend('OQ-09','Lawful basis')}</td></tr>`);
+ const re=S.retention_rules.map(r=>`<tr><td>${esc(r.country)}</td><td><b>${esc(r.record_type)}</b></td><td>${esc(r.trigger)}</td><td>${pv(r.keep)}</td><td>${r.then==='ANONYMISE'?'Anonymise':'Delete'}</td><td>${chip('Draft','c-default')}</td></tr>`);
+ const no=S.notices.map(n=>`<tr><td><b>${esc(n.brand_country)}</b></td><td>${esc(n.audience)}</td><td>${n.version?'v'+n.version:'—'}</td><td>${esc(n.controller)}</td><td>${esc(n.acknowledged)}</td><td>${n.status==='PUBLISHED'?chip('Published','c-success'):n.status==='DRAFT'?chip('Draft','c-default'):chip('Later','c-default')}</td></tr>`);
+ return head('Data protection','Purposes, retention and notices (DL-44, DL-176). Legal fields stay empty until counsel answers; no screen names a data controller (AR-04).')+
+ card('Purposes',table(['Purpose','Asked on','Consent','Lawful basis'],pu),pend('OQ-200','List'))+`<div style="height:24px"></div>`+
+ card('Retention rules',table(['Country','Record','From','Keep for','Then','Status'],re)+`<p class="note">A rule with no period deletes nothing. The country's data protection lead activates rules (role proposed, OQ-201).</p>`)+`<div style="height:24px"></div>`+
+ card('Privacy notices',table(['Brand-country','For','Version','Controller','Acknowledged','Status'],no)+`<p class="note">Per brand-country or per operating entity: OQ-202. An acknowledgement is not consent.</p>`);
+}
+
+/* ---------- Audit ---------- */
+function vAudit(){
+ const v=st.viewer;let a=S.audit;if(v==='anita')a=a.filter(x=>x.node==='SG-PGL');if(v==='aisha')a=a.filter(x=>x.node==='SG-OWD');
+ const rows=a.map(x=>`<tr><td class="mono">${esc(x.at)}</td><td>${esc(x.actor)}</td><td><b>${esc(x.action)}</b><div class="sub">${esc(x.entity)}</div></td><td>${esc(x.node)}</td><td>${x.purpose?chip(x.purpose.replace(/_/g,' ').toLowerCase(),'c-default'):'—'}${x.tier3?' <span class="lock">'+ic.lockI+' Tier 3 read</span>':''}</td></tr>`);
+ return head('Audit log',v==='anita'?'Everything that changed access or read restricted data at SMART Campus Punggol.':v==='aisha'?'Changes at OWIS Digital Campus.':'Every change and every Tier 3 read. Before and after values open only with the snapshot capability.')+card(`${a.length} events`,table(['When','Who','What','Where','Purpose'],rows))+`<p class="note">How long audit events are kept per country: OQ-199.</p>`;
+}
+
+/* ---------- Leo: sessions ---------- */
+function vSessions(){
+ const s=S.special_access.operator_sessions;
+ return head('My support sessions','You have no standing access to school data. Each session is for one campus, read-only, at most 4 hours, and approved by the Campus Leader (DL-52, DL-175).',`<button class="btn btn-primary" id="newOps">Request session</button>`)+
+ s.map(o=>card(`${o.id} · ${o.node}`,`<dl class="kv"><dt>Ticket</dt><dd>${esc(o.ticket)}</dd><dt>Modules</dt><dd>${o.modules.join(', ')}</dd><dt>Access</dt><dd>${esc(o.access)}</dd><dt>Time asked</dt><dd>${o.minutes} minutes</dd><dt>Approver</dt><dd>${esc(o.approver)}</dd>${o.screens_logged?`<dt>Screens logged</dt><dd class="mono">${o.screens_logged}</dd>`:''}</dl>`,o.status==='ENDED'?chip('Ended','c-default'):opsChip(st.ops))+'<div style="height:16px"></div>').join('')+
+ card('Break-glass',`<p class="sub" style="margin:0 0 12px">Security incidents only. Opens without approval; the Campus Leader is told within 24 hours. Who may open it and whether it shows Tier 3 is open (OQ-207).</p><button class="btn" disabled>Break-glass (GSG security only)</button>`,pend('OQ-207'));
+}
+function bindSessions(){const b=$('#newOps');if(b)b.onclick=()=>dlg(`<h3>Request a support session</h3><p>Goes to the Campus Leader. Starts only after approval.</p><label for="c">Campus</label><select id="c"><option>SMART Campus Punggol</option><option>East Coast Campus</option><option>Noida Campus</option></select><label for="m">Modules</label><select id="m"><option>Attendance</option><option>Cases &amp; Communications</option><option>Assessment</option></select><label for="t">Ticket</label><input type="text" id="t" value="SUP-"><label for="d">Minutes (max 240)</label><input type="number" id="d" value="60" min="15" max="240"><label for="p">What you need to check</label><textarea id="p" required></textarea><div class="row"><button class="btn" data-x>Cancel</button><button class="btn btn-primary" data-ok>Send request</button></div>`,()=>toast('Sent to the Campus Leader. Purpose: support investigation.'))}
+
+const VIEWS={home:[vHome],campuses:[vCampuses,bindCampuses],modules:[vModules,bindModules],legacy:[vLegacy],settings:[vSettings],signin:[vSignin],users:[vUsers,bindUsers],user:[vUser,bindUser],roles:[vRoles],requests:[vRequests],special:[vSpecial,bindSpecial],reviews:[vReviews,bindReviews],dp:[vDP],audit:[vAudit],sessions:[vSessions,bindSessions]};
+function render(){
+ const v=V[st.viewer];const all=v.nav.flatMap(g=>g[1]);if(!st.view||(!all.some(n=>n[0]===st.view)&&st.view!=='user'))st.view=all[0][0];
+ $('#meName').textContent=v.name;$('#meRole').textContent=v.role;$('#meAv').textContent=initials(v.name);$('#scopeTxt').innerHTML=v.scope;
+ const cur=st.view==='user'?'users':st.view;
+ $('#nav').innerHTML=v.nav.map(g=>`<div class="nav-h">${g[0]}</div>`+g[1].map(n=>`<a href="#" data-go="${n[0]}" class="${n[0]===cur?'on':''}">${n[2]}<span>${n[1]}</span></a>`).join('')).join('');
+ $('#bnav').innerHTML=all.slice(0,5).map(n=>`<a href="#" data-go="${n[0]}" class="${n[0]===cur?'on':''}">${n[2]}<span>${n[1]}</span></a>`).join('');
+ const [fn,bind]=VIEWS[st.view];$('#view').innerHTML=fn()+`<p class="foot">Synthetic data · Admin Platform dictionary v0.1 · DL-165…DL-179 Confirmed by Henry</p>`;bind&&bind();
+ document.querySelectorAll('[data-go]').forEach(a=>a.onclick=e=>{e.preventDefault();st.view=a.dataset.go;render();$('#view').focus()});
+ document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>toast(b.dataset.t));
+}
+function setFrame(f){$('#stage').classList.toggle('mobile',f==='phone');document.querySelectorAll('#frame button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f))}
+document.querySelectorAll('#viewers button').forEach(b=>b.onclick=()=>{st.viewer=b.dataset.v;st.view=null;document.querySelectorAll('#viewers button').forEach(x=>x.setAttribute('aria-pressed',x===b));render()});
+document.querySelectorAll('#frame button').forEach(b=>b.onclick=()=>setFrame(b.dataset.f));
+document.querySelectorAll('#theme button').forEach(b=>b.onclick=()=>{const t=b.dataset.t;if(t==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',t);document.querySelectorAll('#theme button').forEach(x=>x.setAttribute('aria-pressed',x===b))});
+render();
+})();
+
+</script>
+</body></html>
